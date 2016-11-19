@@ -20,8 +20,8 @@ program example_rand
   !=====================================
   call rng()
   
-  ! Create uniform 1D data
-  !========================
+  ! Create uniform 1D data and sort them
+  !======================================
   print *, "Uniform 1D data:"
   
   n = 10
@@ -31,17 +31,17 @@ program example_rand
   
   print *, "       X                Y"
   call disp(horzcat(x, y))
-
-  print *
-  print *, "Nombres aléatoires normal : "
-  print *; print *, "Pourcentage de déviations inférieurs à 1 : "
-  print *, num2str(count(abs(randn(1000)) .le. 1.)/10., "(F6.2)") // "%"
-  print *; print *, "Pourcentage de déviations inférieurs à 2 : "
-  print *, num2str(count(abs(randn(1000)) .le. 2.)/10., "(F6.2)") // "%"
-  print *; print *, "P-value for a normal random distribution : "
-  print *, "pval = " // num2str(k2test(randn(1000)))
-  print *, "skewness = " // num2str(skewness(randn(1000)))
-  print *, "kurtosis = " // num2str(kurtosis(randn(1000)))
+  
+  ! Create normal 1D data
+  !=======================
+  print *; print *, "Nombres aléatoires normal:"
+  
+  x = randn(n)
+  print *, "Mean: " // num2str(mean(x))
+  print *, "Standard deviation: " // num2str(std(x))
+  print *, "Skewness: " // num2str(skewness(x))
+  print *, "Kurtosis: " // num2str(kurtosis(x))
+  print *, "P-value: " // num2str(k2test(x))
   
   stop
 
