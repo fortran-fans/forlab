@@ -1,6 +1,8 @@
 program example_rand
 
-  use forlab
+  use forlab, only: IPRE, RPRE, randi, randu, randn, randperm, rng, &
+                    disp, num2str, mean, std, skewness, kurtosis, k2test, &
+                    prctile, horzcat
 
   implicit none
 
@@ -18,11 +20,27 @@ program example_rand
   
   ! Initialize random number generation
   !=====================================
-  call rng()
+  call rng()                  ! The seed is set according to the current time
   
-  ! Create uniform 1D data and sort them
-  !======================================
-  print *, "Uniform 1D data:"
+  ! Create random vector of integers
+  !==================================
+  print *, "Random integers (not unique):"
+  
+  idx = randi([ 1, 10 ], 9)   ! Random integers between in [ 1, 15 ]
+  
+  call disp(idx)
+  
+  ! Create random vector of unique integers
+  !=========================================
+  print *; print *, "Random integers (unique):"
+  
+  idx = randperm(10, 9)       ! Random unique integers between in [ 1, 10 ]
+  
+  call disp(idx)
+  
+  ! Create uniform 1D data
+  !========================
+  print *; print *, "Uniform 1D data:"
   
   n = 10
   x = randu(n) * 10. - 5.     ! Uniformly distributed in [ -5, 5 ]
@@ -34,14 +52,22 @@ program example_rand
   
   ! Create normal 1D data
   !=======================
-  print *; print *, "Nombres aléatoires normal:"
+  print *; print *, "Statistics for " // num2str(n) // " normally distributed values:"
   
-  x = randn(n)
+  n = 100000
+  x = randn(n)                ! Normally distributed with mu = 0 and std = 1
+  
   print *, "Mean: " // num2str(mean(x))
   print *, "Standard deviation: " // num2str(std(x))
   print *, "Skewness: " // num2str(skewness(x))
   print *, "Kurtosis: " // num2str(kurtosis(x))
   print *, "P-value: " // num2str(k2test(x))
+  print *, "5th percentile: " // num2str(prctile(x, 5))
+  print *, "95th percentile: " // num2str(prctile(x, 95))
+  print *, "Percentage of absolute deviations lower than 1:"
+  print *, num2str(count(abs(x) .le. 1.)/real(n, RPRE)*100., "(F6.2)") // "%"
+  print *, "Percentage of absolute deviations lower than 2:"
+  print *, num2str(count(abs(x) .le. 2.)/real(n, RPRE)*100., "(F6.2)") // "%"
   
   stop
 
