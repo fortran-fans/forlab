@@ -9,14 +9,13 @@ program example_rand
   integer(kind = IPRE) :: m, n
   integer(kind = IPRE), dimension(:), allocatable :: idx
   real(kind = RPRE), dimension(:), allocatable :: x, y
-  real(kind = RPRE), dimension(:,:), allocatable :: A, B
-
-  character(len = :), allocatable :: outdir
+  real(kind = RPRE), dimension(:,:), allocatable :: A
+!  character(len = :), allocatable :: outdir
   
   ! Output directory
   !==================
-  outdir = "examples/rand/"
-  call system("mkdir -p " // outdir)
+!  outdir = "examples/rand/"
+!  call system("mkdir -p " // outdir)
   
   ! Initialize random number generation
   !=====================================
@@ -68,6 +67,27 @@ program example_rand
   print *, num2str(count(abs(x) .le. 1.)/real(n, RPRE)*100., "(F6.2)") // "%"
   print *, "Percentage of absolute deviations lower than 2:"
   print *, num2str(count(abs(x) .le. 2.)/real(n, RPRE)*100., "(F6.2)") // "%"
+  
+  ! Create uniform 2D data
+  !========================
+  print *; print *, "Uniform 2D data:"
+  
+  n = 5
+  A = randu(n, n) * 10. - 5.  ! Uniformly distributed in [ -5, 5 ]
+  
+  call disp(A)
+  
+  ! The same can be done for 3D data with randu(n, n, n)
+  
+  ! Create normal 2D data
+  !=======================
+  print *; print *, "Normal 2D data:"
+  
+  A = randn(n, n)             ! Normally distributed with mu = 0 and std = 1
+  
+  call disp(A)
+  
+  ! The same can be done for 3D data with randn(n, n, n)
   
   stop
 
