@@ -1,7 +1,7 @@
 !=======================================================================
 ! Forlab
 !-----------------------------------------------------------------------
-! Forlab aims to provide a package of functions for scientific 
+! Forlab aims to provide a package of functions for scientific
 ! computing in Fortran.
 !
 ! Created by
@@ -10,7 +10,7 @@
 !     PSL - Research University
 !
 ! Last updated
-!     2016-11-09 23:44
+!     2016-12-14 16:11
 !
 ! Objects
 !-----------------------------------------------------------------------
@@ -54,7 +54,7 @@
 !   F
 !   --
 !   -   File              -   find              -   flip
-!   -   fliplr            -   flipud
+!   -   fliplr            -   flipud            -   fminbnd
 !
 !   H
 !   --
@@ -144,7 +144,7 @@
 !=======================================================================
 
 module forlab
-  
+
   implicit none
 
 !=======================================================================
@@ -157,11 +157,11 @@ module forlab
   integer, parameter :: CLEN = 512
   real(kind = 8), parameter :: pi = 3.141592653589793238460d0
   real(kind = 8), save :: tic_time
-  
+
 !=======================================================================
 ! Object File
-!=======================================================================  
-  
+!=======================================================================
+
   type File
     integer(kind = IPRE) :: unit
     character(len = CLEN) :: filename
@@ -172,7 +172,18 @@ module forlab
     generic, public :: countlines => countlines1
     procedure, private :: countlines1
   end type File
-  
+
+!=======================================================================
+! Abstract function
+!=======================================================================
+
+  abstract interface
+    real(kind = RPRE) function func(x)
+      import :: RPRE
+      real(kind = RPRE), intent(in) :: x
+    end function func
+  end interface
+
 !=======================================================================
 ! Polymorphic functions and subroutines
 !=======================================================================
@@ -194,7 +205,7 @@ module forlab
   end interface angle
   public :: angle
   private :: angle0, angle1
-  
+
   !---------------------------------------------------------------------
   ! Function argmax
   !---------------------------------------------------------------------
@@ -212,7 +223,7 @@ module forlab
   end interface argmin
   public :: argmin
   private :: argmin1, argmin2, argmin3
-  
+
   !---------------------------------------------------------------------
   ! Function asind
   !---------------------------------------------------------------------
@@ -221,7 +232,7 @@ module forlab
   end interface asind
   public :: asind
   private :: asind0, asind1, asind2, asind3
-  
+
   !---------------------------------------------------------------------
   ! Function atand
   !---------------------------------------------------------------------
@@ -239,7 +250,7 @@ module forlab
   end interface bspline1
   public :: bspline1
   private :: bspline1_1
-  
+
   !---------------------------------------------------------------------
   ! Function bspline2
   !---------------------------------------------------------------------
@@ -248,7 +259,7 @@ module forlab
   end interface bspline2
   public :: bspline2
   private :: bspline2_1, bspline2_2
-  
+
   !---------------------------------------------------------------------
   ! Function cosd
   !---------------------------------------------------------------------
@@ -257,7 +268,7 @@ module forlab
   end interface cosd
   public :: cosd
   private :: cosd0, cosd1, cosd2, cosd3
-  
+
   !---------------------------------------------------------------------
   ! Function countlines
   !---------------------------------------------------------------------
@@ -266,7 +277,7 @@ module forlab
   end interface countlines
   public :: countlines
   private :: countlines2
-  
+
   !---------------------------------------------------------------------
   ! Function cov
   !---------------------------------------------------------------------
@@ -275,7 +286,7 @@ module forlab
   end interface cov
   public :: cov
   private :: cov1_1, cov1_2, cov2_1, cov2_2
-  
+
   !---------------------------------------------------------------------
   ! Function cumsum
   !---------------------------------------------------------------------
@@ -284,7 +295,7 @@ module forlab
   end interface cumsum
   public :: cumsum
   private :: cumsum1, cumsum2
-  
+
   !---------------------------------------------------------------------
   ! Function datenum
   !---------------------------------------------------------------------
@@ -302,7 +313,7 @@ module forlab
   end interface datestr
   public :: datestr
   private :: datestr0_0
-  
+
   !---------------------------------------------------------------------
   ! Function datevec
   !---------------------------------------------------------------------
@@ -311,7 +322,7 @@ module forlab
   end interface datevec
   public :: datevec
   private :: datevec0
-  
+
   !---------------------------------------------------------------------
   ! Function deg2utm
   !---------------------------------------------------------------------
@@ -320,7 +331,7 @@ module forlab
   end interface deg2utm
   public :: deg2utm
   private :: deg2utm0, deg2utm1
-  
+
   !---------------------------------------------------------------------
   ! Function diag
   !---------------------------------------------------------------------
@@ -329,7 +340,7 @@ module forlab
   end interface diag
   public :: diag
   private :: diag1, diag2
-  
+
   !---------------------------------------------------------------------
   ! Function diff
   !---------------------------------------------------------------------
@@ -338,7 +349,7 @@ module forlab
   end interface diff
   public :: diff
   private :: diff1, diff2
-  
+
   !---------------------------------------------------------------------
   ! Subroutine disp
   !---------------------------------------------------------------------
@@ -349,7 +360,7 @@ module forlab
   public :: disp
   private :: disp_i0, disp_r0, disp_c0, disp_i1, disp_r1, disp_c1, &
       disp_i2, disp_r2, disp_i3, disp_r3
-  
+
   !---------------------------------------------------------------------
   ! Function File
   !---------------------------------------------------------------------
@@ -358,7 +369,7 @@ module forlab
   end interface File
   public :: File
   private :: init_File
-  
+
   !---------------------------------------------------------------------
   ! Function find
   !---------------------------------------------------------------------
@@ -377,7 +388,7 @@ module forlab
   end interface flip
   public :: flip
   private :: flip_i1, flip_r1, flip_i2, flip_r2, flip_i3, flip_r3
-  
+
   !---------------------------------------------------------------------
   ! Function flipud
   !---------------------------------------------------------------------
@@ -395,16 +406,18 @@ module forlab
   end interface fliplr
   public :: fliplr
   private :: fliplr_i1, fliplr_r1, fliplr_i2, fliplr_r2
-  
+
   !---------------------------------------------------------------------
   ! Function horzcat
   !---------------------------------------------------------------------
   interface horzcat
-    module procedure horzcat_r1, horzcat_r2, horzcat_r12, horzcat_r21
+    module procedure horzcat_i1, horzcat_r1, horzcat_i2, horzcat_r2, horzcat_i12, &
+      horzcat_r12, horzcat_i21, horzcat_r21
   end interface horzcat
   public :: horzcat
-  private :: horzcat_r1, horzcat_r2, horzcat_r12, horzcat_r21
-  
+  private :: horzcat_i1, horzcat_r1, horzcat_i2, horzcat_r2, horzcat_i12, &
+    horzcat_r12, horzcat_i21, horzcat_r21
+
   !---------------------------------------------------------------------
   ! Function interp1
   !---------------------------------------------------------------------
@@ -413,7 +426,7 @@ module forlab
   end interface interp1
   public :: interp1
   private :: interp1_0, interp1_1
-  
+
   !---------------------------------------------------------------------
   ! Function interp2
   !---------------------------------------------------------------------
@@ -422,7 +435,7 @@ module forlab
   end interface interp2
   public :: interp2
   private :: interp2_0, interp2_1, interp2_2
-  
+
   !---------------------------------------------------------------------
   ! Function interp3
   !---------------------------------------------------------------------
@@ -431,7 +444,7 @@ module forlab
   end interface interp3
   public :: interp3
   private :: interp3_0, interp3_1
-  
+
   !---------------------------------------------------------------------
   ! Function ismember
   !---------------------------------------------------------------------
@@ -446,7 +459,7 @@ module forlab
     ismember_i0r2, ismember_i0i3, ismember_i0r3, ismember_r0i1, &
     ismember_r0r1, ismember_r0i2, ismember_r0r2, ismember_r0i3, &
     ismember_r0r3
-  
+
   !---------------------------------------------------------------------
   ! Function ksdensity
   !---------------------------------------------------------------------
@@ -464,7 +477,7 @@ module forlab
   end interface kurtosis
   public :: kurtosis
   private :: kurtosis1, kurtosis2
-  
+
   !---------------------------------------------------------------------
   ! Function linspace
   !---------------------------------------------------------------------
@@ -475,7 +488,7 @@ module forlab
   public :: linspace
   private :: linspace_r8r8, linspace_r4r4, linspace_i4i4, &
     linspace_r8i4, linspace_r4i4, linspace_i4r8, linspace_i4r4
-  
+
   !---------------------------------------------------------------------
   ! Function loadbin
   !---------------------------------------------------------------------
@@ -484,7 +497,7 @@ module forlab
   end interface loadbin
   public :: loadbin
   private :: loadbin0, loadbin1, loadbin2, loadbin3
-  
+
   !---------------------------------------------------------------------
   ! Function loadtxt
   !---------------------------------------------------------------------
@@ -502,7 +515,7 @@ module forlab
   end interface log2
   public :: log2
   private :: log2_i0, log2_r0, log2_i1, log2_r1
-  
+
   !---------------------------------------------------------------------
   ! Function mad
   !---------------------------------------------------------------------
@@ -511,7 +524,7 @@ module forlab
   end interface mad
   public :: mad
   private :: mad1, mad2
-  
+
   !---------------------------------------------------------------------
   ! Function median
   !---------------------------------------------------------------------
@@ -520,7 +533,7 @@ module forlab
   end interface median
   public :: median
   private :: median1, median2
-  
+
   !---------------------------------------------------------------------
   ! Function mean
   !---------------------------------------------------------------------
@@ -538,7 +551,7 @@ module forlab
   end interface meshgrid
   public :: meshgrid
   private :: meshgrid2
-  
+
   !---------------------------------------------------------------------
   ! Function nextpow2
   !---------------------------------------------------------------------
@@ -547,7 +560,7 @@ module forlab
   end interface nextpow2
   public :: nextpow2
   private :: nextpow2_0, nextpow2_1
-  
+
   !---------------------------------------------------------------------
   ! Function norm
   !---------------------------------------------------------------------
@@ -556,7 +569,7 @@ module forlab
   end interface norm
   public :: norm
   private :: norm1, norm2
-  
+
   !---------------------------------------------------------------------
   ! Function normpdf
   !---------------------------------------------------------------------
@@ -565,7 +578,7 @@ module forlab
   end interface normpdf
   public :: normpdf
   private :: normpdf0, normpdf1, normpdf2
-  
+
   !---------------------------------------------------------------------
   ! Function num2str
   !---------------------------------------------------------------------
@@ -574,7 +587,7 @@ module forlab
   end interface num2str
   public :: num2str
   private :: num2str_i4, num2str_i8, num2str_r4, num2str_r8
-  
+
   !---------------------------------------------------------------------
   ! Function ones
   !---------------------------------------------------------------------
@@ -583,7 +596,7 @@ module forlab
   end interface ones
   public :: ones
   private :: ones1, ones2, ones3
-  
+
   !---------------------------------------------------------------------
   ! Function prctile
   !---------------------------------------------------------------------
@@ -603,7 +616,7 @@ module forlab
   public :: randi
   private :: randi0_0, randi0_1, randi1_0, randi1_1, randi2_0, randi2_1, &
     randi3_0, randi3_1
-  
+
   !---------------------------------------------------------------------
   ! Function randu
   !---------------------------------------------------------------------
@@ -621,7 +634,7 @@ module forlab
   end interface randn
   public :: randn
   private :: randn0, randn1, randn2, randn3
-  
+
   !---------------------------------------------------------------------
   ! Function repmat
   !---------------------------------------------------------------------
@@ -650,7 +663,7 @@ module forlab
   public :: savebin
   private :: savebin1_r4, savebin1_r8, savebin2_r4, savebin2_r8, &
     savebin3_r4, savebin3_r8
-  
+
   !---------------------------------------------------------------------
   ! Subroutine savetxt
   !---------------------------------------------------------------------
@@ -661,7 +674,7 @@ module forlab
   public :: savetxt
   private :: savetxt1_i4, savetxt1_r4, savetxt1_i8, savetxt1_r8, &
       savetxt2_i4, savetxt2_r4, savetxt2_i8, savetxt2_r8
-  
+
   !---------------------------------------------------------------------
   ! Function signum
   !---------------------------------------------------------------------
@@ -670,7 +683,7 @@ module forlab
   end interface signum
   public :: signum
   private :: signum0, signum1, signum2
-  
+
   !---------------------------------------------------------------------
   ! Function sind
   !---------------------------------------------------------------------
@@ -706,7 +719,7 @@ module forlab
   end interface spline2
   public :: spline2
   private :: spline2_1, spline2_2
-  
+
   !---------------------------------------------------------------------
   ! Function std
   !---------------------------------------------------------------------
@@ -715,7 +728,7 @@ module forlab
   end interface std
   public :: std
   private :: std1, std2
-  
+
   !---------------------------------------------------------------------
   ! Function tand
   !---------------------------------------------------------------------
@@ -742,7 +755,7 @@ module forlab
   end interface triu
   public :: triu
   private :: triu_r, triu_c
-  
+
   !---------------------------------------------------------------------
   ! Function utm2deg
   !---------------------------------------------------------------------
@@ -751,7 +764,7 @@ module forlab
   end interface utm2deg
   public :: utm2deg
   private :: utm2deg0, utm2deg1
-  
+
   !---------------------------------------------------------------------
   ! Function var
   !---------------------------------------------------------------------
@@ -771,7 +784,7 @@ module forlab
   public :: vertcat
   private :: vertcat_r1, vertcat_r2, vertcat_c2, vertcat_r12, &
     vertcat_r21
-  
+
   !---------------------------------------------------------------------
   ! Function zeros
   !---------------------------------------------------------------------
@@ -784,9 +797,9 @@ module forlab
 !=======================================================================
 ! End of declaration of interfaces
 !=======================================================================
-  
+
 contains
-  
+
 !=======================================================================
 ! acosd
 !-----------------------------------------------------------------------
@@ -818,31 +831,31 @@ contains
 
   real(kind = RPRE) function acosd0(x)
     real(kind = RPRE), intent(in) :: x
-    
+
     acosd0 = acos(x)*180.0d0/pi
     return
   end function acosd0
-  
+
   function acosd1(x)
     real(kind = RPRE), dimension(:), allocatable :: acosd1
     real(kind = RPRE), dimension(:), intent(in) :: x
-    
+
     acosd1 = acos(x)*180.0d0/pi
     return
   end function acosd1
-  
+
   function acosd2(A)
     real(kind = RPRE), dimension(:,:), allocatable :: acosd2
     real(kind = RPRE), dimension(:,:), intent(in) :: A
-    
+
     acosd2 = acos(A)*180.0d0/pi
     return
   end function acosd2
-  
+
   function acosd3(X)
     real(kind = RPRE), dimension(:,:,:), allocatable :: acosd3
     real(kind = RPRE), dimension(:,:,:), intent(in) :: X
-    
+
     acosd3 = acos(X)*180.0d0/pi
     return
   end function acosd3
@@ -885,7 +898,7 @@ contains
     end do
     return
   end function angle1
-  
+
 !=======================================================================
 ! arange
 !-----------------------------------------------------------------------
@@ -910,7 +923,7 @@ contains
     integer(kind = IPRE), dimension(:), allocatable :: arange
     integer(kind = IPRE), intent(in) :: first, last
     integer(kind = IPRE) :: i
-    
+
     arange = [ ( i, i = first, last ) ]
     return
   end function arange
@@ -944,24 +957,24 @@ contains
   integer(kind = IPRE) function argmax1(x)
     real(kind = RPRE), dimension(:), intent(in) :: x
     integer(kind = IPRE) :: idx(1)
-    
+
     idx = maxloc(x, .not. isnan(x))
     argmax1 = idx(1)
     return
   end function argmax1
-  
+
   function argmax2(A)
     integer(kind = IPRE) :: argmax2(2)
     real(kind = IPRE), dimension(:,:), intent(in) :: A
-    
+
     argmax2 = maxloc(A, .not. isnan(A))
     return
   end function argmax2
-  
+
   function argmax3(X)
     integer(kind = IPRE) :: argmax3(3)
     real(kind = IPRE), dimension(:,:,:), intent(in) :: X
-    
+
     argmax3 = maxloc(X, .not. isnan(X))
     return
   end function argmax3
@@ -995,24 +1008,24 @@ contains
   integer(kind = IPRE) function argmin1(x)
     real(kind = RPRE), dimension(:), intent(in) :: x
     integer(kind = IPRE) :: idx(1)
-    
+
     idx = minloc(x, .not. isnan(x))
     argmin1 = idx(1)
     return
   end function argmin1
-  
+
   function argmin2(A)
     integer(kind = IPRE) :: argmin2(2)
     real(kind = IPRE), dimension(:,:), intent(in) :: A
-    
+
     argmin2 = minloc(A, .not. isnan(A))
     return
   end function argmin2
-  
+
   function argmin3(X)
     integer(kind = IPRE) :: argmin3(3)
     real(kind = IPRE), dimension(:,:,:), intent(in) :: X
-    
+
     argmin3 = minloc(X, .not. isnan(X))
     return
   end function argmin3
@@ -1042,14 +1055,14 @@ contains
 !-----------------------------------------------------------------------
 ! x(argsort(x), order) returns the same result as sort(x, order).
 !=======================================================================
-  
+
   function argsort(x, order)
     integer(kind = IPRE), dimension(:), allocatable :: argsort
     real(kind = RPRE), dimension(:), intent(in) :: x
     integer(kind = IPRE), intent(in), optional :: order
     integer(kind = IPRE) :: i, n
     real(kind = RPRE), dimension(:), allocatable :: xsort
-    
+
     n = size(x)
     xsort = x
     argsort = [ ( i, i = 1, n ) ]
@@ -1059,9 +1072,9 @@ contains
       call quickargsort(xsort, argsort, n, 2)
     end if
     return
-    
+
   contains
-    
+
     !-------------------------------------------------------------------
     ! quickargsort
     !-------------------------------------------------------------------
@@ -1071,12 +1084,12 @@ contains
       integer(kind = IPRE), intent(in) :: n, order
       integer(kind = IPRE) :: left, right, marker
       real(kind = RPRE) :: pivot, tmp
-      
+
       if (n .gt. 1) then
         left = 0
         right = n + 1
         pivot = x(randi(n))
-        
+
         select case(order)
           case(1)
             do while ( left .lt. right )
@@ -1117,19 +1130,19 @@ contains
               end if
             end do
         end select
-        
+
         if ( left .eq. right ) then
           marker = left + 1
         else
           marker = left
         end if
-        
+
         call quickargsort(x(:marker-1), idx(:marker-1), marker-1, order)
         call quickargsort(x(marker:), idx(marker:), n-marker+1, order)
       end if
       return
     end subroutine quickargsort
-    
+
   end function argsort
 
 !=======================================================================
@@ -1163,31 +1176,31 @@ contains
 
   real(kind = RPRE) function asind0(x)
     real(kind = RPRE), intent(in) :: x
-    
+
     asind0 = asin(x)*180.0d0/pi
     return
   end function asind0
-  
+
   function asind1(x)
     real(kind = RPRE), dimension(:), allocatable :: asind1
     real(kind = RPRE), dimension(:), intent(in) :: x
-    
+
     asind1 = asin(x)*180.0d0/pi
     return
   end function asind1
-  
+
   function asind2(A)
     real(kind = RPRE), dimension(:,:), allocatable :: asind2
     real(kind = RPRE), dimension(:,:), intent(in) :: A
-    
+
     asind2 = asin(A)*180.0d0/pi
     return
   end function asind2
-  
+
   function asind3(X)
     real(kind = RPRE), dimension(:,:,:), allocatable :: asind3
     real(kind = RPRE), dimension(:,:,:), intent(in) :: X
-    
+
     asind3 = asin(X)*180.0d0/pi
     return
   end function asind3
@@ -1222,35 +1235,35 @@ contains
 
   real(kind = RPRE) function atand0(x)
     real(kind = RPRE), intent(in) :: x
-    
+
     atand0 = atan(x)*180.0d0/pi
     return
   end function atand0
-  
+
   function atand1(x)
     real(kind = RPRE), dimension(:), allocatable :: atand1
     real(kind = RPRE), dimension(:), intent(in) :: x
-    
+
     atand1 = atan(x)*180.0d0/pi
     return
   end function atand1
-  
+
   function atand2(A)
     real(kind = RPRE), dimension(:,:), allocatable :: atand2
     real(kind = RPRE), dimension(:,:), intent(in) :: A
-    
+
     atand2 = atan(A)*180.0d0/pi
     return
   end function atand2
-  
+
   function atand3(X)
     real(kind = RPRE), dimension(:,:,:), allocatable :: atand3
     real(kind = RPRE), dimension(:,:,:), intent(in) :: X
-    
+
     atand3 = atan(X)*180.0d0/pi
     return
   end function atand3
-  
+
 !=======================================================================
 ! bsplrep1
 !-----------------------------------------------------------------------
@@ -1285,25 +1298,25 @@ contains
     real(kind = RPRE) :: w
     integer(kind = IPRE), dimension(:), allocatable :: x0
     real(kind = RPRE), dimension(:), allocatable :: t, y1
-    
+
     n = size(x)
     k = 4
     opt_n1 = 100
     if (present(order)) k = order
     if (present(n1)) opt_n1 = n1
-    
+
     if (k .gt. n) then
       print *, "Error: in bsplrep1, order k should be less than the " &
         // "number of control points (" // num2str(k) // " > " &
         // num2str(n) // ")."
       stop
     end if
-    
+
     xq = zeros(opt_n1)
     yq = zeros(opt_n1)
     t = [ zeros(k-1), linspace(0, 1, n-k+2), ones(k-1) ]
     y1 = linspace(0, 1, opt_n1)
-    
+
     do iq = 1, opt_n1
       x0 = find(y1(iq) .ge. t)
       j = min( n, x0(size(x0)) )
@@ -1315,7 +1328,7 @@ contains
     end do
     return
   end subroutine bsplrep1
-  
+
 !=======================================================================
 ! bsplrep2
 !-----------------------------------------------------------------------
@@ -1352,7 +1365,7 @@ contains
     real(kind = RPRE) :: w1, w2
     integer(kind = IPRE), dimension(:), allocatable :: x0, y0
     real(kind = RPRE), dimension(:), allocatable :: t1, t2, y1, y2
-    
+
     m = size(x)
     n = size(y)
     k = 4
@@ -1361,14 +1374,14 @@ contains
     if (present(order)) k = order
     if (present(n1)) opt_n1 = n1
     if (present(n2)) opt_n2 = n2
-    
+
     if (k .gt. min(m, n)) then
       print *, "Error: in bsplrep2, order k should be less than the " &
         // "number of control points (" // num2str(k) // " > " &
         // num2str(min(m, n)) // ")."
       stop
     end if
-    
+
     xq = zeros(opt_n1, opt_n2)
     yq = zeros(opt_n1, opt_n2)
     zq = zeros(opt_n1, opt_n2)
@@ -1376,7 +1389,7 @@ contains
     t2 = [ zeros(k-1), linspace(0, 1, n-k+2), ones(k-1) ]
     y1 = linspace(0, 1, opt_n1)
     y2 = linspace(0, 1, opt_n2)
-    
+
     do iq1 = 1, opt_n1
       x0 = find(y1(iq1) .ge. t1)
       j1 = min( m, x0(size(x0)) )
@@ -1423,7 +1436,7 @@ contains
     integer(kind = IPRE), intent(in), optional :: order, n1
     integer(kind = IPRE) :: k, n, opt_n1
     real(kind = RPRE), dimension(:), allocatable :: bspl_x, bspl_y
-    
+
     n = size(x)
     k = 4
     opt_n1 = 100
@@ -1435,7 +1448,7 @@ contains
         // num2str(n) // ")."
       stop
     end if
-    
+
     call bsplrep1(x, y, bspl_x, bspl_y, k, opt_n1)
     yq = spline1(bspl_x, bspl_y, xq)
     return
@@ -1471,7 +1484,7 @@ contains
 ! given mesh type grids XQ and YQ with spline curves given the order. ZQ
 ! is of the same shape as XQ and YQ.
 !=======================================================================
-  
+
   function bspline2_1(x, y, z, xq, yq, order, n1, n2) result(zq)
     real(kind = RPRE), dimension(:), allocatable :: zq
     real(kind = RPRE), dimension(:), intent(in) :: x, y, xq, yq
@@ -1494,15 +1507,15 @@ contains
         // num2str(min(m, n)) // ")."
       stop
     end if
-    
+
     call bsplrep2(x, y, z, bspl_x, bspl_y, bspl_z, k, opt_n1, opt_n2)
     zq = spline2(bspl_x(:,1), bspl_y(1,:), bspl_z, xq, yq)
-    
+
     ! TODO:
     ! Bilinear interpolation on irregular grid by mapping physical grid
     ! to logical grid:
     ! https://www.particleincell.com/2012/quad-interpolation/
-    
+
     return
   end function bspline2_1
 
@@ -1520,7 +1533,7 @@ contains
     zq = reshape( bspline2_1(x, y, z, [ xq ], [ yq ], k), shape = [ m, n ] )
     return
   end function bspline2_2
-  
+
 !=======================================================================
 ! chol
 !-----------------------------------------------------------------------
@@ -1544,7 +1557,7 @@ contains
     real(kind = RPRE) :: sum1, sum2
     real(kind = RPRE), dimension(:), allocatable :: d
     real(kind = RPRE), dimension(:,:), allocatable :: V
-    
+
     call eig(A, V, d)
     if ( all(d .gt. 0.0d0 ) ) then
       n = size(A, 1)
@@ -1553,7 +1566,7 @@ contains
       do i = 2, n
         L(i,1) = A(i,1) / L(1,1)
       end do
-      
+
       do i = 2, n
         do k = 1, i
           sum1 = 0.0d0
@@ -1593,7 +1606,7 @@ contains
 
   subroutine close(self)
     class(File) :: self
-    
+
     close(self%unit)
     return
   end subroutine close
@@ -1621,34 +1634,34 @@ contains
 ! y = cosd(x)
 !     1.  0. -1.  0.
 !=======================================================================
-  
+
   real(kind = RPRE) function cosd0(x)
     real(kind = RPRE), intent(in) :: x
-    
+
     cosd0 = cos(x*pi/180.0d0)
     return
   end function cosd0
-  
+
   function cosd1(x)
     real(kind = RPRE), dimension(:), allocatable :: cosd1
     real(kind = RPRE), dimension(:), intent(in) :: x
-    
+
     cosd1 = cos(x*pi/180.0d0)
     return
   end function cosd1
-  
+
   function cosd2(A)
     real(kind = RPRE), dimension(:,:), allocatable :: cosd2
     real(kind = RPRE), dimension(:,:), intent(in) :: A
-    
+
     cosd2 = cos(A*pi/180.0d0)
     return
   end function cosd2
-  
+
   function cosd3(X)
     real(kind = RPRE), dimension(:,:,:), allocatable :: cosd3
     real(kind = RPRE), dimension(:,:,:), intent(in) :: X
-    
+
     cosd3 = cos(X*pi/180.0d0)
     return
   end function cosd3
@@ -1670,12 +1683,12 @@ contains
 !
 ! n = ofile%countlines() returns the number of lines in the txt file
 ! associated to the File object ofile.
-!=======================================================================  
+!=======================================================================
 
   integer(kind = IPRE) function countlines1(self)
     class(File), intent(inout) :: self
     integer(kind = IPRE) :: ierr
-    
+
     countlines1 = 0
     call self%open()
     do
@@ -1686,12 +1699,12 @@ contains
     call self%close()
     return
   end function countlines1
-  
+
   integer(kind = IPRE) function countlines2(filename)
     character(len = *), intent(in) :: filename
     integer(kind = IPRE) :: ierr
     type(File) :: infile
-    
+
     infile = File(999, trim(filename))
     countlines2 = 0
     call infile%open()
@@ -1703,7 +1716,7 @@ contains
     call infile%close()
     return
   end function countlines2
-  
+
 !=======================================================================
 ! cov
 !-----------------------------------------------------------------------
@@ -1759,7 +1772,7 @@ contains
 
     opt_w = 0
     if (present(w)) opt_w = w
-    
+
     tmp = x - mean(x)
     select case(opt_w)
       case(0)
@@ -1769,17 +1782,17 @@ contains
     end select
     return
   end function cov1_1
-  
+
   function cov1_2(X, w)
     real(kind = RPRE), dimension(:,:), allocatable :: cov1_2
     real(kind = RPRE), dimension(:,:), intent(in) :: X
     integer(kind = IPRE), intent(in), optional :: w
     integer(kind = IPRE) :: opt_w
     real(kind = RPRE), dimension(:,:), allocatable :: tmp
-    
+
     opt_w = 0
     if (present(w)) opt_w = w
-    
+
     tmp = X - repmat(mean(X, 1), size(X, 1), 2)
     select case(opt_w)
       case(0)
@@ -1789,30 +1802,30 @@ contains
     end select
     return
   end function cov1_2
-  
+
   function cov2_1(x, y, w)
     real(kind = RPRE), dimension(:,:), allocatable :: cov2_1
     real(kind = RPRE), dimension(:), intent(in) :: x, y
     integer(kind = IPRE), intent(in), optional :: w
     integer(kind = IPRE) :: opt_w
     real(kind = RPRE), dimension(:,:), allocatable :: tmp
-    
+
     opt_w = 0
     if (present(w)) opt_w = w
-    
+
     cov2_1 = cov1_2(horzcat(x, y), opt_w)
     return
   end function cov2_1
-  
+
   function cov2_2(X, Y, w)
     real(kind = RPRE), dimension(:,:), allocatable :: cov2_2
     real(kind = RPRE), dimension(:,:), intent(in) :: X, Y
     integer(kind = IPRE), intent(in), optional :: w
     integer(kind = IPRE) :: opt_w
-    
+
     opt_w = 0
     if (present(w)) opt_w = w
-    
+
     if ( all( shape(X) .eq. shape(Y) ) ) then
       cov2_2 = cov1_2(horzcat([ X ], [ Y ]), opt_w)
     else
@@ -1820,7 +1833,7 @@ contains
     end if
     return
   end function cov2_2
-  
+
 !=======================================================================
 ! cumsum
 !-----------------------------------------------------------------------
@@ -1849,19 +1862,19 @@ contains
     real(kind = RPRE), dimension(:), intent(in) :: x
     integer(kind = IPRE) :: i, n
     real(kind = RPRE), dimension(:), allocatable :: xsort
-    
+
     n = size(x)
     xsort = sort(x, 1)
     cumsum1 = [ ( sum(xsort(1:i)), i = 1, n ) ]
     return
   end function cumsum1
-  
+
   function cumsum2(A, dim)
     real(kind = RPRE), dimension(:,:), allocatable :: cumsum2
     real(kind = RPRE), dimension(:,:), intent(in) :: A
     integer(kind = IPRE), intent(in), optional :: dim
     integer(kind = IPRE) :: i, m, n
-    
+
     m = size(A, 1)
     n = size(A, 2)
     cumsum2 = zeros(m, n)
@@ -1876,7 +1889,7 @@ contains
     end if
     return
   end function cumsum2
-  
+
 !=======================================================================
 ! datenum
 !-----------------------------------------------------------------------
@@ -1919,7 +1932,7 @@ contains
     integer(kind = IPRE), intent(in) :: year, month, day
     integer(kind = IPRE), intent(in), optional :: hour, minute, second, microsecond
     integer(kind = IPRE) :: i, days_per_month(12)
-    
+
     if ((month .lt. 1) .and. (month .gt. 12)) then
       print *, "Error: month should be between 1 and 12 (" // num2str(month) // ")."
     end if
@@ -1960,7 +1973,7 @@ contains
 !=======================================================================
 ! datestr
 !-----------------------------------------------------------------------
-! datestr creates a string of a datetime. 
+! datestr creates a string of a datetime.
 !
 ! Syntax
 !-----------------------------------------------------------------------
@@ -1998,7 +2011,7 @@ contains
     else
       dstr = num2str(d(3)) // "-"
     end if
-    
+
     ! Month
     !=======
     months_in_letters = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", &
@@ -2013,9 +2026,9 @@ contains
         .and. (d(6) .eq. 0) .and. (d(7) .eq. 0)) then
       datestr0_0 = trim(dstr)
       return
-      
+
     else
-    
+
       ! Hour
       !======
       if (d(4) .lt. 10) then
@@ -2090,9 +2103,9 @@ contains
     real(kind = 8), intent(in) :: t
     integer(kind = IPRE) :: i, days_per_month(12)
     real(kind = 8) :: tmp, dateres
-    
+
     datevec0 = 0
-    
+
     ! Year
     !======
     tmp = 0.0d0
@@ -2109,7 +2122,7 @@ contains
       end if
     end do
     dateres = floor(t) - datenum(datevec0(1), 1, 1)
-    
+
     ! Month
     !=======
     tmp = 0.0d0
@@ -2123,31 +2136,31 @@ contains
       end if
     end do
     dateres = floor(t) - datenum(datevec0(1), datevec0(2), 1)
-    
+
     ! Day
     !=====
     datevec0(3) = floor(dateres) + 1
     dateres = t - floor(t)
-    
+
     ! Hour
     !======
     datevec0(4) = floor(dateres * 24.0d0)
     dateres = dateres - datevec0(4) / 24.0d0
-    
+
     ! Minute
     !========
     datevec0(5) = floor(dateres * 24.0d0 * 60.0d0)
     dateres = dateres - datevec0(5) / (24.0d0 * 60.0d0)
-    
+
     ! Second
     !========
     datevec0(6) = floor(dateres * 24.0d0 * 60.0d0 * 60.0d0)
     dateres = dateres - datevec0(6) / (24.0d0 * 60.0d0 * 60.0d0)
-    
+
     ! Microsecond
     !=============
-    datevec0(7) = floor(dateres * 24.0d0 * 60.0d0 * 60.0d0 * 1.0d+6)    
-    
+    datevec0(7) = floor(dateres * 24.0d0 * 60.0d0 * 60.0d0 * 1.0d+6)
+
     return
   end function datevec0
 
@@ -2204,7 +2217,7 @@ contains
     end if
     return
   end function deboor
-  
+
 !=======================================================================
 ! deg2utm
 !-----------------------------------------------------------------------
@@ -2232,7 +2245,7 @@ contains
     real(kind = RPRE), intent(out) :: east, north
     integer(kind = IPRE), intent(out) :: zn
     character(len = 1), intent(out) :: zl
-    
+
     real(kind = 8), parameter :: K0 = 0.9996d0
     real(kind = 8), parameter :: E = 0.00669438d0
     real(kind = 8), parameter :: R = 6378137
@@ -2240,45 +2253,45 @@ contains
     real(kind = 8) :: M1, M2, M3, M4
     real(kind = 8) :: lat_rad, lat_sin, lat_cos, lat_tan, lat_tan2, &
       lat_tan4, lon_rad, central_lon, central_lon_rad
-      
+
     E_P2 = E / (1.0d0 - E)
     M1 = (1 - E / 4 - 3 * E**2 / 64 - 5 * E**3 / 256)
     M2 = (3 * E / 8 + 3 * E**2 / 32 + 45 * E**3 / 1024)
     M3 = (15 * E**2 / 256 + 45 * E**3 / 1024)
     M4 = (35 * E**3 / 3072)
-    
+
     lat_rad = lat*pi/180.0d0
     lat_sin = sin(lat_rad)
     lat_cos = cos(lat_rad)
     lat_tan = lat_sin / lat_cos
     lat_tan2 = lat_tan**2
     lat_tan4 = lat_tan2**2
-    
+
     zn = zone_number(lat, lon)
     zl = zone_letter(lat)
-    
+
     lon_rad = lon*pi/180.0d0
     central_lon = central_longitude(zn)
     central_lon_rad = central_lon*pi/180.0d0
-    
+
     n = R / sqrt(1 - E * lat_sin**2)
     c = E_P2 * lat_cos**2
-    a = lat_cos * (lon_rad - central_lon_rad)    
+    a = lat_cos * (lon_rad - central_lon_rad)
     m = R * (M1 * lat_rad &
           -  M2 * sin(2 * lat_rad) &
           +  M3 * sin(4 * lat_rad) &
-          -  M4 * sin(6 * lat_rad))         
+          -  M4 * sin(6 * lat_rad))
     east = K0 * n * (a + &
                      a**3 / 6 * (1 - lat_tan2 + c) + &
                      a**5 / 120 * (5 - 18 * lat_tan2 + lat_tan4 + 72 * c - 58 * E_P2)) + 500000
     north = K0 * (m + n * lat_tan * (a**2 / 2 + &
                                      a**4 / 24 * (5 - lat_tan2 + 9 * c + 4 * c**2) + &
-                                     a**6 / 720 * (61 - 58 * lat_tan2 + lat_tan4 + 600 * c - 330 * E_P2)))                                    
+                                     a**6 / 720 * (61 - 58 * lat_tan2 + lat_tan4 + 600 * c - 330 * E_P2)))
     if (lat .lt. 0.0d0) north = north + 10000000
     return
-    
+
   contains
-    
+
     !-------------------------------------------------------------------
     ! zone_number
     !-------------------------------------------------------------------
@@ -2289,7 +2302,7 @@ contains
         zone_number = 32
         return
       end if
-      
+
       if ((lat .ge. 72.0d0) .and. (lat .le. 84.0d0) &
           .and. (lon .ge. 0.0d0)) then
         if (lon .le. 9.0d0) then
@@ -2303,11 +2316,11 @@ contains
           return
         end if
       end if
-      
+
       zone_number = int((lon + 180.0d0) / 6.0d0) + 1
       return
     end function zone_number
-    
+
     !-------------------------------------------------------------------
     ! zone_letter
     !-------------------------------------------------------------------
@@ -2325,7 +2338,7 @@ contains
       end do
       return
     end function zone_letter
-    
+
     !-------------------------------------------------------------------
     ! central_longitude
     !-------------------------------------------------------------------
@@ -2334,16 +2347,16 @@ contains
       central_longitude = (zn - 1) * 6 - 180 + 3
       return
     end function central_longitude
-    
+
   end subroutine deg2utm0
-  
+
   subroutine deg2utm1(lat, lon, east, north, zn, zl)
     real(kind = RPRE), dimension(:), intent(in) :: lat, lon
     real(kind = RPRE), dimension(:), allocatable, intent(out) :: east, north
     integer(kind = IPRE), dimension(:), allocatable, intent(out) :: zn
     character(len = 1), dimension(:), allocatable, intent(out) :: zl
     integer(kind = IPRE) :: i, n
-    
+
     n = size(lat)
     allocate(east(n), north(n), zn(n), zl(n))
     do i = 1, n
@@ -2378,13 +2391,13 @@ contains
 ! x = det(A)
 !     27.
 !=======================================================================
-  
+
   real(kind = RPRE) function det(A, outL, outU)
     real(kind = RPRE), dimension(:,:), intent(in) :: A
     real(kind = RPRE), dimension(:,:), allocatable, intent(inout), optional :: outL, outU
     real(kind = RPRE), dimension(:,:), allocatable :: L, U
     integer(kind = IPRE) :: m
-    
+
     if (issquare(A)) then
       m = size(A, 1)
       if (m .eq. 2) then
@@ -2437,12 +2450,12 @@ contains
 !     0.  2.  0.
 !     0.  0.  3.
 !=======================================================================
-  
+
   function diag1(A)
     real(kind = RPRE), dimension(:), allocatable :: diag1
     real(kind = RPRE), dimension(:,:), intent(in) :: A
     integer(kind = IPRE) :: i, n
-    
+
     n = min(size(A, 1), size(A, 2))
     allocate(diag1(n))
     do i = 1, n
@@ -2450,12 +2463,12 @@ contains
     end do
     return
   end function diag1
-  
+
   function diag2(x)
     real(kind = RPRE), dimension(:,:), allocatable :: diag2
     real(kind = RPRE), dimension(:), intent(in) :: x
     integer(kind = IPRE) :: i, n
-    
+
     n = size(x)
     diag2 = zeros(n, n)
     do i = 1, n
@@ -2507,7 +2520,7 @@ contains
 
     opt_n = 1
     if (present(n)) opt_n = n
-    
+
     diff1 = x
     do i = 1, opt_n
       diff1 = diff1(2:) - diff1(:size(diff1)-1)
@@ -2605,29 +2618,29 @@ contains
 !         4.  5.  6.
 !         7.  8.  9.
 !=======================================================================
-  
+
   subroutine disp_i0(x, string)
     integer(kind = IPRE), intent(in) :: x
     character(len = *), intent(in), optional :: string
-    
+
     if (present(string)) print *, trim(string)
     print *, x
     return
   end subroutine disp_i0
-  
+
   subroutine disp_r0(x, string)
     real(kind = RPRE), intent(in) :: x
     character(len = *), intent(in), optional :: string
-    
+
     if (present(string)) print *, trim(string)
     print *, x
     return
   end subroutine disp_r0
-  
+
   subroutine disp_c0(x, string)
     complex(kind = RPRE), intent(in) :: x
     character(len = *), intent(in), optional :: string
-    
+
     if (present(string)) print *, trim(string)
     if (imagpart(x) .ge. 0.0d0) then
       print *, num2str(realpart(x)) // " + " // num2str(abs(imagpart(x))) // "i"
@@ -2636,12 +2649,12 @@ contains
     end if
     return
   end subroutine disp_c0
-  
+
   subroutine disp_i1(x, string)
     integer(kind = IPRE), dimension(:), intent(in) :: x
     character(len = *), intent(in), optional :: string
     integer(kind = IPRE) :: i, m
-    
+
     m = size(x)
     if (present(string)) print *, trim(string)
     do i = 1, m
@@ -2649,12 +2662,12 @@ contains
     end do
     return
   end subroutine disp_i1
-  
+
   subroutine disp_r1(x, string)
     real(kind = RPRE), dimension(:), intent(in) :: x
     character(len = *), intent(in), optional :: string
     integer(kind = IPRE) :: i, m
-    
+
     m = size(x)
     if (present(string)) print *, trim(string)
     do i = 1, m
@@ -2662,12 +2675,12 @@ contains
     end do
     return
   end subroutine disp_r1
-  
+
   subroutine disp_c1(x, string)
     complex(kind = RPRE), dimension(:), intent(in) :: x
     character(len = *), intent(in), optional :: string
     integer(kind = IPRE) :: i, m
-    
+
     m = size(x)
     if (present(string)) print *, trim(string)
     do i = 1, m
@@ -2675,12 +2688,12 @@ contains
     end do
     return
   end subroutine disp_c1
-  
+
   subroutine disp_i2(A, string)
     integer(kind = IPRE), dimension(:,:), intent(in) :: A
     character(len = *), intent(in), optional :: string
     integer(kind = IPRE) :: i, j, m, n
-    
+
     m = size(A, 1)
     n = size(A, 2)
     if (present(string)) print *, trim(string)
@@ -2689,12 +2702,12 @@ contains
     end do
     return
   end subroutine disp_i2
-  
+
   subroutine disp_r2(A, string)
     real(kind = RPRE), dimension(:,:), intent(in) :: A
     character(len = *), intent(in), optional :: string
     integer(kind = IPRE) :: i, j, m, n
-    
+
     m = size(A, 1)
     n = size(A, 2)
     if (present(string)) print *, trim(string)
@@ -2703,13 +2716,13 @@ contains
     end do
     return
   end subroutine disp_r2
-  
+
   subroutine disp_i3(X, dim, string)
     integer(kind = IPRE), dimension(:,:,:), intent(in) :: X
     integer(kind = IPRE), intent(in), optional :: dim
     character(len = *), intent(in), optional :: string
     integer(kind = IPRE) :: i, dim1, dim2, dim3
-    
+
     dim1 = size(X, 1)
     dim2 = size(X, 2)
     dim3 = size(X, 3)
@@ -2732,13 +2745,13 @@ contains
     end if
     return
   end subroutine disp_i3
-  
+
   subroutine disp_r3(X, dim, string)
     real(kind = RPRE), dimension(:,:,:), intent(in) :: X
     integer(kind = IPRE), intent(in), optional :: dim
     character(len = *), intent(in), optional :: string
     integer(kind = IPRE) :: i, dim1, dim2, dim3
-    
+
     dim1 = size(X, 1)
     dim2 = size(X, 2)
     dim3 = size(X, 3)
@@ -2793,10 +2806,10 @@ contains
       theta, c, s, tau, g
     real(kind = RPRE), dimension(:), allocatable :: bw, zw
     real(kind = RPRE), dimension(:,:), allocatable :: B
-    
+
     opt_itermax = 1000
     if (present(itermax)) opt_itermax = itermax
-    
+
     if (.not. issymmetric(A)) then
       stop "Error: in eig(A), A is not symmetric."
     else
@@ -2813,7 +2826,7 @@ contains
       iter = 0
       do while (iter .lt. opt_itermax)
         iter = iter + 1
-        
+
         threshold = sqrt(sum(triu(B, 1)**2)) / (4.0*n)
         if (threshold .eq. 0.0d0) exit
 
@@ -2837,12 +2850,12 @@ contains
                 t = 1.0d0 / ( abs(theta) + sqrt(1.0d0 + theta*theta) )
                 if (theta .lt. 0.0d0) t = -t
               end if
-              
+
               c = 1.0d0 / sqrt(1.0d0 + t*t)
               s = t * c
               tau = s / (1.0d0 + c)
               h = t * B(i,j)
-              
+
               zw(i) = zw(i) - h
               zw(j) = zw(j) + h
               d(i) = d(i) - h
@@ -2876,7 +2889,7 @@ contains
                 v(k,i) = g - s * (h + g * tau)
                 v(k,j) = h + s * (g - h * tau)
               end do
-              
+
             end if
           end do
         end do
@@ -2890,7 +2903,7 @@ contains
       d = d(idx)
       V = V(:,idx)
     end if
-    
+
     return
   end subroutine eig
 
@@ -2936,7 +2949,7 @@ contains
     integer(kind = IPRE), intent(in) :: dim1
     integer(kind = IPRE), intent(in), optional :: dim2
     integer(kind = IPRE) :: i
-    
+
     if (.not. present(dim2)) then
       eye = zeros(dim1, dim1)
       do i = 1, dim1
@@ -2978,12 +2991,12 @@ contains
   type(File) function init_File(unit, filename)
     integer(kind = IPRE), intent(in) :: unit
     character(len = *), intent(in) :: filename
-    
+
     init_File%unit = unit
     init_File%filename = trim(filename)
     return
   end function init_File
-  
+
 !=======================================================================
 ! find
 !-----------------------------------------------------------------------
@@ -3023,7 +3036,7 @@ contains
     integer(kind = IPRE), dimension(:), allocatable :: find1
     logical, dimension(:), intent(in) :: bool
     integer(kind = IPRE) :: i, j, n
-    
+
     n = count(bool)
     if (n .ne. 0) then
       find1 = zeros(n)
@@ -3036,15 +3049,15 @@ contains
       end do
     else
       find1 = zeros(0)
-    end if   
+    end if
     return
   end function find1
-  
+
   function find2(bool)
     integer(kind = IPRE), dimension(:,:), allocatable :: find2
     logical, dimension(:,:), intent(in) :: bool
     integer(kind = IPRE) :: i, j, k, n
-    
+
     n = count(bool)
     if (n .ne. 0) then
       find2 = zeros(n, 2)
@@ -3063,12 +3076,12 @@ contains
     end if
     return
   end function find2
-  
+
   function find3(bool)
     integer(kind = IPRE), dimension(:,:), allocatable :: find3
     logical, dimension(:,:,:), intent(in) :: bool
     integer(kind = IPRE) :: i, j, k, l, n
-    
+
     n = count(bool)
     if (n .ne. 0) then
       find3 = zeros(n, 3)
@@ -3090,7 +3103,56 @@ contains
     end if
     return
   end function find3
-  
+
+!=======================================================================
+! fminbnd
+!-----------------------------------------------------------------------
+! fminbnd solves a 1-dimensional problem defined by
+!   min_x f(x) | a < x < b
+! with x, a, b finite scalars, and f(x) a function that returns a
+! scalar. The golden section search algorithm is used.
+!
+! Syntax
+!-----------------------------------------------------------------------
+! x = fminbnd(fitness, a, b)
+! x = fminbnd(fitness, a, b, eps)
+!
+! Description
+!-----------------------------------------------------------------------
+! x = fminbnd(fitness, a, b) returns the scalar x that is a local
+! minimizer of the function fitness in the interval a < x < b.
+!
+! x = fminbnd(fitness, a, b, eps) returns the local minimizer x with the
+! convergence tolerance specified by eps.
+!=======================================================================
+
+  real(kind = RPRE) function fminbnd(fitness, a, b, eps)
+    procedure(func) :: fitness
+    real(kind = RPRE), intent(in) :: a, b
+    real(kind = RPRE), intent(in), optional :: eps
+    real(kind = RPRE) :: opt_eps, x1, x2, x3, x4
+    real(kind = RPRE), parameter :: gr = 0.6180339887498949d0
+
+    opt_eps = 1.0d-4
+    if (present(eps)) opt_eps = eps
+
+    x1 = a
+    x2 = b
+    x3 = x2 - gr * (x2 - x1)
+    x4 = x1 + gr * (x2 - x1)
+    do while ( abs(x3 - x4) .gt. opt_eps )
+      if ( fitness(x3) .lt. fitness(x4) ) then
+        x2 = x4
+      else
+        x1 = x3
+      end if
+      x3 = x2 - gr * (x2 - x1)
+      x4 = x1 + gr * (x2 - x1)
+    end do
+    fminbnd = 0.5d0 * (x1 + x2)
+    return
+  end function fminbnd
+
 !=======================================================================
 ! flip
 !-----------------------------------------------------------------------
@@ -3140,24 +3202,24 @@ contains
   function flip_i1(x)
     integer(kind = IPRE), dimension(:), allocatable :: flip_i1
     integer(kind = IPRE), dimension(:), intent(in) :: x
-    
+
     flip_i1 = flipud(x)
     return
   end function flip_i1
-  
+
   function flip_r1(x)
     real(kind = RPRE), dimension(:), allocatable :: flip_r1
     real(kind = RPRE), dimension(:), intent(in) :: x
-    
+
     flip_r1 = flipud(x)
     return
   end function flip_r1
-  
+
   function flip_i2(A, dim)
     integer(kind = IPRE), dimension(:,:), allocatable :: flip_i2
     integer(kind = IPRE), dimension(:,:), intent(in) :: A
     integer(kind = IPRE), intent(in), optional :: dim
-    
+
     if ((.not. present(dim)) .or. (dim .eq. 1)) then
       flip_i2 = flipud(A)
     elseif (dim .eq. 2) then
@@ -3165,12 +3227,12 @@ contains
     end if
     return
   end function flip_i2
-  
+
   function flip_r2(A, dim)
     real(kind = RPRE), dimension(:,:), allocatable :: flip_r2
     real(kind = RPRE), dimension(:,:), intent(in) :: A
     integer(kind = IPRE), intent(in), optional :: dim
-    
+
     if ((.not. present(dim)) .or. (dim .eq. 1)) then
       flip_r2 = flipud(A)
     elseif (dim .eq. 2) then
@@ -3178,13 +3240,13 @@ contains
     end if
     return
   end function flip_r2
-  
+
   function flip_i3(X, dim)
     integer(kind = IPRE), dimension(:,:,:), allocatable :: flip_i3
     integer(kind = IPRE), dimension(:,:,:), intent(in) :: X
     integer(kind = IPRE), intent(in), optional :: dim
     integer(kind = IPRE) :: n
-    
+
     if ((.not. present(dim)) .or. (dim .eq. 1)) then
       n = size(X, 1)
       flip_i3 = X(n:1:-1,:,:)
@@ -3197,13 +3259,13 @@ contains
     end if
     return
   end function flip_i3
-  
+
   function flip_r3(X, dim)
     real(kind = IPRE), dimension(:,:,:), allocatable :: flip_r3
     real(kind = IPRE), dimension(:,:,:), intent(in) :: X
     integer(kind = IPRE), intent(in), optional :: dim
     integer(kind = IPRE) :: n
-    
+
     if ((.not. present(dim)) .or. (dim .eq. 1)) then
       n = size(X, 1)
       flip_r3 = X(n:1:-1,:,:)
@@ -3256,7 +3318,7 @@ contains
     fliplr_i1 = x(n:1:-1)
     return
   end function fliplr_i1
-  
+
   function fliplr_r1(x)
     real(kind = RPRE), dimension(:), allocatable :: fliplr_r1
     real(kind = RPRE), dimension(:), intent(in) :: x
@@ -3271,7 +3333,7 @@ contains
     integer(kind = IPRE), dimension(:,:), allocatable :: fliplr_i2
     integer(kind = IPRE), dimension(:,:), intent(in) :: A
     integer(kind = IPRE) :: n
-    
+
     n = size(A, 2)
     fliplr_i2 = A(:,n:1:-1)
     return
@@ -3281,7 +3343,7 @@ contains
     real(kind = RPRE), dimension(:,:), allocatable :: fliplr_r2
     real(kind = RPRE), dimension(:,:), intent(in) :: A
     integer(kind = IPRE) :: n
-    
+
     n = size(A, 2)
     fliplr_r2 = A(:,n:1:-1)
     return
@@ -3326,7 +3388,7 @@ contains
     flipud_i1 = x(n:1:-1)
     return
   end function flipud_i1
-  
+
   function flipud_r1(x)
     real(kind = RPRE), dimension(:), allocatable :: flipud_r1
     real(kind = RPRE), dimension(:), intent(in) :: x
@@ -3341,7 +3403,7 @@ contains
     integer(kind = IPRE), dimension(:,:), allocatable :: flipud_i2
     integer(kind = IPRE), dimension(:,:), intent(in) :: A
     integer(kind = IPRE) :: n
-    
+
     n = size(A, 1)
     flipud_i2 = A(n:1:-1,:)
     return
@@ -3351,7 +3413,7 @@ contains
     real(kind = RPRE), dimension(:,:), allocatable :: flipud_r2
     real(kind = RPRE), dimension(:,:), intent(in) :: A
     integer(kind = IPRE) :: n
-    
+
     n = size(A, 1)
     flipud_r2 = A(n:1:-1,:)
     return
@@ -3398,6 +3460,20 @@ contains
 !     3.  4.  7.  8.
 !=======================================================================
 
+  function horzcat_i1(x1, x2)
+    integer(kind = IPRE), dimension(:,:), allocatable :: horzcat_i1
+    integer(kind = IPRE), dimension(:), intent(in) :: x1, x2
+    integer(kind = IPRE) :: m1, m2
+
+    m1 = size(x1)
+    m2 = size(x2)
+
+    horzcat_i1 = zeros(max(m1, m2), 2)
+    horzcat_i1(1:m1,1) = x1
+    horzcat_i1(1:m2,2) = x2
+    return
+  end function horzcat_i1
+
   function horzcat_r1(x1, x2)
     real(kind = RPRE), dimension(:,:), allocatable :: horzcat_r1
     real(kind = RPRE), dimension(:), intent(in) :: x1, x2
@@ -3411,22 +3487,54 @@ contains
     horzcat_r1(1:m2,2) = x2
     return
   end function horzcat_r1
-  
-  function horzcat_r2(A1, A2)
-    real(kind = RPRE), dimension(:,:), allocatable :: horzcat_r2
-    real(kind = RPRE), dimension(:,:), intent(in) :: A1, A2
+
+  function horzcat_i2(A1, A2)
+    integer(kind = IPRE), dimension(:,:), allocatable :: horzcat_i2
+    integer(kind = IPRE), dimension(:,:), intent(in) :: A1, A2
     integer(kind = IPRE) :: m1, n1, m2, n2
-    
+
     m1 = size(A1, 1)
     n1 = size(A1, 2)
     m2 = size(A2, 1)
     n2 = size(A2, 2)
-    
+
+    horzcat_i2 = zeros(max(m1, m2), n1+n2)
+    horzcat_i2(1:m1,1:n1) = A1
+    horzcat_i2(1:m2,n1+1:) = A2
+    return
+  end function horzcat_i2
+
+  function horzcat_r2(A1, A2)
+    real(kind = RPRE), dimension(:,:), allocatable :: horzcat_r2
+    real(kind = RPRE), dimension(:,:), intent(in) :: A1, A2
+    integer(kind = IPRE) :: m1, n1, m2, n2
+
+    m1 = size(A1, 1)
+    n1 = size(A1, 2)
+    m2 = size(A2, 1)
+    n2 = size(A2, 2)
+
     horzcat_r2 = zeros(max(m1, m2), n1+n2)
     horzcat_r2(1:m1,1:n1) = A1
     horzcat_r2(1:m2,n1+1:) = A2
     return
   end function horzcat_r2
+
+  function horzcat_i12(x1, A2)
+    integer(kind = IPRE), dimension(:,:), allocatable :: horzcat_i12
+    integer(kind = IPRE), dimension(:), intent(in) :: x1
+    integer(kind = IPRE), dimension(:,:), intent(in) :: A2
+    integer(kind = IPRE) :: m1, m2, n2
+
+    m1 = size(x1)
+    m2 = size(A2, 1)
+    n2 = size(A2, 2)
+
+    horzcat_i12 = zeros(max(m1, m2), n2+1)
+    horzcat_i12(1:m1,1) = x1
+    horzcat_i12(1:m2,2:) = A2
+    return
+  end function horzcat_i12
 
   function horzcat_r12(x1, A2)
     real(kind = RPRE), dimension(:,:), allocatable :: horzcat_r12
@@ -3444,6 +3552,22 @@ contains
     return
   end function horzcat_r12
 
+  function horzcat_i21(A1, x2)
+    integer(kind = IPRE), dimension(:,:), allocatable :: horzcat_i21
+    integer(kind = IPRE), dimension(:,:), intent(in) :: A1
+    integer(kind = IPRE), dimension(:), intent(in) :: x2
+    integer(kind = IPRE) :: m1, n1, m2
+
+    m1 = size(A1, 1)
+    n1 = size(A1, 2)
+    m2 = size(x2)
+
+    horzcat_i21 = zeros(max(m1, m2), n1+1)
+    horzcat_i21(1:m1,1:n1) = A1
+    horzcat_i21(1:m2,n1+1) = x2
+    return
+  end function horzcat_i21
+
   function horzcat_r21(A1, x2)
     real(kind = RPRE), dimension(:,:), allocatable :: horzcat_r21
     real(kind = RPRE), dimension(:,:), intent(in) :: A1
@@ -3459,7 +3583,7 @@ contains
     horzcat_r21(1:m2,n1+1) = x2
     return
   end function horzcat_r21
-  
+
 !=======================================================================
 ! hann
 !-----------------------------------------------------------------------
@@ -3477,7 +3601,7 @@ contains
   function hann(n)
     real(kind = RPRE), dimension(:), allocatable :: hann
     integer(kind = IPRE), intent(in) :: n
-    
+
     hann = 0.5d0 * ( 1 - cos( 2.0d0 * pi * linspace(0, n-1, n) / n ) )
     return
   end function hann
@@ -3503,7 +3627,7 @@ contains
     real(kind = RPRE), dimension(:), intent(in) :: x, v
     integer(kind = IPRE) :: i, x1(1), x2(1), ix(2)
     real(kind = RPRE) :: vn, xr(2), vr(2)
-    
+
     x1 = minloc(xq - x, mask = xq .ge. x)
     x2 = maxloc(xq - x, mask = xq .lt. x)
     if ( x2(1) .ne. 0 ) then
@@ -3558,7 +3682,7 @@ contains
     real(kind = RPRE), dimension(:,:), intent(in) :: v
     integer(kind = IPRE) :: i, x1(1), y1(1), x2(1), y2(1), ix(4), iy(4)
     real(kind = RPRE) :: vn, xr(2), yr(2), N(4), vr(4)
-    
+
     x1 = minloc(xq - x, mask = xq .ge. x)
     y1 = minloc(yq - y, mask = yq .ge. y)
     x2 = maxloc(xq - x, mask = xq .lt. x)
@@ -3597,7 +3721,7 @@ contains
     real(kind = RPRE), dimension(:), intent(in) :: x, y
     real(kind = RPRE), dimension(:,:), intent(in) :: v, xq, yq
     integer(kind = IPRE) :: m, n
-    
+
     m = size(xq, 1)
     n = size(xq, 2)
     vq = reshape( interp2_1(x, y, v, [ xq ], [ yq ]), shape = [ m, n ] )
@@ -3627,7 +3751,7 @@ contains
     integer(kind = IPRE) :: i, x1(1), y1(1), z1(1), x2(1), y2(1), z2(1), &
       ix(8), iy(8), iz(8)
     real(kind = RPRE) :: vn, xr(2), yr(2), zr(2), N(8), vr(8)
-    
+
     x1 = minloc(xq - x, mask = xq .ge. x)
     y1 = minloc(yq - y, mask = yq .ge. y)
     z1 = minloc(zq - z, mask = zq .ge. z)
@@ -3652,13 +3776,13 @@ contains
     vq = dot_product(vr, N/vn)
     return
   end function interp3_0
-  
+
   function interp3_1(x, y, z, v, xq, yq, zq) result(vq)
     real(kind = RPRE), dimension(:), allocatable :: vq
     real(kind = RPRE), dimension(:), intent(in) :: xq, yq, zq, x, y, z
     real(kind = RPRE), dimension(:,:,:), intent(in) :: v
     integer(kind = IPRE) :: i, n
-    
+
     n = size(xq)
     vq = zeros(n)
     do i = 1, n
@@ -3690,7 +3814,7 @@ contains
 !      1.55555558  -0.777777791   0.222222224
 !     -0.11111112   0.222222224  -0.111111112
 !=======================================================================
- 
+
   function inv(A)
     real(kind = RPRE), dimension(:,:), allocatable :: inv
     real(kind = RPRE), dimension(:,:), intent(in) :: A
@@ -3698,7 +3822,7 @@ contains
     real(kind = RPRE) :: D
     real(kind = RPRE), dimension(:), allocatable :: x, y, e
     real(kind = RPRE), dimension(:,:), allocatable :: L, U
-    
+
     if (issquare(A)) then
       m = size(A, 1)
       if (m .le. 3) then
@@ -3732,7 +3856,7 @@ contains
             e = zeros(m)
             e(k) = 1.
             y(1) = e(1)
-            
+
             ! Forward substitution: Ly = e
             !==============================
             do i = 2, m
@@ -3741,7 +3865,7 @@ contains
                 y(i) = y(i) - y(j)*L(i,j)
               end do
             end do
-            
+
             ! Back substitution: Ux = y
             !===========================
             x(m) = y(m)/U(m,m)
@@ -3752,7 +3876,7 @@ contains
               end do
               x(i) = x(i)/U(i,i)
             end do
-            
+
             ! The column k of the inverse is x
             !==================================
             inv(:,k) = x
@@ -3796,8 +3920,8 @@ contains
       isleap = .false.
     end if
     return
-  end function isleap 
-  
+  end function isleap
+
 !=======================================================================
 ! ismember
 !-----------------------------------------------------------------------
@@ -3828,12 +3952,12 @@ contains
 ! bool = ismember(6., y)
 !     .false.
 !=======================================================================
-  
+
   logical function ismember_i0i1(x, y)
     integer(kind = IPRE), intent(in) :: x
     integer(kind = IPRE), dimension(:), intent(in) :: y
     integer(kind = IPRE) :: i, dim1
-    
+
     ismember_i0i1 = .false.
     dim1 = size(y)
     do i = 1, dim1
@@ -3841,15 +3965,15 @@ contains
         ismember_i0i1 = .true.
         return
       end if
-    end do    
+    end do
     return
   end function ismember_i0i1
-  
+
   logical function ismember_i0r1(x, y)
     integer(kind = IPRE), intent(in) :: x
     real(kind = RPRE), dimension(:), intent(in) :: y
     integer(kind = IPRE) :: i, dim1
-    
+
     ismember_i0r1 = .false.
     dim1 = size(y)
     do i = 1, dim1
@@ -3857,15 +3981,15 @@ contains
         ismember_i0r1 = .true.
         return
       end if
-    end do    
+    end do
     return
   end function ismember_i0r1
-  
+
   logical function ismember_i0i2(x, A)
     integer(kind = IPRE), intent(in) :: x
     integer(kind = IPRE), dimension(:,:), intent(in) :: A
     integer(kind = IPRE) :: i, j, dim1, dim2
-    
+
     ismember_i0i2 = .false.
     dim1 = size(A, 1)
     dim2 = size(A, 2)
@@ -3879,12 +4003,12 @@ contains
     end do
     return
   end function ismember_i0i2
-  
+
   logical function ismember_i0r2(x, A)
     integer(kind = IPRE), intent(in) :: x
     real(kind = RPRE), dimension(:,:), intent(in) :: A
     integer(kind = IPRE) :: i, j, dim1, dim2
-    
+
     ismember_i0r2 = .false.
     dim1 = size(A, 1)
     dim2 = size(A, 2)
@@ -3898,12 +4022,12 @@ contains
     end do
     return
   end function ismember_i0r2
-  
+
   logical function ismember_i0i3(x, Y)
     integer(kind = IPRE), intent(in) :: x
     integer(kind = IPRE), dimension(:,:,:), intent(in) :: Y
     integer(kind = IPRE) :: i, j, k, dim1, dim2, dim3
-    
+
     ismember_i0i3 = .false.
     dim1 = size(Y, 1)
     dim2 = size(Y, 2)
@@ -3920,12 +4044,12 @@ contains
     end do
     return
   end function ismember_i0i3
-  
+
   logical function ismember_i0r3(x, Y)
     integer(kind = IPRE), intent(in) :: x
     real(kind = RPRE), dimension(:,:,:), intent(in) :: Y
     integer(kind = IPRE) :: i, j, k, dim1, dim2, dim3
-    
+
     ismember_i0r3 = .false.
     dim1 = size(Y, 1)
     dim2 = size(Y, 2)
@@ -3942,12 +4066,12 @@ contains
     end do
     return
   end function ismember_i0r3
-  
+
   logical function ismember_r0i1(x, y)
     real(kind = RPRE), intent(in) :: x
     integer(kind = IPRE), dimension(:), intent(in) :: y
     integer(kind = IPRE) :: i, dim1
-    
+
     ismember_r0i1 = .false.
     dim1 = size(y)
     do i = 1, dim1
@@ -3955,15 +4079,15 @@ contains
         ismember_r0i1 = .true.
         return
       end if
-    end do    
+    end do
     return
   end function ismember_r0i1
-  
+
   logical function ismember_r0r1(x, y)
     real(kind = RPRE), intent(in) :: x
     real(kind = RPRE), dimension(:), intent(in) :: y
     integer(kind = IPRE) :: i, dim1
-    
+
     ismember_r0r1 = .false.
     dim1 = size(y)
     do i = 1, dim1
@@ -3971,15 +4095,15 @@ contains
         ismember_r0r1 = .true.
         return
       end if
-    end do    
+    end do
     return
   end function ismember_r0r1
-  
+
   logical function ismember_r0i2(x, A)
     real(kind = RPRE), intent(in) :: x
     integer(kind = IPRE), dimension(:,:), intent(in) :: A
     integer(kind = IPRE) :: i, j, dim1, dim2
-    
+
     ismember_r0i2 = .false.
     dim1 = size(A, 1)
     dim2 = size(A, 2)
@@ -3993,12 +4117,12 @@ contains
     end do
     return
   end function ismember_r0i2
-  
+
   logical function ismember_r0r2(x, A)
     real(kind = RPRE), intent(in) :: x
     real(kind = RPRE), dimension(:,:), intent(in) :: A
     integer(kind = IPRE) :: i, j, dim1, dim2
-    
+
     ismember_r0r2 = .false.
     dim1 = size(A, 1)
     dim2 = size(A, 2)
@@ -4012,12 +4136,12 @@ contains
     end do
     return
   end function ismember_r0r2
-  
+
   logical function ismember_r0i3(x, Y)
     real(kind = RPRE), intent(in) :: x
     integer(kind = IPRE), dimension(:,:,:), intent(in) :: Y
     integer(kind = IPRE) :: i, j, k, dim1, dim2, dim3
-    
+
     ismember_r0i3 = .false.
     dim1 = size(Y, 1)
     dim2 = size(Y, 2)
@@ -4034,12 +4158,12 @@ contains
     end do
     return
   end function ismember_r0i3
-  
+
   logical function ismember_r0r3(x, Y)
     real(kind = RPRE), intent(in) :: x
     real(kind = RPRE), dimension(:,:,:), intent(in) :: Y
     integer(kind = IPRE) :: i, j, k, dim1, dim2, dim3
-    
+
     ismember_r0r3 = .false.
     dim1 = size(Y, 1)
     dim2 = size(Y, 2)
@@ -4077,13 +4201,13 @@ contains
     real(kind = RPRE), dimension(:), intent(in) :: x
     integer(kind = IPRE), intent(in), optional :: m
     integer(kind = IPRE) :: opt_m
-    
+
     opt_m = 3
     if (present(m)) opt_m = m
     isoutlier = abs(x - median(x)) .gt. opt_m*mad(x, 2)
     return
   end function isoutlier
-  
+
 !=======================================================================
 ! issquare
 !-----------------------------------------------------------------------
@@ -4110,12 +4234,12 @@ contains
 
   logical function issquare(A)
     real(kind = RPRE), dimension(:,:), intent(in) :: A
-    
+
     issquare = .false.
     if (size(A, 1) .eq. size(A, 2)) issquare = .true.
     return
   end function issquare
-  
+
 !=======================================================================
 ! issymmetric
 !-----------------------------------------------------------------------
@@ -4140,7 +4264,7 @@ contains
   logical function issymmetric(A)
     real(kind = RPRE), dimension(:,:), intent(in) :: A
     integer(kind = IPRE) :: i, j, n
-    
+
     issymmetric = .true.
     if (.not. issquare(A)) then
       issymmetric = .false.
@@ -4201,7 +4325,7 @@ contains
     real(kind = 8) :: b1, b2, K2
     real(kind = 8) :: Y, beta2, W2, delta, alpha, Z1
     real(kind = 8) :: E, v2, xx, beta1, A, Z2
-    
+
     n = size(x)
     b1 = skewness(x)
     b2 = kurtosis(x)
@@ -4230,7 +4354,7 @@ contains
     !==============
     K2 = Z1*Z1 + Z2*Z2
     p = exp(-0.5*K2)
-    
+
     return
   end function k2test
 
@@ -4267,7 +4391,7 @@ contains
     real(kind = RPRE), intent(in), optional :: bw
     integer(kind = IPRE) :: i, j, n, npts
     real(kind = RPRE) :: opt_bw
-    
+
     n = size(x)
     opt_bw = ( 4.*std(x)**5 / (3.*n) )**0.2
     if (present(bw)) opt_bw = bw
@@ -4278,7 +4402,7 @@ contains
       npts = 100
       xi = linspace(minval(x)-3*opt_bw, maxval(x)+3*opt_bw, npts)
     end if
-    
+
     f = zeros(npts)
     do i = 1, npts
       do j = 1, n
@@ -4288,17 +4412,17 @@ contains
     f = f / ( n * opt_bw )
     return
   contains
-  
+
     !-------------------------------------------------------------------
     ! kgauss
     !-------------------------------------------------------------------
     real(kind = RPRE) function kgauss(x)
       real(kind = RPRE), intent(in) :: x
-      
+
       kgauss = 0.3989422804014327d0 * exp( -0.5d0 * x * x )
       return
     end function kgauss
-    
+
   end subroutine ksdensity1
 
 !=======================================================================
@@ -4344,7 +4468,7 @@ contains
     real(kind = RPRE), dimension(:), intent(in) :: x
     integer(kind = IPRE), intent(in), optional :: flag
     integer(kind = IPRE) :: opt_flag, n
-    
+
     opt_flag = 1
     if (present(flag)) opt_flag = flag
 
@@ -4400,74 +4524,74 @@ contains
 ! x = linspace(0, 10, 11)
 !     0.  1.  2.  3.  4.  5.  6.  7.  8.  9.  10.
 !=======================================================================
-  
+
   function linspace_r8r8(first, last, n)
     real(kind = RPRE), dimension(:), allocatable :: linspace_r8r8
     real(kind = 8), intent(in) :: first, last
     integer(kind = IPRE), intent(in) :: n
     integer(kind = IPRE) :: i
     real(kind = 8) :: step
-    
+
     allocate(linspace_r8r8(n))
     step = ( last - first ) / ( n-1 )
     linspace_r8r8 = first + step * real([ ( i-1, i = 1, n ) ], RPRE)
     return
   end function linspace_r8r8
-  
+
   function linspace_r4r4(first, last, n)
     real(kind = RPRE), dimension(:), allocatable :: linspace_r4r4
     real(kind = 4), intent(in) :: first, last
     integer(kind = IPRE), intent(in) :: n
-    
+
     linspace_r4r4 = linspace(real(first, kind = 8), real(last, kind = 8), n)
     return
   end function linspace_r4r4
-  
+
   function linspace_i4i4(first, last, n)
     real(kind = RPRE), dimension(:), allocatable :: linspace_i4i4
     integer(kind = 4), intent(in) :: first, last
     integer(kind = IPRE), intent(in) :: n
-    
+
     linspace_i4i4 = linspace(real(first, kind = 8), real(last, kind = 8), n)
     return
   end function linspace_i4i4
-  
+
   function linspace_r8i4(first, last, n)
     real(kind = RPRE), dimension(:), allocatable :: linspace_r8i4
     real(kind = 8), intent(in) :: first
     integer(kind = 4), intent(in) :: last
     integer(kind = IPRE), intent(in) :: n
-    
+
     linspace_r8i4 = linspace(first, real(last, kind = 8), n)
     return
   end function linspace_r8i4
-  
+
   function linspace_r4i4(first, last, n)
     real(kind = RPRE), dimension(:), allocatable :: linspace_r4i4
     real(kind = 4), intent(in) :: first
     integer(kind = 4), intent(in) :: last
     integer(kind = IPRE), intent(in) :: n
-    
+
     linspace_r4i4 = linspace(real(first, kind = 8), real(last, kind = 8), n)
     return
   end function linspace_r4i4
-  
+
   function linspace_i4r8(first, last, n)
     real(kind = RPRE), dimension(:), allocatable :: linspace_i4r8
     integer(kind = 4), intent(in) :: first
     real(kind = 8), intent(in) :: last
     integer(kind = IPRE), intent(in) :: n
-    
+
     linspace_i4r8 = linspace(real(first, kind = 8), last, n)
     return
   end function linspace_i4r8
-  
+
   function linspace_i4r4(first, last, n)
     real(kind = RPRE), dimension(:), allocatable :: linspace_i4r4
     integer(kind = 4), intent(in) :: first
     real(kind = 4), intent(in) :: last
     integer(kind = IPRE), intent(in) :: n
-    
+
     linspace_i4r4 = linspace(real(first, kind = 8), real(last, kind = 8), n)
     return
   end function linspace_i4r4
@@ -4517,17 +4641,17 @@ contains
     real(kind = 4), dimension(:), allocatable :: tmp4
     real(kind = 8), dimension(:), allocatable :: tmp8
     type(File) :: infile
-    
+
     opt_kind = 4
     if (present(kind)) opt_kind = kind
-    
+
     infile = File(999, trim(filename))
     inquire(file = filename, size = fs)
     select case(opt_kind)
       case(4)
         if ( mod(fs, 4) .eq. 0 ) then
           dim1 = fs / 4
-          allocate(tmp4(dim1))
+          allocate(tmp4(dim1), loadbin0(dim1))
           call infile%open(4*dim1)
           read(infile%unit, rec = 1) tmp4
           call infile%close()
@@ -4539,7 +4663,7 @@ contains
       case(8)
         if ( mod(fs, 8) .eq. 0 ) then
           dim1 = fs / 8
-          allocate(tmp8(dim1))
+          allocate(tmp8(dim1), loadbin0(dim1))
           call infile%open(8*dim1)
           read(infile%unit, rec = 1) tmp8
           call infile%close()
@@ -4559,7 +4683,8 @@ contains
     real(kind = 4), dimension(:), allocatable :: tmp4
     real(kind = 8), dimension(:), allocatable :: tmp8
     type(File) :: infile
-    
+
+    allocate(loadbin1(dim1))
     infile = File(999, trim(filename))
     select case(kind)
       case(4)
@@ -4577,7 +4702,7 @@ contains
     end select
     return
   end function loadbin1
-  
+
   function loadbin2(filename, kind, dim1, dim2)
     real(kind = RPRE), dimension(:,:), allocatable :: loadbin2
     character(len = *), intent(in) :: filename
@@ -4585,7 +4710,8 @@ contains
     real(kind = 4), dimension(:,:), allocatable :: tmp4
     real(kind = 8), dimension(:,:), allocatable :: tmp8
     type(File) :: infile
-    
+
+    allocate(loadbin2(dim1, dim2))
     infile = File(999, trim(filename))
     select case(kind)
       case(4)
@@ -4603,7 +4729,7 @@ contains
     end select
     return
   end function loadbin2
-  
+
   function loadbin3(filename, kind, dim1, dim2, dim3)
     real(kind = RPRE), dimension(:,:,:), allocatable :: loadbin3
     character(len = *), intent(in) :: filename
@@ -4611,7 +4737,8 @@ contains
     real(kind = 4), dimension(:,:,:), allocatable :: tmp4
     real(kind = 8), dimension(:,:,:), allocatable :: tmp8
     type(File) :: infile
-    
+
+    allocate(loadbin3(dim1, dim2, dim3))
     infile = File(999, trim(filename))
     select case(kind)
       case(4)
@@ -4648,13 +4775,13 @@ contains
 ! A = loadtxt(filename, dim2) loads a 2-dimensional array into A from a
 ! txt file filename. dim2 indicates the number of columns of the array.
 !=======================================================================
-  
+
   function loadtxt1(filename)
     real(kind = RPRE), dimension(:), allocatable :: loadtxt1
     character(len = *), intent(in) :: filename
     integer(kind = IPRE) :: i, m
     type(File) :: infile
-    
+
     infile = File(999, trim(filename))
     m = infile%countlines()
     allocate(loadtxt1(m))
@@ -4665,14 +4792,14 @@ contains
     call infile%close()
     return
   end function loadtxt1
-  
+
   function loadtxt2(filename, dim2)
     real(kind = RPRE), dimension(:,:), allocatable :: loadtxt2
     character(len = *), intent(in) :: filename
     integer(kind = IPRE), intent(in) :: dim2
     integer(kind = IPRE) :: i, j, m
     type(File) :: infile
-    
+
     infile = File(999, trim(filename))
     m = infile%countlines()
     allocate(loadtxt2(m, dim2))
@@ -4761,15 +4888,15 @@ contains
 ! W = lsweight(r, "none") returns the identity matrix.
 !
 ! W = lsweight(r, "biweight") returns the weights using a biweight norm.
-!=======================================================================  
-  
+!=======================================================================
+
   function lsweight(r, ntype)
     real(kind = RPRE), dimension(:,:), allocatable :: lsweight
     real(kind = RPRE), dimension(:), intent(in) :: r
     character(len = *), intent(in) :: ntype
     integer(kind = IPRE) :: i, n
     real(kind = RPRE) :: eps
-    
+
     eps = 4.685d0 * mad(r, 2) / 0.6745d0
     n = size(r)
     if ((eps .eq. 0.0d0) .or. (ntype .eq. "none")) then
@@ -4817,17 +4944,17 @@ contains
 !     4.  5.  6.
 !     7.  8.  9.
 !=======================================================================
-  
+
   subroutine lu(A, L, U)
     real(kind = RPRE), dimension(:,:), intent(in) :: A
     real(kind = RPRE), dimension(:,:), allocatable, intent(out) :: L, U
     integer(kind = IPRE) :: i, j, k, m
-    
+
     if (issquare(A)) then
       m = size(A, 1)
       if (.not. allocated(L)) L = eye(m)
       if (.not. allocated(U)) U = zeros(m, m)
-      
+
       do i = 1, m
         do j = 1, m
           U(i,j) = A(i,j)
@@ -4888,11 +5015,11 @@ contains
 ! x = mad(A, 2, 2) returns a dim1 vector with the median-absolute
 ! -deviation of each row of matrix A.
 !=======================================================================
-  
+
   real(kind = RPRE) function mad1(x, method)
     real(kind = RPRE), dimension(:), intent(in) :: x
     integer(kind = IPRE), intent(in), optional :: method
-    
+
     if ((.not. present(method)) .or. (method .eq. 1)) then
       mad1 = mean(abs(x - mean(x)))
     elseif (method .eq. 2) then
@@ -4900,13 +5027,13 @@ contains
     end if
     return
   end function mad1
-  
+
   function mad2(A, dim, method)
     real(kind = RPRE), dimension(:), allocatable :: mad2
     real(kind = RPRE), dimension(:,:), intent(in) :: A
     integer(kind = IPRE), intent(in), optional :: dim, method
     integer(kind = IPRE) :: i, m, n
-    
+
     m = size(A, 1)
     n = size(A, 2)
     if ((.not. present(dim)) .or. (dim .eq. 1)) then
@@ -4972,20 +5099,20 @@ contains
 ! x = mean(A, 2)
 !     2.  5.  8.
 !=======================================================================
- 
+
   real(kind = RPRE) function mean1(x)
     real(kind = RPRE), dimension(:), intent(in) :: x
-    
+
     mean1 = sum(x)/size(x)
     return
   end function mean1
-  
+
   function mean2(A, dim)
     real(kind = RPRE), dimension(:), allocatable :: mean2
     real(kind = RPRE), dimension(:,:), intent(in) :: A
     integer(kind = IPRE), intent(in), optional :: dim
     integer(kind = IPRE) :: i, m, n
-    
+
     m = size(A, 1)
     n = size(A, 2)
     if ((.not. present(dim)) .or. (dim .eq. 1)) then
@@ -5043,12 +5170,12 @@ contains
 ! x = median(A, 2)
 !     3.  5.  6.
 !=======================================================================
-  
+
   real(kind = RPRE) function median1(x)
     real(kind = RPRE), dimension(:), intent(in) :: x
     real(kind = RPRE), dimension(:), allocatable :: x_sort
     integer(kind = IPRE) :: i, n
-    
+
     n = size(x)
     x_sort = sort(x)
     i = ceiling(real(n/2.0d0))
@@ -5059,13 +5186,13 @@ contains
     end if
     return
   end function median1
-  
+
   function median2(A, dim)
     real(kind = RPRE), dimension(:), allocatable :: median2
     real(kind = RPRE), dimension(:,:), intent(in) :: A
     integer(kind = IPRE), intent(in), optional :: dim
     integer(kind = IPRE) :: i, m, n
-    
+
     m = size(A, 1)
     n = size(A, 2)
     if ((.not. present(dim)) .or. (dim .eq. 1)) then
@@ -5129,10 +5256,10 @@ contains
     end do
     do i = 1, m
       y(:,i) = ay
-    end do    
+    end do
     return
   end subroutine meshgrid2
-  
+
 !=======================================================================
 ! nextpow2
 !-----------------------------------------------------------------------
@@ -5164,15 +5291,15 @@ contains
   function nextpow2_0(x) result(pow)
     integer(kind = IPRE) :: pow
     integer(kind = IPRE), intent(in) :: x
-    
+
     pow = ceiling( log( real( abs(x) ) ) / log(2.) )
     return
   end function nextpow2_0
-  
+
   function nextpow2_1(x) result(pow)
     integer(kind = IPRE), dimension(:), allocatable :: pow
     integer(kind = IPRE), dimension(:), intent(in) :: x
-    
+
     pow = ceiling( log( real( abs(x) ) ) / log(2.) )
     return
   end function nextpow2_1
@@ -5208,7 +5335,7 @@ contains
 ! y = norm(x, 3.)
 !     3.30192733
 !=======================================================================
-  
+
   real(kind = RPRE) function norm1(x, p)
     real(kind = RPRE), dimension(:), intent(in) :: x
     real(kind = RPRE), intent(in), optional :: p
@@ -5222,12 +5349,12 @@ contains
     end if
     return
   end function norm1
-  
+
   real(kind = RPRE) function norm2(A, p)
     real(kind = RPRE), dimension(:,:), intent(in) :: A
     integer(kind = IPRE), intent(in), optional :: p
     real(kind = RPRE), dimension(:), allocatable :: w
-    
+
     if ((.not. present(p)) .or. (p .eq. 2.)) then
       call svd(A, w)
       norm2 = maxval(w)
@@ -5236,7 +5363,7 @@ contains
     end if
     return
   end function norm2
-  
+
 !=======================================================================
 ! normpdf
 !-----------------------------------------------------------------------
@@ -5260,7 +5387,7 @@ contains
 
   real(kind = RPRE) function normpdf0(x, mu, sigma) result(pdf)
     real(kind = RPRE), intent(in) :: x, mu, sigma
-    
+
     pdf = exp( -0.5d0 * ( x - mu )**2 / sigma**2 )
     pdf = pdf / ( sigma * sqrt(2.0d0 * pi) )
     return
@@ -5270,7 +5397,7 @@ contains
     real(kind = RPRE), dimension(:), allocatable :: pdf
     real(kind = RPRE), dimension(:), intent(in) :: x
     real(kind = RPRE), intent(in) :: mu, sigma
-    
+
     pdf = exp( -0.5d0 * ( x - mu )**2 / sigma**2 )
     pdf = pdf / ( sigma * sqrt(2.0d0 * pi) )
     return
@@ -5282,7 +5409,7 @@ contains
     real(kind = RPRE), dimension(:), intent(in) :: mu
     integer(kind = IPRE) :: n
     real(kind = RPRE), dimension(:,:), allocatable :: tmp
-    
+
     n = size(X, 2)
     tmp = X - repmat(mu, size(X, 1), 2)
     pdf = exp( -0.5d0 *sum(matmul(tmp, inv(sigma)) * tmp, dim = 2) )
@@ -5317,7 +5444,7 @@ contains
     integer(kind = 4), intent(in) :: x
     character(len = *), intent(in), optional :: fmt
     character(len = CLEN) :: xstr
-    
+
     if (present(fmt)) then
       write(xstr, fmt) x
     else
@@ -5333,7 +5460,7 @@ contains
     integer(kind = 8), intent(in) :: x
     character(len = *), intent(in), optional :: fmt
     character(len = CLEN) :: xstr
-    
+
     if (present(fmt)) then
       write(xstr, fmt) x
     else
@@ -5343,13 +5470,13 @@ contains
     num2str_i8 = trim(xstr)
     return
   end function num2str_i8
-  
+
   function num2str_r4(x, fmt)
     character(len = :), allocatable :: num2str_r4
     real(kind = 4), intent(in) :: x
     character(len = *), intent(in), optional :: fmt
     character(len = CLEN) :: xstr
-    
+
     if (present(fmt)) then
       write(xstr, fmt) x
     else
@@ -5365,7 +5492,7 @@ contains
     real(kind = 8), intent(in) :: x
     character(len = *), intent(in), optional :: fmt
     character(len = CLEN) :: xstr
-    
+
     if (present(fmt)) then
       write(xstr, fmt) x
     else
@@ -5375,7 +5502,7 @@ contains
     num2str_r8 = trim(xstr)
     return
   end function num2str_r8
-  
+
 !=======================================================================
 ! ones
 !-----------------------------------------------------------------------
@@ -5413,7 +5540,7 @@ contains
     real(kind = RPRE), dimension(:), allocatable :: ones1
     integer(kind = IPRE), intent(in) :: dim1
     integer(kind = IPRE) :: ierr
-    
+
     allocate(ones1(dim1), stat = ierr)
     if ( ierr .ne. 0 ) then
       print *, "Error: in ones, could not allocate array."
@@ -5423,12 +5550,12 @@ contains
     end if
     return
   end function ones1
-  
+
   function ones2(dim1, dim2)
     real(kind = RPRE), dimension(:,:), allocatable :: ones2
     integer(kind = IPRE), intent(in) :: dim1, dim2
     integer(kind = IPRE) :: ierr
-    
+
     allocate(ones2(dim1, dim2), stat = ierr)
     if ( ierr .ne. 0 ) then
       print *, "Error: in ones, could not allocate array."
@@ -5438,12 +5565,12 @@ contains
     end if
     return
   end function ones2
-  
+
   function ones3(dim1, dim2, dim3)
     real(kind = RPRE), dimension(:,:,:), allocatable :: ones3
     integer(kind = IPRE), intent(in) :: dim1, dim2, dim3
     integer(kind = IPRE) :: ierr
-    
+
     allocate(ones3(dim1, dim2, dim3), stat = ierr)
     if ( ierr .ne. 0 ) then
       print *, "Error: in ones, could not allocate array."
@@ -5475,7 +5602,7 @@ contains
   subroutine open1(self)
     class(File), intent(inout) :: self
     integer(kind = IPRE) :: ierr
-    
+
     open(unit = self%unit, file = self%filename, access = "sequential", &
       form = "formatted", status = "unknown", iostat = ierr)
     if (ierr .ne. 0) then
@@ -5484,12 +5611,12 @@ contains
     end if
     return
   end subroutine open1
-  
+
   subroutine open2(self, r)
     class(File), intent(inout) :: self
     integer(kind = IPRE), intent(in) :: r
     integer(kind = IPRE) :: ierr
-    
+
     open(unit = self%unit, file = self%filename, access = "direct", &
       form = "unformatted", status = "unknown", recl = r, iostat = ierr)
     if (ierr .ne. 0) then
@@ -5498,7 +5625,7 @@ contains
     end if
     return
   end subroutine open2
-  
+
 !=======================================================================
 ! pascal
 !-----------------------------------------------------------------------
@@ -5526,7 +5653,7 @@ contains
     integer(kind = IPRE), dimension(:,:), allocatable :: pascal
     integer(kind = IPRE), intent(in) :: n
     integer(kind = IPRE) :: i, j
-    
+
     pascal = ones(n, n)
     do i = 2, n
       do j = 2, n
@@ -5703,7 +5830,7 @@ contains
     randi1_1 = minval(imax) + nint( randu1(dim1) * real(maxval(imax) - minval(imax)) )
     return
   end function randi1_1
-  
+
   function randi2_0(imax, dim1, dim2)
     integer(kind = IPRE), dimension(:,:), allocatable :: randi2_0
     integer(kind = IPRE), intent(in) :: imax, dim1, dim2
@@ -5769,9 +5896,9 @@ contains
 !     -1.22003853  -0.211721316   0.522971511
 !=======================================================================
 
-  real(kind = RPRE) function randn0() 
+  real(kind = RPRE) function randn0()
     real(kind = RPRE) :: u, v, s
-    
+
     do
       u = 2.*randu() - 1.
       v = 2.*randu() - 1.
@@ -5781,7 +5908,7 @@ contains
     randn0 = u * sqrt( -2.0d0 * log(s) / s )
     return
   end function randn0
-  
+
   function randn1(dim1)
     real(kind = RPRE), dimension(:), allocatable :: randn1
     integer(kind = IPRE), intent(in) :: dim1
@@ -5807,7 +5934,7 @@ contains
     end do
     return
   end function randn2
-  
+
   function randn3(dim1, dim2, dim3)
     real(kind = RPRE), dimension(:,:,:), allocatable :: randn3
     integer(kind = IPRE), intent(in) :: dim1, dim2, dim3
@@ -5903,34 +6030,34 @@ contains
     call random_number(randu0)
     return
   end function randu0
-  
+
   function randu1(dim1)
     real(kind = RPRE), dimension(:), allocatable :: randu1
     integer(kind = IPRE), intent(in) :: dim1
-    
+
     allocate(randu1(dim1))
     call random_number(randu1)
     return
   end function randu1
-  
+
   function randu2(dim1, dim2)
     real(kind = RPRE), dimension(:,:), allocatable :: randu2
     integer(kind = IPRE), intent(in) :: dim1, dim2
-    
+
     allocate(randu2(dim1, dim2))
     call random_number(randu2)
     return
   end function randu2
-  
+
   function randu3(dim1, dim2, dim3)
     real(kind = RPRE), dimension(:,:,:), allocatable :: randu3
     integer(kind = IPRE), intent(in) :: dim1, dim2, dim3
-    
+
     allocate(randu3(dim1, dim2, dim3))
     call random_number(randu3)
     return
   end function randu3
-  
+
 !=======================================================================
 ! repmat
 !-----------------------------------------------------------------------
@@ -5960,7 +6087,7 @@ contains
     integer(kind = IPRE), intent(in) :: n1
     integer(kind = IPRE), intent(in), optional :: dim
     integer(kind = IPRE) :: i, m
-    
+
     m = size(x)
     if ((.not. present(dim)) .or. (dim .eq. 1)) then
       repmat1 = zeros(m, n1)
@@ -5981,7 +6108,7 @@ contains
     real(kind = RPRE), dimension(:,:), intent(in) :: A
     integer(kind = IPRE), intent(in) :: n1, n2
     integer(kind = IPRE) :: i, j, m, n
-    
+
     m = size(A, 1)
     n = size(A, 2)
     repmat2 = zeros(m*n1, n*n2)
@@ -6017,20 +6144,20 @@ contains
 ! x = rms(A, 2) returns a dim1 vector with the root-mean-square level of
 ! each row of matrix A.
 !=======================================================================
- 
+
   real(kind = RPRE) function rms1(x)
     real(kind = RPRE), dimension(:), intent(in) :: x
-    
+
     rms1 = sqrt( sum(x*x) / size(x) )
     return
   end function rms1
-  
+
   function rms2(A, dim)
     real(kind = RPRE), dimension(:), allocatable :: rms2
     real(kind = RPRE), dimension(:,:), intent(in) :: A
     integer(kind = IPRE), intent(in), optional :: dim
     integer(kind = IPRE) :: i, m, n
-    
+
     m = size(A, 1)
     n = size(A, 2)
     if ((.not. present(dim)) .or. (dim .eq. 1)) then
@@ -6069,72 +6196,72 @@ contains
 ! call savebin(filename, X) saves a 3-dimensional array into the binary
 ! file filename.
 !=======================================================================
-  
+
   subroutine savebin1_r4(filename, x)
     character(len = *), intent(in) :: filename
     real(kind = 4), dimension(:), intent(in) :: x
     type(File) :: infile
-    
+
     infile = File(999, trim(filename))
     call infile%open(kind(x)*size(x))
     write(infile%unit, rec = 1) x
     call infile%close()
     return
   end subroutine savebin1_r4
-  
+
   subroutine savebin1_r8(filename, x)
     character(len = *), intent(in) :: filename
     real(kind = 8), dimension(:), intent(in) :: x
     type(File) :: infile
-    
+
     infile = File(999, trim(filename))
     call infile%open(kind(x)*size(x))
     write(infile%unit, rec = 1) x
     call infile%close()
     return
   end subroutine savebin1_r8
-  
+
   subroutine savebin2_r4(filename, A)
     character(len = *), intent(in) :: filename
     real(kind = 4), dimension(:,:), intent(in) :: A
     type(File) :: infile
-    
+
     infile = File(999, trim(filename))
     call infile%open(kind(A)*size(A))
     write(infile%unit, rec = 1) A
     call infile%close()
     return
   end subroutine savebin2_r4
-  
+
   subroutine savebin2_r8(filename, A)
     character(len = *), intent(in) :: filename
     real(kind = 8), dimension(:,:), intent(in) :: A
     type(File) :: infile
-    
+
     infile = File(999, trim(filename))
     call infile%open(kind(A)*size(A))
     write(infile%unit, rec = 1) A
     call infile%close()
     return
   end subroutine savebin2_r8
-  
+
   subroutine savebin3_r4(filename, X)
     character(len = *), intent(in) :: filename
     real(kind = 4), dimension(:,:,:), intent(in) :: X
     type(File) :: infile
-    
+
     infile = File(999, trim(filename))
     call infile%open(kind(X)*size(X))
     write(infile%unit, rec = 1) X
     call infile%close()
     return
   end subroutine savebin3_r4
-  
+
   subroutine savebin3_r8(filename, X)
     character(len = *), intent(in) :: filename
     real(kind = 8), dimension(:,:,:), intent(in) :: X
     type(File) :: infile
-    
+
     infile = File(999, trim(filename))
     call infile%open(kind(X)*size(X))
     write(infile%unit, rec = 1) X
@@ -6159,14 +6286,14 @@ contains
 !
 ! call savetxt(filename, A) saves a 2-dimensional array A into the txt
 ! file filename.
-!=======================================================================  
-  
+!=======================================================================
+
   subroutine savetxt1_i4(filename, x)
     character(len = *), intent(in) :: filename
     integer(kind = 4), dimension(:), intent(in) :: x
     integer(kind = IPRE) :: i, m
     type(File) :: infile
-    
+
     infile = File(999, trim(filename))
     m = size(x)
     call infile%open()
@@ -6176,13 +6303,13 @@ contains
     call infile%close()
     return
   end subroutine savetxt1_i4
-  
+
   subroutine savetxt1_r4(filename, x)
     character(len = *), intent(in) :: filename
     real(kind = 4), dimension(:), intent(in) :: x
     integer(kind = IPRE) :: i, m
     type(File) :: infile
-    
+
     infile = File(999, trim(filename))
     m = size(x)
     call infile%open()
@@ -6198,7 +6325,7 @@ contains
     integer(kind = 8), dimension(:), intent(in) :: x
     integer(kind = IPRE) :: i, m
     type(File) :: infile
-    
+
     infile = File(999, trim(filename))
     m = size(x)
     call infile%open()
@@ -6208,13 +6335,13 @@ contains
     call infile%close()
     return
   end subroutine savetxt1_i8
-  
+
   subroutine savetxt1_r8(filename, x)
     character(len = *), intent(in) :: filename
     real(kind = 8), dimension(:), intent(in) :: x
     integer(kind = IPRE) :: i, m
     type(File) :: infile
-    
+
     infile = File(999, trim(filename))
     m = size(x)
     call infile%open()
@@ -6224,13 +6351,13 @@ contains
     call infile%close()
     return
   end subroutine savetxt1_r8
-  
+
   subroutine savetxt2_r4(filename, A)
     character(len = *), intent(in) :: filename
     real(kind = 4), dimension(:,:), intent(in) :: A
     integer(kind = IPRE) :: i, m
     type(File) :: infile
-    
+
     infile = File(999, trim(filename))
     m = size(A, 1)
     call infile%open()
@@ -6240,13 +6367,13 @@ contains
     call infile%close()
     return
   end subroutine savetxt2_r4
-  
+
   subroutine savetxt2_i4(filename, A)
     character(len = *), intent(in) :: filename
     integer(kind = 4), dimension(:,:), intent(in) :: A
     integer(kind = IPRE) :: i, m
     type(File) :: infile
-    
+
     infile = File(999, trim(filename))
     m = size(A, 1)
     call infile%open()
@@ -6262,7 +6389,7 @@ contains
     real(kind = 8), dimension(:,:), intent(in) :: A
     integer(kind = IPRE) :: i, m
     type(File) :: infile
-    
+
     infile = File(999, trim(filename))
     m = size(A, 1)
     call infile%open()
@@ -6272,13 +6399,13 @@ contains
     call infile%close()
     return
   end subroutine savetxt2_r8
-  
+
   subroutine savetxt2_i8(filename, A)
     character(len = *), intent(in) :: filename
     integer(kind = 8), dimension(:,:), intent(in) :: A
     integer(kind = IPRE) :: i, m
     type(File) :: infile
-    
+
     infile = File(999, trim(filename))
     m = size(A, 1)
     call infile%open()
@@ -6378,31 +6505,31 @@ contains
 
   real(kind = RPRE) function sind0(x)
     real(kind = RPRE), intent(in) :: x
-    
+
     sind0 = sin(x*pi/180.0d0)
     return
   end function sind0
-  
+
   function sind1(x)
     real(kind = RPRE), dimension(:), allocatable :: sind1
     real(kind = RPRE), dimension(:), intent(in) :: x
-    
+
     sind1 = sin(x*pi/180.0d0)
     return
   end function sind1
-  
+
   function sind2(A)
     real(kind = RPRE), dimension(:,:), allocatable :: sind2
     real(kind = RPRE), dimension(:,:), intent(in) :: A
-    
+
     sind2 = sin(A*pi/180.0d0)
     return
   end function sind2
-  
+
   function sind3(X)
     real(kind = RPRE), dimension(:,:,:), allocatable :: sind3
     real(kind = RPRE), dimension(:,:,:), intent(in) :: X
-    
+
     sind3 = sin(X*pi/180.0d0)
     return
   end function sind3
@@ -6450,7 +6577,7 @@ contains
     real(kind = RPRE), dimension(:), intent(in) :: x
     integer(kind = IPRE), intent(in), optional :: flag
     integer(kind = IPRE) :: opt_flag, n
-    
+
     opt_flag = 1
     if (present(flag)) opt_flag = flag
 
@@ -6508,26 +6635,26 @@ contains
 ! b = [ 34., 44., 37. ]
 ! x = solve(A, b)
 !     1.  2.  3.
-!=======================================================================  
-  
+!=======================================================================
+
   function solve(A, b) result(x)
     real(kind = RPRE), dimension(:,:), intent(in) :: A
     real(kind = RPRE), dimension(:), intent(in) :: b
     integer :: i, j, m, n
     real(kind = RPRE), dimension(:), allocatable :: w, x, y
     real(kind = RPRE), dimension(:,:), allocatable :: L, U, V
-    
+
     m = size(A, 1)
     n = size(A, 2)
     if (issquare(A)) then
       x = zeros(m)
       y = zeros(m)
       y(1) = b(1)
-      
+
       ! LU decomposition to solve LUx = b
       !===================================
       call lu(A, L, U)
-      
+
       ! Forward substitution: Ly = b
       !==============================
       do i = 2, m
@@ -6536,7 +6663,7 @@ contains
           y(i) = y(i) - y(j)*L(i,j)
         end do
       end do
-      
+
       ! Back substitution: Ux = y
       !===========================
       x(m) = y(m)/U(m,m)
@@ -6574,13 +6701,13 @@ contains
 ! y = sort(x, 2) returns the sorted elements of the vector x in the
 ! descending order.
 !=======================================================================
- 
+
   function sort(x, order)
     real(kind = RPRE), dimension(:), allocatable :: sort
     real(kind = RPRE), dimension(:), intent(in) :: x
     integer(kind = IPRE), intent(in), optional :: order
     integer(kind = IPRE) :: n
-    
+
     n = size(x)
     sort = x
     if ((.not. present(order)) .or. (order .eq. 1)) then
@@ -6589,9 +6716,9 @@ contains
       call quicksort(sort, n, 2)
     end if
     return
-    
+
   contains
-    
+
     !-------------------------------------------------------------------
     ! quicksort
     !-------------------------------------------------------------------
@@ -6600,12 +6727,12 @@ contains
       integer(kind = IPRE), intent(in) :: n, order
       integer(kind = IPRE) :: left, right, marker
       real(kind = RPRE) :: pivot, tmp
-      
+
       if (n .gt. 1) then
         left = 0
         right = n + 1
         pivot = x(randi(n))
-        
+
         select case(order)
           case(1)
             do while ( left .lt. right )
@@ -6640,19 +6767,19 @@ contains
               end if
             end do
         end select
-        
+
         if ( left .eq. right ) then
           marker = left + 1
         else
           marker = left
         end if
-        
+
         call quicksort(x(:marker-1), marker-1, order)
         call quicksort(x(marker:), n-marker+1, order)
       end if
       return
     end subroutine quicksort
-    
+
   end function sort
 
 !=======================================================================
@@ -6680,7 +6807,7 @@ contains
     yq = tmp(1)
     return
   end function spline1_0
-  
+
   function spline1_1(x, y, xq) result(yq)
     real(kind = RPRE), dimension(:), allocatable :: yq
     real(kind = RPRE), dimension(:), intent(in) :: x, y, xq
@@ -6793,7 +6920,7 @@ contains
     ! Loop for each query point
     !===========================
     zq = zeros(nq)
-    
+
     do iq = 1, nq
 
       ! Locate the query point
@@ -6838,10 +6965,10 @@ contains
           zq(iq) = zq(iq) + c(i,j) * t**(i-1) * u**(j-1)
         end do
       end do
-      
-    end do 
+
+    end do
     return
-    
+
   contains
 
     !-------------------------------------------------------------------
@@ -6851,7 +6978,7 @@ contains
       real(kind = RPRE), dimension(:), intent(in) :: x, y
       real(kind = RPRE), dimension(:,:), intent(in) :: zt
       real(kind = RPRE), dimension(:,:), allocatable, intent(out) :: z1, z2, z12
-      
+
       allocate(z1(m, n), z2(m, n), z12(m, n))
 
       ! Middle
@@ -6914,7 +7041,7 @@ contains
       z2(1,n) = ( zt(1,n) - zt(1,n-1) ) / ( y(n) - y(n-1) )
       z12(1,n) = ( zt(2,n) - zt(2,n-1) - zt(1,n) + zt(1,n-1) ) &
                  / ( ( x(2) - x(1) ) * ( y(n) - y(n-1) ) )
-      
+
       ! Lower-left corner
       !===================
       z1(m,1) = ( zt(m,1) - zt(m-1,1) ) / ( x(m) - x(m-1) )
@@ -6928,10 +7055,10 @@ contains
       z2(m,n) = ( zt(m,n) - zt(m,n-1) ) / ( y(n) - y(n-1) )
       z12(m,n) = ( zt(m,n) - zt(m,n-1) - zt(m-1,n) + zt(m-1,n-1) ) &
                  / ( ( x(m) - x(m-1) ) * ( y(m) - y(m-1) ) )
-      
+
       return
     end subroutine zdiff
-    
+
   end function spline2_1
 
   function spline2_2(x, y, z, xq, yq) result(zq)
@@ -6939,13 +7066,13 @@ contains
     real(kind = RPRE), dimension(:), intent(in) :: x, y
     real(kind = RPRE), dimension(:,:), intent(in) :: z, xq, yq
     integer(kind = IPRE) :: m, n
-    
+
     m = size(xq, 1)
     n = size(xq, 2)
     zq = reshape( spline2_1(x, y, z, [ xq ], [ yq ]), shape = [ m, n ] )
     return
   end function spline2_2
-  
+
 !=======================================================================
 ! std
 !-----------------------------------------------------------------------
@@ -6994,11 +7121,11 @@ contains
 
     opt_w = 0
     if (present(w)) opt_w = w
-    
+
     std1 = sqrt(var(x, opt_w))
     return
   end function std1
-  
+
   function std2(A, w, dim)
     real(kind = RPRE), dimension(:), allocatable :: std2
     real(kind = RPRE), dimension(:,:), intent(in) :: A
@@ -7007,7 +7134,7 @@ contains
 
     opt_w = 0
     if (present(w)) opt_w = w
-    
+
     if (.not. present(dim)) then
       std2 = sqrt(var(A, opt_w))
     else
@@ -7052,13 +7179,13 @@ contains
 ! call disp(V)
 !     -0.479671091    0.776690900   -0.408248752
 !     -0.572367728    0.075686932    0.816496611
-!     -0.665064454   -O.625318289   -0.408247977 
+!     -0.665064454   -O.625318289   -0.408247977
 !
 ! Notes
 !-----------------------------------------------------------------------
 ! This code is adapted from Numerical Recipes in Fortran 90.
 !=======================================================================
-  
+
   subroutine svd(a, w, u, v, ierr)
     real(kind = RPRE), dimension(:,:), intent(in) :: a
     real(kind = RPRE), dimension(:), allocatable, intent(out) :: w
@@ -7070,25 +7197,25 @@ contains
     real(kind = RPRE), dimension(:), allocatable :: rv1
     real(kind = RPRE), dimension(:,:), allocatable :: opt_u, opt_v
     logical :: outu = .false., outv = .false., outierr = .false.
-    
+
     m = size(a, 1)
     n = size(a, 2)
-    
+
     if (.not. allocated(w)) allocate(w(n))
     allocate(rv1(n), opt_u(m, n), opt_v(n, n))
 
     opt_u = a
-	  
+
     if (present(u)) outu = .true.
     if (present(v)) outv = .true.
     if (present(ierr)) outierr = .true.
-    
+
     ! Householder reduction to bidiagonal form
     !==========================================
     g = 0.0d0
     scale = 0.0d0
     x = 0.0d0
-    
+
     do i = 1, n
       l = i + 1
       rv1(i) = scale*g
@@ -7118,7 +7245,7 @@ contains
       g = 0.0d0
       s = 0.0d0
       scale = 0.0d0
-      
+
       if ((i .le. m) .and. (i .ne. n)) then
         scale = sum(abs(opt_u(i,l:n)))
         if (scale .ne. 0.0d0) then
@@ -7129,21 +7256,21 @@ contains
           h = f*g - s
           opt_u(i,l) = f - g
           rv1(l:n) = opt_u(i,l:n)/h
-          
+
           if (i .ne. m) then
             do j = l, m
               s = dot_product(opt_u(j,l:n), opt_u(i,l:n))
               opt_u(j,l:n) = opt_u(j,l:n) + s*rv1(l:n)
             end do
           end if
-          
+
           opt_u(i,l:n) = scale*opt_u(i,l:n)
         end if
       end if
-      
+
       x = max(x, abs(w(i)) + abs(rv1(i)))
     end do
-    
+
     ! Accumulation of right-hand transformations
     !============================================
     if (outv) then
@@ -7164,7 +7291,7 @@ contains
         l = i
       end do
     end if
-    
+
     ! Accumulation of left-hand transformations
     !===========================================
     if (outu) then
@@ -7188,7 +7315,7 @@ contains
         opt_u(i,i) = opt_u(i,i) + 1.0d0
       end do
     end if
-    
+
     ! Diagonalization of the bidiagonal form
     !========================================
     tst1 = x
@@ -7196,7 +7323,7 @@ contains
       k1 = n - kk
       k = k1 + 1
       its = 0
-      
+
       ! Test for splitting
       !====================
       520 continue
@@ -7208,7 +7335,7 @@ contains
         tst2 = tst1 + abs(w(l1))
         if (tst2 .eq. tst1) exit
       end do
-      
+
       ! Cancellation of rv1(l) if L greater than 1
       !============================================
       c = 0.0d0
@@ -7232,13 +7359,13 @@ contains
           end do
         end if
       end do
-      
+
       ! Test for convergence
       !======================
       565 continue
       z = w(k)
       if (l .eq. k) goto 650
-      
+
       ! Shift from bottom 2 by 2 minor
       !================================
       if (its .ge. 30) then
@@ -7253,7 +7380,7 @@ contains
       f = 0.5d0*(((g+z)/h)*((g-z)/y) + y/h - h/y)
       g = pythag(f, real(1., kind = RPRE))
       f = x - (z/x)*z + (h/x)*(y/(f + sign(g, f)) - h)
-      
+
       ! Next QR transformation
       !========================
       c = 1.0d0
@@ -7282,7 +7409,7 @@ contains
         end if
         z = pythag(f, h)
         w(i1) = z
-        
+
         ! Rotation can be arbitrary if Z is zero
         !========================================
         if (z .ne. 0.0d0) then
@@ -7304,7 +7431,7 @@ contains
       rv1(k) = f
       w(k) = x
       go to 520
-      
+
       ! Convergence
       !=============
       650 continue
@@ -7315,16 +7442,16 @@ contains
         end if
       end if
     end do
-    
+
     ! Sort singular values
     !======================
     idx = argsort(w, 2)
     w = w(idx)
     if (present(u)) u = opt_u(:,idx)
     if (present(v)) v = opt_v(:,idx)
-    
+
     return
-    
+
   contains
 
     !-------------------------------------------------------------------
@@ -7333,7 +7460,7 @@ contains
     real(kind = RPRE) function pythag(x1, x2)
       real(kind = RPRE), intent(in) :: x1, x2
       real(kind = RPRE) :: r, s, t, u
-      
+
       pythag = max(abs(x1), abs(x2))
       if (pythag .ne. 0.0d0) then
         r = (min(abs(x1), abs(x2))/pythag)**2
@@ -7348,7 +7475,7 @@ contains
       end if
       return
     end function pythag
-    
+
   end subroutine svd
 
 !=======================================================================
@@ -7378,8 +7505,8 @@ contains
 ! criterion. The cut-off singular value corresponds to the singular
 ! value from which the residuals norm is not improved while the solution
 ! norm increases substantially.
-!=======================================================================  
-  
+!=======================================================================
+
   function svdsolve(A, b, cutoff) result(x)
     real(kind = RPRE), dimension(:,:), intent(in) :: A
     real(kind = RPRE), dimension(:), intent(in) :: b
@@ -7387,12 +7514,12 @@ contains
     integer :: i, k, n
     real(kind = RPRE), dimension(:), allocatable :: w, x, xnorm, resnorm
     real(kind = RPRE), dimension(:,:), allocatable :: U, V
-    
+
     n = size(A, 2)
     k = n
     if (present(cutoff)) k = k - cutoff
     xnorm = zeros(n)
-    resnorm = zeros(n)    
+    resnorm = zeros(n)
     call svd(A, w, U, V)
     do i = 1, n
       x = matmul(matmul(matmul(V(:,:i), diag(1/w(:i))), transpose(U(:,:i))), b)
@@ -7429,31 +7556,31 @@ contains
 
   real(kind = RPRE) function tand0(x)
     real(kind = RPRE), intent(in) :: x
-    
+
     tand0 = tan(x*pi/180.0d0)
     return
   end function tand0
-  
+
   function tand1(x)
     real(kind = RPRE), dimension(:), allocatable :: tand1
     real(kind = RPRE), dimension(:), intent(in) :: x
-    
+
     tand1 = tan(x*pi/180.0d0)
     return
   end function tand1
-  
+
   function tand2(A)
     real(kind = RPRE), dimension(:,:), allocatable :: tand2
     real(kind = RPRE), dimension(:,:), intent(in) :: A
-    
+
     tand2 = tan(A*pi/180.0d0)
     return
   end function tand2
-  
+
   function tand3(X)
     real(kind = RPRE), dimension(:,:,:), allocatable :: tand3
     real(kind = RPRE), dimension(:,:,:), intent(in) :: X
-    
+
     tand3 = tan(X*pi/180.0d0)
     return
   end function tand3
@@ -7486,7 +7613,7 @@ contains
 !     Elapsed time: 0.1 seconds.
 !=======================================================================
 
-  subroutine tic() 
+  subroutine tic()
     integer(kind = IPRE) :: values(8)
     call date_and_time(values = values)
     tic_time = datenum( values(1), values(2), values(3), values(5), &
@@ -7494,7 +7621,7 @@ contains
                * 24.0d0 * 60.0d0 * 60.0d0
     return
   end subroutine tic
-  
+
   subroutine toc(t)
     real(kind = 8), intent(out), optional :: t
     integer(kind = IPRE) :: values(8)
@@ -7514,7 +7641,7 @@ contains
     end if
     return
   end subroutine toc
-  
+
 !=======================================================================
 ! trace
 !-----------------------------------------------------------------------
@@ -7538,7 +7665,7 @@ contains
 
   real(kind = RPRE) function trace(A)
     real(kind = RPRE), dimension(:,:), intent(in) :: A
-    
+
     trace = sum(diag(A))
     return
   end function trace
@@ -7581,7 +7708,7 @@ contains
 
     opt_k = 0
     if (present(k)) opt_k = k
-    
+
     m = size(A, 1)
     n = size(A, 2)
     tril_i = A
@@ -7599,7 +7726,7 @@ contains
 
     opt_k = 0
     if (present(k)) opt_k = k
-    
+
     m = size(A, 1)
     n = size(A, 2)
     tril_r = A
@@ -7617,7 +7744,7 @@ contains
 
     opt_k = 0
     if (present(k)) opt_k = k
-    
+
     m = size(A, 1)
     n = size(A, 2)
     tril_c = A
@@ -7665,7 +7792,7 @@ contains
 
     opt_k = 0
     if (present(k)) opt_k = k
-    
+
     m = size(A, 1)
     n = size(A, 2)
     triu_i = A
@@ -7683,7 +7810,7 @@ contains
 
     opt_k = 0
     if (present(k)) opt_k = k
-    
+
     m = size(A, 1)
     n = size(A, 2)
     triu_r = A
@@ -7701,7 +7828,7 @@ contains
 
     opt_k = 0
     if (present(k)) opt_k = k
-    
+
     m = size(A, 1)
     n = size(A, 2)
     triu_c = A
@@ -7745,11 +7872,11 @@ contains
     real(kind = 8) :: E_P2, M1, F, P2, P3, P4, P5
     real(kind = 8) :: p_rad, p_sin, p_sin2, p_cos, p_tan, p_tan2, p_tan4, &
       ep_sin, ep_sin_sqrt
-    
+
     x = east - 500000
     y = north
     if (verify(zl, "OXWVUTSRQPN") .ne. 0) y = y - 10000000
-    
+
     E_P2 = E / (1.0d0 - E)
     M1 = (1 - E / 4 - 3 * E**2 / 64 - 5 * E**3 / 256)
     F = (1 - sqrt(1 - E)) / (1 + sqrt(1 - E))
@@ -7757,32 +7884,32 @@ contains
     P3 = (21.0d0 / 16 * F**2 - 55.0d0 / 32 * F**4)
     P4 = (151.0d0 / 96 * F**3 - 417.0d0 / 128 * F**5)
     P5 = (1097.0d0 / 512 * F**4)
-    
+
     m = y / K0
     mu = m / (R * M1)
-    
+
     p_rad = (mu + P2 * sin(2 * mu) &
                 + P3 * sin(4 * mu) &
                 + P4 * sin(6 * mu) &
                 + P5 * sin(8 * mu))
-                
+
     p_sin = sin(p_rad)
     p_sin2 = p_sin**2
-    
+
     p_cos = cos(p_rad)
-    
+
     p_tan = p_sin / p_cos
     p_tan2 = p_tan**2
     p_tan4 = p_tan2**2
-    
+
     ep_sin = 1 - E * p_sin2
     ep_sin_sqrt = sqrt(1 - E * p_sin2)
-    
+
     n = R/ ep_sin_sqrt
     s = (1 - E) / ep_sin
     c = F * p_cos**2
     c2 = c**2
-    
+
     d = x / (n * K0)
     lat = (p_rad - (p_tan / s) &
           * (d**2 / 2 &
@@ -7791,19 +7918,19 @@ contains
     lon = ( d &
           - d**3 / 6 * (1 + 2 * p_tan2 + c) &
           + d**5 / 120 * (5 - 2 * c + 28 * p_tan2 - 3 * c2 + 8 * E_P2 + 24 * p_tan4)) / p_cos
-          
+
     lat = lat*180.0d0/pi
     lon = lon*180.0d0/pi + (zn - 1) * 6 - 180 + 3
     return
   end subroutine utm2deg0
-  
+
   subroutine utm2deg1(east, north, zn, zl, lat, lon)
     real(kind = RPRE), dimension(:), intent(in) :: east, north
     integer(kind = IPRE), dimension(:), intent(in) :: zn
     character(len = 1), dimension(:), intent(in) :: zl
     real(kind = RPRE), dimension(:), allocatable, intent(out) :: lat, lon
     integer(kind = IPRE) :: i, n
-    
+
     n = size(east)
     allocate(lat(n), lon(n))
     do i = 1, n
@@ -7811,7 +7938,7 @@ contains
     end do
     return
   end subroutine utm2deg1
-  
+
 !=======================================================================
 ! var
 !-----------------------------------------------------------------------
@@ -7860,7 +7987,7 @@ contains
 
     opt_w = 0
     if (present(w)) opt_w = w
-    
+
     select case(opt_w)
       case(0)
         var1 = sum( (x - mean(x))**2 ) / (size(x) - 1)
@@ -7869,7 +7996,7 @@ contains
     end select
     return
   end function var1
-  
+
   function var2(A, w, dim)
     real(kind = RPRE), dimension(:), allocatable :: var2
     real(kind = RPRE), dimension(:,:), intent(in) :: A
@@ -7878,7 +8005,7 @@ contains
 
     opt_w = 0
     if (present(w)) opt_w = w
-    
+
     m = size(A, 1)
     n = size(A, 2)
     if ((.not. present(dim)) .or. (dim .eq. 1)) then
@@ -7893,7 +8020,7 @@ contains
       end do
     end if
   end function var2
-  
+
 !=======================================================================
 ! vertcat
 !-----------------------------------------------------------------------
@@ -7917,7 +8044,7 @@ contains
 ! elements will be filled with zeros.
 !
 ! B = vertcat(x1, A2) concatenates the vector x treated as line vector
-! and the matrix A along the dimension 2. If the length of x and the 
+! and the matrix A along the dimension 2. If the length of x and the
 ! second dimension of A are not equal, empty elements will be filled
 ! with zeros.
 !
@@ -7955,28 +8082,28 @@ contains
     real(kind = RPRE), dimension(:,:), allocatable :: vertcat_r2
     real(kind = RPRE), dimension(:,:), intent(in) :: A1, A2
     integer(kind = IPRE) :: m1, n1, m2, n2
-    
+
     m1 = size(A1, 1)
     n1 = size(A1, 2)
     m2 = size(A2, 1)
     n2 = size(A2, 2)
-    
+
     vertcat_r2 = zeros(m1+m2, max(n1, n2))
     vertcat_r2(1:m1,1:n1) = A1
     vertcat_r2(m1+1:,1:n2) = A2
     return
   end function vertcat_r2
-  
+
   function vertcat_c2(A1, A2)
     complex(kind = RPRE), dimension(:,:), allocatable :: vertcat_c2
     complex(kind = RPRE), dimension(:,:), intent(in) :: A1, A2
     integer(kind = IPRE) :: m1, n1, m2, n2
-    
+
     m1 = size(A1, 1)
     n1 = size(A1, 2)
     m2 = size(A2, 1)
     n2 = size(A2, 2)
-    
+
     vertcat_c2 = zeros(m1+m2, max(n1, n2))
     vertcat_c2(1:m1,1:n1) = A1
     vertcat_c2(m1+1:,1:n2) = A2
@@ -8052,7 +8179,7 @@ contains
     real(kind = RPRE), dimension(:), allocatable :: zeros1
     integer(kind = IPRE), intent(in) :: dim1
     integer(kind = IPRE) :: ierr
-    
+
     allocate(zeros1(dim1), stat = ierr)
     if ( ierr .ne. 0 ) then
       print *, "Error: in zeros, could not allocate array."
@@ -8062,12 +8189,12 @@ contains
     end if
     return
   end function zeros1
-  
+
   function zeros2(dim1, dim2)
     real(kind = RPRE), dimension(:,:), allocatable :: zeros2
     integer(kind = IPRE), intent(in) :: dim1, dim2
     integer(kind = IPRE) :: ierr
-    
+
     allocate(zeros2(dim1, dim2), stat = ierr)
     if ( ierr .ne. 0 ) then
       print *, "Error: in zeros, could not allocate array."
@@ -8077,12 +8204,12 @@ contains
     end if
     return
   end function zeros2
-  
+
   function zeros3(dim1, dim2, dim3)
     real(kind = RPRE), dimension(:,:,:), allocatable :: zeros3
     integer(kind = IPRE), intent(in) :: dim1, dim2, dim3
     integer(kind = IPRE) :: ierr
-    
+
     allocate(zeros3(dim1, dim2, dim3), stat = ierr)
     if ( ierr .ne. 0 ) then
       print *, "Error: in zeros, could not allocate array."
@@ -8092,5 +8219,5 @@ contains
     end if
     return
   end function zeros3
-  
+
 end module forlab
