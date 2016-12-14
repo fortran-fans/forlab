@@ -30,13 +30,14 @@ FC      :=  gfortran
 #FFLAGS  :=  -O3 -ffree-line-length-none
 #FFLAGS  :=  -O3 -ffree-line-length-none -Wall -Wextra -fbounds-check
 #FFLAGS  :=  -O3 -ffree-line-length-none -cpp -Ddo_mpi
-FFLAGS  :=  -O3 -ffast-math -march=native -funroll-loops -fno-protect-parens -flto
+FFLAGS  :=  -O3 -ffast-math -march=native -funroll-loops -fno-protect-parens -flto -fcheck=all
 #
 # ======================================================================
 # Declarations of executables to be compiled and various dependances
 # ======================================================================
 # Name of executable
 TARGET1 :=  example_rand.exe
+TARGET2 :=  example_fit.exe
 
 # Directories
 SRCDIR  :=  src
@@ -47,11 +48,15 @@ MAIN    :=  $(SRCDIR)
 # Link objects to create executable (tab required on second line)
 OBJS1   :=  $(OBJDIR)/forlab.o \
             $(OBJDIR)/example_rand.o
-            
+
+OBJS2   :=  $(OBJDIR)/forlab.o \
+						$(OBJDIR)/example_fit.o
+
 # These routines depend on include file - recompile if include modified
-ALL     :=  $(TARGET1)
+ALL     :=  $(TARGET1) $(TARGET2)
 all: $(ALL)
 example_rand: $(TARGET1)
+example_fit: $(TARGET2)
 
 # ======================================================================
 # General rules, these should not require modification
@@ -67,9 +72,12 @@ $(OBJDIR)/%.o: $(MAIN)/%.f90 | $(OBJDIR)
 $(TARGET1): $(OBJS1)
 	$(FC) $(FFLAGS) -o $@ $(OBJS1)
 
+$(TARGET2): $(OBJS2)
+	$(FC) $(FFLAGS) -o $@ $(OBJS2)
+
 # Utilities
 
-.PHONY: all example_rand clean veryclean
+.PHONY: all example_rand example_fit clean veryclean
 
 clean:
 	rm -rf $(ALL) $(OBJDIR)
