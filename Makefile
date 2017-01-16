@@ -83,7 +83,7 @@ clean:
 	rm -rf $(ALL) $(OBJDIR)
 
 veryclean:
-	rm -rf $(ALL) $(OBJDIR) examples utils/*.txt
+	rm -rf $(ALL) $(OBJDIR) examples
 # ======================================================================
 # That's all
 # ======================================================================

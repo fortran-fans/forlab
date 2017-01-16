@@ -10,7 +10,7 @@
 !     PSL - Research University
 !
 ! Last updated
-!     2016-12-14 16:11
+!     2017-01-16 16:43
 !
 ! Objects
 !-----------------------------------------------------------------------
@@ -68,7 +68,7 @@
 !
 !   K
 !   --
-!   -   kurtosis          -   k2test            -   ksdensity
+!   -   kurtosis          -   k2test            -   kde
 !
 !   L
 !   --
@@ -178,10 +178,10 @@ module forlab
 !=======================================================================
 
   abstract interface
-    real(kind = RPRE) function func(x)
+    real(kind = RPRE) function func1d(x)
       import :: RPRE
       real(kind = RPRE), intent(in) :: x
-    end function func
+    end function func1d
   end interface
 
 !=======================================================================
@@ -461,13 +461,13 @@ module forlab
     ismember_r0r3
 
   !---------------------------------------------------------------------
-  ! Function ksdensity
+  ! Function kde
   !---------------------------------------------------------------------
-  interface ksdensity
-    module procedure ksdensity1
-  end interface ksdensity
-  public :: ksdensity
-  private :: ksdensity1
+  interface kde
+    module procedure kde1, kde2
+  end interface kde
+  public :: kde
+  private :: kde1, kde2
 
   !---------------------------------------------------------------------
   ! Function kurtosis
@@ -3127,7 +3127,7 @@ contains
 !=======================================================================
 
   real(kind = RPRE) function fminbnd(fitness, a, b, eps)
-    procedure(func) :: fitness
+    procedure(func1d) :: fitness
     real(kind = RPRE), intent(in) :: a, b
     real(kind = RPRE), intent(in), optional :: eps
     real(kind = RPRE) :: opt_eps, x1, x2, x3, x4
@@ -4359,71 +4359,116 @@ contains
   end function k2test
 
 !=======================================================================
-! ksdensity
+! kde
 !-----------------------------------------------------------------------
-! ksdensity computes the kernel-density estimate using Gaussian kernels.
+! kde computes the kernel density estimation assuming Gaussian kernels
+! for univariate and bivariate data. The default bandwidth is calculated
+! using Silverman's rule of thumb.
 !
 ! Syntax
 !-----------------------------------------------------------------------
-! call ksdensity(x, f, xi)
-! call ksdensity(x, f, xi, pts)
-! call ksdensity(x, f, xi, bw)
-! call ksdensity(x, f, xi, pts, bw)
+! call kde(x, f, xi)
+! call kde(x, f, xi, bw)
+! call kde(A, f, xi, yi)
+! call kde(A, f, xi, yi, H)
 !
 ! Description
 !-----------------------------------------------------------------------
-! call ksdensity(x, f, xi) returns the probability density estimate f
-! at equally-spaced points xi for the sample data in the vector x.
+! call kde(x, f, xi) returns the probability density estimation f at
+! points xi for the sample data in the vector x.
 !
-! call ksdensity(x, f, xi, pts) returns the PDE f at points xi = pts.
+! call kde(x, f, xi, bw) returns the PDE f at points xi using the kernel
+! bandwidth bw.
 !
-! call ksdensity(x, f, xi, bw) returns the PDE f at points xi using the
-! kernel bandwidth bw.
+! call kde(A, f, xi, yi) returns the PDE f at points xi and yi.
 !
-! call ksdensity(x, f, xi, pts, bw) returns the PDE f at points xi = pts
-! using the kernel bandwidth bw.
+! call kde(A, f, xi, yi, H) returns the PDE f at points xi and yi using
+! the bandwidth H.
 !=======================================================================
 
-  subroutine ksdensity1(x, f, xi, pts, bw)
+  subroutine kde1(x, f, xi, bw)
     real(kind = RPRE), dimension(:), intent(in) :: x
-    real(kind = RPRE), dimension(:), allocatable, intent(out) :: xi, f
-    real(kind = RPRE), dimension(:), intent(in), optional :: pts
+    real(kind = RPRE), dimension(:), allocatable, intent(out) :: f
+    real(kind = RPRE), dimension(:), allocatable, intent(inout), optional :: xi
     real(kind = RPRE), intent(in), optional :: bw
-    integer(kind = IPRE) :: i, j, n, npts
+    integer(kind = IPRE) :: ix, j, n, nx
     real(kind = RPRE) :: opt_bw
+    real(kind = RPRE), dimension(:), allocatable :: opt_xi
 
     n = size(x)
     opt_bw = ( 4.*std(x)**5 / (3.*n) )**0.2
     if (present(bw)) opt_bw = bw
-    if (present(pts)) then
-      npts = size(pts)
-      xi = pts
+    if (present(xi) .and. allocated(xi)) then
+      nx = size(xi)
+      opt_xi = xi
     else
-      npts = 100
-      xi = linspace(minval(x)-3*opt_bw, maxval(x)+3*opt_bw, npts)
+      nx = 100
+      opt_xi = linspace(minval(x)-3*opt_bw, maxval(x)+3*opt_bw, nx)
     end if
 
-    f = zeros(npts)
-    do i = 1, npts
+    f = zeros(nx)
+    do ix = 1, nx
       do j = 1, n
-        f(i) = f(i) + kgauss( ( xi(i) - x(j) ) / opt_bw )
+        f(ix) = f(ix) + 0.3989422804014327 &
+                * exp( -0.5 * ( ( opt_xi(ix) - x(j) ) / opt_bw )**2 )
       end do
     end do
     f = f / ( n * opt_bw )
+
+    if (present(xi) .and. .not. allocated(xi)) xi = opt_xi
     return
-  contains
+  end subroutine kde1
 
-    !-------------------------------------------------------------------
-    ! kgauss
-    !-------------------------------------------------------------------
-    real(kind = RPRE) function kgauss(x)
-      real(kind = RPRE), intent(in) :: x
+  subroutine kde2(A, f, xi, yi, H)
+    real(kind = RPRE), dimension(:,:), intent(in) :: A
+    real(kind = RPRE), dimension(:,:), allocatable, intent(out) :: f
+    real(kind = RPRE), dimension(:), allocatable, intent(inout), optional :: xi, yi
+    real(kind = RPRE), dimension(:,:), intent(in), optional :: H
+    integer(kind = IPRE) :: ix, iy, j, n, nx, ny
+    real(kind = RPRE) :: opt_H(2,2), invH(2,2), detH, x(2)
+    real(kind = RPRE), dimension(:), allocatable :: opt_xi, opt_yi
 
-      kgauss = 0.3989422804014327d0 * exp( -0.5d0 * x * x )
-      return
-    end function kgauss
+    n = size(A, 1)
+    if (present(H)) then
+      opt_H = H
+    else
+      opt_H = 0.
+      opt_H(1,1) = n**(-1./6.) * std(A(:,1))
+      opt_H(2,2) = n**(-1./6.) * std(A(:,2))
+    end if
+    if (present(xi) .and. allocated(xi)) then
+      nx = size(xi)
+      opt_xi = xi
+    else
+      nx = 100
+      opt_xi = linspace(minval(A(:,1))-3*opt_H(1,1), maxval(A(:,1))+3*opt_H(1,1), nx)
+    end if
+    if (present(yi) .and. allocated(yi)) then
+      ny = size(yi)
+      opt_yi = yi
+    else
+      ny = 100
+      opt_yi = linspace(minval(A(:,2))-3*opt_H(2,2), maxval(A(:,2))+3*opt_H(2,2), ny)
+    end if
 
-  end subroutine ksdensity1
+    invH = inv(opt_H)
+    detH = 1. / sqrt(det(opt_H))
+    f = zeros(nx, ny)
+    do ix = 1, nx
+      do iy = 1, ny
+        do j = 1, n
+          x = [ opt_xi(ix), opt_yi(iy) ] - [ A(j,:) ]
+          f(ix,iy) = f(ix, iy) + 0.15915494309189535 * detH &
+                   * exp( -0.5 * dot_product(matmul(x, invH), x) )
+        end do
+      end do
+    end do
+    f = f / real(n, RPRE)
+
+    if (present(xi) .and. .not. allocated(xi)) xi = opt_xi
+    if (present(yi) .and. .not. allocated(yi)) yi = opt_yi
+    return
+  end subroutine kde2
 
 !=======================================================================
 ! kurtosis
