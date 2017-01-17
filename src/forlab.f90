@@ -10,7 +10,7 @@
 !     PSL - Research University
 !
 ! Last updated
-!     2017-01-16 16:43
+!     2017-01-17 13:02
 !
 ! Objects
 !-----------------------------------------------------------------------
@@ -4409,11 +4409,10 @@ contains
     f = zeros(nx)
     do ix = 1, nx
       do j = 1, n
-        f(ix) = f(ix) + 0.3989422804014327 &
-                * exp( -0.5 * ( ( opt_xi(ix) - x(j) ) / opt_bw )**2 )
+        f(ix) = f(ix) + exp( -0.5 * ( ( opt_xi(ix) - x(j) ) / opt_bw )**2 )
       end do
     end do
-    f = f / ( n * opt_bw )
+    f = 0.3989422804014327 * f / ( n * opt_bw )
 
     if (present(xi) .and. .not. allocated(xi)) xi = opt_xi
     return
@@ -4425,16 +4424,14 @@ contains
     real(kind = RPRE), dimension(:), allocatable, intent(inout), optional :: xi, yi
     real(kind = RPRE), dimension(:,:), intent(in), optional :: H
     integer(kind = IPRE) :: ix, iy, j, n, nx, ny
-    real(kind = RPRE) :: opt_H(2,2), invH(2,2), detH, x(2)
+    real(kind = RPRE) :: opt_H(2,2), invH(2,2), x(2)
     real(kind = RPRE), dimension(:), allocatable :: opt_xi, opt_yi
 
     n = size(A, 1)
     if (present(H)) then
       opt_H = H
     else
-      opt_H = 0.
-      opt_H(1,1) = n**(-1./6.) * std(A(:,1))
-      opt_H(2,2) = n**(-1./6.) * std(A(:,2))
+      opt_H = cov(A) * n**(-1./3.)    ! Squared
     end if
     if (present(xi) .and. allocated(xi)) then
       nx = size(xi)
@@ -4452,18 +4449,16 @@ contains
     end if
 
     invH = inv(opt_H)
-    detH = 1. / sqrt(det(opt_H))
     f = zeros(nx, ny)
     do ix = 1, nx
       do iy = 1, ny
         do j = 1, n
           x = [ opt_xi(ix), opt_yi(iy) ] - [ A(j,:) ]
-          f(ix,iy) = f(ix, iy) + 0.15915494309189535 * detH &
-                   * exp( -0.5 * dot_product(matmul(x, invH), x) )
+          f(ix,iy) = f(ix,iy) + exp( -0.5 * dot_product(matmul(x, invH), x) )
         end do
       end do
     end do
-    f = f / real(n, RPRE)
+    f = f / ( sqrt( det( real(2.*pi, RPRE) * opt_H ) ) * real(n, RPRE) )
 
     if (present(xi) .and. .not. allocated(xi)) xi = opt_xi
     if (present(yi) .and. .not. allocated(yi)) yi = opt_yi
