@@ -10,7 +10,7 @@
 !     PSL - Research University
 !
 ! Last updated
-!     2017-01-17 13:02
+!     2017-01-18 16:27
 !
 ! Objects
 !-----------------------------------------------------------------------
@@ -7226,17 +7226,18 @@ contains
 ! This code is adapted from Numerical Recipes in Fortran 90.
 !=======================================================================
 
-  subroutine svd(a, w, u, v, ierr)
+  subroutine svd(a, w, u, v, d, ierr)
     real(kind = RPRE), dimension(:,:), intent(in) :: a
     real(kind = RPRE), dimension(:), allocatable, intent(out) :: w
     real(kind = RPRE), dimension(:,:), allocatable, intent(out), optional :: u, v
+    logical, intent(in), optional :: d
     integer(kind = IPRE), intent(out), optional :: ierr
     integer(kind = IPRE) :: m, n, i, its, i1, j, k, kk, k1, l, ll, l1, mn
     integer(kind = IPRE), dimension(:), allocatable :: idx
     real(kind = RPRE) :: c, f, g, h, s, scale, tst1, tst2, x, y, z
     real(kind = RPRE), dimension(:), allocatable :: rv1
     real(kind = RPRE), dimension(:,:), allocatable :: opt_u, opt_v
-    logical :: outu = .false., outv = .false., outierr = .false.
+    logical :: outu = .false., outv = .false., opt_d = .true., outierr = .false.
 
     m = size(a, 1)
     n = size(a, 2)
@@ -7246,6 +7247,7 @@ contains
 
     opt_u = a
 
+    if (present(d)) opt_d = d
     if (present(u)) outu = .true.
     if (present(v)) outv = .true.
     if (present(ierr)) outierr = .true.
@@ -7485,10 +7487,15 @@ contains
 
     ! Sort singular values
     !======================
-    idx = argsort(w, 2)
-    w = w(idx)
-    if (present(u)) u = opt_u(:,idx)
-    if (present(v)) v = opt_v(:,idx)
+    if ( opt_d ) then
+      idx = argsort(w, 2)
+      w = w(idx)
+      if (present(u)) u = opt_u(:,idx)
+      if (present(v)) v = opt_v(:,idx)
+    else
+      if (present(u)) u = opt_u
+      if (present(v)) v = opt_v
+    end if
 
     return
 
