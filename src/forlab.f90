@@ -10,7 +10,7 @@
 !     PSL - Research University
 !
 ! Last updated
-!     2017-01-18 16:27
+!     2017-01-24 09:30
 !
 ! Objects
 !-----------------------------------------------------------------------
@@ -39,7 +39,8 @@
 !   C
 !   --
 !   -   chol              -   cosd              -   countlines
-!   -   cov               -   cumsum
+!   -   cov               -   cumsum            -   chi2cdf
+!   -   chi2pdf           -   chi2inv           -   chi2rand
 !
 !   D
 !   --
@@ -55,6 +56,10 @@
 !   --
 !   -   File              -   find              -   flip
 !   -   fliplr            -   flipud            -   fminbnd
+!
+!   G
+!   --
+!   -   gammainc
 !
 !   H
 !   --
@@ -261,6 +266,42 @@ module forlab
   private :: bspline2_1, bspline2_2
 
   !---------------------------------------------------------------------
+  ! Function chi2cdf
+  !---------------------------------------------------------------------
+  interface chi2cdf
+    module procedure chi2cdf0, chi2cdf1_0, chi2cdf1_1
+  end interface chi2cdf
+  public :: chi2cdf
+  private :: chi2cdf0, chi2cdf1_0, chi2cdf1_1
+
+  !---------------------------------------------------------------------
+  ! Function chi2inv
+  !---------------------------------------------------------------------
+  interface chi2inv
+    module procedure chi2inv0, chi2inv1_0, chi2inv1_1
+  end interface chi2inv
+  public :: chi2inv
+  private :: chi2inv0, chi2inv1_0, chi2inv1_1
+
+  !---------------------------------------------------------------------
+  ! Function chi2pdf
+  !---------------------------------------------------------------------
+  interface chi2pdf
+    module procedure chi2pdf0, chi2pdf1_0, chi2pdf1_1
+  end interface chi2pdf
+  public :: chi2pdf
+  private :: chi2pdf0, chi2pdf1_0, chi2pdf1_1
+
+  !---------------------------------------------------------------------
+  ! Function chi2rand
+  !---------------------------------------------------------------------
+  interface chi2rand
+    module procedure chi2rand0, chi2rand1
+  end interface chi2rand
+  public :: chi2rand
+  private :: chi2rand0, chi2rand1
+
+  !---------------------------------------------------------------------
   ! Function cosd
   !---------------------------------------------------------------------
   interface cosd
@@ -406,6 +447,15 @@ module forlab
   end interface fliplr
   public :: fliplr
   private :: fliplr_i1, fliplr_r1, fliplr_i2, fliplr_r2
+
+  !---------------------------------------------------------------------
+  ! Function gammainc
+  !---------------------------------------------------------------------
+  interface gammainc
+    module procedure gammainc0, gammainc1_0
+  end interface gammainc
+  public :: gammainc
+  private :: gammainc0, gammainc1_0
 
   !---------------------------------------------------------------------
   ! Function horzcat
@@ -1533,6 +1583,225 @@ contains
     zq = reshape( bspline2_1(x, y, z, [ xq ], [ yq ], k), shape = [ m, n ] )
     return
   end function bspline2_2
+
+!=======================================================================
+! chi2cdf
+!-----------------------------------------------------------------------
+! chi2cdf computes the chi-square cumulative distribution function.
+!
+! Syntax
+!-----------------------------------------------------------------------
+! p = chi2cdf(x, v)
+!
+! Description
+!-----------------------------------------------------------------------
+! p = chi2cdf(x, v) returns the chi-square cdf at each of the values
+! in x.
+!=======================================================================
+
+  real(kind = RPRE) function chi2cdf0(x, v)
+    real(kind = RPRE), intent(in) :: x
+    integer(kind = IPRE), intent(in) :: v
+
+    chi2cdf0 = gammainc(real(x/2., RPRE), real(v/2., RPRE))
+    return
+  end function chi2cdf0
+
+  function chi2cdf1_0(X, v)
+    real(kind = RPRE), dimension(:), allocatable :: chi2cdf1_0
+    real(kind = RPRE), dimension(:), intent(in) :: X
+    integer(kind = IPRE), intent(in) :: v
+    integer(kind = IPRE) :: i, n
+
+    n = size(X)
+    chi2cdf1_0 = zeros(n)
+    do i = 1, n
+      chi2cdf1_0(i) = chi2cdf0(X(i), v)
+    end do
+    return
+  end function chi2cdf1_0
+
+  function chi2cdf1_1(X, V)
+    real(kind = RPRE), dimension(:), allocatable :: chi2cdf1_1
+    real(kind = RPRE), dimension(:), intent(in) :: X
+    integer(kind = IPRE), dimension(:), intent(in) :: V
+    integer(kind = IPRE) :: i, n
+
+    n = size(X)
+    chi2cdf1_1 = zeros(n)
+    do i = 1, n
+      chi2cdf1_1(i) = chi2cdf0(X(i), V(i))
+    end do
+    return
+  end function chi2cdf1_1
+
+!=======================================================================
+! chi2inv
+!-----------------------------------------------------------------------
+! chi2inv computes the chi-square inverse cumulative distribution
+! function.
+!
+! Syntax
+!-----------------------------------------------------------------------
+! x = chi2inv(p, v)
+!
+! Description
+!-----------------------------------------------------------------------
+! x = chi2inv(p, v) returns the chi-square inverse cdf at each of the
+! values in p.
+!=======================================================================
+
+  real(kind = RPRE) function chi2inv0(p, v)
+    real(kind = RPRE), intent(in), target :: p
+    integer(kind = IPRE), intent(in), target :: v
+    real(kind = RPRE) :: a, b
+    real(kind = RPRE), pointer, save :: p_ptr
+    integer(kind = IPRE), pointer, save :: v_ptr
+
+    if ( p .le. 0. .or. p .ge. 1. ) then
+      print *, "Error: in chi2inv0(p, v), p should be between 0 and 1"
+      stop
+    end if
+    if ( v .le. 0 ) then
+      print *, "Error: in chi2inv0(p, v), v should be greater than 0"
+      stop
+    end if
+
+    p_ptr => p
+    v_ptr => v
+    a = 0.
+    b = real(v, RPRE)
+    do while ( chi2cdf(b, v) .lt. p )
+      b = b * b
+    end do
+    chi2inv0 = fminbnd(chi2func, a, b)
+    return
+  contains
+
+    real(kind = RPRE) function chi2func(x)
+      real(kind = RPRE), intent(in) :: x
+      chi2func = abs( chi2cdf0(x, v_ptr) - p_ptr )
+      return
+    end function chi2func
+
+  end function chi2inv0
+
+  function chi2inv1_0(P, v)
+    real(kind = RPRE), dimension(:), allocatable :: chi2inv1_0
+    real(kind = RPRE), dimension(:), intent(in) :: P
+    integer(kind = IPRE), intent(in) :: v
+    integer(kind = IPRE) :: i, n
+
+    n = size(P)
+    chi2inv1_0 = zeros(n)
+    do i = 1, n
+      chi2inv1_0(i) = chi2inv0(P(i), v)
+    end do
+    return
+  end function chi2inv1_0
+
+  function chi2inv1_1(P, V)
+    real(kind = RPRE), dimension(:), allocatable :: chi2inv1_1
+    real(kind = RPRE), dimension(:), intent(in) :: P
+    integer(kind = IPRE), dimension(:), intent(in) :: V
+    integer(kind = IPRE) :: i, n
+
+    n = size(P)
+    chi2inv1_1 = zeros(n)
+    do i = 1, n
+      chi2inv1_1(i) = chi2inv0(P(i), V(i))
+    end do
+    return
+  end function chi2inv1_1
+
+!=======================================================================
+! chi2pdf
+!-----------------------------------------------------------------------
+! chi2pdf computes the chi-square probability distribution function.
+!
+! Syntax
+!-----------------------------------------------------------------------
+! y = chi2pdf(x, v)
+!
+! Description
+!-----------------------------------------------------------------------
+! y = chi2pdf(x, v) returns the chi-square pdf at each of the values
+! in x.
+!=======================================================================
+
+  real(kind = RPRE) function chi2pdf0(x, v)
+    real(kind = RPRE), intent(in) :: x
+    integer(kind = IPRE), intent(in) :: v
+    real(kind = RPRE) :: v2
+
+    if ( x .gt. 0. ) then
+      v2 = 0.5 * real(v, RPRE)
+      chi2pdf0 = 1. / (2.*gamma(v2)) * (x/2)**(v2-1.) * exp(-x/2.)
+    else
+      chi2pdf0 = 0.
+    end if
+    return
+  end function chi2pdf0
+
+  function chi2pdf1_0(X, v)
+    real(kind = RPRE), dimension(:), allocatable :: chi2pdf1_0
+    real(kind = RPRE), dimension(:), intent(in) :: X
+    integer(kind = IPRE), intent(in) :: v
+    integer(kind = IPRE) :: i, n
+
+    n = size(X)
+    chi2pdf1_0 = zeros(n)
+    do i = 1, n
+      chi2pdf1_0(i) = chi2pdf0(X(i), v)
+    end do
+    return
+  end function chi2pdf1_0
+
+  function chi2pdf1_1(X, V)
+    real(kind = RPRE), dimension(:), allocatable :: chi2pdf1_1
+    real(kind = RPRE), dimension(:), intent(in) :: X
+    integer(kind = IPRE), dimension(:), intent(in) :: V
+    integer(kind = IPRE) :: i, n
+
+    n = size(X)
+    chi2pdf1_1 = zeros(n)
+    do i = 1, n
+      chi2pdf1_1(i) = chi2pdf0(X(i), V(i))
+    end do
+    return
+  end function chi2pdf1_1
+
+!=======================================================================
+! chi2rand
+!-----------------------------------------------------------------------
+! chi2rand generates chi-square random numbers.
+!
+! Syntax
+!-----------------------------------------------------------------------
+! r = chi2rand(v)
+! r = chi2rand(v, dim1)
+!
+! Description
+!-----------------------------------------------------------------------
+! r = chi2rand(v) returns a chi-square distributed random number with
+! v degrees of freedom.
+!
+! r = chi2rand(v, dim1) returns a dim1 vector of chi-square distributed
+! random number with v degrees of freedom.
+!=======================================================================
+
+  real(kind = RPRE) function chi2rand0(v)
+    integer(kind = IPRE), intent(in) :: v
+    chi2rand0 = sum(randn(v)**2)
+    return
+  end function chi2rand0
+
+  function chi2rand1(v, dim1)
+    real(kind = RPRE), dimension(:), allocatable :: chi2rand1
+    integer(kind = IPRE), intent(in) :: v, dim1
+    chi2rand1 = sum(randn(dim1, v)**2, dim = 2)
+    return
+  end function chi2rand1
 
 !=======================================================================
 ! chol
@@ -3418,6 +3687,106 @@ contains
     flipud_r2 = A(n:1:-1,:)
     return
   end function flipud_r2
+
+!=======================================================================
+! gammainc
+!-----------------------------------------------------------------------
+! gammainc returns the incomplete gamma function.
+!
+! Syntax
+!-----------------------------------------------------------------------
+! y = gammainc(x, a)
+!
+! Description
+!-----------------------------------------------------------------------
+! y = gammainc(x, a) returns the incomplete gamma function of
+! corresponding elements of x and a.
+!=======================================================================
+
+  real(kind = RPRE) function gammainc0(x, a)
+    real(kind = RPRE), intent(in) :: x, a
+
+    if ( x .lt. 0. .or. a .le. 0.) then
+      print *, "Error: in gammainc, x < 0 and/or a <= 0"
+      stop
+    end if
+    if ( x .lt. a+1. ) then
+      gammainc0 = gser(x, a)
+    else
+      gammainc0 = 1. - gcf(x, a)
+    end if
+
+    return
+  contains
+
+    real(kind = RPRE) function gser(x, a)
+      real(kind = RPRE), intent(in) :: x, a
+      integer(kind = IPRE), parameter :: itermax = 100
+      real(kind = RPRE), parameter :: eps = 3.e-7
+      integer(kind = IPRE) :: n
+      real(kind = RPRE) :: gln, ap, del, s
+
+      gln = log(gamma(a))
+      if ( x .le. 0. ) then
+        gser = 0.
+      else
+        ap = a
+        s = 1. / a
+        del = s
+        do n = 1, itermax
+          ap = ap + 1.
+          del = del * x / ap
+          s = s + del
+          if ( abs(del) .lt. abs(s)*eps ) exit
+        end do
+        gser = s * exp(-x + a * log(x) - gln)
+      end if
+      return
+    end function gser
+
+    real(kind = RPRE) function gcf(x, a)
+      real(kind = RPRE), intent(in) :: x, a
+      integer(kind = IPRE), parameter :: itermax = 100
+      real(kind = RPRE), parameter :: eps = 3.e-7, fpmin = 1.e-30
+      integer(kind = IPRE) :: i
+      real(kind = RPRE) :: an, b, c, d, del, h, gln
+
+      gln = log(gamma(a))
+      b = x + 1. - a
+      c = 1. / fpmin
+      d = 1. / b
+      h = d
+      do i = 1, itermax
+        an = -i * (i - a)
+        b = b + 2
+        d = an * d + b
+        if ( abs(d) .lt. fpmin ) d = fpmin
+        c = b + an / c
+        if ( abs(c) .lt. fpmin ) c = fpmin
+        d = 1. / d
+        del = d * c
+        h = h * del
+        if ( abs(del-1.) .lt. eps ) exit
+      end do
+      gcf = h * exp(-x + a * log(x) - gln)
+      return
+    end function gcf
+
+  end function gammainc0
+
+  function gammainc1_0(X, a)
+    real(kind = RPRE), dimension(:), allocatable :: gammainc1_0
+    real(kind = RPRE), dimension(:), intent(in) :: X
+    real(kind = RPRE), intent(in) :: a
+    integer(kind = IPRE) :: i, n
+
+    n = size(X)
+    gammainc1_0 = zeros(n)
+    do i = 1, n
+      gammainc1_0(i) = gammainc0(X(i), a)
+    end do
+    return
+  end function
 
 !=======================================================================
 ! horzcat

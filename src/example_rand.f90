@@ -3,14 +3,15 @@ program example_rand
   use forlab, only: IPRE, RPRE, randi, randu, randn, randperm, rng, &
                     disp, num2str, mean, std, skewness, kurtosis, k2test, &
                     kde, chol, repmat, linspace, prctile, horzcat, vertcat, &
-                    savebin
+                    chi2rand, chi2inv, zeros, var, savebin
 
   implicit none
 
-  integer(kind = IPRE) :: m, n, n1, n2
+  integer(kind = IPRE) :: i, m, n, n1, n2, df
   integer(kind = IPRE), dimension(:), allocatable :: idx, idx2
+  real(kind = RPRE) :: sig
   real(kind = RPRE), dimension(:), allocatable :: x, y, mu, f1, xi, yi
-  real(kind = RPRE), dimension(:,:), allocatable :: A, B, Sigma, L, R, f2
+  real(kind = RPRE), dimension(:,:), allocatable :: A, B, Sigma, L, R, f2, gam
   character(len = :), allocatable :: outdir
 
   ! Output directory
@@ -46,7 +47,7 @@ program example_rand
 
   ! Create normal 1D data
   !=======================
-  print *; print *, "Statistics for 100000 normally distributed values:"
+  print *; print *, "Statistics for 100000 normally distributed samples:"
 
   n = 100000
   x = randn(n)                ! Normally distributed with mu = 0 and std = 1
@@ -62,6 +63,28 @@ program example_rand
   print *, num2str(count(abs(x) .le. 1.)/real(n, RPRE)*100., "(F6.2)") // "%"
   print *, "Percentage of absolute deviations lower than 2:"
   print *, num2str(count(abs(x) .le. 2.)/real(n, RPRE)*100., "(F6.2)") // "%"
+
+  ! Create chi-square 1D data
+  !===========================
+  print *; print *, "Statistics for 100000 chi-square distributed samples " &
+    // "with 10 degrees of freedom:"
+
+  n = 100000
+  df = 10
+  x = chi2rand(df, n)         ! Chi-square distributed with df = 10
+
+  print *, "Mean: " // num2str(mean(x)) &
+    // " (" // num2str(real(df, RPRE)) // " expected)"
+  print *, "Variance: " // num2str(var(x)) &
+    // " (" // num2str(2.*df) // " expected)"
+  print *, "Skewness: " // num2str(skewness(x)) &
+    // " (" // num2str(sqrt(8./df)) // " expected)"
+  print *, "Kurtosis: " // num2str(kurtosis(x)) &
+    // " (" // num2str(12./df + 3.) // " expected)"
+  print *, "5th percentile: " // num2str(prctile(x, 5)) &
+    // " (" // num2str(chi2inv(0.05, df)) // " expected)"
+  print *, "95th percentile: " // num2str(prctile(x, 95)) &
+    // " (" // num2str(chi2inv(0.95, df)) // " expected)"
 
   ! Create uniform 2D data
   !========================
@@ -140,6 +163,30 @@ program example_rand
   print *, "Results saved in " // outdir
 
   print *; print *, "Run script /utils/view_kde.py to check results."
+
+  ! Checking the property: if X ~ N(mu, sigma²), then (n-1)S²/sigma²
+  ! follows a chi-square distribution with (n-1) degrees of freedom
+  !==================================================================
+  print *; print *, "Checking the property:"
+  print *, "If X ~ N(mu, sigma²), then (n-1)S²/sigma² follows " &
+    // "a chi-square distribution with (n-1) degrees of freedom"
+
+  n = 10000
+  sig = 2.
+  df = 10
+  x = zeros(n)
+  do i = 1, n
+    x(i) = (df+1.) * var(randn(df+1) * sig) / sig**2
+  end do
+  y = chi2rand(df, n)
+
+  call savebin(outdir // "randn_to_chi2.bin", x)
+  call savebin(outdir // "randchi2.bin", y)
+
+  print *, "Number of degrees of freedom: " // num2str(df)
+  print *, "Results saved in " // outdir
+
+  print *; print *, "Run script /utils/view_chi2.py to check results."
 
   print *
   stop
