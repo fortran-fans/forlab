@@ -1,3 +1,10 @@
+!=======================================================================
+! Created by
+!     Keurfon Luu <keurfon.luu@mines-paristech.fr>
+!     MINES ParisTech - Centre de Géosciences
+!     PSL - Research University
+!=======================================================================
+
 program example_rand
 
   use forlab, only: IPRE, RPRE, randi, randu, randn, randperm, rng, &
@@ -15,17 +22,14 @@ program example_rand
   character(len = :), allocatable :: outdir
 
   ! Output directory
-  !==================
   outdir = "examples/rand/"
   call system("rm -rf " // outdir)
   call system("mkdir -p " // outdir)
 
   ! Initialize random number generation
-  !=====================================
   call rng()                  ! The seed is set according to the current time
 
   ! Create random vector of integers (not unique/unique)
-  !======================================================
   print *, "Random integers (not unique/unique):"
 
   idx = randi([ 1, 10 ], 9)   ! Random integers between in [ 1, 15 ]
@@ -34,7 +38,6 @@ program example_rand
   call disp(horzcat(idx, idx2))
 
   ! Create uniform 1D data
-  !========================
   print *; print *, "Uniform 1D data (Y being permutation of X):"
 
   n = 10
@@ -46,7 +49,6 @@ program example_rand
   call disp(horzcat(x, y))
 
   ! Create normal 1D data
-  !=======================
   print *; print *, "Statistics for 100000 normally distributed samples:"
 
   n = 100000
@@ -65,7 +67,6 @@ program example_rand
   print *, num2str(count(abs(x) .le. 2.)/real(n, RPRE)*100., "(F6.2)") // "%"
 
   ! Create chi-square 1D data
-  !===========================
   print *; print *, "Statistics for 100000 chi-square distributed samples " &
     // "with 10 degrees of freedom:"
 
@@ -82,12 +83,11 @@ program example_rand
   print *, "Kurtosis: " // num2str(kurtosis(x)) &
     // " (" // num2str(12./df + 3.) // " expected)"
   print *, "5th percentile: " // num2str(prctile(x, 5)) &
-    // " (" // num2str(chi2inv(0.05, df)) // " expected)"
+    // " (" // num2str(chi2inv(real(0.05, RPRE), df)) // " expected)"
   print *, "95th percentile: " // num2str(prctile(x, 95)) &
-    // " (" // num2str(chi2inv(0.95, df)) // " expected)"
+    // " (" // num2str(chi2inv(real(0.95, RPRE), df)) // " expected)"
 
   ! Create uniform 2D data
-  !========================
   print *; print *, "Uniform 2D data:"
 
   n = 5
@@ -98,7 +98,6 @@ program example_rand
   ! The same can be done for 3D data with randu(n, n, n)
 
   ! Create normal 2D data
-  !=======================
   print *; print *, "Normal 2D data:"
 
   A = randn(n, n)             ! Normally distributed with mu = 0 and std = 1
@@ -108,7 +107,6 @@ program example_rand
   ! The same can be done for 3D data with randn(n, n, n)
 
   ! 1D Kernel Density Estimation
-  !==============================
   print *; print *, "1D Kernel Density Estimation:"
 
   ! Bell 1
@@ -130,7 +128,6 @@ program example_rand
   deallocate(xi)
 
   ! 2D Kernel Density Estimation
-  !==============================
   print *; print *, "2D Kernel Density Estimation:"
 
   ! Bell 1
@@ -166,7 +163,6 @@ program example_rand
 
   ! Checking the property: if X ~ N(mu, sigma²), then (n-1)S²/sigma²
   ! follows a chi-square distribution with (n-1) degrees of freedom
-  !==================================================================
   print *; print *, "Checking the property:"
   print *, "If X ~ N(mu, sigma²), then (n-1)S²/sigma² follows " &
     // "a chi-square distribution with (n-1) degrees of freedom"
@@ -189,6 +185,5 @@ program example_rand
   print *; print *, "Run script /utils/view_chi2.py to check results."
 
   print *
-  stop
 
 end program example_rand
