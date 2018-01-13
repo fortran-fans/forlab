@@ -1,20 +1,20 @@
+!=======================================================================
+! Created by
+!     Keurfon Luu <keurfon.luu@mines-paristech.fr>
+!     MINES ParisTech - Centre de Géosciences
+!     PSL - Research University
+!=======================================================================
+
 program example_interp
 
-  use forlab
+  use forlab, only: IPRE, RPRE, zeros, linspace, meshgrid, interp2, spline2, &
+                    bspline2, savetxt
 
   implicit none
 
-  integer(kind = IPRE) :: i, j, k, m, n, zn, ve, d(7), niter, nx, ny
-  real(kind = RPRE) :: x, lat, lon, east, north
-  integer(kind = IPRE), dimension(:), allocatable :: idx
-  real(kind = RPRE), dimension(:), allocatable :: b, w, ax, axq, ay, ayq, az, y, z, ad, f, xi
-  real(kind = RPRE), dimension(:,:), allocatable :: A, C, L, U1, U2, V, XX, YY, ZZ, xq, yq, zq
-  real(kind = RPRE), dimension(:,:,:), allocatable :: av
-  real(kind = RPRE), dimension(:,:,:,:), allocatable :: tt
-  real(kind = RPRE), dimension(8) :: data = [ 1., 1., 1., 1., 0., 0., 0., 0. ]
-  character(len = 1) :: zl
-  complex(kind = RPRE), dimension(:), allocatable :: cz
-
+  integer(kind = IPRE) :: i, j, nx, ny
+  real(kind = RPRE), dimension(:), allocatable :: ax, ay, axq, ayq
+  real(kind = RPRE), dimension(:,:), allocatable :: A, XX, YY, ZZ, xq, yq
   character(len = :), allocatable :: outdir
 
   ! Output directory
@@ -22,12 +22,13 @@ program example_interp
   call system("mkdir -p " // outdir)
 
   ! Create an undersampled grid to interpolate (Rosenbrock)
-  n = 20
-  A = zeros(n, n)
-  ax = linspace(-5.12, 5.12, n)
-  ay = linspace(-5.12, 5.12, n)
-  do i = 1, n
-    do j = 1, n
+  nx = 10
+  ny = 20
+  A = zeros(ny, nx)
+  ax = linspace(-5.12, 5.12, nx)
+  ay = linspace(-5.12, 5.12, ny)
+  do i = 1, ny
+    do j = 1, nx
       A(i,j) = rosenbrock( [ ay(i), ax(j) ] )
     end do
   end do

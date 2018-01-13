@@ -138,7 +138,7 @@ module forlab
   ! Function bspline2
   !---------------------------------------------------------------------
   interface bspline2
-    module procedure bspline2_1, bspline2_2
+    module procedure bspline2_2
   end interface bspline2
 
   !---------------------------------------------------------------------
@@ -1292,20 +1292,11 @@ contains
 !
 ! Syntax
 !-----------------------------------------------------------------------
-! zq = bspline2(x, y, z, xq, yq)
-! zq = bspline2(x, y, z, xq, yq, order)
 ! ZQ = bspline2(x, y, z, XQ, YQ)
 ! ZQ = bspline2(x, y, z, XQ, YQ, order)
 !
 ! Description
 !-----------------------------------------------------------------------
-! zq = bspline2(x, y, z, xq, yq) returns the approximated vector zq at
-! the query points in xq and yq using a cubic spline (degree 3).
-!
-! zq = bspline2(x, y, z, xq, yq, order) returns the approximated vector
-! zq at the query points in xq and yq with spline curves given the
-! order.
-!
 ! ZQ = bspline2(x, y, Z, XQ, YQ) returns the evaluated matrix ZQ given
 ! mesh type grids XQ and YQ using a bicubic spline (degree 3). ZQ is of
 ! the same shape as XQ and YQ.
@@ -1315,52 +1306,30 @@ contains
 ! is of the same shape as XQ and YQ.
 !=======================================================================
 
-  function bspline2_1(x, y, z, xq, yq, order, n1, n2) result(zq)
-    real(kind = RPRE), dimension(:), allocatable :: zq
-    real(kind = RPRE), dimension(:), intent(in) :: x, y, xq, yq
-    real(kind = RPRE), dimension(:,:), intent(in) :: z
-    integer(kind = IPRE), intent(in), optional :: order, n1, n2
-    integer(kind = IPRE) :: k, m, n, nq, opt_n1, opt_n2
-    real(kind = RPRE), dimension(:,:), allocatable :: bspl_x, bspl_y, bspl_z
-
-    m = size(x)
-    n = size(y)
-    k = 4
-    opt_n1 = 100
-    opt_n2 = 100
-    if (present(order)) k = order
-    if (present(n1)) opt_n1 = n1
-    if (present(n2)) opt_n2 = n2
-    if (k .gt. min(m, n)) then
-      print *, "Error: in bspline2, order k should be less than the " &
-        // "number of control points (" // num2str(k) // " > " &
-        // num2str(min(m, n)) // ")."
-      stop
-    end if
-
-    call bsplrep2(x, y, z, bspl_x, bspl_y, bspl_z, k, opt_n1, opt_n2)
-    zq = spline2(bspl_x(:,1), bspl_y(1,:), bspl_z, xq, yq)
-
-    ! TODO:
-    ! Bilinear interpolation on irregular grid by mapping physical grid
-    ! to logical grid:
-    ! https://www.particleincell.com/2012/quad-interpolation/
-
-    return
-  end function bspline2_1
-
   function bspline2_2(x, y, z, xq, yq, order) result(zq)
     real(kind = RPRE), dimension(:,:), allocatable :: zq
     real(kind = RPRE), dimension(:), intent(in) :: x, y
     real(kind = RPRE), dimension(:,:), intent(in) :: z, xq, yq
     integer(kind = IPRE), intent(in), optional :: order
-    integer(kind = IPRE) :: m, n, k
+    integer(kind = IPRE) :: i, m, n, ny, k
+    real(kind = RPRE), dimension(:,:), allocatable :: tmp
 
     m = size(xq, 1)
     n = size(xq, 2)
+    ny = size(y)
     k = 4
     if (present(order)) k = order
-    zq = reshape( bspline2_1(x, y, z, [ xq ], [ yq ], k), shape = [ m, n ] )
+
+    tmp = zeros(ny, n)
+    do i = 1, ny
+      tmp(i,:) = bspline1(x, z(i,:), xq(i,:), k)
+    end do
+
+    zq = zeros(m, n)
+    do i = 1, n
+      zq(:,i) = bspline1(y, tmp(:,i), yq(:,i), k)
+    end do
+
     return
   end function bspline2_2
 
