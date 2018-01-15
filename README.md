@@ -3,7 +3,7 @@ Forlab is a Fortran module that provides a lot of functions for scientific compu
 
 | | |  
 |:-:|---|
-| **Version:** | 1.0.1 |
+| **Version:** | 1.0.2 |
 | **Author:** | Keurfon Luu |
 | **Web site:** | https://github.com/keurfonluu/forlab |
 | **Copyright:** | This document has been placed in the public domain. |

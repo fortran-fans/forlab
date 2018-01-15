@@ -63,11 +63,11 @@ module forlab
     integer(kind = IPRE) :: unit
     character(len = CLEN) :: filename
   contains
-    generic, public :: open => open1, open2
-    procedure, private :: open1, open2
+    procedure, private :: open1, open2, countlines1, file_exist
     procedure, public :: close
+    generic, public :: open => open1, open2
     generic, public :: countlines => countlines1
-    procedure, private :: countlines1
+    generic, public :: exist => file_exist
   end type File
 
 !=======================================================================
@@ -3066,6 +3066,28 @@ contains
   end subroutine eig
 
 !=======================================================================
+! file_exist
+!-----------------------------------------------------------------------
+! file_exist determines whether a File object already exists.
+!
+! Syntax
+!-----------------------------------------------------------------------
+! exist = ofile % exist()
+!
+! Description
+!-----------------------------------------------------------------------
+! call ofile % exist() returns .true. if the File object ofile exists,
+! .false. otherwise.
+!=======================================================================
+
+  logical function file_exist(self)
+    class(File), intent(inout) :: self
+
+    inquire(file = trim(self % filename), exist = file_exist)
+    return
+  end function file_exist
+
+!=======================================================================
 ! eye
 !-----------------------------------------------------------------------
 ! eye creates the identity matrix.
@@ -3150,8 +3172,8 @@ contains
     integer(kind = IPRE), intent(in) :: unit
     character(len = *), intent(in) :: filename
 
-    init_File%unit = unit
-    init_File%filename = trim(filename)
+    init_File % unit = unit
+    init_File % filename = trim(filename)
     return
   end function init_File
 
@@ -5139,33 +5161,38 @@ contains
     if (present(kind)) opt_kind = kind
 
     infile = File(999, trim(filename))
-    inquire(file = filename, size = fs)
-    select case(opt_kind)
-      case(4)
-        if ( mod(fs, 4) .eq. 0 ) then
-          dim1 = fs / 4
-          allocate(tmp4(dim1), loadbin0(dim1))
-          call infile%open(4*dim1)
-          read(infile%unit, rec = 1) tmp4
-          call infile%close()
-          loadbin0 = tmp4
-        else
-          print *, "Error: in loadbin, file size mismatches kind."
-          stop
-        end if
-      case(8)
-        if ( mod(fs, 8) .eq. 0 ) then
-          dim1 = fs / 8
-          allocate(tmp8(dim1), loadbin0(dim1))
-          call infile%open(8*dim1)
-          read(infile%unit, rec = 1) tmp8
-          call infile%close()
-          loadbin0 = tmp8
-        else
-          print *, "Error: in loadbin, file size mismatches kind."
-          stop
-        end if
-    end select
+    if ( infile % exist() ) then
+      inquire(file = filename, size = fs)
+      select case(opt_kind)
+        case(4)
+          if ( mod(fs, 4) .eq. 0 ) then
+            dim1 = fs / 4
+            allocate(tmp4(dim1), loadbin0(dim1))
+            call infile % open(4*dim1)
+            read(infile % unit, rec = 1) tmp4
+            call infile % close()
+            loadbin0 = tmp4
+          else
+            print *, "Error: in loadbin, file size mismatches kind."
+            stop
+          end if
+        case(8)
+          if ( mod(fs, 8) .eq. 0 ) then
+            dim1 = fs / 8
+            allocate(tmp8(dim1), loadbin0(dim1))
+            call infile % open(8*dim1)
+            read(infile % unit, rec = 1) tmp8
+            call infile % close()
+            loadbin0 = tmp8
+          else
+            print *, "Error: in loadbin, file size mismatches kind."
+            stop
+          end if
+      end select
+    else
+      print *, "Error: '" // trim(filename) // "' not found"
+      stop
+    end if
     return
   end function loadbin0
 
@@ -5177,22 +5204,27 @@ contains
     real(kind = 8), dimension(:), allocatable :: tmp8
     type(File) :: infile
 
-    allocate(loadbin1(dim1))
     infile = File(999, trim(filename))
-    select case(kind)
-      case(4)
-        allocate(tmp4(dim1))
-        call infile%open(4*dim1)
-        read(infile%unit, rec = 1) tmp4
-        call infile%close()
-        loadbin1 = tmp4
-      case(8)
-        allocate(tmp8(dim1))
-        call infile%open(8*dim1)
-        read(infile%unit, rec = 1) tmp8
-        call infile%close()
-        loadbin1 = tmp8
-    end select
+    if ( infile % exist() ) then
+      allocate(loadbin1(dim1))
+      select case(kind)
+        case(4)
+          allocate(tmp4(dim1))
+          call infile % open(4*dim1)
+          read(infile % unit, rec = 1) tmp4
+          call infile % close()
+          loadbin1 = tmp4
+        case(8)
+          allocate(tmp8(dim1))
+          call infile % open(8*dim1)
+          read(infile % unit, rec = 1) tmp8
+          call infile % close()
+          loadbin1 = tmp8
+      end select
+    else
+      print *, "Error: '" // trim(filename) // "' not found"
+      stop
+    end if
     return
   end function loadbin1
 
@@ -5204,22 +5236,27 @@ contains
     real(kind = 8), dimension(:,:), allocatable :: tmp8
     type(File) :: infile
 
-    allocate(loadbin2(dim1, dim2))
     infile = File(999, trim(filename))
-    select case(kind)
-      case(4)
-        allocate(tmp4(dim1, dim2))
-        call infile%open(4*dim1*dim2)
-        read(infile%unit, rec = 1) tmp4
-        call infile%close()
-        loadbin2 = tmp4
-      case(8)
-        allocate(tmp8(dim1, dim2))
-        call infile%open(8*dim1*dim2)
-        read(infile%unit, rec = 1) tmp8
-        call infile%close()
-        loadbin2 = tmp8
-    end select
+    if ( infile % exist() ) then
+      allocate(loadbin2(dim1, dim2))
+      select case(kind)
+        case(4)
+          allocate(tmp4(dim1, dim2))
+          call infile % open(4*dim1*dim2)
+          read(infile % unit, rec = 1) tmp4
+          call infile % close()
+          loadbin2 = tmp4
+        case(8)
+          allocate(tmp8(dim1, dim2))
+          call infile % open(8*dim1*dim2)
+          read(infile % unit, rec = 1) tmp8
+          call infile % close()
+          loadbin2 = tmp8
+      end select
+    else
+      print *, "Error: '" // trim(filename) // "' not found"
+      stop
+    end if
     return
   end function loadbin2
 
@@ -5231,22 +5268,27 @@ contains
     real(kind = 8), dimension(:,:,:), allocatable :: tmp8
     type(File) :: infile
 
-    allocate(loadbin3(dim1, dim2, dim3))
     infile = File(999, trim(filename))
-    select case(kind)
-      case(4)
-        allocate(tmp4(dim1, dim2, dim3))
-        call infile%open(4*dim1*dim2*dim3)
-        read(infile%unit, rec = 1) tmp4
-        call infile%close()
-        loadbin3 = tmp4
-      case(8)
-        allocate(tmp8(dim1, dim2, dim3))
-        call infile%open(8*dim1*dim2*dim3)
-        read(infile%unit, rec = 1) tmp8
-        call infile%close()
-        loadbin3 = tmp8
-    end select
+    if ( infile % exist() ) then
+      allocate(loadbin3(dim1, dim2, dim3))
+      select case(kind)
+        case(4)
+          allocate(tmp4(dim1, dim2, dim3))
+          call infile % open(4*dim1*dim2*dim3)
+          read(infile % unit, rec = 1) tmp4
+          call infile % close()
+          loadbin3 = tmp4
+        case(8)
+          allocate(tmp8(dim1, dim2, dim3))
+          call infile % open(8*dim1*dim2*dim3)
+          read(infile % unit, rec = 1) tmp8
+          call infile % close()
+          loadbin3 = tmp8
+      end select
+    else
+      print *, "Error: '" // trim(filename) // "' not found"
+      stop
+    end if
     return
   end function loadbin3
 
@@ -5269,40 +5311,50 @@ contains
 ! txt file filename. dim2 indicates the number of columns of the array.
 !=======================================================================
 
-  function loadtxt1(filename)
-    real(kind = RPRE), dimension(:), allocatable :: loadtxt1
-    character(len = *), intent(in) :: filename
-    integer(kind = IPRE) :: i, m
-    type(File) :: infile
+function loadtxt1(filename)
+  real(kind = RPRE), dimension(:), allocatable :: loadtxt1
+  character(len = *), intent(in) :: filename
+  integer(kind = IPRE) :: i, m
+  type(File) :: infile
 
-    infile = File(999, trim(filename))
-    m = infile%countlines()
+  infile = File(999, trim(filename))
+  if ( infile % exist() ) then
+    m = infile % countlines()
     allocate(loadtxt1(m))
-    call infile%open()
+    call infile % open()
     do i = 1, m
-      read(infile%unit,*) loadtxt1(i)
+      read(infile % unit, *) loadtxt1(i)
     end do
-    call infile%close()
-    return
-  end function loadtxt1
+    call infile % close()
+  else
+    print *, "Error: '" // trim(filename) // "' not found"
+    stop
+  end if
+  return
+end function loadtxt1
 
-  function loadtxt2(filename, dim2)
-    real(kind = RPRE), dimension(:,:), allocatable :: loadtxt2
-    character(len = *), intent(in) :: filename
-    integer(kind = IPRE), intent(in) :: dim2
-    integer(kind = IPRE) :: i, j, m
-    type(File) :: infile
+function loadtxt2(filename, dim2)
+  real(kind = RPRE), dimension(:,:), allocatable :: loadtxt2
+  character(len = *), intent(in) :: filename
+  integer(kind = IPRE), intent(in) :: dim2
+  integer(kind = IPRE) :: i, j, m
+  type(File) :: infile
 
-    infile = File(999, trim(filename))
-    m = infile%countlines()
+  infile = File(999, trim(filename))
+  if ( infile % exist() ) then
+    m = infile % countlines()
     allocate(loadtxt2(m, dim2))
-    call infile%open()
+    call infile % open()
     do i = 1, m
-      read(infile%unit,*) (loadtxt2(i,j), j = 1, dim2)
+      read(infile % unit, *) (loadtxt2(i,j), j = 1, dim2)
     end do
-    call infile%close()
-    return
-  end function loadtxt2
+    call infile % close()
+  else
+    print *, "Error: '" // trim(filename) // "' not found"
+    stop
+  end if
+  return
+end function loadtxt2
 
 !=======================================================================
 ! log2
@@ -6444,14 +6496,14 @@ contains
 !
 ! Syntax
 !-----------------------------------------------------------------------
-! call ofile%open()
-! call ofile%open(r)
+! call ofile % open()
+! call ofile % open(r)
 !
 ! Description
 !-----------------------------------------------------------------------
-! call ofile%open() open the File object ofile with sequential access.
+! call ofile % open() open the File object ofile with sequential access.
 !
-! call ofile%open(r) open the File object ofile with direct access,
+! call ofile % open(r) open the File object ofile with direct access,
 ! where r is the record length.
 !=======================================================================
 
@@ -6459,10 +6511,10 @@ contains
     class(File), intent(inout) :: self
     integer(kind = IPRE) :: ierr
 
-    open(unit = self%unit, file = self%filename, access = "sequential", &
+    open(unit = self % unit, file = self % filename, access = "sequential", &
       form = "formatted", status = "unknown", iostat = ierr)
-    if (ierr .ne. 0) then
-      print *, "Error: Cannot read "//self%filename//" ."
+    if ( ierr .ne. 0 ) then
+      print *, "Error: cannot read '" // trim(self % filename) // "'"
       stop
     end if
     return
@@ -6473,10 +6525,10 @@ contains
     integer(kind = IPRE), intent(in) :: r
     integer(kind = IPRE) :: ierr
 
-    open(unit = self%unit, file = self%filename, access = "direct", &
+    open(unit = self % unit, file = self % filename, access = "direct", &
       form = "unformatted", status = "unknown", recl = r, iostat = ierr)
-    if (ierr .ne. 0) then
-      print *, "Error: Cannot read "//self%filename//" ."
+    if ( ierr .ne. 0 ) then
+      print *, "Error: cannot read '" // trim(self % filename) // "'"
       stop
     end if
     return
