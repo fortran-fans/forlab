@@ -126,7 +126,7 @@ $(TARGET3): $(OBJS3)
 	$(COMPILE) -o $@ $(OBJS3)
 
 # Utilities
-.PHONY: $(ALL) clean veryclean
+.PHONY: rand cluster2d interp clean veryclean
 
 clean:
 	rm -rf $(ALL) $(OBJDIR)
