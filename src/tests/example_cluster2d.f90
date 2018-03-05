@@ -15,6 +15,7 @@ program example_cluster2d
 
   integer(kind = IPRE) :: i, j, k, itermax, kmax
   integer(kind = IPRE), dimension(:), allocatable :: idx
+  real(kind = RPRE) :: perc = 0.2
   real(kind = RPRE), dimension(:), allocatable :: x, y, mu, sil, db
   real(kind = RPRE), dimension(:,:), allocatable :: A, B, L, R, Sigma, means
   character(len = :), allocatable :: outdir, method
@@ -75,7 +76,7 @@ program example_cluster2d
   case("kmeans")
     idx = kmeans(A, k, means = means, itermax = itermax)
   case("mbkmeans")
-    idx = mbkmeans(A, k, perc = 0.2, means = means, itermax = itermax)
+    idx = mbkmeans(A, k, perc = perc, means = means, itermax = itermax)
   case("gmm")
     idx = gmm(A, k, means = means, itermax = itermax)
   end select

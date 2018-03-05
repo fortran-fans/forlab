@@ -1,9 +1,9 @@
 # Forlab
-Forlab is a Fortran module that provides a lot of functions for scientific computing mostly inspired by Matlab and Python's module NumPy. 
+Forlab is a Fortran module that provides a lot of functions for scientific computing mostly inspired by Matlab and Python's module NumPy.
 
 | | |  
 |:-:|---|
-| **Version:** | 1.0.2 |
+| **Version:** | 1.0.3 |
 | **Author:** | Keurfon Luu |
 | **Web site:** | https://github.com/keurfonluu/forlab |
 | **Copyright:** | This document has been placed in the public domain. |

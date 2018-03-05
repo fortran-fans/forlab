@@ -46,7 +46,7 @@ module forlab
     hann, interp1, interp2, interp3, inv, ismember, isoutlier, issquare, &
     isleap, issymmetric, kurtosis, k2test, kde, loadtxt, loadbin, linspace, &
     mean, median, mad, meshgrid, nextpow2, norm, normpdf, num2str, ones, &
-    pascal, prctile, progress_bar, progress_perc, rng, randu, randn, &
+    outer, pascal, prctile, progress_bar, progress_perc, rng, randu, randn, &
     randi, randperm, repmat, rms, savetxt, savebin, sind, sort, solve, &
     svd, svdsolve, std, spline1, spline2, skewness, signum, sinc, &
     split_argument, tand, tic, toc, trace, tril, triu, utm2deg, vertcat, &
@@ -6533,6 +6533,31 @@ end function loadtxt2
     end if
     return
   end subroutine open2
+
+!=======================================================================
+! outer
+!-----------------------------------------------------------------------
+! outer computes the outer product of two vectors.
+!
+! Syntax
+!-----------------------------------------------------------------------
+! A = outer(x, y)
+!
+! Description
+!-----------------------------------------------------------------------
+! A = outer(x, y) returns the outer product of vectors x and y.
+!=======================================================================
+
+  function outer(x, y) result(A)
+    real(kind = RPRE), dimension(:,:), allocatable :: A
+    real(kind = RPRE), dimension(:), intent(in) :: x, y
+    integer(kind = IPRE) :: m, n
+
+    m = size(x)
+    n = size(y)
+    A = spread(x, 2, n) * spread(y, 1, m)
+    return
+  end function outer
 
 !=======================================================================
 ! pascal
