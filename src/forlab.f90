@@ -17,9 +17,9 @@
 
 module forlab
 
-#ifdef do_mpi
-  use mpi
-#endif
+! #ifdef do_mpi
+!   use mpi
+! #endif
 
   implicit none
 
@@ -28,7 +28,7 @@ module forlab
 !=======================================================================
 
   integer, public, parameter :: IPRE = 4
-  integer, public, parameter :: RPRE = 4
+  integer, public, parameter :: RPRE = 8
   integer, public, parameter :: CLEN = 512
   real(kind = 8), public, parameter :: pi = 3.141592653589793238460d0
   real(kind = 8), public, save :: tic_time
@@ -51,9 +51,10 @@ module forlab
     svd, svdsolve, std, spline1, spline2, skewness, signum, sinc, &
     split_argument, tand, tic, toc, trace, tril, triu, utm2deg, vertcat, &
     var, zeros, dbindex, gmm, kmeans, mbkmeans, silhouette
-#ifdef do_mpi
+! #ifdef do_mpi
   public :: mpi_rpre
-#endif
+! #endif
+  public :: operator(.i.)
 
 !=======================================================================
 ! Object File
@@ -334,6 +335,13 @@ module forlab
   end interface interp3
 
   !---------------------------------------------------------------------
+  ! Function inv
+  !---------------------------------------------------------------------
+  interface inv
+    module procedure inv0
+  end interface inv
+
+  !---------------------------------------------------------------------
   ! Function ismember
   !---------------------------------------------------------------------
   interface ismember
@@ -463,6 +471,12 @@ module forlab
     module procedure ones1, ones2, ones3
   end interface ones
 
+  !---------------------------------------------------------------------
+  ! Operator .i.
+  !---------------------------------------------------------------------
+  interface operator(.i.)
+    module procedure inv0
+  end interface operator(.i.)
   !---------------------------------------------------------------------
   ! Function prctile
   !---------------------------------------------------------------------
@@ -4267,31 +4281,31 @@ contains
   end function interp3_1
 
 !=======================================================================
-! inv
+! inv0
 !-----------------------------------------------------------------------
-! inv computes the matrix inverse.
+! inv0 computes the real matrix inverse.
 !
 ! Syntax
 !-----------------------------------------------------------------------
-! B = inv(A)
+! B = inv0(A)
 !
 ! Description
 !-----------------------------------------------------------------------
-! B = inv(A) returns the inverse of the matrix A if A is inversible
+! B = inv0(A) returns the inverse of the real matrix A if A is inversible
 ! (det(A) /= 0.).
 !
 ! Examples
 !-----------------------------------------------------------------------
 ! A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 0. ], [ 3, 3 ], &
 !             order = [ 2, 1 ])
-! B = inv(A)
+! B = inv0(A)
 !     -1.77777779   0.888888896  -0.111111112
 !      1.55555558  -0.777777791   0.222222224
 !     -0.11111112   0.222222224  -0.111111112
 !=======================================================================
 
-  function inv(A)
-    real(kind = RPRE), dimension(:,:), allocatable :: inv
+  function inv0(A)
+    real(kind = RPRE), dimension(:,:), allocatable :: inv0
     real(kind = RPRE), dimension(:,:), intent(in) :: A
     integer(kind = IPRE) :: i, j, k, m
     real(kind = RPRE) :: D
@@ -4306,24 +4320,24 @@ contains
         D = det(A, L, U)
       end if
       if (D .ne. 0.) then
-        inv = zeros(m, m)
+        inv0 = zeros(m, m)
         if (m .eq. 2) then
-          inv(1,1) = A(2,2)
-          inv(1,2) = -A(1,2)
-          inv(2,1) = -A(2,1)
-          inv(2,2) = A(1,1)
-          inv = inv/D
+          inv0(1,1) = A(2,2)
+          inv0(1,2) = -A(1,2)
+          inv0(2,1) = -A(2,1)
+          inv0(2,2) = A(1,1)
+          inv0 = inv0/D
         elseif (m .eq. 3) then
-          inv(1,1) = A(2,2)*A(3,3) - A(2,3)*A(3,2)
-          inv(1,2) = A(1,3)*A(3,2) - A(1,2)*A(3,3)
-          inv(1,3) = A(1,2)*A(2,3) - A(1,3)*A(2,2)
-          inv(2,1) = A(2,3)*A(3,1) - A(2,1)*A(3,3)
-          inv(2,2) = A(1,1)*A(3,3) - A(1,3)*A(3,1)
-          inv(2,3) = A(1,3)*A(2,1) - A(1,1)*A(2,3)
-          inv(3,1) = A(2,1)*A(3,2) - A(2,2)*A(3,1)
-          inv(3,2) = A(1,2)*A(3,1) - A(1,1)*A(3,2)
-          inv(3,3) = A(1,1)*A(2,2) - A(1,2)*A(2,1)
-          inv = inv/D
+          inv0(1,1) = A(2,2)*A(3,3) - A(2,3)*A(3,2)
+          inv0(1,2) = A(1,3)*A(3,2) - A(1,2)*A(3,3)
+          inv0(1,3) = A(1,2)*A(2,3) - A(1,3)*A(2,2)
+          inv0(2,1) = A(2,3)*A(3,1) - A(2,1)*A(3,3)
+          inv0(2,2) = A(1,1)*A(3,3) - A(1,3)*A(3,1)
+          inv0(2,3) = A(1,3)*A(2,1) - A(1,1)*A(2,3)
+          inv0(3,1) = A(2,1)*A(3,2) - A(2,2)*A(3,1)
+          inv0(3,2) = A(1,2)*A(3,1) - A(1,1)*A(3,2)
+          inv0(3,3) = A(1,1)*A(2,2) - A(1,2)*A(2,1)
+          inv0 = inv0/D
         else
           do k = 1, m
             x = zeros(m)
@@ -4354,7 +4368,7 @@ contains
 
             ! The column k of the inverse is x
             !==================================
-            inv(:,k) = x
+            inv0(:,k) = x
           end do
         end if
       else
@@ -4364,7 +4378,7 @@ contains
       stop "Error: in inv(A), A should be square."
     end if
     return
-  end function inv
+  end function inv0
 
 !=======================================================================
 ! isleap
@@ -6155,18 +6169,18 @@ end function loadtxt2
 ! When calling MPI functions, use mpi_rpre instead of MPI_REAL or
 ! MPI_DOUBLE.
 !=======================================================================
-
-#ifdef do_mpi
+!\note: fpm has not support macro command analysis.
+! #ifdef do_mpi
   integer(kind = 4) function mpi_rpre()
     select case(RPRE)
     case(4)
-      mpi_rpre = mpi_real
+      mpi_rpre = RPRE   ! mpi_real
     case(8)
-      mpi_rpre = mpi_double
+      mpi_rpre = RPRE   ! mpi_double
     end select
     return
   end function mpi_rpre
-#endif
+! #endif
 
 !=======================================================================
 ! nextpow2
@@ -9423,5 +9437,7 @@ end function loadtxt2
     end if
     return
   end function zeros3
+
+
 
 end module forlab

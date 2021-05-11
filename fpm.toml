@@ -1,0 +1,10 @@
+name = "fftpack"
+version = "0.1"
+license = "MIT" 	# Follow the `forlab` license
+author = "keurfonluu"
+maintainer = "keurfon.luu@mines-paristech.fr"
+copyright = "2016-2021 fftpack contributors"
+
+[library]
+source-dir="src"
+

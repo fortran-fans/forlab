@@ -108,3 +108,7 @@ PKG-INFO
 requires.txt
 SOURCES.txt
 top_level.txt
+
+# check files
+test/check*
+.vscode*
