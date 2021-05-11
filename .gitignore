@@ -112,3 +112,4 @@ top_level.txt
 # check files
 test/check*
 .vscode*
+doc*
