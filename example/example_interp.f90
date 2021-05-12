@@ -18,7 +18,7 @@ program example_interp
   character(len = :), allocatable :: outdir
 
   ! Output directory
-  outdir = "examples/interp/"
+  outdir = "interp/"
   call system("mkdir -p " // outdir)
 
   ! Create an undersampled grid to interpolate (Rosenbrock)

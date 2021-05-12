@@ -7875,8 +7875,9 @@ end function loadtxt2
   function sort(x, order)
     real(kind = RPRE), dimension(:), allocatable :: sort
     real(kind = RPRE), dimension(:), intent(in) :: x
-    integer(kind = IPRE), intent(in), optional :: order
+    integer(kind = IPRE), optional :: order
     integer(kind = IPRE) :: n
+    logical :: l
 
     n = size(x)
     sort = x

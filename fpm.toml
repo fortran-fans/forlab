@@ -1,10 +1,9 @@
-name = "fftpack"
-version = "0.1"
-license = "MIT" 	# Follow the `forlab` license
+name = "forlab"
+version = "0.1.1"
+license = "MIT" 	
 author = "keurfonluu"
 maintainer = "keurfon.luu@mines-paristech.fr"
-copyright = "2016-2021 fftpack contributors"
+copyright = "2016-2021 forlab contributors"
 
 [library]
 source-dir="src"
-
