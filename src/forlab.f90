@@ -251,8 +251,9 @@ module forlab
   ! Subroutine disp
   !---------------------------------------------------------------------
   interface disp
-    module procedure disp_i0, disp_r0, disp_c0, disp_i1, disp_r1, &
-      disp_c1, disp_i2, disp_r2, disp_i3, disp_r3
+    module procedure disp_i0, disp_r0, disp_c0, disp_l0, disp_i1, &
+        disp_r1, disp_c1, disp_l1, disp_i2, disp_r2, disp_l2, disp_i3, &
+        disp_r3
   end interface disp
 
   !---------------------------------------------------------------------
@@ -350,6 +351,15 @@ module forlab
       ismember_r0r1, ismember_r0i2, ismember_r0r2, ismember_r0i3, &
       ismember_r0r3
   end interface ismember
+
+  interface issquare
+    !! Determine if it is a square matrix
+    !! Ex:
+    !! A = eye(3)
+    !! bool = issquare(A)
+    !!     .true.
+    module procedure issquare0, issquare1
+  end interface issquare
 
   !---------------------------------------------------------------------
   ! Function kde
@@ -2825,6 +2835,15 @@ contains
     return
   end subroutine disp_c0
 
+  subroutine disp_l0(x, string)
+    logical, intent(in) :: x
+    character(len=*), intent(in), optional :: string
+
+    if (present(string)) print *, trim(string)
+    print *, x
+    return
+  end subroutine
+
   subroutine disp_i1(x, string)
     integer(kind = IPRE), dimension(:), intent(in) :: x
     character(len = *), intent(in), optional :: string
@@ -2864,6 +2883,19 @@ contains
     return
   end subroutine disp_c1
 
+  subroutine disp_l1(x, string)
+    logical, dimension(:), intent(in) :: x
+    character(len=*), intent(in), optional :: string
+    integer(kind=IPRE) :: i, m
+
+    m = size(x)
+    if (present(string)) print *, trim(string)
+    do i = 1, m
+        print *, x(i)
+    end do
+    return
+ end subroutine disp_l1
+
   subroutine disp_i2(A, string)
     integer(kind = IPRE), dimension(:,:), intent(in) :: A
     character(len = *), intent(in), optional :: string
@@ -2891,6 +2923,20 @@ contains
     end do
     return
   end subroutine disp_r2
+
+  subroutine disp_l2(A, string)
+    logical, dimension(:, :), intent(in) :: A
+    character(len=*), intent(in), optional :: string
+    integer(kind=IPRE) :: i, j, m, n
+
+    m = size(A, 1)
+    n = size(A, 2)
+    if (present(string)) print *, trim(string)
+    do i = 1, m
+        print *, (A(i, j), j=1, n)
+    end do
+    return
+end subroutine disp_l2
 
   subroutine disp_i3(X, dim, string)
     integer(kind = IPRE), dimension(:,:,:), intent(in) :: X
@@ -4308,6 +4354,7 @@ contains
 !=======================================================================
 
   function inv0(A)
+    !! inv0 computes the real matrix inverse.
     real(kind = RPRE), dimension(:,:), allocatable :: inv0
     real(kind = RPRE), dimension(:,:), intent(in) :: A
     integer(kind = IPRE) :: i, j, k, m
@@ -4382,6 +4429,8 @@ contains
     end if
     return
   end function inv0
+
+
 
 !=======================================================================
 ! isleap
@@ -4701,36 +4750,46 @@ contains
   end function isoutlier
 
 !=======================================================================
-! issquare
+! issquare0
 !-----------------------------------------------------------------------
-! issquare determines whether a matrix is square.
+! issquare0 determines whether a real matrix is square.
 !
 ! Syntax
 !-----------------------------------------------------------------------
-! bool = issquare(A)
+! bool = issquare0(A)
 !
 ! Description
 !-----------------------------------------------------------------------
-! bool = issquare(A) returns .true. if A is square, .false. otherwise.
+! bool = issquare0(A) returns .true. if A is square, .false. otherwise.
 !
 ! Examples
 !-----------------------------------------------------------------------
 ! A = eye(3)
-! bool = issquare(A)
+! bool = issquare0(A)
 !     .true.
 !
 ! A = eye(3, 4)
-! bool = issquare(A)
+! bool = issquare0(A)
 !     .false.
 !=======================================================================
 
-  logical function issquare(A)
+  logical function issquare0(A)
+    !！ issquare0 determines whether a real matrix is square.
     real(kind = RPRE), dimension(:,:), intent(in) :: A
 
-    issquare = .false.
-    if (size(A, 1) .eq. size(A, 2)) issquare = .true.
+    issquare0 = .false.
+    if (size(A, 1) .eq. size(A, 2)) issquare0 = .true.
     return
-  end function issquare
+  end function issquare0
+
+  logical function issquare1(A)
+    !! Determine if it is a square complex matrix
+    complex(kind=RPRE), dimension(:, :), intent(in) :: A
+
+    issquare1 = .false.
+    if (size(A, 1) .eq. size(A, 2)) issquare1 = .true.
+    return
+  end function issquare1
 
 !=======================================================================
 ! issymmetric
