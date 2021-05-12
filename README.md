@@ -4,7 +4,7 @@ Forlab is developed by Keurfon Luu.
 
 | | |  
 |:-:|---|
-| **Version:** | 0.1.1 |
+| **Version:** | 1.0.1 |
 | **Author:** | Keurfon Luu |
 | **Web site:** | https://github.com/keurfonluu/forlab |
 | **Copyright:** | This document has been placed in the public domain. |
