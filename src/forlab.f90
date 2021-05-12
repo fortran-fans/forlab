@@ -472,9 +472,12 @@ module forlab
   end interface ones
 
   !---------------------------------------------------------------------
-  ! Operator .i.
+  ! Operator .i.\todo
   !---------------------------------------------------------------------
   interface operator(.i.)
+  !! Calculate the inverse of a real matrix.
+  !! Ex:
+  !! inv_of_A = .i.A
     module procedure inv0
   end interface operator(.i.)
   !---------------------------------------------------------------------
@@ -7851,7 +7854,7 @@ end function loadtxt2
   end function solve
 
 !=======================================================================
-! sort
+! sort\tofix
 !-----------------------------------------------------------------------
 ! sort sorts arrays elements.
 !
