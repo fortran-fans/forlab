@@ -21,5 +21,11 @@ cd forlab
 fpm build
 fpm test example_operation
 ```
+
+### forlab docs
+```
+ford README.md
+```
+
 ## Link
 [keurfonluu/Forlab](https://github.com/keurfonluu/Forlab)
