@@ -42,7 +42,8 @@ module forlab
     angle, bsplrep1, bsplrep2, bspline1, bspline2, chol, cosd, countlines, &
     cov, cumsum, chi2cdf, chi2pdf, chi2inv, chi2rand, check_directory, &
     det, diag, disp, deg2utm, datenum, datevec, datestr, deboor, diff, &
-    eye, eig, find, flip, fliplr, flipud, fminbnd, gammainc, horzcat, &
+    eig, empty, eye, &
+    find, flip, fliplr, flipud, fminbnd, gammainc, horzcat, &
     hann, interp1, interp2, interp3, inv, ismember, isoutlier, issquare, &
     isleap, issymmetric, kurtosis, k2test, kde, loadtxt, loadbin, linspace, &
     mean, median, mad, meshgrid, nextpow2, norm, normpdf, num2str, ones, &
@@ -255,6 +256,17 @@ module forlab
         disp_r1, disp_c1, disp_l1, disp_i2, disp_r2, disp_c2, disp_l2, &
         disp_i3, disp_r3
   end interface disp
+
+  interface empty
+  !! Create uninitialized matrices quickly, faster than `ones` function, 
+  !! and use `empty` function with caution.
+  !!
+  !! Example
+  !! ---
+  !! real(kind=RPRE), allocatable :: x(:, :)  
+  !! x = empty(2, 3)
+     module procedure empty1, empty2, empty3
+  end interface
 
   !---------------------------------------------------------------------
   ! Function File
@@ -6696,6 +6708,45 @@ end function loadtxt2
     end if
     return
   end function ones3
+
+  function empty1(dim1)
+    real(kind=RPRE), dimension(:), allocatable :: empty1
+    integer(kind=IPRE), intent(in) :: dim1
+    integer(kind=IPRE) :: ierr
+
+    allocate (empty1(dim1), stat=ierr)
+    if (ierr .ne. 0) then
+        print *, "ERROR: in empty, could not allocate array."
+        stop
+    end if
+    return
+end function empty1
+
+function empty2(dim1, dim2)
+    real(kind=RPRE), dimension(:, :), allocatable :: empty2
+    integer(kind=IPRE), intent(in) :: dim1, dim2
+    integer(kind=IPRE) :: ierr
+
+    allocate (empty2(dim1, dim2), stat=ierr)
+    if (ierr .ne. 0) then
+        print *, "Error: in empty, could not allocate array."
+        stop
+    end if
+    return
+end function empty2
+
+function empty3(dim1, dim2, dim3)
+    real(kind=RPRE), dimension(:, :, :), allocatable :: empty3
+    integer(kind=IPRE), intent(in) :: dim1, dim2, dim3
+    integer(kind=IPRE) :: ierr
+
+    allocate (empty3(dim1, dim2, dim3), stat=ierr)
+    if (ierr .ne. 0) then
+        print *, "Error: in empty, could not allocate array."
+        stop
+    end if
+    return
+end function empty3
 
 !=======================================================================
 ! open

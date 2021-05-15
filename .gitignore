@@ -113,3 +113,4 @@ top_level.txt
 test/check*
 .vscode*
 doc*
+test*
