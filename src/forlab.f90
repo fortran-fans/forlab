@@ -497,8 +497,9 @@ module forlab
   ! Operator .i.
   !---------------------------------------------------------------------
   interface operator(.i.)
-  !! Calculate the inverse of a real matrix.
-  !! Ex:
+  !! Calculate the inverse of a real matrix.  
+  !! Example
+  !! ---
   !! inv_of_A = .i.A
     module procedure inv0, inv1
   end interface operator(.i.)
