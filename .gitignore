@@ -113,7 +113,8 @@ top_level.txt
 test/check*
 .vscode*
 API-doc/
-test*
+test/*.exe
+test/*.o
 # src file
 src/*.a
 src/*.o
