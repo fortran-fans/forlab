@@ -16,7 +16,7 @@ Forlab is developed by Keurfon Luu.
 git clone https://github.com/zoziha/forlab.git
 cd forlab
 fpm build
-fpm test
+fpm run --example test
 ```
 ## Forlab Docs
 ```bash

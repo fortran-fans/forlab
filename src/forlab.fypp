@@ -14,6 +14,7 @@
 ! When changing precision (IPRE and/or RPRE), the whole program needs to
 ! be recompiled.
 !=======================================================================
+#:include "common.fypp"
 
 module forlab
 
@@ -376,31 +377,19 @@ module forlab
     !! A = eye(3, 4)
     !! bool = issquare0(A)
     !!     .false.
-    logical module function issquare0_sp(A)
-        ! import sp
-        real(sp), dimension(:, :), intent(in) :: A
+    #:for k1, t1 in REAL_KINDS_TYPES
+    logical module function issquare0_${k1}$(A)
+        ! import ${k1}$
+        ${t1}$, dimension(:, :), intent(in) :: A
     end function
-    logical module function issquare0_dp(A)
-        ! import dp
-        real(dp), dimension(:, :), intent(in) :: A
-    end function
-    logical module function issquare0_qp(A)
-        ! import qp
-        real(qp), dimension(:, :), intent(in) :: A
-    end function
+    #:endfor
 
-    logical module function issquare1_sp (A)
-        ! import sp
-        complex(sp), dimension(:, :), intent(in) :: A
+    #:for k1,t1 in CMPLX_KINDS_TYPES
+    logical module function issquare1_${k1}$ (A)
+        ! import ${k1}$
+        ${t1}$, dimension(:, :), intent(in) :: A
     end function
-    logical module function issquare1_dp (A)
-        ! import dp
-        complex(dp), dimension(:, :), intent(in) :: A
-    end function
-    logical module function issquare1_qp (A)
-        ! import qp
-        complex(qp), dimension(:, :), intent(in) :: A
-    end function
+    #:endfor
   end interface issquare
 
   !---------------------------------------------------------------------

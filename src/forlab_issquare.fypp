@@ -1,0 +1,29 @@
+#:include "common.fypp"
+
+submodule(forlab) forlab_issquare
+    use forlab_kinds
+
+contains
+    #:for k1,t1 in REAL_KINDS_TYPES
+        logical module function issquare0_${k1}$ (A)
+            !！ issquare0 determines whether a real matrix is square.
+            ${t1}$, dimension(:, :), intent(in) :: A
+
+            issquare0 = .false.
+            if (size(A, 1) .eq. size(A, 2)) issquare0 = .true.
+            return
+        end function
+    #:endfor
+
+    #:for k1,t1 in CMPLX_KINDS_TYPES
+        logical module function issquare1_${k1}$ (A)
+            !! Determine if it is a square complex matrix
+            ${t1}$, dimension(:, :), intent(in) :: A
+
+            issquare1 = .false.
+            if (size(A, 1) .eq. size(A, 2)) issquare1 = .true.
+            return
+        end function
+    #:endfor
+end submodule
+
