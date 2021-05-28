@@ -1,9 +1,16 @@
 SRCFYPP =\
 	forlab.fypp \
-	forlab_issquare.fypp
+	forlab_issquare.fypp \
+	forlab_inv.fypp \
+	forlab_det.fypp \
+	forlab_lu.fypp \
+	forlab_diag.fypp
 
-SRC = forlab_kinds.f90 \
-      $(SRCGEN)
+SRC =	forlab_kinds.f90 \
+		forlab_zeros.f90 \
+		forlab_eye.f90 \
+		forlab_empty.f90 \
+		$(SRCGEN)
 
 LIB = libforlab.a
 
@@ -33,4 +40,26 @@ $(SRCGEN): %.f90: %.fypp common.fypp
 forlab.o: \
 	forlab_kinds.o
 forlab_issquare.o: \
-	forlab.o
+	forlab.o \
+	forlab_kinds.o
+forlab_inv.o: \
+	forlab.o \
+	forlab_kinds.o
+forlab_det.o: \
+	forlab.o \
+	forlab_kinds.o
+forlab_lu.o: \
+	forlab.o \
+	forlab_kinds.o
+forlab_diag.o: \
+	forlab.o \
+	forlab_kinds.o
+forlab_eye.o: \
+	forlab.o \
+	forlab_kinds.o
+forlab_zeros.o: \
+	forlab.o \
+	forlab_kinds.o
+forlab_empty.o: \
+	forlab.o \
+	forlab_kinds.o

@@ -1,9 +1,8 @@
-
 submodule(forlab) forlab_issquare
     use forlab_kinds
 
 contains
-        logical module function issquare0_sp (A)
+        logical module function issquare_rsp (A)
             !！ issquare0 determines whether a real matrix is square.
             real(sp), dimension(:, :), intent(in) :: A
 
@@ -11,7 +10,7 @@ contains
             if (size(A, 1) .eq. size(A, 2)) issquare0 = .true.
             return
         end function
-        logical module function issquare0_dp (A)
+        logical module function issquare_rdp (A)
             !！ issquare0 determines whether a real matrix is square.
             real(dp), dimension(:, :), intent(in) :: A
 
@@ -19,7 +18,7 @@ contains
             if (size(A, 1) .eq. size(A, 2)) issquare0 = .true.
             return
         end function
-        logical module function issquare0_qp (A)
+        logical module function issquare_rqp (A)
             !！ issquare0 determines whether a real matrix is square.
             real(qp), dimension(:, :), intent(in) :: A
 
@@ -27,30 +26,28 @@ contains
             if (size(A, 1) .eq. size(A, 2)) issquare0 = .true.
             return
         end function
-
-        logical module function issquare1_sp (A)
-            !! Determine if it is a square complex matrix
+        logical module function issquare_csp (A)
+            !！ issquare0 determines whether a real matrix is square.
             complex(sp), dimension(:, :), intent(in) :: A
 
-            issquare1 = .false.
-            if (size(A, 1) .eq. size(A, 2)) issquare1 = .true.
+            issquare0 = .false.
+            if (size(A, 1) .eq. size(A, 2)) issquare0 = .true.
             return
         end function
-        logical module function issquare1_dp (A)
-            !! Determine if it is a square complex matrix
+        logical module function issquare_cdp (A)
+            !！ issquare0 determines whether a real matrix is square.
             complex(dp), dimension(:, :), intent(in) :: A
 
-            issquare1 = .false.
-            if (size(A, 1) .eq. size(A, 2)) issquare1 = .true.
+            issquare0 = .false.
+            if (size(A, 1) .eq. size(A, 2)) issquare0 = .true.
             return
         end function
-        logical module function issquare1_qp (A)
-            !! Determine if it is a square complex matrix
+        logical module function issquare_cqp (A)
+            !！ issquare0 determines whether a real matrix is square.
             complex(qp), dimension(:, :), intent(in) :: A
 
-            issquare1 = .false.
-            if (size(A, 1) .eq. size(A, 2)) issquare1 = .true.
+            issquare0 = .false.
+            if (size(A, 1) .eq. size(A, 2)) issquare0 = .true.
             return
         end function
 end submodule
-
