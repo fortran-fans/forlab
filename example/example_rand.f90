@@ -22,9 +22,9 @@ program example_rand
   character(len = :), allocatable :: outdir
 
   ! Output directory
-  outdir = "examples/rand/"
+  outdir = "example\rand"
   call system("rm -rf " // outdir)
-  call system("mkdir -p " // outdir)
+  call system("mkdir " // outdir)
 
   ! Initialize random number generation
   call rng()                  ! The seed is set according to the current time
@@ -49,9 +49,9 @@ program example_rand
   call disp(horzcat(x, y))
 
   ! Create normal 1D data
-  print *; print *, "Statistics for 100000 normally distributed samples:"
+  print *; print *, "Statistics for 10000 normally distributed samples:"
 
-  n = 100000
+  n = 10000
   x = randn(n)                ! Normally distributed with mu = 0 and std = 1
 
   print *, "Mean: " // num2str(mean(x))
@@ -67,10 +67,10 @@ program example_rand
   print *, num2str(count(abs(x) .le. 2.)/real(n, RPRE)*100., "(F6.2)") // "%"
 
   ! Create chi-square 1D data
-  print *; print *, "Statistics for 100000 chi-square distributed samples " &
+  print *; print *, "Statistics for 10000 chi-square distributed samples " &
     // "with 10 degrees of freedom:"
 
-  n = 100000
+  n = 10000
   df = 10
   x = chi2rand(df, n)         ! Chi-square distributed with df = 10
 

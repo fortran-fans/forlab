@@ -21,7 +21,7 @@ program example_cluster2d
   character(len = :), allocatable :: outdir, method
 
   ! Output directory
-  outdir = "examples/cluster2d/"
+  outdir = "cluster2d/"
   call system("mkdir -p " // outdir)
 
   ! Initialize random number generation
