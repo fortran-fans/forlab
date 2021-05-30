@@ -112,4 +112,14 @@ top_level.txt
 # check files
 test/check*
 .vscode*
-doc*
+API-doc/
+test/*.exe
+test/*.o
+# src file
+src/*.a
+src/*.o
+src/*.mod
+src/*.smod
+
+# doc
+

@@ -14,6 +14,7 @@
 ! When changing precision (IPRE and/or RPRE), the whole program needs to
 ! be recompiled.
 !=======================================================================
+#:include "common.fypp"
 
 module forlab
 
@@ -107,18 +108,12 @@ module forlab
         !!             order = [ 2, 1 ])
         !! x = det(A)
         !!     27.
-            real(sp) module function det_sp (A, outL, outU)
-                real(sp), dimension(:, :), intent(in) :: A
-                real(sp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
+        #:for k1,t1 in REAL_KINDS_TYPES
+            ${t1}$ module function det_${k1}$ (A, outL, outU)
+                ${t1}$, dimension(:, :), intent(in) :: A
+                ${t1}$, dimension(:, :), allocatable, intent(inout), optional :: outL, outU
             end function
-            real(dp) module function det_dp (A, outL, outU)
-                real(dp), dimension(:, :), intent(in) :: A
-                real(dp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
-            end function
-            real(qp) module function det_qp (A, outL, outU)
-                real(qp), dimension(:, :), intent(in) :: A
-                real(qp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
-            end function
+        #:endfor
     end interface
 
     interface acosd
@@ -231,30 +226,16 @@ module forlab
         !!     1.  0.  0.
         !!     0.  2.  0.
         !!     0.  0.  3.
-            module function diag1_sp (A)
-                real(sp), dimension(:), allocatable :: diag1_sp
-                real(sp), dimension(:, :), intent(in) :: A
+        #:for k1,t1 in REAL_KINDS_TYPES
+            module function diag1_${k1}$ (A)
+                ${t1}$, dimension(:), allocatable :: diag1_${k1}$
+                ${t1}$, dimension(:, :), intent(in) :: A
             end function
-            module function diag2_sp (x)
-                real(sp), dimension(:, :), allocatable :: diag2_sp
-                real(sp), dimension(:), intent(in) :: x
+            module function diag2_${k1}$ (x)
+                ${t1}$, dimension(:, :), allocatable :: diag2_${k1}$
+                ${t1}$, dimension(:), intent(in) :: x
             end function
-            module function diag1_dp (A)
-                real(dp), dimension(:), allocatable :: diag1_dp
-                real(dp), dimension(:, :), intent(in) :: A
-            end function
-            module function diag2_dp (x)
-                real(dp), dimension(:, :), allocatable :: diag2_dp
-                real(dp), dimension(:), intent(in) :: x
-            end function
-            module function diag1_qp (A)
-                real(qp), dimension(:), allocatable :: diag1_qp
-                real(qp), dimension(:, :), intent(in) :: A
-            end function
-            module function diag2_qp (x)
-                real(qp), dimension(:, :), allocatable :: diag2_qp
-                real(qp), dimension(:), intent(in) :: x
-            end function
+        #:endfor
     end interface diag
 
     interface diff
@@ -336,30 +317,18 @@ module forlab
 
     interface inv
         !! inv computes the matrix inverse.
-            module function inv_rsp (A)
-                real(sp), dimension(:, :), allocatable :: inv_rsp
-                real(sp), dimension(:, :), intent(in) :: A
+        #:for k1,t1 in REAL_KINDS_TYPES
+            module function inv_${t1[0]}$${k1}$ (A)
+                ${t1}$, dimension(:, :), allocatable :: inv_${t1[0]}$${k1}$
+                ${t1}$, dimension(:, :), intent(in) :: A
             end function
-            module function inv_rdp (A)
-                real(dp), dimension(:, :), allocatable :: inv_rdp
-                real(dp), dimension(:, :), intent(in) :: A
+        #:endfor
+        #:for k1,t1 in CMPLX_KINDS_TYPES
+            module function inv_${t1[0]}$${k1}$ (A)
+                ${t1}$, dimension(:, :), allocatable :: inv_${t1[0]}$${k1}$
+                ${t1}$, dimension(:, :), intent(in) :: A
             end function
-            module function inv_rqp (A)
-                real(qp), dimension(:, :), allocatable :: inv_rqp
-                real(qp), dimension(:, :), intent(in) :: A
-            end function
-            module function inv_csp (A)
-                complex(sp), dimension(:, :), allocatable :: inv_csp
-                complex(sp), dimension(:, :), intent(in) :: A
-            end function
-            module function inv_cdp (A)
-                complex(dp), dimension(:, :), allocatable :: inv_cdp
-                complex(dp), dimension(:, :), intent(in) :: A
-            end function
-            module function inv_cqp (A)
-                complex(qp), dimension(:, :), allocatable :: inv_cqp
-                complex(qp), dimension(:, :), intent(in) :: A
-            end function
+        #:endfor
     end interface inv
 
     interface operator(.i.)
@@ -367,13 +336,13 @@ module forlab
         !! Example
         !! ---
         !! inv_of_A = .i.A
-            procedure inv_rsp
-            procedure inv_rdp
-            procedure inv_rqp
+        #:for k1,t1 in REAL_KINDS_TYPES
+            procedure inv_${t1[0]}$${k1}$
+        #:endfor
 
-            procedure inv_csp
-            procedure inv_cdp
-            procedure inv_cqp
+        #:for k1,t1 in CMPLX_KINDS_TYPES
+            procedure inv_${t1[0]}$${k1}$
+        #:endfor
     end interface operator(.i.)
 
     interface ismember
@@ -394,30 +363,13 @@ module forlab
         !! A = eye(3, 4)
         !! bool = issquare0(A)
         !!     .false.
-            logical module function issquare_rsp (A)
-                ! import sp
-                real(sp), dimension(:, :), intent(in) :: A
+        #:set RC_KINDS_TYPES = REAL_KINDS_TYPES + CMPLX_KINDS_TYPES
+        #:for k1, t1 in RC_KINDS_TYPES
+            logical module function issquare_${t1[0]}$${k1}$ (A)
+                ! import ${k1}$
+                ${t1}$, dimension(:, :), intent(in) :: A
             end function
-            logical module function issquare_rdp (A)
-                ! import dp
-                real(dp), dimension(:, :), intent(in) :: A
-            end function
-            logical module function issquare_rqp (A)
-                ! import qp
-                real(qp), dimension(:, :), intent(in) :: A
-            end function
-            logical module function issquare_csp (A)
-                ! import sp
-                complex(sp), dimension(:, :), intent(in) :: A
-            end function
-            logical module function issquare_cdp (A)
-                ! import dp
-                complex(dp), dimension(:, :), intent(in) :: A
-            end function
-            logical module function issquare_cqp (A)
-                ! import qp
-                complex(qp), dimension(:, :), intent(in) :: A
-            end function
+        #:endfor
     end interface issquare
 
     interface kde
@@ -481,18 +433,12 @@ module forlab
         !!     4.  5.  6.
         !!     7.  8.  9.
         !!=====================================================================
-            module subroutine lu_sp (A, L, U)
-                real(sp), dimension(:, :), intent(in) :: A
-                real(sp), dimension(:, :), allocatable, intent(out) :: L, U
+        #:for k1,t1 in REAL_KINDS_TYPES
+            module subroutine lu_${k1}$ (A, L, U)
+                ${t1}$, dimension(:, :), intent(in) :: A
+                ${t1}$, dimension(:, :), allocatable, intent(out) :: L, U
             end subroutine
-            module subroutine lu_dp (A, L, U)
-                real(dp), dimension(:, :), intent(in) :: A
-                real(dp), dimension(:, :), allocatable, intent(out) :: L, U
-            end subroutine
-            module subroutine lu_qp (A, L, U)
-                real(qp), dimension(:, :), intent(in) :: A
-                real(qp), dimension(:, :), allocatable, intent(out) :: L, U
-            end subroutine
+        #:endfor
     end interface
 
     interface mad

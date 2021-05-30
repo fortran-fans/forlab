@@ -1,0 +1,17 @@
+#:include "common.fypp"
+#:set RC_KINDS_TYPES = REAL_KINDS_TYPES + CMPLX_KINDS_TYPES
+submodule(forlab) forlab_issquare
+    use forlab_kinds
+
+contains
+    #:for k1,t1 in RC_KINDS_TYPES
+        logical module function issquare_${t1[0]}$${k1}$ (A)
+            !！ issquare0 determines whether a real matrix is square.
+            ${t1}$, dimension(:, :), intent(in) :: A
+
+            issquare0 = .false.
+            if (size(A, 1) .eq. size(A, 2)) issquare0 = .true.
+            return
+        end function
+    #:endfor
+end submodule

@@ -1,0 +1,32 @@
+#:include "common.fypp"
+submodule(forlab) forlab_diag
+    use forlab_kinds
+
+contains
+    #:for k1,t1 in REAL_KINDS_TYPES
+        module function diag1_${k1}$ (A)
+            ${t1}$, dimension(:), allocatable :: diag1_${k1}$
+            ${t1}$, dimension(:, :), intent(in) :: A
+            integer :: i, n
+
+            n = min(size(A, 1), size(A, 2))
+            allocate (diag1_${k1}$ (n))
+            do i = 1, n
+                diag1_${k1}$ (i) = A(i, i)
+            end do
+            return
+        end function
+        module function diag2_${k1}$ (x)
+            ${t1}$, dimension(:, :), allocatable :: diag2_${k1}$
+            ${t1}$, dimension(:), intent(in) :: x
+            integer :: i, n
+
+            n = size(x)
+            diag2_${k1}$ = zeros(n, n)
+            do i = 1, n
+                diag2_${k1}$ (i, i) = x(i)
+            end do
+            return
+        end function
+    #:endfor
+end submodule
