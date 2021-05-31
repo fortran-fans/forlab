@@ -262,10 +262,258 @@ module forlab
     end interface diff
 
     interface disp
-        module procedure disp_i0, disp_r0, disp_c0, disp_l0, disp_i1, &
-            disp_r1, disp_c1, disp_l1, disp_i2, disp_r2, disp_c2, disp_l2, &
-            disp_i3, disp_r3
-    end interface disp
+        !=======================================================================
+        ! disp
+        !-----------------------------------------------------------------------
+        ! disp displays the value of a variable.
+        !
+        ! Syntax
+        !-----------------------------------------------------------------------
+        ! call disp(x)
+        ! call disp(x, string)
+        ! call disp(A)
+        ! call disp(A, string)
+        ! call disp(X)
+        ! call disp(X, 1)
+        ! call disp(X, 1, string)
+        ! call disp(X, 2)
+        ! call disp(X, 2, string)
+        ! call disp(X, 3)
+        ! call disp(X, 3, string)
+        !
+        ! Description
+        !-----------------------------------------------------------------------
+        ! call disp(x) displays the scalar or the vector x.
+        !
+        ! call disp(x, string) displays the scalar or the vector x preceded by
+        ! string.
+        !
+        ! call disp(A) displays the matrix A.
+        !
+        ! call disp(A, string) displays the matrix A preceded by string.
+        !
+        ! call disp(X) displays the 3-dimensional matrix X along the axis 1.
+        !
+        ! call disp(X, 1) (see call disp(X)).
+        !
+        ! call disp(X, 1, string) displays the 3-dimensional matrix X along the
+        ! axis 1 preceded by string.
+        !
+        ! call disp(X, 2) displays the 3-dimensional matrix X along the axis 2.
+        !
+        ! call disp(X, 2, string) displays the 3-dimensional matrix X along the
+        ! axis 2 preceded by string.
+        !
+        ! call disp(X, 3) displays the 3-dimensional matrix X along the axis 3.
+        !
+        ! call disp(X, 3, string) displays the 3-dimensional matrix X along the
+        ! axis 3 preceded by string.
+        !
+        ! Examples
+        !-----------------------------------------------------------------------
+        ! x = [ 1. 2. 3. ]
+        ! call disp(x)
+        !     1.
+        !     2.
+        !     3.
+        ! call disp(x, "x = ")
+        !     x =
+        !         1.
+        !         2.
+        !         3.
+        !
+        ! A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 9. ], [ 3, 3 ], &
+        !             order = [ 2, 1 ])
+        ! call disp(A, "Matrix A is")
+        !     Matrix A is
+        !         1.  2.  3.
+        !         4.  5.  6.
+        !         7.  8.  9.
+        !=======================================================================
+            module subroutine disp_rsp0(x, string)
+                real(sp), intent(in) :: x
+                character(len=*), intent(in), optional :: string
+            end subroutine
+
+            module subroutine disp_rsp1(x, string)
+                real(sp), dimension(:), intent(in) :: x
+                character(len=*), intent(in), optional :: string
+            end subroutine
+
+            module subroutine disp_rsp2(A, string)
+                real(sp), dimension(:, :), intent(in) :: A
+                character(len=*), intent(in), optional :: string
+            end subroutine
+
+            module subroutine disp_rsp3(X, dim, string)
+                real(sp), dimension(:, :, :), intent(in) :: X
+                integer, intent(in), optional :: dim
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_rdp0(x, string)
+                real(dp), intent(in) :: x
+                character(len=*), intent(in), optional :: string
+            end subroutine
+
+            module subroutine disp_rdp1(x, string)
+                real(dp), dimension(:), intent(in) :: x
+                character(len=*), intent(in), optional :: string
+            end subroutine
+
+            module subroutine disp_rdp2(A, string)
+                real(dp), dimension(:, :), intent(in) :: A
+                character(len=*), intent(in), optional :: string
+            end subroutine
+
+            module subroutine disp_rdp3(X, dim, string)
+                real(dp), dimension(:, :, :), intent(in) :: X
+                integer, intent(in), optional :: dim
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_rqp0(x, string)
+                real(qp), intent(in) :: x
+                character(len=*), intent(in), optional :: string
+            end subroutine
+
+            module subroutine disp_rqp1(x, string)
+                real(qp), dimension(:), intent(in) :: x
+                character(len=*), intent(in), optional :: string
+            end subroutine
+
+            module subroutine disp_rqp2(A, string)
+                real(qp), dimension(:, :), intent(in) :: A
+                character(len=*), intent(in), optional :: string
+            end subroutine
+
+            module subroutine disp_rqp3(X, dim, string)
+                real(qp), dimension(:, :, :), intent(in) :: X
+                integer, intent(in), optional :: dim
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_csp0(x, string)
+                complex(sp), intent(in) :: x
+                character(len=*), intent(in), optional :: string
+            end subroutine
+
+            module subroutine disp_csp1(x, string)
+                complex(sp), dimension(:), intent(in) :: x
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_csp2(A, string)
+                complex(sp), dimension(:, :), intent(in) :: A
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_cdp0(x, string)
+                complex(dp), intent(in) :: x
+                character(len=*), intent(in), optional :: string
+            end subroutine
+
+            module subroutine disp_cdp1(x, string)
+                complex(dp), dimension(:), intent(in) :: x
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_cdp2(A, string)
+                complex(dp), dimension(:, :), intent(in) :: A
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_cqp0(x, string)
+                complex(qp), intent(in) :: x
+                character(len=*), intent(in), optional :: string
+            end subroutine
+
+            module subroutine disp_cqp1(x, string)
+                complex(qp), dimension(:), intent(in) :: x
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_cqp2(A, string)
+                complex(qp), dimension(:, :), intent(in) :: A
+                character(len=*), intent(in), optional :: string
+            end subroutine
+        module subroutine disp_l0(x, string)
+            logical, intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_l1(x, string)
+            logical, dimension(:), intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine disp_l1
+        module subroutine disp_l2(A, string)
+            logical, dimension(:, :), intent(in) :: A
+            character(len=*), intent(in), optional :: string
+        end subroutine disp_l2
+            module subroutine disp_iint80(x, string)
+                integer(int8), intent(in) :: x
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_iint81(x, string)
+                integer(int8), dimension(:), intent(in) :: x
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_iint82(A, string)
+                integer(int8), dimension(:, :), intent(in) :: A
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_iint83(X, dim, string)
+                integer(int8), dimension(:, :, :), intent(in) :: X
+                integer, intent(in), optional :: dim
+                    !! \fixme: dim precision
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_iint160(x, string)
+                integer(int16), intent(in) :: x
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_iint161(x, string)
+                integer(int16), dimension(:), intent(in) :: x
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_iint162(A, string)
+                integer(int16), dimension(:, :), intent(in) :: A
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_iint163(X, dim, string)
+                integer(int16), dimension(:, :, :), intent(in) :: X
+                integer, intent(in), optional :: dim
+                    !! \fixme: dim precision
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_iint320(x, string)
+                integer(int32), intent(in) :: x
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_iint321(x, string)
+                integer(int32), dimension(:), intent(in) :: x
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_iint322(A, string)
+                integer(int32), dimension(:, :), intent(in) :: A
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_iint323(X, dim, string)
+                integer(int32), dimension(:, :, :), intent(in) :: X
+                integer, intent(in), optional :: dim
+                    !! \fixme: dim precision
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_iint640(x, string)
+                integer(int64), intent(in) :: x
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_iint641(x, string)
+                integer(int64), dimension(:), intent(in) :: x
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_iint642(A, string)
+                integer(int64), dimension(:, :), intent(in) :: A
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_iint643(X, dim, string)
+                integer(int64), dimension(:, :, :), intent(in) :: X
+                integer, intent(in), optional :: dim
+                    !! \fixme: dim precision
+                character(len=*), intent(in), optional :: string
+            end subroutine
+    end interface
 
     interface empty
         !! Create uninitialized matrices quickly, faster than `ones` function,
@@ -2679,284 +2927,6 @@ contains
         end if
         return
     end function diff2
-
-    !=======================================================================
-    ! disp
-    !-----------------------------------------------------------------------
-    ! disp displays the value of a variable.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! call disp(x)
-    ! call disp(x, string)
-    ! call disp(A)
-    ! call disp(A, string)
-    ! call disp(X)
-    ! call disp(X, 1)
-    ! call disp(X, 1, string)
-    ! call disp(X, 2)
-    ! call disp(X, 2, string)
-    ! call disp(X, 3)
-    ! call disp(X, 3, string)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! call disp(x) displays the scalar or the vector x.
-    !
-    ! call disp(x, string) displays the scalar or the vector x preceded by
-    ! string.
-    !
-    ! call disp(A) displays the matrix A.
-    !
-    ! call disp(A, string) displays the matrix A preceded by string.
-    !
-    ! call disp(X) displays the 3-dimensional matrix X along the axis 1.
-    !
-    ! call disp(X, 1) (see call disp(X)).
-    !
-    ! call disp(X, 1, string) displays the 3-dimensional matrix X along the
-    ! axis 1 preceded by string.
-    !
-    ! call disp(X, 2) displays the 3-dimensional matrix X along the axis 2.
-    !
-    ! call disp(X, 2, string) displays the 3-dimensional matrix X along the
-    ! axis 2 preceded by string.
-    !
-    ! call disp(X, 3) displays the 3-dimensional matrix X along the axis 3.
-    !
-    ! call disp(X, 3, string) displays the 3-dimensional matrix X along the
-    ! axis 3 preceded by string.
-    !
-    ! Examples
-    !-----------------------------------------------------------------------
-    ! x = [ 1. 2. 3. ]
-    ! call disp(x)
-    !     1.
-    !     2.
-    !     3.
-    ! call disp(x, "x = ")
-    !     x =
-    !         1.
-    !         2.
-    !         3.
-    !
-    ! A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 9. ], [ 3, 3 ], &
-    !             order = [ 2, 1 ])
-    ! call disp(A, "Matrix A is")
-    !     Matrix A is
-    !         1.  2.  3.
-    !         4.  5.  6.
-    !         7.  8.  9.
-    !=======================================================================
-
-    subroutine disp_i0(x, string)
-        integer(kind=IPRE), intent(in) :: x
-        character(len=*), intent(in), optional :: string
-
-        if (present(string)) print *, trim(string)
-        print *, x
-        return
-    end subroutine disp_i0
-
-    subroutine disp_r0(x, string)
-        real(kind=RPRE), intent(in) :: x
-        character(len=*), intent(in), optional :: string
-
-        if (present(string)) print *, trim(string)
-        print *, x
-        return
-    end subroutine disp_r0
-
-    subroutine disp_c0(x, string)
-        complex(kind=RPRE), intent(in) :: x
-        character(len=*), intent(in), optional :: string
-
-        if (present(string)) print *, trim(string)
-        if (imag(x) .ge. 0.0d0) then
-            print *, num2str(real(x))//" + "//num2str(abs(imag(x)))//"i"
-        else
-            print *, num2str(real(x))//" - "//num2str(abs(imag(x)))//"i"
-        end if
-        return
-    end subroutine disp_c0
-
-    subroutine disp_l0(x, string)
-        logical, intent(in) :: x
-        character(len=*), intent(in), optional :: string
-
-        if (present(string)) print *, trim(string)
-        print *, x
-        return
-    end subroutine
-
-    subroutine disp_i1(x, string)
-        integer(kind=IPRE), dimension(:), intent(in) :: x
-        character(len=*), intent(in), optional :: string
-        integer(kind=IPRE) :: i, m
-
-        m = size(x)
-        if (present(string)) print *, trim(string)
-        do i = 1, m
-            print *, x(i)
-        end do
-        return
-    end subroutine disp_i1
-
-    subroutine disp_r1(x, string)
-        real(kind=RPRE), dimension(:), intent(in) :: x
-        character(len=*), intent(in), optional :: string
-        integer(kind=IPRE) :: i, m
-
-        m = size(x)
-        if (present(string)) print *, trim(string)
-        do i = 1, m
-            print *, x(i)
-        end do
-        return
-    end subroutine disp_r1
-
-    subroutine disp_c1(x, string)
-        complex(kind=RPRE), dimension(:), intent(in) :: x
-        character(len=*), intent(in), optional :: string
-        integer(kind=IPRE) :: i, m
-
-        m = size(x)
-        if (present(string)) print *, trim(string)
-        do i = 1, m
-            call disp_c0(x(i))
-        end do
-        return
-    end subroutine disp_c1
-
-    subroutine disp_l1(x, string)
-        logical, dimension(:), intent(in) :: x
-        character(len=*), intent(in), optional :: string
-        integer(kind=IPRE) :: i, m
-
-        m = size(x)
-        if (present(string)) print *, trim(string)
-        do i = 1, m
-            print *, x(i)
-        end do
-        return
-    end subroutine disp_l1
-
-    subroutine disp_i2(A, string)
-        integer(kind=IPRE), dimension(:, :), intent(in) :: A
-        character(len=*), intent(in), optional :: string
-        integer(kind=IPRE) :: i, j, m, n
-
-        m = size(A, 1)
-        n = size(A, 2)
-        if (present(string)) print *, trim(string)
-        do i = 1, m
-            print *, (A(i, j), j=1, n)
-        end do
-        return
-    end subroutine disp_i2
-
-    subroutine disp_r2(A, string)
-        real(kind=RPRE), dimension(:, :), intent(in) :: A
-        character(len=*), intent(in), optional :: string
-        integer(kind=IPRE) :: i, j, m, n
-
-        m = size(A, 1)
-        n = size(A, 2)
-        if (present(string)) print *, trim(string)
-        do i = 1, m
-            print *, (A(i, j), j=1, n)
-        end do
-        return
-    end subroutine disp_r2
-
-    subroutine disp_c2(A, string)
-        complex(kind=RPRE), dimension(:, :), intent(in) :: A
-        character(len=*), intent(in), optional :: string
-        integer(kind=IPRE) :: i, j, m, n
-
-        m = size(A, 1)
-        n = size(A, 2)
-        if (present(string)) print *, trim(string)
-        do i = 1, m
-            do j = 1, n
-                call disp_c0(A(i, j))
-            end do
-            print *, ''
-        end do
-        return
-    end subroutine disp_c2
-
-    subroutine disp_l2(A, string)
-        logical, dimension(:, :), intent(in) :: A
-        character(len=*), intent(in), optional :: string
-        integer(kind=IPRE) :: i, j, m, n
-
-        m = size(A, 1)
-        n = size(A, 2)
-        if (present(string)) print *, trim(string)
-        do i = 1, m
-            print *, (A(i, j), j=1, n)
-        end do
-        return
-    end subroutine disp_l2
-
-    subroutine disp_i3(X, dim, string)
-        integer(kind=IPRE), dimension(:, :, :), intent(in) :: X
-        integer(kind=IPRE), intent(in), optional :: dim
-        character(len=*), intent(in), optional :: string
-        integer(kind=IPRE) :: i, dim1, dim2, dim3
-
-        dim1 = size(X, 1)
-        dim2 = size(X, 2)
-        dim3 = size(X, 3)
-        if (present(string)) print *, trim(string)
-        if ((.not. present(dim)) .or. (dim .eq. 1)) then
-            do i = 1, dim1
-                print *, "Slice ("//num2str(i)//",:,:):"
-                call disp(X(i, :, :))
-            end do
-        elseif (dim .eq. 2) then
-            do i = 1, dim2
-                print *, "Slice (:,"//num2str(i)//",:):"
-                call disp(X(:, i, :))
-            end do
-        elseif (dim .eq. 3) then
-            do i = 1, dim3
-                print *, "Slice (:,:,"//num2str(i)//"):"
-                call disp(X(:, :, i))
-            end do
-        end if
-        return
-    end subroutine disp_i3
-
-    subroutine disp_r3(X, dim, string)
-        real(kind=RPRE), dimension(:, :, :), intent(in) :: X
-        integer(kind=IPRE), intent(in), optional :: dim
-        character(len=*), intent(in), optional :: string
-        integer(kind=IPRE) :: i, dim1, dim2, dim3
-
-        dim1 = size(X, 1)
-        dim2 = size(X, 2)
-        dim3 = size(X, 3)
-        if (present(string)) print *, trim(string)
-        if ((.not. present(dim)) .or. (dim .eq. 1)) then
-            do i = 1, dim1
-                print *, "Slice ("//num2str(i)//",:,:):"
-                call disp(X(i, :, :))
-            end do
-        elseif (dim .eq. 2) then
-            do i = 1, dim2
-                print *, "Slice (:,"//num2str(i)//",:):"
-                call disp(X(:, i, :))
-            end do
-        elseif (dim .eq. 3) then
-            do i = 1, dim3
-                print *, "Slice (:,:,"//num2str(i)//"):"
-                call disp(X(:, :, i))
-            end do
-        end if
-        return
-    end subroutine disp_r3
 
     !=======================================================================
     ! eig

@@ -1,4 +1,4 @@
-submodule(forlab) forlab_issquare
+submodule(forlab) forlab_det
     use forlab_kinds
 
 contains
