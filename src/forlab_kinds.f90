@@ -7,5 +7,5 @@ module forlab_kinds
     !use iso_c_binding, only: int8=>c_int8_t, int16=>c_int16_t, int32=>c_int32_t, int64=>c_int64_t
     implicit none
     private
-    public sp, dp, qp, int8, int16, int32, int64
+    public :: sp, dp, qp, int8, int16, int32, int64
 end module forlab_kinds
