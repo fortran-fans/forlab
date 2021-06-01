@@ -630,4 +630,15 @@ contains
             filter_qp = x
             if (abs(x) < nearzero_qp) filter_qp = 0.0
         end function
+
+    module subroutine disp_str(string)
+        character(len=*), intent(in), optional :: string
+
+        if (present(string)) then
+            print *, trim(string)
+        else
+            print *, ''
+        end if
+        return
+    end subroutine
 end submodule
