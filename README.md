@@ -36,11 +36,11 @@ fpm test
 To use `forlab` within your fpm project, add the following to fpm.toml file:
 ```toml
 [dependencies]
-forlab = {git = "https://github.com/zoziha/forlab.git"}
+forlab = { git = "https://github.com/zoziha/forlab.git" }
 ```
 ## Forlab Docs
 ```bash
-ford README.md  # todo
+ford API-doc-FORD-file.md  # todo
 ```
 ## Precision Description
 Forlab uses double precision by default.  

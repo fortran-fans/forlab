@@ -1,4 +1,3 @@
-!=======================================================================
 ! Forlab
 !-----------------------------------------------------------------------
 ! Forlab aims to provide a package of functions for scientific
@@ -13,7 +12,6 @@
 !-----------------------------------------------------------------------
 ! When changing precision (IPRE and/or RPRE), the whole program needs to
 ! be recompiled.
-!=======================================================================
 
 module forlab
 
@@ -21,20 +19,14 @@ module forlab
 
     implicit none
 
-    !=======================================================================
     ! Parameters
-    !=======================================================================
-
     integer, public, parameter :: IPRE = 4
     integer, public, parameter :: RPRE = 8
     integer, public, parameter :: CLEN = 512
     real(kind=8), public, parameter :: pi = 3.141592653589793238460d0
     real(kind=8), public, save :: tic_time
 
-    !=======================================================================
     ! Functions
-    !=======================================================================
-
     private
     public :: File, acosd, asind, atand, argmax, argmin, argsort, arange, &
               angle, bsplrep1, bsplrep2, bspline1, bspline2, chol, cosd, countlines, &
@@ -54,9 +46,7 @@ module forlab
     public :: mpi_rpre
     ! #endif
     
-    !=======================================================================
     ! Operators
-    !=======================================================================
     public :: operator(.i.)
 
     type file
@@ -70,10 +60,7 @@ module forlab
         generic, public :: exist => file_exist
     end type file
 
-    !=======================================================================
     ! Abstract function
-    !=======================================================================
-
     abstract interface
         real(kind=RPRE) function func1d(x)
             import :: RPRE
@@ -81,18 +68,17 @@ module forlab
         end function func1d
     end interface
 
-    !!=========================================================================
     !! Polymorphic Interfaces
-    !!=========================================================================
     interface det
         !! det computes the matrix determinant.
         !!
-        !! ## Syntax
+        !! Syntax
         !!-----------------------------------------------------------------------
-        !! x = det(A)
-        !! x = det(A, L, U)
-        !!
-        !! ## Description
+        !! ```fortran
+        !! x = det(A)  
+        !! x = det(A, L, U)  
+        !! ```
+        !! Description
         !!-----------------------------------------------------------------------
         !! x = det(A) returns the determinant of the square matrix A, as the
         !! product of the diagonal elements of the upper triangular matrix from
@@ -101,12 +87,14 @@ module forlab
         !! x = det(A, L, U) returns the determinant of the square matrix A and
         !! outputs the LU factorization matrices of A used for the calculation.
         !!
-        !! ## Examples
+        !! Examples
         !!-----------------------------------------------------------------------
-        !! A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 0. ], [ 3, 3 ], &
-        !!             order = [ 2, 1 ])
-        !! x = det(A)
-        !!     27.
+        !! ```fortran
+        !! A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 0. ], [ 3, 3 ], &  
+        !!             order = [ 2, 1 ])  
+        !! x = det(A)  
+        !!     27. 
+        !! ```
             real(sp) module function det_sp (A, outL, outU)
                 real(sp), dimension(:, :), intent(in) :: A
                 real(sp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
@@ -130,7 +118,6 @@ module forlab
     end interface angle
 
     interface arange
-        !=======================================================================
         ! arange
         !-----------------------------------------------------------------------
         ! arange returns evenly spaced vector.
@@ -146,9 +133,8 @@ module forlab
         !
         ! Examples
         !-----------------------------------------------------------------------
-        ! x = arange(1, 9)
+        ! x = arange(1, 9)  
         !     1   2   3   4   5   6   7   8   9
-        !=======================================================================
             module function arange_int8 (first, last)
                 integer(int8), dimension(:), allocatable :: arange_int8
                 integer(int8), intent(in) :: first, last
@@ -248,7 +234,7 @@ module forlab
         !!
         !! Syntax
         !!-----------------------------------------------------------------------
-        !! x = diag(A)
+        !! x = diag(A)  
         !! A = diag(x)
         !!
         !! Description
@@ -260,15 +246,15 @@ module forlab
         !!
         !! Examples
         !!-----------------------------------------------------------------------
-        !! A = eye(3)
-        !! x = diag(A)
+        !! A = eye(3)  
+        !! x = diag(A)  
         !!     1.  1.  1.
         !!
-        !! x = [ 1., 2., 3. ]
-        !! A = diag(x)
-        !!     1.  0.  0.
-        !!     0.  2.  0.
-        !!     0.  0.  3.
+        !! x = [ 1., 2., 3. ]  
+        !! A = diag(x)  
+        !!     1.  0.  0.  
+        !!     0.  2.  0.  
+        !!     0.  0.  3.  
             module function diag1_sp (A)
                 real(sp), dimension(:), allocatable :: diag1_sp
                 real(sp), dimension(:, :), intent(in) :: A
@@ -300,24 +286,23 @@ module forlab
     end interface diff
 
     interface disp
-        !=======================================================================
         ! disp
         !-----------------------------------------------------------------------
         ! disp displays the value of a variable.
         !
         ! Syntax
         !-----------------------------------------------------------------------
-        ! call disp(x)
-        ! call disp(x, string)
-        ! call disp(A)
-        ! call disp(A, string)
-        ! call disp(X)
-        ! call disp(X, 1)
-        ! call disp(X, 1, string)
-        ! call disp(X, 2)
-        ! call disp(X, 2, string)
-        ! call disp(X, 3)
-        ! call disp(X, 3, string)
+        ! call disp(x)  
+        ! call disp(x, string)  
+        ! call disp(A)  
+        ! call disp(A, string)  
+        ! call disp(X)  
+        ! call disp(X, 1)  
+        ! call disp(X, 1, string)  
+        ! call disp(X, 2)  
+        ! call disp(X, 2, string)  
+        ! call disp(X, 3)  
+        ! call disp(X, 3, string)  
         !
         ! Description
         !-----------------------------------------------------------------------
@@ -349,25 +334,24 @@ module forlab
         !
         ! Examples
         !-----------------------------------------------------------------------
-        ! x = [ 1. 2. 3. ]
-        ! call disp(x)
-        !     1.
-        !     2.
-        !     3.
-        ! call disp(x, "x = ")
-        !     x =
-        !         1.
-        !         2.
+        ! x = [ 1. 2. 3. ]  
+        ! call disp(x)  
+        !     1.  
+        !     2.  
+        !     3.  
+        ! call disp(x, "x = ")  
+        !     x =  
+        !         1.  
+        !         2.  
         !         3.
         !
-        ! A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 9. ], [ 3, 3 ], &
-        !             order = [ 2, 1 ])
-        ! call disp(A, "Matrix A is")
-        !     Matrix A is
-        !         1.  2.  3.
-        !         4.  5.  6.
-        !         7.  8.  9.
-        !=======================================================================
+        ! A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 9. ], [ 3, 3 ], &  
+        !             order = [ 2, 1 ])  
+        ! call disp(A, "Matrix A is")  
+        !     Matrix A is  
+        !         1.  2.  3.  
+        !         4.  5.  6.  
+        !         7.  8.  9.  
             module subroutine disp_rsp0(x, string)
                 real(sp), intent(in) :: x
                 character(len=*), intent(in), optional :: string
@@ -560,7 +544,7 @@ module forlab
         !! Create uninitialized matrices quickly, faster than `ones` function,
         !! and use `empty` function with caution.
         !!
-        !! ## Example
+        !! Example
         !! ---
         !! real, allocatable :: x(:, :)
         !! x = empty(2, 3)
@@ -676,12 +660,12 @@ module forlab
         !! Determine if it is a square matrix
         !!
         !! Ex:
-        !! ---
-        !! A = eye(3)
-        !! bool = issquare(A)
-        !!     .true.
-        !! A = eye(3, 4)
-        !! bool = issquare0(A)
+        !! --------------------------------------
+        !! A = eye(3)  
+        !! bool = issquare(A)  
+        !!     .true.  
+        !! A = eye(3, 4)  
+        !! bool = issquare0(A)  
         !!     .false.
             logical module function issquare_rsp (A)
                 ! import sp
@@ -743,33 +727,32 @@ module forlab
         !!
         !! Syntax
         !!-----------------------------------------------------------------------
-        !! call lu(A, L, U)
+        !! call lu(A, L, U)  
         !!
         !! Description
         !!---------------------------------------------------------------------
         !! call lu(A, L, U) returns the LU matrix factorization of the input
-        !! square m-by-m matrix A. The output matrices are:
-        !!   -   L is a m-by-m lower triangular matrix with ones on the diagonal,
+        !! square m-by-m matrix A. The output matrices are:  
+        !!   -   L is a m-by-m lower triangular matrix with ones on the diagonal,  
         !!   -   U is a m-by-m upper triangular matrix.
         !!
         !! Examples
         !!---------------------------------------------------------------------
-        !! A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 9. ], [ 3, 3 ], &
-        !!             order = [ 2, 1 ])
-        !! call lu(A, L, U)
-        !! call disp(L)
-        !!     1.  0.  0.
-        !!     4.  1.  0.
-        !!     7.  2.  1.
-        !! call disp(U)
-        !!     1.  2.  3.
-        !!     0. -3. -6.
-        !!     0.  0.  0.
-        !! call disp(matmul(L, U))
-        !!     1.  2.  3.
-        !!     4.  5.  6.
-        !!     7.  8.  9.
-        !!=====================================================================
+        !! A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 9. ], [ 3, 3 ], &  
+        !!             order = [ 2, 1 ])  
+        !! call lu(A, L, U)  
+        !! call disp(L)  
+        !!     1.  0.  0.  
+        !!     4.  1.  0.  
+        !!     7.  2.  1.  
+        !! call disp(U)  
+        !!     1.  2.  3.  
+        !!     0. -3. -6.  
+        !!     0.  0.  0.  
+        !! call disp(matmul(L, U))  
+        !!     1.  2.  3.  
+        !!     4.  5.  6.  
+        !!     7.  8.  9.  
             module subroutine lu_sp (A, L, U)
                 real(sp), dimension(:, :), intent(in) :: A
                 real(sp), dimension(:, :), allocatable, intent(out) :: L, U
@@ -919,13 +902,13 @@ module forlab
     interface zeros
         !! zeros creates array all of zeros.
         !!
-        !! ## Syntax
+        !! Syntax
         !!-----------------------------------------------------------------------
-        !! x = zeros(dim1)
-        !! A = zeros(dim1, dim2)
-        !! X = zeros(dim1, dim2, dim3)
+        !! x = zeros(dim1)  
+        !! A = zeros(dim1, dim2)  
+        !! X = zeros(dim1, dim2, dim3)  
         !!
-        !! ## Description
+        !! Description
         !!-----------------------------------------------------------------------
         !! x = zeros(dim1) returns a dim1 vector of zeros.
         !!
@@ -934,18 +917,17 @@ module forlab
         !! X = zeros(dim1, dim2, dim3) returns a dim1-by-dim2-by-dim3
         !! 3-dimensional matrix of zeros.
         !!
-        !! ## Examples
+        !! Examples
         !!-----------------------------------------------------------------------
-        !! x = zeros(3)
-        !! x =
-        !!     0.  0.  0.
+        !! x = zeros(3)  
+        !! x =  
+        !!     0.  0.  0.  
         !!
-        !! A = zeros(3, 3)
-        !! A =
+        !! A = zeros(3, 3)  
+        !! A =  
+        !!     0.  0.  0.  
+        !!     0.  0.  0.  
         !!     0.  0.  0.
-        !!     0.  0.  0.
-        !!     0.  0.  0.
-        !!=======================================================================
         module function zeros1(dim1)
             real(dp), dimension(:), allocatable :: zeros1
             integer, intent(in) :: dim1
@@ -960,18 +942,16 @@ module forlab
         end function
     end interface
 
-    !!=========================================================================
     !! Normal Interfaces
-    !!=========================================================================
     interface
         !! eye creates the identity matrix.
         !!
-        !! ## Syntax
+        !! Syntax
         !!-----------------------------------------------------------------------
-        !! I = eye(dim1)
+        !! I = eye(dim1)  
         !! I = eye(dim1, dim2)
         !!
-        !! ## Description
+        !! Description
         !!-----------------------------------------------------------------------
         !! I = eye(dim1) returns an dim1-by-dim1 matrix with ones on the main
         !! diagonal and zeros elsewhere.
@@ -979,16 +959,16 @@ module forlab
         !! I = eye(dim1, dim2) returns a dim1-by-dim2 matrix with ones on the
         !! main diagonal and zeros elsewhere.
         !!
-        !! ## Examples
+        !! Examples
         !!-----------------------------------------------------------------------
-        !! I = eye(3)
-        !!     1.  0.  0.
-        !!     0.  1.  0.
+        !! I = eye(3)  
+        !!     1.  0.  0.  
+        !!     0.  1.  0.  
         !!     0.  0.  1.
         !!
-        !! I = eye(3, 4)
-        !!     1.  0.  0.  0.
-        !!     0.  1.  0.  0.
+        !! I = eye(3, 4)  
+        !!     1.  0.  0.  0.  
+        !!     0.  1.  0.  0.  
         !!     0.  0.  1.  0.
         !!
         !! I = eye(4, 3)
@@ -996,7 +976,6 @@ module forlab
         !!     0.  1.  0.
         !!     0.  0.  1.
         !!     0.  0.  0.
-        !!=======================================================================
         module function eye(dim1, dim2)
             real(dp), dimension(:, :), allocatable :: eye
             integer, intent(in) :: dim1
@@ -1005,7 +984,6 @@ module forlab
     end interface
 contains
 
-    !=======================================================================
     ! acosd
     !-----------------------------------------------------------------------
     ! acosd computes the inverse cosine in degrees.
@@ -1032,7 +1010,6 @@ contains
     ! x = [ -1., 0., 1. ]
     ! y = acosd(x)
     !     180.  90.   0.
-    !=======================================================================
 
     real(kind=RPRE) function acosd0(x)
         real(kind=RPRE), intent(in) :: x
@@ -1065,7 +1042,6 @@ contains
         return
     end function acosd3
 
-    !=======================================================================
     ! angle
     !-----------------------------------------------------------------------
     ! angle compute the phase angle.
@@ -1082,7 +1058,6 @@ contains
     !
     ! P = angle(Z) returns the phase angles in radians of each complex
     ! numbers in vector Z.
-    !=======================================================================
 
     real(kind=RPRE) function angle0(z)
         complex(kind=RPRE), intent(in) :: z
@@ -1104,7 +1079,6 @@ contains
         return
     end function angle1
 
-    !=======================================================================
     ! argmax
     !-----------------------------------------------------------------------
     ! argmax computes the indices of the maximum value of an array.
@@ -1128,7 +1102,6 @@ contains
     ! Notes
     !-----------------------------------------------------------------------
     ! argmax ignores NaN values.
-    !=======================================================================
 
     integer(kind=IPRE) function argmax1(x)
         real(kind=RPRE), dimension(:), intent(in) :: x
@@ -1153,7 +1126,6 @@ contains
         return
     end function argmax3
 
-    !=======================================================================
     ! argmin
     !-----------------------------------------------------------------------
     ! argmin computes the indices of the minimum value of an array.
@@ -1177,7 +1149,6 @@ contains
     ! Notes
     !-----------------------------------------------------------------------
     ! argmin ignores NaN values.
-    !=======================================================================
 
     integer(kind=IPRE) function argmin1(x)
         real(kind=RPRE), dimension(:), intent(in) :: x
@@ -1202,7 +1173,6 @@ contains
         return
     end function argmin3
 
-    !=======================================================================
     ! argsort
     !-----------------------------------------------------------------------
     ! argsort generates the indices that would sort an array.
@@ -1226,7 +1196,6 @@ contains
     ! Notes
     !-----------------------------------------------------------------------
     ! x(argsort(x), order) returns the same result as sort(x, order).
-    !=======================================================================
 
     function argsort(x, order)
         integer(kind=IPRE), dimension(:), allocatable :: argsort
@@ -1317,7 +1286,6 @@ contains
 
     end function argsort
 
-    !=======================================================================
     ! asind
     !-----------------------------------------------------------------------
     ! asind computes the inverse sine in degrees.
@@ -1344,7 +1312,6 @@ contains
     ! x = [ -1., 0., 1. ]
     ! y = asind(x)
     !     -90.  0.  90.
-    !=======================================================================
 
     real(kind=RPRE) function asind0(x)
         real(kind=RPRE), intent(in) :: x
@@ -1377,7 +1344,6 @@ contains
         return
     end function asind3
 
-    !=======================================================================
     ! atand
     !-----------------------------------------------------------------------
     ! atand computes the inverse tangent in degrees.
@@ -1403,7 +1369,6 @@ contains
     ! x = [ -50., 0., 50. ]
     ! y = atand(x)
     !     -88.8542328   0.  88.8542328
-    !=======================================================================
 
     real(kind=RPRE) function atand0(x)
         real(kind=RPRE), intent(in) :: x
@@ -1436,7 +1401,6 @@ contains
         return
     end function atand3
 
-    !=======================================================================
     ! bsplrep1
     !-----------------------------------------------------------------------
     ! bsplrep1 computes the B-spline representation C(t) of a set of
@@ -1460,7 +1424,6 @@ contains
     ! call bsplrep1(x, y, xq, yq, order, n1) returns the n1-points B-spline
     ! representation C(t) given the control points defined by x and y, and
     ! the order.
-    !=======================================================================
 
     subroutine bsplrep1(x, y, xq, yq, order, n1)
         real(kind=RPRE), dimension(:), intent(in) :: x, y
@@ -1501,7 +1464,6 @@ contains
         return
     end subroutine bsplrep1
 
-    !=======================================================================
     ! bsplrep2
     !-----------------------------------------------------------------------
     ! bsplrep2 computes the B-spline surface representation S(t) of a set of
@@ -1526,7 +1488,6 @@ contains
     ! call bsplrep2(x, y, z, xq, yq, zq, order, n1, n2) returns the
     ! n1-by-b2-points B-spline surface representation S(t) = (xq, yq, zq)
     ! given the control points defined by x, y and z, and the order.
-    !=======================================================================
 
     subroutine bsplrep2(x, y, z, xq, yq, zq, order, n1, n2)
         real(kind=RPRE), dimension(:), intent(in) :: x, y
@@ -1582,7 +1543,6 @@ contains
         return
     end subroutine bsplrep2
 
-    !=======================================================================
     ! bspline1
     !-----------------------------------------------------------------------
     ! bspline1 approximates a set of 1-dimensional control points with
@@ -1600,7 +1560,6 @@ contains
     !
     ! yq = bspline1(x, y, xq, order) returns the approximated vector yq at
     ! the query points in xq with spline curves given the order.
-    !=======================================================================
 
     function bspline1_1(x, y, xq, order, n1) result(yq)
         real(kind=RPRE), dimension(:), allocatable :: yq
@@ -1626,7 +1585,6 @@ contains
         return
     end function bspline1_1
 
-    !=======================================================================
     ! bspline2
     !-----------------------------------------------------------------------
     ! bspline2 approximates a set of 2-dimensional control points with
@@ -1646,7 +1604,6 @@ contains
     ! ZQ = bspline2(x, y, Z, XQ, YQ, order) returns the evaluated matrix ZQ
     ! given mesh type grids XQ and YQ with spline curves given the order. ZQ
     ! is of the same shape as XQ and YQ.
-    !=======================================================================
 
     function bspline2_2(x, y, z, xq, yq, order) result(zq)
         real(kind=RPRE), dimension(:, :), allocatable :: zq
@@ -1675,7 +1632,6 @@ contains
         return
     end function bspline2_2
 
-    !=======================================================================
     ! check_directory
     !-----------------------------------------------------------------------
     ! check_directory appends '/' do a directory name.
@@ -1688,7 +1644,6 @@ contains
     !-----------------------------------------------------------------------
     ! call check_directory(dirname) returns a directory name dirname that
     ! ends with '/'.
-    !=======================================================================
 
     subroutine check_directory(dirname)
         character(len=:), allocatable, intent(inout) :: dirname
@@ -1699,7 +1654,6 @@ contains
         return
     end subroutine check_directory
 
-    !=======================================================================
     ! chi2cdf
     !-----------------------------------------------------------------------
     ! chi2cdf computes the chi-square cumulative distribution function.
@@ -1712,7 +1666,6 @@ contains
     !-----------------------------------------------------------------------
     ! p = chi2cdf(x, v) returns the chi-square cdf at each of the values
     ! in x.
-    !=======================================================================
 
     real(kind=RPRE) function chi2cdf0(x, v)
         real(kind=RPRE), intent(in) :: x
@@ -1750,7 +1703,6 @@ contains
         return
     end function chi2cdf1_1
 
-    !=======================================================================
     ! chi2inv
     !-----------------------------------------------------------------------
     ! chi2inv computes the chi-square inverse cumulative distribution
@@ -1764,7 +1716,6 @@ contains
     !-----------------------------------------------------------------------
     ! x = chi2inv(p, v) returns the chi-square inverse cdf at each of the
     ! values in p.
-    !=======================================================================
 
     real(kind=RPRE) function chi2inv0(p, v)
         real(kind=RPRE), intent(in), target :: p
@@ -1829,7 +1780,6 @@ contains
         return
     end function chi2inv1_1
 
-    !=======================================================================
     ! chi2pdf
     !-----------------------------------------------------------------------
     ! chi2pdf computes the chi-square probability distribution function.
@@ -1842,7 +1792,6 @@ contains
     !-----------------------------------------------------------------------
     ! y = chi2pdf(x, v) returns the chi-square pdf at each of the values
     ! in x.
-    !=======================================================================
 
     real(kind=RPRE) function chi2pdf0(x, v)
         real(kind=RPRE), intent(in) :: x
@@ -1886,7 +1835,6 @@ contains
         return
     end function chi2pdf1_1
 
-    !=======================================================================
     ! chi2rand
     !-----------------------------------------------------------------------
     ! chi2rand generates chi-square random numbers.
@@ -1903,7 +1851,6 @@ contains
     !
     ! r = chi2rand(v, dim1) returns a dim1 vector of chi-square distributed
     ! random number with v degrees of freedom.
-    !=======================================================================
 
     real(kind=RPRE) function chi2rand0(v)
         integer(kind=IPRE), intent(in) :: v
@@ -1918,7 +1865,6 @@ contains
         return
     end function chi2rand1
 
-    !=======================================================================
     ! chol
     !-----------------------------------------------------------------------
     ! chol computes Cholesky's decomposition of a symmetric positive
@@ -1932,7 +1878,6 @@ contains
     !-----------------------------------------------------------------------
     ! L = chol(A) returns a lower triangular matrix L satisfying the
     ! equation A = L*Lt.
-    !=======================================================================
 
     function chol(A) result(L)
         real(kind=RPRE), dimension(:, :), allocatable :: L
@@ -1974,7 +1919,6 @@ contains
         return
     end function chol
 
-    !=======================================================================
     ! close
     !-----------------------------------------------------------------------
     ! close closes a File object.
@@ -1986,7 +1930,6 @@ contains
     ! Description
     !-----------------------------------------------------------------------
     ! call ofile%close() closes the File object ofile.
-    !=======================================================================
 
     subroutine close (self)
         class(File) :: self
@@ -1995,7 +1938,6 @@ contains
         return
     end subroutine close
 
-    !=======================================================================
     ! cosd
     !-----------------------------------------------------------------------
     ! cosd computes the cosine of argument in degrees.
@@ -2017,7 +1959,6 @@ contains
     ! x = [ 0., 90., 180., 270. ]
     ! y = cosd(x)
     !     1.  0. -1.  0.
-    !=======================================================================
 
     real(kind=RPRE) function cosd0(x)
         real(kind=RPRE), intent(in) :: x
@@ -2050,7 +1991,6 @@ contains
         return
     end function cosd3
 
-    !=======================================================================
     ! countlines
     !-----------------------------------------------------------------------
     ! countlines counts the number of lines in a txt file.
@@ -2067,7 +2007,6 @@ contains
     !
     ! n = ofile%countlines() returns the number of lines in the txt file
     ! associated to the File object ofile.
-    !=======================================================================
 
     integer(kind=IPRE) function countlines1(self)
         class(File), intent(inout) :: self
@@ -2102,7 +2041,6 @@ contains
         return
     end function countlines2
 
-    !=======================================================================
     ! cov
     !-----------------------------------------------------------------------
     ! cov computes the covariance.
@@ -2147,7 +2085,6 @@ contains
     !
     ! C = cov(X, Y, w) returns the the 2-by-2 covariance matrix with the
     ! normalisation option w. X and Y are treated as column vectors.
-    !=======================================================================
 
     real(kind=RPRE) function cov1_1(x, w)
         real(kind=RPRE), dimension(:), intent(in) :: x
@@ -2219,7 +2156,6 @@ contains
         return
     end function cov2_2
 
-    !=======================================================================
     ! cumsum
     !-----------------------------------------------------------------------
     ! cumsum computes the cumulative sum of a vector or array.
@@ -2240,7 +2176,6 @@ contains
     !
     ! B = cumsum(A) returns a matrix containing the cumulative sums for each
     ! elements A along the specified dimension dim.
-    !=======================================================================
 
     function cumsum1(x)
         real(kind=RPRE), dimension(:), allocatable :: cumsum1
@@ -2275,7 +2210,6 @@ contains
         return
     end function cumsum2
 
-    !=======================================================================
     ! datenum
     !-----------------------------------------------------------------------
     ! datenum converts the datetime values into serial date numbers (since
@@ -2310,7 +2244,6 @@ contains
     ! Notes
     !-----------------------------------------------------------------------
     ! Use double precision for accuracy.
-    !=======================================================================
 
     real(kind=8) function datenum0(year, month, day, hour, minute, &
                                    second, microsecond)
@@ -2356,7 +2289,6 @@ contains
     end function datenum0
 
 
-    !=======================================================================
     ! datestr
     !-----------------------------------------------------------------------
     ! datestr creates a string of a datetime.
@@ -2379,7 +2311,6 @@ contains
     !-----------------------------------------------------------------------
     ! Output string may slightly differ from the input date vector in
     ! datenum due to accuracy in the calculation of the serial date number.
-    !=======================================================================
 
     function datestr0_0(t)
         character(len=:), allocatable :: datestr0_0
@@ -2460,7 +2391,6 @@ contains
         return
     end function datestr0_0
 
-    !=======================================================================
     ! datevec
     !-----------------------------------------------------------------------
     ! datevec converts date and time to vector of components.
@@ -2482,7 +2412,6 @@ contains
     ! Notes
     !-----------------------------------------------------------------------
     ! Input is in double precision for accuracy.
-    !=======================================================================
 
     function datevec0(t)
         integer(kind=IPRE) :: datevec0(7)
@@ -2550,7 +2479,6 @@ contains
         return
     end function datevec0
 
-    !=======================================================================
     ! dbindex
     !-----------------------------------------------------------------------
     ! dbindex computes the Davies-Bouldin index for evaluating clutering
@@ -2583,7 +2511,6 @@ contains
     !-----------------------------------------------------------------------
     ! After Davies D. L. and Bouldin D. W. (1979): "A Cluster Separation
     ! Measure".
-    !=======================================================================
 
     real(kind=RPRE) function dbindex1(x, cluster, means, p, q) result(db)
         real(kind=RPRE), dimension(:), intent(in) :: x, means
@@ -2666,7 +2593,6 @@ contains
         return
     end function dbindex2
 
-    !=======================================================================
     ! deboor
     !-----------------------------------------------------------------------
     ! deboor evaluates recursively the spline polynomial basis using
@@ -2681,7 +2607,6 @@ contains
     ! db = deboor(i, k, x, t) returns the polynomial basis given the control
     ! point index i, the polynomial order k (degree k-1), the evaluated
     ! point x, and the knots vector t.
-    !=======================================================================
 
     recursive function deboor(i, k, x, t) result(db)
         real(kind=RPRE) :: db
@@ -2720,7 +2645,6 @@ contains
         return
     end function deboor
 
-    !=======================================================================
     ! deg2utm
     !-----------------------------------------------------------------------
     ! deg2utm converts latitude / longitude (in degrees) coordinates to
@@ -2740,7 +2664,6 @@ contains
     !-----------------------------------------------------------------------
     ! This function has been translated and adapted from the Python's
     ! module utm: https://pypi.python.org/pypi/utm
-    !=======================================================================
 
     subroutine deg2utm0(lat, lon, east, north, zn, zl)
         real(kind=RPRE), intent(in) :: lat, lon
@@ -2867,7 +2790,6 @@ contains
         return
     end subroutine deg2utm1
 
-    !=======================================================================
     ! diff
     !-----------------------------------------------------------------------
     ! diff computes differences of arrays
@@ -2900,7 +2822,6 @@ contains
     ! B = diff(A, n, dim) returns the nth difference along the dimension
     ! given by dim by applying the diff(A, dim) operator recursively
     ! n times.
-    !=======================================================================
 
     function diff1(x, n)
         real(kind=RPRE), dimension(:), allocatable :: diff1
@@ -2940,7 +2861,6 @@ contains
         return
     end function diff2
 
-    !=======================================================================
     ! eig
     !-----------------------------------------------------------------------
     ! eig computes eigenvalues and eigenvectors of symmetric matrix using
@@ -2958,7 +2878,6 @@ contains
     !
     ! call eig(A, V, d) returns eigenvalues and eigenvectors with a maximum
     ! of itermax iterations.
-    !=======================================================================
 
     subroutine eig(A, V, d, itermax)
         real(kind=RPRE), dimension(:, :), intent(in) :: A
@@ -3072,7 +2991,6 @@ contains
         return
     end subroutine eig
 
-    !=======================================================================
     ! file_exist
     !-----------------------------------------------------------------------
     ! file_exist determines whether a File object already exists.
@@ -3085,7 +3003,6 @@ contains
     !-----------------------------------------------------------------------
     ! call ofile % exist() returns .true. if the File object ofile exists,
     ! .false. otherwise.
-    !=======================================================================
 
     logical function file_exist(self)
         class(File), intent(inout) :: self
@@ -3094,7 +3011,6 @@ contains
         return
     end function file_exist
 
-    !=======================================================================
     ! File (constructor)
     !-----------------------------------------------------------------------
     ! File constructs a File object.
@@ -3116,7 +3032,6 @@ contains
     ! call ofile%open()
     ! ! ... some operations on this file ...
     ! call ofile%close()
-    !=======================================================================
 
     type(File) function init_File(unit, filename)
         integer(kind=IPRE), intent(in) :: unit
@@ -3127,7 +3042,6 @@ contains
         return
     end function init_File
 
-    !=======================================================================
     ! find
     !-----------------------------------------------------------------------
     ! find finds indices of values in arrays that satisfy input condition.
@@ -3160,7 +3074,6 @@ contains
     !     1   1
     !     2   2
     !     3   3
-    !=======================================================================
 
     function find1(bool)
         integer(kind=IPRE), dimension(:), allocatable :: find1
@@ -3234,7 +3147,6 @@ contains
         return
     end function find3
 
-    !=======================================================================
     ! fminbnd
     !-----------------------------------------------------------------------
     ! fminbnd solves a 1-dimensional problem defined by
@@ -3254,7 +3166,6 @@ contains
     !
     ! x = fminbnd(fitness, a, b, eps) returns the local minimizer x with the
     ! convergence tolerance specified by eps.
-    !=======================================================================
 
     real(kind=RPRE) function fminbnd(fitness, a, b, eps)
         procedure(func1d) :: fitness
@@ -3283,7 +3194,6 @@ contains
         return
     end function fminbnd
 
-    !=======================================================================
     ! flip
     !-----------------------------------------------------------------------
     ! flip reverses order of elements of arrays.
@@ -3327,7 +3237,6 @@ contains
     !     0.    0.    1.
     !     0.    1.    0.
     !     1.    0.    0.
-    !=======================================================================
 
     function flip_i1(x)
         integer(kind=IPRE), dimension(:), allocatable :: flip_i1
@@ -3409,7 +3318,6 @@ contains
         return
     end function flip_r3
 
-    !=======================================================================
     ! fliplr
     !-----------------------------------------------------------------------
     ! fliplr reverses vector and matrix left to right.
@@ -3437,7 +3345,6 @@ contains
     !     0.    0.    1.
     !     0.    1.    0.
     !     1.    0.    0.
-    !=======================================================================
 
     function fliplr_i1(x)
         integer(kind=IPRE), dimension(:), allocatable :: fliplr_i1
@@ -3479,7 +3386,6 @@ contains
         return
     end function fliplr_r2
 
-    !=======================================================================
     ! flipud
     !-----------------------------------------------------------------------
     ! flipud reverses vector and matrix up to down.
@@ -3507,7 +3413,6 @@ contains
     !     0.    0.    1.
     !     0.    1.    0.
     !     1.    0.    0.
-    !=======================================================================
 
     function flipud_i1(x)
         integer(kind=IPRE), dimension(:), allocatable :: flipud_i1
@@ -3549,7 +3454,6 @@ contains
         return
     end function flipud_r2
 
-    !=======================================================================
     ! gammainc
     !-----------------------------------------------------------------------
     ! gammainc returns the incomplete gamma function.
@@ -3562,7 +3466,6 @@ contains
     !-----------------------------------------------------------------------
     ! y = gammainc(x, a) returns the incomplete gamma function of
     ! corresponding elements of x and a.
-    !=======================================================================
 
     real(kind=RPRE) function gammainc0(x, a)
         real(kind=RPRE), intent(in) :: x, a
@@ -3649,7 +3552,6 @@ contains
         return
     end function
 
-    !=======================================================================
     ! gmm
     !-----------------------------------------------------------------------
     ! gmm performs Gaussian Mixture Modelling using Expectation-Maximization
@@ -3675,7 +3577,6 @@ contains
     ! prob                Output probabilities
     ! itermax = 1000      Maximum number of iterations
     ! niter               Output number of iterations
-    !=======================================================================
 
     function gmm1(x, K, means, stdev, prob, itermax, niter) result(idx)
         integer(kind=IPRE), dimension(:), allocatable :: idx
@@ -3844,7 +3745,6 @@ contains
 
     end function gmm2
 
-    !=======================================================================
     ! horzcat
     !-----------------------------------------------------------------------
     ! horzcat concatenates arrays horizontally.
@@ -3883,7 +3783,6 @@ contains
     ! A = horzcat(A1, A2)
     !     1.  2.  5.  6.
     !     3.  4.  7.  8.
-    !=======================================================================
 
     function horzcat_i1(x1, x2)
         integer(kind=IPRE), dimension(:, :), allocatable :: horzcat_i1
@@ -4009,7 +3908,6 @@ contains
         return
     end function horzcat_r21
 
-    !=======================================================================
     ! hann
     !-----------------------------------------------------------------------
     ! hann defines a Hanning window.
@@ -4021,7 +3919,6 @@ contains
     ! Description
     !-----------------------------------------------------------------------
     ! w = hann(n) returns an n-point symmetric Hanning window.
-    !=======================================================================
 
     function hann(n)
         real(kind=RPRE), dimension(:), allocatable :: hann
@@ -4031,7 +3928,6 @@ contains
         return
     end function hann
 
-    !=======================================================================
     ! interp1
     !-----------------------------------------------------------------------
     ! interp1 performs a linear interpolation.
@@ -4044,7 +3940,6 @@ contains
     !-----------------------------------------------------------------------
     ! vq = interp1(x, v, xq) returns the evaluated vector yq at the query
     ! points in xq using a linear interpolation.
-    !=======================================================================
 
     function interp1_0(x, v, xq) result(vq)
         real(kind=RPRE) :: vq
@@ -4080,7 +3975,6 @@ contains
         return
     end function interp1_1
 
-    !=======================================================================
     ! interp2
     !-----------------------------------------------------------------------
     ! interp2 performs a bilinear interpolation.
@@ -4098,7 +3992,6 @@ contains
     ! VQ = interp2(x, y, V, XQ, YQ) returns the evaluated matrix VQ given
     ! mesh type grids XQ and YQ using a bilinear interpolation. VQ is of the
     ! same shape as XQ and YQ.
-    !=======================================================================
 
     function interp2_0(x, y, v, xq, yq) result(vq)
         real(kind=RPRE) :: vq
@@ -4153,7 +4046,6 @@ contains
         return
     end function interp2_2
 
-    !=======================================================================
     ! interp3
     !-----------------------------------------------------------------------
     ! interp3 performs a trilinear interpolation.
@@ -4166,7 +4058,6 @@ contains
     !-----------------------------------------------------------------------
     ! vq = interp3(x, y, z, v, xq, yq, zq) returns the evaluated vector vq
     ! at the query points in xq, yq and zq using a trilinear interpolation.
-    !=======================================================================
 
     function interp3_0(x, y, z, v, xq, yq, zq) result(vq)
         real(kind=RPRE) :: vq
@@ -4216,7 +4107,6 @@ contains
         return
     end function interp3_1
 
-    !=======================================================================
     ! inv0
     !-----------------------------------------------------------------------
     ! inv0 computes the real matrix inverse.
@@ -4238,9 +4128,7 @@ contains
     !     -1.77777779   0.888888896  -0.111111112
     !      1.55555558  -0.777777791   0.222222224
     !     -0.11111112   0.222222224  -0.111111112
-    !=======================================================================
 
-    !=======================================================================
     ! isleap
     !-----------------------------------------------------------------------
     ! isleap determines whether a year is a leap year.
@@ -4258,7 +4146,6 @@ contains
     !-----------------------------------------------------------------------
     ! bool = isleap(2016)
     !     .true.
-    !=======================================================================
 
     logical function isleap(year)
         integer(kind=IPRE), intent(in) :: year
@@ -4271,7 +4158,6 @@ contains
         return
     end function isleap
 
-    !=======================================================================
     ! ismember
     !-----------------------------------------------------------------------
     ! ismember determines whether a value is present in an array.
@@ -4300,7 +4186,6 @@ contains
     !     .true.
     ! bool = ismember(6., y)
     !     .false.
-    !=======================================================================
 
     logical function ismember_i0i1(x, y)
         integer(kind=IPRE), intent(in) :: x
@@ -4530,7 +4415,6 @@ contains
         return
     end function ismember_r0r3
 
-    !=======================================================================
     ! isoutlier
     !-----------------------------------------------------------------------
     ! isoutlier determines outliers in a vector.
@@ -4543,7 +4427,6 @@ contains
     !-----------------------------------------------------------------------
     ! bool = isoutlier(x) returns a logical vector with .true. if x(i) is
     ! an outlier, .false. otherwise.
-    !=======================================================================
 
     function isoutlier(x, m)
         logical, dimension(:), allocatable :: isoutlier
@@ -4557,7 +4440,6 @@ contains
         return
     end function isoutlier
 
-    !=======================================================================
     ! issymmetric
     !-----------------------------------------------------------------------
     ! issymmetric determines whether a square matrix is symmetric.
@@ -4576,7 +4458,6 @@ contains
     ! A = eye(3)
     ! bool = issymmetric(A)
     !     .true.
-    !=======================================================================
 
     logical function issymmetric(A)
         real(kind=RPRE), dimension(:, :), intent(in) :: A
@@ -4600,7 +4481,6 @@ contains
         return
     end function issymmetric
 
-    !=======================================================================
     ! k2test
     !-----------------------------------------------------------------------
     ! k2test performs the D'Agostino-Pearson's K2 test to assess normality
@@ -4633,7 +4513,6 @@ contains
     ! k = 2 degrees of freedom when the population is normally distributed.
     ! The CDF of the chi-squared with 2 degrees of freedom can be written:
     !     F(x,2) = 1 - exp(-x/2)
-    !=======================================================================
 
     function k2test(x) result(p)
         real(kind=RPRE) :: p
@@ -4675,7 +4554,6 @@ contains
         return
     end function k2test
 
-    !=======================================================================
     ! kde
     !-----------------------------------------------------------------------
     ! kde computes the kernel density estimation assuming Gaussian kernels
@@ -4701,7 +4579,6 @@ contains
     !
     ! call kde(A, f, xi, yi, H) returns the PDE f at points xi and yi using
     ! the bandwidth H.
-    !=======================================================================
 
     subroutine kde1(x, f, xi, bw)
         real(kind=RPRE), dimension(:), intent(in) :: x
@@ -4782,7 +4659,6 @@ contains
         return
     end subroutine kde2
 
-    !=======================================================================
     ! kurtosis
     !-----------------------------------------------------------------------
     ! kurtosis computes vector and matrix kurtosis.
@@ -4819,7 +4695,6 @@ contains
     ! each row of matrix A.
     !
     ! x = kurtosis(A, flag, 2) returns a dim1 vector given the flag.
-    !=======================================================================
 
     real(kind=RPRE) function kurtosis1(x, flag)
         real(kind=RPRE), dimension(:), intent(in) :: x
@@ -4862,7 +4737,6 @@ contains
         return
     end function kurtosis2
 
-    !=======================================================================
     ! linspace
     !-----------------------------------------------------------------------
     ! linspace creates a linearly spaced vector.
@@ -4880,7 +4754,6 @@ contains
     !-----------------------------------------------------------------------
     ! x = linspace(0, 10, 11)
     !     0.  1.  2.  3.  4.  5.  6.  7.  8.  9.  10.
-    !=======================================================================
 
     function linspace_r8r8(first, last, n)
         real(kind=RPRE), dimension(:), allocatable :: linspace_r8r8
@@ -4953,7 +4826,6 @@ contains
         return
     end function linspace_i4r4
 
-    !=======================================================================
     ! loadbin
     !-----------------------------------------------------------------------
     ! loadbin loads binary files.
@@ -4988,7 +4860,6 @@ contains
     ! Make sure to use the exact kind:
     !   -   4 for 32 bytes floating points,
     !   -   8 for 64 bytes floating points.
-    !=======================================================================
 
     function loadbin0(filename, kind)
         real(kind=RPRE), dimension(:), allocatable :: loadbin0
@@ -5134,7 +5005,6 @@ contains
         return
     end function loadbin3
 
-    !=======================================================================
     ! loadtxt
     !-----------------------------------------------------------------------
     ! loadtxt loads txt files.
@@ -5151,7 +5021,6 @@ contains
     !
     ! A = loadtxt(filename, dim2) loads a 2-dimensional array into A from a
     ! txt file filename. dim2 indicates the number of columns of the array.
-    !=======================================================================
 
     function loadtxt1(filename)
         real(kind=RPRE), dimension(:), allocatable :: loadtxt1
@@ -5198,7 +5067,6 @@ contains
         return
     end function loadtxt2
 
-    !=======================================================================
     ! log2
     !-----------------------------------------------------------------------
     ! log2 computes the base 2 logarithm.
@@ -5228,7 +5096,6 @@ contains
     ! The latter example shows how log2 can be used to tell whether a number
     ! is a power of 2. Fortran intrinsic binary substraction function iand
     ! can also be used for this purpose.
-    !=======================================================================
 
     real(kind=RPRE) function log2_i0(x)
         integer(kind=IPRE), intent(in) :: x
@@ -5260,7 +5127,6 @@ contains
         return
     end function log2_r1
 
-    !=======================================================================
     ! lsweight
     !-----------------------------------------------------------------------
     ! lsweight computes the least-square inversion weights.
@@ -5275,7 +5141,6 @@ contains
     ! W = lsweight(r, "none") returns the identity matrix.
     !
     ! W = lsweight(r, "biweight") returns the weights using a biweight norm.
-    !=======================================================================
 
     function lsweight(r, ntype)
         real(kind=RPRE), dimension(:, :), allocatable :: lsweight
@@ -5297,7 +5162,6 @@ contains
         return
     end function lsweight
 
-    !=======================================================================
     ! kmeans
     !-----------------------------------------------------------------------
     ! kmeans performs K-means clustering.
@@ -5325,7 +5189,6 @@ contains
     ! Notes
     !-----------------------------------------------------------------------
     ! By default, initials centroids are randomly chosen among data points.
-    !=======================================================================
 
     function kmeans1(x, K, means, init, itermax, niter) result(idx)
         integer(kind=IPRE), dimension(:), allocatable :: idx
@@ -5460,7 +5323,6 @@ contains
 
     end function kmeans2
 
-    !=======================================================================
     ! mad
     !-----------------------------------------------------------------------
     ! mad computes the mean-absolute-deviation or the median-absolute
@@ -5498,7 +5360,6 @@ contains
     !
     ! x = mad(A, 2, 2) returns a dim1 vector with the median-absolute
     ! -deviation of each row of matrix A.
-    !=======================================================================
 
     real(kind=RPRE) function mad1(x, method)
         real(kind=RPRE), dimension(:), intent(in) :: x
@@ -5546,7 +5407,6 @@ contains
         return
     end function mad2
 
-    !=======================================================================
     ! mbkmeans
     !-----------------------------------------------------------------------
     ! mbkmeans performs Mini-batch K-means clustering.
@@ -5571,7 +5431,6 @@ contains
     ! init                Initial centroids
     ! itermax = 50        Maximum number of iterations
     ! niter               Output number of iterations
-    !=======================================================================
 
     function mbkmeans1(x, K, perc, means, init, itermax, niter) result(idx)
         integer(kind=IPRE), dimension(:), allocatable :: idx
@@ -5723,7 +5582,6 @@ contains
 
     end function mbkmeans2
 
-    !=======================================================================
     ! mean
     !-----------------------------------------------------------------------
     ! mean computes the mean value of an array.
@@ -5759,7 +5617,6 @@ contains
     !     4.  5.  6.
     ! x = mean(A, 2)
     !     2.  5.  8.
-    !=======================================================================
 
     real(kind=RPRE) function mean1(x)
         real(kind=RPRE), dimension(:), intent(in) :: x
@@ -5790,7 +5647,6 @@ contains
         return
     end function mean2
 
-    !=======================================================================
     ! median
     !-----------------------------------------------------------------------
     ! median computes the median value of an array.
@@ -5830,7 +5686,6 @@ contains
     !     4.  7.  5.
     ! x = median(A, 2)
     !     3.  5.  6.
-    !=======================================================================
 
     real(kind=RPRE) function median1(x)
         real(kind=RPRE), dimension(:), intent(in) :: x
@@ -5870,7 +5725,6 @@ contains
         return
     end function median2
 
-    !=======================================================================
     ! meshgrid
     !-----------------------------------------------------------------------
     ! meshgrid generates rectangular grid in 2 dimensions.
@@ -5901,7 +5755,6 @@ contains
     !    12.  12.  12.
     !    13.  13.  13.
     !    14.  14.  14.
-    !=======================================================================
 
     subroutine meshgrid2(ax, ay, x, y)
         real(kind=RPRE), dimension(:), intent(in) :: ax, ay
@@ -5921,7 +5774,6 @@ contains
         return
     end subroutine meshgrid2
 
-    !=======================================================================
     ! mpi_rpre
     !-----------------------------------------------------------------------
     ! mpi_rpre returns either MPI_REAL or MPI_DOUBLE depending on RPRE.
@@ -5930,7 +5782,6 @@ contains
     !-----------------------------------------------------------------------
     ! When calling MPI functions, use mpi_rpre instead of MPI_REAL or
     ! MPI_DOUBLE.
-    !=======================================================================
     !\note: fpm has not support macro command analysis.
     ! #ifdef do_mpi
     integer(kind=4) function mpi_rpre()
@@ -5944,7 +5795,6 @@ contains
     end function mpi_rpre
     ! #endif
 
-    !=======================================================================
     ! nextpow2
     !-----------------------------------------------------------------------
     ! nextpow2 computes the exponent of the next higher power of 2.
@@ -5970,7 +5820,6 @@ contains
     ! x = [ 1, -2, 3, -4, 5, 9, 519 ]
     ! y = nextpow2(x)
     !     0   1   2   2   3   4   10
-    !=======================================================================
 
     function nextpow2_0(x) result(pow)
         integer(kind=IPRE) :: pow
@@ -5988,7 +5837,6 @@ contains
         return
     end function nextpow2_1
 
-    !=======================================================================
     ! norm
     !-----------------------------------------------------------------------
     ! norm computes vector and matrix norms.
@@ -6018,7 +5866,6 @@ contains
     !     3.74165750
     ! y = norm(x, 3.)
     !     3.30192733
-    !=======================================================================
 
     real(kind=RPRE) function norm1(x, p)
         real(kind=RPRE), dimension(:), intent(in) :: x
@@ -6049,7 +5896,6 @@ contains
     end function norm2
 
 
-    !=======================================================================
     ! normpdf
     !-----------------------------------------------------------------------
     ! normpdf computes the normal probability density function.
@@ -6068,7 +5914,6 @@ contains
     ! y = normpdf(X, mu, sigma) returns the PDF at each of the
     ! multidimensional points in matrix X using the normal distribution with
     ! mean mu and covariance matrix sigma.
-    !=======================================================================
 
     real(kind=RPRE) function normpdf0(x, mu, sigma) result(pdf)
         real(kind=RPRE), intent(in) :: x, mu, sigma
@@ -6102,7 +5947,6 @@ contains
         return
     end function normpdf2
 
-    !=======================================================================
     ! num2str
     !-----------------------------------------------------------------------
     ! num2str converts numbers to strings.
@@ -6122,7 +5966,6 @@ contains
     !-----------------------------------------------------------------------
     ! print *, "Percentage: " // num2str(50.431, "(F6.2)") // "%"
     !     Percentage: 50.43%
-    !=======================================================================
 
     function num2str_i4(x, fmt)
         character(len=:), allocatable :: num2str_i4
@@ -6188,7 +6031,6 @@ contains
         return
     end function num2str_r8
 
-    !=======================================================================
     ! ones
     !-----------------------------------------------------------------------
     ! ones creates array all of ones.
@@ -6219,7 +6061,6 @@ contains
     !     1.  1.  1.
     !     1.  1.  1.
     !     1.  1.  1.
-    !=======================================================================
 
     function ones1(dim1)
         real(kind=RPRE), dimension(:), allocatable :: ones1
@@ -6265,7 +6106,6 @@ contains
         end if
         return
     end function ones3
-    !=======================================================================
     ! open
     !-----------------------------------------------------------------------
     ! open opens a File object with sequential or direct access.
@@ -6281,7 +6121,6 @@ contains
     !
     ! call ofile % open(r) open the File object ofile with direct access,
     ! where r is the record length.
-    !=======================================================================
 
     subroutine open1(self)
         class(File), intent(inout) :: self
@@ -6310,7 +6149,6 @@ contains
         return
     end subroutine open2
 
-    !=======================================================================
     ! outer
     !-----------------------------------------------------------------------
     ! outer computes the outer product of two vectors.
@@ -6322,7 +6160,6 @@ contains
     ! Description
     !-----------------------------------------------------------------------
     ! A = outer(x, y) returns the outer product of vectors x and y.
-    !=======================================================================
 
     function outer(x, y) result(A)
         real(kind=RPRE), dimension(:, :), allocatable :: A
@@ -6335,7 +6172,6 @@ contains
         return
     end function outer
 
-    !=======================================================================
     ! pascal
     !-----------------------------------------------------------------------
     ! pascal computes the Pascal's matrix.
@@ -6356,7 +6192,6 @@ contains
     !     1   3   6  10  15
     !     1   4  10  20  35
     !     1   5  15  35  70
-    !=======================================================================
 
     function pascal(n)
         integer(kind=IPRE), dimension(:, :), allocatable :: pascal
@@ -6372,7 +6207,6 @@ contains
         return
     end function pascal
 
-    !=======================================================================
     ! prctile
     !-----------------------------------------------------------------------
     ! prctile computes the percentiles of a data set.
@@ -6388,7 +6222,6 @@ contains
     !
     ! Q = prctile(x, P) returns each percentile of vector x contained in
     ! vector P.
-    !=======================================================================
 
     real(kind=RPRE) function prctile0(x, p)
         real(kind=RPRE), dimension(:), intent(in) :: x
@@ -6427,7 +6260,6 @@ contains
         return
     end function prctile1
 
-    !=======================================================================
     ! progress_bar
     !-----------------------------------------------------------------------
     ! Display a progression bar.
@@ -6441,7 +6273,6 @@ contains
     ! call progress_bar(iter, itermax, step) displays a progress bar given
     ! the current iteration iter, the maximum number of iterations itermax,
     ! and the length of the bar steps.
-    !=======================================================================
 
     subroutine progress_bar(iter, itermax, step)
         integer(kind=IPRE), intent(in) :: iter, itermax
@@ -6480,7 +6311,6 @@ contains
         return
     end subroutine progress_bar
 
-    !=======================================================================
     ! progress_perc
     !-----------------------------------------------------------------------
     ! Display a progression percentage.
@@ -6494,7 +6324,6 @@ contains
     ! call progress_perc(iter, itermax, prefix) displays a percentage given
     ! the current iteration iter, the maximum number of iterations itermax,
     ! and a prefix.
-    !=======================================================================
 
     subroutine progress_perc(iter, itermax, prefix)
         integer(kind=IPRE), intent(in) :: iter, itermax
@@ -6510,7 +6339,6 @@ contains
         return
     end subroutine progress_perc
 
-    !=======================================================================
     ! rng
     !-----------------------------------------------------------------------
     ! rng controls random number generation.
@@ -6531,7 +6359,6 @@ contains
     !-----------------------------------------------------------------------
     ! It is advised to call rng at the beginning of a program so that each
     ! run of the program produces different sequences of random numbers.
-    !=======================================================================
 
     subroutine rng(seed)
         integer(kind=IPRE), intent(in), optional :: seed
@@ -6550,7 +6377,6 @@ contains
         return
     end subroutine rng
 
-    !=======================================================================
     ! randi
     !-----------------------------------------------------------------------
     ! randi generates uniformly distributed random integers.
@@ -6590,7 +6416,6 @@ contains
     !
     ! X = randi([imin, imax], dim1, dim2, dim3) returns a dim1-by-dim2-by-dim3
     ! 3-dimensional matrix of random scalar integers between imin and imax.
-    !=======================================================================
 
     integer(kind=IPRE) function randi0_0(imax)
         integer(kind=IPRE), intent(in) :: imax
@@ -6657,7 +6482,6 @@ contains
         return
     end function randi3_1
 
-    !=======================================================================
     ! randn
     !-----------------------------------------------------------------------
     ! randn generates normally distributed random numbers using polar
@@ -6686,7 +6510,6 @@ contains
     !-----------------------------------------------------------------------
     ! x = randn(3)
     !     -1.22003853  -0.211721316   0.522971511
-    !=======================================================================
 
     real(kind=RPRE) function randn0()
         real(kind=RPRE) :: u, v, s
@@ -6743,7 +6566,6 @@ contains
         return
     end function randn3
 
-    !=======================================================================
     ! randperm
     !-----------------------------------------------------------------------
     ! randperm draws unique random integers.
@@ -6760,7 +6582,6 @@ contains
     !
     ! x = randperm(n, k) returns a row vector containing k unique integers
     ! selected randomly from 1 to n inclusive.
-    !=======================================================================
 
     function randperm(n, k)
         integer(kind=IPRE), dimension(:), allocatable :: randperm
@@ -6783,7 +6604,6 @@ contains
         return
     end function randperm
 
-    !=======================================================================
     ! randu
     !-----------------------------------------------------------------------
     ! randu generates uniformly distributed random numbers.
@@ -6816,7 +6636,6 @@ contains
     !
     ! x = randu(5)*2 - 1
     !     0.640258908  -0.873707294   0.787327528
-    !=======================================================================
 
     real(kind=RPRE) function randu0()
         call random_number(randu0)
@@ -6850,7 +6669,6 @@ contains
         return
     end function randu3
 
-    !=======================================================================
     ! repmat
     !-----------------------------------------------------------------------
     ! repmat repeats copies of arrays.
@@ -6871,7 +6689,6 @@ contains
     !
     ! B = repmat(A, n1, 2) returns an array B with n1 copies of A in first
     ! dimension and n2 copies of B in second dimension.
-    !=======================================================================
 
     function repmat1(x, n1, dim)
         real(kind=RPRE), dimension(:, :), allocatable :: repmat1
@@ -6912,7 +6729,6 @@ contains
         return
     end function repmat2
 
-    !=======================================================================
     ! rms
     !-----------------------------------------------------------------------
     ! rms computes the root-mean-square level of an array.
@@ -6935,7 +6751,6 @@ contains
     !
     ! x = rms(A, 2) returns a dim1 vector with the root-mean-square level of
     ! each row of matrix A.
-    !=======================================================================
 
     real(kind=RPRE) function rms1(x)
         real(kind=RPRE), dimension(:), intent(in) :: x
@@ -6966,7 +6781,6 @@ contains
         return
     end function rms2
 
-    !=======================================================================
     ! savebin
     !-----------------------------------------------------------------------
     ! savebin saves arrays to binary files.
@@ -6987,7 +6801,6 @@ contains
     !
     ! call savebin(filename, X) saves a 3-dimensional array into the binary
     ! file filename.
-    !=======================================================================
 
     subroutine savebin1_r4(filename, x)
         character(len=*), intent(in) :: filename
@@ -7061,7 +6874,6 @@ contains
         return
     end subroutine savebin3_r8
 
-    !=======================================================================
     ! savetxt
     !-----------------------------------------------------------------------
     ! savetxt saves 1 and 2-dimensional arrays to txt files.
@@ -7078,7 +6890,6 @@ contains
     !
     ! call savetxt(filename, A) saves a 2-dimensional array A into the txt
     ! file filename.
-    !=======================================================================
 
     subroutine savetxt1_i4(filename, x)
         character(len=*), intent(in) :: filename
@@ -7208,7 +7019,6 @@ contains
         return
     end subroutine savetxt2_i8
 
-    !=======================================================================
     ! signum
     !-----------------------------------------------------------------------
     ! signum returns the sign of an array.
@@ -7228,7 +7038,6 @@ contains
     !
     ! B = signum(A) returns a matrix B with the signs of each elements in
     ! the matrix A.
-    !=======================================================================
 
     real(kind=RPRE) function signum0(x)
         real(kind=RPRE), intent(in) :: x
@@ -7271,7 +7080,6 @@ contains
         return
     end function signum2
 
-    !=======================================================================
     ! silhouette
     !-----------------------------------------------------------------------
     ! silhouette computes the silhouette values for every observations given
@@ -7295,7 +7103,6 @@ contains
     !-----------------------------------------------------------------------
     ! After Rousseeuw P. J. (1986): "Silhouettes: a graphical aid to the
     ! interpretation and validation of cluster analysis".
-    !=======================================================================
 
     function silhouette1(x, cluster) result(s)
         real(kind=RPRE), dimension(:), allocatable :: s
@@ -7372,7 +7179,6 @@ contains
         return
     end function silhouette2
 
-    !=======================================================================
     ! sinc
     !-----------------------------------------------------------------------
     ! sinc computes sinc function defined as sinc(x) = sin(pi*x) / (pi*x),
@@ -7385,7 +7191,6 @@ contains
     ! Description
     !-----------------------------------------------------------------------
     ! y = sinc(x) returns the sinc function of the elements in x.
-    !=======================================================================
 
     real(kind=RPRE) function sinc0(x)
         real(kind=RPRE), intent(in) :: x
@@ -7411,7 +7216,6 @@ contains
         return
     end function sinc1
 
-    !=======================================================================
     ! sind
     !-----------------------------------------------------------------------
     ! sind computes the sine of argument in degrees.
@@ -7433,7 +7237,6 @@ contains
     ! x = [ 0., 90., 180., 270. ]
     ! y = sind(x)
     !     0.  1.  0.  -1.
-    !=======================================================================
 
     real(kind=RPRE) function sind0(x)
         real(kind=RPRE), intent(in) :: x
@@ -7466,7 +7269,6 @@ contains
         return
     end function sind3
 
-    !=======================================================================
     ! skewness
     !-----------------------------------------------------------------------
     ! skewness computes vector and matrix skewnesses.
@@ -7503,7 +7305,6 @@ contains
     ! each row of matrix A.
     !
     ! x = skewness(A, flag, 2) returns a dim1 vector given the flag.
-    !=======================================================================
 
     real(kind=RPRE) function skewness1(x, flag)
         real(kind=RPRE), dimension(:), intent(in) :: x
@@ -7546,7 +7347,6 @@ contains
         return
     end function skewness2
 
-    !=======================================================================
     ! solve
     !-----------------------------------------------------------------------
     ! solve solves a linear matrix equation.
@@ -7567,7 +7367,6 @@ contains
     ! b = [ 34., 44., 37. ]
     ! x = solve(A, b)
     !     1.  2.  3.
-    !=======================================================================
 
     function solve(A, b) result(x)
         real(kind=RPRE), dimension(:, :), intent(in) :: A
@@ -7612,7 +7411,6 @@ contains
         return
     end function solve
 
-    !=======================================================================
     ! sort\tofix
     !-----------------------------------------------------------------------
     ! sort sorts arrays elements.
@@ -7632,7 +7430,6 @@ contains
     !
     ! y = sort(x, 2) returns the sorted elements of the vector x in the
     ! descending order.
-    !=======================================================================
 
     function sort(x, order)
         real(kind=RPRE), dimension(:), allocatable :: sort
@@ -7715,7 +7512,6 @@ contains
 
     end function sort
 
-    !=======================================================================
     ! spline1
     !-----------------------------------------------------------------------
     ! spline1 performs a cubic spline interpolation with natural end
@@ -7729,7 +7525,6 @@ contains
     !-----------------------------------------------------------------------
     ! yq = spline1(x, y, xq) returns the evaluated vector yq at the query
     ! points in xq using a cubic spline interpolation.
-    !=======================================================================
 
     real(kind=RPRE) function spline1_0(x, y, xq) result(yq)
         real(kind=RPRE), dimension(:), intent(in) :: x, y
@@ -7787,7 +7582,6 @@ contains
         return
     end function spline1_1
 
-    !=======================================================================
     ! spline2
     !-----------------------------------------------------------------------
     ! spline2 performs a bicubic spline interpolation with natural end
@@ -7806,7 +7600,6 @@ contains
     ! ZQ = spline2(x, y, Z, XQ, YQ) returns the evaluated matrix ZQ given
     ! mesh type grids XQ and YQ using a bicubic interpolation. ZQ is of the
     ! same shape as XQ and YQ.
-    !=======================================================================
 
     function spline2_1(x, y, z, xq, yq) result(zq)
         real(kind=RPRE), dimension(:), allocatable :: zq
@@ -8006,7 +7799,6 @@ contains
         return
     end function spline2_2
 
-    !=======================================================================
     ! split_argument
     !-----------------------------------------------------------------------
     ! split_argument takes a command line argument of type 'argname=argval'
@@ -8029,7 +7821,6 @@ contains
     !   call split_argument(argin, argname, argval)
     !   print *, argname, argval
     ! end do
-    !=======================================================================
 
     subroutine split_argument(argin, argname, argval)
         character(len=*), intent(in) :: argin
@@ -8047,7 +7838,6 @@ contains
         return
     end subroutine split_argument
 
-    !=======================================================================
     ! std
     !-----------------------------------------------------------------------
     ! std computes vector and matrix standard deviations.
@@ -8086,7 +7876,6 @@ contains
     !
     ! x = std(A, w, 2) returns a dim1 vector with the normalization option
     ! w.
-    !=======================================================================
 
     real(kind=RPRE) function std1(x, w)
         real(kind=RPRE), dimension(:), intent(in) :: x
@@ -8117,7 +7906,6 @@ contains
         return
     end function std2
 
-    !=======================================================================
     ! svd
     !-----------------------------------------------------------------------
     ! svd computes the singular value decomposition.
@@ -8158,7 +7946,6 @@ contains
     ! Notes
     !-----------------------------------------------------------------------
     ! This code is adapted from Numerical Recipes in Fortran 90.
-    !=======================================================================
 
     subroutine svd(a, w, u, v, d, ierr)
         real(kind=RPRE), dimension(:, :), intent(in) :: a
@@ -8459,7 +8246,6 @@ contains
 
     end subroutine svd
 
-    !=======================================================================
     ! svdsolve
     !-----------------------------------------------------------------------
     ! svdsolve solves a linear matrix equation from the singular value
@@ -8486,7 +8272,6 @@ contains
     ! criterion. The cut-off singular value corresponds to the singular
     ! value from which the residuals norm is not improved while the solution
     ! norm increases substantially.
-    !=======================================================================
 
     function svdsolve(A, b, cutoff) result(x)
         real(kind=RPRE), dimension(:, :), intent(in) :: A
@@ -8511,7 +8296,6 @@ contains
         return
     end function svdsolve
 
-    !=======================================================================
     ! tand
     !-----------------------------------------------------------------------
     ! tand computes the tangent of argument in degrees.
@@ -8533,7 +8317,6 @@ contains
     ! x = [ 0., 90., 180., 270. ]
     ! y = tand(x)
     !     0.  Inf   0.  -Inf
-    !=======================================================================
 
     real(kind=RPRE) function tand0(x)
         real(kind=RPRE), intent(in) :: x
@@ -8566,7 +8349,6 @@ contains
         return
     end function tand3
 
-    !=======================================================================
     ! tic / toc
     !-----------------------------------------------------------------------
     ! tic saves the elapsed CPU time in seconds.
@@ -8592,7 +8374,6 @@ contains
     ! ! ... some codes ...
     ! call toc()
     !     Elapsed time: 0.1 seconds
-    !=======================================================================
 
     subroutine tic()
         integer(kind=IPRE) :: values(8)
@@ -8623,7 +8404,6 @@ contains
         return
     end subroutine toc
 
-    !=======================================================================
     ! trace
     !-----------------------------------------------------------------------
     ! trace computes the sum of diagonal elements.
@@ -8642,7 +8422,6 @@ contains
     ! A = eye(3)
     ! x = trace(A)
     !     3.
-    !=======================================================================
 
     real(kind=RPRE) function trace(A)
         real(kind=RPRE), dimension(:, :), intent(in) :: A
@@ -8651,7 +8430,6 @@ contains
         return
     end function trace
 
-    !=======================================================================
     ! tril
     !-----------------------------------------------------------------------
     ! tril extracts the lower triangular part of a matrix.
@@ -8679,7 +8457,6 @@ contains
     !     1.  0.  0.  0.
     !     1.  1.  0.  0.
     !     1.  1.  1.  0.
-    !=======================================================================
 
     function tril_i(A, k)
         integer(kind=IPRE), dimension(:, :), allocatable :: tril_i
@@ -8735,7 +8512,6 @@ contains
         return
     end function tril_c
 
-    !=======================================================================
     ! triu
     !-----------------------------------------------------------------------
     ! triu extracts the upper triangular part of a matrix.
@@ -8763,7 +8539,6 @@ contains
     !     1.  1.  1.  1.
     !     0.  1.  1.  1.
     !     0.  0.  1.  1.
-    !=======================================================================
 
     function triu_i(A, k)
         integer(kind=IPRE), dimension(:, :), allocatable :: triu_i
@@ -8819,7 +8594,6 @@ contains
         return
     end function triu_c
 
-    !=======================================================================
     ! utm2deg
     !-----------------------------------------------------------------------
     ! utm2deg converts UTM-WGS84 coordinates to latitude / longitude
@@ -8839,7 +8613,6 @@ contains
     !-----------------------------------------------------------------------
     ! This function has been translated and adapted from the Python's
     ! module utm: https://pypi.python.org/pypi/utm
-    !=======================================================================
 
     subroutine utm2deg0(east, north, zn, zl, lat, lon)
         real(kind=RPRE), intent(in) :: east, north
@@ -8920,7 +8693,6 @@ contains
         return
     end subroutine utm2deg1
 
-    !=======================================================================
     ! var
     !-----------------------------------------------------------------------
     ! var computes vector and matrix variances.
@@ -8959,7 +8731,6 @@ contains
     !
     ! x = var(A, w, 2) returns a dim1 vector with the normalization option
     ! w.
-    !=======================================================================
 
     real(kind=RPRE) function var1(x, w)
         real(kind=RPRE), dimension(:), intent(in) :: x
@@ -9002,7 +8773,6 @@ contains
         end if
     end function var2
 
-    !=======================================================================
     ! vertcat
     !-----------------------------------------------------------------------
     ! vertcat concatenates arrays vertically.
@@ -9043,7 +8813,6 @@ contains
     !     3.  4.
     !     5.  6.
     !     7.  8.
-    !=======================================================================
 
     function vertcat_r1(x1, x2)
         real(kind=RPRE), dimension(:, :), allocatable :: vertcat_r1
