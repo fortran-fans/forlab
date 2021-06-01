@@ -4,7 +4,8 @@ SRCFYPP =\
 	forlab_inv.fypp \
 	forlab_det.fypp \
 	forlab_lu.fypp \
-	forlab_diag.fypp
+	forlab_diag.fypp \
+	forlab_disp.fypp
 
 SRC =	forlab_kinds.f90 \
 		forlab_zeros.f90 \
@@ -61,5 +62,8 @@ forlab_zeros.o: \
 	forlab.o \
 	forlab_kinds.o
 forlab_empty.o: \
+	forlab.o \
+	forlab_kinds.o
+forlab_disp.o: \
 	forlab.o \
 	forlab_kinds.o
