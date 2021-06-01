@@ -129,6 +129,44 @@ module forlab
         module procedure angle0, angle1
     end interface angle
 
+    interface arange
+        !=======================================================================
+        ! arange
+        !-----------------------------------------------------------------------
+        ! arange returns evenly spaced vector.
+        !
+        ! Syntax
+        !-----------------------------------------------------------------------
+        ! x = arange(first, last)
+        !
+        ! Description
+        !-----------------------------------------------------------------------
+        ! x = arange(first, last) returns an evenly spaced integer vector
+        ! starting from first and ending at last.
+        !
+        ! Examples
+        !-----------------------------------------------------------------------
+        ! x = arange(1, 9)
+        !     1   2   3   4   5   6   7   8   9
+        !=======================================================================
+            module function arange_int8 (first, last)
+                integer(int8), dimension(:), allocatable :: arange_int8
+                integer(int8), intent(in) :: first, last
+            end function
+            module function arange_int16 (first, last)
+                integer(int16), dimension(:), allocatable :: arange_int16
+                integer(int16), intent(in) :: first, last
+            end function
+            module function arange_int32 (first, last)
+                integer(int32), dimension(:), allocatable :: arange_int32
+                integer(int32), intent(in) :: first, last
+            end function
+            module function arange_int64 (first, last)
+                integer(int64), dimension(:), allocatable :: arange_int64
+                integer(int64), intent(in) :: first, last
+            end function
+    end interface
+
     interface argmax
         module procedure argmax1, argmax2, argmax3
     end interface argmax
@@ -513,6 +551,9 @@ module forlab
                     !! \fixme: dim precision
                 character(len=*), intent(in), optional :: string
             end subroutine
+        module subroutine disp_str(string)
+            character(len=*), intent(in), optional :: string
+        end subroutine
     end interface
 
     interface empty
@@ -1062,35 +1103,6 @@ contains
         end do
         return
     end function angle1
-
-    !=======================================================================
-    ! arange
-    !-----------------------------------------------------------------------
-    ! arange returns evenly spaced vector.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! x = arange(first, last)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! x = arange(first, last) returns an evenly spaced integer vector
-    ! starting from first and ending at last.
-    !
-    ! Examples
-    !-----------------------------------------------------------------------
-    ! x = arange(1, 9)
-    !     1   2   3   4   5   6   7   8   9
-    !=======================================================================
-
-    function arange(first, last)
-        integer(kind=IPRE), dimension(:), allocatable :: arange
-        integer(kind=IPRE), intent(in) :: first, last
-        integer(kind=IPRE) :: i
-
-        arange = [(i, i=first, last)]
-        return
-    end function arange
 
     !=======================================================================
     ! argmax
