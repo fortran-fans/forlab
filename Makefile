@@ -3,9 +3,9 @@ FYPPFLAGS=
 
 export FYPPFLAGS
 
-.PHONY: all clean
+.PHONY: dev clean
 
-all:
+dev:
 	$(MAKE) -f Makefile --directory=src/fypp
 
 clean:

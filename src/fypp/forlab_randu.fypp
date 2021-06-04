@@ -1,0 +1,90 @@
+#:include 'common.fypp'
+
+#:def ranksuffix(RANK)
+$:'' if RANK == 0 else '(' + ':' + ',:' * (RANK - 1) + ')'
+#:enddef ranksuffix
+
+#:set RANKS = range(0, 4)
+submodule(forlab) forlab_randu
+    !! Version: experimental
+    !!
+    !! Discussion:
+    !! ----
+    !! https://fortran-lang.discourse.group/t/fortran-function-return-value-polymorphism/1350/5
+    use forlab_kinds
+    implicit none
+contains
+    !! Default versions
+    #:for RANK in RANKS
+    #:if RANK == 0
+    module function randu_${RANK}$_default ()
+    #:elif RANK == 1
+    module function randu_${RANK}$_default (dim1)
+        integer, intent(in) :: dim1
+    #:elif RANK == 2
+    module function randu_${RANK}$_default (dim1, dim2)
+        integer, intent(in) :: dim1, dim2
+    #:elif RANK == 3
+    module function randu_${RANK}$_default (dim1, dim2, dim3)
+        integer, intent(in) :: dim1, dim2, dim3
+    #:endif
+        #:if RANK == 0
+        real(dp) :: randu_${RANK}$_default ${ranksuffix(RANK)}$
+        #:else
+        real(dp), allocatable :: randu_${RANK}$_default ${ranksuffix(RANK)}$
+        #:endif
+        
+        #:if RANK == 0
+
+        #:elif RANK == 1
+        allocate (randu_${RANK}$_default (dim1))
+        #:elif RANK == 2
+        allocate (randu_${RANK}$_default (dim1, dim2))
+        #:elif RANK == 3
+        allocate (randu_${RANK}$_default (dim1, dim2, dim3))
+        #:endif
+
+        call random_number(randu_${RANK}$_default)
+        return
+    end function
+    #:endfor
+    !! Multi-precision versions
+    #:for RANK in RANKS
+    #:for k1, t1 in REAL_KINDS_TYPES
+    #:if RANK == 0
+    module function randu_${RANK}$_${k1}$ (flag)
+    #:elif RANK == 1
+    module function randu_${RANK}$_${k1}$ (dim1, flag)
+        !! Unlike dynamic scripting languages, static languages generally
+        !! have multiple precision variables, so we need to explicitly provide precision hints.
+        integer, intent(in) :: dim1
+    #:elif RANK == 2
+    module function randu_${RANK}$_${k1}$ (dim1, dim2, flag)
+        integer, intent(in) :: dim1, dim2
+    #:elif RANK == 3
+    module function randu_${RANK}$_${k1}$ (dim1, dim2, dim3, flag)
+        integer, intent(in) :: dim1, dim2, dim3
+    #:endif
+        #:if RANK == 0
+        ${t1}$ :: randu_${RANK}$_${k1}$ ${ranksuffix(RANK)}$
+        #:else
+        ${t1}$, allocatable :: randu_${RANK}$_${k1}$ ${ranksuffix(RANK)}$
+        #:endif
+        ${t1}$, intent(in) :: flag
+
+        #:if RANK == 0
+
+        #:elif RANK == 1
+        allocate (randu_${RANK}$_${k1}$ (dim1))
+        #:elif RANK == 2
+        allocate (randu_${RANK}$_${k1}$ (dim1, dim2))
+        #:elif RANK == 3
+        allocate (randu_${RANK}$_${k1}$ (dim1, dim2, dim3))
+        #:endif
+
+        call random_number(randu_${RANK}$_${k1}$)
+        return
+    end function
+    #:endfor
+    #:endfor
+end submodule

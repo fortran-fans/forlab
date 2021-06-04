@@ -23,3 +23,8 @@
 # fypp -> f90 -> obj
 1. make: make fypp -> f90; mv f90 -> src
 2. fpm build: f90 -> obj
+bash command:
+```bash
+make dev
+fpm test
+```
