@@ -1,24 +1,12 @@
-# Fortran stdlib Makefile
-
-FC = gfortran
-FFLAGS = -Wall -Wextra -Wimplicit-interface -fPIC -g -fcheck=all
+# Fortran forlab Makefile
 FYPPFLAGS=
 
-export FC
-export FFLAGS
 export FYPPFLAGS
 
-.PHONY: all clean test
+.PHONY: all clean
 
 all:
-	$(MAKE) -f Makefile --directory=src
-#	$(MAKE) -f Makefile --directory=src/tests
-
-test:
-	$(MAKE) -f Makefile --directory=test test
-	@echo
-	@echo "All tests passed."
+	$(MAKE) -f Makefile --directory=src/fypp
 
 clean:
-	$(MAKE) -f Makefile.manual clean --directory=src
-	$(MAKE) -f Makefile.manual clean --directory=test
+	$(MAKE) -f Makefile clean --directory=src/fypp
