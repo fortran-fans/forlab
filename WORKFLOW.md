@@ -1,3 +1,10 @@
+# workflow tools
+1. fypp
+2. ford
+3. fpm
+4. git
+5. vs code
+
 # add f90 files
 1. add a submodule f90 files
     + submodule name

@@ -9,3 +9,4 @@ add nearzero
 
 # todo: .dot. .cross.
 # todo: rng, randn, randu
+# todo: automake, make fypp and make f90
