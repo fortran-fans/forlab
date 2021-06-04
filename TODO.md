@@ -8,3 +8,4 @@ makefile update
 add nearzero
 
 # todo: .dot. .cross.
+# todo: rng, randn, randu

@@ -9,8 +9,8 @@ contains
             !！ issquare0 determines whether a real matrix is square.
             ${t1}$, dimension(:, :), intent(in) :: A
 
-            issquare0 = .false.
-            if (size(A, 1) .eq. size(A, 2)) issquare0 = .true.
+            issquare_${t1[0]}$${k1}$ = .false.
+            if (size(A, 1) .eq. size(A, 2)) issquare_${t1[0]}$${k1}$ = .true.
             return
         end function
     #:endfor

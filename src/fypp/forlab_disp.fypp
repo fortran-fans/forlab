@@ -228,4 +228,15 @@ contains
             if (abs(x) < nearzero_${k1}$) filter_${k1}$ = 0.0
         end function
     #:endfor
+
+    module subroutine disp_str(string)
+        character(len=*), intent(in), optional :: string
+
+        if (present(string)) then
+            print *, trim(string)
+        else
+            print *, ''
+        end if
+        return
+    end subroutine
 end submodule

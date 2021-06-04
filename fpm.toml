@@ -1,8 +1,8 @@
 name = "forlab"
-version = "0.1.1"
+version = "1.0.1"
 license = "MIT"
-author = "keurfonluu"
-maintainer = "keurfon.luu@mines-paristech.fr"
+author = "keurfonluu, zoziha"
+maintainer = "zuo.zhihua@qq.com"
 copyright = "2016-2021 forlab contributors"
 
 [library]

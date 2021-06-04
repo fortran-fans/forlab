@@ -12,7 +12,6 @@
 !-----------------------------------------------------------------------
 ! When changing precision (IPRE and/or RPRE), the whole program needs to
 ! be recompiled.
-#:include "common.fypp"
 
 module forlab
 
@@ -96,12 +95,18 @@ module forlab
         !! x = det(A)  
         !!     27. 
         !! ```
-        #:for k1,t1 in REAL_KINDS_TYPES
-            ${t1}$ module function det_${k1}$ (A, outL, outU)
-                ${t1}$, dimension(:, :), intent(in) :: A
-                ${t1}$, dimension(:, :), allocatable, intent(inout), optional :: outL, outU
+            real(sp) module function det_sp (A, outL, outU)
+                real(sp), dimension(:, :), intent(in) :: A
+                real(sp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
             end function
-        #:endfor
+            real(dp) module function det_dp (A, outL, outU)
+                real(dp), dimension(:, :), intent(in) :: A
+                real(dp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
+            end function
+            real(qp) module function det_qp (A, outL, outU)
+                real(qp), dimension(:, :), intent(in) :: A
+                real(qp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
+            end function
     end interface
 
     interface acosd
@@ -130,12 +135,22 @@ module forlab
         !-----------------------------------------------------------------------
         ! x = arange(1, 9)  
         !     1   2   3   4   5   6   7   8   9
-        #:for k1, t1 in INT_KINDS_TYPES
-            module function arange_${k1}$ (first, last)
-                ${t1}$, dimension(:), allocatable :: arange_${k1}$
-                ${t1}$, intent(in) :: first, last
+            module function arange_int8 (first, last)
+                integer(int8), dimension(:), allocatable :: arange_int8
+                integer(int8), intent(in) :: first, last
             end function
-        #:endfor 
+            module function arange_int16 (first, last)
+                integer(int16), dimension(:), allocatable :: arange_int16
+                integer(int16), intent(in) :: first, last
+            end function
+            module function arange_int32 (first, last)
+                integer(int32), dimension(:), allocatable :: arange_int32
+                integer(int32), intent(in) :: first, last
+            end function
+            module function arange_int64 (first, last)
+                integer(int64), dimension(:), allocatable :: arange_int64
+                integer(int64), intent(in) :: first, last
+            end function
     end interface
 
     interface argmax
@@ -240,16 +255,30 @@ module forlab
         !!     1.  0.  0.  
         !!     0.  2.  0.  
         !!     0.  0.  3.  
-        #:for k1,t1 in REAL_KINDS_TYPES
-            module function diag1_${k1}$ (A)
-                ${t1}$, dimension(:), allocatable :: diag1_${k1}$
-                ${t1}$, dimension(:, :), intent(in) :: A
+            module function diag1_sp (A)
+                real(sp), dimension(:), allocatable :: diag1_sp
+                real(sp), dimension(:, :), intent(in) :: A
             end function
-            module function diag2_${k1}$ (x)
-                ${t1}$, dimension(:, :), allocatable :: diag2_${k1}$
-                ${t1}$, dimension(:), intent(in) :: x
+            module function diag2_sp (x)
+                real(sp), dimension(:, :), allocatable :: diag2_sp
+                real(sp), dimension(:), intent(in) :: x
             end function
-        #:endfor
+            module function diag1_dp (A)
+                real(dp), dimension(:), allocatable :: diag1_dp
+                real(dp), dimension(:, :), intent(in) :: A
+            end function
+            module function diag2_dp (x)
+                real(dp), dimension(:, :), allocatable :: diag2_dp
+                real(dp), dimension(:), intent(in) :: x
+            end function
+            module function diag1_qp (A)
+                real(qp), dimension(:), allocatable :: diag1_qp
+                real(qp), dimension(:, :), intent(in) :: A
+            end function
+            module function diag2_qp (x)
+                real(qp), dimension(:, :), allocatable :: diag2_qp
+                real(qp), dimension(:), intent(in) :: x
+            end function
     end interface diag
 
     interface diff
@@ -323,43 +352,105 @@ module forlab
         !         1.  2.  3.  
         !         4.  5.  6.  
         !         7.  8.  9.  
-        #:for k1,t1 in REAL_KINDS_TYPES
-            module subroutine disp_r${k1}$0(x, string)
-                ${t1}$, intent(in) :: x
+            module subroutine disp_rsp0(x, string)
+                real(sp), intent(in) :: x
                 character(len=*), intent(in), optional :: string
             end subroutine
 
-            module subroutine disp_r${k1}$1(x, string)
-                ${t1}$, dimension(:), intent(in) :: x
+            module subroutine disp_rsp1(x, string)
+                real(sp), dimension(:), intent(in) :: x
                 character(len=*), intent(in), optional :: string
             end subroutine
 
-            module subroutine disp_r${k1}$2(A, string)
-                ${t1}$, dimension(:, :), intent(in) :: A
+            module subroutine disp_rsp2(A, string)
+                real(sp), dimension(:, :), intent(in) :: A
                 character(len=*), intent(in), optional :: string
             end subroutine
 
-            module subroutine disp_r${k1}$3(X, dim, string)
-                ${t1}$, dimension(:, :, :), intent(in) :: X
+            module subroutine disp_rsp3(X, dim, string)
+                real(sp), dimension(:, :, :), intent(in) :: X
                 integer, intent(in), optional :: dim
                 character(len=*), intent(in), optional :: string
             end subroutine
-        #:endfor
-        #:for k1, t1 in CMPLX_KINDS_TYPES
-            module subroutine disp_c${k1}$0(x, string)
-                ${t1}$, intent(in) :: x
+            module subroutine disp_rdp0(x, string)
+                real(dp), intent(in) :: x
                 character(len=*), intent(in), optional :: string
             end subroutine
 
-            module subroutine disp_c${k1}$1(x, string)
-                ${t1}$, dimension(:), intent(in) :: x
+            module subroutine disp_rdp1(x, string)
+                real(dp), dimension(:), intent(in) :: x
                 character(len=*), intent(in), optional :: string
             end subroutine
-            module subroutine disp_c${k1}$2(A, string)
-                ${t1}$, dimension(:, :), intent(in) :: A
+
+            module subroutine disp_rdp2(A, string)
+                real(dp), dimension(:, :), intent(in) :: A
                 character(len=*), intent(in), optional :: string
             end subroutine
-        #:endfor
+
+            module subroutine disp_rdp3(X, dim, string)
+                real(dp), dimension(:, :, :), intent(in) :: X
+                integer, intent(in), optional :: dim
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_rqp0(x, string)
+                real(qp), intent(in) :: x
+                character(len=*), intent(in), optional :: string
+            end subroutine
+
+            module subroutine disp_rqp1(x, string)
+                real(qp), dimension(:), intent(in) :: x
+                character(len=*), intent(in), optional :: string
+            end subroutine
+
+            module subroutine disp_rqp2(A, string)
+                real(qp), dimension(:, :), intent(in) :: A
+                character(len=*), intent(in), optional :: string
+            end subroutine
+
+            module subroutine disp_rqp3(X, dim, string)
+                real(qp), dimension(:, :, :), intent(in) :: X
+                integer, intent(in), optional :: dim
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_csp0(x, string)
+                complex(sp), intent(in) :: x
+                character(len=*), intent(in), optional :: string
+            end subroutine
+
+            module subroutine disp_csp1(x, string)
+                complex(sp), dimension(:), intent(in) :: x
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_csp2(A, string)
+                complex(sp), dimension(:, :), intent(in) :: A
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_cdp0(x, string)
+                complex(dp), intent(in) :: x
+                character(len=*), intent(in), optional :: string
+            end subroutine
+
+            module subroutine disp_cdp1(x, string)
+                complex(dp), dimension(:), intent(in) :: x
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_cdp2(A, string)
+                complex(dp), dimension(:, :), intent(in) :: A
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_cqp0(x, string)
+                complex(qp), intent(in) :: x
+                character(len=*), intent(in), optional :: string
+            end subroutine
+
+            module subroutine disp_cqp1(x, string)
+                complex(qp), dimension(:), intent(in) :: x
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_cqp2(A, string)
+                complex(qp), dimension(:, :), intent(in) :: A
+                character(len=*), intent(in), optional :: string
+            end subroutine
         module subroutine disp_l0(x, string)
             logical, intent(in) :: x
             character(len=*), intent(in), optional :: string
@@ -372,26 +463,78 @@ module forlab
             logical, dimension(:, :), intent(in) :: A
             character(len=*), intent(in), optional :: string
         end subroutine disp_l2
-        #:for k1, t1 in INT_KINDS_TYPES
-            module subroutine disp_i${k1}$0(x, string)
-                ${t1}$, intent(in) :: x
+            module subroutine disp_iint80(x, string)
+                integer(int8), intent(in) :: x
                 character(len=*), intent(in), optional :: string
             end subroutine
-            module subroutine disp_i${k1}$1(x, string)
-                ${t1}$, dimension(:), intent(in) :: x
+            module subroutine disp_iint81(x, string)
+                integer(int8), dimension(:), intent(in) :: x
                 character(len=*), intent(in), optional :: string
             end subroutine
-            module subroutine disp_i${k1}$2(A, string)
-                ${t1}$, dimension(:, :), intent(in) :: A
+            module subroutine disp_iint82(A, string)
+                integer(int8), dimension(:, :), intent(in) :: A
                 character(len=*), intent(in), optional :: string
             end subroutine
-            module subroutine disp_i${k1}$3(X, dim, string)
-                ${t1}$, dimension(:, :, :), intent(in) :: X
+            module subroutine disp_iint83(X, dim, string)
+                integer(int8), dimension(:, :, :), intent(in) :: X
                 integer, intent(in), optional :: dim
                     !! \fixme: dim precision
                 character(len=*), intent(in), optional :: string
             end subroutine
-        #:endfor
+            module subroutine disp_iint160(x, string)
+                integer(int16), intent(in) :: x
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_iint161(x, string)
+                integer(int16), dimension(:), intent(in) :: x
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_iint162(A, string)
+                integer(int16), dimension(:, :), intent(in) :: A
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_iint163(X, dim, string)
+                integer(int16), dimension(:, :, :), intent(in) :: X
+                integer, intent(in), optional :: dim
+                    !! \fixme: dim precision
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_iint320(x, string)
+                integer(int32), intent(in) :: x
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_iint321(x, string)
+                integer(int32), dimension(:), intent(in) :: x
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_iint322(A, string)
+                integer(int32), dimension(:, :), intent(in) :: A
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_iint323(X, dim, string)
+                integer(int32), dimension(:, :, :), intent(in) :: X
+                integer, intent(in), optional :: dim
+                    !! \fixme: dim precision
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_iint640(x, string)
+                integer(int64), intent(in) :: x
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_iint641(x, string)
+                integer(int64), dimension(:), intent(in) :: x
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_iint642(A, string)
+                integer(int64), dimension(:, :), intent(in) :: A
+                character(len=*), intent(in), optional :: string
+            end subroutine
+            module subroutine disp_iint643(X, dim, string)
+                integer(int64), dimension(:, :, :), intent(in) :: X
+                integer, intent(in), optional :: dim
+                    !! \fixme: dim precision
+                character(len=*), intent(in), optional :: string
+            end subroutine
         module subroutine disp_str(string)
             character(len=*), intent(in), optional :: string
         end subroutine
@@ -466,18 +609,30 @@ module forlab
 
     interface inv
         !! inv computes the matrix inverse.
-        #:for k1,t1 in REAL_KINDS_TYPES
-            module function inv_${t1[0]}$${k1}$ (A)
-                ${t1}$, dimension(:, :), allocatable :: inv_${t1[0]}$${k1}$
-                ${t1}$, dimension(:, :), intent(in) :: A
+            module function inv_rsp (A)
+                real(sp), dimension(:, :), allocatable :: inv_rsp
+                real(sp), dimension(:, :), intent(in) :: A
             end function
-        #:endfor
-        #:for k1,t1 in CMPLX_KINDS_TYPES
-            module function inv_${t1[0]}$${k1}$ (A)
-                ${t1}$, dimension(:, :), allocatable :: inv_${t1[0]}$${k1}$
-                ${t1}$, dimension(:, :), intent(in) :: A
+            module function inv_rdp (A)
+                real(dp), dimension(:, :), allocatable :: inv_rdp
+                real(dp), dimension(:, :), intent(in) :: A
             end function
-        #:endfor
+            module function inv_rqp (A)
+                real(qp), dimension(:, :), allocatable :: inv_rqp
+                real(qp), dimension(:, :), intent(in) :: A
+            end function
+            module function inv_csp (A)
+                complex(sp), dimension(:, :), allocatable :: inv_csp
+                complex(sp), dimension(:, :), intent(in) :: A
+            end function
+            module function inv_cdp (A)
+                complex(dp), dimension(:, :), allocatable :: inv_cdp
+                complex(dp), dimension(:, :), intent(in) :: A
+            end function
+            module function inv_cqp (A)
+                complex(qp), dimension(:, :), allocatable :: inv_cqp
+                complex(qp), dimension(:, :), intent(in) :: A
+            end function
     end interface inv
 
     interface operator(.i.)
@@ -485,13 +640,13 @@ module forlab
         !! Example
         !! ---
         !! inv_of_A = .i.A
-        #:for k1,t1 in REAL_KINDS_TYPES
-            procedure inv_${t1[0]}$${k1}$
-        #:endfor
+            procedure inv_rsp
+            procedure inv_rdp
+            procedure inv_rqp
 
-        #:for k1,t1 in CMPLX_KINDS_TYPES
-            procedure inv_${t1[0]}$${k1}$
-        #:endfor
+            procedure inv_csp
+            procedure inv_cdp
+            procedure inv_cqp
     end interface operator(.i.)
 
     interface ismember
@@ -512,13 +667,30 @@ module forlab
         !! A = eye(3, 4)  
         !! bool = issquare0(A)  
         !!     .false.
-        #:set RC_KINDS_TYPES = REAL_KINDS_TYPES + CMPLX_KINDS_TYPES
-        #:for k1, t1 in RC_KINDS_TYPES
-            logical module function issquare_${t1[0]}$${k1}$ (A)
-                ! import ${k1}$
-                ${t1}$, dimension(:, :), intent(in) :: A
+            logical module function issquare_rsp (A)
+                ! import sp
+                real(sp), dimension(:, :), intent(in) :: A
             end function
-        #:endfor
+            logical module function issquare_rdp (A)
+                ! import dp
+                real(dp), dimension(:, :), intent(in) :: A
+            end function
+            logical module function issquare_rqp (A)
+                ! import qp
+                real(qp), dimension(:, :), intent(in) :: A
+            end function
+            logical module function issquare_csp (A)
+                ! import sp
+                complex(sp), dimension(:, :), intent(in) :: A
+            end function
+            logical module function issquare_cdp (A)
+                ! import dp
+                complex(dp), dimension(:, :), intent(in) :: A
+            end function
+            logical module function issquare_cqp (A)
+                ! import qp
+                complex(qp), dimension(:, :), intent(in) :: A
+            end function
     end interface issquare
 
     interface kde
@@ -581,12 +753,18 @@ module forlab
         !!     1.  2.  3.  
         !!     4.  5.  6.  
         !!     7.  8.  9.  
-        #:for k1,t1 in REAL_KINDS_TYPES
-            module subroutine lu_${k1}$ (A, L, U)
-                ${t1}$, dimension(:, :), intent(in) :: A
-                ${t1}$, dimension(:, :), allocatable, intent(out) :: L, U
+            module subroutine lu_sp (A, L, U)
+                real(sp), dimension(:, :), intent(in) :: A
+                real(sp), dimension(:, :), allocatable, intent(out) :: L, U
             end subroutine
-        #:endfor
+            module subroutine lu_dp (A, L, U)
+                real(dp), dimension(:, :), intent(in) :: A
+                real(dp), dimension(:, :), allocatable, intent(out) :: L, U
+            end subroutine
+            module subroutine lu_qp (A, L, U)
+                real(qp), dimension(:, :), intent(in) :: A
+                real(qp), dimension(:, :), allocatable, intent(out) :: L, U
+            end subroutine
     end interface
 
     interface mad
