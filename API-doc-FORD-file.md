@@ -1,15 +1,13 @@
 ---
 project: forlab
-summary: A community driven forlab v1.0 library for (modern) Fortran
+summary: A opensource package forlab v1.0 for (modern) Fortran
 src_dir: src
-exclude_dir: src/test
+exclude_dir: src/fypp
 output_dir: API-doc
 page_dir: doc
 media_dir: doc/media
-fpp_extensions: fypp
 preprocess: true
 macro: MAXRANK=3
-preprocessor: fypp
 display: public
          protected
 source: true
@@ -59,10 +57,8 @@ The documentation for comment markup in source code, running [FORD] and the [FOR
 Goals and Motivation
 ====================
 
-The Fortran forlab 4.0, as published by the NETLIB (http://www.netlib.org/), does
-not have a good experinece. The goal of this project is to provide a community
-driven fft package v4.0 with a modern easy-to-use interface for Fortran, called a
-FFT Package (`forlab`). 
+The Fortran forlab v1.0 is a Fortran module that provides a lot of functions for scientific computing mostly inspired by Matlab and Python's module NumPy.  
+Forlab is mainly developed by Keurfon Luu. 
 
 Scope
 =====
@@ -81,5 +77,5 @@ In the interest of fostering an open and welcoming environment, we as contributo
 
 License
 =======
-
-The `stdlib` source code and related files and documentation are distributed under the [public domain](page/License.html).
+_This document_ has been placed in the public domain.
+_Forlab_ is released under the MIT License.

@@ -1,0 +1,140 @@
+#:include 'common.fypp'
+
+#:def ranksuffix(RANK)
+$:'' if RANK == 0 else '(' + ':' + ',:' * (RANK - 1) + ')'
+#:enddef ranksuffix
+
+#:set RANKS = range(0, 4)
+submodule(forlab) forlab_randn
+    !! Version: experimental
+    !!
+    !! Discussion:
+    !! ----
+    !! https://fortran-lang.discourse.group/t/fortran-function-return-value-polymorphism/1350/5
+    use forlab_kinds
+    implicit none
+contains
+    !! Default versions
+    #:for RANK in RANKS
+    #:if RANK == 0
+    module function randn_${RANK}$_default ()
+        real(dp) :: u, v, s
+    #:elif RANK == 1
+    module function randn_${RANK}$_default (dim1)
+        integer, intent(in) :: dim1
+        integer :: i
+    #:elif RANK == 2
+    module function randn_${RANK}$_default (dim1, dim2)
+        integer, intent(in) :: dim1, dim2
+        integer :: i, j
+    #:elif RANK == 3
+    module function randn_${RANK}$_default (dim1, dim2, dim3)
+        integer, intent(in) :: dim1, dim2, dim3
+        integer :: i, j, k
+    #:endif
+        #:if RANK == 0
+        real(dp) :: randn_${RANK}$_default ${ranksuffix(RANK)}$
+        #:else
+        real(dp), allocatable :: randn_${RANK}$_default ${ranksuffix(RANK)}$
+        #:endif
+        
+        #:if RANK == 0
+        do
+            u = 2.*randu() - 1.
+            v = 2.*randu() - 1.
+            s = u*u + v*v
+            if ((s .gt. 0.) .and. (s .lt. 1.)) exit
+        end do
+        randn_${RANK}$_default = u*sqrt(-2.0d0*log(s)/s)
+        #:elif RANK == 1
+        allocate (randn_${RANK}$_default (dim1))
+        do i = 1, dim1
+            randn_${RANK}$_default (i) = randn_0_default()
+        end do
+        #:elif RANK == 2
+        allocate (randn_${RANK}$_default (dim1, dim2))
+        do i = 1, dim1
+            do j = 1, dim2
+                randn_${RANK}$_default (i, j) = randn_0_default()
+            end do
+        end do
+        #:elif RANK == 3
+        allocate (randn_${RANK}$_default (dim1, dim2, dim3))
+        do i = 1, dim1
+            do j = 1, dim2
+                do k = 1, dim3
+                    randn_${RANK}$_default (i, j, k) = randn_0_default()
+                end do
+            end do
+        end do
+        #:endif
+
+        return
+    end function
+    
+    #:endfor
+    !! Multi-precision versions
+    #:for RANK in RANKS
+    #:for k1, t1 in REAL_KINDS_TYPES
+    #:if RANK == 0
+    module function randn_${RANK}$_${k1}$ (flag)
+        ${t1}$ :: u, v, s
+    #:elif RANK == 1
+    module function randn_${RANK}$_${k1}$ (dim1, flag)
+        !! Unlike dynamic scripting languages, static languages generally
+        !! have multiple precision variables, so we need to explicitly provide precision hints.
+        integer, intent(in) :: dim1
+        integer :: i
+    #:elif RANK == 2
+    module function randn_${RANK}$_${k1}$ (dim1, dim2, flag)
+        integer, intent(in) :: dim1, dim2
+        integer :: i, j
+    #:elif RANK == 3
+    module function randn_${RANK}$_${k1}$ (dim1, dim2, dim3, flag)
+        integer, intent(in) :: dim1, dim2, dim3
+        integer :: i, j, k
+    #:endif
+        #:if RANK == 0
+        ${t1}$ :: randn_${RANK}$_${k1}$ ${ranksuffix(RANK)}$
+        #:else
+        ${t1}$, allocatable :: randn_${RANK}$_${k1}$ ${ranksuffix(RANK)}$
+        #:endif
+        ${t1}$, intent(in) :: flag
+
+        #:if RANK == 0
+        do
+            u = 2.*randu(flag) - 1.
+            v = 2.*randu(flag) - 1.
+            s = u*u + v*v
+            if ((s .gt. 0.) .and. (s .lt. 1.)) exit
+        end do
+        randn_${RANK}$_${k1}$ = u*sqrt(-2.0_${k1}$*log(s)/s)
+        #:elif RANK == 1
+        allocate (randn_${RANK}$_${k1}$ (dim1))
+        do i = 1, dim1
+            randn_${RANK}$_${k1}$ (i) = randn_0_${k1}$ (flag)
+        end do
+        #:elif RANK == 2
+        allocate (randn_${RANK}$_${k1}$ (dim1, dim2))
+        do i = 1, dim1
+            do j = 1, dim2
+                randn_${RANK}$_${k1}$ (i, j) = randn_0_${k1}$ (flag)
+            end do
+        end do
+        #:elif RANK == 3
+        allocate (randn_${RANK}$_${k1}$ (dim1, dim2, dim3))
+        do i = 1, dim1
+            do j = 1, dim2
+                do k = 1, dim3
+                    randn_${RANK}$_${k1}$ (i, j, k) = randn_0_${k1}$ (flag)
+                end do
+            end do
+        end do
+        #:endif
+
+        return
+    end function
+
+    #:endfor
+    #:endfor
+end submodule

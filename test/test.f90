@@ -2,14 +2,13 @@
 program main
     use forlab
     implicit none
-    real :: x(2, 2)
+    real*8 :: flag
 
-    x = 0.0
-    x(1, 1) = 1.0
-    x(1, 2) = 2.0
-    x(2, 1) = 3.0
-    x(2, 2) = 4.0
+    call rng()
+    call disp(randu(1, 5),'randu series:')
+    call disp(randu(1, 5, flag),'randu series:')
 
-    call disp(x, 'x matrix:')
+    call disp(randn(1, 5),'randn series:')
+    call disp(randn(1, 5, flag),'randn series:')
 
 end program

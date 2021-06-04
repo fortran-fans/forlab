@@ -13,6 +13,9 @@
 ! When changing precision (IPRE and/or RPRE), the whole program needs to
 ! be recompiled.
 #:include "common.fypp"
+#:def ranksuffix(RANK)
+$:'' if RANK == 0 else '(' + ':' + ',:' * (RANK - 1) + ')'
+#:enddef ranksuffix
 
 module forlab
 
@@ -638,13 +641,171 @@ module forlab
             randi2_1, randi3_0, randi3_1
     end interface randi
 
+    #:set RANKS = range(0, 4)
     interface randu
-        module procedure randu0, randu1, randu2, randu3
-    end interface randu
+        !! Version: experimental
+        !!
+        ! randu
+        !-----------------------------------------------------------------------
+        ! randu generates uniformly distributed random numbers.
+        !
+        ! Syntax
+        !-----------------------------------------------------------------------
+        ! x = randu()
+        ! x = randu(dim1)
+        ! A = randu(dim1, dim2)
+        ! X = randu(dim1, dim2, dim3)
+        !
+        ! Description
+        !-----------------------------------------------------------------------
+        ! x = randu() returns a single uniformly distributed random number in
+        ! the interval [0,1].
+        !
+        ! x = randu(dim1) returns a dim1 vector of uniformly distributed random
+        ! numbers.
+        !
+        ! A = randu(dim1, dim2) returns a dim1-by-dim2 matrix of uniformly
+        ! distributed random numbers.
+        !
+        ! X = randu(dim1, dim2, dim3) returns a dim1-by-dim2-by-dim3
+        ! 3-dimensional matrix of uniformly distributed random numbers.
+        !
+        ! Examples
+        !-----------------------------------------------------------------------
+        ! x = randu()
+        !     0.383413825
+        !
+        ! x = randu(5)*2 - 1
+        !     0.640258908  -0.873707294   0.787327528
+        !! Default versions
+        #:for RANK in RANKS
+        #:if RANK == 0
+        module function randu_${RANK}$_default ()
+        #:elif RANK == 1
+        module function randu_${RANK}$_default (dim1)
+            integer, intent(in) :: dim1
+        #:elif RANK == 2
+        module function randu_${RANK}$_default (dim1, dim2)
+            integer, intent(in) :: dim1, dim2
+        #:elif RANK == 3
+        module function randu_${RANK}$_default (dim1, dim2, dim3)
+            integer, intent(in) :: dim1, dim2, dim3
+        #:endif
+            #:if RANK == 0
+            real(dp) :: randu_${RANK}$_default ${ranksuffix(RANK)}$
+            #:else
+            real(dp), allocatable :: randu_${RANK}$_default ${ranksuffix(RANK)}$
+            #:endif
+        end function
+        #:endfor
+        !! Multi-precision versions
+        #:for RANK in RANKS
+        #:for k1, t1 in REAL_KINDS_TYPES
+        #:if RANK == 0
+        module function randu_${RANK}$_${k1}$ (flag)
+        #:elif RANK == 1
+        module function randu_${RANK}$_${k1}$ (dim1, flag)
+            !! Unlike dynamic scripting languages, static languages generally
+            !! have multiple precision variables, so we need to explicitly provide precision hints.
+            integer, intent(in) :: dim1
+        #:elif RANK == 2
+        module function randu_${RANK}$_${k1}$ (dim1, dim2, flag)
+            integer, intent(in) :: dim1, dim2
+        #:elif RANK == 3
+        module function randu_${RANK}$_${k1}$ (dim1, dim2, dim3, flag)
+            integer, intent(in) :: dim1, dim2, dim3
+        #:endif
+            #:if RANK == 0
+            ${t1}$ :: randu_${RANK}$_${k1}$ ${ranksuffix(RANK)}$
+            #:else
+            ${t1}$, allocatable :: randu_${RANK}$_${k1}$ ${ranksuffix(RANK)}$
+            #:endif
+            ${t1}$, intent(in) :: flag
+        end function
+        #:endfor
+        #:endfor
+    end interface
 
+    #:set RANKS = range(0, 4)
     interface randn
-        module procedure randn0, randn1, randn2, randn3
-    end interface randn
+        !! Version: experimental
+        !!
+        ! randn
+        !-----------------------------------------------------------------------
+        ! randn generates normally distributed random numbers using polar
+        ! Box-Muller algorithm.
+        !
+        ! Syntax
+        !-----------------------------------------------------------------------
+        ! x = randn()
+        ! x = randn(dim1)
+        !
+        ! Description
+        !-----------------------------------------------------------------------
+        ! x = randn() returns a single normally distributed random number with
+        ! mean 0 and standard deviation 1.
+        !
+        ! x = randn(dim1) returns a dim1 vector of normally distributed random
+        ! numbers.
+        !
+        ! A = randn(dim1, dim2) returns a dim1-by-dim2 matrix of normally
+        ! distributed random numbers.
+        !
+        ! X = randn(dim1, dim2, dim3) returns a dim1-by-dim2-by-dim3
+        ! 3-dimensional matrix of normally distributed random numbers.
+        !
+        ! Examples
+        !-----------------------------------------------------------------------
+        ! x = randn(3)
+        !     -1.22003853  -0.211721316   0.522971511
+        !! Default versions
+        #:for RANK in RANKS
+        #:if RANK == 0
+        module function randn_${RANK}$_default ()
+        #:elif RANK == 1
+        module function randn_${RANK}$_default (dim1)
+            integer, intent(in) :: dim1
+        #:elif RANK == 2
+        module function randn_${RANK}$_default (dim1, dim2)
+            integer, intent(in) :: dim1, dim2
+        #:elif RANK == 3
+        module function randn_${RANK}$_default (dim1, dim2, dim3)
+            integer, intent(in) :: dim1, dim2, dim3
+        #:endif
+            #:if RANK == 0
+            real(dp) :: randn_${RANK}$_default ${ranksuffix(RANK)}$
+            #:else
+            real(dp), allocatable :: randn_${RANK}$_default ${ranksuffix(RANK)}$
+            #:endif
+        end function
+        #:endfor
+        !! Multi-precision versions
+        #:for RANK in RANKS
+        #:for k1, t1 in REAL_KINDS_TYPES
+        #:if RANK == 0
+        module function randn_${RANK}$_${k1}$ (flag)
+        #:elif RANK == 1
+        module function randn_${RANK}$_${k1}$ (dim1, flag)
+            !! Unlike dynamic scripting languages, static languages generally
+            !! have multiple precision variables, so we need to explicitly provide precision hints.
+            integer, intent(in) :: dim1
+        #:elif RANK == 2
+        module function randn_${RANK}$_${k1}$ (dim1, dim2, flag)
+            integer, intent(in) :: dim1, dim2
+        #:elif RANK == 3
+        module function randn_${RANK}$_${k1}$ (dim1, dim2, dim3, flag)
+            integer, intent(in) :: dim1, dim2, dim3
+        #:endif
+            #:if RANK == 0
+            ${t1}$ :: randn_${RANK}$_${k1}$ ${ranksuffix(RANK)}$
+            #:else
+            ${t1}$, allocatable :: randn_${RANK}$_${k1}$ ${ranksuffix(RANK)}$
+            #:endif
+            ${t1}$, intent(in) :: flag
+        end function
+        #:endfor
+        #:endfor
+    end interface
 
     interface repmat
         module procedure repmat1, repmat2
@@ -721,17 +882,26 @@ module forlab
             vertcat_r21
     end interface vertcat
 
+    #:set RANKS = range(1, 4)
     interface zeros
+        !! Version: experimental
+        !!
         !! zeros creates array all of zeros.
         !!
         !! Syntax
         !!-----------------------------------------------------------------------
-        !! x = zeros(dim1)  
-        !! A = zeros(dim1, dim2)  
-        !! X = zeros(dim1, dim2, dim3)  
-        !!
+        !! Default version                  Multi-precision version
+        !! x = zeros(dim1)                  or  x = zeros(dim1, flag) 
+        !! A = zeros(dim1, dim2)                A = zeros(dim1, dim2, flag)
+        !! X = zeros(dim1, dim2, dim3)          X = zeros(dim1, dim2, dim3, flag)
+        !! 
         !! Description
         !!-----------------------------------------------------------------------
+        !! The precision of the flag variable should be consistent with 
+        !! the return value of the function.  
+        !! Unlike dynamic scripting languages, static languages generally
+        !! have multiple precision variables, so we need to explicitly provide precision hints.
+        !!
         !! x = zeros(dim1) returns a dim1 vector of zeros.
         !!
         !! A = zeros(dim1, dim2) returns a dim1-by-dim2 matrix of zeros.
@@ -750,59 +920,106 @@ module forlab
         !!     0.  0.  0.  
         !!     0.  0.  0.  
         !!     0.  0.  0.
-        module function zeros1(dim1)
-            real(dp), dimension(:), allocatable :: zeros1
+        #:for RANK in RANKS
+        #:if RANK == 1
+        module function zeros_${RANK}$_default (dim1)
             integer, intent(in) :: dim1
-        end function
-        module function zeros2(dim1, dim2)
-            real(dp), dimension(:, :), allocatable :: zeros2
+        #:elif RANK == 2
+        module function zeros_${RANK}$_default (dim1, dim2)
             integer, intent(in) :: dim1, dim2
-        end function
-        module function zeros3(dim1, dim2, dim3)
-            real(dp), dimension(:, :, :), allocatable :: zeros3
+        #:elif RANK == 3
+        module function zeros_${RANK}$_default (dim1, dim2, dim3)
             integer, intent(in) :: dim1, dim2, dim3
+        #:endif
+            real(dp), allocatable :: zeros_${RANK}$_default ${ranksuffix(RANK)}$
         end function
+        #:endfor
+
+        #:for RANK in RANKS
+        #:for k1, t1 in REAL_KINDS_TYPES
+        #:if RANK == 1
+        module function zeros_${RANK}$_${k1}$ (dim1, flag)
+            integer, intent(in) :: dim1
+        #:elif RANK == 2
+        module function zeros_${RANK}$_${k1}$ (dim1, dim2, flag)
+            integer, intent(in) :: dim1, dim2
+        #:elif RANK == 3
+        module function zeros_${RANK}$_${k1}$ (dim1, dim2, dim3, flag)
+            integer, intent(in) :: dim1, dim2, dim3
+        #:endif
+            ${t1}$, allocatable :: zeros_${RANK}$_${k1}$ ${ranksuffix(RANK)}$
+            ${t1}$, intent(in) :: flag
+        end function
+        #:endfor
+        #:endfor
     end interface
 
     !! Normal Interfaces
     interface
-        !! eye creates the identity matrix.
-        !!
-        !! Syntax
-        !!-----------------------------------------------------------------------
-        !! I = eye(dim1)  
-        !! I = eye(dim1, dim2)
-        !!
-        !! Description
-        !!-----------------------------------------------------------------------
-        !! I = eye(dim1) returns an dim1-by-dim1 matrix with ones on the main
-        !! diagonal and zeros elsewhere.
-        !!
-        !! I = eye(dim1, dim2) returns a dim1-by-dim2 matrix with ones on the
-        !! main diagonal and zeros elsewhere.
-        !!
-        !! Examples
-        !!-----------------------------------------------------------------------
-        !! I = eye(3)  
-        !!     1.  0.  0.  
-        !!     0.  1.  0.  
-        !!     0.  0.  1.
-        !!
-        !! I = eye(3, 4)  
-        !!     1.  0.  0.  0.  
-        !!     0.  1.  0.  0.  
-        !!     0.  0.  1.  0.
-        !!
-        !! I = eye(4, 3)
-        !!     1.  0.  0.
-        !!     0.  1.  0.
-        !!     0.  0.  1.
-        !!     0.  0.  0.
         module function eye(dim1, dim2)
+            !! Version: experimental
+            !!
+            !! eye creates the identity matrix.
+            !!
+            !! Syntax
+            !!-----------------------------------------------------------------------
+            !! I = eye(dim1)  
+            !! I = eye(dim1, dim2)
+            !!
+            !! Description
+            !!-----------------------------------------------------------------------
+            !! I = eye(dim1) returns an dim1-by-dim1 matrix with ones on the main
+            !! diagonal and zeros elsewhere.
+            !!
+            !! I = eye(dim1, dim2) returns a dim1-by-dim2 matrix with ones on the
+            !! main diagonal and zeros elsewhere.
+            !!
+            !! Examples
+            !!-----------------------------------------------------------------------
+            !! I = eye(3)  
+            !!     1.  0.  0.  
+            !!     0.  1.  0.  
+            !!     0.  0.  1.
+            !!
+            !! I = eye(3, 4)  
+            !!     1.  0.  0.  0.  
+            !!     0.  1.  0.  0.  
+            !!     0.  0.  1.  0.
+            !!
+            !! I = eye(4, 3)
+            !!     1.  0.  0.
+            !!     0.  1.  0.
+            !!     0.  0.  1.
+            !!     0.  0.  0.
             real(dp), dimension(:, :), allocatable :: eye
             integer, intent(in) :: dim1
             integer, intent(in), optional :: dim2
         end function
+        module subroutine rng(seed)  
+            !! Version: experimental
+            !!
+            ! rng
+            !-----------------------------------------------------------------------
+            ! rng controls random number generation.
+            !
+            ! Syntax
+            !-----------------------------------------------------------------------
+            ! call rng()
+            ! call rng(seed)
+            !
+            ! Description
+            !-----------------------------------------------------------------------
+            ! call rng() uses the current date and time as seed for random number
+            ! generation.
+            !
+            ! call rng(seed) sets the input seed for random number generation.
+            !
+            ! Notes
+            !-----------------------------------------------------------------------
+            ! It is advised to call rng at the beginning of a program so that each
+            ! run of the program produces different sequences of random numbers.
+            integer, intent(in), optional :: seed
+        end subroutine rng
     end interface
 contains
 
@@ -6160,44 +6377,7 @@ contains
         write (*, "(A1, A, F6.2, A)", advance="no") char(13), opt_prefix, perc, "%"
         return
     end subroutine progress_perc
-
-    ! rng
-    !-----------------------------------------------------------------------
-    ! rng controls random number generation.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! call rng()
-    ! call rng(seed)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! call rng() uses the current date and time as seed for random number
-    ! generation.
-    !
-    ! call rng(seed) sets the input seed for random number generation.
-    !
-    ! Notes
-    !-----------------------------------------------------------------------
-    ! It is advised to call rng at the beginning of a program so that each
-    ! run of the program produces different sequences of random numbers.
-
-    subroutine rng(seed)
-        integer(kind=IPRE), intent(in), optional :: seed
-        integer(kind=4) :: seed_size, values(8)
-        integer(kind=4), dimension(:), allocatable :: seed_put
-
-        call random_seed(size=seed_size)
-        allocate (seed_put(seed_size))
-        if (present(seed)) then
-            seed_put = seed
-        else
-            call date_and_time(values=values)
-            seed_put = values(8)*values(7)*values(6)
-        end if
-        call random_seed(put=seed_put)
-        return
-    end subroutine rng
+    
 
     ! randi
     !-----------------------------------------------------------------------
@@ -6242,14 +6422,14 @@ contains
     integer(kind=IPRE) function randi0_0(imax)
         integer(kind=IPRE), intent(in) :: imax
 
-        randi0_0 = floor(randu0()*real(imax)) + 1
+        randi0_0 = floor(randu()*real(imax)) + 1
         return
     end function randi0_0
 
     integer(kind=IPRE) function randi0_1(imax)
         integer(kind=IPRE), dimension(2), intent(in) :: imax
 
-        randi0_1 = minval(imax) + nint(randu0()*real(maxval(imax) - minval(imax)))
+        randi0_1 = minval(imax) + nint(randu()*real(maxval(imax) - minval(imax)))
         return
     end function randi0_1
 
@@ -6257,7 +6437,7 @@ contains
         integer(kind=IPRE), dimension(:), allocatable :: randi1_0
         integer(kind=IPRE), intent(in) :: imax, dim1
 
-        randi1_0 = floor(randu1(dim1)*real(imax)) + 1
+        randi1_0 = floor(randu(dim1)*real(imax)) + 1
         return
     end function randi1_0
 
@@ -6266,7 +6446,7 @@ contains
         integer(kind=IPRE), dimension(2), intent(in) :: imax
         integer(kind=IPRE), intent(in) :: dim1
 
-        randi1_1 = minval(imax) + nint(randu1(dim1)*real(maxval(imax) - minval(imax)))
+        randi1_1 = minval(imax) + nint(randu(dim1)*real(maxval(imax) - minval(imax)))
         return
     end function randi1_1
 
@@ -6274,7 +6454,7 @@ contains
         integer(kind=IPRE), dimension(:, :), allocatable :: randi2_0
         integer(kind=IPRE), intent(in) :: imax, dim1, dim2
 
-        randi2_0 = floor(randu2(dim1, dim2)*real(imax)) + 1
+        randi2_0 = floor(randu(dim1, dim2)*real(imax)) + 1
         return
     end function randi2_0
 
@@ -6283,7 +6463,7 @@ contains
         integer(kind=IPRE), dimension(2), intent(in) :: imax
         integer(kind=IPRE), intent(in) :: dim1, dim2
 
-        randi2_1 = minval(imax) + nint(randu2(dim1, dim2)*real(maxval(imax) - minval(imax)))
+        randi2_1 = minval(imax) + nint(randu(dim1, dim2)*real(maxval(imax) - minval(imax)))
         return
     end function randi2_1
 
@@ -6291,7 +6471,7 @@ contains
         integer(kind=IPRE), dimension(:, :, :), allocatable :: randi3_0
         integer(kind=IPRE), intent(in) :: imax, dim1, dim2, dim3
 
-        randi3_0 = floor(randu3(dim1, dim2, dim3)*real(imax)) + 1
+        randi3_0 = floor(randu(dim1, dim2, dim3)*real(imax)) + 1
         return
     end function randi3_0
 
@@ -6300,93 +6480,9 @@ contains
         integer(kind=IPRE), dimension(2), intent(in) :: imax
         integer(kind=IPRE), intent(in) :: dim1, dim2, dim3
 
-        randi3_1 = minval(imax) + nint(randu3(dim1, dim2, dim3)*real(maxval(imax) - minval(imax)))
+        randi3_1 = minval(imax) + nint(randu(dim1, dim2, dim3)*real(maxval(imax) - minval(imax)))
         return
-    end function randi3_1
-
-    ! randn
-    !-----------------------------------------------------------------------
-    ! randn generates normally distributed random numbers using polar
-    ! Box-Muller algorithm.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! x = randn()
-    ! x = randn(dim1)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! x = randn() returns a single normally distributed random number with
-    ! mean 0 and standard deviation 1.
-    !
-    ! x = randn(dim1) returns a dim1 vector of normally distributed random
-    ! numbers.
-    !
-    ! A = randn(dim1, dim2) returns a dim1-by-dim2 matrix of normally
-    ! distributed random numbers.
-    !
-    ! X = randn(dim1, dim2, dim3) returns a dim1-by-dim2-by-dim3
-    ! 3-dimensional matrix of normally distributed random numbers.
-    !
-    ! Examples
-    !-----------------------------------------------------------------------
-    ! x = randn(3)
-    !     -1.22003853  -0.211721316   0.522971511
-
-    real(kind=RPRE) function randn0()
-        real(kind=RPRE) :: u, v, s
-
-        do
-            u = 2.*randu() - 1.
-            v = 2.*randu() - 1.
-            s = u*u + v*v
-            if ((s .gt. 0.) .and. (s .lt. 1.)) exit
-        end do
-        randn0 = u*sqrt(-2.0d0*log(s)/s)
-        return
-    end function randn0
-
-    function randn1(dim1)
-        real(kind=RPRE), dimension(:), allocatable :: randn1
-        integer(kind=IPRE), intent(in) :: dim1
-        integer(kind=IPRE) :: i
-
-        allocate (randn1(dim1))
-        do i = 1, dim1
-            randn1(i) = randn0()
-        end do
-        return
-    end function randn1
-
-    function randn2(dim1, dim2)
-        real(kind=RPRE), dimension(:, :), allocatable :: randn2
-        integer(kind=IPRE), intent(in) :: dim1, dim2
-        integer(kind=IPRE) :: i, j
-
-        allocate (randn2(dim1, dim2))
-        do i = 1, dim1
-            do j = 1, dim2
-                randn2(i, j) = randn()
-            end do
-        end do
-        return
-    end function randn2
-
-    function randn3(dim1, dim2, dim3)
-        real(kind=RPRE), dimension(:, :, :), allocatable :: randn3
-        integer(kind=IPRE), intent(in) :: dim1, dim2, dim3
-        integer(kind=IPRE) :: i, j, k
-
-        allocate (randn3(dim1, dim2, dim3))
-        do i = 1, dim1
-            do j = 1, dim2
-                do k = 1, dim3
-                    randn3(i, j, k) = randn()
-                end do
-            end do
-        end do
-        return
-    end function randn3
+    end function randi3_1 
 
     ! randperm
     !-----------------------------------------------------------------------
@@ -6425,72 +6521,7 @@ contains
         randperm = a(n - opt_k + 1:n)
         return
     end function randperm
-
-    ! randu
-    !-----------------------------------------------------------------------
-    ! randu generates uniformly distributed random numbers.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! x = randu()
-    ! x = randu(dim1)
-    ! A = randu(dim1, dim2)
-    ! X = randu(dim1, dim2, dim3)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! x = randu() returns a single uniformly distributed random number in
-    ! the interval [0,1].
-    !
-    ! x = randu(dim1) returns a dim1 vector of uniformly distributed random
-    ! numbers.
-    !
-    ! A = randu(dim1, dim2) returns a dim1-by-dim2 matrix of uniformly
-    ! distributed random numbers.
-    !
-    ! X = randu(dim1, dim2, dim3) returns a dim1-by-dim2-by-dim3
-    ! 3-dimensional matrix of uniformly distributed random numbers.
-    !
-    ! Examples
-    !-----------------------------------------------------------------------
-    ! x = randu()
-    !     0.383413825
-    !
-    ! x = randu(5)*2 - 1
-    !     0.640258908  -0.873707294   0.787327528
-
-    real(kind=RPRE) function randu0()
-        call random_number(randu0)
-        return
-    end function randu0
-
-    function randu1(dim1)
-        real(kind=RPRE), dimension(:), allocatable :: randu1
-        integer(kind=IPRE), intent(in) :: dim1
-
-        allocate (randu1(dim1))
-        call random_number(randu1)
-        return
-    end function randu1
-
-    function randu2(dim1, dim2)
-        real(kind=RPRE), dimension(:, :), allocatable :: randu2
-        integer(kind=IPRE), intent(in) :: dim1, dim2
-
-        allocate (randu2(dim1, dim2))
-        call random_number(randu2)
-        return
-    end function randu2
-
-    function randu3(dim1, dim2, dim3)
-        real(kind=RPRE), dimension(:, :, :), allocatable :: randu3
-        integer(kind=IPRE), intent(in) :: dim1, dim2, dim3
-
-        allocate (randu3(dim1, dim2, dim3))
-        call random_number(randu3)
-        return
-    end function randu3
-
+   
     ! repmat
     !-----------------------------------------------------------------------
     ! repmat repeats copies of arrays.
