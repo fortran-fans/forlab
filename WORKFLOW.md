@@ -1,5 +1,5 @@
 # WORKFLOW
-[toc]
+[TOC]
 
 ## Workflow tools
 1. vs code with bash terminal

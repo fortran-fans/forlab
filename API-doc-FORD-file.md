@@ -1,13 +1,14 @@
 ---
 project: forlab
 summary: A opensource package forlab v1.0 for (modern) Fortran
-src_dir: src
-exclude_dir: src/fypp
+src_dir: src/fypp
 output_dir: API-doc
 page_dir: doc
 media_dir: doc/media
+fpp_extensions: fypp
 preprocess: true
 macro: MAXRANK=3
+preprocessor: fypp
 display: public
          protected
 source: true
@@ -23,13 +24,13 @@ extra_mods: iso_fortran_env:https://gcc.gnu.org/onlinedocs/gfortran/ISO_005fFORT
 print_creation_date: true
 creation_date: %Y-%m-%d %H:%M %z
 project_github: https://github.com/zoziha/forlab
-project_download: null
-project_website: null
+project_download: https://github.com/zoziha/forlab
+project_website: https://github.com/zoziha/forlab
 favicon: doc/media/favicon.png
 license: by-sa
 author: forlab v1.0 contributors
 author_pic: null
-author_email: null
+author_email: zuo.zhihua@qq.com
 github: https://github.com/zoziha/forlab
 twitter: null
 website: https://github.com/zoziha/forlab
