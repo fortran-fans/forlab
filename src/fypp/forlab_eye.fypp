@@ -1,0 +1,63 @@
+#:include 'common.fypp'
+submodule(forlab) forlab_eye
+    use forlab_kinds
+
+contains
+    !! Default Versions
+    module function eye_1_default (dim1)
+        real(dp), dimension(:, :), allocatable :: eye_1_default
+        integer, intent(in) :: dim1
+        integer :: i
+
+        eye_1_default = zeros(dim1, dim1)
+        do i = 1, dim1
+            eye_1_default (i, i) = 1.0d0
+        end do
+        return
+    end function
+
+    module function eye_2_default (dim1, dim2)
+        real(dp), dimension(:, :), allocatable :: eye_2_default
+        integer, intent(in) :: dim1
+        integer, intent(in) :: dim2
+        integer :: i
+
+        eye_2_default = zeros(dim1, dim2)
+        do i = 1, min(dim1, dim2)
+            eye_2_default (i, i) = 1.0d0
+        end do
+
+        return
+    end function
+    !! Multi-precision versions
+    #:for k1, t1 in REAL_KINDS_TYPES
+    module function eye_1_${k1}$ (dim1, flag)
+        ${t1}$, dimension(:, :), allocatable :: eye_1_${k1}$ 
+        integer, intent(in) :: dim1
+        ${t1}$, intent(in) :: flag
+        integer :: i
+
+        eye_1_${k1}$ = zeros(dim1, dim1, flag)
+        do i = 1, dim1
+            eye_1_${k1}$ (i, i) = 1.0_${k1}$
+        end do
+        return
+    end function
+
+    module function eye_2_${k1}$ (dim1, dim2, flag)
+        ${t1}$, dimension(:, :), allocatable :: eye_2_${k1}$
+        integer, intent(in) :: dim1
+        integer, intent(in) :: dim2
+        ${t1}$, intent(in) :: flag
+        integer :: i
+
+        eye_2_${k1}$ = zeros(dim1, dim2, flag)
+        do i = 1, min(dim1, dim2)
+            eye_2_${k1}$ (i, i) = 1.0_${k1}$
+        end do
+
+        return
+    end function
+    
+    #:endfor
+end submodule

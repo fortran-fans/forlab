@@ -1,38 +1,46 @@
 #:include "common.fypp"
 submodule(forlab) forlab_lu
+    !! Version: experimental
+    !!
+    !! Discussion:
+    !! ----
+    !! https://fortran-lang.discourse.group/t/fortran-function-return-value-polymorphism/1350/5
     use forlab_kinds
-
+    implicit none
+    
 contains
     #:for k1,t1 in REAL_KINDS_TYPES
-        module subroutine lu_${k1}$ (A, L, U)
-            ${t1}$, dimension(:, :), intent(in) :: A
-            ${t1}$, dimension(:, :), allocatable, intent(out) :: L, U
-            integer :: i, j, k, m
+    module subroutine lu_${k1}$ (A, L, U)
+        ${t1}$, dimension(:, :), intent(in) :: A
+        ${t1}$, dimension(:, :), allocatable, intent(out) :: L, U
+        integer :: i, j, k, m
+        ${t1}$ :: flag
 
-            if (issquare(A)) then
-                m = size(A, 1)
-                if (.not. allocated(L)) L = eye(m)
-                if (.not. allocated(U)) U = zeros(m, m)
+        if (issquare(A)) then
+            m = size(A, 1)
+            if (.not. allocated(L)) L = eye(m, flag)
+            if (.not. allocated(U)) U = zeros(m, m, flag)
 
-                do i = 1, m
-                    do j = 1, m
-                        U(i, j) = A(i, j)
-                        do k = 1, i - 1
-                            U(i, j) = U(i, j) - L(i, k)*U(k, j)
-                        end do
-                    end do
-                    do j = i + 1, m
-                        L(j, i) = A(j, i)
-                        do k = 1, i - 1
-                            L(j, i) = L(j, i) - L(j, k)*U(k, i)
-                        end do
-                        L(j, i) = L(j, i)/U(i, i)
+            do i = 1, m
+                do j = 1, m
+                    U(i, j) = A(i, j)
+                    do k = 1, i - 1
+                        U(i, j) = U(i, j) - L(i, k)*U(k, j)
                     end do
                 end do
-            else
-                stop "Error: in A = LU, A should be square."
-            end if
-            return
-        end subroutine
+                do j = i + 1, m
+                    L(j, i) = A(j, i)
+                    do k = 1, i - 1
+                        L(j, i) = L(j, i) - L(j, k)*U(k, i)
+                    end do
+                    L(j, i) = L(j, i)/U(i, i)
+                end do
+            end do
+        else
+            stop "Error: in A = LU, A should be square."
+        end if
+        return
+    end subroutine
+
     #:endfor
 end submodule

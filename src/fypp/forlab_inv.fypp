@@ -13,6 +13,7 @@ contains
             real(${k1}$) :: D
             real(${k1}$), dimension(:), allocatable :: x, y, e
             real(${k1}$), dimension(:, :), allocatable :: L, U
+            ${t1}$ :: flag
 
             if (issquare(A)) then
                 m = size(A, 1)
@@ -22,7 +23,7 @@ contains
                     D = det(A, L, U)
                 end if
                 if (D .ne. 0.) then
-                    inv_${t1[0]}$${k1}$ = zeros(m, m)
+                    inv_${t1[0]}$${k1}$ = zeros(m, m, flag)
                     if (m .eq. 2) then
                         inv_${t1[0]}$${k1}$ (1, 1) = A(2, 2)
                         inv_${t1[0]}$${k1}$ (1, 2) = -A(1, 2)
@@ -42,9 +43,9 @@ contains
                         inv_${t1[0]}$${k1}$ = inv_${t1[0]}$${k1}$/D
                     else
                         do k = 1, m
-                            x = zeros(m)
-                            y = zeros(m)
-                            e = zeros(m)
+                            x = zeros(m, flag)
+                            y = zeros(m, flag)
+                            e = zeros(m, flag)
                             e(k) = 1.
                             y(1) = e(1)
 
@@ -96,12 +97,13 @@ contains
             real(${k1}$) :: d, p, t, q, s, b
             integer, dimension(:), allocatable :: is, js
             integer :: i, j, k
+            real(${k1}$) :: flag
 
             if (issquare(A)) then
                 n = size(A, 1)
-                inv_${t1[0]}$${k1}$ = zeros(n, n)
-                ar = zeros(n, n)
-                ai = zeros(n, n)
+                inv_${t1[0]}$${k1}$ = zeros(n, n, flag)
+                ar = zeros(n, n, flag)
+                ai = zeros(n, n, flag)
                 allocate(is(n),js(n))
                 is = 0
                 js = 0
