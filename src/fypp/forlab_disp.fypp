@@ -14,18 +14,13 @@ submodule(forlab) forlab_disp
 contains
 
     #:for k1,t1 in REAL_KINDS_TYPES
-        module subroutine disp_r${k1}$0(x, string)
-            ${t1}$, intent(in) :: x
-            character(len=*), intent(in), optional :: string
-
+        module procedure disp_r${k1}$0
             if (present(string)) print *, trim(string)
             print fmt_r, filter(x)
             return
-        end subroutine
+        end procedure
 
-        module subroutine disp_r${k1}$1(x, string)
-            ${t1}$, dimension(:), intent(in) :: x
-            character(len=*), intent(in), optional :: string
+        module procedure disp_r${k1}$1
             integer :: i, m
 
             m = size(x)
@@ -33,11 +28,9 @@ contains
             print fmt_r, (filter(x(i)), i=1, m)
 
             return
-        end subroutine
+        end procedure
 
-        module subroutine disp_r${k1}$2(A, string)
-            ${t1}$, dimension(:, :), intent(in) :: A
-            character(len=*), intent(in), optional :: string
+        module procedure disp_r${k1}$2
             integer :: i, j, m, n
 
             m = size(A, 1)
@@ -47,12 +40,9 @@ contains
                 print fmt_r, (filter(A(i, j)), j=1, n)
             end do
             return
-        end subroutine
+        end procedure
 
-        module subroutine disp_r${k1}$3(X, dim, string)
-            ${t1}$, dimension(:, :, :), intent(in) :: X
-            integer, intent(in), optional :: dim
-            character(len=*), intent(in), optional :: string
+        module procedure disp_r${k1}$3
             integer :: i, dim1, dim2, dim3
 
             dim1 = size(X, 1)
@@ -76,12 +66,10 @@ contains
                 end do
             end if
             return
-        end subroutine
+        end procedure
     #:endfor
     #:for k1, t1 in CMPLX_KINDS_TYPES
-        module subroutine disp_c${k1}$0(x, string)
-            ${t1}$, intent(in) :: x
-            character(len=*), intent(in), optional :: string
+        module procedure disp_c${k1}$0
 
             if (present(string)) print *, trim(string)
             if (imag(x) .ge. 0.0d0) then
@@ -92,11 +80,9 @@ contains
                 print fmt_c, filter(real(x)), "-", filter(abs(imag(x))), "i"
             end if
             return
-        end subroutine
+        end procedure
 
-        module subroutine disp_c${k1}$1(x, string)
-            ${t1}$, dimension(:), intent(in) :: x
-            character(len=*), intent(in), optional :: string
+        module procedure disp_c${k1}$1
             integer :: i, m
 
             m = size(x)
@@ -105,12 +91,10 @@ contains
                 call disp_c${k1}$0(x(i))
             end do
             return
-        end subroutine
-        module subroutine disp_c${k1}$2(A, string)
-            ${t1}$, dimension(:, :), intent(in) :: A
-            character(len=*), intent(in), optional :: string
-            integer :: i, j, m, n
+        end procedure
 
+        module procedure disp_c${k1}$2
+            integer :: i, j, m, n
             m = size(A, 1)
             n = size(A, 2)
             if (present(string)) print *, trim(string)
@@ -121,31 +105,25 @@ contains
                 print *, ''
             end do
             return
-        end subroutine
+        end procedure
     #:endfor
-    module subroutine disp_l0(x, string)
-        logical, intent(in) :: x
-        character(len=*), intent(in), optional :: string
 
+    module procedure disp_l0
         if (present(string)) print *, trim(string)
         print fmt_r, x
         return
-    end subroutine
-    module subroutine disp_l1(x, string)
-        logical, dimension(:), intent(in) :: x
-        character(len=*), intent(in), optional :: string
-        integer :: i, m
+    end procedure
 
+    module procedure disp_l1
+        integer :: i, m
         m = size(x)
         if (present(string)) print *, trim(string)
         print fmt_r, (x(i), i=1, m)
         return
-    end subroutine disp_l1
-    module subroutine disp_l2(A, string)
-        logical, dimension(:, :), intent(in) :: A
-        character(len=*), intent(in), optional :: string
-        integer :: i, j, m, n
+    end procedure disp_l1
 
+    module procedure disp_l2
+        integer :: i, j, m, n
         m = size(A, 1)
         n = size(A, 2)
         if (present(string)) print *, trim(string)
@@ -153,32 +131,25 @@ contains
             print fmt_r, (A(i, j), j=1, n)
         end do
         return
-    end subroutine disp_l2
-    #:for k1, t1 in INT_KINDS_TYPES
-        module subroutine disp_i${k1}$0(x, string)
-            ${t1}$, intent(in) :: x
-            character(len=*), intent(in), optional :: string
+    end procedure disp_l2
 
+    #:for k1, t1 in INT_KINDS_TYPES
+        module procedure disp_i${k1}$0
             if (present(string)) print *, trim(string)
             print fmt_r, x
             return
-        end subroutine
-        module subroutine disp_i${k1}$1(x, string)
-            ${t1}$, dimension(:), intent(in) :: x
-            character(len=*), intent(in), optional :: string
-            integer :: i, m
+        end procedure
 
+        module procedure disp_i${k1}$1
+            integer :: i, m
             m = size(x)
             if (present(string)) print *, trim(string)
             print fmt_r, (x(i), i=1, m)
-
             return
-        end subroutine
-        module subroutine disp_i${k1}$2(A, string)
-            ${t1}$, dimension(:, :), intent(in) :: A
-            character(len=*), intent(in), optional :: string
-            integer :: i, j, m, n
+        end procedure
 
+        module procedure disp_i${k1}$2
+            integer :: i, j, m, n
             m = size(A, 1)
             n = size(A, 2)
             if (present(string)) print *, trim(string)
@@ -186,14 +157,10 @@ contains
                 print *, (A(i, j), j=1, n)
             end do
             return
-        end subroutine
-        module subroutine disp_i${k1}$3(X, dim, string)
-            ${t1}$, dimension(:, :, :), intent(in) :: X
-            integer, intent(in), optional :: dim
-                !! \fixme: dim precision
-            character(len=*), intent(in), optional :: string
-            integer :: i, dim1, dim2, dim3
+        end procedure
 
+        module procedure disp_i${k1}$3
+            integer :: i, dim1, dim2, dim3
             dim1 = size(X, 1)
             dim2 = size(X, 2)
             dim3 = size(X, 3)
@@ -215,28 +182,26 @@ contains
                 end do
             end if
             return
-        end subroutine
+        end procedure
     #:endfor
 
     #:for k1,t1 in REAL_KINDS_TYPES
-        elemental module function filter_${k1}$ (x)
+        module function filter_${k1}$(x)
             !! Filter near-zero. Note: elemental
-            implicit none
             ${t1}$, intent(in) :: x
             ${t1}$ :: filter_${k1}$
             filter_${k1}$ = x
             if (abs(x) < nearzero_${k1}$) filter_${k1}$ = 0.0
         end function
+
     #:endfor
 
-    module subroutine disp_str(string)
-        character(len=*), intent(in), optional :: string
-
+    module procedure disp_str
         if (present(string)) then
             print *, trim(string)
         else
             print *, ''
         end if
         return
-    end subroutine
+    end procedure
 end submodule

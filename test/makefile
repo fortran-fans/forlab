@@ -10,3 +10,6 @@ test: test.o
 
 test.o: test.f90
 	$(FC) -c test.f90 $(LIB_DIR) $(LIBS) -I../src/
+.PHONY:clean
+clean:
+	$(RM) *.o *.mod

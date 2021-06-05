@@ -1,0 +1,103 @@
+#:include 'common.fypp'
+submodule(forlab) forlab_degcir
+    !degree circular functions
+    !! Version: experimental
+    !!
+    !! Discussion:
+    !! ----
+    !! https://fortran-lang.discourse.group/t/fortran-function-return-value-polymorphism/1350/5
+    use forlab_kinds
+    implicit none
+contains
+
+    ! acosd
+    !-----------------------------------------------------------------------
+    ! acosd computes the inverse cosine in degrees.
+    !
+    ! Syntax
+    !-----------------------------------------------------------------------
+    ! y = acosd(x)
+    !
+    ! Description
+    !-----------------------------------------------------------------------
+    ! y = acosd(x) returns the inverse cosine of the elements in x in
+    ! degrees. For real elements of x in the domain [-1,1], acosd returns
+    ! values in the range [0,180]. For values of x outside this range,
+    ! acosd returns NaN (Not a Number).
+    !
+    ! Examples
+    !-----------------------------------------------------------------------
+    ! y = acosd(1.)
+    !     1.
+    !
+    ! y = acosd(2.)
+    !     NaN
+    !
+    ! x = [ -1., 0., 1. ]
+    ! y = acosd(x)
+    !     180.  90.   0.
+
+
+    ! asind
+    !-----------------------------------------------------------------------
+    ! asind computes the inverse sine in degrees.
+    !
+    ! Syntax
+    !-----------------------------------------------------------------------
+    ! y = asind(x)
+    !
+    ! Description
+    !-----------------------------------------------------------------------
+    ! y = asind(x) returns the inverse sine of the elements in x in degrees.
+    ! For real elements of x in the domain [-1,1], asind returns values in
+    ! the range [-90,90]. For values of x outside this range, asind returns
+    ! NaN (Not a Number).
+    !
+    ! Examples
+    !-----------------------------------------------------------------------
+    ! y = asind(1.)
+    !     90.
+    !
+    ! y = asind(2.)
+    !     NaN
+    !
+    ! x = [ -1., 0., 1. ]
+    ! y = asind(x)
+    !     -90.  0.  90.
+
+
+    ! atand
+    !-----------------------------------------------------------------------
+    ! atand computes the inverse tangent in degrees.
+    !
+    ! Syntax
+    !-----------------------------------------------------------------------
+    ! y = atand(x)
+    !
+    ! Description
+    !-----------------------------------------------------------------------
+    ! y = atand(x) returns the inverse tangent of the elements in x in
+    ! degrees. For real elements of x in the domain [-Inf,Inf], atand
+    ! returns values in the range [-90,90].
+    !
+    ! Examples
+    !-----------------------------------------------------------------------
+    ! y = atand(0.)
+    !     0.
+    !
+    ! y = atand(50.)
+    !     88.8542328
+    !
+    ! x = [ -50., 0., 50. ]
+    ! y = atand(x)
+    !     -88.8542328   0.  88.8542328
+    #:set CIR_NAME=["acos","asin","atan"]
+    #:for l1 in CIR_NAME 
+    #:for k1,t1 in REAL_KINDS_TYPES
+    module procedure ${l1}$_${k1}$
+        ${l1}$_${k1}$=${l1}$(x)*180/pi_${k1}$
+    end procedure
+
+    #:endfor
+    #:endfor
+end submodule

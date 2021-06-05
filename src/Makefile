@@ -14,7 +14,8 @@ SRCFYPP =\
 		 forlab_randu.fypp \
 		 forlab_rng.fypp \
 		 forlab_save.fypp \
-forlab_zeros.fypp \
+		 forlab_zeros.fypp \
+		 forlab_degcir.fypp
 
 SRC =	forlab_kinds.f90 \
 		forlab_zeros.f90 \
@@ -25,6 +26,7 @@ SRC =	forlab_kinds.f90 \
 LIB = libforlab.a
 
 
+FC=gfortran
 SRCGEN = $(SRCFYPP:.fypp=.f90)
 OBJS = $(SRC:.f90=.o)
 MODS = $(OBJS:.o=.mod)
@@ -85,5 +87,8 @@ forlab_randn.o: \
 	forlab.o \
 	forlab_kinds.o
 forlab_randu.o: \
+	forlab.o \
+	forlab_kinds.o
+forlab_degcir.o: \
 	forlab.o \
 	forlab_kinds.o

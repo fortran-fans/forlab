@@ -4,9 +4,7 @@ submodule(forlab) forlab_det
 
 contains
     #:for k1,t1 in REAL_KINDS_TYPES
-        ${t1}$ module function det_${k1}$ (A, outL, outU)
-            ${t1}$, dimension(:, :), intent(in) :: A
-            ${t1}$, dimension(:, :), allocatable, intent(inout), optional :: outL, outU
+         module procedure det_${k1}$
             real(${k1}$), dimension(:, :), allocatable :: L, U
             integer :: m
 
@@ -31,6 +29,6 @@ contains
                 stop "Error: in det(A), A should be square."
             end if
             return
-        end function
+        end procedure
     #:endfor
 end submodule

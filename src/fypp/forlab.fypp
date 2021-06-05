@@ -29,7 +29,9 @@ module forlab
     integer, public, parameter :: CLEN = 512
     real(kind=8), public, parameter :: pi = 3.141592653589793238460d0
     real(kind=8), public, save :: tic_time
-
+    #:for k1,t1 in REAL_KINDS_TYPES
+    ${t1}$,public, parameter ::pi_${k1}$=acos(-1.0_${k1}$)
+    #:endfor
     ! Functions
     private
     public :: File, acosd, asind, atand, argmax, argmin, argsort, arange, &
@@ -107,9 +109,18 @@ module forlab
         #:endfor
     end interface
 
-    interface acosd
-        module procedure acosd0, acosd1, acosd2, acosd3
-    end interface acosd
+    #:set CIR_NAME=["acos","asin","atan"]
+    #:for l1 in CIR_NAME 
+    interface ${l1}$d
+        #:for k1,t1 in REAL_KINDS_TYPES
+        module pure elemental function ${l1}$_${k1}$(x)
+        ${t1}$,intent(in)::x
+        ${t1}$::${l1}$_${k1}$
+        end function
+        #:endfor
+    end interface ${l1}$d
+
+    #:endfor
 
     interface angle
         module procedure angle0, angle1
@@ -148,14 +159,6 @@ module forlab
     interface argmin
         module procedure argmin1, argmin2, argmin3
     end interface argmin
-
-    interface asind
-        module procedure asind0, asind1, asind2, asind3
-    end interface asind
-
-    interface atand
-        module procedure atand0, atand1, atand2, atand3
-    end interface atand
 
     interface bspline1
         module procedure bspline1_1
@@ -1121,63 +1124,6 @@ module forlab
     end interface
 contains
 
-    ! acosd
-    !-----------------------------------------------------------------------
-    ! acosd computes the inverse cosine in degrees.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! y = acosd(x)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! y = acosd(x) returns the inverse cosine of the elements in x in
-    ! degrees. For real elements of x in the domain [-1,1], acosd returns
-    ! values in the range [0,180]. For values of x outside this range,
-    ! acosd returns NaN (Not a Number).
-    !
-    ! Examples
-    !-----------------------------------------------------------------------
-    ! y = acosd(1.)
-    !     1.
-    !
-    ! y = acosd(2.)
-    !     NaN
-    !
-    ! x = [ -1., 0., 1. ]
-    ! y = acosd(x)
-    !     180.  90.   0.
-
-    real(kind=RPRE) function acosd0(x)
-        real(kind=RPRE), intent(in) :: x
-
-        acosd0 = acos(x)*180.0d0/pi
-        return
-    end function acosd0
-
-    function acosd1(x)
-        real(kind=RPRE), dimension(:), allocatable :: acosd1
-        real(kind=RPRE), dimension(:), intent(in) :: x
-
-        acosd1 = acos(x)*180.0d0/pi
-        return
-    end function acosd1
-
-    function acosd2(A)
-        real(kind=RPRE), dimension(:, :), allocatable :: acosd2
-        real(kind=RPRE), dimension(:, :), intent(in) :: A
-
-        acosd2 = acos(A)*180.0d0/pi
-        return
-    end function acosd2
-
-    function acosd3(X)
-        real(kind=RPRE), dimension(:, :, :), allocatable :: acosd3
-        real(kind=RPRE), dimension(:, :, :), intent(in) :: X
-
-        acosd3 = acos(X)*180.0d0/pi
-        return
-    end function acosd3
 
     ! angle
     !-----------------------------------------------------------------------
@@ -1422,121 +1368,6 @@ contains
         end subroutine quickargsort
 
     end function argsort
-
-    ! asind
-    !-----------------------------------------------------------------------
-    ! asind computes the inverse sine in degrees.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! y = asind(x)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! y = asind(x) returns the inverse sine of the elements in x in degrees.
-    ! For real elements of x in the domain [-1,1], asind returns values in
-    ! the range [-90,90]. For values of x outside this range, asind returns
-    ! NaN (Not a Number).
-    !
-    ! Examples
-    !-----------------------------------------------------------------------
-    ! y = asind(1.)
-    !     90.
-    !
-    ! y = asind(2.)
-    !     NaN
-    !
-    ! x = [ -1., 0., 1. ]
-    ! y = asind(x)
-    !     -90.  0.  90.
-
-    real(kind=RPRE) function asind0(x)
-        real(kind=RPRE), intent(in) :: x
-
-        asind0 = asin(x)*180.0d0/pi
-        return
-    end function asind0
-
-    function asind1(x)
-        real(kind=RPRE), dimension(:), allocatable :: asind1
-        real(kind=RPRE), dimension(:), intent(in) :: x
-
-        asind1 = asin(x)*180.0d0/pi
-        return
-    end function asind1
-
-    function asind2(A)
-        real(kind=RPRE), dimension(:, :), allocatable :: asind2
-        real(kind=RPRE), dimension(:, :), intent(in) :: A
-
-        asind2 = asin(A)*180.0d0/pi
-        return
-    end function asind2
-
-    function asind3(X)
-        real(kind=RPRE), dimension(:, :, :), allocatable :: asind3
-        real(kind=RPRE), dimension(:, :, :), intent(in) :: X
-
-        asind3 = asin(X)*180.0d0/pi
-        return
-    end function asind3
-
-    ! atand
-    !-----------------------------------------------------------------------
-    ! atand computes the inverse tangent in degrees.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! y = atand(x)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! y = atand(x) returns the inverse tangent of the elements in x in
-    ! degrees. For real elements of x in the domain [-Inf,Inf], atand
-    ! returns values in the range [-90,90].
-    !
-    ! Examples
-    !-----------------------------------------------------------------------
-    ! y = atand(0.)
-    !     0.
-    !
-    ! y = atand(50.)
-    !     88.8542328
-    !
-    ! x = [ -50., 0., 50. ]
-    ! y = atand(x)
-    !     -88.8542328   0.  88.8542328
-
-    real(kind=RPRE) function atand0(x)
-        real(kind=RPRE), intent(in) :: x
-
-        atand0 = atan(x)*180.0d0/pi
-        return
-    end function atand0
-
-    function atand1(x)
-        real(kind=RPRE), dimension(:), allocatable :: atand1
-        real(kind=RPRE), dimension(:), intent(in) :: x
-
-        atand1 = atan(x)*180.0d0/pi
-        return
-    end function atand1
-
-    function atand2(A)
-        real(kind=RPRE), dimension(:, :), allocatable :: atand2
-        real(kind=RPRE), dimension(:, :), intent(in) :: A
-
-        atand2 = atan(A)*180.0d0/pi
-        return
-    end function atand2
-
-    function atand3(X)
-        real(kind=RPRE), dimension(:, :, :), allocatable :: atand3
-        real(kind=RPRE), dimension(:, :, :), intent(in) :: X
-
-        atand3 = atan(X)*180.0d0/pi
-        return
-    end function atand3
 
     ! bsplrep1
     !-----------------------------------------------------------------------
