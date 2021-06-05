@@ -9,6 +9,12 @@
 5. git
 6. ford
 
+### ford help
+
+#### markdown syntax
+
+[ford markdown](https://daringfireball.net/projects/markdown/basics)
+
 ## Add fypp files
 
 ### fypp -> f90 -> fpm
