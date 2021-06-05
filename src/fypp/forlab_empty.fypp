@@ -1,0 +1,28 @@
+#:include 'common.fypp'
+#:def ranksuffix(RANK)
+$:'' if RANK == 0 else '(' + ':' + ',:' * (RANK - 1) + ')'
+#:enddef ranksuffix
+
+#:set RANKS = range(1, 4)
+submodule(forlab) forlab_empty
+    use forlab_kinds
+contains
+    #:for RANK in RANKS
+    module procedure empty${RANK}$
+        integer :: ierr
+        #:if RANK == 1
+        allocate (empty${RANK}$(dim1), stat=ierr)
+        #:elif RANK == 2
+        allocate (empty${RANK}$(dim1, dim2), stat=ierr)
+        #:elif RANK == 3
+        allocate (empty${RANK}$(dim1, dim2, dim3), stat=ierr)
+        #:endif
+        if (ierr .ne. 0) then
+            print*,"ERROR: in empty, could not allocate array."
+            stop
+        end if
+    end procedure
+
+    #:endfor
+end submodule
+

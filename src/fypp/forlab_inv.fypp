@@ -5,16 +5,13 @@ submodule(forlab) forlab_inv
 
 contains
     #:for k1,t1 in REAL_KINDS_TYPES
-        function inv_${t1[0]}$${k1}$ (A)
+        module procedure inv_${t1[0]}$${k1}$
         !! inv0 computes the real matrix inverse.
-            ${t1}$, dimension(:, :), allocatable :: inv_${t1[0]}$${k1}$
-            ${t1}$, dimension(:, :), intent(in) :: A
             integer :: i, j, k, m
             real(${k1}$) :: D
             real(${k1}$), dimension(:), allocatable :: x, y, e
             real(${k1}$), dimension(:, :), allocatable :: L, U
             ${t1}$ :: flag
-
             if (issquare(A)) then
                 m = size(A, 1)
                 if (m .le. 3) then
@@ -81,16 +78,14 @@ contains
                 stop "Error: in inv(A), A should be square."
             end if
             return
-        end function
+        end procedure
 
     #:endfor
 
     #:for k1,t1 in CMPLX_KINDS_TYPES
 
-        function inv_${t1[0]}$${k1}$ (A)
+        module procedure inv_${t1[0]}$${k1}$
         !! inv computes the complex matrix inverse.
-            ${t1}$, dimension(:, :), allocatable :: inv_${t1[0]}$${k1}$
-            ${t1}$, dimension(:, :), intent(in) :: A
             real(${k1}$), dimension(:, :), allocatable :: ar, ai
         !! AR stores the real part, AI stores the imaginary part
             integer :: flag, n
@@ -204,6 +199,6 @@ contains
                 stop 'Error: in inv(A), A should be square.'
             end if
             return
-        end function
+        end procedure
     #:endfor
 end submodule
