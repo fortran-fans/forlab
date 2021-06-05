@@ -1,4 +1,3 @@
-!! `fpm test` or `fpm test test`
 program main
     use forlab, only: empty, disp, operator(.x.)
     implicit none

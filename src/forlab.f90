@@ -47,7 +47,7 @@ module forlab
     ! #endif
     
     ! Operators
-    public :: operator(.i.)
+    public :: operator(.i.), operator(.x.)
 
     type file
         integer :: unit
@@ -624,36 +624,32 @@ module forlab
         !!
         !! eye creates the identity matrix.
         !!
-        !! Syntax
-        !!-----------------------------------------------------------------------
-        !! I = eye(dim1)  
-        !! I = eye(dim1, dim2)
+        !!## Syntax
+        !!    I = eye(dim1)
+        !!    I = eye(dim1, dim2)
         !!
-        !! Description
-        !!-----------------------------------------------------------------------
-        !! I = eye(dim1) returns an dim1-by-dim1 matrix with ones on the main
-        !! diagonal and zeros elsewhere.
-        !!
-        !! I = eye(dim1, dim2) returns a dim1-by-dim2 matrix with ones on the
+        !!## Description
+        !! `I = eye(dim1)` returns an dim1-by-dim1 matrix with ones on the main
+        !! diagonal and zeros elsewhere.  
+        !! `I = eye(dim1, dim2)` returns a dim1-by-dim2 matrix with ones on the
         !! main diagonal and zeros elsewhere.
         !!
-        !! Examples
-        !!-----------------------------------------------------------------------
-        !! I = eye(3)  
-        !!     1.  0.  0.  
-        !!     0.  1.  0.  
-        !!     0.  0.  1.
+        !!## Examples
+        !!      I = eye(3)  
+        !!          1.  0.  0.  
+        !!          0.  1.  0.  
+        !!          0.  0.  1.
         !!
-        !! I = eye(3, 4)  
-        !!     1.  0.  0.  0.  
-        !!     0.  1.  0.  0.  
-        !!     0.  0.  1.  0.
+        !!      I = eye(3, 4)  
+        !!          1.  0.  0.  0.  
+        !!          0.  1.  0.  0.  
+        !!          0.  0.  1.  0.
         !!
-        !! I = eye(4, 3)
-        !!     1.  0.  0.
-        !!     0.  1.  0.
-        !!     0.  0.  1.
-        !!     0.  0.  0.
+        !!      I = eye(4, 3)  
+        !!          1.  0.  0.
+        !!          0.  1.  0.
+        !!          0.  0.  1.
+        !!          0.  0.  0.  
         module function eye_1_default (dim1)
             real(dp), dimension(:, :), allocatable :: eye_1_default
             integer, intent(in) :: dim1
@@ -754,7 +750,47 @@ module forlab
     end interface interp3
 
     interface inv
+        !! Version: expermental
         !! inv computes the matrix inverse.
+        !! inv0
+        !!-----------------------------------------------------------------------
+        !! inv0 computes the real matrix inverse.
+        !!
+        !! Syntax
+        !!-----------------------------------------------------------------------
+        !! B = inv0(A)
+        !!
+        !! Description
+        !!-----------------------------------------------------------------------
+        !! B = inv0(A) returns the inverse of the real matrix A if A is inversible
+        !! (det(A) /= 0.).
+        !!
+        !! Examples
+        !!-----------------------------------------------------------------------
+        !! A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 0. ], [ 3, 3 ], &
+        !!             order = [ 2, 1 ])
+        !! B = inv0(A)
+        !!     -1.77777779   0.888888896  -0.111111112
+        !!      1.55555558  -0.777777791   0.222222224
+        !!     -0.11111112   0.222222224  -0.111111112
+
+        ! isleap
+        !-----------------------------------------------------------------------
+        ! isleap determines whether a year is a leap year.
+        !
+        ! Syntax
+        !-----------------------------------------------------------------------
+        ! bool = isleap(year)
+        !
+        ! Description
+        !-----------------------------------------------------------------------
+        ! bool = isleap(year) returns .true. if year is a leap year, .false.
+        ! otherwise.
+        !
+        ! Examples
+        !-----------------------------------------------------------------------
+        ! bool = isleap(2016)
+        !     .true.
             module function inv_rsp (A)
                 real(sp), dimension(:, :), allocatable :: inv_rsp
                 real(sp), dimension(:, :), intent(in) :: A
@@ -794,6 +830,79 @@ module forlab
             procedure inv_cdp
             procedure inv_cqp
     end interface operator(.i.)
+
+    interface operator(.x.)
+        !! Version: expermental
+        !! Real and complex matrix multiplication
+        !!## Example
+        !!    z(1:2,1:2) = x(1:2, 1:3) .x. y(1:3, 1:2)
+        module function rmut_sp(m1, m2) result(ret)
+            real(sp), intent(in) :: m1(:, :), m2(:, :)
+            real(sp) :: ret(size(m1, 1), size(m2, 2))
+        end function
+
+        module function cmut_sp(m1, m2) result(ret)
+            complex(sp), intent(in) :: m1(:, :), m2(:, :)
+            complex(sp) :: ret(size(m1, 1), size(m2, 2))
+        end function
+
+        module function rcmut_sp(m1, m2) result(ret)
+            real(sp), intent(in) :: m1(:, :)
+            complex(sp), intent(in) :: m2(:, :)
+            complex(sp) :: ret(size(m1, 1), size(m2, 2))
+        end function
+        
+        module function crmut_sp(m1, m2) result(ret)
+            real(sp), intent(in) :: m2(:, :)
+            complex(sp), intent(in) :: m1(:, :)
+            complex(sp) :: ret(size(m1, 1), size(m2, 2))
+        end function
+        
+        module function rmut_dp(m1, m2) result(ret)
+            real(dp), intent(in) :: m1(:, :), m2(:, :)
+            real(dp) :: ret(size(m1, 1), size(m2, 2))
+        end function
+
+        module function cmut_dp(m1, m2) result(ret)
+            complex(dp), intent(in) :: m1(:, :), m2(:, :)
+            complex(dp) :: ret(size(m1, 1), size(m2, 2))
+        end function
+
+        module function rcmut_dp(m1, m2) result(ret)
+            real(dp), intent(in) :: m1(:, :)
+            complex(dp), intent(in) :: m2(:, :)
+            complex(dp) :: ret(size(m1, 1), size(m2, 2))
+        end function
+        
+        module function crmut_dp(m1, m2) result(ret)
+            real(dp), intent(in) :: m2(:, :)
+            complex(dp), intent(in) :: m1(:, :)
+            complex(dp) :: ret(size(m1, 1), size(m2, 2))
+        end function
+        
+        module function rmut_qp(m1, m2) result(ret)
+            real(qp), intent(in) :: m1(:, :), m2(:, :)
+            real(qp) :: ret(size(m1, 1), size(m2, 2))
+        end function
+
+        module function cmut_qp(m1, m2) result(ret)
+            complex(qp), intent(in) :: m1(:, :), m2(:, :)
+            complex(qp) :: ret(size(m1, 1), size(m2, 2))
+        end function
+
+        module function rcmut_qp(m1, m2) result(ret)
+            real(qp), intent(in) :: m1(:, :)
+            complex(qp), intent(in) :: m2(:, :)
+            complex(qp) :: ret(size(m1, 1), size(m2, 2))
+        end function
+        
+        module function crmut_qp(m1, m2) result(ret)
+            real(qp), intent(in) :: m2(:, :)
+            complex(qp), intent(in) :: m1(:, :)
+            complex(qp) :: ret(size(m1, 1), size(m2, 2))
+        end function
+        
+    end interface
 
     interface ismember
         module procedure ismember_i0i1, ismember_i0r1, ismember_i0i2, &
@@ -4665,46 +4774,6 @@ contains
         end do
         return
     end function interp3_1
-
-    ! inv0
-    !-----------------------------------------------------------------------
-    ! inv0 computes the real matrix inverse.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! B = inv0(A)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! B = inv0(A) returns the inverse of the real matrix A if A is inversible
-    ! (det(A) /= 0.).
-    !
-    ! Examples
-    !-----------------------------------------------------------------------
-    ! A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 0. ], [ 3, 3 ], &
-    !             order = [ 2, 1 ])
-    ! B = inv0(A)
-    !     -1.77777779   0.888888896  -0.111111112
-    !      1.55555558  -0.777777791   0.222222224
-    !     -0.11111112   0.222222224  -0.111111112
-
-    ! isleap
-    !-----------------------------------------------------------------------
-    ! isleap determines whether a year is a leap year.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! bool = isleap(year)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! bool = isleap(year) returns .true. if year is a leap year, .false.
-    ! otherwise.
-    !
-    ! Examples
-    !-----------------------------------------------------------------------
-    ! bool = isleap(2016)
-    !     .true.
 
     logical function isleap(year)
         integer(kind=IPRE), intent(in) :: year

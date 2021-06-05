@@ -10,6 +10,7 @@ submodule(forlab) forlab_empty
     implicit none
     
 contains
+    !! FIXME: NoNeedFlag
     !! Default versions
     module function empty_1_default (dim1)
         integer, intent(in) :: dim1
@@ -19,7 +20,7 @@ contains
         allocate (empty_1_default (dim1), stat=ierr)
 
         if (ierr .ne. 0) then
-            print *, "Error: in zeros, could not allocate array."
+            print *, "Error: in empty, could not allocate array."
             stop
         end if
         return
@@ -32,7 +33,7 @@ contains
         allocate (empty_2_default (dim1, dim2), stat=ierr)
 
         if (ierr .ne. 0) then
-            print *, "Error: in zeros, could not allocate array."
+            print *, "Error: in empty, could not allocate array."
             stop
         end if
         return
@@ -45,7 +46,7 @@ contains
         allocate (empty_3_default (dim1, dim2, dim3), stat=ierr)
 
         if (ierr .ne. 0) then
-            print *, "Error: in zeros, could not allocate array."
+            print *, "Error: in empty, could not allocate array."
             stop
         end if
         return
@@ -62,7 +63,7 @@ contains
         allocate (empty_1_sp (dim1), stat=ierr)
 
         if (ierr .ne. 0) then
-            print *, "Error: in zeros, could not allocate array."
+            print *, "Error: in empty, could not allocate array."
             stop
         end if
         return
@@ -76,7 +77,7 @@ contains
         allocate (empty_1_dp (dim1), stat=ierr)
 
         if (ierr .ne. 0) then
-            print *, "Error: in zeros, could not allocate array."
+            print *, "Error: in empty, could not allocate array."
             stop
         end if
         return
@@ -90,7 +91,7 @@ contains
         allocate (empty_1_qp (dim1), stat=ierr)
 
         if (ierr .ne. 0) then
-            print *, "Error: in zeros, could not allocate array."
+            print *, "Error: in empty, could not allocate array."
             stop
         end if
         return
@@ -104,7 +105,7 @@ contains
         allocate (empty_2_sp (dim1, dim2), stat=ierr)
 
         if (ierr .ne. 0) then
-            print *, "Error: in zeros, could not allocate array."
+            print *, "Error: in empty, could not allocate array."
             stop
         end if
         return
@@ -118,7 +119,7 @@ contains
         allocate (empty_2_dp (dim1, dim2), stat=ierr)
 
         if (ierr .ne. 0) then
-            print *, "Error: in zeros, could not allocate array."
+            print *, "Error: in empty, could not allocate array."
             stop
         end if
         return
@@ -132,7 +133,7 @@ contains
         allocate (empty_2_qp (dim1, dim2), stat=ierr)
 
         if (ierr .ne. 0) then
-            print *, "Error: in zeros, could not allocate array."
+            print *, "Error: in empty, could not allocate array."
             stop
         end if
         return
@@ -146,7 +147,7 @@ contains
         allocate (empty_3_sp (dim1, dim2, dim3), stat=ierr)
 
         if (ierr .ne. 0) then
-            print *, "Error: in zeros, could not allocate array."
+            print *, "Error: in empty, could not allocate array."
             stop
         end if
         return
@@ -160,7 +161,7 @@ contains
         allocate (empty_3_dp (dim1, dim2, dim3), stat=ierr)
 
         if (ierr .ne. 0) then
-            print *, "Error: in zeros, could not allocate array."
+            print *, "Error: in empty, could not allocate array."
             stop
         end if
         return
@@ -174,7 +175,7 @@ contains
         allocate (empty_3_qp (dim1, dim2, dim3), stat=ierr)
 
         if (ierr .ne. 0) then
-            print *, "Error: in zeros, could not allocate array."
+            print *, "Error: in empty, could not allocate array."
             stop
         end if
         return

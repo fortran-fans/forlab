@@ -51,7 +51,7 @@ module forlab
     ! #endif
     
     ! Operators
-    public :: operator(.i.)
+    public :: operator(.i.), operator(.x.)
 
     type file
         integer :: unit
@@ -617,6 +617,37 @@ module forlab
             procedure inv_${t1[0]}$${k1}$
         #:endfor
     end interface operator(.i.)
+
+    interface operator(.x.)
+        !! Version: expermental
+        !! Real and complex matrix multiplication
+        !!## Example
+        !!    z(1:2,1:2) = x(1:2, 1:3) .x. y(1:3, 1:2)
+        #:for k1 in REAL_KINDS
+        module function rmut_${k1}$(m1, m2) result(ret)
+            real(${k1}$), intent(in) :: m1(:, :), m2(:, :)
+            real(${k1}$) :: ret(size(m1, 1), size(m2, 2))
+        end function
+
+        module function cmut_${k1}$(m1, m2) result(ret)
+            complex(${k1}$), intent(in) :: m1(:, :), m2(:, :)
+            complex(${k1}$) :: ret(size(m1, 1), size(m2, 2))
+        end function
+
+        module function rcmut_${k1}$(m1, m2) result(ret)
+            real(${k1}$), intent(in) :: m1(:, :)
+            complex(${k1}$), intent(in) :: m2(:, :)
+            complex(${k1}$) :: ret(size(m1, 1), size(m2, 2))
+        end function
+        
+        module function crmut_${k1}$(m1, m2) result(ret)
+            real(${k1}$), intent(in) :: m2(:, :)
+            complex(${k1}$), intent(in) :: m1(:, :)
+            complex(${k1}$) :: ret(size(m1, 1), size(m2, 2))
+        end function
+        
+        #:endfor
+    end interface
 
     interface ismember
         module procedure ismember_i0i1, ismember_i0r1, ismember_i0i2, &
