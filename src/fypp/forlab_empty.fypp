@@ -1,0 +1,83 @@
+#:include 'common.fypp'
+
+#:def ranksuffix(RANK)
+$:'' if RANK == 0 else '(' + ':' + ',:' * (RANK - 1) + ')'
+#:enddef ranksuffix
+
+#:set RANKS = range(1, 4)
+submodule(forlab) forlab_empty
+    !! Version: experimental
+    !!
+    !! Discussion:
+    !! ----
+    !! https://fortran-lang.discourse.group/t/fortran-function-return-value-polymorphism/1350/5
+    use forlab_kinds
+    implicit none
+    
+contains
+    !! Default versions
+    #:for RANK in RANKS
+    #:if RANK == 1
+    module function empty_${RANK}$_default (dim1)
+        integer, intent(in) :: dim1
+    #:elif RANK == 2
+    module function empty_${RANK}$_default (dim1, dim2)
+        integer, intent(in) :: dim1, dim2
+    #:elif RANK == 3
+    module function empty_${RANK}$_default (dim1, dim2, dim3)
+        integer, intent(in) :: dim1, dim2, dim3
+    #:endif
+        real(dp), allocatable :: empty_${RANK}$_default ${ranksuffix(RANK)}$
+        integer :: ierr
+
+        #:if RANK == 1
+        allocate (empty_${RANK}$_default (dim1), stat=ierr)
+        #:elif RANK == 2
+        allocate (empty_${RANK}$_default (dim1, dim2), stat=ierr)
+        #:elif RANK == 3
+        allocate (empty_${RANK}$_default (dim1, dim2, dim3), stat=ierr)
+        #:endif
+
+        if (ierr .ne. 0) then
+            print *, "Error: in empty, could not allocate array."
+            stop
+        end if
+        return
+    end function
+    #:endfor
+    !! Multi-precision versions
+    !! Unlike dynamic scripting languages, static languages generally
+    !! have multiple precision variables, so we need to explicitly provide precision hints.
+    #:for RANK in RANKS
+    #:for k1, t1 in REAL_KINDS_TYPES
+    #:if RANK == 1
+    module function empty_${RANK}$_${k1}$ (dim1, flag)
+        integer, intent(in) :: dim1
+    #:elif RANK == 2
+    module function empty_${RANK}$_${k1}$ (dim1, dim2, flag)
+        integer, intent(in) :: dim1, dim2
+    #:elif RANK == 3
+    module function empty_${RANK}$_${k1}$ (dim1, dim2, dim3, flag)
+        integer, intent(in) :: dim1, dim2, dim3
+    #:endif
+        ${t1}$, allocatable :: empty_${RANK}$_${k1}$ ${ranksuffix(RANK)}$
+        ${t1}$, intent(in) :: flag
+        integer :: ierr
+
+        #:if RANK == 1
+        allocate (empty_${RANK}$_${k1}$ (dim1), stat=ierr)
+        #:elif RANK == 2
+        allocate (empty_${RANK}$_${k1}$ (dim1, dim2), stat=ierr)
+        #:elif RANK == 3
+        allocate (empty_${RANK}$_${k1}$ (dim1, dim2, dim3), stat=ierr)
+        #:endif
+
+        if (ierr .ne. 0) then
+            print *, "Error: in empty, could not allocate array."
+            stop
+        end if
+        return
+    end function
+    #:endfor
+    #:endfor
+end submodule

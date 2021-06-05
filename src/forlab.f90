@@ -95,18 +95,18 @@ module forlab
         !! x = det(A)  
         !!     27. 
         !! ```
-            real(sp) module function det_sp (A, outL, outU)
-                real(sp), dimension(:, :), intent(in) :: A
-                real(sp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
-            end function
-            real(dp) module function det_dp (A, outL, outU)
-                real(dp), dimension(:, :), intent(in) :: A
-                real(dp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
-            end function
-            real(qp) module function det_qp (A, outL, outU)
-                real(qp), dimension(:, :), intent(in) :: A
-                real(qp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
-            end function
+        real(sp) module function det_sp (A, outL, outU)
+            real(sp), dimension(:, :), intent(in) :: A
+            real(sp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
+        end function
+        real(dp) module function det_dp (A, outL, outU)
+            real(dp), dimension(:, :), intent(in) :: A
+            real(dp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
+        end function
+        real(qp) module function det_qp (A, outL, outU)
+            real(qp), dimension(:, :), intent(in) :: A
+            real(qp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
+        end function
     end interface
 
     interface acosd
@@ -548,18 +548,75 @@ module forlab
         !! ---
         !! real, allocatable :: x(:, :)
         !! x = empty(2, 3)
-        module function empty1(dim1)
-            real(dp), dimension(:), allocatable :: empty1
+        module function empty_1_default (dim1)
             integer, intent(in) :: dim1
+            real(dp), allocatable :: empty_1_default (:)
         end function
-        module function empty2(dim1, dim2)
-            real(dp), dimension(:, :), allocatable :: empty2
+
+        module function empty_2_default (dim1, dim2)
             integer, intent(in) :: dim1, dim2
+            real(dp), allocatable :: empty_2_default (:,:)
         end function
-        module function empty3(dim1, dim2, dim3)
-            real(dp), dimension(:, :, :), allocatable :: empty3
+
+        module function empty_3_default (dim1, dim2, dim3)
             integer, intent(in) :: dim1, dim2, dim3
+            real(dp), allocatable :: empty_3_default (:,:,:)
         end function
+
+        module function empty_1_sp (dim1, flag)
+            integer, intent(in) :: dim1
+            real(sp), allocatable :: empty_1_sp (:)
+            real(sp), intent(in) :: flag
+        end function
+
+        module function empty_1_dp (dim1, flag)
+            integer, intent(in) :: dim1
+            real(dp), allocatable :: empty_1_dp (:)
+            real(dp), intent(in) :: flag
+        end function
+
+        module function empty_1_qp (dim1, flag)
+            integer, intent(in) :: dim1
+            real(qp), allocatable :: empty_1_qp (:)
+            real(qp), intent(in) :: flag
+        end function
+
+        module function empty_2_sp (dim1, dim2, flag)
+            integer, intent(in) :: dim1, dim2
+            real(sp), allocatable :: empty_2_sp (:,:)
+            real(sp), intent(in) :: flag
+        end function
+
+        module function empty_2_dp (dim1, dim2, flag)
+            integer, intent(in) :: dim1, dim2
+            real(dp), allocatable :: empty_2_dp (:,:)
+            real(dp), intent(in) :: flag
+        end function
+
+        module function empty_2_qp (dim1, dim2, flag)
+            integer, intent(in) :: dim1, dim2
+            real(qp), allocatable :: empty_2_qp (:,:)
+            real(qp), intent(in) :: flag
+        end function
+
+        module function empty_3_sp (dim1, dim2, dim3, flag)
+            integer, intent(in) :: dim1, dim2, dim3
+            real(sp), allocatable :: empty_3_sp (:,:,:)
+            real(sp), intent(in) :: flag
+        end function
+
+        module function empty_3_dp (dim1, dim2, dim3, flag)
+            integer, intent(in) :: dim1, dim2, dim3
+            real(dp), allocatable :: empty_3_dp (:,:,:)
+            real(dp), intent(in) :: flag
+        end function
+
+        module function empty_3_qp (dim1, dim2, dim3, flag)
+            integer, intent(in) :: dim1, dim2, dim3
+            real(qp), allocatable :: empty_3_qp (:,:,:)
+            real(qp), intent(in) :: flag
+        end function
+
     end interface
 
     interface eye

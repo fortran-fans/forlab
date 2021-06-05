@@ -15,10 +15,10 @@ contains
         real(dp) :: randn_0_default 
         
         do
-            u = 2.*randu() - 1.
-            v = 2.*randu() - 1.
+            u = 2.d0*randu() - 1.d0
+            v = 2.d0*randu() - 1.d0
             s = u*u + v*v
-            if ((s > 0.) .and. (s < 1.)) exit
+            if ((s > 0.d0) .and. (s < 1.d0)) exit
         end do
         randn_0_default = u*sqrt(-2.0d0*log(s)/s)
 

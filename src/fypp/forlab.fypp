@@ -100,10 +100,10 @@ module forlab
         !!     27. 
         !! ```
         #:for k1,t1 in REAL_KINDS_TYPES
-            ${t1}$ module function det_${k1}$ (A, outL, outU)
-                ${t1}$, dimension(:, :), intent(in) :: A
-                ${t1}$, dimension(:, :), allocatable, intent(inout), optional :: outL, outU
-            end function
+        ${t1}$ module function det_${k1}$ (A, outL, outU)
+            ${t1}$, dimension(:, :), intent(in) :: A
+            ${t1}$, dimension(:, :), allocatable, intent(inout), optional :: outL, outU
+        end function
         #:endfor
     end interface
 
@@ -400,6 +400,7 @@ module forlab
         end subroutine
     end interface
 
+    #:set RANKS = range(1, 4)
     interface empty
         !! Create uninitialized matrices quickly, faster than `ones` function,
         !! and use `empty` function with caution.
@@ -408,18 +409,39 @@ module forlab
         !! ---
         !! real, allocatable :: x(:, :)
         !! x = empty(2, 3)
-        module function empty1(dim1)
-            real(dp), dimension(:), allocatable :: empty1
+        #:for RANK in RANKS
+        #:if RANK == 1
+        module function empty_${RANK}$_default (dim1)
             integer, intent(in) :: dim1
-        end function
-        module function empty2(dim1, dim2)
-            real(dp), dimension(:, :), allocatable :: empty2
+        #:elif RANK == 2
+        module function empty_${RANK}$_default (dim1, dim2)
             integer, intent(in) :: dim1, dim2
-        end function
-        module function empty3(dim1, dim2, dim3)
-            real(dp), dimension(:, :, :), allocatable :: empty3
+        #:elif RANK == 3
+        module function empty_${RANK}$_default (dim1, dim2, dim3)
             integer, intent(in) :: dim1, dim2, dim3
+        #:endif
+            real(dp), allocatable :: empty_${RANK}$_default ${ranksuffix(RANK)}$
         end function
+
+        #:endfor
+        #:for RANK in RANKS
+        #:for k1, t1 in REAL_KINDS_TYPES
+        #:if RANK == 1
+        module function empty_${RANK}$_${k1}$ (dim1, flag)
+            integer, intent(in) :: dim1
+        #:elif RANK == 2
+        module function empty_${RANK}$_${k1}$ (dim1, dim2, flag)
+            integer, intent(in) :: dim1, dim2
+        #:elif RANK == 3
+        module function empty_${RANK}$_${k1}$ (dim1, dim2, dim3, flag)
+            integer, intent(in) :: dim1, dim2, dim3
+        #:endif
+            ${t1}$, allocatable :: empty_${RANK}$_${k1}$ ${ranksuffix(RANK)}$
+            ${t1}$, intent(in) :: flag
+        end function
+
+        #:endfor
+        #:endfor
     end interface
 
     interface eye
