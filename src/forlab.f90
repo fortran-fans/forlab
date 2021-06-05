@@ -562,6 +562,95 @@ module forlab
         end function
     end interface
 
+    interface eye
+        !! Version: experimental
+        !!
+        !! eye creates the identity matrix.
+        !!
+        !! Syntax
+        !!-----------------------------------------------------------------------
+        !! I = eye(dim1)  
+        !! I = eye(dim1, dim2)
+        !!
+        !! Description
+        !!-----------------------------------------------------------------------
+        !! I = eye(dim1) returns an dim1-by-dim1 matrix with ones on the main
+        !! diagonal and zeros elsewhere.
+        !!
+        !! I = eye(dim1, dim2) returns a dim1-by-dim2 matrix with ones on the
+        !! main diagonal and zeros elsewhere.
+        !!
+        !! Examples
+        !!-----------------------------------------------------------------------
+        !! I = eye(3)  
+        !!     1.  0.  0.  
+        !!     0.  1.  0.  
+        !!     0.  0.  1.
+        !!
+        !! I = eye(3, 4)  
+        !!     1.  0.  0.  0.  
+        !!     0.  1.  0.  0.  
+        !!     0.  0.  1.  0.
+        !!
+        !! I = eye(4, 3)
+        !!     1.  0.  0.
+        !!     0.  1.  0.
+        !!     0.  0.  1.
+        !!     0.  0.  0.
+        module function eye_1_default (dim1)
+            real(dp), dimension(:, :), allocatable :: eye_1_default
+            integer, intent(in) :: dim1
+        end function
+
+        module function eye_2_default (dim1, dim2)
+            real(dp), dimension(:, :), allocatable :: eye_2_default
+            integer, intent(in) :: dim1
+            integer, intent(in) :: dim2
+        end function
+        module function eye_1_sp (dim1, flag)
+            real(sp), dimension(:, :), allocatable :: eye_1_sp 
+            integer, intent(in) :: dim1
+            real(sp), intent(in) :: flag
+
+        end function
+
+        module function eye_2_sp (dim1, dim2, flag)
+            real(sp), dimension(:, :), allocatable :: eye_2_sp
+            integer, intent(in) :: dim1
+            integer, intent(in) :: dim2
+            real(sp), intent(in) :: flag
+        end function
+        
+        module function eye_1_dp (dim1, flag)
+            real(dp), dimension(:, :), allocatable :: eye_1_dp 
+            integer, intent(in) :: dim1
+            real(dp), intent(in) :: flag
+
+        end function
+
+        module function eye_2_dp (dim1, dim2, flag)
+            real(dp), dimension(:, :), allocatable :: eye_2_dp
+            integer, intent(in) :: dim1
+            integer, intent(in) :: dim2
+            real(dp), intent(in) :: flag
+        end function
+        
+        module function eye_1_qp (dim1, flag)
+            real(qp), dimension(:, :), allocatable :: eye_1_qp 
+            integer, intent(in) :: dim1
+            real(qp), intent(in) :: flag
+
+        end function
+
+        module function eye_2_qp (dim1, dim2, flag)
+            real(qp), dimension(:, :), allocatable :: eye_2_qp
+            integer, intent(in) :: dim1
+            integer, intent(in) :: dim2
+            real(qp), intent(in) :: flag
+        end function
+        
+    end interface
+    
     interface file
         module procedure init_file
     end interface file
@@ -1055,14 +1144,162 @@ module forlab
     end interface rms
 
     interface savebin
-        module procedure savebin1_r4, savebin1_r8, savebin2_r4, savebin2_r8, &
-            savebin3_r4, savebin3_r8
+        !! Version: expermental
+        !!
+        ! savebin saves arrays to binary files.
+        !
+        ! Syntax
+        !-----------------------------------------------------------------------
+        ! call savebin(filename, x)
+        ! call savebin(filename, A)
+        ! call savebin(filename, X)
+        !
+        ! Description
+        !-----------------------------------------------------------------------
+        ! call savebin(filename, x) saves a vector x into the binary file
+        ! filename.
+        !
+        ! call savebin(filename, A) saves a 2-dimensional array into the binary
+        ! file filename.
+        !
+        ! call savebin(filename, X) saves a 3-dimensional array into the binary
+        ! file filename.
+        module subroutine savebin_1_sp(filename, x)
+            character(len=*), intent(in) :: filename
+            real(sp), dimension(:), intent(in) :: x
+        end subroutine
+
+        module subroutine savebin_2_sp(filename, A)
+            character(len=*), intent(in) :: filename
+            real(sp), dimension(:, :), intent(in) :: A
+        end subroutine
+
+        module subroutine savebin_3_sp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(sp), dimension(:, :, :), intent(in) :: X
+        end subroutine
+
+        module subroutine savebin_1_dp(filename, x)
+            character(len=*), intent(in) :: filename
+            real(dp), dimension(:), intent(in) :: x
+        end subroutine
+
+        module subroutine savebin_2_dp(filename, A)
+            character(len=*), intent(in) :: filename
+            real(dp), dimension(:, :), intent(in) :: A
+        end subroutine
+
+        module subroutine savebin_3_dp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(dp), dimension(:, :, :), intent(in) :: X
+        end subroutine
+
+        module subroutine savebin_1_qp(filename, x)
+            character(len=*), intent(in) :: filename
+            real(qp), dimension(:), intent(in) :: x
+        end subroutine
+
+        module subroutine savebin_2_qp(filename, A)
+            character(len=*), intent(in) :: filename
+            real(qp), dimension(:, :), intent(in) :: A
+        end subroutine
+
+        module subroutine savebin_3_qp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(qp), dimension(:, :, :), intent(in) :: X
+        end subroutine
+
     end interface savebin
 
     interface savetxt
-        module procedure savetxt1_i4, savetxt1_r4, savetxt1_i8, savetxt1_r8, &
-            savetxt2_i4, savetxt2_r4, savetxt2_i8, savetxt2_r8
-    end interface savetxt
+        !! Version: expermental
+        !!
+        ! savetxt saves 1 and 2-dimensional arrays to txt files.
+        !
+        ! Syntax
+        !-----------------------------------------------------------------------
+        ! call savetxt(filename, x)
+        ! call savetxt(filename, A)
+        !
+        ! Description
+        !-----------------------------------------------------------------------
+        ! call savetxt(filename, x) saves a vector array x into the txt file
+        ! filename.
+        !
+        ! call savetxt(filename, A) saves a 2-dimensional array A into the txt
+        ! file filename.
+        module subroutine savetxt_1_sp(filename, x)
+            character(len=*), intent(in) :: filename
+            real(sp), dimension(:), intent(in) :: x
+        end subroutine
+
+        module subroutine savetxt_2_sp(filename, A)
+            character(len=*), intent(in) :: filename
+            real(sp), dimension(:, :), intent(in) :: A
+        end subroutine
+
+        module subroutine savetxt_1_dp(filename, x)
+            character(len=*), intent(in) :: filename
+            real(dp), dimension(:), intent(in) :: x
+        end subroutine
+
+        module subroutine savetxt_2_dp(filename, A)
+            character(len=*), intent(in) :: filename
+            real(dp), dimension(:, :), intent(in) :: A
+        end subroutine
+
+        module subroutine savetxt_1_qp(filename, x)
+            character(len=*), intent(in) :: filename
+            real(qp), dimension(:), intent(in) :: x
+        end subroutine
+
+        module subroutine savetxt_2_qp(filename, A)
+            character(len=*), intent(in) :: filename
+            real(qp), dimension(:, :), intent(in) :: A
+        end subroutine
+
+        !! Integer Versions
+        module subroutine savetxt_1_int8(filename, x)
+            character(len=*), intent(in) :: filename
+            integer(int8), dimension(:), intent(in) :: x
+        end subroutine
+
+        module subroutine savetxt_2_int8(filename, A)
+            character(len=*), intent(in) :: filename
+            integer(int8), dimension(:, :), intent(in) :: A
+        end subroutine
+
+        module subroutine savetxt_1_int16(filename, x)
+            character(len=*), intent(in) :: filename
+            integer(int16), dimension(:), intent(in) :: x
+        end subroutine
+
+        module subroutine savetxt_2_int16(filename, A)
+            character(len=*), intent(in) :: filename
+            integer(int16), dimension(:, :), intent(in) :: A
+        end subroutine
+
+        module subroutine savetxt_1_int32(filename, x)
+            character(len=*), intent(in) :: filename
+            integer(int32), dimension(:), intent(in) :: x
+        end subroutine
+
+        module subroutine savetxt_2_int32(filename, A)
+            character(len=*), intent(in) :: filename
+            integer(int32), dimension(:, :), intent(in) :: A
+        end subroutine
+
+        module subroutine savetxt_1_int64(filename, x)
+            character(len=*), intent(in) :: filename
+            integer(int64), dimension(:), intent(in) :: x
+        end subroutine
+
+        module subroutine savetxt_2_int64(filename, A)
+            character(len=*), intent(in) :: filename
+            integer(int64), dimension(:, :), intent(in) :: A
+        end subroutine
+
+    end interface
 
     interface signum
         module procedure signum0, signum1, signum2
@@ -1220,45 +1457,6 @@ module forlab
 
     !! Normal Interfaces
     interface
-        module function eye(dim1, dim2)
-            !! Version: experimental
-            !!
-            !! eye creates the identity matrix.
-            !!
-            !! Syntax
-            !!-----------------------------------------------------------------------
-            !! I = eye(dim1)  
-            !! I = eye(dim1, dim2)
-            !!
-            !! Description
-            !!-----------------------------------------------------------------------
-            !! I = eye(dim1) returns an dim1-by-dim1 matrix with ones on the main
-            !! diagonal and zeros elsewhere.
-            !!
-            !! I = eye(dim1, dim2) returns a dim1-by-dim2 matrix with ones on the
-            !! main diagonal and zeros elsewhere.
-            !!
-            !! Examples
-            !!-----------------------------------------------------------------------
-            !! I = eye(3)  
-            !!     1.  0.  0.  
-            !!     0.  1.  0.  
-            !!     0.  0.  1.
-            !!
-            !! I = eye(3, 4)  
-            !!     1.  0.  0.  0.  
-            !!     0.  1.  0.  0.  
-            !!     0.  0.  1.  0.
-            !!
-            !! I = eye(4, 3)
-            !!     1.  0.  0.
-            !!     0.  1.  0.
-            !!     0.  0.  1.
-            !!     0.  0.  0.
-            real(dp), dimension(:, :), allocatable :: eye
-            integer, intent(in) :: dim1
-            integer, intent(in), optional :: dim2
-        end function
         module subroutine rng(seed)  
             !! Version: experimental
             !!
@@ -3337,7 +3535,8 @@ contains
     ! call ofile%close()
 
     type(File) function init_File(unit, filename)
-        integer(kind=IPRE), intent(in) :: unit
+        !! test todo
+        integer, intent(in) :: unit
         character(len=*), intent(in) :: filename
 
         init_File%unit = unit
@@ -6426,10 +6625,13 @@ contains
     ! where r is the record length.
 
     subroutine open1(self)
+        !! Version: expermental
+        !! 
+        !! Use fortran08 NEWUNIT syntax.
         class(File), intent(inout) :: self
         integer(kind=IPRE) :: ierr
 
-        open (unit=self%unit, file=self%filename, access="sequential", &
+        open (newunit=self%unit, file=self%filename, access="sequential", &
               form="formatted", status="unknown", iostat=ierr)
         if (ierr .ne. 0) then
             print *, "Error: cannot read '"//trim(self%filename)//"'"
@@ -6439,11 +6641,14 @@ contains
     end subroutine open1
 
     subroutine open2(self, r)
+        !! Version: expermental
+        !! 
+        !! Use fortran08 NEWUNIT syntax.
         class(File), intent(inout) :: self
         integer(kind=IPRE), intent(in) :: r
         integer(kind=IPRE) :: ierr
 
-        open (unit=self%unit, file=self%filename, access="direct", &
+        open (newunit=self%unit, file=self%filename, access="direct", &
               form="unformatted", status="unknown", recl=r, iostat=ierr)
         if (ierr .ne. 0) then
             print *, "Error: cannot read '"//trim(self%filename)//"'"
@@ -6897,244 +7102,6 @@ contains
         end if
         return
     end function rms2
-
-    ! savebin
-    !-----------------------------------------------------------------------
-    ! savebin saves arrays to binary files.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! call savebin(filename, x)
-    ! call savebin(filename, A)
-    ! call savebin(filename, X)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! call savebin(filename, x) saves a vector x into the binary file
-    ! filename.
-    !
-    ! call savebin(filename, A) saves a 2-dimensional array into the binary
-    ! file filename.
-    !
-    ! call savebin(filename, X) saves a 3-dimensional array into the binary
-    ! file filename.
-
-    subroutine savebin1_r4(filename, x)
-        character(len=*), intent(in) :: filename
-        real(kind=4), dimension(:), intent(in) :: x
-        type(File) :: infile
-
-        infile = File(999, trim(filename))
-        call infile%open(kind(x)*size(x))
-        write (infile%unit, rec=1) x
-        call infile%close()
-        return
-    end subroutine savebin1_r4
-
-    subroutine savebin1_r8(filename, x)
-        character(len=*), intent(in) :: filename
-        real(kind=8), dimension(:), intent(in) :: x
-        type(File) :: infile
-
-        infile = File(999, trim(filename))
-        call infile%open(kind(x)*size(x))
-        write (infile%unit, rec=1) x
-        call infile%close()
-        return
-    end subroutine savebin1_r8
-
-    subroutine savebin2_r4(filename, A)
-        character(len=*), intent(in) :: filename
-        real(kind=4), dimension(:, :), intent(in) :: A
-        type(File) :: infile
-
-        infile = File(999, trim(filename))
-        call infile%open(kind(A)*size(A))
-        write (infile%unit, rec=1) A
-        call infile%close()
-        return
-    end subroutine savebin2_r4
-
-    subroutine savebin2_r8(filename, A)
-        character(len=*), intent(in) :: filename
-        real(kind=8), dimension(:, :), intent(in) :: A
-        type(File) :: infile
-
-        infile = File(999, trim(filename))
-        call infile%open(kind(A)*size(A))
-        write (infile%unit, rec=1) A
-        call infile%close()
-        return
-    end subroutine savebin2_r8
-
-    subroutine savebin3_r4(filename, X)
-        character(len=*), intent(in) :: filename
-        real(kind=4), dimension(:, :, :), intent(in) :: X
-        type(File) :: infile
-
-        infile = File(999, trim(filename))
-        call infile%open(kind(X)*size(X))
-        write (infile%unit, rec=1) X
-        call infile%close()
-        return
-    end subroutine savebin3_r4
-
-    subroutine savebin3_r8(filename, X)
-        character(len=*), intent(in) :: filename
-        real(kind=8), dimension(:, :, :), intent(in) :: X
-        type(File) :: infile
-
-        infile = File(999, trim(filename))
-        call infile%open(kind(X)*size(X))
-        write (infile%unit, rec=1) X
-        call infile%close()
-        return
-    end subroutine savebin3_r8
-
-    ! savetxt
-    !-----------------------------------------------------------------------
-    ! savetxt saves 1 and 2-dimensional arrays to txt files.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! call savetxt(filename, x)
-    ! call savetxt(filename, A)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! call savetxt(filename, x) saves a vector array x into the txt file
-    ! filename.
-    !
-    ! call savetxt(filename, A) saves a 2-dimensional array A into the txt
-    ! file filename.
-
-    subroutine savetxt1_i4(filename, x)
-        character(len=*), intent(in) :: filename
-        integer(kind=4), dimension(:), intent(in) :: x
-        integer(kind=IPRE) :: i, m
-        type(File) :: infile
-
-        infile = File(999, trim(filename))
-        m = size(x)
-        call infile%open()
-        do i = 1, m
-            write (infile%unit, *) x(i)
-        end do
-        call infile%close()
-        return
-    end subroutine savetxt1_i4
-
-    subroutine savetxt1_r4(filename, x)
-        character(len=*), intent(in) :: filename
-        real(kind=4), dimension(:), intent(in) :: x
-        integer(kind=IPRE) :: i, m
-        type(File) :: infile
-
-        infile = File(999, trim(filename))
-        m = size(x)
-        call infile%open()
-        do i = 1, m
-            write (infile%unit, *) x(i)
-        end do
-        call infile%close()
-        return
-    end subroutine savetxt1_r4
-
-    subroutine savetxt1_i8(filename, x)
-        character(len=*), intent(in) :: filename
-        integer(kind=8), dimension(:), intent(in) :: x
-        integer(kind=IPRE) :: i, m
-        type(File) :: infile
-
-        infile = File(999, trim(filename))
-        m = size(x)
-        call infile%open()
-        do i = 1, m
-            write (infile%unit, *) x(i)
-        end do
-        call infile%close()
-        return
-    end subroutine savetxt1_i8
-
-    subroutine savetxt1_r8(filename, x)
-        character(len=*), intent(in) :: filename
-        real(kind=8), dimension(:), intent(in) :: x
-        integer(kind=IPRE) :: i, m
-        type(File) :: infile
-
-        infile = File(999, trim(filename))
-        m = size(x)
-        call infile%open()
-        do i = 1, m
-            write (infile%unit, *) x(i)
-        end do
-        call infile%close()
-        return
-    end subroutine savetxt1_r8
-
-    subroutine savetxt2_r4(filename, A)
-        character(len=*), intent(in) :: filename
-        real(kind=4), dimension(:, :), intent(in) :: A
-        integer(kind=IPRE) :: i, m
-        type(File) :: infile
-
-        infile = File(999, trim(filename))
-        m = size(A, 1)
-        call infile%open()
-        do i = 1, m
-            write (infile%unit, *) A(i, :)
-        end do
-        call infile%close()
-        return
-    end subroutine savetxt2_r4
-
-    subroutine savetxt2_i4(filename, A)
-        character(len=*), intent(in) :: filename
-        integer(kind=4), dimension(:, :), intent(in) :: A
-        integer(kind=IPRE) :: i, m
-        type(File) :: infile
-
-        infile = File(999, trim(filename))
-        m = size(A, 1)
-        call infile%open()
-        do i = 1, m
-            write (infile%unit, *) A(i, :)
-        end do
-        call infile%close()
-        return
-    end subroutine savetxt2_i4
-
-    subroutine savetxt2_r8(filename, A)
-        character(len=*), intent(in) :: filename
-        real(kind=8), dimension(:, :), intent(in) :: A
-        integer(kind=IPRE) :: i, m
-        type(File) :: infile
-
-        infile = File(999, trim(filename))
-        m = size(A, 1)
-        call infile%open()
-        do i = 1, m
-            write (infile%unit, *) A(i, :)
-        end do
-        call infile%close()
-        return
-    end subroutine savetxt2_r8
-
-    subroutine savetxt2_i8(filename, A)
-        character(len=*), intent(in) :: filename
-        integer(kind=8), dimension(:, :), intent(in) :: A
-        integer(kind=IPRE) :: i, m
-        type(File) :: infile
-
-        infile = File(999, trim(filename))
-        m = size(A, 1)
-        call infile%open()
-        do i = 1, m
-            write (infile%unit, *) A(i, :)
-        end do
-        call infile%close()
-        return
-    end subroutine savetxt2_i8
 
     ! signum
     !-----------------------------------------------------------------------

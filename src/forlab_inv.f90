@@ -11,6 +11,7 @@ contains
             real(sp) :: D
             real(sp), dimension(:), allocatable :: x, y, e
             real(sp), dimension(:, :), allocatable :: L, U
+            real(sp) :: flag
 
             if (issquare(A)) then
                 m = size(A, 1)
@@ -20,7 +21,7 @@ contains
                     D = det(A, L, U)
                 end if
                 if (D .ne. 0.) then
-                    inv_rsp = zeros(m, m)
+                    inv_rsp = zeros(m, m, flag)
                     if (m .eq. 2) then
                         inv_rsp (1, 1) = A(2, 2)
                         inv_rsp (1, 2) = -A(1, 2)
@@ -40,9 +41,9 @@ contains
                         inv_rsp = inv_rsp/D
                     else
                         do k = 1, m
-                            x = zeros(m)
-                            y = zeros(m)
-                            e = zeros(m)
+                            x = zeros(m, flag)
+                            y = zeros(m, flag)
+                            e = zeros(m, flag)
                             e(k) = 1.
                             y(1) = e(1)
 
@@ -88,6 +89,7 @@ contains
             real(dp) :: D
             real(dp), dimension(:), allocatable :: x, y, e
             real(dp), dimension(:, :), allocatable :: L, U
+            real(dp) :: flag
 
             if (issquare(A)) then
                 m = size(A, 1)
@@ -97,7 +99,7 @@ contains
                     D = det(A, L, U)
                 end if
                 if (D .ne. 0.) then
-                    inv_rdp = zeros(m, m)
+                    inv_rdp = zeros(m, m, flag)
                     if (m .eq. 2) then
                         inv_rdp (1, 1) = A(2, 2)
                         inv_rdp (1, 2) = -A(1, 2)
@@ -117,9 +119,9 @@ contains
                         inv_rdp = inv_rdp/D
                     else
                         do k = 1, m
-                            x = zeros(m)
-                            y = zeros(m)
-                            e = zeros(m)
+                            x = zeros(m, flag)
+                            y = zeros(m, flag)
+                            e = zeros(m, flag)
                             e(k) = 1.
                             y(1) = e(1)
 
@@ -165,6 +167,7 @@ contains
             real(qp) :: D
             real(qp), dimension(:), allocatable :: x, y, e
             real(qp), dimension(:, :), allocatable :: L, U
+            real(qp) :: flag
 
             if (issquare(A)) then
                 m = size(A, 1)
@@ -174,7 +177,7 @@ contains
                     D = det(A, L, U)
                 end if
                 if (D .ne. 0.) then
-                    inv_rqp = zeros(m, m)
+                    inv_rqp = zeros(m, m, flag)
                     if (m .eq. 2) then
                         inv_rqp (1, 1) = A(2, 2)
                         inv_rqp (1, 2) = -A(1, 2)
@@ -194,9 +197,9 @@ contains
                         inv_rqp = inv_rqp/D
                     else
                         do k = 1, m
-                            x = zeros(m)
-                            y = zeros(m)
-                            e = zeros(m)
+                            x = zeros(m, flag)
+                            y = zeros(m, flag)
+                            e = zeros(m, flag)
                             e(k) = 1.
                             y(1) = e(1)
 
@@ -246,12 +249,13 @@ contains
             real(sp) :: d, p, t, q, s, b
             integer, dimension(:), allocatable :: is, js
             integer :: i, j, k
+            real(sp) :: flag
 
             if (issquare(A)) then
                 n = size(A, 1)
-                inv_csp = zeros(n, n)
-                ar = zeros(n, n)
-                ai = zeros(n, n)
+                inv_csp = zeros(n, n, flag)
+                ar = zeros(n, n, flag)
+                ai = zeros(n, n, flag)
                 allocate(is(n),js(n))
                 is = 0
                 js = 0
@@ -364,12 +368,13 @@ contains
             real(dp) :: d, p, t, q, s, b
             integer, dimension(:), allocatable :: is, js
             integer :: i, j, k
+            real(dp) :: flag
 
             if (issquare(A)) then
                 n = size(A, 1)
-                inv_cdp = zeros(n, n)
-                ar = zeros(n, n)
-                ai = zeros(n, n)
+                inv_cdp = zeros(n, n, flag)
+                ar = zeros(n, n, flag)
+                ai = zeros(n, n, flag)
                 allocate(is(n),js(n))
                 is = 0
                 js = 0
@@ -482,12 +487,13 @@ contains
             real(qp) :: d, p, t, q, s, b
             integer, dimension(:), allocatable :: is, js
             integer :: i, j, k
+            real(qp) :: flag
 
             if (issquare(A)) then
                 n = size(A, 1)
-                inv_cqp = zeros(n, n)
-                ar = zeros(n, n)
-                ai = zeros(n, n)
+                inv_cqp = zeros(n, n, flag)
+                ar = zeros(n, n, flag)
+                ai = zeros(n, n, flag)
                 allocate(is(n),js(n))
                 is = 0
                 js = 0

@@ -123,3 +123,6 @@ src/*.smod
 
 # doc
 
+# txt/bin data files
+*.txt
+*.bin

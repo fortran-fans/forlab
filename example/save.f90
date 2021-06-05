@@ -1,4 +1,3 @@
-!! fpm test test
 program main
     use forlab, only: rng, savetxt, randn, disp
     implicit none

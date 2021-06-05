@@ -40,10 +40,10 @@ contains
         
         #:if RANK == 0
         do
-            u = 2.*randu() - 1.
-            v = 2.*randu() - 1.
+            u = 2.d0*randu() - 1.d0
+            v = 2.d0*randu() - 1.d0
             s = u*u + v*v
-            if ((s .gt. 0.) .and. (s .lt. 1.)) exit
+            if ((s > 0.d0) .and. (s < 1.d0)) exit
         end do
         randn_${RANK}$_default = u*sqrt(-2.0d0*log(s)/s)
         #:elif RANK == 1
@@ -103,10 +103,10 @@ contains
 
         #:if RANK == 0
         do
-            u = 2.*randu(flag) - 1.
-            v = 2.*randu(flag) - 1.
+            u = 2._${k1}$*randu(flag) - 1._${k1}$
+            v = 2._${k1}$*randu(flag) - 1._${k1}$
             s = u*u + v*v
-            if ((s .gt. 0.) .and. (s .lt. 1.)) exit
+            if ((s > 0._${k1}$) .and. (s < 1._${k1}$)) exit
         end do
         randn_${RANK}$_${k1}$ = u*sqrt(-2.0_${k1}$*log(s)/s)
         #:elif RANK == 1

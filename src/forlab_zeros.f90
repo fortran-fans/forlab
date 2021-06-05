@@ -56,9 +56,9 @@ contains
         return
     end function
     !! Multi-precision versions
+    !! Unlike dynamic scripting languages, static languages generally
+    !! have multiple precision variables, so we need to explicitly provide precision hints.
     module function zeros_1_sp (dim1, flag)
-        !! Unlike dynamic scripting languages, static languages generally
-        !! have multiple precision variables, so we need to explicitly provide precision hints.
         integer, intent(in) :: dim1
         real(sp), allocatable :: zeros_1_sp (:)
         real(sp), intent(in) :: flag
@@ -75,8 +75,6 @@ contains
         return
     end function
     module function zeros_1_dp (dim1, flag)
-        !! Unlike dynamic scripting languages, static languages generally
-        !! have multiple precision variables, so we need to explicitly provide precision hints.
         integer, intent(in) :: dim1
         real(dp), allocatable :: zeros_1_dp (:)
         real(dp), intent(in) :: flag
@@ -93,8 +91,6 @@ contains
         return
     end function
     module function zeros_1_qp (dim1, flag)
-        !! Unlike dynamic scripting languages, static languages generally
-        !! have multiple precision variables, so we need to explicitly provide precision hints.
         integer, intent(in) :: dim1
         real(qp), allocatable :: zeros_1_qp (:)
         real(qp), intent(in) :: flag

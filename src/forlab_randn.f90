@@ -18,7 +18,7 @@ contains
             u = 2.*randu() - 1.
             v = 2.*randu() - 1.
             s = u*u + v*v
-            if ((s .gt. 0.) .and. (s .lt. 1.)) exit
+            if ((s > 0.) .and. (s < 1.)) exit
         end do
         randn_0_default = u*sqrt(-2.0d0*log(s)/s)
 
@@ -77,10 +77,10 @@ contains
         real(sp), intent(in) :: flag
 
         do
-            u = 2.*randu(flag) - 1.
-            v = 2.*randu(flag) - 1.
+            u = 2._sp*randu(flag) - 1._sp
+            v = 2._sp*randu(flag) - 1._sp
             s = u*u + v*v
-            if ((s .gt. 0.) .and. (s .lt. 1.)) exit
+            if ((s > 0._sp) .and. (s < 1._sp)) exit
         end do
         randn_0_sp = u*sqrt(-2.0_sp*log(s)/s)
 
@@ -93,10 +93,10 @@ contains
         real(dp), intent(in) :: flag
 
         do
-            u = 2.*randu(flag) - 1.
-            v = 2.*randu(flag) - 1.
+            u = 2._dp*randu(flag) - 1._dp
+            v = 2._dp*randu(flag) - 1._dp
             s = u*u + v*v
-            if ((s .gt. 0.) .and. (s .lt. 1.)) exit
+            if ((s > 0._dp) .and. (s < 1._dp)) exit
         end do
         randn_0_dp = u*sqrt(-2.0_dp*log(s)/s)
 
@@ -109,10 +109,10 @@ contains
         real(qp), intent(in) :: flag
 
         do
-            u = 2.*randu(flag) - 1.
-            v = 2.*randu(flag) - 1.
+            u = 2._qp*randu(flag) - 1._qp
+            v = 2._qp*randu(flag) - 1._qp
             s = u*u + v*v
-            if ((s .gt. 0.) .and. (s .lt. 1.)) exit
+            if ((s > 0._qp) .and. (s < 1._qp)) exit
         end do
         randn_0_qp = u*sqrt(-2.0_qp*log(s)/s)
 
