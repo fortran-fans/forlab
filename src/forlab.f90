@@ -49,7 +49,7 @@ module forlab
     ! #endif
     
     ! Operators
-    public :: operator(.i.)
+    public :: operator(.i.), operator(.x.)
 
     type file
         integer :: unit
@@ -97,60 +97,96 @@ module forlab
         !! x = det(A)  
         !!     27. 
         !! ```
-            real(sp) module function det_sp (A, outL, outU)
-                real(sp), dimension(:, :), intent(in) :: A
-                real(sp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
-            end function
-            real(dp) module function det_dp (A, outL, outU)
-                real(dp), dimension(:, :), intent(in) :: A
-                real(dp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
-            end function
-            real(qp) module function det_qp (A, outL, outU)
-                real(qp), dimension(:, :), intent(in) :: A
-                real(qp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
-            end function
+        real(sp) module function det_sp (A, outL, outU)
+            real(sp), dimension(:, :), intent(in) :: A
+            real(sp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
+        end function
+        real(dp) module function det_dp (A, outL, outU)
+            real(dp), dimension(:, :), intent(in) :: A
+            real(dp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
+        end function
+        real(qp) module function det_qp (A, outL, outU)
+            real(qp), dimension(:, :), intent(in) :: A
+            real(qp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
+        end function
     end interface
 
     interface acosd
-        pure elemental module  function acosd_sp(x)
+<<<<<<< HEAD
+        pure elemental module function acosd_sp(x)
+=======
+        pure elemental module function acosd_sp(x)
+>>>>>>> upstream/master
         real(sp),intent(in)::x
         real(sp)::acosd_sp
         end function
-        pure elemental module  function acosd_dp(x)
+<<<<<<< HEAD
+        pure elemental module function acosd_dp(x)
+=======
+        pure elemental module function acosd_dp(x)
+>>>>>>> upstream/master
         real(dp),intent(in)::x
         real(dp)::acosd_dp
         end function
-        pure elemental module  function acosd_qp(x)
+<<<<<<< HEAD
+        pure elemental module function acosd_qp(x)
+=======
+        pure elemental module function acosd_qp(x)
+>>>>>>> upstream/master
         real(qp),intent(in)::x
         real(qp)::acosd_qp
         end function
     end interface acosd
 
     interface asind
-        pure elemental module  function asind_sp(x)
+<<<<<<< HEAD
+        pure elemental module function asind_sp(x)
+=======
+        pure elemental module function asind_sp(x)
+>>>>>>> upstream/master
         real(sp),intent(in)::x
         real(sp)::asind_sp
         end function
-        pure elemental module  function asind_dp(x)
+<<<<<<< HEAD
+        pure elemental module function asind_dp(x)
+=======
+        pure elemental module function asind_dp(x)
+>>>>>>> upstream/master
         real(dp),intent(in)::x
         real(dp)::asind_dp
         end function
-        pure elemental module  function asind_qp(x)
+<<<<<<< HEAD
+        pure elemental module function asind_qp(x)
+=======
+        pure elemental module function asind_qp(x)
+>>>>>>> upstream/master
         real(qp),intent(in)::x
         real(qp)::asind_qp
         end function
     end interface asind
 
     interface atand
-        pure elemental module  function atand_sp(x)
+<<<<<<< HEAD
+        pure elemental module function atand_sp(x)
+=======
+        pure elemental module function atand_sp(x)
+>>>>>>> upstream/master
         real(sp),intent(in)::x
         real(sp)::atand_sp
         end function
-        pure elemental module  function atand_dp(x)
+<<<<<<< HEAD
+        pure elemental module function atand_dp(x)
+=======
+        pure elemental module function atand_dp(x)
+>>>>>>> upstream/master
         real(dp),intent(in)::x
         real(dp)::atand_dp
         end function
-        pure elemental module  function atand_qp(x)
+<<<<<<< HEAD
+        pure elemental module function atand_qp(x)
+=======
+        pure elemental module function atand_qp(x)
+>>>>>>> upstream/master
         real(qp),intent(in)::x
         real(qp)::atand_qp
         end function
@@ -626,18 +662,75 @@ module forlab
         !! ---
         !! real, allocatable :: x(:, :)
         !! x = empty(2, 3)
-        module function empty1(dim1)
-            real(dp), dimension(:), allocatable :: empty1
+        module function empty_1_default (dim1)
             integer, intent(in) :: dim1
+            real(dp), allocatable :: empty_1_default (:)
         end function
-        module function empty2(dim1, dim2)
-            real(dp), dimension(:, :), allocatable :: empty2
+
+        module function empty_2_default (dim1, dim2)
             integer, intent(in) :: dim1, dim2
+            real(dp), allocatable :: empty_2_default (:,:)
         end function
-        module function empty3(dim1, dim2, dim3)
-            real(dp), dimension(:, :, :), allocatable :: empty3
+
+        module function empty_3_default (dim1, dim2, dim3)
             integer, intent(in) :: dim1, dim2, dim3
+            real(dp), allocatable :: empty_3_default (:,:,:)
         end function
+
+        module function empty_1_sp (dim1, flag)
+            integer, intent(in) :: dim1
+            real(sp), allocatable :: empty_1_sp (:)
+            real(sp), intent(in) :: flag
+        end function
+
+        module function empty_1_dp (dim1, flag)
+            integer, intent(in) :: dim1
+            real(dp), allocatable :: empty_1_dp (:)
+            real(dp), intent(in) :: flag
+        end function
+
+        module function empty_1_qp (dim1, flag)
+            integer, intent(in) :: dim1
+            real(qp), allocatable :: empty_1_qp (:)
+            real(qp), intent(in) :: flag
+        end function
+
+        module function empty_2_sp (dim1, dim2, flag)
+            integer, intent(in) :: dim1, dim2
+            real(sp), allocatable :: empty_2_sp (:,:)
+            real(sp), intent(in) :: flag
+        end function
+
+        module function empty_2_dp (dim1, dim2, flag)
+            integer, intent(in) :: dim1, dim2
+            real(dp), allocatable :: empty_2_dp (:,:)
+            real(dp), intent(in) :: flag
+        end function
+
+        module function empty_2_qp (dim1, dim2, flag)
+            integer, intent(in) :: dim1, dim2
+            real(qp), allocatable :: empty_2_qp (:,:)
+            real(qp), intent(in) :: flag
+        end function
+
+        module function empty_3_sp (dim1, dim2, dim3, flag)
+            integer, intent(in) :: dim1, dim2, dim3
+            real(sp), allocatable :: empty_3_sp (:,:,:)
+            real(sp), intent(in) :: flag
+        end function
+
+        module function empty_3_dp (dim1, dim2, dim3, flag)
+            integer, intent(in) :: dim1, dim2, dim3
+            real(dp), allocatable :: empty_3_dp (:,:,:)
+            real(dp), intent(in) :: flag
+        end function
+
+        module function empty_3_qp (dim1, dim2, dim3, flag)
+            integer, intent(in) :: dim1, dim2, dim3
+            real(qp), allocatable :: empty_3_qp (:,:,:)
+            real(qp), intent(in) :: flag
+        end function
+
     end interface
 
     interface eye
@@ -645,36 +738,32 @@ module forlab
         !!
         !! eye creates the identity matrix.
         !!
-        !! Syntax
-        !!-----------------------------------------------------------------------
-        !! I = eye(dim1)  
-        !! I = eye(dim1, dim2)
+        !!## Syntax
+        !!    I = eye(dim1)
+        !!    I = eye(dim1, dim2)
         !!
-        !! Description
-        !!-----------------------------------------------------------------------
-        !! I = eye(dim1) returns an dim1-by-dim1 matrix with ones on the main
-        !! diagonal and zeros elsewhere.
-        !!
-        !! I = eye(dim1, dim2) returns a dim1-by-dim2 matrix with ones on the
+        !!## Description
+        !! `I = eye(dim1)` returns an dim1-by-dim1 matrix with ones on the main
+        !! diagonal and zeros elsewhere.  
+        !! `I = eye(dim1, dim2)` returns a dim1-by-dim2 matrix with ones on the
         !! main diagonal and zeros elsewhere.
         !!
-        !! Examples
-        !!-----------------------------------------------------------------------
-        !! I = eye(3)  
-        !!     1.  0.  0.  
-        !!     0.  1.  0.  
-        !!     0.  0.  1.
+        !!## Examples
+        !!      I = eye(3)  
+        !!          1.  0.  0.  
+        !!          0.  1.  0.  
+        !!          0.  0.  1.
         !!
-        !! I = eye(3, 4)  
-        !!     1.  0.  0.  0.  
-        !!     0.  1.  0.  0.  
-        !!     0.  0.  1.  0.
+        !!      I = eye(3, 4)  
+        !!          1.  0.  0.  0.  
+        !!          0.  1.  0.  0.  
+        !!          0.  0.  1.  0.
         !!
-        !! I = eye(4, 3)
-        !!     1.  0.  0.
-        !!     0.  1.  0.
-        !!     0.  0.  1.
-        !!     0.  0.  0.
+        !!      I = eye(4, 3)  
+        !!          1.  0.  0.
+        !!          0.  1.  0.
+        !!          0.  0.  1.
+        !!          0.  0.  0.  
         module function eye_1_default (dim1)
             real(dp), dimension(:, :), allocatable :: eye_1_default
             integer, intent(in) :: dim1
@@ -775,7 +864,47 @@ module forlab
     end interface interp3
 
     interface inv
+        !! Version: expermental
         !! inv computes the matrix inverse.
+        !! inv0
+        !!-----------------------------------------------------------------------
+        !! inv0 computes the real matrix inverse.
+        !!
+        !! Syntax
+        !!-----------------------------------------------------------------------
+        !! B = inv0(A)
+        !!
+        !! Description
+        !!-----------------------------------------------------------------------
+        !! B = inv0(A) returns the inverse of the real matrix A if A is inversible
+        !! (det(A) /= 0.).
+        !!
+        !! Examples
+        !!-----------------------------------------------------------------------
+        !! A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 0. ], [ 3, 3 ], &
+        !!             order = [ 2, 1 ])
+        !! B = inv0(A)
+        !!     -1.77777779   0.888888896  -0.111111112
+        !!      1.55555558  -0.777777791   0.222222224
+        !!     -0.11111112   0.222222224  -0.111111112
+
+        ! isleap
+        !-----------------------------------------------------------------------
+        ! isleap determines whether a year is a leap year.
+        !
+        ! Syntax
+        !-----------------------------------------------------------------------
+        ! bool = isleap(year)
+        !
+        ! Description
+        !-----------------------------------------------------------------------
+        ! bool = isleap(year) returns .true. if year is a leap year, .false.
+        ! otherwise.
+        !
+        ! Examples
+        !-----------------------------------------------------------------------
+        ! bool = isleap(2016)
+        !     .true.
             module function inv_rsp (A)
                 real(sp), dimension(:, :), allocatable :: inv_rsp
                 real(sp), dimension(:, :), intent(in) :: A
@@ -815,6 +944,79 @@ module forlab
             procedure inv_cdp
             procedure inv_cqp
     end interface operator(.i.)
+
+    interface operator(.x.)
+        !! Version: expermental
+        !! Real and complex matrix multiplication
+        !!## Example
+        !!    z(1:2,1:2) = x(1:2, 1:3) .x. y(1:3, 1:2)
+        module function rmut_sp(m1, m2) result(ret)
+            real(sp), intent(in) :: m1(:, :), m2(:, :)
+            real(sp) :: ret(size(m1, 1), size(m2, 2))
+        end function
+
+        module function cmut_sp(m1, m2) result(ret)
+            complex(sp), intent(in) :: m1(:, :), m2(:, :)
+            complex(sp) :: ret(size(m1, 1), size(m2, 2))
+        end function
+
+        module function rcmut_sp(m1, m2) result(ret)
+            real(sp), intent(in) :: m1(:, :)
+            complex(sp), intent(in) :: m2(:, :)
+            complex(sp) :: ret(size(m1, 1), size(m2, 2))
+        end function
+        
+        module function crmut_sp(m1, m2) result(ret)
+            real(sp), intent(in) :: m2(:, :)
+            complex(sp), intent(in) :: m1(:, :)
+            complex(sp) :: ret(size(m1, 1), size(m2, 2))
+        end function
+        
+        module function rmut_dp(m1, m2) result(ret)
+            real(dp), intent(in) :: m1(:, :), m2(:, :)
+            real(dp) :: ret(size(m1, 1), size(m2, 2))
+        end function
+
+        module function cmut_dp(m1, m2) result(ret)
+            complex(dp), intent(in) :: m1(:, :), m2(:, :)
+            complex(dp) :: ret(size(m1, 1), size(m2, 2))
+        end function
+
+        module function rcmut_dp(m1, m2) result(ret)
+            real(dp), intent(in) :: m1(:, :)
+            complex(dp), intent(in) :: m2(:, :)
+            complex(dp) :: ret(size(m1, 1), size(m2, 2))
+        end function
+        
+        module function crmut_dp(m1, m2) result(ret)
+            real(dp), intent(in) :: m2(:, :)
+            complex(dp), intent(in) :: m1(:, :)
+            complex(dp) :: ret(size(m1, 1), size(m2, 2))
+        end function
+        
+        module function rmut_qp(m1, m2) result(ret)
+            real(qp), intent(in) :: m1(:, :), m2(:, :)
+            real(qp) :: ret(size(m1, 1), size(m2, 2))
+        end function
+
+        module function cmut_qp(m1, m2) result(ret)
+            complex(qp), intent(in) :: m1(:, :), m2(:, :)
+            complex(qp) :: ret(size(m1, 1), size(m2, 2))
+        end function
+
+        module function rcmut_qp(m1, m2) result(ret)
+            real(qp), intent(in) :: m1(:, :)
+            complex(qp), intent(in) :: m2(:, :)
+            complex(qp) :: ret(size(m1, 1), size(m2, 2))
+        end function
+        
+        module function crmut_qp(m1, m2) result(ret)
+            real(qp), intent(in) :: m2(:, :)
+            complex(qp), intent(in) :: m1(:, :)
+            complex(qp) :: ret(size(m1, 1), size(m2, 2))
+        end function
+        
+    end interface
 
     interface ismember
         module procedure ismember_i0i1, ismember_i0r1, ismember_i0i2, &
@@ -4453,46 +4655,6 @@ contains
         end do
         return
     end function interp3_1
-
-    ! inv0
-    !-----------------------------------------------------------------------
-    ! inv0 computes the real matrix inverse.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! B = inv0(A)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! B = inv0(A) returns the inverse of the real matrix A if A is inversible
-    ! (det(A) /= 0.).
-    !
-    ! Examples
-    !-----------------------------------------------------------------------
-    ! A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 0. ], [ 3, 3 ], &
-    !             order = [ 2, 1 ])
-    ! B = inv0(A)
-    !     -1.77777779   0.888888896  -0.111111112
-    !      1.55555558  -0.777777791   0.222222224
-    !     -0.11111112   0.222222224  -0.111111112
-
-    ! isleap
-    !-----------------------------------------------------------------------
-    ! isleap determines whether a year is a leap year.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! bool = isleap(year)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! bool = isleap(year) returns .true. if year is a leap year, .false.
-    ! otherwise.
-    !
-    ! Examples
-    !-----------------------------------------------------------------------
-    ! bool = isleap(2016)
-    !     .true.
 
     logical function isleap(year)
         integer(kind=IPRE), intent(in) :: year

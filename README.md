@@ -5,7 +5,7 @@ Forlab is mainly developed by Keurfon Luu.
 | | |  
 |:-:|---|
 | **Version:** | 1.0.1 |
-| **Author:** | Keurfon Luu, zoziha |
+| **Author:** | forlab contributors |
 | **Web site:** | https://github.com/zoziha/forlab |
 | **Copyright:** | _This document_ has been placed in the public domain. |
 | **License:** | _Forlab_ is released under the MIT License. |

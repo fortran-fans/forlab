@@ -1,0 +1,20 @@
+#:include 'common.fypp'
+submodule(forlab) forlab_x
+    use forlab_kinds
+    implicit none
+    
+contains
+    #:set CR_NAME = ['rmut', 'cmut', 'rcmut', 'crmut']
+    #:for c1 in CR_NAME
+    #:for k1 in REAL_KINDS
+    module procedure ${c1}$_${k1}$
+        if (size(m1, 2) == size(m2, 1)) then
+            ret = matmul(m1, m2)
+        else
+            print *, 'size(matrix_1, 2) /= size(matrix_2, 1)'
+        end if
+    end procedure
+
+    #:endfor
+    #:endfor
+end submodule

@@ -110,7 +110,7 @@ SOURCES.txt
 top_level.txt
 
 # check files
-test/check*
+test/check/
 .vscode*
 API-doc/
 test/*.exe
