@@ -24,5 +24,5 @@
         * src/fypp/forlab_tioc.fypp: attention precision changes
         * src/fypp/forlab_zeros.fypp: attention flag args
         * src/fypp/forlab.fypp: Modify the interface of the above functions
-        * src/fypp/Makefile:
+        * src/fypp/Makefile: make it more smart.
         * src/fypp/README.md:
