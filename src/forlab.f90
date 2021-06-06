@@ -24,7 +24,6 @@ module forlab
     integer, public, parameter :: RPRE = 8
     integer, public, parameter :: CLEN = 512
     real(kind=8), public, parameter :: pi = 3.141592653589793238460d0
-    real(kind=8), public, save :: tic_time
     real(sp),public, parameter ::pi_sp=acos(-1.0_sp)
     real(dp),public, parameter ::pi_dp=acos(-1.0_dp)
     real(qp),public, parameter ::pi_qp=acos(-1.0_qp)
@@ -72,31 +71,27 @@ module forlab
 
     !! Polymorphic Interfaces
     interface det
+        !! Version: expermental
+        !!
         !! det computes the matrix determinant.
         !!
-        !! Syntax
-        !!-----------------------------------------------------------------------
-        !! ```fortran
-        !! x = det(A)  
-        !! x = det(A, L, U)  
-        !! ```
-        !! Description
-        !!-----------------------------------------------------------------------
-        !! x = det(A) returns the determinant of the square matrix A, as the
+        !!## Syntax
+        !!    x = det(A)  
+        !!    x = det(A, L, U)  
+        !!
+        !!## Description
+        !! `x = det(A)` returns the determinant of the square matrix A, as the
         !! product of the diagonal elements of the upper triangular matrix from
         !! the LU factorization of A.
         !!
-        !! x = det(A, L, U) returns the determinant of the square matrix A and
+        !! `x = det(A, L, U)` returns the determinant of the square matrix A and
         !! outputs the LU factorization matrices of A used for the calculation.
         !!
-        !! Examples
-        !!-----------------------------------------------------------------------
-        !! ```fortran
-        !! A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 0. ], [ 3, 3 ], &  
-        !!             order = [ 2, 1 ])  
-        !! x = det(A)  
-        !!     27. 
-        !! ```
+        !!## Examples
+        !!    A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 0. ], [ 3, 3 ], &  
+        !!                order = [ 2, 1 ])  
+        !!    x = det(A)  
+        !!        27. 
         real(sp) module function det_sp (A, outL, outU)
             real(sp), dimension(:, :), intent(in) :: A
             real(sp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
@@ -112,6 +107,73 @@ module forlab
     end interface
 
     interface acosd
+        !! Version: expermental
+        !!
+        !! acosd computes the inverse cosine in degrees.
+        !!
+        !!## Syntax
+        !!    y = acosd(x)
+        !!
+        !!## Description
+        !! `y = acosd(x)` returns the inverse cosine of the elements in x in
+        !! degrees. For real elements of x in the domain [-1,1], acosd returns
+        !! values in the range [0,180]. For values of x outside this range,
+        !! acosd returns NaN (Not a Number).
+        !!
+        !!## Examples
+        !!    y = acosd(1.)
+        !!        1.
+        !!
+        !!    y = acosd(2.)
+        !!        NaN
+        !!
+        !!    x = [ -1., 0., 1. ]
+        !!    y = acosd(x)
+        !!        180.  90.   0.
+
+        !! 
+        !! asind computes the inverse sine in degrees.
+        !!
+        !!## Syntax
+        !!    y = asind(x)
+        !!
+        !!## Description
+        !! `y = asind(x)` returns the inverse sine of the elements in x in degrees.
+        !! For real elements of x in the domain [-1,1], asind returns values in
+        !! the range [-90,90]. For values of x outside this range, asind returns
+        !! NaN (Not a Number).
+        !!
+        !!## Examples
+        !!    y = asind(1.)
+        !!        90.
+        !!
+        !!    y = asind(2.)
+        !!        NaN
+        !!
+        !!    x = [ -1., 0., 1. ]
+        !!    y = asind(x)
+        !!        -90.  0.  90.
+
+        !! atand computes the inverse tangent in degrees.
+        !!
+        !!## Syntax
+        !!     y = atand(x)
+        !!
+        !!## Description
+        !! `y = atand(x)` returns the inverse tangent of the elements in x in
+        !! degrees. For real elements of x in the domain [-Inf,Inf], atand
+        !! returns values in the range [-90,90].
+        !!
+        !!## Examples
+        !!     y = atand(0.)
+        !!         0.
+        !!
+        !!     y = atand(50.)
+        !!         88.8542328
+        !!
+        !!     x = [ -50., 0., 50. ]
+        !!     y = atand(x)
+        !!         -88.8542328   0.  88.8542328
         pure elemental module function acosd_sp(x)
         real(sp),intent(in)::x
         real(sp)::acosd_sp
@@ -127,6 +189,73 @@ module forlab
     end interface acosd
 
     interface asind
+        !! Version: expermental
+        !!
+        !! acosd computes the inverse cosine in degrees.
+        !!
+        !!## Syntax
+        !!    y = acosd(x)
+        !!
+        !!## Description
+        !! `y = acosd(x)` returns the inverse cosine of the elements in x in
+        !! degrees. For real elements of x in the domain [-1,1], acosd returns
+        !! values in the range [0,180]. For values of x outside this range,
+        !! acosd returns NaN (Not a Number).
+        !!
+        !!## Examples
+        !!    y = acosd(1.)
+        !!        1.
+        !!
+        !!    y = acosd(2.)
+        !!        NaN
+        !!
+        !!    x = [ -1., 0., 1. ]
+        !!    y = acosd(x)
+        !!        180.  90.   0.
+
+        !! 
+        !! asind computes the inverse sine in degrees.
+        !!
+        !!## Syntax
+        !!    y = asind(x)
+        !!
+        !!## Description
+        !! `y = asind(x)` returns the inverse sine of the elements in x in degrees.
+        !! For real elements of x in the domain [-1,1], asind returns values in
+        !! the range [-90,90]. For values of x outside this range, asind returns
+        !! NaN (Not a Number).
+        !!
+        !!## Examples
+        !!    y = asind(1.)
+        !!        90.
+        !!
+        !!    y = asind(2.)
+        !!        NaN
+        !!
+        !!    x = [ -1., 0., 1. ]
+        !!    y = asind(x)
+        !!        -90.  0.  90.
+
+        !! atand computes the inverse tangent in degrees.
+        !!
+        !!## Syntax
+        !!     y = atand(x)
+        !!
+        !!## Description
+        !! `y = atand(x)` returns the inverse tangent of the elements in x in
+        !! degrees. For real elements of x in the domain [-Inf,Inf], atand
+        !! returns values in the range [-90,90].
+        !!
+        !!## Examples
+        !!     y = atand(0.)
+        !!         0.
+        !!
+        !!     y = atand(50.)
+        !!         88.8542328
+        !!
+        !!     x = [ -50., 0., 50. ]
+        !!     y = atand(x)
+        !!         -88.8542328   0.  88.8542328
         pure elemental module function asind_sp(x)
         real(sp),intent(in)::x
         real(sp)::asind_sp
@@ -142,6 +271,73 @@ module forlab
     end interface asind
 
     interface atand
+        !! Version: expermental
+        !!
+        !! acosd computes the inverse cosine in degrees.
+        !!
+        !!## Syntax
+        !!    y = acosd(x)
+        !!
+        !!## Description
+        !! `y = acosd(x)` returns the inverse cosine of the elements in x in
+        !! degrees. For real elements of x in the domain [-1,1], acosd returns
+        !! values in the range [0,180]. For values of x outside this range,
+        !! acosd returns NaN (Not a Number).
+        !!
+        !!## Examples
+        !!    y = acosd(1.)
+        !!        1.
+        !!
+        !!    y = acosd(2.)
+        !!        NaN
+        !!
+        !!    x = [ -1., 0., 1. ]
+        !!    y = acosd(x)
+        !!        180.  90.   0.
+
+        !! 
+        !! asind computes the inverse sine in degrees.
+        !!
+        !!## Syntax
+        !!    y = asind(x)
+        !!
+        !!## Description
+        !! `y = asind(x)` returns the inverse sine of the elements in x in degrees.
+        !! For real elements of x in the domain [-1,1], asind returns values in
+        !! the range [-90,90]. For values of x outside this range, asind returns
+        !! NaN (Not a Number).
+        !!
+        !!## Examples
+        !!    y = asind(1.)
+        !!        90.
+        !!
+        !!    y = asind(2.)
+        !!        NaN
+        !!
+        !!    x = [ -1., 0., 1. ]
+        !!    y = asind(x)
+        !!        -90.  0.  90.
+
+        !! atand computes the inverse tangent in degrees.
+        !!
+        !!## Syntax
+        !!     y = atand(x)
+        !!
+        !!## Description
+        !! `y = atand(x)` returns the inverse tangent of the elements in x in
+        !! degrees. For real elements of x in the domain [-Inf,Inf], atand
+        !! returns values in the range [-90,90].
+        !!
+        !!## Examples
+        !!     y = atand(0.)
+        !!         0.
+        !!
+        !!     y = atand(50.)
+        !!         88.8542328
+        !!
+        !!     x = [ -50., 0., 50. ]
+        !!     y = atand(x)
+        !!         -88.8542328   0.  88.8542328
         pure elemental module function atand_sp(x)
         real(sp),intent(in)::x
         real(sp)::atand_sp
@@ -202,29 +398,27 @@ module forlab
     end interface tand
 
 
-
     interface angle
         module procedure angle0, angle1
     end interface angle
 
     interface arange
-        ! arange
-        !-----------------------------------------------------------------------
-        ! arange returns evenly spaced vector.
-        !
-        ! Syntax
-        !-----------------------------------------------------------------------
-        ! x = arange(first, last)
-        !
-        ! Description
-        !-----------------------------------------------------------------------
-        ! x = arange(first, last) returns an evenly spaced integer vector
-        ! starting from first and ending at last.
-        !
-        ! Examples
-        !-----------------------------------------------------------------------
-        ! x = arange(1, 9)  
-        !     1   2   3   4   5   6   7   8   9
+        !! Version: expermental
+        !!
+        !! arange
+        !!
+        !! arange returns evenly spaced vector.
+        !!
+        !!## Syntax
+        !!     x = arange(first, last)
+        !!
+        !!## Description
+        !! `x = arange(first, last)` returns an evenly spaced integer vector
+        !! starting from first and ending at last.
+        !!
+        !!## Examples
+        !!     x = arange(1, 9)  
+        !!          1   2   3   4   5   6   7   8   9
             module function arange_int8 (first, last)
                 integer(int8), dimension(:), allocatable :: arange_int8
                 integer(int8), intent(in) :: first, last
@@ -288,8 +482,12 @@ module forlab
     end interface cumsum
 
     interface datenum
-        module procedure datenum0
-    end interface datenum
+        real(kind=8) module function datenum0(year, month, day, hour, minute, &
+                                    second, microsecond)
+            integer, intent(in) :: year, month, day
+            integer, intent(in), optional :: hour, minute, second, microsecond
+        end function datenum0
+    end interface
 
     interface datestr
         module procedure datestr0_0
@@ -308,31 +506,30 @@ module forlab
     end interface deg2utm
 
     interface diag
+        !! Version: expermental
+        !!
         !! diag creates diagonal matrix or get the diagonal of a matrix.
         !!
-        !! Syntax
-        !!-----------------------------------------------------------------------
-        !! x = diag(A)  
-        !! A = diag(x)
+        !!## Syntax
+        !!    x = diag(A)  
+        !!    A = diag(x)
         !!
-        !! Description
-        !!-----------------------------------------------------------------------
-        !! x = diag(A) returns the main diagonal of matrix A.
+        !!## Description
+        !! `x = diag(A)` returns the main diagonal of matrix `A`.
         !!
-        !! A = diag(x) returns a square diagonal matrix with the elements of x on
+        !! `A = diag(x)` returns a square diagonal matrix with the elements of `x` on
         !! the main diagonal.
         !!
-        !! Examples
-        !!-----------------------------------------------------------------------
-        !! A = eye(3)  
-        !! x = diag(A)  
-        !!     1.  1.  1.
+        !!## Examples
+        !!    A = eye(3)  
+        !!    x = diag(A)  
+        !!        1.  1.  1.
         !!
-        !! x = [ 1., 2., 3. ]  
-        !! A = diag(x)  
-        !!     1.  0.  0.  
-        !!     0.  2.  0.  
-        !!     0.  0.  3.  
+        !!    x = [ 1., 2., 3. ]  
+        !!    A = diag(x)  
+        !!        1.  0.  0.  
+        !!        0.  2.  0.  
+        !!        0.  0.  3.  
             module function diag1_sp (A)
                 real(sp), dimension(:), allocatable :: diag1_sp
                 real(sp), dimension(:, :), intent(in) :: A
@@ -992,39 +1189,38 @@ module forlab
     interface issquare
         !! Determine if it is a square matrix
         !!
-        !! Ex:
-        !! --------------------------------------
-        !! A = eye(3)  
-        !! bool = issquare(A)  
-        !!     .true.  
-        !! A = eye(3, 4)  
-        !! bool = issquare0(A)  
-        !!     .false.
-            logical module function issquare_rsp (A)
-                ! import sp
-                real(sp), dimension(:, :), intent(in) :: A
-            end function
-            logical module function issquare_rdp (A)
-                ! import dp
-                real(dp), dimension(:, :), intent(in) :: A
-            end function
-            logical module function issquare_rqp (A)
-                ! import qp
-                real(qp), dimension(:, :), intent(in) :: A
-            end function
-            logical module function issquare_csp (A)
-                ! import sp
-                complex(sp), dimension(:, :), intent(in) :: A
-            end function
-            logical module function issquare_cdp (A)
-                ! import dp
-                complex(dp), dimension(:, :), intent(in) :: A
-            end function
-            logical module function issquare_cqp (A)
-                ! import qp
-                complex(qp), dimension(:, :), intent(in) :: A
-            end function
-    end interface issquare
+        !!## Example
+        !!    A = eye(3)  
+        !!    bool = issquare(A)  
+        !!           .true.  
+        !!    A = eye(3, 4)  
+        !!    bool = issquare0(A)  
+        !!           .false.
+        logical module function issquare_rsp (A)
+            real(sp), dimension(:, :), intent(in) :: A
+        end function
+
+        logical module function issquare_rdp (A)
+            real(dp), dimension(:, :), intent(in) :: A
+        end function
+
+        logical module function issquare_rqp (A)
+            real(qp), dimension(:, :), intent(in) :: A
+        end function
+
+        logical module function issquare_csp (A)
+            complex(sp), dimension(:, :), intent(in) :: A
+        end function
+
+        logical module function issquare_cdp (A)
+            complex(dp), dimension(:, :), intent(in) :: A
+        end function
+
+        logical module function issquare_cqp (A)
+            complex(qp), dimension(:, :), intent(in) :: A
+        end function
+
+    end interface
 
     interface kde
         module procedure kde1, kde2
@@ -1133,8 +1329,65 @@ module forlab
     end interface normpdf
 
     interface num2str
-        module procedure num2str_i4, num2str_i8, num2str_r4, num2str_r8
-    end interface num2str
+        !! Version: expermental
+        !!
+        !! num2str converts numbers to strings.
+        !!
+        !!## Syntax
+        !!    str = num2str(x)
+        !!    str = num2str(x, fmt)
+        !!
+        !!## Description
+        !! `str = num2str(x)` converts `x` into a string.
+        !!
+        !! `str = num2str(x, fmt)` converts `x` into a string with the format fmt.
+        !!
+        !!## Examples
+        !!    print *, "Percentage: " // num2str(50.431, "(F6.2)") // "%"
+        !!        Percentage: 50.43%
+        module function num2str_sp(x, fmt)
+            character(len=:), allocatable :: num2str_sp
+            real(sp), intent(in) :: x
+            character(len=*), intent(in), optional :: fmt
+        end function
+        
+        module function num2str_dp(x, fmt)
+            character(len=:), allocatable :: num2str_dp
+            real(dp), intent(in) :: x
+            character(len=*), intent(in), optional :: fmt
+        end function
+        
+        module function num2str_qp(x, fmt)
+            character(len=:), allocatable :: num2str_qp
+            real(qp), intent(in) :: x
+            character(len=*), intent(in), optional :: fmt
+        end function
+        
+        module function num2str_int8(x, fmt)
+            character(len=:), allocatable :: num2str_int8
+            integer(int8), intent(in) :: x
+            character(len=*), intent(in), optional :: fmt
+        end function
+        
+        module function num2str_int16(x, fmt)
+            character(len=:), allocatable :: num2str_int16
+            integer(int16), intent(in) :: x
+            character(len=*), intent(in), optional :: fmt
+        end function
+        
+        module function num2str_int32(x, fmt)
+            character(len=:), allocatable :: num2str_int32
+            integer(int32), intent(in) :: x
+            character(len=*), intent(in), optional :: fmt
+        end function
+        
+        module function num2str_int64(x, fmt)
+            character(len=:), allocatable :: num2str_int64
+            integer(int64), intent(in) :: x
+            character(len=*), intent(in), optional :: fmt
+        end function
+        
+    end interface
 
     interface ones
         module procedure ones1, ones2, ones3
@@ -1152,39 +1405,33 @@ module forlab
     interface randu
         !! Version: experimental
         !!
-        ! randu
-        !-----------------------------------------------------------------------
-        ! randu generates uniformly distributed random numbers.
-        !
-        ! Syntax
-        !-----------------------------------------------------------------------
-        ! x = randu()
-        ! x = randu(dim1)
-        ! A = randu(dim1, dim2)
-        ! X = randu(dim1, dim2, dim3)
-        !
-        ! Description
-        !-----------------------------------------------------------------------
-        ! x = randu() returns a single uniformly distributed random number in
-        ! the interval [0,1].
-        !
-        ! x = randu(dim1) returns a dim1 vector of uniformly distributed random
-        ! numbers.
-        !
-        ! A = randu(dim1, dim2) returns a dim1-by-dim2 matrix of uniformly
-        ! distributed random numbers.
-        !
-        ! X = randu(dim1, dim2, dim3) returns a dim1-by-dim2-by-dim3
-        ! 3-dimensional matrix of uniformly distributed random numbers.
-        !
-        ! Examples
-        !-----------------------------------------------------------------------
-        ! x = randu()
-        !     0.383413825
-        !
-        ! x = randu(5)*2 - 1
-        !     0.640258908  -0.873707294   0.787327528
-        !! Default versions
+        !! randu generates uniformly distributed random numbers.
+        !!
+        !!## Syntax
+        !!    x = randu()
+        !!    x = randu(dim1)
+        !!    A = randu(dim1, dim2)
+        !!    X = randu(dim1, dim2, dim3)
+        !!
+        !!## Description
+        !! `x = randu()` returns a single uniformly distributed random number in
+        !! the interval [0,1].
+        !!
+        !! `x = randu(dim1)` returns a dim1 vector of uniformly distributed random
+        !! numbers.
+        !!
+        !! `A = randu(dim1, dim2)` returns a dim1-by-dim2 matrix of uniformly
+        !! distributed random numbers.
+        !!
+        !! `X = randu(dim1, dim2, dim3)` returns a dim1-by-dim2-by-dim3
+        !! 3-dimensional matrix of uniformly distributed random numbers.
+        !!
+        !!## Examples
+        !!    x = randu()
+        !!        0.383413825
+        !!
+        !!    x = randu(5)*2 - 1
+        !!        0.640258908  -0.873707294   0.787327528
         module function randu_0_default ()
             real(dp) :: randu_0_default 
         end function
@@ -1502,7 +1749,6 @@ module forlab
             real(qp), dimension(:, :), intent(in) :: A
         end subroutine
 
-        !! Integer Versions
         module subroutine savetxt_1_int8(filename, x)
             character(len=*), intent(in) :: filename
             integer(int8), dimension(:), intent(in) :: x
@@ -1573,6 +1819,45 @@ module forlab
         module procedure std1, std2
     end interface std
 
+    interface toc
+        !! Version: expermental
+        !!
+        !! tic saves the elapsed CPU time in seconds.
+        !! toc displays and returns the elapsed time since tic.
+        !!
+        !!## Syntax
+        !!    call tic()
+        !!    call toc()
+        !!    call toc(t)
+        !!
+        !!## Description
+        !! `call tic()` saves the elapsed CPU time in seconds.
+        !!
+        !! `call toc()` displays the elapsed time since `call tic()`.
+        !!
+        !! `call toc(t)` displays and saves the elapsed time since `call tic()`.
+        !!
+        !!## Examples
+        !!    call tic()
+        !!    ! ... some codes ...
+        !!    call toc()
+        !!        Elapsed time: 0.1 seconds
+        module subroutine toc_default()
+        end subroutine
+        module subroutine toc_sp(t)
+            real(sp), intent(out) :: t
+        end subroutine
+        
+        module subroutine toc_dp(t)
+            real(dp), intent(out) :: t
+        end subroutine
+        
+        module subroutine toc_qp(t)
+            real(qp), intent(out) :: t
+        end subroutine
+        
+    end interface
+
     interface tril
         module procedure tril_i, tril_r, tril_c
     end interface tril
@@ -1599,38 +1884,35 @@ module forlab
         !!
         !! zeros creates array all of zeros.
         !!
-        !! Syntax
-        !!-----------------------------------------------------------------------
-        !! Default version                  Multi-precision version
-        !! x = zeros(dim1)                  or  x = zeros(dim1, flag) 
-        !! A = zeros(dim1, dim2)                A = zeros(dim1, dim2, flag)
-        !! X = zeros(dim1, dim2, dim3)          X = zeros(dim1, dim2, dim3, flag)
+        !!## Syntax
+        !!    Default version                  Multi-precision version
+        !!    x = zeros(dim1)                  or  x = zeros(dim1, flag) 
+        !!    A = zeros(dim1, dim2)                A = zeros(dim1, dim2, flag)
+        !!    X = zeros(dim1, dim2, dim3)          X = zeros(dim1, dim2, dim3, flag)
         !! 
-        !! Description
-        !!-----------------------------------------------------------------------
+        !!## Description
         !! The precision of the flag variable should be consistent with 
         !! the return value of the function.  
         !! Unlike dynamic scripting languages, static languages generally
         !! have multiple precision variables, so we need to explicitly provide precision hints.
         !!
-        !! x = zeros(dim1) returns a dim1 vector of zeros.
+        !! `x = zeros(dim1)` returns a dim1 vector of zeros.
         !!
-        !! A = zeros(dim1, dim2) returns a dim1-by-dim2 matrix of zeros.
+        !! `A = zeros(dim1, dim2)` returns a dim1-by-dim2 matrix of zeros.
         !!
-        !! X = zeros(dim1, dim2, dim3) returns a dim1-by-dim2-by-dim3
+        !! `X = zeros(dim1, dim2, dim3)` returns a dim1-by-dim2-by-dim3
         !! 3-dimensional matrix of zeros.
         !!
-        !! Examples
-        !!-----------------------------------------------------------------------
-        !! x = zeros(3)  
-        !! x =  
-        !!     0.  0.  0.  
+        !!## Examples
+        !!    x = zeros(3)  
+        !!    x =  
+        !!        0.  0.  0.  
         !!
-        !! A = zeros(3, 3)  
-        !! A =  
-        !!     0.  0.  0.  
-        !!     0.  0.  0.  
-        !!     0.  0.  0.
+        !!    A = zeros(3, 3)  
+        !!    A =  
+        !!        0.  0.  0.  
+        !!        0.  0.  0.  
+        !!        0.  0.  0.
         module function zeros_1_default (dim1)
             integer, intent(in) :: dim1
             real(dp), allocatable :: zeros_1_default (:)
@@ -1718,9 +2000,24 @@ module forlab
             ! run of the program produces different sequences of random numbers.
             integer, intent(in), optional :: seed
         end subroutine rng
+
+        module subroutine tic()
+            !! Version: expermental
+            !!
+            !! tic saves the elapsed CPU time in seconds.
+            !!
+            !!## Syntax
+            !!    call tic()
+            !!
+            !!## Description
+            !! `call tic()` saves the elapsed CPU time in seconds.
+            !!
+            !!## Examples
+            !!    call tic()
+        end subroutine
+
     end interface
 contains
-
 
     ! angle
     !-----------------------------------------------------------------------
@@ -2756,49 +3053,6 @@ contains
     ! Notes
     !-----------------------------------------------------------------------
     ! Use double precision for accuracy.
-
-    real(kind=8) function datenum0(year, month, day, hour, minute, &
-                                   second, microsecond)
-        integer(kind=IPRE), intent(in) :: year, month, day
-        integer(kind=IPRE), intent(in), optional :: hour, minute, second, microsecond
-        integer(kind=IPRE) :: i, days_per_month(12)
-
-        if ((month .lt. 1) .and. (month .gt. 12)) then
-            print *, "Error: month should be between 1 and 12 ("//num2str(month)//")."
-        end if
-        if ((day .lt. 1) .and. (day .gt. 31)) then
-            print *, "Error: day should be between 1 and 31 ("//num2str(day)//")."
-        end if
-        if ((present(hour)) .and. (hour .lt. 0) .and. (hour .gt. 23)) then
-            print *, "Error: hour should be between 0 and 23 ("//num2str(hour)//")."
-        end if
-        if ((present(minute)) .and. (minute .lt. 0) .and. (minute .gt. 59)) then
-            print *, "Error: minute should be between 0 and 59 ("//num2str(minute)//")."
-        end if
-        if ((present(second)) .and. (second .lt. 0) .and. (second .gt. 59)) then
-            print *, "Error: second should be between 0 and 59 ("//num2str(second)//")."
-        end if
-        if ((present(microsecond)) .and. (microsecond .lt. 0) .and. (microsecond .ge. 1.0d+6)) then
-            print *, "Error: microsecond should be between 0 and 999,999 ("//num2str(microsecond)//")."
-        end if
-        days_per_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-        datenum0 = 0
-        do i = 0, year - 1
-            if (isleap(i)) then
-                datenum0 = datenum0 + 366
-            else
-                datenum0 = datenum0 + 365
-            end if
-        end do
-        datenum0 = datenum0 + sum(days_per_month(:month - 1))
-        if (isleap(year) .and. (month .gt. 2)) datenum0 = datenum0 + 1
-        datenum0 = datenum0 + day
-        if (present(hour)) datenum0 = datenum0 + real(hour, kind=8)/24.0d0
-        if (present(minute)) datenum0 = datenum0 + real(minute, kind=8)/(24.0d0*60.0d0)
-        if (present(second)) datenum0 = datenum0 + real(second, kind=8)/(24.0d0*60.0d0*60.0d0)
-        if (present(microsecond)) datenum0 = datenum0 + real(microsecond, kind=8)/(24.0d0*60.0d0*60.0d0*1.0d+6)
-        return
-    end function datenum0
 
 
     ! datestr
@@ -6420,90 +6674,6 @@ contains
         return
     end function normpdf2
 
-    ! num2str
-    !-----------------------------------------------------------------------
-    ! num2str converts numbers to strings.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! str = num2str(x)
-    ! str = num2str(x, fmt)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! str = num2str(x) converts x into a string.
-    !
-    ! str = num2str(x, fmt) converts x into a string with the format fmt.
-    !
-    ! Examples
-    !-----------------------------------------------------------------------
-    ! print *, "Percentage: " // num2str(50.431, "(F6.2)") // "%"
-    !     Percentage: 50.43%
-
-    function num2str_i4(x, fmt)
-        character(len=:), allocatable :: num2str_i4
-        integer(kind=4), intent(in) :: x
-        character(len=*), intent(in), optional :: fmt
-        character(len=CLEN) :: xstr
-
-        if (present(fmt)) then
-            write (xstr, fmt) x
-        else
-            write (xstr, *) x
-        end if
-        xstr = adjustl(xstr)
-        num2str_i4 = trim(xstr)
-        return
-    end function num2str_i4
-
-    function num2str_i8(x, fmt)
-        character(len=:), allocatable :: num2str_i8
-        integer(kind=8), intent(in) :: x
-        character(len=*), intent(in), optional :: fmt
-        character(len=CLEN) :: xstr
-
-        if (present(fmt)) then
-            write (xstr, fmt) x
-        else
-            write (xstr, *) x
-        end if
-        xstr = adjustl(xstr)
-        num2str_i8 = trim(xstr)
-        return
-    end function num2str_i8
-
-    function num2str_r4(x, fmt)
-        character(len=:), allocatable :: num2str_r4
-        real(kind=4), intent(in) :: x
-        character(len=*), intent(in), optional :: fmt
-        character(len=CLEN) :: xstr
-
-        if (present(fmt)) then
-            write (xstr, fmt) x
-        else
-            write (xstr, *) x
-        end if
-        xstr = adjustl(xstr)
-        num2str_r4 = trim(xstr)
-        return
-    end function num2str_r4
-
-    function num2str_r8(x, fmt)
-        character(len=:), allocatable :: num2str_r8
-        real(kind=8), intent(in) :: x
-        character(len=*), intent(in), optional :: fmt
-        character(len=CLEN) :: xstr
-
-        if (present(fmt)) then
-            write (xstr, fmt) x
-        else
-            write (xstr, *) x
-        end if
-        xstr = adjustl(xstr)
-        num2str_r8 = trim(xstr)
-        return
-    end function num2str_r8
-
     ! ones
     !-----------------------------------------------------------------------
     ! ones creates array all of ones.
@@ -8297,61 +8467,6 @@ contains
         x = matmul(matmul(matmul(V(:, :k), diag(1/w(:k))), transpose(U(:, :k))), b)
         return
     end function svdsolve
-
-    ! tic / toc
-    !-----------------------------------------------------------------------
-    ! tic saves the elapsed CPU time in seconds.
-    ! toc displays and returns the elapsed time since tic.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! call tic()
-    ! call toc()
-    ! call toc(t)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! call tic() saves the elapsed CPU time in seconds.
-    !
-    ! call toc() displays the elapsed time since call tic().
-    !
-    ! call toc(t) displays and saves the elapsed time since call tic().
-    !
-    ! Examples
-    !-----------------------------------------------------------------------
-    ! call tic()
-    ! ! ... some codes ...
-    ! call toc()
-    !     Elapsed time: 0.1 seconds
-
-    subroutine tic()
-        integer(kind=IPRE) :: values(8)
-        call date_and_time(values=values)
-        tic_time = datenum(values(1), values(2), values(3), values(5), &
-                           values(6), values(7), values(8)*1000) &
-                   *24.0d0*60.0d0*60.0d0
-        return
-    end subroutine tic
-
-    subroutine toc(t)
-        real(kind=8), intent(out), optional :: t
-        integer(kind=IPRE) :: values(8)
-        real(kind=8) :: toc_time, elapsed_time
-
-        call date_and_time(values=values)
-        toc_time = datenum(values(1), values(2), values(3), values(5), &
-                           values(6), values(7), values(8)*1000) &
-                   *24.0d0*60.0d0*60.0d0
-        elapsed_time = toc_time - tic_time
-        if (present(t)) then
-            t = elapsed_time
-        else
-            print *, "Elapsed time: " &
-                //num2str(real(elapsed_time, kind=RPRE), "(F12.3)") &
-                //" seconds"
-        end if
-        return
-    end subroutine toc
 
     ! trace
     !-----------------------------------------------------------------------

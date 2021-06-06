@@ -1,0 +1,22 @@
+#:include 'common.fypp'
+#:set RI_KINDS_TYPES = REAL_KINDS_TYPES + INT_KINDS_TYPES
+submodule(forlab) forlab_num2str
+    use forlab_kinds
+    implicit none
+
+contains
+    #:for k1, t1 in RI_KINDS_TYPES
+    module procedure num2str_${k1}$
+        character(len=CLEN) :: xstr
+
+        if (present(fmt)) then
+            write (xstr, fmt) x
+        else
+            write (xstr, *) x
+        end if
+        num2str_${k1}$ = trim(adjustl(xstr))
+        return
+    end procedure
+
+    #:endfor
+end submodule
