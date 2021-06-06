@@ -16,28 +16,16 @@ submodule(forlab) forlab_randn
 contains
     !! Default versions
     #:for RANK in RANKS
+    module procedure randn_${RANK}$_default
     #:if RANK == 0
-    module function randn_${RANK}$_default ()
         real(dp) :: u, v, s
     #:elif RANK == 1
-    module function randn_${RANK}$_default (dim1)
-        integer, intent(in) :: dim1
         integer :: i
     #:elif RANK == 2
-    module function randn_${RANK}$_default (dim1, dim2)
-        integer, intent(in) :: dim1, dim2
         integer :: i, j
     #:elif RANK == 3
-    module function randn_${RANK}$_default (dim1, dim2, dim3)
-        integer, intent(in) :: dim1, dim2, dim3
         integer :: i, j, k
     #:endif
-        #:if RANK == 0
-        real(dp) :: randn_${RANK}$_default ${ranksuffix(RANK)}$
-        #:else
-        real(dp), allocatable :: randn_${RANK}$_default ${ranksuffix(RANK)}$
-        #:endif
-        
         #:if RANK == 0
         do
             u = 2.d0*randu() - 1.d0
@@ -70,36 +58,22 @@ contains
         #:endif
 
         return
-    end function
+    end procedure
     
     #:endfor
     !! Multi-precision versions
     #:for RANK in RANKS
     #:for k1, t1 in REAL_KINDS_TYPES
+    module procedure randn_${RANK}$_${k1}$
     #:if RANK == 0
-    module function randn_${RANK}$_${k1}$ (flag)
         ${t1}$ :: u, v, s
     #:elif RANK == 1
-    module function randn_${RANK}$_${k1}$ (dim1, flag)
-        !! Unlike dynamic scripting languages, static languages generally
-        !! have multiple precision variables, so we need to explicitly provide precision hints.
-        integer, intent(in) :: dim1
         integer :: i
     #:elif RANK == 2
-    module function randn_${RANK}$_${k1}$ (dim1, dim2, flag)
-        integer, intent(in) :: dim1, dim2
         integer :: i, j
     #:elif RANK == 3
-    module function randn_${RANK}$_${k1}$ (dim1, dim2, dim3, flag)
-        integer, intent(in) :: dim1, dim2, dim3
         integer :: i, j, k
     #:endif
-        #:if RANK == 0
-        ${t1}$ :: randn_${RANK}$_${k1}$ ${ranksuffix(RANK)}$
-        #:else
-        ${t1}$, allocatable :: randn_${RANK}$_${k1}$ ${ranksuffix(RANK)}$
-        #:endif
-        ${t1}$, intent(in) :: flag
 
         #:if RANK == 0
         do
@@ -133,7 +107,7 @@ contains
         #:endif
 
         return
-    end function
+    end procedure
 
     #:endfor
     #:endfor

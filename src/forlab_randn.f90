@@ -10,39 +10,31 @@ submodule(forlab) forlab_randn
     implicit none
 contains
     !! Default versions
-    module function randn_0_default ()
+    module procedure randn_0_default
         real(dp) :: u, v, s
-        real(dp) :: randn_0_default 
-        
         do
-            u = 2.*randu() - 1.
-            v = 2.*randu() - 1.
+            u = 2.d0*randu() - 1.d0
+            v = 2.d0*randu() - 1.d0
             s = u*u + v*v
-            if ((s > 0.) .and. (s < 1.)) exit
+            if ((s > 0.d0) .and. (s < 1.d0)) exit
         end do
         randn_0_default = u*sqrt(-2.0d0*log(s)/s)
 
         return
-    end function
+    end procedure
     
-    module function randn_1_default (dim1)
-        integer, intent(in) :: dim1
+    module procedure randn_1_default
         integer :: i
-        real(dp), allocatable :: randn_1_default (:)
-        
         allocate (randn_1_default (dim1))
         do i = 1, dim1
             randn_1_default (i) = randn_0_default()
         end do
 
         return
-    end function
+    end procedure
     
-    module function randn_2_default (dim1, dim2)
-        integer, intent(in) :: dim1, dim2
+    module procedure randn_2_default
         integer :: i, j
-        real(dp), allocatable :: randn_2_default (:,:)
-        
         allocate (randn_2_default (dim1, dim2))
         do i = 1, dim1
             do j = 1, dim2
@@ -51,13 +43,10 @@ contains
         end do
 
         return
-    end function
+    end procedure
     
-    module function randn_3_default (dim1, dim2, dim3)
-        integer, intent(in) :: dim1, dim2, dim3
+    module procedure randn_3_default
         integer :: i, j, k
-        real(dp), allocatable :: randn_3_default (:,:,:)
-        
         allocate (randn_3_default (dim1, dim2, dim3))
         do i = 1, dim1
             do j = 1, dim2
@@ -68,13 +57,11 @@ contains
         end do
 
         return
-    end function
+    end procedure
     
     !! Multi-precision versions
-    module function randn_0_sp (flag)
+    module procedure randn_0_sp
         real(sp) :: u, v, s
-        real(sp) :: randn_0_sp 
-        real(sp), intent(in) :: flag
 
         do
             u = 2._sp*randu(flag) - 1._sp
@@ -85,12 +72,10 @@ contains
         randn_0_sp = u*sqrt(-2.0_sp*log(s)/s)
 
         return
-    end function
+    end procedure
 
-    module function randn_0_dp (flag)
+    module procedure randn_0_dp
         real(dp) :: u, v, s
-        real(dp) :: randn_0_dp 
-        real(dp), intent(in) :: flag
 
         do
             u = 2._dp*randu(flag) - 1._dp
@@ -101,12 +86,10 @@ contains
         randn_0_dp = u*sqrt(-2.0_dp*log(s)/s)
 
         return
-    end function
+    end procedure
 
-    module function randn_0_qp (flag)
+    module procedure randn_0_qp
         real(qp) :: u, v, s
-        real(qp) :: randn_0_qp 
-        real(qp), intent(in) :: flag
 
         do
             u = 2._qp*randu(flag) - 1._qp
@@ -117,15 +100,10 @@ contains
         randn_0_qp = u*sqrt(-2.0_qp*log(s)/s)
 
         return
-    end function
+    end procedure
 
-    module function randn_1_sp (dim1, flag)
-        !! Unlike dynamic scripting languages, static languages generally
-        !! have multiple precision variables, so we need to explicitly provide precision hints.
-        integer, intent(in) :: dim1
+    module procedure randn_1_sp
         integer :: i
-        real(sp), allocatable :: randn_1_sp (:)
-        real(sp), intent(in) :: flag
 
         allocate (randn_1_sp (dim1))
         do i = 1, dim1
@@ -133,15 +111,10 @@ contains
         end do
 
         return
-    end function
+    end procedure
 
-    module function randn_1_dp (dim1, flag)
-        !! Unlike dynamic scripting languages, static languages generally
-        !! have multiple precision variables, so we need to explicitly provide precision hints.
-        integer, intent(in) :: dim1
+    module procedure randn_1_dp
         integer :: i
-        real(dp), allocatable :: randn_1_dp (:)
-        real(dp), intent(in) :: flag
 
         allocate (randn_1_dp (dim1))
         do i = 1, dim1
@@ -149,15 +122,10 @@ contains
         end do
 
         return
-    end function
+    end procedure
 
-    module function randn_1_qp (dim1, flag)
-        !! Unlike dynamic scripting languages, static languages generally
-        !! have multiple precision variables, so we need to explicitly provide precision hints.
-        integer, intent(in) :: dim1
+    module procedure randn_1_qp
         integer :: i
-        real(qp), allocatable :: randn_1_qp (:)
-        real(qp), intent(in) :: flag
 
         allocate (randn_1_qp (dim1))
         do i = 1, dim1
@@ -165,13 +133,10 @@ contains
         end do
 
         return
-    end function
+    end procedure
 
-    module function randn_2_sp (dim1, dim2, flag)
-        integer, intent(in) :: dim1, dim2
+    module procedure randn_2_sp
         integer :: i, j
-        real(sp), allocatable :: randn_2_sp (:,:)
-        real(sp), intent(in) :: flag
 
         allocate (randn_2_sp (dim1, dim2))
         do i = 1, dim1
@@ -181,13 +146,10 @@ contains
         end do
 
         return
-    end function
+    end procedure
 
-    module function randn_2_dp (dim1, dim2, flag)
-        integer, intent(in) :: dim1, dim2
+    module procedure randn_2_dp
         integer :: i, j
-        real(dp), allocatable :: randn_2_dp (:,:)
-        real(dp), intent(in) :: flag
 
         allocate (randn_2_dp (dim1, dim2))
         do i = 1, dim1
@@ -197,13 +159,10 @@ contains
         end do
 
         return
-    end function
+    end procedure
 
-    module function randn_2_qp (dim1, dim2, flag)
-        integer, intent(in) :: dim1, dim2
+    module procedure randn_2_qp
         integer :: i, j
-        real(qp), allocatable :: randn_2_qp (:,:)
-        real(qp), intent(in) :: flag
 
         allocate (randn_2_qp (dim1, dim2))
         do i = 1, dim1
@@ -213,13 +172,10 @@ contains
         end do
 
         return
-    end function
+    end procedure
 
-    module function randn_3_sp (dim1, dim2, dim3, flag)
-        integer, intent(in) :: dim1, dim2, dim3
+    module procedure randn_3_sp
         integer :: i, j, k
-        real(sp), allocatable :: randn_3_sp (:,:,:)
-        real(sp), intent(in) :: flag
 
         allocate (randn_3_sp (dim1, dim2, dim3))
         do i = 1, dim1
@@ -231,13 +187,10 @@ contains
         end do
 
         return
-    end function
+    end procedure
 
-    module function randn_3_dp (dim1, dim2, dim3, flag)
-        integer, intent(in) :: dim1, dim2, dim3
+    module procedure randn_3_dp
         integer :: i, j, k
-        real(dp), allocatable :: randn_3_dp (:,:,:)
-        real(dp), intent(in) :: flag
 
         allocate (randn_3_dp (dim1, dim2, dim3))
         do i = 1, dim1
@@ -249,13 +202,10 @@ contains
         end do
 
         return
-    end function
+    end procedure
 
-    module function randn_3_qp (dim1, dim2, dim3, flag)
-        integer, intent(in) :: dim1, dim2, dim3
+    module procedure randn_3_qp
         integer :: i, j, k
-        real(qp), allocatable :: randn_3_qp (:,:,:)
-        real(qp), intent(in) :: flag
 
         allocate (randn_3_qp (dim1, dim2, dim3))
         do i = 1, dim1
@@ -267,6 +217,6 @@ contains
         end do
 
         return
-    end function
+    end procedure
 
 end submodule

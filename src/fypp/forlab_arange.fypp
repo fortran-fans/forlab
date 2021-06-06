@@ -5,17 +5,14 @@ submodule(forlab) forlab_arange
 
 contains
     #:for k1, t1 in INT_KINDS_TYPES
-    module function arange_${k1}$ (first, last)
-        ${t1}$, dimension(:), allocatable :: arange_${k1}$
-        ${t1}$, intent(in) :: first, last
+    module procedure arange_${k1}$
         ${t1}$ :: i
-
         if (first <= last) then
             arange_${k1}$ = [(i, i=first, last)]
         else
             arange_${k1}$ = [(i, i=first, last, -1)]
         end if
         return
-    end function
+    end procedure
     #:endfor
 end submodule
