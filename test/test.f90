@@ -1,8 +1,10 @@
-!! fpm test test
+!! `fpm test` or `fpm test test`
 program main
     use forlab, only: rng, savetxt, randn, disp 
     implicit none
-    real :: flag
+    real, dimension(:, :), allocatable :: x_sp, y_sp
+    real(8), dimension(:, :), allocatable :: x_dp, y_dp
+    real(16), dimension(:, :), allocatable :: x_qp, y_qp
 
     call rng()
     call savetxt('randn_series.txt', randn(100, flag))

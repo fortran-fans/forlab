@@ -1,5 +1,11 @@
 
+
 submodule(forlab) forlab_empty
+    !! Version: experimental
+    !!
+    !! Discussion:
+    !! ----
+    !! https://fortran-lang.discourse.group/t/fortran-function-return-value-polymorphism/1350/5
     use forlab_kinds
 contains
     module procedure empty1
