@@ -8,14 +8,14 @@ submodule(forlab) forlab_empty
     use forlab_kinds
 contains
     #:for RANK in RANKS
-    module procedure empty${RANK}$
+    module procedure empty_${RANK}$_default
         integer :: ierr
         #:if RANK == 1
-        allocate (empty${RANK}$(dim1), stat=ierr)
+        allocate (empty_${RANK}$_default(dim1), stat=ierr)
         #:elif RANK == 2
-        allocate (empty${RANK}$(dim1, dim2), stat=ierr)
+        allocate (empty_${RANK}$_default(dim1, dim2), stat=ierr)
         #:elif RANK == 3
-        allocate (empty${RANK}$(dim1, dim2, dim3), stat=ierr)
+        allocate (empty_${RANK}$_default(dim1, dim2, dim3), stat=ierr)
         #:endif
         if (ierr .ne. 0) then
             print*,"ERROR: in empty, could not allocate array."
@@ -23,6 +23,24 @@ contains
         end if
     end procedure
 
+    #:endfor
+    #:for RANK in RANKS
+    #:for k1, t1 in REAL_KINDS_TYPES
+    module procedure empty_${RANK}$_${k1}$
+        integer :: ierr
+        #:if RANK == 1
+        allocate (empty_${RANK}$_${k1}$(dim1), stat=ierr)
+        #:elif RANK == 2
+        allocate (empty_${RANK}$_${k1}$(dim1, dim2), stat=ierr)
+        #:elif RANK == 3
+        allocate (empty_${RANK}$_${k1}$(dim1, dim2, dim3), stat=ierr)
+        #:endif
+        if (ierr .ne. 0) then
+            print*,"ERROR: in empty, could not allocate array."
+            stop
+        end if
+    end procedure
+    #:endfor
     #:endfor
 end submodule
 

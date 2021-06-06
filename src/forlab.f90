@@ -112,90 +112,90 @@ module forlab
     end interface
 
     interface acosd
-        module pure elemental function acosd_sp(x)
+        pure elemental module function acosd_sp(x)
         real(sp),intent(in)::x
         real(sp)::acosd_sp
         end function
-        module pure elemental function acosd_dp(x)
+        pure elemental module function acosd_dp(x)
         real(dp),intent(in)::x
         real(dp)::acosd_dp
         end function
-        module pure elemental function acosd_qp(x)
+        pure elemental module function acosd_qp(x)
         real(qp),intent(in)::x
         real(qp)::acosd_qp
         end function
     end interface acosd
 
     interface asind
-        module pure elemental function asind_sp(x)
+        pure elemental module function asind_sp(x)
         real(sp),intent(in)::x
         real(sp)::asind_sp
         end function
-        module pure elemental function asind_dp(x)
+        pure elemental module function asind_dp(x)
         real(dp),intent(in)::x
         real(dp)::asind_dp
         end function
-        module pure elemental function asind_qp(x)
+        pure elemental module function asind_qp(x)
         real(qp),intent(in)::x
         real(qp)::asind_qp
         end function
     end interface asind
 
     interface atand
-        module pure elemental function atand_sp(x)
+        pure elemental module function atand_sp(x)
         real(sp),intent(in)::x
         real(sp)::atand_sp
         end function
-        module pure elemental function atand_dp(x)
+        pure elemental module function atand_dp(x)
         real(dp),intent(in)::x
         real(dp)::atand_dp
         end function
-        module pure elemental function atand_qp(x)
+        pure elemental module function atand_qp(x)
         real(qp),intent(in)::x
         real(qp)::atand_qp
         end function
     end interface atand
 
     interface cosd
-        module pure elemental function cosd_sp(x)
+        pure elemental module function cosd_sp(x)
         real(sp),intent(in)::x
         real(sp)::cosd_sp
         end function
-        module pure elemental function cosd_dp(x)
+        pure elemental module function cosd_dp(x)
         real(dp),intent(in)::x
         real(dp)::cosd_dp
         end function
-        module pure elemental function cosd_qp(x)
+        pure elemental module function cosd_qp(x)
         real(qp),intent(in)::x
         real(qp)::cosd_qp
         end function
     end interface cosd
 
     interface sind
-        module pure elemental function sind_sp(x)
+        pure elemental module function sind_sp(x)
         real(sp),intent(in)::x
         real(sp)::sind_sp
         end function
-        module pure elemental function sind_dp(x)
+        pure elemental module function sind_dp(x)
         real(dp),intent(in)::x
         real(dp)::sind_dp
         end function
-        module pure elemental function sind_qp(x)
+        pure elemental module function sind_qp(x)
         real(qp),intent(in)::x
         real(qp)::sind_qp
         end function
     end interface sind
 
     interface tand
-        module pure elemental function tand_sp(x)
+        pure elemental module function tand_sp(x)
         real(sp),intent(in)::x
         real(sp)::tand_sp
         end function
-        module pure elemental function tand_dp(x)
+        pure elemental module function tand_dp(x)
         real(dp),intent(in)::x
         real(dp)::tand_dp
         end function
-        module pure elemental function tand_qp(x)
+        pure elemental module function tand_qp(x)
         real(qp),intent(in)::x
         real(qp)::tand_qp
         end function
