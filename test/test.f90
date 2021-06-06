@@ -10,20 +10,24 @@ program main
     block 
         use forlab,only:operator(.i.)
         ! test inv and solve equation Ax=b, A^(-1) * b
-        real :: a(2,2)
-        real :: b(2)
-        call random_number(a)
-        call random_number(b)
+        real :: a(2,2)=reshape([1,2,3,1],[2,2])
+        real :: b(2)=[1,1]
+        call disp("Test Inv and solve equation Ax=b")
+        call disp('A=')
+        call disp(a)
+        call disp("b=")
+        call disp(b)
+        call disp("x=")
         call disp(matmul(.i.a,b))
     end block
 
     block 
-        use forlab ,only:acosd,asind,atand
+        use forlab ,only:acosd,tand
         ! test degrees circular function
+        call disp('Test degrees circular function')
+        call disp("acosd(1.d0)=")
         call disp(acosd(1.d0))
-        call disp(asind(0.5d0))
-        call disp(acosd([1.0,0.5]))
-        call disp(asind([1.0,0.5]))
-        call disp(atand([50.0,0.0,-50.0]))
+        call disp("tand([45.0,60.0,0.0])")
+        call disp(tand([45.0,60.0,0.0]))
     end block
 end program

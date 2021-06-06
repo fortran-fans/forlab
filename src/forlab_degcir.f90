@@ -1,4 +1,3 @@
-#:include 'common.fypp'
 submodule(forlab) forlab_degcir
     !degree circular functions
     !! Version: experimental
@@ -91,15 +90,42 @@ contains
     ! x = [ -50., 0., 50. ]
     ! y = atand(x)
     !     -88.8542328   0.  88.8542328
-    #:set CIR_NAME=["acos","asin","atan"]
-    #:for l1 in CIR_NAME 
-    #:for k1,t1 in REAL_KINDS_TYPES
-    module procedure ${l1}$d_${k1}$
-        ${l1}$d_${k1}$=${l1}$(x)*180/pi_${k1}$
+    module procedure acosd_sp
+        acosd_sp=acos(x)*180/pi_sp
     end procedure
 
-    #:endfor
-    #:endfor
+    module procedure acosd_dp
+        acosd_dp=acos(x)*180/pi_dp
+    end procedure
+
+    module procedure acosd_qp
+        acosd_qp=acos(x)*180/pi_qp
+    end procedure
+
+    module procedure asind_sp
+        asind_sp=asin(x)*180/pi_sp
+    end procedure
+
+    module procedure asind_dp
+        asind_dp=asin(x)*180/pi_dp
+    end procedure
+
+    module procedure asind_qp
+        asind_qp=asin(x)*180/pi_qp
+    end procedure
+
+    module procedure atand_sp
+        atand_sp=atan(x)*180/pi_sp
+    end procedure
+
+    module procedure atand_dp
+        atand_dp=atan(x)*180/pi_dp
+    end procedure
+
+    module procedure atand_qp
+        atand_qp=atan(x)*180/pi_qp
+    end procedure
+
     ! sind
     !-----------------------------------------------------------------------
     ! sind computes the sine of argument in degrees.
@@ -165,13 +191,40 @@ contains
     ! x = [ 0., 90., 180., 270. ]
     ! y = tand(x)
     !     0.  Inf   0.  -Inf
-    #:set CIR_NAME=["cos","sin","tan"]
-    #:for l1 in CIR_NAME 
-    #:for k1,t1 in REAL_KINDS_TYPES
-    module procedure ${l1}$d_${k1}$
-        ${l1}$d_${k1}$=${l1}$(x*pi_${k1}$/180)
+    module procedure cosd_sp
+        cosd_sp=cos(x*pi_sp/180)
     end procedure
 
-    #:endfor
-    #:endfor
+    module procedure cosd_dp
+        cosd_dp=cos(x*pi_dp/180)
+    end procedure
+
+    module procedure cosd_qp
+        cosd_qp=cos(x*pi_qp/180)
+    end procedure
+
+    module procedure sind_sp
+        sind_sp=sin(x*pi_sp/180)
+    end procedure
+
+    module procedure sind_dp
+        sind_dp=sin(x*pi_dp/180)
+    end procedure
+
+    module procedure sind_qp
+        sind_qp=sin(x*pi_qp/180)
+    end procedure
+
+    module procedure tand_sp
+        tand_sp=tan(x*pi_sp/180)
+    end procedure
+
+    module procedure tand_dp
+        tand_dp=tan(x*pi_dp/180)
+    end procedure
+
+    module procedure tand_qp
+        tand_qp=tan(x*pi_qp/180)
+    end procedure
+
 end submodule
