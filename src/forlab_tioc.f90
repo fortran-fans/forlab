@@ -39,16 +39,8 @@ contains
                            values(6), values(7), values(8)*1000) &
                    *24.0d0*60.0d0*60.0d0
         elapsed_time = toc_time - tic_time
-            
-        ! t = real(elapsed_time, sp)
-        ! Elapsed time: 0.004 seconds
-        ! tic/toc sp-version is passed:
-        ! 0.3990E-02
-        ! tic/toc dp-version is passed:
-        ! 0.3990E-02
-        ! tic/toc qp-version is passed:
-        ! 0.4997E-02
-        t = elapsed_time
+
+        t = elapsed_time        !!\ATTENTION@zuo.zhihua@qq.com: Accuracy is converted here.
         return
     end procedure
 
@@ -61,16 +53,8 @@ contains
                            values(6), values(7), values(8)*1000) &
                    *24.0d0*60.0d0*60.0d0
         elapsed_time = toc_time - tic_time
-            
-        ! t = real(elapsed_time, dp)
-        ! Elapsed time: 0.004 seconds
-        ! tic/toc sp-version is passed:
-        ! 0.3990E-02
-        ! tic/toc dp-version is passed:
-        ! 0.3990E-02
-        ! tic/toc qp-version is passed:
-        ! 0.4997E-02
-        t = elapsed_time
+
+        t = elapsed_time        !!\ATTENTION@zuo.zhihua@qq.com: Accuracy is converted here.
         return
     end procedure
 
@@ -83,16 +67,8 @@ contains
                            values(6), values(7), values(8)*1000) &
                    *24.0d0*60.0d0*60.0d0
         elapsed_time = toc_time - tic_time
-            
-        ! t = real(elapsed_time, qp)
-        ! Elapsed time: 0.004 seconds
-        ! tic/toc sp-version is passed:
-        ! 0.3990E-02
-        ! tic/toc dp-version is passed:
-        ! 0.3990E-02
-        ! tic/toc qp-version is passed:
-        ! 0.4997E-02
-        t = elapsed_time
+
+        t = elapsed_time        !!\ATTENTION@zuo.zhihua@qq.com: Accuracy is converted here.
         return
     end procedure
 

@@ -73,29 +73,23 @@ module forlab
     interface det
         !! det computes the matrix determinant.
         !!
-        !! Syntax
-        !!-----------------------------------------------------------------------
-        !! ```fortran
-        !! x = det(A)  
-        !! x = det(A, L, U)  
-        !! ```
-        !! Description
-        !!-----------------------------------------------------------------------
-        !! x = det(A) returns the determinant of the square matrix A, as the
+        !!## Syntax
+        !!    x = det(A)  
+        !!    x = det(A, L, U)  
+        !!
+        !!## Description
+        !! `x = det(A)` returns the determinant of the square matrix A, as the
         !! product of the diagonal elements of the upper triangular matrix from
         !! the LU factorization of A.
         !!
-        !! x = det(A, L, U) returns the determinant of the square matrix A and
+        !! `x = det(A, L, U)` returns the determinant of the square matrix A and
         !! outputs the LU factorization matrices of A used for the calculation.
         !!
-        !! Examples
-        !!-----------------------------------------------------------------------
-        !! ```fortran
-        !! A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 0. ], [ 3, 3 ], &  
-        !!             order = [ 2, 1 ])  
-        !! x = det(A)  
-        !!     27. 
-        !! ```
+        !!## Examples
+        !!    A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 0. ], [ 3, 3 ], &  
+        !!                order = [ 2, 1 ])  
+        !!    x = det(A)  
+        !!        27. 
         real(sp) module function det_sp (A, outL, outU)
             real(sp), dimension(:, :), intent(in) :: A
             real(sp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
