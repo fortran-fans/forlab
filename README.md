@@ -64,7 +64,7 @@ public :: File, acosd, asind, atand, argmax, argmin, argsort, arange, &
         split_argument, tand, tic, toc, trace, tril, triu, utm2deg, vertcat, &
         var, zeros, dbindex, gmm, kmeans, mbkmeans, silhouette
 public :: mpi_rpre
-public :: operator(.i.)
+public :: operator(.i.), operator(.x.)
 
 ```
 

@@ -72,31 +72,26 @@ module forlab
 
     !! Polymorphic Interfaces
     interface det
+        !! Version: expermental
+        !!
         !! det computes the matrix determinant.
         !!
-        !! Syntax
-        !!-----------------------------------------------------------------------
-        !! ```fortran
-        !! x = det(A)  
-        !! x = det(A, L, U)  
-        !! ```
-        !! Description
-        !!-----------------------------------------------------------------------
-        !! x = det(A) returns the determinant of the square matrix A, as the
+        !!## Syntax
+        !!    x = det(A)  
+        !!    x = det(A, L, U)  
+        !!## Description
+        !! `x = det(A)` returns the determinant of the square matrix A, as the
         !! product of the diagonal elements of the upper triangular matrix from
         !! the LU factorization of A.
         !!
-        !! x = det(A, L, U) returns the determinant of the square matrix A and
+        !! `x = det(A, L, U)` returns the determinant of the square matrix A and
         !! outputs the LU factorization matrices of A used for the calculation.
         !!
-        !! Examples
-        !!-----------------------------------------------------------------------
-        !! ```fortran
-        !! A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 0. ], [ 3, 3 ], &  
-        !!             order = [ 2, 1 ])  
-        !! x = det(A)  
-        !!     27. 
-        !! ```
+        !!## Examples
+        !!    A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 0. ], [ 3, 3 ], &  
+        !!                order = [ 2, 1 ])  
+        !!    x = det(A)  
+        !!        27. 
         real(sp) module function det_sp (A, outL, outU)
             real(sp), dimension(:, :), intent(in) :: A
             real(sp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
@@ -112,6 +107,73 @@ module forlab
     end interface
 
     interface acosd
+        !! Version: expermental
+        !!
+        !! acosd computes the inverse cosine in degrees.
+        !!
+        !!## Syntax
+        !!    y = acosd(x)
+        !!
+        !!## Description
+        !! `y = acosd(x)` returns the inverse cosine of the elements in x in
+        !! degrees. For real elements of x in the domain [-1,1], acosd returns
+        !! values in the range [0,180]. For values of x outside this range,
+        !! acosd returns NaN (Not a Number).
+        !!
+        !!## Examples
+        !!    y = acosd(1.)
+        !!        1.
+        !!
+        !!    y = acosd(2.)
+        !!        NaN
+        !!
+        !!    x = [ -1., 0., 1. ]
+        !!    y = acosd(x)
+        !!        180.  90.   0.
+
+        !! 
+        !! asind computes the inverse sine in degrees.
+        !!
+        !!## Syntax
+        !!    y = asind(x)
+        !!
+        !!## Description
+        !! `y = asind(x)` returns the inverse sine of the elements in x in degrees.
+        !! For real elements of x in the domain [-1,1], asind returns values in
+        !! the range [-90,90]. For values of x outside this range, asind returns
+        !! NaN (Not a Number).
+        !!
+        !!## Examples
+        !!    y = asind(1.)
+        !!        90.
+        !!
+        !!    y = asind(2.)
+        !!        NaN
+        !!
+        !!    x = [ -1., 0., 1. ]
+        !!    y = asind(x)
+        !!        -90.  0.  90.
+
+        !! atand computes the inverse tangent in degrees.
+        !!
+        !!## Syntax
+        !!     y = atand(x)
+        !!
+        !!## Description
+        !! `y = atand(x)` returns the inverse tangent of the elements in x in
+        !! degrees. For real elements of x in the domain [-Inf,Inf], atand
+        !! returns values in the range [-90,90].
+        !!
+        !!## Examples
+        !!     y = atand(0.)
+        !!         0.
+        !!
+        !!     y = atand(50.)
+        !!         88.8542328
+        !!
+        !!     x = [ -50., 0., 50. ]
+        !!     y = atand(x)
+        !!         -88.8542328   0.  88.8542328
         pure elemental module function acosd_sp(x)
         real(sp),intent(in)::x
         real(sp)::acosd_sp
@@ -127,6 +189,73 @@ module forlab
     end interface acosd
 
     interface asind
+        !! Version: expermental
+        !!
+        !! acosd computes the inverse cosine in degrees.
+        !!
+        !!## Syntax
+        !!    y = acosd(x)
+        !!
+        !!## Description
+        !! `y = acosd(x)` returns the inverse cosine of the elements in x in
+        !! degrees. For real elements of x in the domain [-1,1], acosd returns
+        !! values in the range [0,180]. For values of x outside this range,
+        !! acosd returns NaN (Not a Number).
+        !!
+        !!## Examples
+        !!    y = acosd(1.)
+        !!        1.
+        !!
+        !!    y = acosd(2.)
+        !!        NaN
+        !!
+        !!    x = [ -1., 0., 1. ]
+        !!    y = acosd(x)
+        !!        180.  90.   0.
+
+        !! 
+        !! asind computes the inverse sine in degrees.
+        !!
+        !!## Syntax
+        !!    y = asind(x)
+        !!
+        !!## Description
+        !! `y = asind(x)` returns the inverse sine of the elements in x in degrees.
+        !! For real elements of x in the domain [-1,1], asind returns values in
+        !! the range [-90,90]. For values of x outside this range, asind returns
+        !! NaN (Not a Number).
+        !!
+        !!## Examples
+        !!    y = asind(1.)
+        !!        90.
+        !!
+        !!    y = asind(2.)
+        !!        NaN
+        !!
+        !!    x = [ -1., 0., 1. ]
+        !!    y = asind(x)
+        !!        -90.  0.  90.
+
+        !! atand computes the inverse tangent in degrees.
+        !!
+        !!## Syntax
+        !!     y = atand(x)
+        !!
+        !!## Description
+        !! `y = atand(x)` returns the inverse tangent of the elements in x in
+        !! degrees. For real elements of x in the domain [-Inf,Inf], atand
+        !! returns values in the range [-90,90].
+        !!
+        !!## Examples
+        !!     y = atand(0.)
+        !!         0.
+        !!
+        !!     y = atand(50.)
+        !!         88.8542328
+        !!
+        !!     x = [ -50., 0., 50. ]
+        !!     y = atand(x)
+        !!         -88.8542328   0.  88.8542328
         pure elemental module function asind_sp(x)
         real(sp),intent(in)::x
         real(sp)::asind_sp
@@ -142,6 +271,73 @@ module forlab
     end interface asind
 
     interface atand
+        !! Version: expermental
+        !!
+        !! acosd computes the inverse cosine in degrees.
+        !!
+        !!## Syntax
+        !!    y = acosd(x)
+        !!
+        !!## Description
+        !! `y = acosd(x)` returns the inverse cosine of the elements in x in
+        !! degrees. For real elements of x in the domain [-1,1], acosd returns
+        !! values in the range [0,180]. For values of x outside this range,
+        !! acosd returns NaN (Not a Number).
+        !!
+        !!## Examples
+        !!    y = acosd(1.)
+        !!        1.
+        !!
+        !!    y = acosd(2.)
+        !!        NaN
+        !!
+        !!    x = [ -1., 0., 1. ]
+        !!    y = acosd(x)
+        !!        180.  90.   0.
+
+        !! 
+        !! asind computes the inverse sine in degrees.
+        !!
+        !!## Syntax
+        !!    y = asind(x)
+        !!
+        !!## Description
+        !! `y = asind(x)` returns the inverse sine of the elements in x in degrees.
+        !! For real elements of x in the domain [-1,1], asind returns values in
+        !! the range [-90,90]. For values of x outside this range, asind returns
+        !! NaN (Not a Number).
+        !!
+        !!## Examples
+        !!    y = asind(1.)
+        !!        90.
+        !!
+        !!    y = asind(2.)
+        !!        NaN
+        !!
+        !!    x = [ -1., 0., 1. ]
+        !!    y = asind(x)
+        !!        -90.  0.  90.
+
+        !! atand computes the inverse tangent in degrees.
+        !!
+        !!## Syntax
+        !!     y = atand(x)
+        !!
+        !!## Description
+        !! `y = atand(x)` returns the inverse tangent of the elements in x in
+        !! degrees. For real elements of x in the domain [-Inf,Inf], atand
+        !! returns values in the range [-90,90].
+        !!
+        !!## Examples
+        !!     y = atand(0.)
+        !!         0.
+        !!
+        !!     y = atand(50.)
+        !!         88.8542328
+        !!
+        !!     x = [ -50., 0., 50. ]
+        !!     y = atand(x)
+        !!         -88.8542328   0.  88.8542328
         pure elemental module function atand_sp(x)
         real(sp),intent(in)::x
         real(sp)::atand_sp
@@ -208,23 +404,22 @@ module forlab
     end interface angle
 
     interface arange
-        ! arange
-        !-----------------------------------------------------------------------
-        ! arange returns evenly spaced vector.
-        !
-        ! Syntax
-        !-----------------------------------------------------------------------
-        ! x = arange(first, last)
-        !
-        ! Description
-        !-----------------------------------------------------------------------
-        ! x = arange(first, last) returns an evenly spaced integer vector
-        ! starting from first and ending at last.
-        !
-        ! Examples
-        !-----------------------------------------------------------------------
-        ! x = arange(1, 9)  
-        !     1   2   3   4   5   6   7   8   9
+        !! Version: expermental
+        !!
+        !! arange
+        !!
+        !! arange returns evenly spaced vector.
+        !!
+        !!## Syntax
+        !!     x = arange(first, last)
+        !!
+        !!## Description
+        !! `x = arange(first, last)` returns an evenly spaced integer vector
+        !! starting from first and ending at last.
+        !!
+        !!## Examples
+        !!     x = arange(1, 9)  
+        !!          1   2   3   4   5   6   7   8   9
             module function arange_int8 (first, last)
                 integer(int8), dimension(:), allocatable :: arange_int8
                 integer(int8), intent(in) :: first, last
@@ -308,31 +503,30 @@ module forlab
     end interface deg2utm
 
     interface diag
+        !! Version: expermental
+        !!
         !! diag creates diagonal matrix or get the diagonal of a matrix.
         !!
-        !! Syntax
-        !!-----------------------------------------------------------------------
-        !! x = diag(A)  
-        !! A = diag(x)
+        !!## Syntax
+        !!    x = diag(A)  
+        !!    A = diag(x)
         !!
-        !! Description
-        !!-----------------------------------------------------------------------
-        !! x = diag(A) returns the main diagonal of matrix A.
+        !!## Description
+        !! `x = diag(A)` returns the main diagonal of matrix `A`.
         !!
-        !! A = diag(x) returns a square diagonal matrix with the elements of x on
+        !! `A = diag(x)` returns a square diagonal matrix with the elements of `x` on
         !! the main diagonal.
         !!
-        !! Examples
-        !!-----------------------------------------------------------------------
-        !! A = eye(3)  
-        !! x = diag(A)  
-        !!     1.  1.  1.
+        !!## Examples
+        !!    A = eye(3)  
+        !!    x = diag(A)  
+        !!        1.  1.  1.
         !!
-        !! x = [ 1., 2., 3. ]  
-        !! A = diag(x)  
-        !!     1.  0.  0.  
-        !!     0.  2.  0.  
-        !!     0.  0.  3.  
+        !!    x = [ 1., 2., 3. ]  
+        !!    A = diag(x)  
+        !!        1.  0.  0.  
+        !!        0.  2.  0.  
+        !!        0.  0.  3.  
             module function diag1_sp (A)
                 real(sp), dimension(:), allocatable :: diag1_sp
                 real(sp), dimension(:, :), intent(in) :: A
