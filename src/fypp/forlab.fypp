@@ -113,7 +113,7 @@ module forlab
     #:for l1 in CIR_NAME 
     interface ${l1}$d
         #:for k1,t1 in REAL_KINDS_TYPES
-        module pure elemental function ${l1}$d_${k1}$(x)
+        pure elemental module  function ${l1}$d_${k1}$(x)
         ${t1}$,intent(in)::x
         ${t1}$::${l1}$d_${k1}$
         end function
@@ -125,7 +125,7 @@ module forlab
     #:for l1 in CIR_NAME
     interface ${l1}$d
         #:for k1,t1 in REAL_KINDS_TYPES
-        module pure elemental function ${l1}$d_${k1}$(x)
+        pure elemental module function ${l1}$d_${k1}$(x)
         ${t1}$,intent(in)::x
         ${t1}$::${l1}$d_${k1}$
         end function
