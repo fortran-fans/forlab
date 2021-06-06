@@ -2,9 +2,7 @@ submodule(forlab) forlab_det
     use forlab_kinds
 
 contains
-        real(sp) module function det_sp (A, outL, outU)
-            real(sp), dimension(:, :), intent(in) :: A
-            real(sp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
+         module procedure det_sp
             real(sp), dimension(:, :), allocatable :: L, U
             integer :: m
 
@@ -29,10 +27,8 @@ contains
                 stop "Error: in det(A), A should be square."
             end if
             return
-        end function
-        real(dp) module function det_dp (A, outL, outU)
-            real(dp), dimension(:, :), intent(in) :: A
-            real(dp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
+        end procedure
+         module procedure det_dp
             real(dp), dimension(:, :), allocatable :: L, U
             integer :: m
 
@@ -57,10 +53,8 @@ contains
                 stop "Error: in det(A), A should be square."
             end if
             return
-        end function
-        real(qp) module function det_qp (A, outL, outU)
-            real(qp), dimension(:, :), intent(in) :: A
-            real(qp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
+        end procedure
+         module procedure det_qp
             real(qp), dimension(:, :), allocatable :: L, U
             integer :: m
 
@@ -85,5 +79,5 @@ contains
                 stop "Error: in det(A), A should be square."
             end if
             return
-        end function
+        end procedure
 end submodule

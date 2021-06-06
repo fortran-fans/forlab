@@ -3,16 +3,13 @@ submodule(forlab) forlab_inv
     use forlab_kinds
 
 contains
-        function inv_rsp (A)
+        module procedure inv_rsp
         !! inv0 computes the real matrix inverse.
-            real(sp), dimension(:, :), allocatable :: inv_rsp
-            real(sp), dimension(:, :), intent(in) :: A
             integer :: i, j, k, m
             real(sp) :: D
             real(sp), dimension(:), allocatable :: x, y, e
             real(sp), dimension(:, :), allocatable :: L, U
             real(sp) :: flag
-
             if (issquare(A)) then
                 m = size(A, 1)
                 if (m .le. 3) then
@@ -79,18 +76,15 @@ contains
                 stop "Error: in inv(A), A should be square."
             end if
             return
-        end function
+        end procedure
 
-        function inv_rdp (A)
+        module procedure inv_rdp
         !! inv0 computes the real matrix inverse.
-            real(dp), dimension(:, :), allocatable :: inv_rdp
-            real(dp), dimension(:, :), intent(in) :: A
             integer :: i, j, k, m
             real(dp) :: D
             real(dp), dimension(:), allocatable :: x, y, e
             real(dp), dimension(:, :), allocatable :: L, U
             real(dp) :: flag
-
             if (issquare(A)) then
                 m = size(A, 1)
                 if (m .le. 3) then
@@ -157,18 +151,15 @@ contains
                 stop "Error: in inv(A), A should be square."
             end if
             return
-        end function
+        end procedure
 
-        function inv_rqp (A)
+        module procedure inv_rqp
         !! inv0 computes the real matrix inverse.
-            real(qp), dimension(:, :), allocatable :: inv_rqp
-            real(qp), dimension(:, :), intent(in) :: A
             integer :: i, j, k, m
             real(qp) :: D
             real(qp), dimension(:), allocatable :: x, y, e
             real(qp), dimension(:, :), allocatable :: L, U
             real(qp) :: flag
-
             if (issquare(A)) then
                 m = size(A, 1)
                 if (m .le. 3) then
@@ -235,14 +226,12 @@ contains
                 stop "Error: in inv(A), A should be square."
             end if
             return
-        end function
+        end procedure
 
 
 
-        function inv_csp (A)
+        module procedure inv_csp
         !! inv computes the complex matrix inverse.
-            complex(sp), dimension(:, :), allocatable :: inv_csp
-            complex(sp), dimension(:, :), intent(in) :: A
             real(sp), dimension(:, :), allocatable :: ar, ai
         !! AR stores the real part, AI stores the imaginary part
             integer :: flag, n
@@ -356,12 +345,10 @@ contains
                 stop 'Error: in inv(A), A should be square.'
             end if
             return
-        end function
+        end procedure
 
-        function inv_cdp (A)
+        module procedure inv_cdp
         !! inv computes the complex matrix inverse.
-            complex(dp), dimension(:, :), allocatable :: inv_cdp
-            complex(dp), dimension(:, :), intent(in) :: A
             real(dp), dimension(:, :), allocatable :: ar, ai
         !! AR stores the real part, AI stores the imaginary part
             integer :: flag, n
@@ -475,12 +462,10 @@ contains
                 stop 'Error: in inv(A), A should be square.'
             end if
             return
-        end function
+        end procedure
 
-        function inv_cqp (A)
+        module procedure inv_cqp
         !! inv computes the complex matrix inverse.
-            complex(qp), dimension(:, :), allocatable :: inv_cqp
-            complex(qp), dimension(:, :), intent(in) :: A
             real(qp), dimension(:, :), allocatable :: ar, ai
         !! AR stores the real part, AI stores the imaginary part
             integer :: flag, n
@@ -594,5 +579,5 @@ contains
                 stop 'Error: in inv(A), A should be square.'
             end if
             return
-        end function
+        end procedure
 end submodule

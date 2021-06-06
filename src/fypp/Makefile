@@ -13,4 +13,4 @@ clean:
 	cd $(SRCDIR); $(RM) $(SRCGEN)
 
 $(SRCGEN): %.f90: %.fypp common.fypp
-	fypp $(FYPPFLAGS) $< $(SRCDIR)$@
+	fypp.exe $(FYPPFLAGS) $< $(SRCDIR)$@

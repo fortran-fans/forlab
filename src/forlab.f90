@@ -25,7 +25,9 @@ module forlab
     integer, public, parameter :: CLEN = 512
     real(kind=8), public, parameter :: pi = 3.141592653589793238460d0
     real(kind=8), public, save :: tic_time
-
+    real(sp),public, parameter ::pi_sp=acos(-1.0_sp)
+    real(dp),public, parameter ::pi_dp=acos(-1.0_dp)
+    real(qp),public, parameter ::pi_qp=acos(-1.0_qp)
     ! Functions
     private
     public :: File, acosd, asind, atand, argmax, argmin, argsort, arange, &
@@ -110,8 +112,96 @@ module forlab
     end interface
 
     interface acosd
-        module procedure acosd0, acosd1, acosd2, acosd3
+        pure elemental module function acosd_sp(x)
+        real(sp),intent(in)::x
+        real(sp)::acosd_sp
+        end function
+        pure elemental module function acosd_dp(x)
+        real(dp),intent(in)::x
+        real(dp)::acosd_dp
+        end function
+        pure elemental module function acosd_qp(x)
+        real(qp),intent(in)::x
+        real(qp)::acosd_qp
+        end function
     end interface acosd
+
+    interface asind
+        pure elemental module function asind_sp(x)
+        real(sp),intent(in)::x
+        real(sp)::asind_sp
+        end function
+        pure elemental module function asind_dp(x)
+        real(dp),intent(in)::x
+        real(dp)::asind_dp
+        end function
+        pure elemental module function asind_qp(x)
+        real(qp),intent(in)::x
+        real(qp)::asind_qp
+        end function
+    end interface asind
+
+    interface atand
+        pure elemental module function atand_sp(x)
+        real(sp),intent(in)::x
+        real(sp)::atand_sp
+        end function
+        pure elemental module function atand_dp(x)
+        real(dp),intent(in)::x
+        real(dp)::atand_dp
+        end function
+        pure elemental module function atand_qp(x)
+        real(qp),intent(in)::x
+        real(qp)::atand_qp
+        end function
+    end interface atand
+
+    interface cosd
+        pure elemental module function cosd_sp(x)
+        real(sp),intent(in)::x
+        real(sp)::cosd_sp
+        end function
+        pure elemental module function cosd_dp(x)
+        real(dp),intent(in)::x
+        real(dp)::cosd_dp
+        end function
+        pure elemental module function cosd_qp(x)
+        real(qp),intent(in)::x
+        real(qp)::cosd_qp
+        end function
+    end interface cosd
+
+    interface sind
+        pure elemental module function sind_sp(x)
+        real(sp),intent(in)::x
+        real(sp)::sind_sp
+        end function
+        pure elemental module function sind_dp(x)
+        real(dp),intent(in)::x
+        real(dp)::sind_dp
+        end function
+        pure elemental module function sind_qp(x)
+        real(qp),intent(in)::x
+        real(qp)::sind_qp
+        end function
+    end interface sind
+
+    interface tand
+        pure elemental module function tand_sp(x)
+        real(sp),intent(in)::x
+        real(sp)::tand_sp
+        end function
+        pure elemental module function tand_dp(x)
+        real(dp),intent(in)::x
+        real(dp)::tand_dp
+        end function
+        pure elemental module function tand_qp(x)
+        real(qp),intent(in)::x
+        real(qp)::tand_qp
+        end function
+    end interface tand
+
+
 
     interface angle
         module procedure angle0, angle1
@@ -161,14 +251,6 @@ module forlab
         module procedure argmin1, argmin2, argmin3
     end interface argmin
 
-    interface asind
-        module procedure asind0, asind1, asind2, asind3
-    end interface asind
-
-    interface atand
-        module procedure atand0, atand1, atand2, atand3
-    end interface atand
-
     interface bspline1
         module procedure bspline1_1
     end interface bspline1
@@ -192,10 +274,6 @@ module forlab
     interface chi2rand
         module procedure chi2rand0, chi2rand1
     end interface chi2rand
-
-    interface cosd
-        module procedure cosd0, cosd1, cosd2, cosd3
-    end interface cosd
 
     interface countlines
         module procedure countlines2
@@ -1479,10 +1557,6 @@ module forlab
         module procedure silhouette1, silhouette2
     end interface silhouette
 
-    interface sind
-        module procedure sind0, sind1, sind2, sind3
-    end interface sind
-
     interface skewness
         module procedure skewness1, skewness2
     end interface skewness
@@ -1498,10 +1572,6 @@ module forlab
     interface std
         module procedure std1, std2
     end interface std
-
-    interface tand
-        module procedure tand0, tand1, tand2, tand3
-    end interface tand
 
     interface tril
         module procedure tril_i, tril_r, tril_c
@@ -1651,63 +1721,6 @@ module forlab
     end interface
 contains
 
-    ! acosd
-    !-----------------------------------------------------------------------
-    ! acosd computes the inverse cosine in degrees.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! y = acosd(x)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! y = acosd(x) returns the inverse cosine of the elements in x in
-    ! degrees. For real elements of x in the domain [-1,1], acosd returns
-    ! values in the range [0,180]. For values of x outside this range,
-    ! acosd returns NaN (Not a Number).
-    !
-    ! Examples
-    !-----------------------------------------------------------------------
-    ! y = acosd(1.)
-    !     1.
-    !
-    ! y = acosd(2.)
-    !     NaN
-    !
-    ! x = [ -1., 0., 1. ]
-    ! y = acosd(x)
-    !     180.  90.   0.
-
-    real(kind=RPRE) function acosd0(x)
-        real(kind=RPRE), intent(in) :: x
-
-        acosd0 = acos(x)*180.0d0/pi
-        return
-    end function acosd0
-
-    function acosd1(x)
-        real(kind=RPRE), dimension(:), allocatable :: acosd1
-        real(kind=RPRE), dimension(:), intent(in) :: x
-
-        acosd1 = acos(x)*180.0d0/pi
-        return
-    end function acosd1
-
-    function acosd2(A)
-        real(kind=RPRE), dimension(:, :), allocatable :: acosd2
-        real(kind=RPRE), dimension(:, :), intent(in) :: A
-
-        acosd2 = acos(A)*180.0d0/pi
-        return
-    end function acosd2
-
-    function acosd3(X)
-        real(kind=RPRE), dimension(:, :, :), allocatable :: acosd3
-        real(kind=RPRE), dimension(:, :, :), intent(in) :: X
-
-        acosd3 = acos(X)*180.0d0/pi
-        return
-    end function acosd3
 
     ! angle
     !-----------------------------------------------------------------------
@@ -1952,121 +1965,6 @@ contains
         end subroutine quickargsort
 
     end function argsort
-
-    ! asind
-    !-----------------------------------------------------------------------
-    ! asind computes the inverse sine in degrees.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! y = asind(x)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! y = asind(x) returns the inverse sine of the elements in x in degrees.
-    ! For real elements of x in the domain [-1,1], asind returns values in
-    ! the range [-90,90]. For values of x outside this range, asind returns
-    ! NaN (Not a Number).
-    !
-    ! Examples
-    !-----------------------------------------------------------------------
-    ! y = asind(1.)
-    !     90.
-    !
-    ! y = asind(2.)
-    !     NaN
-    !
-    ! x = [ -1., 0., 1. ]
-    ! y = asind(x)
-    !     -90.  0.  90.
-
-    real(kind=RPRE) function asind0(x)
-        real(kind=RPRE), intent(in) :: x
-
-        asind0 = asin(x)*180.0d0/pi
-        return
-    end function asind0
-
-    function asind1(x)
-        real(kind=RPRE), dimension(:), allocatable :: asind1
-        real(kind=RPRE), dimension(:), intent(in) :: x
-
-        asind1 = asin(x)*180.0d0/pi
-        return
-    end function asind1
-
-    function asind2(A)
-        real(kind=RPRE), dimension(:, :), allocatable :: asind2
-        real(kind=RPRE), dimension(:, :), intent(in) :: A
-
-        asind2 = asin(A)*180.0d0/pi
-        return
-    end function asind2
-
-    function asind3(X)
-        real(kind=RPRE), dimension(:, :, :), allocatable :: asind3
-        real(kind=RPRE), dimension(:, :, :), intent(in) :: X
-
-        asind3 = asin(X)*180.0d0/pi
-        return
-    end function asind3
-
-    ! atand
-    !-----------------------------------------------------------------------
-    ! atand computes the inverse tangent in degrees.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! y = atand(x)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! y = atand(x) returns the inverse tangent of the elements in x in
-    ! degrees. For real elements of x in the domain [-Inf,Inf], atand
-    ! returns values in the range [-90,90].
-    !
-    ! Examples
-    !-----------------------------------------------------------------------
-    ! y = atand(0.)
-    !     0.
-    !
-    ! y = atand(50.)
-    !     88.8542328
-    !
-    ! x = [ -50., 0., 50. ]
-    ! y = atand(x)
-    !     -88.8542328   0.  88.8542328
-
-    real(kind=RPRE) function atand0(x)
-        real(kind=RPRE), intent(in) :: x
-
-        atand0 = atan(x)*180.0d0/pi
-        return
-    end function atand0
-
-    function atand1(x)
-        real(kind=RPRE), dimension(:), allocatable :: atand1
-        real(kind=RPRE), dimension(:), intent(in) :: x
-
-        atand1 = atan(x)*180.0d0/pi
-        return
-    end function atand1
-
-    function atand2(A)
-        real(kind=RPRE), dimension(:, :), allocatable :: atand2
-        real(kind=RPRE), dimension(:, :), intent(in) :: A
-
-        atand2 = atan(A)*180.0d0/pi
-        return
-    end function atand2
-
-    function atand3(X)
-        real(kind=RPRE), dimension(:, :, :), allocatable :: atand3
-        real(kind=RPRE), dimension(:, :, :), intent(in) :: X
-
-        atand3 = atan(X)*180.0d0/pi
-        return
-    end function atand3
 
     ! bsplrep1
     !-----------------------------------------------------------------------
@@ -2604,59 +2502,6 @@ contains
         close (self%unit)
         return
     end subroutine close
-
-    ! cosd
-    !-----------------------------------------------------------------------
-    ! cosd computes the cosine of argument in degrees.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! y = cosd(x)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! y = cosd(x) returns the cosine of the elements in x, which are
-    ! expressed in degrees.
-    !
-    ! Examples
-    !-----------------------------------------------------------------------
-    ! y = cosd(0.)
-    !     1.
-    !
-    ! x = [ 0., 90., 180., 270. ]
-    ! y = cosd(x)
-    !     1.  0. -1.  0.
-
-    real(kind=RPRE) function cosd0(x)
-        real(kind=RPRE), intent(in) :: x
-
-        cosd0 = cos(x*pi/180.0d0)
-        return
-    end function cosd0
-
-    function cosd1(x)
-        real(kind=RPRE), dimension(:), allocatable :: cosd1
-        real(kind=RPRE), dimension(:), intent(in) :: x
-
-        cosd1 = cos(x*pi/180.0d0)
-        return
-    end function cosd1
-
-    function cosd2(A)
-        real(kind=RPRE), dimension(:, :), allocatable :: cosd2
-        real(kind=RPRE), dimension(:, :), intent(in) :: A
-
-        cosd2 = cos(A*pi/180.0d0)
-        return
-    end function cosd2
-
-    function cosd3(X)
-        real(kind=RPRE), dimension(:, :, :), allocatable :: cosd3
-        real(kind=RPRE), dimension(:, :, :), intent(in) :: X
-
-        cosd3 = cos(X*pi/180.0d0)
-        return
-    end function cosd3
 
     ! countlines
     !-----------------------------------------------------------------------
@@ -7426,59 +7271,6 @@ contains
         return
     end function sinc1
 
-    ! sind
-    !-----------------------------------------------------------------------
-    ! sind computes the sine of argument in degrees.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! y = sind(x)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! y = sind(x) returns the sine of the elements in x, which are expressed
-    ! in degrees.
-    !
-    ! Examples
-    !-----------------------------------------------------------------------
-    ! y = sind(90.)
-    !     1.
-    !
-    ! x = [ 0., 90., 180., 270. ]
-    ! y = sind(x)
-    !     0.  1.  0.  -1.
-
-    real(kind=RPRE) function sind0(x)
-        real(kind=RPRE), intent(in) :: x
-
-        sind0 = sin(x*pi/180.0d0)
-        return
-    end function sind0
-
-    function sind1(x)
-        real(kind=RPRE), dimension(:), allocatable :: sind1
-        real(kind=RPRE), dimension(:), intent(in) :: x
-
-        sind1 = sin(x*pi/180.0d0)
-        return
-    end function sind1
-
-    function sind2(A)
-        real(kind=RPRE), dimension(:, :), allocatable :: sind2
-        real(kind=RPRE), dimension(:, :), intent(in) :: A
-
-        sind2 = sin(A*pi/180.0d0)
-        return
-    end function sind2
-
-    function sind3(X)
-        real(kind=RPRE), dimension(:, :, :), allocatable :: sind3
-        real(kind=RPRE), dimension(:, :, :), intent(in) :: X
-
-        sind3 = sin(X*pi/180.0d0)
-        return
-    end function sind3
-
     ! skewness
     !-----------------------------------------------------------------------
     ! skewness computes vector and matrix skewnesses.
@@ -8505,59 +8297,6 @@ contains
         x = matmul(matmul(matmul(V(:, :k), diag(1/w(:k))), transpose(U(:, :k))), b)
         return
     end function svdsolve
-
-    ! tand
-    !-----------------------------------------------------------------------
-    ! tand computes the tangent of argument in degrees.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! y = tand(x)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! y = tand(x) returns the tangent of the elements in x, which are
-    ! expressed in degrees.
-    !
-    ! Examples
-    !-----------------------------------------------------------------------
-    ! y = tand(0.)
-    !     0.
-    !
-    ! x = [ 0., 90., 180., 270. ]
-    ! y = tand(x)
-    !     0.  Inf   0.  -Inf
-
-    real(kind=RPRE) function tand0(x)
-        real(kind=RPRE), intent(in) :: x
-
-        tand0 = tan(x*pi/180.0d0)
-        return
-    end function tand0
-
-    function tand1(x)
-        real(kind=RPRE), dimension(:), allocatable :: tand1
-        real(kind=RPRE), dimension(:), intent(in) :: x
-
-        tand1 = tan(x*pi/180.0d0)
-        return
-    end function tand1
-
-    function tand2(A)
-        real(kind=RPRE), dimension(:, :), allocatable :: tand2
-        real(kind=RPRE), dimension(:, :), intent(in) :: A
-
-        tand2 = tan(A*pi/180.0d0)
-        return
-    end function tand2
-
-    function tand3(X)
-        real(kind=RPRE), dimension(:, :, :), allocatable :: tand3
-        real(kind=RPRE), dimension(:, :, :), intent(in) :: X
-
-        tand3 = tan(X*pi/180.0d0)
-        return
-    end function tand3
 
     ! tic / toc
     !-----------------------------------------------------------------------

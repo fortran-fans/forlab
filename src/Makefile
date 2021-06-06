@@ -1,12 +1,21 @@
 SRCFYPP =\
-	forlab.fypp \
-	forlab_issquare.fypp \
-	forlab_inv.fypp \
-	forlab_det.fypp \
-	forlab_lu.fypp \
-	forlab_diag.fypp \
-	forlab_disp.fypp \
-	forlab_arange.fypp
+		 forlab.fypp \
+		 forlab_arange.fypp \
+		 forlab_det.fypp \
+		 forlab_diag.fypp \
+		 forlab_disp.fypp \
+		 forlab_empty.fypp \
+		 forlab_eye.fypp \
+		 forlab_inv.fypp \
+		 forlab_issquare.fypp \
+		 forlab_kinds.fypp \
+		 forlab_lu.fypp \
+		 forlab_randn.fypp \
+		 forlab_randu.fypp \
+		 forlab_rng.fypp \
+		 forlab_save.fypp \
+		 forlab_zeros.fypp \
+		 forlab_degcir.fypp
 
 SRC =	forlab_kinds.f90 \
 		forlab_zeros.f90 \
@@ -17,6 +26,7 @@ SRC =	forlab_kinds.f90 \
 LIB = libforlab.a
 
 
+FC=gfortran
 SRCGEN = $(SRCFYPP:.fypp=.f90)
 OBJS = $(SRC:.f90=.o)
 MODS = $(OBJS:.o=.mod)
@@ -35,8 +45,10 @@ clean:
 %.o: %.f90
 	$(FC) $(FFLAGS) -c $<
 
-$(SRCGEN): %.f90: %.fypp common.fypp
-	fypp $(FYPPFLAGS) $< $@
+$(SRCGEN):
+	cd ./fypp && $(MAKE)
+#: %.fypp common.fypp
+#	fypp $(FYPPFLAGS) $< $@
 
 # Fortran module dependencies
 forlab.o: \
@@ -69,5 +81,14 @@ forlab_disp.o: \
 	forlab.o \
 	forlab_kinds.o
 forlab_arange.o: \
+	forlab.o \
+	forlab_kinds.o
+forlab_randn.o: \
+	forlab.o \
+	forlab_kinds.o
+forlab_randu.o: \
+	forlab.o \
+	forlab_kinds.o
+forlab_degcir.o: \
 	forlab.o \
 	forlab_kinds.o
