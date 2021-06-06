@@ -4,31 +4,31 @@ submodule(forlab) forlab_det
 
 contains
     #:for k1,t1 in REAL_KINDS_TYPES
-         module procedure det_${k1}$
-            real(${k1}$), dimension(:, :), allocatable :: L, U
-            integer :: m
+    module procedure det_${k1}$
+        real(${k1}$), dimension(:, :), allocatable :: L, U
+        integer :: m
 
-            if (issquare(A)) then
-                m = size(A, 1)
-                if (m .eq. 2) then
-                    det_${k1}$ = A(1, 1)*A(2, 2) - A(1, 2)*A(2, 1)
-                elseif (m .eq. 3) then
-                    det_${k1}$ = A(1, 1)*A(2, 2)*A(3, 3) &
-                                 + A(2, 1)*A(3, 2)*A(1, 3) &
-                                 + A(3, 1)*A(1, 2)*A(2, 3) &
-                                 - A(1, 1)*A(3, 2)*A(2, 3) &
-                                 - A(3, 1)*A(2, 2)*A(1, 3) &
-                                 - A(2, 1)*A(1, 2)*A(3, 3)
-                else
-                    call lu(A, L, U)
-                    det_${k1}$ = product(diag(U))
-                    if (present(outL)) outL = L
-                    if (present(outU)) outU = U
-                end if
+        if (issquare(A)) then
+            m = size(A, 1)
+            if (m .eq. 2) then
+                det_${k1}$ = A(1, 1)*A(2, 2) - A(1, 2)*A(2, 1)
+            elseif (m .eq. 3) then
+                det_${k1}$ = A(1, 1)*A(2, 2)*A(3, 3) &
+                                + A(2, 1)*A(3, 2)*A(1, 3) &
+                                + A(3, 1)*A(1, 2)*A(2, 3) &
+                                - A(1, 1)*A(3, 2)*A(2, 3) &
+                                - A(3, 1)*A(2, 2)*A(1, 3) &
+                                - A(2, 1)*A(1, 2)*A(3, 3)
             else
-                stop "Error: in det(A), A should be square."
+                call lu(A, L, U)
+                det_${k1}$ = product(diag(U))
+                if (present(outL)) outL = L
+                if (present(outU)) outU = U
             end if
-            return
-        end procedure
+        else
+            stop "Error: in det(A), A should be square."
+        end if
+        return
+    end procedure
     #:endfor
 end submodule
