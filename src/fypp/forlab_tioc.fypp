@@ -4,18 +4,14 @@ submodule(forlab) forlab_tioc
     !! and we only provide the double-precision version at the preliminary stage.
     use forlab_kinds
     implicit none
-    #:for k1, t1 in REAL_KINDS_TYPES
-    real(${k1}$), save :: tic_time_${k1}$
-    #:endfor
+    real(dp), save :: tic_time
 contains
     module procedure tic
         integer :: values(8)
         call date_and_time(values=values)
-        tic_time_qp = datenum(values(1), values(2), values(3), values(5), &
+        tic_time = datenum(values(1), values(2), values(3), values(5), &
                            values(6), values(7), values(8)*1000) &
-                   *24.0_qp*60.0_qp*60.0_qp
-        tic_time_dp = real(tic_time_qp, 8)
-        tic_time_sp = real(tic_time_dp, 4)
+                   *24.0d0*60.0d0*60.0d0
         return
     end procedure
 
@@ -27,7 +23,7 @@ contains
         toc_time = datenum(values(1), values(2), values(3), values(5), &
                            values(6), values(7), values(8)*1000) &
                    *24.0d0*60.0d0*60.0d0
-        elapsed_time = toc_time - tic_time_dp
+        elapsed_time = toc_time - tic_time
 
         print *, "Elapsed time: " &
             //num2str(elapsed_time, "(F12.3)") &
@@ -38,15 +34,15 @@ contains
     #:for k1, t1 in REAL_KINDS_TYPES
     module procedure toc_${k1}$
         integer :: values(8)
-        real(${k1}$) :: toc_time_${k1}$, elapsed_time
+        real(dp) :: toc_time, elapsed_time
 
         call date_and_time(values=values)
-        toc_time_${k1}$ = datenum(values(1), values(2), values(3), values(5), &
+        toc_time = datenum(values(1), values(2), values(3), values(5), &
                            values(6), values(7), values(8)*1000) &
-                   *24.0_${k1}$*60.0_${k1}$*60.0_${k1}$
-        elapsed_time = toc_time_${k1}$ - tic_time_${k1}$
-            
-        t = elapsed_time
+                   *24.0d0*60.0d0*60.0d0
+        elapsed_time = toc_time - tic_time
+
+        t = elapsed_time        !!\ATTENTION@zuo.zhihua@qq.com: Accuracy is converted here.
         return
     end procedure
 

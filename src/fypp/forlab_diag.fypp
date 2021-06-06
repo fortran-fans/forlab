@@ -4,24 +4,24 @@ submodule(forlab) forlab_diag
 
 contains
     #:for k1,t1 in REAL_KINDS_TYPES
-        module procedure diag1_${k1}$
-            integer :: i, n
-            n = min(size(A, 1), size(A, 2))
-            allocate (diag1_${k1}$ (n))
-            do i = 1, n
-                diag1_${k1}$ (i) = A(i, i)
-            end do
-            return
-        end procedure
+    module procedure diag1_${k1}$
+        integer :: i, n
+        n = min(size(A, 1), size(A, 2))
+        allocate (diag1_${k1}$ (n))
+        do i = 1, n
+            diag1_${k1}$ (i) = A(i, i)
+        end do
+        return
+    end procedure
 
-        module procedure diag2_${k1}$
-            integer :: i, n
-            n = size(x)
-            diag2_${k1}$ = zeros(n, n)
-            do i = 1, n
-                diag2_${k1}$ (i, i) = x(i)
-            end do
-            return
-        end procedure
+    module procedure diag2_${k1}$
+        integer :: i, n
+        n = size(x)
+        diag2_${k1}$ = zeros(n, n)
+        do i = 1, n
+            diag2_${k1}$ (i, i) = x(i)
+        end do
+        return
+    end procedure
     #:endfor
 end submodule

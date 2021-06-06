@@ -47,16 +47,22 @@ program main
         real :: time_sp
         real(8) :: time_dp
         real(16) :: time_qp
-        real :: x(1000)
+        real, allocatable :: x(:)
 
         call disp('----------------------------')
         call tic()
         x = randn(10000)
+        call disp(size(x), 'x size:')
+
         call toc()
         call toc(time_sp)
         call disp(time_sp,'tic/toc sp-version is passed:')
+
+        call toc()
         call toc(time_dp)
         call disp(time_dp,'tic/toc dp-version is passed:')
+
+        call toc()
         call toc(time_qp)
         call disp(time_qp,'tic/toc qp-version is passed:')
     end block

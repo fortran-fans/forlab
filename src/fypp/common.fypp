@@ -1,30 +1,30 @@
 #:mute
 
-    #! Real kinds to be considered during templating
-    #:set REAL_KINDS = ["sp", "dp", "qp"]
+#! Real kinds to be considered during templating
+#:set REAL_KINDS = ["sp", "dp", "qp"]
 
-    #! Real types to be considere during templating
-    #:set REAL_TYPES = ["real({})".format(k) for k in REAL_KINDS]
+#! Real types to be considere during templating
+#:set REAL_TYPES = ["real({})".format(k) for k in REAL_KINDS]
 
-    #! Collected (kind, type) tuples for real types
-    #:set REAL_KINDS_TYPES = list(zip(REAL_KINDS, REAL_TYPES))
+#! Collected (kind, type) tuples for real types
+#:set REAL_KINDS_TYPES = list(zip(REAL_KINDS, REAL_TYPES))
 
-    #! Complex kinds to be considered during templating
-    #:set CMPLX_KINDS = ["sp", "dp", "qp"]
+#! Complex kinds to be considered during templating
+#:set CMPLX_KINDS = ["sp", "dp", "qp"]
 
-    #! Complex types to be considere during templating
-    #:set CMPLX_TYPES = ["complex({})".format(k) for k in CMPLX_KINDS]
+#! Complex types to be considere during templating
+#:set CMPLX_TYPES = ["complex({})".format(k) for k in CMPLX_KINDS]
 
-    #! Collected (kind, type) tuples for complex types
-    #:set CMPLX_KINDS_TYPES = list(zip(CMPLX_KINDS, CMPLX_TYPES))
+#! Collected (kind, type) tuples for complex types
+#:set CMPLX_KINDS_TYPES = list(zip(CMPLX_KINDS, CMPLX_TYPES))
 
-    #! Integer kinds to be considered during templating
-    #:set INT_KINDS = ["int8", "int16", "int32", "int64"]
+#! Integer kinds to be considered during templating
+#:set INT_KINDS = ["int8", "int16", "int32", "int64"]
 
-    #! Integer types to be considere during templating
-    #:set INT_TYPES = ["integer({})".format(k) for k in INT_KINDS]
+#! Integer types to be considere during templating
+#:set INT_TYPES = ["integer({})".format(k) for k in INT_KINDS]
 
-    #! Collected (kind, type) tuples for integer types
-    #:set INT_KINDS_TYPES = list(zip(INT_KINDS, INT_TYPES))
+#! Collected (kind, type) tuples for integer types
+#:set INT_KINDS_TYPES = list(zip(INT_KINDS, INT_TYPES))
 
 #:endmute
