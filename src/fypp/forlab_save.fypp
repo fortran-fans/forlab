@@ -6,9 +6,7 @@ submodule(forlab) forlab_save
 contains
     !! REAL Versions
     #:for k1,t1 in REAL_KINDS_TYPES
-    module subroutine savetxt_1_${k1}$(filename, x)
-        character(len=*), intent(in) :: filename
-        ${t1}$, dimension(:), intent(in) :: x
+    module procedure savetxt_1_${k1}$
         integer :: i, m
         type(file) :: infile
         integer :: unit
@@ -21,11 +19,9 @@ contains
         end do
         call infile%close()
         return
-    end subroutine
+    end procedure
 
-    module subroutine savetxt_2_${k1}$(filename, A)
-        character(len=*), intent(in) :: filename
-        ${t1}$, dimension(:, :), intent(in) :: A
+    module procedure savetxt_2_${k1}$
         integer :: i, m
         type(File) :: infile
         integer :: unit
@@ -38,11 +34,9 @@ contains
         end do
         call infile%close()
         return
-    end subroutine
+    end procedure
 
-    module subroutine savebin_1_${k1}$(filename, x)
-        character(len=*), intent(in) :: filename
-        ${t1}$, dimension(:), intent(in) :: x
+    module procedure savebin_1_${k1}$
         type(File) :: infile
         integer :: unit
 
@@ -51,11 +45,9 @@ contains
         write (infile%unit, rec=1) x
         call infile%close()
         return
-    end subroutine
+    end procedure
 
-    module subroutine savebin_2_${k1}$(filename, A)
-        character(len=*), intent(in) :: filename
-        ${t1}$, dimension(:, :), intent(in) :: A
+    module procedure savebin_2_${k1}$
         type(File) :: infile
         integer :: unit
 
@@ -64,11 +56,9 @@ contains
         write (infile%unit, rec=1) A
         call infile%close()
         return
-    end subroutine
+    end procedure
 
-    module subroutine savebin_3_${k1}$(filename, X)
-        character(len=*), intent(in) :: filename
-        ${t1}$, dimension(:, :, :), intent(in) :: X
+    module procedure savebin_3_${k1}$
         type(File) :: infile
         integer :: unit
 
@@ -77,15 +67,13 @@ contains
         write (infile%unit, rec=1) X
         call infile%close()
         return
-    end subroutine
+    end procedure
 
     #:endfor
 
     !! Integer Versions
     #:for k1, t1 in INT_KINDS_TYPES
-    module subroutine savetxt_1_${k1}$(filename, x)
-        character(len=*), intent(in) :: filename
-        ${t1}$, dimension(:), intent(in) :: x
+    module procedure savetxt_1_${k1}$
         integer :: i, m
         type(File) :: infile
         integer :: unit
@@ -98,11 +86,9 @@ contains
         end do
         call infile%close()
         return
-    end subroutine
+    end procedure
 
-    module subroutine savetxt_2_${k1}$(filename, A)
-        character(len=*), intent(in) :: filename
-        ${t1}$, dimension(:, :), intent(in) :: A
+    module procedure savetxt_2_${k1}$
         integer :: i, m
         type(File) :: infile
         integer :: unit
@@ -115,7 +101,7 @@ contains
         end do
         call infile%close()
         return
-    end subroutine
+    end procedure
 
     #:endfor
 end submodule

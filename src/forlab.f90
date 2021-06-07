@@ -70,40 +70,31 @@ module forlab
     end interface
 
     !! Polymorphic Interfaces
-    interface det
-        !! Version: expermental
-        !!
-        !! det computes the matrix determinant.
+    interface angle
+        !! angle compute the phase angle.
         !!
         !!## Syntax
-        !!    x = det(A)  
-        !!    x = det(A, L, U)  
+        !!    p = angle(z)
+        !!    P = angle(Z)
         !!
         !!## Description
-        !! `x = det(A)` returns the determinant of the square matrix A, as the
-        !! product of the diagonal elements of the upper triangular matrix from
-        !! the LU factorization of A.
+        !! `p = angle(z)` returns the phase angle in radians of the complex
+        !! number z.
         !!
-        !! `x = det(A, L, U)` returns the determinant of the square matrix A and
-        !! outputs the LU factorization matrices of A used for the calculation.
-        !!
-        !!## Examples
-        !!    A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 0. ], [ 3, 3 ], &  
-        !!                order = [ 2, 1 ])  
-        !!    x = det(A)  
-        !!        27. 
-        real(sp) module function det_sp (A, outL, outU)
-            real(sp), dimension(:, :), intent(in) :: A
-            real(sp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
+        !! `P = angle(Z)` returns the phase angles in radians of each complex
+        !! numbers in vector Z.
+        real(sp) elemental module function angle_sp(z)
+            complex(sp), intent(in) :: z
         end function
-        real(dp) module function det_dp (A, outL, outU)
-            real(dp), dimension(:, :), intent(in) :: A
-            real(dp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
+
+        real(dp) elemental module function angle_dp(z)
+            complex(dp), intent(in) :: z
         end function
-        real(qp) module function det_qp (A, outL, outU)
-            real(qp), dimension(:, :), intent(in) :: A
-            real(qp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
+
+        real(qp) elemental module function angle_qp(z)
+            complex(qp), intent(in) :: z
         end function
+
     end interface
 
     interface acosd
@@ -398,10 +389,6 @@ module forlab
     end interface tand
 
 
-    interface angle
-        module procedure angle0, angle1
-    end interface angle
-
     interface arange
         !! Version: expermental
         !!
@@ -504,6 +491,43 @@ module forlab
     interface deg2utm
         module procedure deg2utm0, deg2utm1
     end interface deg2utm
+
+    
+    interface det
+        !! Version: expermental
+        !!
+        !! det computes the matrix determinant.
+        !!
+        !!## Syntax
+        !!    x = det(A)  
+        !!    x = det(A, L, U)  
+        !!
+        !!## Description
+        !! `x = det(A)` returns the determinant of the square matrix A, as the
+        !! product of the diagonal elements of the upper triangular matrix from
+        !! the LU factorization of A.
+        !!
+        !! `x = det(A, L, U)` returns the determinant of the square matrix A and
+        !! outputs the LU factorization matrices of A used for the calculation.
+        !!
+        !!## Examples
+        !!    A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 0. ], [ 3, 3 ], &  
+        !!                order = [ 2, 1 ])  
+        !!    x = det(A)  
+        !!        27. 
+        real(sp) module function det_sp (A, outL, outU)
+            real(sp), dimension(:, :), intent(in) :: A
+            real(sp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
+        end function
+        real(dp) module function det_dp (A, outL, outU)
+            real(dp), dimension(:, :), intent(in) :: A
+            real(dp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
+        end function
+        real(qp) module function det_qp (A, outL, outU)
+            real(qp), dimension(:, :), intent(in) :: A
+            real(qp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
+        end function
+    end interface
 
     interface diag
         !! Version: expermental
@@ -838,37 +862,37 @@ module forlab
             real(dp), allocatable :: empty_3_default (:,:,:)
         end function
 
-        module function empty_1_sp (dim1, flag)
+        module function empty_1_sp(dim1, flag)
             integer, intent(in) :: dim1
             real(sp), allocatable :: empty_1_sp (:)
             real(sp), intent(in) :: flag
         end function
 
-        module function empty_1_dp (dim1, flag)
+        module function empty_1_dp(dim1, flag)
             integer, intent(in) :: dim1
             real(dp), allocatable :: empty_1_dp (:)
             real(dp), intent(in) :: flag
         end function
 
-        module function empty_1_qp (dim1, flag)
+        module function empty_1_qp(dim1, flag)
             integer, intent(in) :: dim1
             real(qp), allocatable :: empty_1_qp (:)
             real(qp), intent(in) :: flag
         end function
 
-        module function empty_2_sp (dim1, dim2, flag)
+        module function empty_2_sp(dim1, dim2, flag)
             integer, intent(in) :: dim1, dim2
             real(sp), allocatable :: empty_2_sp (:,:)
             real(sp), intent(in) :: flag
         end function
 
-        module function empty_2_dp (dim1, dim2, flag)
+        module function empty_2_dp(dim1, dim2, flag)
             integer, intent(in) :: dim1, dim2
             real(dp), allocatable :: empty_2_dp (:,:)
             real(dp), intent(in) :: flag
         end function
 
-        module function empty_2_qp (dim1, dim2, flag)
+        module function empty_2_qp(dim1, dim2, flag)
             integer, intent(in) :: dim1, dim2
             real(qp), allocatable :: empty_2_qp (:,:)
             real(qp), intent(in) :: flag
@@ -1235,8 +1259,107 @@ module forlab
     end interface kurtosis
 
     interface linspace
-        module procedure linspace_r8r8, linspace_r4r4, linspace_i4i4, &
-            linspace_r8i4, linspace_r4i4, linspace_i4r8, linspace_i4r4
+        !! Version: experimental
+        !!
+        !! linspace creates a linearly spaced vector.   
+        !!
+        !!## Syntax
+        !!    x = linspace(x1, x2, n)
+        !!
+        !!## Description
+        !! `x = linspace(x1, x2, n)` returns a vector of n evenly spaced points
+        !! between x1 and x2.
+        !!
+        !!## Examples
+        !!    x = linspace(0, 10, 11)
+        !!        0.  1.  2.  3.  4.  5.  6.  7.  8.  9.  10.
+        module function linspace_sp(first, last, n)
+            real(sp), dimension(:), allocatable :: linspace_sp
+            real(sp), intent(in) :: first, last
+            integer, intent(in) :: n
+        end function
+
+        module function linspace_int_sp(first, last, n, flag)
+            real(sp), dimension(:), allocatable :: linspace_int_sp
+            integer, intent(in) :: first, last
+            integer, intent(in) :: n
+            real(sp), intent(in) :: flag
+        end function 
+
+        module function linspace_ri_sp(first, last, n)
+            real(sp), dimension(:), allocatable :: linspace_ri_sp
+            real(sp), intent(in) :: first
+            integer, intent(in) :: last
+            integer, intent(in) :: n
+        end function
+    
+        module function linspace_ir_sp(first, last, n)
+            real(sp), dimension(:), allocatable :: linspace_ir_sp
+            integer, intent(in) :: first
+            real(sp), intent(in) :: last
+            integer, intent(in) :: n
+        end function
+
+        module function linspace_dp(first, last, n)
+            real(dp), dimension(:), allocatable :: linspace_dp
+            real(dp), intent(in) :: first, last
+            integer, intent(in) :: n
+        end function
+
+        module function linspace_int_dp(first, last, n, flag)
+            real(dp), dimension(:), allocatable :: linspace_int_dp
+            integer, intent(in) :: first, last
+            integer, intent(in) :: n
+            real(dp), intent(in) :: flag
+        end function 
+
+        module function linspace_ri_dp(first, last, n)
+            real(dp), dimension(:), allocatable :: linspace_ri_dp
+            real(dp), intent(in) :: first
+            integer, intent(in) :: last
+            integer, intent(in) :: n
+        end function
+    
+        module function linspace_ir_dp(first, last, n)
+            real(dp), dimension(:), allocatable :: linspace_ir_dp
+            integer, intent(in) :: first
+            real(dp), intent(in) :: last
+            integer, intent(in) :: n
+        end function
+
+        module function linspace_qp(first, last, n)
+            real(qp), dimension(:), allocatable :: linspace_qp
+            real(qp), intent(in) :: first, last
+            integer, intent(in) :: n
+        end function
+
+        module function linspace_int_qp(first, last, n, flag)
+            real(qp), dimension(:), allocatable :: linspace_int_qp
+            integer, intent(in) :: first, last
+            integer, intent(in) :: n
+            real(qp), intent(in) :: flag
+        end function 
+
+        module function linspace_ri_qp(first, last, n)
+            real(qp), dimension(:), allocatable :: linspace_ri_qp
+            real(qp), intent(in) :: first
+            integer, intent(in) :: last
+            integer, intent(in) :: n
+        end function
+    
+        module function linspace_ir_qp(first, last, n)
+            real(qp), dimension(:), allocatable :: linspace_ir_qp
+            integer, intent(in) :: first
+            real(qp), intent(in) :: last
+            integer, intent(in) :: n
+        end function
+
+        module function linspace_default(first, last, n)
+            real(dp), dimension(:), allocatable :: linspace_default
+            integer, intent(in) :: first, last
+            integer, intent(in) :: n
+        end function 
+
     end interface linspace
 
     interface loadbin
@@ -2018,43 +2141,6 @@ module forlab
 
     end interface
 contains
-
-    ! angle
-    !-----------------------------------------------------------------------
-    ! angle compute the phase angle.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! p = angle(z)
-    ! P = angle(Z)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! p = angle(z) returns the phase angle in radians of the complex
-    ! number z.
-    !
-    ! P = angle(Z) returns the phase angles in radians of each complex
-    ! numbers in vector Z.
-
-    real(kind=RPRE) function angle0(z)
-        complex(kind=RPRE), intent(in) :: z
-
-        angle0 = imag(log(z))
-        return
-    end function angle0
-
-    function angle1(Z)
-        real(kind=RPRE), dimension(:), allocatable :: angle1
-        complex(kind=RPRE), dimension(:), intent(in) :: Z
-        integer(kind=IPRE) :: i, n
-
-        n = size(Z)
-        angle1 = zeros(n)
-        do i = 1, n
-            angle1(i) = angle0(Z(i))
-        end do
-        return
-    end function angle1
 
     ! argmax
     !-----------------------------------------------------------------------
@@ -5463,95 +5549,6 @@ contains
         end if
         return
     end function kurtosis2
-
-    ! linspace
-    !-----------------------------------------------------------------------
-    ! linspace creates a linearly spaced vector.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! x = linspace(x1, x2, n)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! x = linspace(x1, x2, n) returns a vector of n evenly spaced points
-    ! between x1 and x2.
-    !
-    ! Examples
-    !-----------------------------------------------------------------------
-    ! x = linspace(0, 10, 11)
-    !     0.  1.  2.  3.  4.  5.  6.  7.  8.  9.  10.
-
-    function linspace_r8r8(first, last, n)
-        real(kind=RPRE), dimension(:), allocatable :: linspace_r8r8
-        real(kind=8), intent(in) :: first, last
-        integer(kind=IPRE), intent(in) :: n
-        integer(kind=IPRE) :: i
-        real(kind=8) :: step
-
-        allocate (linspace_r8r8(n))
-        step = (last - first)/(n - 1)
-        linspace_r8r8 = first + step*real([(i - 1, i=1, n)], RPRE)
-        return
-    end function linspace_r8r8
-
-    function linspace_r4r4(first, last, n)
-        real(kind=RPRE), dimension(:), allocatable :: linspace_r4r4
-        real(kind=4), intent(in) :: first, last
-        integer(kind=IPRE), intent(in) :: n
-
-        linspace_r4r4 = linspace(real(first, kind=8), real(last, kind=8), n)
-        return
-    end function linspace_r4r4
-
-    function linspace_i4i4(first, last, n)
-        real(kind=RPRE), dimension(:), allocatable :: linspace_i4i4
-        integer(kind=4), intent(in) :: first, last
-        integer(kind=IPRE), intent(in) :: n
-
-        linspace_i4i4 = linspace(real(first, kind=8), real(last, kind=8), n)
-        return
-    end function linspace_i4i4
-
-    function linspace_r8i4(first, last, n)
-        real(kind=RPRE), dimension(:), allocatable :: linspace_r8i4
-        real(kind=8), intent(in) :: first
-        integer(kind=4), intent(in) :: last
-        integer(kind=IPRE), intent(in) :: n
-
-        linspace_r8i4 = linspace(first, real(last, kind=8), n)
-        return
-    end function linspace_r8i4
-
-    function linspace_r4i4(first, last, n)
-        real(kind=RPRE), dimension(:), allocatable :: linspace_r4i4
-        real(kind=4), intent(in) :: first
-        integer(kind=4), intent(in) :: last
-        integer(kind=IPRE), intent(in) :: n
-
-        linspace_r4i4 = linspace(real(first, kind=8), real(last, kind=8), n)
-        return
-    end function linspace_r4i4
-
-    function linspace_i4r8(first, last, n)
-        real(kind=RPRE), dimension(:), allocatable :: linspace_i4r8
-        integer(kind=4), intent(in) :: first
-        real(kind=8), intent(in) :: last
-        integer(kind=IPRE), intent(in) :: n
-
-        linspace_i4r8 = linspace(real(first, kind=8), last, n)
-        return
-    end function linspace_i4r8
-
-    function linspace_i4r4(first, last, n)
-        real(kind=RPRE), dimension(:), allocatable :: linspace_i4r4
-        integer(kind=4), intent(in) :: first
-        real(kind=4), intent(in) :: last
-        integer(kind=IPRE), intent(in) :: n
-
-        linspace_i4r4 = linspace(real(first, kind=8), real(last, kind=8), n)
-        return
-    end function linspace_i4r4
 
     ! loadbin
     !-----------------------------------------------------------------------

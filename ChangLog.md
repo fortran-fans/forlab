@@ -5,6 +5,7 @@
         Provide multi-precision functions, set submodule files.
 
         * src/fypp/common.fypp:
+        * src/fypp/forlb_angle.fypp:
         * src/fypp/forlab_arange.fypp:
         * src/fypp/forlab_det.fypp:
         * src/fypp/forlab_disp.fypp:
@@ -15,6 +16,7 @@
         * src/fypp/forlab_issquare.fypp:
         * src/fypp/forlab_kinds.fypp:
         * src/fypp/forlab_lu.fypp:
+        * src/fypp/forlab_linspace.fypp:
         * src/fypp/forlab_num2str.fypp: (#10 PR)
         * src/fypp/forlab_operator_x.fypp:
         * src/fypp/forlab_randn.fypp:

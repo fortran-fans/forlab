@@ -1,9 +1,8 @@
 submodule(forlab) forlab_degcir
-    !degree circular functions
     !! Version: experimental
+    !! degree circular functions
     !!
-    !! Discussion:
-    !! ----
+    !!## Discussion:
     !! https://fortran-lang.discourse.group/t/fortran-function-return-value-polymorphism/1350/5
     use forlab_kinds
     implicit none

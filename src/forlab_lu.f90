@@ -8,9 +8,7 @@ submodule(forlab) forlab_lu
     implicit none
     
 contains
-    module subroutine lu_sp (A, L, U)
-        real(sp), dimension(:, :), intent(in) :: A
-        real(sp), dimension(:, :), allocatable, intent(out) :: L, U
+    module procedure lu_sp
         integer :: i, j, k, m
         real(sp) :: flag
 
@@ -38,11 +36,9 @@ contains
             stop "Error: in A = LU, A should be square."
         end if
         return
-    end subroutine
+    end procedure
 
-    module subroutine lu_dp (A, L, U)
-        real(dp), dimension(:, :), intent(in) :: A
-        real(dp), dimension(:, :), allocatable, intent(out) :: L, U
+    module procedure lu_dp
         integer :: i, j, k, m
         real(dp) :: flag
 
@@ -70,11 +66,9 @@ contains
             stop "Error: in A = LU, A should be square."
         end if
         return
-    end subroutine
+    end procedure
 
-    module subroutine lu_qp (A, L, U)
-        real(qp), dimension(:, :), intent(in) :: A
-        real(qp), dimension(:, :), allocatable, intent(out) :: L, U
+    module procedure lu_qp
         integer :: i, j, k, m
         real(qp) :: flag
 
@@ -102,6 +96,6 @@ contains
             stop "Error: in A = LU, A should be square."
         end if
         return
-    end subroutine
+    end procedure
 
 end submodule
