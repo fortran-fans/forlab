@@ -1,0 +1,107 @@
+
+
+#:include 'common.fypp'
+submodule(forlab) forlab_sort
+    !! Version: experimental
+    !!
+    !! Discussion:
+    !! ----
+    !! https://fortran-lang.discourse.group/t/fortran-function-return-value-polymorphism/1350/5
+    use forlab_kinds
+    implicit none
+contains
+    !! Default versions
+    ! sort\tofix
+    !-----------------------------------------------------------------------
+    ! sort sorts arrays elements.
+    !
+    ! Syntax
+    !-----------------------------------------------------------------------
+    ! y = sort(x)
+    ! y = sort(x, 1)
+    ! y = sort(x, 2)
+    !
+    ! Description
+    !-----------------------------------------------------------------------
+    ! y = sort(x) returns the sorted elements of the vector x in the
+    ! ascending order.
+    !
+    ! y = sort(x, 1) (see y = sort(x)).
+    !
+    ! y = sort(x, 2) returns the sorted elements of the vector x in the
+    ! descending order.
+    #:for k1, t1 in INT_KINDS_TYPES+REAL_KINDS_TYPES
+    module procedure sort_${k1}$
+        integer :: n,order1
+        n = size(x)
+        sort_${k1}$ = x
+        if (.not. present(order))then
+            order1=1
+        else
+            order1=order
+        end if
+            call quicksort(sort_${k1}$, n, order1)
+    contains
+        !-------------------------------------------------------------------
+        ! quicksort
+        !-------------------------------------------------------------------
+        recursive subroutine quicksort(x, n, order)
+            ${t1}$, dimension(n), intent(inout) :: x
+            integer, intent(in) :: n, order
+            integer :: left, right, marker
+            ${t1}$ :: pivot, tmp
+
+            if (n .gt. 1) then
+                left = 0
+                right = n + 1
+                pivot = x(randi(n))
+                select case (order)
+                case (1)
+                    do while (left .lt. right)
+                        left = left + 1
+                        right = right - 1
+                        do while (x(left) .lt. pivot)
+                            left = left + 1
+                        end do
+                        do while (x(right) .gt. pivot)
+                            right = right - 1
+                        end do
+                        if (left .lt. right) then
+                            tmp = x(left)
+                            x(left) = x(right)
+                            x(right) = tmp
+                        end if
+                    end do
+                case (2)
+                    do while (left .lt. right)
+                        left = left + 1
+                        right = right - 1
+                        do while (x(left) .gt. pivot)
+                            left = left + 1
+                        end do
+                        do while (x(right) .lt. pivot)
+                            right = right - 1
+                        end do
+                        if (left .lt. right) then
+                            tmp = x(left)
+                            x(left) = x(right)
+                            x(right) = tmp
+                        end if
+                    end do
+                case default
+                    error stop "Error:Sort order MUST be 1 or 2"
+                end select
+                if (left .eq. right) then
+                    marker = left + 1
+                else
+                    marker = left
+                end if
+                call quicksort(x(:marker - 1), marker - 1, order)
+                call quicksort(x(marker:), n - marker + 1, order)
+            end if
+        end subroutine quicksort
+    end procedure sort_${k1}$
+
+    #:endfor
+end submodule
+

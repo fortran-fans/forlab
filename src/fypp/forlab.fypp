@@ -233,6 +233,17 @@ module forlab
         module procedure argmin1, argmin2, argmin3
     end interface argmin
 
+    interface argsort
+    #:for k1, t1 in INT_KINDS_TYPES+REAL_KINDS_TYPES
+        module function argsort_${k1}$(x,order)
+            integer,allocatable::argsort_${k1}$(:)
+            ${t1}$,intent(in)::x(:)
+            integer,optional,intent(in)::order
+        end function argsort_${k1}$
+
+    #:endfor
+    end interface argsort
+
     interface bspline1
         module procedure bspline1_1
     end interface bspline1
@@ -256,6 +267,22 @@ module forlab
     interface chi2rand
         module procedure chi2rand0, chi2rand1
     end interface chi2rand
+
+    interface chol
+        #:for k1,t1 in REAL_KINDS_TYPES
+        module function chol_${k1}$ (A) result(L)
+            ${t1}$, dimension(:, :), intent(in) :: A
+            ${t1}$, dimension(:, :), allocatable :: L
+        end function
+        #:endfor
+
+        !#:for k1,t1 in CMPLX_KINDS_TYPES
+        !    module function chol_c${k1}$ (A) result(L)
+        !        ${t1}$, dimension(:, :), intent(in) :: A
+        !        ${t1}$, dimension(:, :), allocatable :: L
+        !    end function
+        !#:endfor
+    end interface
 
     interface countlines
         module procedure countlines2
@@ -474,6 +501,18 @@ module forlab
             character(len=*), intent(in), optional :: string
         end subroutine
     end interface
+
+    interface eig
+        #:for k1, t1 in REAL_KINDS_TYPES
+        module subroutine eig_${k1}$(A,V,d,itermax)
+            ${t1}$, dimension(:, :), intent(in) :: A
+            ${t1}$, dimension(:, :), allocatable, intent(out) :: V
+            ${t1}$, dimension(:), allocatable, intent(out) :: d
+            integer, intent(in), optional :: itermax
+        end subroutine eig_${k1}$
+
+        #:endfor
+    end interface eig
 
     #:set RANKS = range(1, 4)
     interface empty
@@ -749,6 +788,15 @@ module forlab
 
         #:endfor
     end interface
+
+    interface issymmetric
+        #:for k1, t1 in REAL_KINDS_TYPES
+            logical module function issymmetric_${k1}$(A)
+                ${t1}$, dimension(:, :), intent(in) :: A
+            end function
+
+        #:endfor
+    end interface issymmetric
 
     interface kde
         module procedure kde1, kde2
@@ -1158,6 +1206,17 @@ module forlab
         module procedure skewness1, skewness2
     end interface skewness
 
+    interface sort
+    #:for k1, t1 in INT_KINDS_TYPES+REAL_KINDS_TYPES
+        module function sort_${k1}$(x,order)
+            ${t1}$,allocatable::sort_${k1}$(:)
+            ${t1}$,intent(in)::x(:)
+            integer,optional,intent(in)::order
+        end function sort_${k1}$
+
+    #:endfor
+    end interface sort
+
     interface spline1
         module procedure spline1_0, spline1_1
     end interface spline1
@@ -1204,11 +1263,41 @@ module forlab
     end interface
 
     interface tril
-        module procedure tril_i, tril_r, tril_c
+    #:for k1,t1 in INT_KINDS_TYPES+REAL_KINDS_TYPES
+        module function tril_${k1}$(A,k)
+            ${t1}$, dimension(:, :), allocatable :: tril_${k1}$
+            ${t1}$, dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: k
+        end function tril_${k1}$
+
+    #:endfor
+    #:for k1,t1 in CMPLX_KINDS_TYPES
+        module function tril_c${k1}$(A,k)
+            ${t1}$, dimension(:, :), allocatable :: tril_c${k1}$
+            ${t1}$, dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: k
+        end function tril_c${k1}$
+
+    #:endfor
     end interface tril
 
     interface triu
-        module procedure triu_i, triu_r, triu_c
+    #:for k1,t1 in INT_KINDS_TYPES+REAL_KINDS_TYPES
+        module function triu_${k1}$(A,k)
+            ${t1}$, dimension(:, :), allocatable :: triu_${k1}$
+            ${t1}$, dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: k
+        end function triu_${k1}$
+
+    #:endfor
+    #:for k1,t1 in CMPLX_KINDS_TYPES
+        module function triu_c${k1}$(A,k)
+            ${t1}$, dimension(:, :), allocatable :: triu_c${k1}$
+            ${t1}$, dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: k
+        end function triu_c${k1}$
+
+    #:endfor
     end interface triu
 
     interface utm2deg
@@ -1469,119 +1558,6 @@ contains
         argmin3 = minloc(X,.not. isnan(X))
         return
     end function argmin3
-
-    ! argsort
-    !-----------------------------------------------------------------------
-    ! argsort generates the indices that would sort an array.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! y = argsort(x)
-    ! y = argsort(x, 1)
-    ! y = argsort(x, 2)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! y = argsort(x) returns the indices that would sort an array in
-    ! ascending order.
-    !
-    ! y = argsort(x, 1) (see y = argsort(x)).
-    !
-    ! y = argsort(x, 2) returns the indices that would sort an array in
-    ! descending order.
-    !
-    ! Notes
-    !-----------------------------------------------------------------------
-    ! x(argsort(x), order) returns the same result as sort(x, order).
-
-    function argsort(x, order)
-        integer(kind=IPRE), dimension(:), allocatable :: argsort
-        real(kind=RPRE), dimension(:), intent(in) :: x
-        integer(kind=IPRE), intent(in), optional :: order
-        integer(kind=IPRE) :: i, n
-        real(kind=RPRE), dimension(:), allocatable :: xsort
-
-        n = size(x)
-        xsort = x
-        argsort = [(i, i=1, n)]
-        if ((.not. present(order)) .or. (order .eq. 1)) then
-            call quickargsort(xsort, argsort, n, 1)
-        elseif (order .eq. 2) then
-            call quickargsort(xsort, argsort, n, 2)
-        end if
-        return
-
-    contains
-
-        !-------------------------------------------------------------------
-        ! quickargsort
-        !-------------------------------------------------------------------
-        recursive subroutine quickargsort(x, idx, n, order)
-            real(kind=RPRE), dimension(n), intent(inout) :: x
-            integer(kind=IPRE), dimension(n), intent(inout) :: idx
-            integer(kind=IPRE), intent(in) :: n, order
-            integer(kind=IPRE) :: left, right, marker
-            real(kind=RPRE) :: pivot, tmp
-
-            if (n .gt. 1) then
-                left = 0
-                right = n + 1
-                pivot = x(randi(n))
-
-                select case (order)
-                case (1)
-                    do while (left .lt. right)
-                        left = left + 1
-                        right = right - 1
-                        do while (x(left) .lt. pivot)
-                            left = left + 1
-                        end do
-                        do while (x(right) .gt. pivot)
-                            right = right - 1
-                        end do
-                        if (left .lt. right) then
-                            tmp = x(left)
-                            x(left) = x(right)
-                            x(right) = tmp
-                            tmp = idx(left)
-                            idx(left) = idx(right)
-                            idx(right) = tmp
-                        end if
-                    end do
-                case (2)
-                    do while (left .lt. right)
-                        left = left + 1
-                        right = right - 1
-                        do while (x(left) .gt. pivot)
-                            left = left + 1
-                        end do
-                        do while (x(right) .lt. pivot)
-                            right = right - 1
-                        end do
-                        if (left .lt. right) then
-                            tmp = x(left)
-                            x(left) = x(right)
-                            x(right) = tmp
-                            tmp = idx(left)
-                            idx(left) = idx(right)
-                            idx(right) = tmp
-                        end if
-                    end do
-                end select
-
-                if (left .eq. right) then
-                    marker = left + 1
-                else
-                    marker = left
-                end if
-
-                call quickargsort(x(:marker - 1), idx(:marker - 1), marker - 1, order)
-                call quickargsort(x(marker:), idx(marker:), n - marker + 1, order)
-            end if
-            return
-        end subroutine quickargsort
-
-    end function argsort
 
     ! bsplrep1
     !-----------------------------------------------------------------------
@@ -2046,60 +2022,6 @@ contains
         chi2rand1 = sum(randn(dim1, v)**2, dim=2)
         return
     end function chi2rand1
-
-    ! chol
-    !-----------------------------------------------------------------------
-    ! chol computes Cholesky's decomposition of a symmetric positive
-    ! definite matrix.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! L = chol(A)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! L = chol(A) returns a lower triangular matrix L satisfying the
-    ! equation A = L*Lt.
-
-    function chol(A) result(L)
-        real(kind=RPRE), dimension(:, :), allocatable :: L
-        real(kind=RPRE), dimension(:, :), intent(in) :: A
-        integer(kind=IPRE) :: i, j, k, n
-        real(kind=RPRE) :: sum1, sum2
-        real(kind=RPRE), dimension(:), allocatable :: d
-        real(kind=RPRE), dimension(:, :), allocatable :: V
-
-        call eig(A, V, d)
-        if (all(d .gt. 0.0d0)) then
-            n = size(A, 1)
-            L = zeros(n, n)
-            L(1, 1) = sqrt(A(1, 1))
-            do i = 2, n
-                L(i, 1) = A(i, 1)/L(1, 1)
-            end do
-
-            do i = 2, n
-                do k = 1, i
-                    sum1 = 0.0d0
-                    sum2 = 0.0d0
-                    do j = 1, k - 1
-                        if (i .eq. k) then
-                            sum1 = sum1 + (L(k, j)*L(k, j))
-                            L(k, k) = sqrt(A(k, k) - sum1)
-                        elseif (i .gt. k) then
-                            sum2 = sum2 + (L(i, j)*L(k, j))
-                            L(i, k) = (1.0d0/L(k, k))*(A(i, k) - sum2)
-                        else
-                            L(i, k) = 0.0d0
-                        end if
-                    end do
-                end do
-            end do
-        else
-            stop "Error: in chol(A), A should be positive definite."
-        end if
-        return
-    end function chol
 
     ! close
     !-----------------------------------------------------------------------
@@ -2946,136 +2868,6 @@ contains
         end if
         return
     end function diff2
-
-    ! eig
-    !-----------------------------------------------------------------------
-    ! eig computes eigenvalues and eigenvectors of symmetric matrix using
-    ! Jacobi algorithm.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! call eig(A, V, d)
-    ! call eig(A, V, d, itermax)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! call eig(A, V, d) returns the eigenvalues of the symmetric matrix A
-    ! in the vector d and the associated eigenvectors in the matrix V.
-    !
-    ! call eig(A, V, d) returns eigenvalues and eigenvectors with a maximum
-    ! of itermax iterations.
-
-    subroutine eig(A, V, d, itermax)
-        real(kind=RPRE), dimension(:, :), intent(in) :: A
-        real(kind=RPRE), dimension(:, :), allocatable, intent(out) :: V
-        real(kind=RPRE), dimension(:), allocatable, intent(out) :: d
-        integer(kind=IPRE), intent(in), optional :: itermax
-        integer(kind=IPRE) :: opt_itermax, iter, i, j, k, n
-        integer(kind=IPRE), dimension(:), allocatable :: idx
-        real(kind=RPRE) :: threshold, gapj, termi, termj, h, term, t, &
-                           theta, c, s, tau, g
-        real(kind=RPRE), dimension(:), allocatable :: bw, zw
-        real(kind=RPRE), dimension(:, :), allocatable :: B
-
-        opt_itermax = 1000
-        if (present(itermax)) opt_itermax = itermax
-
-        if (.not. issymmetric(A)) then
-            stop "Error: in eig(A), A is not symmetric."
-        else
-            if (allocated(V)) deallocate (V)
-            if (allocated(d)) deallocate (d)
-
-            B = A
-            n = size(B, 1)
-            V = eye(n)
-            d = diag(B)
-            bw = d
-            zw = zeros(n)
-
-            iter = 0
-            do while (iter .lt. opt_itermax)
-                iter = iter + 1
-
-                threshold = sqrt(sum(triu(B, 1)**2))/(4.0*n)
-                if (threshold .eq. 0.0d0) exit
-
-                do i = 1, n
-                    do j = i + 1, n
-                        gapj = 10.0d0*abs(B(i, j))
-                        termi = gapj + abs(d(i))
-                        termj = gapj + abs(d(j))
-
-                        if ((iter .gt. 4) .and. (termi .eq. abs(d(i))) &
-                            .and. (termj .eq. abs(d(j)))) then
-                            B(i, j) = 0.0d0
-                        elseif (threshold .le. abs(B(i, j))) then
-                            h = d(j) - d(i)
-                            term = abs(h) + gapj
-
-                            if (term .eq. abs(h)) then
-                                t = B(i, j)/h
-                            else
-                                theta = 0.5d0*h/B(i, j)
-                                t = 1.0d0/(abs(theta) + sqrt(1.0d0 + theta*theta))
-                                if (theta .lt. 0.0d0) t = -t
-                            end if
-
-                            c = 1.0d0/sqrt(1.0d0 + t*t)
-                            s = t*c
-                            tau = s/(1.0d0 + c)
-                            h = t*B(i, j)
-
-                            zw(i) = zw(i) - h
-                            zw(j) = zw(j) + h
-                            d(i) = d(i) - h
-                            d(j) = d(j) + h
-                            B(i, j) = 0.0d0
-
-                            do k = 1, i - 1
-                                g = B(k, i)
-                                h = B(k, j)
-                                B(k, i) = g - s*(h + g*tau)
-                                B(k, j) = h + s*(g - h*tau)
-                            end do
-
-                            do k = i + 1, j - 1
-                                g = B(i, k)
-                                h = B(k, j)
-                                B(i, k) = g - s*(h + g*tau)
-                                B(k, j) = h + s*(g - h*tau)
-                            end do
-
-                            do k = j + 1, n
-                                g = B(i, k)
-                                h = B(j, k)
-                                B(i, k) = g - s*(h + g*tau)
-                                B(j, k) = h + s*(g - h*tau)
-                            end do
-
-                            do k = 1, n
-                                g = V(k, i)
-                                h = V(k, j)
-                                v(k, i) = g - s*(h + g*tau)
-                                v(k, j) = h + s*(g - h*tau)
-                            end do
-
-                        end if
-                    end do
-                end do
-
-                bw = bw + zw
-                d = bw
-                zw = 0.0d0
-            end do
-
-            idx = argsort(d, 1)
-            d = d(idx)
-            V = V(:, idx)
-        end if
-
-        return
-    end subroutine eig
 
     ! file_exist
     !-----------------------------------------------------------------------
@@ -4486,47 +4278,6 @@ contains
         isoutlier = abs(x - median(x)) .gt. opt_m*mad(x, 2)
         return
     end function isoutlier
-
-    ! issymmetric
-    !-----------------------------------------------------------------------
-    ! issymmetric determines whether a square matrix is symmetric.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! bool = issymmetric(A)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! bool = issymmetric(A) returns .true. if A is symmetric, .false.
-    ! otherwise.
-    !
-    ! Examples
-    !-----------------------------------------------------------------------
-    ! A = eye(3)
-    ! bool = issymmetric(A)
-    !     .true.
-
-    logical function issymmetric(A)
-        real(kind=RPRE), dimension(:, :), intent(in) :: A
-        integer(kind=IPRE) :: i, j, n
-
-        issymmetric = .true.
-        if (.not. issquare(A)) then
-            issymmetric = .false.
-            return
-        else
-            n = size(A, 1)
-            do i = 1, n
-                do j = 1, n
-                    if (A(i, j) .ne. A(j, i)) then
-                        issymmetric = .false.
-                        return
-                    end if
-                end do
-            end do
-        end if
-        return
-    end function issymmetric
 
     ! k2test
     !-----------------------------------------------------------------------
@@ -6903,107 +6654,6 @@ contains
         return
     end function solve
 
-    ! sort\tofix
-    !-----------------------------------------------------------------------
-    ! sort sorts arrays elements.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! y = sort(x)
-    ! y = sort(x, 1)
-    ! y = sort(x, 2)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! y = sort(x) returns the sorted elements of the vector x in the
-    ! ascending order.
-    !
-    ! y = sort(x, 1) (see y = sort(x)).
-    !
-    ! y = sort(x, 2) returns the sorted elements of the vector x in the
-    ! descending order.
-
-    function sort(x, order)
-        real(kind=RPRE), dimension(:), allocatable :: sort
-        real(kind=RPRE), dimension(:), intent(in) :: x
-        integer(kind=IPRE), optional :: order
-        integer(kind=IPRE) :: n
-        logical :: l
-
-        n = size(x)
-        sort = x
-        if ((.not. present(order)) .or. (order .eq. 1)) then
-            call quicksort(sort, n, 1)
-        elseif (order .eq. 2) then
-            call quicksort(sort, n, 2)
-        end if
-        return
-
-    contains
-
-        !-------------------------------------------------------------------
-        ! quicksort
-        !-------------------------------------------------------------------
-        recursive subroutine quicksort(x, n, order)
-            real(kind=RPRE), dimension(n), intent(inout) :: x
-            integer(kind=IPRE), intent(in) :: n, order
-            integer(kind=IPRE) :: left, right, marker
-            real(kind=RPRE) :: pivot, tmp
-
-            if (n .gt. 1) then
-                left = 0
-                right = n + 1
-                pivot = x(randi(n))
-
-                select case (order)
-                case (1)
-                    do while (left .lt. right)
-                        left = left + 1
-                        right = right - 1
-                        do while (x(left) .lt. pivot)
-                            left = left + 1
-                        end do
-                        do while (x(right) .gt. pivot)
-                            right = right - 1
-                        end do
-                        if (left .lt. right) then
-                            tmp = x(left)
-                            x(left) = x(right)
-                            x(right) = tmp
-                        end if
-                    end do
-                case (2)
-                    do while (left .lt. right)
-                        left = left + 1
-                        right = right - 1
-                        do while (x(left) .gt. pivot)
-                            left = left + 1
-                        end do
-                        do while (x(right) .lt. pivot)
-                            right = right - 1
-                        end do
-                        if (left .lt. right) then
-                            tmp = x(left)
-                            x(left) = x(right)
-                            x(right) = tmp
-                        end if
-                    end do
-                end select
-
-                if (left .eq. right) then
-                    marker = left + 1
-                else
-                    marker = left
-                end if
-
-                call quicksort(x(:marker - 1), marker - 1, order)
-                call quicksort(x(marker:), n - marker + 1, order)
-            end if
-            return
-        end subroutine quicksort
-
-    end function sort
-
     ! spline1
     !-----------------------------------------------------------------------
     ! spline1 performs a cubic spline interpolation with natural end
@@ -7813,170 +7463,6 @@ contains
         trace = sum(diag(A))
         return
     end function trace
-
-    ! tril
-    !-----------------------------------------------------------------------
-    ! tril extracts the lower triangular part of a matrix.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! B = tril(A)
-    ! B = tril(A, k)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! B = tril(A) returns the lower triangular part of matrix A.
-    !
-    ! B = tril(A, k) returns the elements on and below the kth diagonal of
-    ! matrix X:
-    !   -   k = 0 is the main diagonal,
-    !   -   k > 0 is above the main diagonal,
-    !   -   k < 0 is below the main diagonal.
-    !
-    ! Examples
-    !-----------------------------------------------------------------------
-    ! A = ones(4, 4)
-    ! B = tril(A, -1)
-    !     0.  0.  0.  0.
-    !     1.  0.  0.  0.
-    !     1.  1.  0.  0.
-    !     1.  1.  1.  0.
-
-    function tril_i(A, k)
-        integer(kind=IPRE), dimension(:, :), allocatable :: tril_i
-        integer(kind=IPRE), dimension(:, :), intent(in) :: A
-        integer(kind=IPRE), intent(in), optional :: k
-        integer(kind=IPRE) :: opt_k, i, m, n
-
-        opt_k = 0
-        if (present(k)) opt_k = k
-
-        m = size(A, 1)
-        n = size(A, 2)
-        tril_i = A
-        do i = 1, min(m, n)
-            tril_i(:i - opt_k - 1, i) = 0.0d0
-        end do
-        return
-    end function tril_i
-
-    function tril_r(A, k)
-        real(kind=RPRE), dimension(:, :), allocatable :: tril_r
-        real(kind=RPRE), dimension(:, :), intent(in) :: A
-        integer(kind=IPRE), intent(in), optional :: k
-        integer(kind=IPRE) :: opt_k, i, m, n
-
-        opt_k = 0
-        if (present(k)) opt_k = k
-
-        m = size(A, 1)
-        n = size(A, 2)
-        tril_r = A
-        do i = 1, min(m, n)
-            tril_r(:i - opt_k - 1, i) = 0.0d0
-        end do
-        return
-    end function tril_r
-
-    function tril_c(A, k)
-        complex(kind=RPRE), dimension(:, :), allocatable :: tril_c
-        complex(kind=RPRE), dimension(:, :), intent(in) :: A
-        integer(kind=IPRE), intent(in), optional :: k
-        integer(kind=IPRE) :: opt_k, i, m, n
-
-        opt_k = 0
-        if (present(k)) opt_k = k
-
-        m = size(A, 1)
-        n = size(A, 2)
-        tril_c = A
-        do i = 1, min(m, n)
-            tril_c(:i - opt_k - 1, i) = 0.0d0
-        end do
-        return
-    end function tril_c
-
-    ! triu
-    !-----------------------------------------------------------------------
-    ! triu extracts the upper triangular part of a matrix.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! B = triu(A)
-    ! B = triu(A, k)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! B = triu(A) returns the upper triangular part of matrix A.
-    !
-    ! B = triu(A, k) returns the elements on and above the kth diagonal of
-    ! matrix X:
-    !   -   k = 0 is the main diagonal,
-    !   -   k > 0 is above the main diagonal,
-    !   -   k < 0 is below the main diagonal.
-    !
-    ! Examples
-    !-----------------------------------------------------------------------
-    ! A = ones(4, 4)
-    ! B = triu(A, -1)
-    !     1.  1.  1.  1.
-    !     1.  1.  1.  1.
-    !     0.  1.  1.  1.
-    !     0.  0.  1.  1.
-
-    function triu_i(A, k)
-        integer(kind=IPRE), dimension(:, :), allocatable :: triu_i
-        integer(kind=IPRE), dimension(:, :), intent(in) :: A
-        integer(kind=IPRE), intent(in), optional :: k
-        integer(kind=IPRE) :: opt_k, i, m, n
-
-        opt_k = 0
-        if (present(k)) opt_k = k
-
-        m = size(A, 1)
-        n = size(A, 2)
-        triu_i = A
-        do i = 1, min(m, n)
-            triu_i(i - opt_k + 1:, i) = 0.0d0
-        end do
-        return
-    end function triu_i
-
-    function triu_r(A, k)
-        real(kind=RPRE), dimension(:, :), allocatable :: triu_r
-        real(kind=RPRE), dimension(:, :), intent(in) :: A
-        integer(kind=IPRE), intent(in), optional :: k
-        integer(kind=IPRE) :: opt_k, i, m, n
-
-        opt_k = 0
-        if (present(k)) opt_k = k
-
-        m = size(A, 1)
-        n = size(A, 2)
-        triu_r = A
-        do i = 1, min(m, n)
-            triu_r(i - opt_k + 1:, i) = 0.0d0
-        end do
-        return
-    end function triu_r
-
-    function triu_c(A, k)
-        complex(kind=RPRE), dimension(:, :), allocatable :: triu_c
-        complex(kind=RPRE), dimension(:, :), intent(in) :: A
-        integer(kind=IPRE), intent(in), optional :: k
-        integer(kind=IPRE) :: opt_k, i, m, n
-
-        opt_k = 0
-        if (present(k)) opt_k = k
-
-        m = size(A, 1)
-        n = size(A, 2)
-        triu_c = A
-        do i = 1, min(m, n)
-            triu_c(i - opt_k + 1:, i) = 0.0d0
-        end do
-        return
-    end function triu_c
 
     ! utm2deg
     !-----------------------------------------------------------------------
