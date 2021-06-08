@@ -1657,6 +1657,48 @@ module forlab
         module procedure ones1, ones2, ones3
     end interface ones
 
+    interface outer
+        !! outer
+        !!-----------------------------------------------------------------------
+        !! outer computes the outer product of two vectors.
+        !!
+        !! Syntax
+        !!-----------------------------------------------------------------------
+        !! A = outer(x, y)
+        !!
+        !! Description
+        !!-----------------------------------------------------------------------
+        !! A = outer(x, y) returns the outer product of vectors x and y.
+        module function outer_int8(x, y)
+            integer(int8), dimension(:,:), allocatable :: outer_int8
+            integer(int8), dimension(:), intent(in) :: x, y
+        end function
+        module function outer_int16(x, y)
+            integer(int16), dimension(:,:), allocatable :: outer_int16
+            integer(int16), dimension(:), intent(in) :: x, y
+        end function
+        module function outer_int32(x, y)
+            integer(int32), dimension(:,:), allocatable :: outer_int32
+            integer(int32), dimension(:), intent(in) :: x, y
+        end function
+        module function outer_int64(x, y)
+            integer(int64), dimension(:,:), allocatable :: outer_int64
+            integer(int64), dimension(:), intent(in) :: x, y
+        end function
+        module function outer_sp(x, y)
+            real(sp), dimension(:,:), allocatable :: outer_sp
+            real(sp), dimension(:), intent(in) :: x, y
+        end function
+        module function outer_dp(x, y)
+            real(dp), dimension(:,:), allocatable :: outer_dp
+            real(dp), dimension(:), intent(in) :: x, y
+        end function
+        module function outer_qp(x, y)
+            real(qp), dimension(:,:), allocatable :: outer_qp
+            real(qp), dimension(:), intent(in) :: x, y
+        end function
+    end interface
+
     interface prctile
         module procedure prctile0, prctile1
     end interface prctile
@@ -6678,29 +6720,6 @@ contains
         end if
         return
     end subroutine open2
-
-    ! outer
-    !-----------------------------------------------------------------------
-    ! outer computes the outer product of two vectors.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! A = outer(x, y)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! A = outer(x, y) returns the outer product of vectors x and y.
-
-    function outer(x, y) result(A)
-        real(kind=RPRE), dimension(:, :), allocatable :: A
-        real(kind=RPRE), dimension(:), intent(in) :: x, y
-        integer(kind=IPRE) :: m, n
-
-        m = size(x)
-        n = size(y)
-        A = spread(x, 2, n)*spread(y, 1, m)
-        return
-    end function outer
 
     ! pascal
     !-----------------------------------------------------------------------
