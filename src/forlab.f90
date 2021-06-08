@@ -33,7 +33,7 @@ module forlab
               angle, bsplrep1, bsplrep2, bspline1, bspline2, chol, cosd, countlines, &
               cov, cumsum, chi2cdf, chi2pdf, chi2inv, chi2rand, check_directory, &
               det, diag, disp, deg2utm, datenum, datevec, datestr, deboor, diff, &
-              eig, empty, eye, &
+              eig, &
               find, flip, fliplr, flipud, fminbnd, gammainc, horzcat, &
               hann, interp1, interp2, interp3, inv, ismember, isoutlier, issquare, &
               isleap, issymmetric, kurtosis, k2test, kde, linspace, &
@@ -42,9 +42,12 @@ module forlab
               randi, randperm, repmat, rms, savetxt, savebin, sind, sort, solve, &
               svd, svdsolve, std, spline1, spline2, skewness, signum, sinc, &
               split_argument, tand, tic, toc, trace, tril, triu, utm2deg, vertcat, &
-              var, zeros, dbindex, gmm, kmeans, mbkmeans, silhouette
+              var, dbindex, gmm, kmeans, mbkmeans, silhouette
+    public :: empty, sempty, dempty, qempty
+    public :: eye, seye, deye, qeye
     public :: loadbin, sloadbin, dloadbin, qloadbin
     public :: loadtxt, sloadtxt, dloadtxt, qloadtxt
+    public :: zeros, szeros, dzeros, qzeros
     ! #ifdef do_mpi
     public :: mpi_rpre
     ! #endif
@@ -829,70 +832,70 @@ module forlab
             logical, dimension(:, :), intent(in) :: A
             character(len=*), intent(in), optional :: string
         end subroutine disp_l2
-            module subroutine disp_iint80(x, string)
+            module subroutine disp_0_int8(x, string)
                 integer(int8), intent(in) :: x
                 character(len=*), intent(in), optional :: string
             end subroutine
-            module subroutine disp_iint81(x, string)
+            module subroutine disp_1_int8(x, string)
                 integer(int8), dimension(:), intent(in) :: x
                 character(len=*), intent(in), optional :: string
             end subroutine
-            module subroutine disp_iint82(A, string)
+            module subroutine disp_2_int8(A, string)
                 integer(int8), dimension(:, :), intent(in) :: A
                 character(len=*), intent(in), optional :: string
             end subroutine
-            module subroutine disp_iint83(X, dim, string)
+            module subroutine disp_3_int8(X, dim, string)
                 integer(int8), dimension(:, :, :), intent(in) :: X
                 integer, intent(in), optional :: dim
                 character(len=*), intent(in), optional :: string
             end subroutine
-            module subroutine disp_iint160(x, string)
+            module subroutine disp_0_int16(x, string)
                 integer(int16), intent(in) :: x
                 character(len=*), intent(in), optional :: string
             end subroutine
-            module subroutine disp_iint161(x, string)
+            module subroutine disp_1_int16(x, string)
                 integer(int16), dimension(:), intent(in) :: x
                 character(len=*), intent(in), optional :: string
             end subroutine
-            module subroutine disp_iint162(A, string)
+            module subroutine disp_2_int16(A, string)
                 integer(int16), dimension(:, :), intent(in) :: A
                 character(len=*), intent(in), optional :: string
             end subroutine
-            module subroutine disp_iint163(X, dim, string)
+            module subroutine disp_3_int16(X, dim, string)
                 integer(int16), dimension(:, :, :), intent(in) :: X
                 integer, intent(in), optional :: dim
                 character(len=*), intent(in), optional :: string
             end subroutine
-            module subroutine disp_iint320(x, string)
+            module subroutine disp_0_int32(x, string)
                 integer(int32), intent(in) :: x
                 character(len=*), intent(in), optional :: string
             end subroutine
-            module subroutine disp_iint321(x, string)
+            module subroutine disp_1_int32(x, string)
                 integer(int32), dimension(:), intent(in) :: x
                 character(len=*), intent(in), optional :: string
             end subroutine
-            module subroutine disp_iint322(A, string)
+            module subroutine disp_2_int32(A, string)
                 integer(int32), dimension(:, :), intent(in) :: A
                 character(len=*), intent(in), optional :: string
             end subroutine
-            module subroutine disp_iint323(X, dim, string)
+            module subroutine disp_3_int32(X, dim, string)
                 integer(int32), dimension(:, :, :), intent(in) :: X
                 integer, intent(in), optional :: dim
                 character(len=*), intent(in), optional :: string
             end subroutine
-            module subroutine disp_iint640(x, string)
+            module subroutine disp_0_int64(x, string)
                 integer(int64), intent(in) :: x
                 character(len=*), intent(in), optional :: string
             end subroutine
-            module subroutine disp_iint641(x, string)
+            module subroutine disp_1_int64(x, string)
                 integer(int64), dimension(:), intent(in) :: x
                 character(len=*), intent(in), optional :: string
             end subroutine
-            module subroutine disp_iint642(A, string)
+            module subroutine disp_2_int64(A, string)
                 integer(int64), dimension(:, :), intent(in) :: A
                 character(len=*), intent(in), optional :: string
             end subroutine
-            module subroutine disp_iint643(X, dim, string)
+            module subroutine disp_3_int64(X, dim, string)
                 integer(int64), dimension(:, :, :), intent(in) :: X
                 integer, intent(in), optional :: dim
                 character(len=*), intent(in), optional :: string
@@ -927,82 +930,25 @@ module forlab
     end interface eig
 
     interface empty
-        !! Create uninitialized matrices quickly, faster than `ones` function,
-        !! and use `empty` function with caution.
-        !!
-        !! Example
-        !! ---
-        !! real, allocatable :: x(:, :)
-        !! x = empty(2, 3)
-        module function empty_1_default (dim1)
-            integer, intent(in) :: dim1
-            real(dp), allocatable :: empty_1_default (:)
-        end function
+        procedure empty_1_sp
+        procedure empty_2_sp
+        procedure empty_3_sp
+    end interface
 
-        module function empty_2_default (dim1, dim2)
-            integer, intent(in) :: dim1, dim2
-            real(dp), allocatable :: empty_2_default (:,:)
-        end function
-
-        module function empty_3_default (dim1, dim2, dim3)
-            integer, intent(in) :: dim1, dim2, dim3
-            real(dp), allocatable :: empty_3_default (:,:,:)
-        end function
-
-        module function empty_1_sp(dim1, flag)
-            integer, intent(in) :: dim1
-            real(sp), allocatable :: empty_1_sp (:)
-            real(sp), intent(in) :: flag
-        end function
-
-        module function empty_1_dp(dim1, flag)
-            integer, intent(in) :: dim1
-            real(dp), allocatable :: empty_1_dp (:)
-            real(dp), intent(in) :: flag
-        end function
-
-        module function empty_1_qp(dim1, flag)
-            integer, intent(in) :: dim1
-            real(qp), allocatable :: empty_1_qp (:)
-            real(qp), intent(in) :: flag
-        end function
-
-        module function empty_2_sp(dim1, dim2, flag)
-            integer, intent(in) :: dim1, dim2
-            real(sp), allocatable :: empty_2_sp (:,:)
-            real(sp), intent(in) :: flag
-        end function
-
-        module function empty_2_dp(dim1, dim2, flag)
-            integer, intent(in) :: dim1, dim2
-            real(dp), allocatable :: empty_2_dp (:,:)
-            real(dp), intent(in) :: flag
-        end function
-
-        module function empty_2_qp(dim1, dim2, flag)
-            integer, intent(in) :: dim1, dim2
-            real(qp), allocatable :: empty_2_qp (:,:)
-            real(qp), intent(in) :: flag
-        end function
-
-        module function empty_3_sp (dim1, dim2, dim3, flag)
-            integer, intent(in) :: dim1, dim2, dim3
-            real(sp), allocatable :: empty_3_sp (:,:,:)
-            real(sp), intent(in) :: flag
-        end function
-
-        module function empty_3_dp (dim1, dim2, dim3, flag)
-            integer, intent(in) :: dim1, dim2, dim3
-            real(dp), allocatable :: empty_3_dp (:,:,:)
-            real(dp), intent(in) :: flag
-        end function
-
-        module function empty_3_qp (dim1, dim2, dim3, flag)
-            integer, intent(in) :: dim1, dim2, dim3
-            real(qp), allocatable :: empty_3_qp (:,:,:)
-            real(qp), intent(in) :: flag
-        end function
-
+    interface sempty
+        procedure empty_1_sp
+        procedure empty_2_sp
+        procedure empty_3_sp
+    end interface
+    interface dempty
+        procedure empty_1_dp
+        procedure empty_2_dp
+        procedure empty_3_dp
+    end interface
+    interface qempty
+        procedure empty_1_qp
+        procedure empty_2_qp
+        procedure empty_3_qp
     end interface
 
     interface eye
@@ -1036,60 +982,23 @@ module forlab
         !!          0.  1.  0.
         !!          0.  0.  1.
         !!          0.  0.  0.  
-        module function eye_1_default (dim1)
-            real(dp), dimension(:, :), allocatable :: eye_1_default
-            integer, intent(in) :: dim1
-        end function
-
-        module function eye_2_default (dim1, dim2)
-            real(dp), dimension(:, :), allocatable :: eye_2_default
-            integer, intent(in) :: dim1
-            integer, intent(in) :: dim2
-        end function
-        module function eye_1_sp (dim1, flag)
-            real(sp), dimension(:, :), allocatable :: eye_1_sp 
-            integer, intent(in) :: dim1
-            real(sp), intent(in) :: flag
-
-        end function
-
-        module function eye_2_sp (dim1, dim2, flag)
-            real(sp), dimension(:, :), allocatable :: eye_2_sp
-            integer, intent(in) :: dim1
-            integer, intent(in) :: dim2
-            real(sp), intent(in) :: flag
-        end function
-        
-        module function eye_1_dp (dim1, flag)
-            real(dp), dimension(:, :), allocatable :: eye_1_dp 
-            integer, intent(in) :: dim1
-            real(dp), intent(in) :: flag
-
-        end function
-
-        module function eye_2_dp (dim1, dim2, flag)
-            real(dp), dimension(:, :), allocatable :: eye_2_dp
-            integer, intent(in) :: dim1
-            integer, intent(in) :: dim2
-            real(dp), intent(in) :: flag
-        end function
-        
-        module function eye_1_qp (dim1, flag)
-            real(qp), dimension(:, :), allocatable :: eye_1_qp 
-            integer, intent(in) :: dim1
-            real(qp), intent(in) :: flag
-
-        end function
-
-        module function eye_2_qp (dim1, dim2, flag)
-            real(qp), dimension(:, :), allocatable :: eye_2_qp
-            integer, intent(in) :: dim1
-            integer, intent(in) :: dim2
-            real(qp), intent(in) :: flag
-        end function
-        
+        procedure eye_1_sp
+        procedure eye_2_sp
     end interface
-    
+
+    interface seye
+        procedure eye_1_sp
+        procedure eye_2_sp
+    end interface
+    interface deye
+        procedure eye_1_dp
+        procedure eye_2_dp
+    end interface
+    interface qeye
+        procedure eye_1_qp
+        procedure eye_2_qp
+    end interface
+
     interface file
         module procedure init_file
     end interface file
@@ -2340,64 +2249,25 @@ module forlab
         !!        0.  0.  0.  
         !!        0.  0.  0.  
         !!        0.  0.  0.
-        module function zeros_1_default (dim1)
-            integer, intent(in) :: dim1
-            real(dp), allocatable :: zeros_1_default (:)
-        end function
-        module function zeros_2_default (dim1, dim2)
-            integer, intent(in) :: dim1, dim2
-            real(dp), allocatable :: zeros_2_default (:,:)
-        end function
-        module function zeros_3_default (dim1, dim2, dim3)
-            integer, intent(in) :: dim1, dim2, dim3
-            real(dp), allocatable :: zeros_3_default (:,:,:)
-        end function
+        procedure zeros_1_sp
+        procedure zeros_2_sp
+        procedure zeros_3_sp
+    end interface
 
-        module function zeros_1_sp (dim1, flag)
-            integer, intent(in) :: dim1
-            real(sp), allocatable :: zeros_1_sp (:)
-            real(sp), intent(in) :: flag
-        end function
-        module function zeros_1_dp (dim1, flag)
-            integer, intent(in) :: dim1
-            real(dp), allocatable :: zeros_1_dp (:)
-            real(dp), intent(in) :: flag
-        end function
-        module function zeros_1_qp (dim1, flag)
-            integer, intent(in) :: dim1
-            real(qp), allocatable :: zeros_1_qp (:)
-            real(qp), intent(in) :: flag
-        end function
-        module function zeros_2_sp (dim1, dim2, flag)
-            integer, intent(in) :: dim1, dim2
-            real(sp), allocatable :: zeros_2_sp (:,:)
-            real(sp), intent(in) :: flag
-        end function
-        module function zeros_2_dp (dim1, dim2, flag)
-            integer, intent(in) :: dim1, dim2
-            real(dp), allocatable :: zeros_2_dp (:,:)
-            real(dp), intent(in) :: flag
-        end function
-        module function zeros_2_qp (dim1, dim2, flag)
-            integer, intent(in) :: dim1, dim2
-            real(qp), allocatable :: zeros_2_qp (:,:)
-            real(qp), intent(in) :: flag
-        end function
-        module function zeros_3_sp (dim1, dim2, dim3, flag)
-            integer, intent(in) :: dim1, dim2, dim3
-            real(sp), allocatable :: zeros_3_sp (:,:,:)
-            real(sp), intent(in) :: flag
-        end function
-        module function zeros_3_dp (dim1, dim2, dim3, flag)
-            integer, intent(in) :: dim1, dim2, dim3
-            real(dp), allocatable :: zeros_3_dp (:,:,:)
-            real(dp), intent(in) :: flag
-        end function
-        module function zeros_3_qp (dim1, dim2, dim3, flag)
-            integer, intent(in) :: dim1, dim2, dim3
-            real(qp), allocatable :: zeros_3_qp (:,:,:)
-            real(qp), intent(in) :: flag
-        end function
+    interface szeros
+        procedure zeros_1_sp
+        procedure zeros_2_sp
+        procedure zeros_3_sp
+    end interface
+    interface dzeros
+        procedure zeros_1_dp
+        procedure zeros_2_dp
+        procedure zeros_3_dp
+    end interface
+    interface qzeros
+        procedure zeros_1_qp
+        procedure zeros_2_qp
+        procedure zeros_3_qp
     end interface
 
     !! Normal Interfaces
@@ -2602,6 +2472,208 @@ module forlab
         end function
         
     end interface
+    
+    interface
+        !! Version: experimental
+        !!
+        !! zeros creates array all of zeros.
+        !!
+        !!## Syntax
+        !!    x = zeros(dim1)                
+        !!    A = zeros(dim1, dim2)          
+        !!    X = zeros(dim1, dim2, dim3)    
+        !! 
+        !!## Description
+        !! The precision of the flag variable should be consistent with 
+        !! the return value of the function.  
+        !! Unlike dynamic scripting languages, static languages generally
+        !! have multiple precision variables, so we need to explicitly provide precision hints.
+        !!
+        !! `x = zeros(dim1)` returns a dim1 vector of zeros.
+        !!
+        !! `A = zeros(dim1, dim2)` returns a dim1-by-dim2 matrix of zeros.
+        !!
+        !! `X = zeros(dim1, dim2, dim3)` returns a dim1-by-dim2-by-dim3
+        !! 3-dimensional matrix of zeros.
+        !!
+        !!## Examples
+        !!    x = zeros(3)  
+        !!    x =  
+        !!        0.  0.  0.  
+        !!
+        !!    A = zeros(3, 3)  
+        !!    A =  
+        !!        0.  0.  0.  
+        !!        0.  0.  0.  
+        !!        0.  0.  0.
+        module function zeros_1_sp (dim1)
+            integer, intent(in) :: dim1
+            real(sp), allocatable :: zeros_1_sp (:)
+        end function
+
+        module function zeros_1_dp (dim1)
+            integer, intent(in) :: dim1
+            real(dp), allocatable :: zeros_1_dp (:)
+        end function
+
+        module function zeros_1_qp (dim1)
+            integer, intent(in) :: dim1
+            real(qp), allocatable :: zeros_1_qp (:)
+        end function
+
+        module function zeros_2_sp (dim1, dim2)
+            integer, intent(in) :: dim1, dim2
+            real(sp), allocatable :: zeros_2_sp (:,:)
+        end function
+
+        module function zeros_2_dp (dim1, dim2)
+            integer, intent(in) :: dim1, dim2
+            real(dp), allocatable :: zeros_2_dp (:,:)
+        end function
+
+        module function zeros_2_qp (dim1, dim2)
+            integer, intent(in) :: dim1, dim2
+            real(qp), allocatable :: zeros_2_qp (:,:)
+        end function
+
+        module function zeros_3_sp (dim1, dim2, dim3)
+            integer, intent(in) :: dim1, dim2, dim3
+            real(sp), allocatable :: zeros_3_sp (:,:,:)
+        end function
+
+        module function zeros_3_dp (dim1, dim2, dim3)
+            integer, intent(in) :: dim1, dim2, dim3
+            real(dp), allocatable :: zeros_3_dp (:,:,:)
+        end function
+
+        module function zeros_3_qp (dim1, dim2, dim3)
+            integer, intent(in) :: dim1, dim2, dim3
+            real(qp), allocatable :: zeros_3_qp (:,:,:)
+        end function
+
+    end interface
+
+    interface
+        !! Version: experimental
+        !!
+        !! eye creates the identity matrix.
+        !!
+        !!## Syntax
+        !!    I = eye(dim1)
+        !!    I = eye(dim1, dim2)
+        !!
+        !!## Description
+        !! `I = eye(dim1)` returns an dim1-by-dim1 matrix with ones on the main
+        !! diagonal and zeros elsewhere.  
+        !! `I = eye(dim1, dim2)` returns a dim1-by-dim2 matrix with ones on the
+        !! main diagonal and zeros elsewhere.
+        !!
+        !!## Examples
+        !!      I = eye(3)  
+        !!          1.  0.  0.  
+        !!          0.  1.  0.  
+        !!          0.  0.  1.
+        !!
+        !!      I = eye(3, 4)  
+        !!          1.  0.  0.  0.  
+        !!          0.  1.  0.  0.  
+        !!          0.  0.  1.  0.
+        !!
+        !!      I = eye(4, 3)  
+        !!          1.  0.  0.
+        !!          0.  1.  0.
+        !!          0.  0.  1.
+        !!          0.  0.  0. 
+        module function eye_1_sp(dim1)
+            integer, intent(in) :: dim1
+            real(sp), dimension(:, :), allocatable :: eye_1_sp
+        end function
+
+        module function eye_2_sp (dim1, dim2)
+            integer, intent(in) :: dim2
+            integer, intent(in) :: dim1
+            real(sp), dimension(:, :), allocatable :: eye_2_sp
+        end function
+
+        module function eye_1_dp(dim1)
+            integer, intent(in) :: dim1
+            real(dp), dimension(:, :), allocatable :: eye_1_dp
+        end function
+
+        module function eye_2_dp (dim1, dim2)
+            integer, intent(in) :: dim2
+            integer, intent(in) :: dim1
+            real(dp), dimension(:, :), allocatable :: eye_2_dp
+        end function
+
+        module function eye_1_qp(dim1)
+            integer, intent(in) :: dim1
+            real(qp), dimension(:, :), allocatable :: eye_1_qp
+        end function
+
+        module function eye_2_qp (dim1, dim2)
+            integer, intent(in) :: dim2
+            integer, intent(in) :: dim1
+            real(qp), dimension(:, :), allocatable :: eye_2_qp
+        end function
+
+    end interface
+
+    interface
+        !! Version: expermental
+        !!
+        !! Create uninitialized matrices quickly, faster than `ones`/`zeros` function,
+        !! and use `empty` function with caution.
+        !!
+        !!## Example
+        !!    real, allocatable :: x(:, :)
+        !!    x = empty(2, 3)
+        module function empty_1_sp (dim1)
+            integer, intent(in) :: dim1
+            real(qp), allocatable :: empty_1_sp (:)
+        end function
+
+        module function empty_1_dp (dim1)
+            integer, intent(in) :: dim1
+            real(qp), allocatable :: empty_1_dp (:)
+        end function
+
+        module function empty_1_qp (dim1)
+            integer, intent(in) :: dim1
+            real(qp), allocatable :: empty_1_qp (:)
+        end function
+
+        module function empty_2_sp (dim1, dim2)
+            integer, intent(in) :: dim1, dim2
+            real(qp), allocatable :: empty_2_sp (:,:)
+        end function
+
+        module function empty_2_dp (dim1, dim2)
+            integer, intent(in) :: dim1, dim2
+            real(qp), allocatable :: empty_2_dp (:,:)
+        end function
+
+        module function empty_2_qp (dim1, dim2)
+            integer, intent(in) :: dim1, dim2
+            real(qp), allocatable :: empty_2_qp (:,:)
+        end function
+
+        module function empty_3_sp (dim1, dim2, dim3)
+            integer, intent(in) :: dim1, dim2, dim3
+            real(qp), allocatable :: empty_3_sp (:,:,:)
+        end function
+
+        module function empty_3_dp (dim1, dim2, dim3)
+            integer, intent(in) :: dim1, dim2, dim3
+            real(qp), allocatable :: empty_3_dp (:,:,:)
+        end function
+
+        module function empty_3_qp (dim1, dim2, dim3)
+            integer, intent(in) :: dim1, dim2, dim3
+            real(qp), allocatable :: empty_3_qp (:,:,:)
+        end function
+
+    end interface
 
 contains
 
@@ -2747,7 +2819,7 @@ contains
 
         xq = zeros(opt_n1)
         yq = zeros(opt_n1)
-        t = [zeros(k - 1), linspace(0, 1, n - k + 2), ones(k - 1)]
+        t = [dzeros(k - 1), linspace(0, 1, n - k + 2), ones(k - 1)]
         y1 = linspace(0, 1, opt_n1)
 
         do iq = 1, opt_n1
@@ -2816,8 +2888,8 @@ contains
         xq = zeros(opt_n1, opt_n2)
         yq = zeros(opt_n1, opt_n2)
         zq = zeros(opt_n1, opt_n2)
-        t1 = [zeros(k - 1), linspace(0, 1, m - k + 2), ones(k - 1)]
-        t2 = [zeros(k - 1), linspace(0, 1, n - k + 2), ones(k - 1)]
+        t1 = [dzeros(k - 1), linspace(0, 1, m - k + 2), ones(k - 1)]
+        t2 = [dzeros(k - 1), linspace(0, 1, n - k + 2), ones(k - 1)]
         y1 = linspace(0, 1, opt_n1)
         y2 = linspace(0, 1, opt_n2)
 

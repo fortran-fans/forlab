@@ -308,13 +308,13 @@ contains
         return
     end procedure disp_l2
 
-    module procedure disp_iint80
+    module procedure disp_0_int8
         if (present(string)) print *, trim(string)
         print fmt_r, x
         return
     end procedure
 
-    module procedure disp_iint81
+    module procedure disp_1_int8
         integer :: i, m
         m = size(x)
         if (present(string)) print *, trim(string)
@@ -322,18 +322,18 @@ contains
         return
     end procedure
 
-    module procedure disp_iint82
+    module procedure disp_2_int8
         integer :: i, j, m, n
         m = size(A, 1)
         n = size(A, 2)
         if (present(string)) print *, trim(string)
         do i = 1, m
-            print *, (A(i, j), j=1, n)
+            print fmt_r, (A(i, j), j=1, n)
         end do
         return
     end procedure
 
-    module procedure disp_iint83
+    module procedure disp_3_int8
         integer :: i, dim1, dim2, dim3
         dim1 = size(X, 1)
         dim2 = size(X, 2)
@@ -357,13 +357,13 @@ contains
         end if
         return
     end procedure
-    module procedure disp_iint160
+    module procedure disp_0_int16
         if (present(string)) print *, trim(string)
         print fmt_r, x
         return
     end procedure
 
-    module procedure disp_iint161
+    module procedure disp_1_int16
         integer :: i, m
         m = size(x)
         if (present(string)) print *, trim(string)
@@ -371,18 +371,18 @@ contains
         return
     end procedure
 
-    module procedure disp_iint162
+    module procedure disp_2_int16
         integer :: i, j, m, n
         m = size(A, 1)
         n = size(A, 2)
         if (present(string)) print *, trim(string)
         do i = 1, m
-            print *, (A(i, j), j=1, n)
+            print fmt_r, (A(i, j), j=1, n)
         end do
         return
     end procedure
 
-    module procedure disp_iint163
+    module procedure disp_3_int16
         integer :: i, dim1, dim2, dim3
         dim1 = size(X, 1)
         dim2 = size(X, 2)
@@ -406,13 +406,13 @@ contains
         end if
         return
     end procedure
-    module procedure disp_iint320
+    module procedure disp_0_int32
         if (present(string)) print *, trim(string)
         print fmt_r, x
         return
     end procedure
 
-    module procedure disp_iint321
+    module procedure disp_1_int32
         integer :: i, m
         m = size(x)
         if (present(string)) print *, trim(string)
@@ -420,18 +420,18 @@ contains
         return
     end procedure
 
-    module procedure disp_iint322
+    module procedure disp_2_int32
         integer :: i, j, m, n
         m = size(A, 1)
         n = size(A, 2)
         if (present(string)) print *, trim(string)
         do i = 1, m
-            print *, (A(i, j), j=1, n)
+            print fmt_r, (A(i, j), j=1, n)
         end do
         return
     end procedure
 
-    module procedure disp_iint323
+    module procedure disp_3_int32
         integer :: i, dim1, dim2, dim3
         dim1 = size(X, 1)
         dim2 = size(X, 2)
@@ -455,13 +455,13 @@ contains
         end if
         return
     end procedure
-    module procedure disp_iint640
+    module procedure disp_0_int64
         if (present(string)) print *, trim(string)
         print fmt_r, x
         return
     end procedure
 
-    module procedure disp_iint641
+    module procedure disp_1_int64
         integer :: i, m
         m = size(x)
         if (present(string)) print *, trim(string)
@@ -469,18 +469,18 @@ contains
         return
     end procedure
 
-    module procedure disp_iint642
+    module procedure disp_2_int64
         integer :: i, j, m, n
         m = size(A, 1)
         n = size(A, 2)
         if (present(string)) print *, trim(string)
         do i = 1, m
-            print *, (A(i, j), j=1, n)
+            print fmt_r, (A(i, j), j=1, n)
         end do
         return
     end procedure
 
-    module procedure disp_iint643
+    module procedure disp_3_int64
         integer :: i, dim1, dim2, dim3
         dim1 = size(X, 1)
         dim2 = size(X, 2)
@@ -510,7 +510,7 @@ contains
         real(sp), intent(in) :: x
         real(sp) :: filter_sp
         filter_sp = x
-        if (abs(x) < nearzero_sp) filter_sp = 0.0
+        if (abs(x) < nearzero_sp) filter_sp = 0.0_sp
     end function
 
     module function filter_dp(x)
@@ -518,7 +518,7 @@ contains
         real(dp), intent(in) :: x
         real(dp) :: filter_dp
         filter_dp = x
-        if (abs(x) < nearzero_dp) filter_dp = 0.0
+        if (abs(x) < nearzero_dp) filter_dp = 0.0_dp
     end function
 
     module function filter_qp(x)
@@ -526,7 +526,7 @@ contains
         real(qp), intent(in) :: x
         real(qp) :: filter_qp
         filter_qp = x
-        if (abs(x) < nearzero_qp) filter_qp = 0.0
+        if (abs(x) < nearzero_qp) filter_qp = 0.0_qp
     end function
 
 

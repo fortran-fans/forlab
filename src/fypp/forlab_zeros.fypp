@@ -14,33 +14,8 @@ submodule(forlab) forlab_zeros
     use forlab_kinds
     implicit none
 contains
-    !! Default versions
-    #:for RANK in RANKS
-    module procedure zeros_${RANK}$_default
-        integer :: ierr
-        #:if RANK == 1
-        allocate (zeros_${RANK}$_default (dim1), stat=ierr)
-        #:elif RANK == 2
-        allocate (zeros_${RANK}$_default (dim1, dim2), stat=ierr)
-        #:elif RANK == 3
-        allocate (zeros_${RANK}$_default (dim1, dim2, dim3), stat=ierr)
-        #:endif
-        if (ierr .ne. 0) then
-            print *, "Error: in zeros, could not allocate array."
-            stop
-        else
-            zeros_${RANK}$_default = 0.0d0
-        end if
-        return
-    end procedure
-
-    #:endfor
-
-    !! Multi-precision versions
-    !! Unlike dynamic scripting languages, static languages generally
-    !! have multiple precision variables, so we need to explicitly provide precision hints.
-    #:for RANK in RANKS
     #:for k1, t1 in REAL_KINDS_TYPES
+    #:for RANK in RANKS
     module procedure zeros_${RANK}$_${k1}$
         integer :: ierr
         #:if RANK == 1
@@ -58,6 +33,7 @@ contains
         end if
         return
     end procedure
+
     #:endfor
     #:endfor
 end submodule

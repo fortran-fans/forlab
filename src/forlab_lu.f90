@@ -10,12 +10,11 @@ submodule(forlab) forlab_lu
 contains
     module procedure lu_sp
         integer :: i, j, k, m
-        real(sp) :: flag
 
         if (issquare(A)) then
             m = size(A, 1)
-            if (.not. allocated(L)) L = eye(m, flag)
-            if (.not. allocated(U)) U = zeros(m, m, flag)
+            if (.not. allocated(L)) L = seye(m)
+            if (.not. allocated(U)) U = szeros(m, m)
 
             do i = 1, m
                 do j = 1, m
@@ -40,12 +39,11 @@ contains
 
     module procedure lu_dp
         integer :: i, j, k, m
-        real(dp) :: flag
 
         if (issquare(A)) then
             m = size(A, 1)
-            if (.not. allocated(L)) L = eye(m, flag)
-            if (.not. allocated(U)) U = zeros(m, m, flag)
+            if (.not. allocated(L)) L = deye(m)
+            if (.not. allocated(U)) U = dzeros(m, m)
 
             do i = 1, m
                 do j = 1, m
@@ -70,12 +68,11 @@ contains
 
     module procedure lu_qp
         integer :: i, j, k, m
-        real(qp) :: flag
 
         if (issquare(A)) then
             m = size(A, 1)
-            if (.not. allocated(L)) L = eye(m, flag)
-            if (.not. allocated(U)) U = zeros(m, m, flag)
+            if (.not. allocated(L)) L = qeye(m)
+            if (.not. allocated(U)) U = qzeros(m, m)
 
             do i = 1, m
                 do j = 1, m

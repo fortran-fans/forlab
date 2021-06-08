@@ -41,7 +41,6 @@ contains
 
     module procedure loadbin_0_sp
         integer :: opt_kind, dim1, fs
-        real(sp), dimension(:), allocatable :: tmp
         type(File) :: infile
         integer :: unit
 
@@ -177,7 +176,6 @@ contains
 
     module procedure loadbin_0_dp
         integer :: opt_kind, dim1, fs
-        real(dp), dimension(:), allocatable :: tmp
         type(File) :: infile
         integer :: unit
 
@@ -313,7 +311,6 @@ contains
 
     module procedure loadbin_0_qp
         integer :: opt_kind, dim1, fs
-        real(qp), dimension(:), allocatable :: tmp
         type(File) :: infile
         integer :: unit
 

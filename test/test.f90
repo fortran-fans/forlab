@@ -84,6 +84,7 @@ program main
     block
         use forlab, only: disp, savebin, dloadbin, rng, randn, savetxt, dloadtxt
         real*8, allocatable :: x(:)
+        call disp('---------------------')
         call rng()
         x = randn(5)
         call disp(x)

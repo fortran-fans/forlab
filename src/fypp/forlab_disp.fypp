@@ -134,13 +134,13 @@ contains
     end procedure disp_l2
 
     #:for k1, t1 in INT_KINDS_TYPES
-    module procedure disp_i${k1}$0
+    module procedure disp_0_${k1}$
         if (present(string)) print *, trim(string)
         print fmt_r, x
         return
     end procedure
 
-    module procedure disp_i${k1}$1
+    module procedure disp_1_${k1}$
         integer :: i, m
         m = size(x)
         if (present(string)) print *, trim(string)
@@ -148,18 +148,18 @@ contains
         return
     end procedure
 
-    module procedure disp_i${k1}$2
+    module procedure disp_2_${k1}$
         integer :: i, j, m, n
         m = size(A, 1)
         n = size(A, 2)
         if (present(string)) print *, trim(string)
         do i = 1, m
-            print *, (A(i, j), j=1, n)
+            print fmt_r, (A(i, j), j=1, n)
         end do
         return
     end procedure
 
-    module procedure disp_i${k1}$3
+    module procedure disp_3_${k1}$
         integer :: i, dim1, dim2, dim3
         dim1 = size(X, 1)
         dim2 = size(X, 2)
@@ -191,7 +191,7 @@ contains
         ${t1}$, intent(in) :: x
         ${t1}$ :: filter_${k1}$
         filter_${k1}$ = x
-        if (abs(x) < nearzero_${k1}$) filter_${k1}$ = 0.0
+        if (abs(x) < nearzero_${k1}$) filter_${k1}$ = 0.0_${k1}$
     end function
 
     #:endfor

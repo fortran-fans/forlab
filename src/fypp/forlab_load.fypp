@@ -43,7 +43,6 @@ contains
     #:for k1, t1 in REAL_KINDS_TYPES
     module procedure loadbin_0_${k1}$
         integer :: opt_kind, dim1, fs
-        real(${k1}$), dimension(:), allocatable :: tmp
         type(File) :: infile
         integer :: unit
 

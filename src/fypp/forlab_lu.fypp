@@ -12,12 +12,11 @@ contains
     #:for k1,t1 in REAL_KINDS_TYPES
     module procedure lu_${k1}$
         integer :: i, j, k, m
-        ${t1}$ :: flag
 
         if (issquare(A)) then
             m = size(A, 1)
-            if (.not. allocated(L)) L = eye(m, flag)
-            if (.not. allocated(U)) U = zeros(m, m, flag)
+            if (.not. allocated(L)) L = ${k1[0]}$eye(m)
+            if (.not. allocated(U)) U = ${k1[0]}$zeros(m, m)
 
             do i = 1, m
                 do j = 1, m

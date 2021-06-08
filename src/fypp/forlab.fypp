@@ -37,7 +37,7 @@ module forlab
               angle, bsplrep1, bsplrep2, bspline1, bspline2, chol, cosd, countlines, &
               cov, cumsum, chi2cdf, chi2pdf, chi2inv, chi2rand, check_directory, &
               det, diag, disp, deg2utm, datenum, datevec, datestr, deboor, diff, &
-              eig, empty, eye, &
+              eig, &
               find, flip, fliplr, flipud, fminbnd, gammainc, horzcat, &
               hann, interp1, interp2, interp3, inv, ismember, isoutlier, issquare, &
               isleap, issymmetric, kurtosis, k2test, kde, linspace, &
@@ -46,9 +46,12 @@ module forlab
               randi, randperm, repmat, rms, savetxt, savebin, sind, sort, solve, &
               svd, svdsolve, std, spline1, spline2, skewness, signum, sinc, &
               split_argument, tand, tic, toc, trace, tril, triu, utm2deg, vertcat, &
-              var, zeros, dbindex, gmm, kmeans, mbkmeans, silhouette
+              var, dbindex, gmm, kmeans, mbkmeans, silhouette
+    public :: empty, sempty, dempty, qempty
+    public :: eye, seye, deye, qeye
     public :: loadbin, sloadbin, dloadbin, qloadbin
     public :: loadtxt, sloadtxt, dloadtxt, qloadtxt
+    public :: zeros, szeros, dzeros, qzeros
     ! #ifdef do_mpi
     public :: mpi_rpre
     ! #endif
@@ -496,19 +499,19 @@ module forlab
             character(len=*), intent(in), optional :: string
         end subroutine disp_l2
         #:for k1, t1 in INT_KINDS_TYPES
-            module subroutine disp_i${k1}$0(x, string)
+            module subroutine disp_0_${k1}$(x, string)
                 ${t1}$, intent(in) :: x
                 character(len=*), intent(in), optional :: string
             end subroutine
-            module subroutine disp_i${k1}$1(x, string)
+            module subroutine disp_1_${k1}$(x, string)
                 ${t1}$, dimension(:), intent(in) :: x
                 character(len=*), intent(in), optional :: string
             end subroutine
-            module subroutine disp_i${k1}$2(A, string)
+            module subroutine disp_2_${k1}$(A, string)
                 ${t1}$, dimension(:, :), intent(in) :: A
                 character(len=*), intent(in), optional :: string
             end subroutine
-            module subroutine disp_i${k1}$3(X, dim, string)
+            module subroutine disp_3_${k1}$(X, dim, string)
                 ${t1}$, dimension(:, :, :), intent(in) :: X
                 integer, intent(in), optional :: dim
                 character(len=*), intent(in), optional :: string
@@ -531,49 +534,21 @@ module forlab
         #:endfor
     end interface eig
 
-    #:set RANKS = range(1, 4)
     interface empty
-        !! Create uninitialized matrices quickly, faster than `ones` function,
-        !! and use `empty` function with caution.
-        !!
-        !! Example
-        !! ---
-        !! real, allocatable :: x(:, :)
-        !! x = empty(2, 3)
+        #:set RANKS = range(1, 4)
         #:for RANK in RANKS
-        #:if RANK == 1
-        module function empty_${RANK}$_default (dim1)
-            integer, intent(in) :: dim1
-        #:elif RANK == 2
-        module function empty_${RANK}$_default (dim1, dim2)
-            integer, intent(in) :: dim1, dim2
-        #:elif RANK == 3
-        module function empty_${RANK}$_default (dim1, dim2, dim3)
-            integer, intent(in) :: dim1, dim2, dim3
-        #:endif
-            real(dp), allocatable :: empty_${RANK}$_default ${ranksuffix(RANK)}$
-        end function
-
-        #:endfor
-        #:for RANK in RANKS
-        #:for k1, t1 in REAL_KINDS_TYPES
-        #:if RANK == 1
-        module function empty_${RANK}$_${k1}$(dim1, flag)
-            integer, intent(in) :: dim1
-        #:elif RANK == 2
-        module function empty_${RANK}$_${k1}$(dim1, dim2, flag)
-            integer, intent(in) :: dim1, dim2
-        #:elif RANK == 3
-        module function empty_${RANK}$_${k1}$ (dim1, dim2, dim3, flag)
-            integer, intent(in) :: dim1, dim2, dim3
-        #:endif
-            ${t1}$, allocatable :: empty_${RANK}$_${k1}$ ${ranksuffix(RANK)}$
-            ${t1}$, intent(in) :: flag
-        end function
-
-        #:endfor
+        procedure empty_${RANK}$_${DK}$
         #:endfor
     end interface
+
+    #:set RANKS = range(1, 4)
+    #:for k1 in REAL_KINDS
+    interface ${k1[0]}$empty
+        #:for RANK in RANKS
+        procedure empty_${RANK}$_${k1}$
+        #:endfor
+    end interface
+    #:endfor
 
     interface eye
         !! Version: experimental
@@ -606,34 +581,21 @@ module forlab
         !!          0.  1.  0.
         !!          0.  0.  1.
         !!          0.  0.  0.  
-        module function eye_1_default (dim1)
-            real(dp), dimension(:, :), allocatable :: eye_1_default
-            integer, intent(in) :: dim1
-        end function
-
-        module function eye_2_default (dim1, dim2)
-            real(dp), dimension(:, :), allocatable :: eye_2_default
-            integer, intent(in) :: dim1
-            integer, intent(in) :: dim2
-        end function
-        #:for k1, t1 in REAL_KINDS_TYPES
-        module function eye_1_${k1}$ (dim1, flag)
-            ${t1}$, dimension(:, :), allocatable :: eye_1_${k1}$ 
-            integer, intent(in) :: dim1
-            ${t1}$, intent(in) :: flag
-
-        end function
-
-        module function eye_2_${k1}$ (dim1, dim2, flag)
-            ${t1}$, dimension(:, :), allocatable :: eye_2_${k1}$
-            integer, intent(in) :: dim1
-            integer, intent(in) :: dim2
-            ${t1}$, intent(in) :: flag
-        end function
-        
+        #:set RANKS = range(1, 3)
+        #:for RANK in RANKS
+        procedure eye_${RANK}$_${DK}$
         #:endfor
     end interface
-    
+
+    #:set RANKS = range(1, 3)
+    #:for k1 in REAL_KINDS
+    interface ${k1[0]}$eye
+        #:for RANK in RANKS
+        procedure eye_${RANK}$_${k1}$
+        #:endfor
+    end interface
+    #:endfor
+
     interface file
         module procedure init_file
     end interface file
@@ -1398,7 +1360,6 @@ module forlab
             vertcat_r21
     end interface vertcat
 
-    #:set RANKS = range(1, 4)
     interface zeros
         !! Version: experimental
         !!
@@ -1433,39 +1394,20 @@ module forlab
         !!        0.  0.  0.  
         !!        0.  0.  0.  
         !!        0.  0.  0.
+        #:set RANKS = range(1, 4)
         #:for RANK in RANKS
-        #:if RANK == 1
-        module function zeros_${RANK}$_default (dim1)
-            integer, intent(in) :: dim1
-        #:elif RANK == 2
-        module function zeros_${RANK}$_default (dim1, dim2)
-            integer, intent(in) :: dim1, dim2
-        #:elif RANK == 3
-        module function zeros_${RANK}$_default (dim1, dim2, dim3)
-            integer, intent(in) :: dim1, dim2, dim3
-        #:endif
-            real(dp), allocatable :: zeros_${RANK}$_default ${ranksuffix(RANK)}$
-        end function
-        #:endfor
-
-        #:for RANK in RANKS
-        #:for k1, t1 in REAL_KINDS_TYPES
-        #:if RANK == 1
-        module function zeros_${RANK}$_${k1}$ (dim1, flag)
-            integer, intent(in) :: dim1
-        #:elif RANK == 2
-        module function zeros_${RANK}$_${k1}$ (dim1, dim2, flag)
-            integer, intent(in) :: dim1, dim2
-        #:elif RANK == 3
-        module function zeros_${RANK}$_${k1}$ (dim1, dim2, dim3, flag)
-            integer, intent(in) :: dim1, dim2, dim3
-        #:endif
-            ${t1}$, allocatable :: zeros_${RANK}$_${k1}$ ${ranksuffix(RANK)}$
-            ${t1}$, intent(in) :: flag
-        end function
-        #:endfor
+        procedure zeros_${RANK}$_${DK}$
         #:endfor
     end interface
+
+    #:set RANKS = range(1, 4)
+    #:for k1 in REAL_KINDS
+    interface ${k1[0]}$zeros
+        #:for RANK in RANKS
+        procedure zeros_${RANK}$_${k1}$
+        #:endfor
+    end interface
+    #:endfor
 
     !! Normal Interfaces
     interface
@@ -1601,6 +1543,137 @@ module forlab
             integer(kind=IPRE), intent(in) :: dim2
         end function
         
+        #:endfor
+    end interface
+    
+    #:set RANKS = range(1, 4)
+    interface
+        !! Version: experimental
+        !!
+        !! zeros creates array all of zeros.
+        !!
+        !!## Syntax
+        !!    x = zeros(dim1)                
+        !!    A = zeros(dim1, dim2)          
+        !!    X = zeros(dim1, dim2, dim3)    
+        !! 
+        !!## Description
+        !! The precision of the flag variable should be consistent with 
+        !! the return value of the function.  
+        !! Unlike dynamic scripting languages, static languages generally
+        !! have multiple precision variables, so we need to explicitly provide precision hints.
+        !!
+        !! `x = zeros(dim1)` returns a dim1 vector of zeros.
+        !!
+        !! `A = zeros(dim1, dim2)` returns a dim1-by-dim2 matrix of zeros.
+        !!
+        !! `X = zeros(dim1, dim2, dim3)` returns a dim1-by-dim2-by-dim3
+        !! 3-dimensional matrix of zeros.
+        !!
+        !!## Examples
+        !!    x = zeros(3)  
+        !!    x =  
+        !!        0.  0.  0.  
+        !!
+        !!    A = zeros(3, 3)  
+        !!    A =  
+        !!        0.  0.  0.  
+        !!        0.  0.  0.  
+        !!        0.  0.  0.
+        #:for RANK in RANKS
+        #:for k1, t1 in REAL_KINDS_TYPES
+        #:if RANK == 1
+        module function zeros_${RANK}$_${k1}$ (dim1)
+            integer, intent(in) :: dim1
+        #:elif RANK == 2
+        module function zeros_${RANK}$_${k1}$ (dim1, dim2)
+            integer, intent(in) :: dim1, dim2
+        #:elif RANK == 3
+        module function zeros_${RANK}$_${k1}$ (dim1, dim2, dim3)
+            integer, intent(in) :: dim1, dim2, dim3
+        #:endif
+            ${t1}$, allocatable :: zeros_${RANK}$_${k1}$ ${ranksuffix(RANK)}$
+        end function
+
+        #:endfor
+        #:endfor
+    end interface
+
+    interface
+        !! Version: experimental
+        !!
+        !! eye creates the identity matrix.
+        !!
+        !!## Syntax
+        !!    I = eye(dim1)
+        !!    I = eye(dim1, dim2)
+        !!
+        !!## Description
+        !! `I = eye(dim1)` returns an dim1-by-dim1 matrix with ones on the main
+        !! diagonal and zeros elsewhere.  
+        !! `I = eye(dim1, dim2)` returns a dim1-by-dim2 matrix with ones on the
+        !! main diagonal and zeros elsewhere.
+        !!
+        !!## Examples
+        !!      I = eye(3)  
+        !!          1.  0.  0.  
+        !!          0.  1.  0.  
+        !!          0.  0.  1.
+        !!
+        !!      I = eye(3, 4)  
+        !!          1.  0.  0.  0.  
+        !!          0.  1.  0.  0.  
+        !!          0.  0.  1.  0.
+        !!
+        !!      I = eye(4, 3)  
+        !!          1.  0.  0.
+        !!          0.  1.  0.
+        !!          0.  0.  1.
+        !!          0.  0.  0. 
+        #:set RANKS = range(1, 3)
+        #:for k1, t1 in REAL_KINDS_TYPES
+        #:for RANK in RANKS
+        #:if RANK == 1
+        module function eye_${RANK}$_${k1}$(dim1)
+            integer, intent(in) :: dim1
+        #:elif RANK == 2
+        module function eye_${RANK}$_${k1}$ (dim1, dim2)
+            integer, intent(in) :: dim2
+            integer, intent(in) :: dim1
+        #:endif
+            ${t1}$, dimension(:, :), allocatable :: eye_${RANK}$_${k1}$
+        end function
+
+        #:endfor
+        #:endfor
+    end interface
+
+    #:set RANKS = range(1, 4)
+    interface
+        !! Version: expermental
+        !!
+        !! Create uninitialized matrices quickly, faster than `ones`/`zeros` function,
+        !! and use `empty` function with caution.
+        !!
+        !!## Example
+        !!    real, allocatable :: x(:, :)
+        !!    x = empty(2, 3)
+        #:for RANK in RANKS
+        #:for k1 in REAL_KINDS
+        #:if RANK == 1
+        module function empty_${RANK}$_${k1}$ (dim1)
+            integer, intent(in) :: dim1
+        #:elif RANK == 2
+        module function empty_${RANK}$_${k1}$ (dim1, dim2)
+            integer, intent(in) :: dim1, dim2
+        #:elif RANK == 3
+        module function empty_${RANK}$_${k1}$ (dim1, dim2, dim3)
+            integer, intent(in) :: dim1, dim2, dim3
+        #:endif
+            ${t1}$, allocatable :: empty_${RANK}$_${k1}$ ${ranksuffix(RANK)}$
+        end function
+
+        #:endfor
         #:endfor
     end interface
 
@@ -1748,7 +1821,7 @@ contains
 
         xq = zeros(opt_n1)
         yq = zeros(opt_n1)
-        t = [zeros(k - 1), linspace(0, 1, n - k + 2), ones(k - 1)]
+        t = [dzeros(k - 1), linspace(0, 1, n - k + 2), ones(k - 1)]
         y1 = linspace(0, 1, opt_n1)
 
         do iq = 1, opt_n1
@@ -1817,8 +1890,8 @@ contains
         xq = zeros(opt_n1, opt_n2)
         yq = zeros(opt_n1, opt_n2)
         zq = zeros(opt_n1, opt_n2)
-        t1 = [zeros(k - 1), linspace(0, 1, m - k + 2), ones(k - 1)]
-        t2 = [zeros(k - 1), linspace(0, 1, n - k + 2), ones(k - 1)]
+        t1 = [dzeros(k - 1), linspace(0, 1, m - k + 2), ones(k - 1)]
+        t2 = [dzeros(k - 1), linspace(0, 1, n - k + 2), ones(k - 1)]
         y1 = linspace(0, 1, opt_n1)
         y2 = linspace(0, 1, opt_n2)
 

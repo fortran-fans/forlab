@@ -19,6 +19,7 @@ module forlab
         procedure loadbin_${RANK}$_${k1}$
         #:endfor
     end interface
+    #:endfor
 
     !! Normal function interface
     interface
