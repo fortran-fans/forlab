@@ -1,0 +1,51 @@
+#:include 'common.fypp'
+module forlab
+    implicit none
+    private
+    public :: loadbin, sloadbin, dloadbin, qloadbin
+    
+    !! Polymorphic function interface
+    interface loadbin
+        #:set RANKS = range(0, 4)
+        #:for RANK in RANKS
+        procedure loadbin_${RANK}$_${DK}$
+        #:endfor
+    end interface
+
+    #:set RANKS = range(0, 4)
+    #:for k1 in REAL_KINDS
+    interface ${k1[0]}$loadbin
+        #:for RANK in RANKS
+        procedure loadbin_${RANK}$_${k1}$
+        #:endfor
+    end interface
+
+    !! Normal function interface
+    interface
+        #:for k1, t1 in REAL_KINDS_TYPES
+        module function loadbin_0_${k1}$(filename)
+            ${t1}$, dimension(:), allocatable :: loadbin_0_${k1}$
+            character(len=*), intent(in) :: filename
+        end function
+
+        module function loadbin_1_${k1}$(filename, dim1)
+            ${t1}$, dimension(:), allocatable :: loadbin_1_${k1}$
+            character(len=*), intent(in) :: filename
+            integer, intent(in) :: dim1
+        end function
+
+        module function loadbin_2_${k1}$(filename, dim1, dim2)
+            ${t1}$, dimension(:, :), allocatable :: loadbin_2_${k1}$
+            character(len=*), intent(in) :: filename
+            integer, intent(in) :: dim1, dim2
+        end function
+
+        module function loadbin_3_${k1}$(filename, dim1, dim2, dim3)
+            ${t1}$, dimension(:, :, :), allocatable :: loadbin_3_${k1}$
+            character(len=*), intent(in) :: filename
+            integer, intent(in) :: dim1, dim2, dim3
+        end function
+        
+        #:endfor
+    end interface
+end module

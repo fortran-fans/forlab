@@ -29,3 +29,5 @@
         * src/fypp/forlab.fypp: Modify the interface of the above functions
         * src/fypp/Makefile: make it more smart. (#9 issue, #10 PR)
         * src/fypp/README.md:
+        * src/fypp_test/forlab.fypp:
+        * src/fypp_test/forlab_load.fypp: 
