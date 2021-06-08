@@ -36,13 +36,15 @@ module forlab
               eig, empty, eye, &
               find, flip, fliplr, flipud, fminbnd, gammainc, horzcat, &
               hann, interp1, interp2, interp3, inv, ismember, isoutlier, issquare, &
-              isleap, issymmetric, kurtosis, k2test, kde, loadtxt, loadbin, linspace, &
+              isleap, issymmetric, kurtosis, k2test, kde, linspace, &
               mean, median, mad, meshgrid, nextpow2, norm, normpdf, num2str, ones, &
               outer, pascal, prctile, progress_bar, progress_perc, rng, randu, randn, &
               randi, randperm, repmat, rms, savetxt, savebin, sind, sort, solve, &
               svd, svdsolve, std, spline1, spline2, skewness, signum, sinc, &
               split_argument, tand, tic, toc, trace, tril, triu, utm2deg, vertcat, &
               var, zeros, dbindex, gmm, kmeans, mbkmeans, silhouette
+    public :: loadbin, sloadbin, dloadbin, qloadbin
+    public :: loadtxt, sloadtxt, dloadtxt, qloadtxt
     ! #ifdef do_mpi
     public :: mpi_rpre
     ! #endif
@@ -1363,12 +1365,51 @@ module forlab
     end interface linspace
 
     interface loadbin
-        module procedure loadbin0, loadbin1, loadbin2, loadbin3
-    end interface loadbin
+        procedure loadbin_0_sp
+        procedure loadbin_1_sp
+        procedure loadbin_2_sp
+        procedure loadbin_3_sp
+    end interface
+
+    interface sloadbin
+        procedure loadbin_0_sp
+        procedure loadbin_1_sp
+        procedure loadbin_2_sp
+        procedure loadbin_3_sp
+    end interface
+    
+    interface dloadbin
+        procedure loadbin_0_dp
+        procedure loadbin_1_dp
+        procedure loadbin_2_dp
+        procedure loadbin_3_dp
+    end interface
+    
+    interface qloadbin
+        procedure loadbin_0_qp
+        procedure loadbin_1_qp
+        procedure loadbin_2_qp
+        procedure loadbin_3_qp
+    end interface
+    
+
 
     interface loadtxt
-        module procedure loadtxt1, loadtxt2
-    end interface loadtxt
+        procedure loadtxt_1_sp, loadtxt_2_sp
+    end interface
+
+    interface sloadtxt
+        procedure loadtxt_1_sp, loadtxt_2_sp
+    end interface
+
+    interface dloadtxt
+        procedure loadtxt_1_dp, loadtxt_2_dp
+    end interface
+
+    interface qloadtxt
+        procedure loadtxt_1_qp, loadtxt_2_qp
+    end interface
+
 
     interface log2
         module procedure log2_i0, log2_r0, log2_i1, log2_r1
@@ -2140,6 +2181,165 @@ module forlab
         end subroutine
 
     end interface
+
+    interface
+        ! loadbin
+        !-----------------------------------------------------------------------
+        ! loadbin loads binary files.
+        !
+        ! Syntax
+        !-----------------------------------------------------------------------
+        ! x = loadbin(filename)
+        ! x = loadbin(filename, kind)
+        ! x = loadbin(filename, kind, dim1)
+        ! A = loadbin(filename, kind, dim1, dim2)
+        ! X = loadbin(filename, kind, dim1, dim2, dim3)
+        !
+        ! Description
+        !-----------------------------------------------------------------------
+        ! x = loadbin(filename) loads a 1-dimensional array into x from the
+        ! binary file filename treated as 32 bytes floating points.
+        !
+        ! x = loadbin(filename, kind) loads a 1-dimensional array into x from
+        ! the binary file filename.
+        !
+        ! x = loadbin(filename, kind, dim1) loads a 1-dimensional array into x
+        ! from the binary file filename.
+        !
+        ! A = loadbin(filename, kind, dim1, dim2) loads a 2-dimensional array
+        ! into A from the binary file filename.
+        !
+        ! X = loadbin(filename, kind, dim1, dim2, dim3) loads a 3-dimensional
+        ! array into X from the binary file filename.
+        !
+        ! Notes
+        !-----------------------------------------------------------------------
+        ! Make sure to use the exact kind:
+        !   -   4 for 32 bytes floating points,
+        !   -   8 for 64 bytes floating points.
+
+        
+        ! loadtxt
+        !-----------------------------------------------------------------------
+        ! loadtxt loads txt files.
+        !
+        ! Syntax
+        !-----------------------------------------------------------------------
+        ! x = loadtxt(filename)
+        ! A = loadtxt(filename, dim2)
+        !
+        ! Description
+        !-----------------------------------------------------------------------
+        ! x = loadtxt(filename) loads a 1-dimensional array into x from a txt
+        ! file filename.
+        !
+        ! A = loadtxt(filename, dim2) loads a 2-dimensional array into A from a
+        ! txt file filename. dim2 indicates the number of columns of the array.
+
+        module function loadbin_0_sp(filename)
+            real(sp), dimension(:), allocatable :: loadbin_0_sp
+            character(len=*), intent(in) :: filename
+        end function
+
+        module function loadbin_1_sp(filename, dim1)
+            real(sp), dimension(:), allocatable :: loadbin_1_sp
+            character(len=*), intent(in) :: filename
+            integer, intent(in) :: dim1
+        end function
+
+        module function loadbin_2_sp(filename, dim1, dim2)
+            real(sp), dimension(:, :), allocatable :: loadbin_2_sp
+            character(len=*), intent(in) :: filename
+            integer, intent(in) :: dim1, dim2
+        end function
+
+        module function loadbin_3_sp(filename, dim1, dim2, dim3)
+            real(sp), dimension(:, :, :), allocatable :: loadbin_3_sp
+            character(len=*), intent(in) :: filename
+            integer, intent(in) :: dim1, dim2, dim3
+        end function
+
+        module function loadtxt_1_sp(filename)
+            real(sp), dimension(:), allocatable :: loadtxt_1_sp
+            character(len=*), intent(in) :: filename
+        end function
+
+        module function loadtxt_2_sp(filename, dim2)
+            real(sp), dimension(:, :), allocatable :: loadtxt_2_sp
+            character(len=*), intent(in) :: filename
+            integer(kind=IPRE), intent(in) :: dim2
+        end function
+        
+        module function loadbin_0_dp(filename)
+            real(dp), dimension(:), allocatable :: loadbin_0_dp
+            character(len=*), intent(in) :: filename
+        end function
+
+        module function loadbin_1_dp(filename, dim1)
+            real(dp), dimension(:), allocatable :: loadbin_1_dp
+            character(len=*), intent(in) :: filename
+            integer, intent(in) :: dim1
+        end function
+
+        module function loadbin_2_dp(filename, dim1, dim2)
+            real(dp), dimension(:, :), allocatable :: loadbin_2_dp
+            character(len=*), intent(in) :: filename
+            integer, intent(in) :: dim1, dim2
+        end function
+
+        module function loadbin_3_dp(filename, dim1, dim2, dim3)
+            real(dp), dimension(:, :, :), allocatable :: loadbin_3_dp
+            character(len=*), intent(in) :: filename
+            integer, intent(in) :: dim1, dim2, dim3
+        end function
+
+        module function loadtxt_1_dp(filename)
+            real(dp), dimension(:), allocatable :: loadtxt_1_dp
+            character(len=*), intent(in) :: filename
+        end function
+
+        module function loadtxt_2_dp(filename, dim2)
+            real(dp), dimension(:, :), allocatable :: loadtxt_2_dp
+            character(len=*), intent(in) :: filename
+            integer(kind=IPRE), intent(in) :: dim2
+        end function
+        
+        module function loadbin_0_qp(filename)
+            real(qp), dimension(:), allocatable :: loadbin_0_qp
+            character(len=*), intent(in) :: filename
+        end function
+
+        module function loadbin_1_qp(filename, dim1)
+            real(qp), dimension(:), allocatable :: loadbin_1_qp
+            character(len=*), intent(in) :: filename
+            integer, intent(in) :: dim1
+        end function
+
+        module function loadbin_2_qp(filename, dim1, dim2)
+            real(qp), dimension(:, :), allocatable :: loadbin_2_qp
+            character(len=*), intent(in) :: filename
+            integer, intent(in) :: dim1, dim2
+        end function
+
+        module function loadbin_3_qp(filename, dim1, dim2, dim3)
+            real(qp), dimension(:, :, :), allocatable :: loadbin_3_qp
+            character(len=*), intent(in) :: filename
+            integer, intent(in) :: dim1, dim2, dim3
+        end function
+
+        module function loadtxt_1_qp(filename)
+            real(qp), dimension(:), allocatable :: loadtxt_1_qp
+            character(len=*), intent(in) :: filename
+        end function
+
+        module function loadtxt_2_qp(filename, dim2)
+            real(qp), dimension(:, :), allocatable :: loadtxt_2_qp
+            character(len=*), intent(in) :: filename
+            integer(kind=IPRE), intent(in) :: dim2
+        end function
+        
+    end interface
+
 contains
 
     ! argmax
@@ -5549,247 +5749,6 @@ contains
         end if
         return
     end function kurtosis2
-
-    ! loadbin
-    !-----------------------------------------------------------------------
-    ! loadbin loads binary files.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! x = loadbin(filename)
-    ! x = loadbin(filename, kind)
-    ! x = loadbin(filename, kind, dim1)
-    ! A = loadbin(filename, kind, dim1, dim2)
-    ! X = loadbin(filename, kind, dim1, dim2, dim3)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! x = loadbin(filename) loads a 1-dimensional array into x from the
-    ! binary file filename treated as 32 bytes floating points.
-    !
-    ! x = loadbin(filename, kind) loads a 1-dimensional array into x from
-    ! the binary file filename.
-    !
-    ! x = loadbin(filename, kind, dim1) loads a 1-dimensional array into x
-    ! from the binary file filename.
-    !
-    ! A = loadbin(filename, kind, dim1, dim2) loads a 2-dimensional array
-    ! into A from the binary file filename.
-    !
-    ! X = loadbin(filename, kind, dim1, dim2, dim3) loads a 3-dimensional
-    ! array into X from the binary file filename.
-    !
-    ! Notes
-    !-----------------------------------------------------------------------
-    ! Make sure to use the exact kind:
-    !   -   4 for 32 bytes floating points,
-    !   -   8 for 64 bytes floating points.
-
-    function loadbin0(filename, kind)
-        real(kind=RPRE), dimension(:), allocatable :: loadbin0
-        character(len=*), intent(in) :: filename
-        integer(kind=IPRE), intent(in), optional :: kind
-        integer(kind=IPRE) :: opt_kind, dim1, fs
-        real(kind=4), dimension(:), allocatable :: tmp4
-        real(kind=8), dimension(:), allocatable :: tmp8
-        type(File) :: infile
-
-        opt_kind = 4
-        if (present(kind)) opt_kind = kind
-
-        infile = File(999, trim(filename))
-        if (infile%exist()) then
-            inquire (file=filename, size=fs)
-            select case (opt_kind)
-            case (4)
-                if (mod(fs, 4) .eq. 0) then
-                    dim1 = fs/4
-                    allocate (tmp4(dim1), loadbin0(dim1))
-                    call infile%open(4*dim1)
-                    read (infile%unit, rec=1) tmp4
-                    call infile%close()
-                    loadbin0 = tmp4
-                else
-                    print *, "Error: in loadbin, file size mismatches kind."
-                    stop
-                end if
-            case (8)
-                if (mod(fs, 8) .eq. 0) then
-                    dim1 = fs/8
-                    allocate (tmp8(dim1), loadbin0(dim1))
-                    call infile%open(8*dim1)
-                    read (infile%unit, rec=1) tmp8
-                    call infile%close()
-                    loadbin0 = tmp8
-                else
-                    print *, "Error: in loadbin, file size mismatches kind."
-                    stop
-                end if
-            end select
-        else
-            print *, "Error: '"//trim(filename)//"' not found"
-            stop
-        end if
-        return
-    end function loadbin0
-
-    function loadbin1(filename, kind, dim1)
-        real(kind=RPRE), dimension(:), allocatable :: loadbin1
-        character(len=*), intent(in) :: filename
-        integer(kind=IPRE), intent(in) :: kind, dim1
-        real(kind=4), dimension(:), allocatable :: tmp4
-        real(kind=8), dimension(:), allocatable :: tmp8
-        type(File) :: infile
-
-        infile = File(999, trim(filename))
-        if (infile%exist()) then
-            allocate (loadbin1(dim1))
-            select case (kind)
-            case (4)
-                allocate (tmp4(dim1))
-                call infile%open(4*dim1)
-                read (infile%unit, rec=1) tmp4
-                call infile%close()
-                loadbin1 = tmp4
-            case (8)
-                allocate (tmp8(dim1))
-                call infile%open(8*dim1)
-                read (infile%unit, rec=1) tmp8
-                call infile%close()
-                loadbin1 = tmp8
-            end select
-        else
-            print *, "Error: '"//trim(filename)//"' not found"
-            stop
-        end if
-        return
-    end function loadbin1
-
-    function loadbin2(filename, kind, dim1, dim2)
-        real(kind=RPRE), dimension(:, :), allocatable :: loadbin2
-        character(len=*), intent(in) :: filename
-        integer(kind=IPRE), intent(in) :: kind, dim1, dim2
-        real(kind=4), dimension(:, :), allocatable :: tmp4
-        real(kind=8), dimension(:, :), allocatable :: tmp8
-        type(File) :: infile
-
-        infile = File(999, trim(filename))
-        if (infile%exist()) then
-            allocate (loadbin2(dim1, dim2))
-            select case (kind)
-            case (4)
-                allocate (tmp4(dim1, dim2))
-                call infile%open(4*dim1*dim2)
-                read (infile%unit, rec=1) tmp4
-                call infile%close()
-                loadbin2 = tmp4
-            case (8)
-                allocate (tmp8(dim1, dim2))
-                call infile%open(8*dim1*dim2)
-                read (infile%unit, rec=1) tmp8
-                call infile%close()
-                loadbin2 = tmp8
-            end select
-        else
-            print *, "Error: '"//trim(filename)//"' not found"
-            stop
-        end if
-        return
-    end function loadbin2
-
-    function loadbin3(filename, kind, dim1, dim2, dim3)
-        real(kind=RPRE), dimension(:, :, :), allocatable :: loadbin3
-        character(len=*), intent(in) :: filename
-        integer(kind=IPRE), intent(in) :: kind, dim1, dim2, dim3
-        real(kind=4), dimension(:, :, :), allocatable :: tmp4
-        real(kind=8), dimension(:, :, :), allocatable :: tmp8
-        type(File) :: infile
-
-        infile = File(999, trim(filename))
-        if (infile%exist()) then
-            allocate (loadbin3(dim1, dim2, dim3))
-            select case (kind)
-            case (4)
-                allocate (tmp4(dim1, dim2, dim3))
-                call infile%open(4*dim1*dim2*dim3)
-                read (infile%unit, rec=1) tmp4
-                call infile%close()
-                loadbin3 = tmp4
-            case (8)
-                allocate (tmp8(dim1, dim2, dim3))
-                call infile%open(8*dim1*dim2*dim3)
-                read (infile%unit, rec=1) tmp8
-                call infile%close()
-                loadbin3 = tmp8
-            end select
-        else
-            print *, "Error: '"//trim(filename)//"' not found"
-            stop
-        end if
-        return
-    end function loadbin3
-
-    ! loadtxt
-    !-----------------------------------------------------------------------
-    ! loadtxt loads txt files.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! x = loadtxt(filename)
-    ! A = loadtxt(filename, dim2)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! x = loadtxt(filename) loads a 1-dimensional array into x from a txt
-    ! file filename.
-    !
-    ! A = loadtxt(filename, dim2) loads a 2-dimensional array into A from a
-    ! txt file filename. dim2 indicates the number of columns of the array.
-
-    function loadtxt1(filename)
-        real(kind=RPRE), dimension(:), allocatable :: loadtxt1
-        character(len=*), intent(in) :: filename
-        integer(kind=IPRE) :: i, m
-        type(File) :: infile
-
-        infile = File(999, trim(filename))
-        if (infile%exist()) then
-            m = infile%countlines()
-            allocate (loadtxt1(m))
-            call infile%open()
-            do i = 1, m
-                read (infile%unit, *) loadtxt1(i)
-            end do
-            call infile%close()
-        else
-            print *, "Error: '"//trim(filename)//"' not found"
-            stop
-        end if
-        return
-    end function loadtxt1
-
-    function loadtxt2(filename, dim2)
-        real(kind=RPRE), dimension(:, :), allocatable :: loadtxt2
-        character(len=*), intent(in) :: filename
-        integer(kind=IPRE), intent(in) :: dim2
-        integer(kind=IPRE) :: i, j, m
-        type(File) :: infile
-
-        infile = File(999, trim(filename))
-        if (infile%exist()) then
-            m = infile%countlines()
-            allocate (loadtxt2(m, dim2))
-            call infile%open()
-            do i = 1, m
-                read (infile%unit, *) (loadtxt2(i, j), j=1, dim2)
-            end do
-            call infile%close()
-        else
-            print *, "Error: '"//trim(filename)//"' not found"
-            stop
-        end if
-        return
-    end function loadtxt2
 
     ! log2
     !-----------------------------------------------------------------------

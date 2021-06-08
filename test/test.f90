@@ -80,4 +80,15 @@ program main
         call disp(linspace(1, pi, 5), 'linspace 1:')
         call disp(linspace(pi, 3*pi, 1), 'linspace 2:')
     end block
+
+    block
+        use forlab, only: disp, savebin, dloadbin, rng, randn
+        real*8, allocatable :: x(:)
+        call rng()
+        x = randn(5)
+        call disp(x)
+        call savebin('DP.bin', x)
+        x = dloadbin('DP.bin')
+        call disp(x)
+    end block
 end program
