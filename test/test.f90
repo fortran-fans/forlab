@@ -94,4 +94,47 @@ program main
         x = dloadtxt('DP.txt')
         call disp(x)
     end block
+
+    block
+        use forlab,only:tril,triu,ones,disp
+        call disp("tri U L test")
+        call disp(ones(4,4),"A=")
+        call disp(tril(ones(4,4)),"tril")
+        call disp(triu(ones(4,4)),"triu")
+        call disp(tril(ones(4,4),-1),"tril")
+        call disp(triu(ones(4,4),1),"triu")
+    end block
+
+    block
+        use forlab,only:argsort,sort,disp
+        real(8)::x(4)
+        integer::a(4)=[1,3,2,4]
+        call random_number(x)
+        call disp("argsort/sort tri U L test")
+        call disp(x,"x")
+        call disp(argsort(x),"argsort(x)")
+        call disp(argsort(x,2),"argsort(x)")
+        call disp(sort(x,2),"sort(x)")
+        call disp(sort(x,1),"sort(x)")
+        call disp(a,"x")
+        call disp(argsort(a),"argsort(a)")
+        call disp(argsort(a,2),"argsort(a)")
+        call disp(sort(a,2),"sort(a)")
+        call disp(sort(a,1),"sort(a)")
+    end block
+
+    block
+        use forlab,only:eig,chol,disp
+        real::a(2,2)=reshape([real::0,1,1,0],[2,2])
+        real,allocatable::v(:,:),e(:),L(:,:)
+        call disp("eig/chol test")
+        call eig(a,v,e,100)
+        call disp(a,"a=")
+        call disp(e,"e=")
+        call disp(v,"v=")
+        a=reshape([real::1,-2,-2,6],[2,2])
+        call disp(a,"a=")
+        L=chol(a)
+        call disp(L,"L=")
+    end block
 end program
