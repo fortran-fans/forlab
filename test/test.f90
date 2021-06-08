@@ -82,13 +82,16 @@ program main
     end block
 
     block
-        use forlab, only: disp, savebin, dloadbin, rng, randn
+        use forlab, only: disp, savebin, dloadbin, rng, randn, savetxt, dloadtxt
         real*8, allocatable :: x(:)
         call rng()
         x = randn(5)
         call disp(x)
         call savebin('DP.bin', x)
+        call savetxt('DP.txt', x)
         x = dloadbin('DP.bin')
+        call disp(x)
+        x = dloadtxt('DP.txt')
         call disp(x)
     end block
 end program

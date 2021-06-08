@@ -17,6 +17,7 @@
         * src/fypp/forlab_kinds.fypp:
         * src/fypp/forlab_lu.fypp:
         * src/fypp/forlab_linspace.fypp:
+        * src/fypp/forlab_load.fypp:
         * src/fypp/forlab_num2str.fypp: (#10 PR)
         * src/fypp/forlab_operator_x.fypp:
         * src/fypp/forlab_randn.fypp:
