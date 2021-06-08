@@ -654,72 +654,70 @@ module forlab
     end interface diff
 
     interface disp
-        ! disp
-        !-----------------------------------------------------------------------
-        ! disp displays the value of a variable.
-        !
-        ! Syntax
-        !-----------------------------------------------------------------------
-        ! call disp(x)  
-        ! call disp(x, string)  
-        ! call disp(A)  
-        ! call disp(A, string)  
-        ! call disp(X)  
-        ! call disp(X, 1)  
-        ! call disp(X, 1, string)  
-        ! call disp(X, 2)  
-        ! call disp(X, 2, string)  
-        ! call disp(X, 3)  
-        ! call disp(X, 3, string)  
-        !
-        ! Description
-        !-----------------------------------------------------------------------
-        ! call disp(x) displays the scalar or the vector x.
-        !
-        ! call disp(x, string) displays the scalar or the vector x preceded by
-        ! string.
-        !
-        ! call disp(A) displays the matrix A.
-        !
-        ! call disp(A, string) displays the matrix A preceded by string.
-        !
-        ! call disp(X) displays the 3-dimensional matrix X along the axis 1.
-        !
-        ! call disp(X, 1) (see call disp(X)).
-        !
-        ! call disp(X, 1, string) displays the 3-dimensional matrix X along the
-        ! axis 1 preceded by string.
-        !
-        ! call disp(X, 2) displays the 3-dimensional matrix X along the axis 2.
-        !
-        ! call disp(X, 2, string) displays the 3-dimensional matrix X along the
-        ! axis 2 preceded by string.
-        !
-        ! call disp(X, 3) displays the 3-dimensional matrix X along the axis 3.
-        !
-        ! call disp(X, 3, string) displays the 3-dimensional matrix X along the
-        ! axis 3 preceded by string.
-        !
-        ! Examples
-        !-----------------------------------------------------------------------
-        ! x = [ 1. 2. 3. ]  
-        ! call disp(x)  
-        !     1.  
-        !     2.  
-        !     3.  
-        ! call disp(x, "x = ")  
-        !     x =  
-        !         1.  
-        !         2.  
-        !         3.
-        !
-        ! A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 9. ], [ 3, 3 ], &  
-        !             order = [ 2, 1 ])  
-        ! call disp(A, "Matrix A is")  
-        !     Matrix A is  
-        !         1.  2.  3.  
-        !         4.  5.  6.  
-        !         7.  8.  9.  
+        !! Version: expermental
+        !!
+        !! disp displays the value of a variable.
+        !!
+        !!## Syntax
+        !!    call disp(string)
+        !!    call disp(x)  
+        !!    call disp(x, string)  
+        !!    call disp(A)  
+        !!    call disp(A, string)  
+        !!    call disp(X)  
+        !!    call disp(X, 1)  
+        !!    call disp(X, 1, string)  
+        !!    call disp(X, 2)  
+        !!    call disp(X, 2, string)  
+        !!    call disp(X, 3)  
+        !!    call disp(X, 3, string)  
+        !!
+        !!## Description
+        !! `call disp(x)` displays the scalar or the vector x.
+        !!
+        !! `call disp(x, string)` displays the scalar or the vector x preceded by
+        !! string.
+        !!
+        !! `call disp(A)` displays the matrix A.
+        !!
+        !! `call disp(A, string)` displays the matrix A preceded by string.
+        !!
+        !! `call disp(X)` displays the 3-dimensional matrix X along the axis 1.
+        !!
+        !! `call disp(X, 1)` (see `call disp(X)`).
+        !!
+        !! `call disp(X, 1, string)` displays the 3-dimensional matrix X along the
+        !! axis 1 preceded by string.
+        !!
+        !! `call disp(X, 2)` displays the 3-dimensional matrix X along the axis 2.
+        !!
+        !! `call disp(X, 2, string)` displays the 3-dimensional matrix X along the
+        !! axis 2 preceded by string.
+        !!
+        !! `call disp(X, 3)` displays the 3-dimensional matrix X along the axis 3.
+        !!
+        !! `call disp(X, 3, string)` displays the 3-dimensional matrix X along the
+        !! axis 3 preceded by string.
+        !!
+        !!## Examples
+        !!    x = [ 1. 2. 3. ]  
+        !!    call disp(x)  
+        !!        1.  
+        !!        2.  
+        !!        3.  
+        !!    call disp(x, "x = ")  
+        !!        x =  
+        !!            1.  
+        !!            2.  
+        !!            3.
+        !!   
+        !!    A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 9. ], [ 3, 3 ], &  
+        !!                order = [ 2, 1 ])  
+        !!    call disp(A, "Matrix A is")  
+        !!        Matrix A is  
+        !!            1.  2.  3.  
+        !!            4.  5.  6.  
+        !!            7.  8.  9.  
             module subroutine disp_rsp0(x, string)
                 real(sp), intent(in) :: x
                 character(len=*), intent(in), optional :: string
@@ -846,7 +844,6 @@ module forlab
             module subroutine disp_iint83(X, dim, string)
                 integer(int8), dimension(:, :, :), intent(in) :: X
                 integer, intent(in), optional :: dim
-                    !! \fixme: dim precision
                 character(len=*), intent(in), optional :: string
             end subroutine
             module subroutine disp_iint160(x, string)
@@ -864,7 +861,6 @@ module forlab
             module subroutine disp_iint163(X, dim, string)
                 integer(int16), dimension(:, :, :), intent(in) :: X
                 integer, intent(in), optional :: dim
-                    !! \fixme: dim precision
                 character(len=*), intent(in), optional :: string
             end subroutine
             module subroutine disp_iint320(x, string)
@@ -882,7 +878,6 @@ module forlab
             module subroutine disp_iint323(X, dim, string)
                 integer(int32), dimension(:, :, :), intent(in) :: X
                 integer, intent(in), optional :: dim
-                    !! \fixme: dim precision
                 character(len=*), intent(in), optional :: string
             end subroutine
             module subroutine disp_iint640(x, string)
@@ -900,7 +895,6 @@ module forlab
             module subroutine disp_iint643(X, dim, string)
                 integer(int64), dimension(:, :, :), intent(in) :: X
                 integer, intent(in), optional :: dim
-                    !! \fixme: dim precision
                 character(len=*), intent(in), optional :: string
             end subroutine
         module subroutine disp_str(string)

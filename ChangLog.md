@@ -31,3 +31,15 @@
         * src/fypp/README.md:
         * src/fypp_test/forlab.fypp:
         * src/fypp_test/forlab_load.fypp: 
+
+2021-06-08  Euler-37
+
+        Provide multi-precision functions, set submodule files.
+
+        * src/fypp/forlab_argsort.fypp:
+        * src/fypp/forlab_degcir.fypp:
+        * src/fypp/forlab_chol.fypp:
+        * src/fypp/forlab_eig.fypp:
+        * src/fypp/forlab_issymmertric.fypp:
+        * src/fypp/forlab_sort.fypp:
+        * src/fypp/forlab_tri.fypp:
