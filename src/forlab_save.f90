@@ -4,9 +4,7 @@ submodule(forlab) forlab_save
 
 contains
     !! REAL Versions
-    module subroutine savetxt_1_sp(filename, x)
-        character(len=*), intent(in) :: filename
-        real(sp), dimension(:), intent(in) :: x
+    module procedure savetxt_1_sp
         integer :: i, m
         type(file) :: infile
         integer :: unit
@@ -19,11 +17,9 @@ contains
         end do
         call infile%close()
         return
-    end subroutine
+    end procedure
 
-    module subroutine savetxt_2_sp(filename, A)
-        character(len=*), intent(in) :: filename
-        real(sp), dimension(:, :), intent(in) :: A
+    module procedure savetxt_2_sp
         integer :: i, m
         type(File) :: infile
         integer :: unit
@@ -36,11 +32,9 @@ contains
         end do
         call infile%close()
         return
-    end subroutine
+    end procedure
 
-    module subroutine savebin_1_sp(filename, x)
-        character(len=*), intent(in) :: filename
-        real(sp), dimension(:), intent(in) :: x
+    module procedure savebin_1_sp
         type(File) :: infile
         integer :: unit
 
@@ -49,11 +43,9 @@ contains
         write (infile%unit, rec=1) x
         call infile%close()
         return
-    end subroutine
+    end procedure
 
-    module subroutine savebin_2_sp(filename, A)
-        character(len=*), intent(in) :: filename
-        real(sp), dimension(:, :), intent(in) :: A
+    module procedure savebin_2_sp
         type(File) :: infile
         integer :: unit
 
@@ -62,11 +54,9 @@ contains
         write (infile%unit, rec=1) A
         call infile%close()
         return
-    end subroutine
+    end procedure
 
-    module subroutine savebin_3_sp(filename, X)
-        character(len=*), intent(in) :: filename
-        real(sp), dimension(:, :, :), intent(in) :: X
+    module procedure savebin_3_sp
         type(File) :: infile
         integer :: unit
 
@@ -75,11 +65,9 @@ contains
         write (infile%unit, rec=1) X
         call infile%close()
         return
-    end subroutine
+    end procedure
 
-    module subroutine savetxt_1_dp(filename, x)
-        character(len=*), intent(in) :: filename
-        real(dp), dimension(:), intent(in) :: x
+    module procedure savetxt_1_dp
         integer :: i, m
         type(file) :: infile
         integer :: unit
@@ -92,11 +80,9 @@ contains
         end do
         call infile%close()
         return
-    end subroutine
+    end procedure
 
-    module subroutine savetxt_2_dp(filename, A)
-        character(len=*), intent(in) :: filename
-        real(dp), dimension(:, :), intent(in) :: A
+    module procedure savetxt_2_dp
         integer :: i, m
         type(File) :: infile
         integer :: unit
@@ -109,11 +95,9 @@ contains
         end do
         call infile%close()
         return
-    end subroutine
+    end procedure
 
-    module subroutine savebin_1_dp(filename, x)
-        character(len=*), intent(in) :: filename
-        real(dp), dimension(:), intent(in) :: x
+    module procedure savebin_1_dp
         type(File) :: infile
         integer :: unit
 
@@ -122,11 +106,9 @@ contains
         write (infile%unit, rec=1) x
         call infile%close()
         return
-    end subroutine
+    end procedure
 
-    module subroutine savebin_2_dp(filename, A)
-        character(len=*), intent(in) :: filename
-        real(dp), dimension(:, :), intent(in) :: A
+    module procedure savebin_2_dp
         type(File) :: infile
         integer :: unit
 
@@ -135,11 +117,9 @@ contains
         write (infile%unit, rec=1) A
         call infile%close()
         return
-    end subroutine
+    end procedure
 
-    module subroutine savebin_3_dp(filename, X)
-        character(len=*), intent(in) :: filename
-        real(dp), dimension(:, :, :), intent(in) :: X
+    module procedure savebin_3_dp
         type(File) :: infile
         integer :: unit
 
@@ -148,11 +128,9 @@ contains
         write (infile%unit, rec=1) X
         call infile%close()
         return
-    end subroutine
+    end procedure
 
-    module subroutine savetxt_1_qp(filename, x)
-        character(len=*), intent(in) :: filename
-        real(qp), dimension(:), intent(in) :: x
+    module procedure savetxt_1_qp
         integer :: i, m
         type(file) :: infile
         integer :: unit
@@ -165,11 +143,9 @@ contains
         end do
         call infile%close()
         return
-    end subroutine
+    end procedure
 
-    module subroutine savetxt_2_qp(filename, A)
-        character(len=*), intent(in) :: filename
-        real(qp), dimension(:, :), intent(in) :: A
+    module procedure savetxt_2_qp
         integer :: i, m
         type(File) :: infile
         integer :: unit
@@ -182,11 +158,9 @@ contains
         end do
         call infile%close()
         return
-    end subroutine
+    end procedure
 
-    module subroutine savebin_1_qp(filename, x)
-        character(len=*), intent(in) :: filename
-        real(qp), dimension(:), intent(in) :: x
+    module procedure savebin_1_qp
         type(File) :: infile
         integer :: unit
 
@@ -195,11 +169,9 @@ contains
         write (infile%unit, rec=1) x
         call infile%close()
         return
-    end subroutine
+    end procedure
 
-    module subroutine savebin_2_qp(filename, A)
-        character(len=*), intent(in) :: filename
-        real(qp), dimension(:, :), intent(in) :: A
+    module procedure savebin_2_qp
         type(File) :: infile
         integer :: unit
 
@@ -208,11 +180,9 @@ contains
         write (infile%unit, rec=1) A
         call infile%close()
         return
-    end subroutine
+    end procedure
 
-    module subroutine savebin_3_qp(filename, X)
-        character(len=*), intent(in) :: filename
-        real(qp), dimension(:, :, :), intent(in) :: X
+    module procedure savebin_3_qp
         type(File) :: infile
         integer :: unit
 
@@ -221,13 +191,11 @@ contains
         write (infile%unit, rec=1) X
         call infile%close()
         return
-    end subroutine
+    end procedure
 
 
     !! Integer Versions
-    module subroutine savetxt_1_int8(filename, x)
-        character(len=*), intent(in) :: filename
-        integer(int8), dimension(:), intent(in) :: x
+    module procedure savetxt_1_int8
         integer :: i, m
         type(File) :: infile
         integer :: unit
@@ -240,11 +208,9 @@ contains
         end do
         call infile%close()
         return
-    end subroutine
+    end procedure
 
-    module subroutine savetxt_2_int8(filename, A)
-        character(len=*), intent(in) :: filename
-        integer(int8), dimension(:, :), intent(in) :: A
+    module procedure savetxt_2_int8
         integer :: i, m
         type(File) :: infile
         integer :: unit
@@ -257,11 +223,9 @@ contains
         end do
         call infile%close()
         return
-    end subroutine
+    end procedure
 
-    module subroutine savetxt_1_int16(filename, x)
-        character(len=*), intent(in) :: filename
-        integer(int16), dimension(:), intent(in) :: x
+    module procedure savetxt_1_int16
         integer :: i, m
         type(File) :: infile
         integer :: unit
@@ -274,11 +238,9 @@ contains
         end do
         call infile%close()
         return
-    end subroutine
+    end procedure
 
-    module subroutine savetxt_2_int16(filename, A)
-        character(len=*), intent(in) :: filename
-        integer(int16), dimension(:, :), intent(in) :: A
+    module procedure savetxt_2_int16
         integer :: i, m
         type(File) :: infile
         integer :: unit
@@ -291,11 +253,9 @@ contains
         end do
         call infile%close()
         return
-    end subroutine
+    end procedure
 
-    module subroutine savetxt_1_int32(filename, x)
-        character(len=*), intent(in) :: filename
-        integer(int32), dimension(:), intent(in) :: x
+    module procedure savetxt_1_int32
         integer :: i, m
         type(File) :: infile
         integer :: unit
@@ -308,11 +268,9 @@ contains
         end do
         call infile%close()
         return
-    end subroutine
+    end procedure
 
-    module subroutine savetxt_2_int32(filename, A)
-        character(len=*), intent(in) :: filename
-        integer(int32), dimension(:, :), intent(in) :: A
+    module procedure savetxt_2_int32
         integer :: i, m
         type(File) :: infile
         integer :: unit
@@ -325,11 +283,9 @@ contains
         end do
         call infile%close()
         return
-    end subroutine
+    end procedure
 
-    module subroutine savetxt_1_int64(filename, x)
-        character(len=*), intent(in) :: filename
-        integer(int64), dimension(:), intent(in) :: x
+    module procedure savetxt_1_int64
         integer :: i, m
         type(File) :: infile
         integer :: unit
@@ -342,11 +298,9 @@ contains
         end do
         call infile%close()
         return
-    end subroutine
+    end procedure
 
-    module subroutine savetxt_2_int64(filename, A)
-        character(len=*), intent(in) :: filename
-        integer(int64), dimension(:, :), intent(in) :: A
+    module procedure savetxt_2_int64
         integer :: i, m
         type(File) :: infile
         integer :: unit
@@ -359,6 +313,6 @@ contains
         end do
         call infile%close()
         return
-    end subroutine
+    end procedure
 
 end submodule

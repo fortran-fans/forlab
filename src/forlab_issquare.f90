@@ -2,52 +2,40 @@ submodule(forlab) forlab_issquare
     use forlab_kinds
 
 contains
-    logical module function issquare_rsp (A)
-        !！ issquare0 determines whether a real matrix is square.
-        real(sp), dimension(:, :), intent(in) :: A
+    module procedure issquare_rsp
 
         issquare_rsp = .false.
         if (size(A, 1) .eq. size(A, 2)) issquare_rsp = .true.
         return
-    end function
-    logical module function issquare_rdp (A)
-        !！ issquare0 determines whether a real matrix is square.
-        real(dp), dimension(:, :), intent(in) :: A
+    end procedure
+    module procedure issquare_rdp
 
         issquare_rdp = .false.
         if (size(A, 1) .eq. size(A, 2)) issquare_rdp = .true.
         return
-    end function
-    logical module function issquare_rqp (A)
-        !！ issquare0 determines whether a real matrix is square.
-        real(qp), dimension(:, :), intent(in) :: A
+    end procedure
+    module procedure issquare_rqp
 
         issquare_rqp = .false.
         if (size(A, 1) .eq. size(A, 2)) issquare_rqp = .true.
         return
-    end function
-    logical module function issquare_csp (A)
-        !！ issquare0 determines whether a real matrix is square.
-        complex(sp), dimension(:, :), intent(in) :: A
+    end procedure
+    module procedure issquare_csp
 
         issquare_csp = .false.
         if (size(A, 1) .eq. size(A, 2)) issquare_csp = .true.
         return
-    end function
-    logical module function issquare_cdp (A)
-        !！ issquare0 determines whether a real matrix is square.
-        complex(dp), dimension(:, :), intent(in) :: A
+    end procedure
+    module procedure issquare_cdp
 
         issquare_cdp = .false.
         if (size(A, 1) .eq. size(A, 2)) issquare_cdp = .true.
         return
-    end function
-    logical module function issquare_cqp (A)
-        !！ issquare0 determines whether a real matrix is square.
-        complex(qp), dimension(:, :), intent(in) :: A
+    end procedure
+    module procedure issquare_cqp
 
         issquare_cqp = .false.
         if (size(A, 1) .eq. size(A, 2)) issquare_cqp = .true.
         return
-    end function
+    end procedure
 end submodule

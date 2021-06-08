@@ -3,8 +3,7 @@ submodule(forlab) forlab_rng
     implicit none
 
 contains
-    module subroutine rng(seed)
-        integer, intent(in), optional :: seed
+    module procedure rng
         integer :: seed_size, values(8)
         integer, dimension(:), allocatable :: seed_put
 
@@ -18,5 +17,5 @@ contains
         end if
         call random_seed(put=seed_put)
         return
-    end subroutine rng
+    end procedure rng
 end submodule

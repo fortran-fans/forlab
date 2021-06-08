@@ -1,0 +1,27 @@
+#:include 'common.fypp'
+submodule(forlab) forlab_angle
+    !! angle compute the phase angle.
+    !!
+    !!## Syntax
+    !!    p = angle(z)
+    !!    P = angle(Z)
+    !!
+    !!## Description
+    !! `p = angle(z)` returns the phase angle in radians of the complex
+    !! number z.
+    !!
+    !! `P = angle(Z)` returns the phase angles in radians of each complex
+    !! numbers in vector Z.
+    use forlab_kinds
+    implicit none
+
+contains
+    
+    #:for k1, t1 in REAL_KINDS_TYPES
+    module procedure angle_${k1}$
+        angle_${k1}$ = imag(log(z))
+    end procedure
+
+    #:endfor
+
+end submodule

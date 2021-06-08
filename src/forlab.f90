@@ -36,13 +36,15 @@ module forlab
               eig, empty, eye, &
               find, flip, fliplr, flipud, fminbnd, gammainc, horzcat, &
               hann, interp1, interp2, interp3, inv, ismember, isoutlier, issquare, &
-              isleap, issymmetric, kurtosis, k2test, kde, loadtxt, loadbin, linspace, &
+              isleap, issymmetric, kurtosis, k2test, kde, linspace, &
               mean, median, mad, meshgrid, nextpow2, norm, normpdf, num2str, ones, &
               outer, pascal, prctile, progress_bar, progress_perc, rng, randu, randn, &
               randi, randperm, repmat, rms, savetxt, savebin, sind, sort, solve, &
               svd, svdsolve, std, spline1, spline2, skewness, signum, sinc, &
               split_argument, tand, tic, toc, trace, tril, triu, utm2deg, vertcat, &
               var, zeros, dbindex, gmm, kmeans, mbkmeans, silhouette
+    public :: loadbin, sloadbin, dloadbin, qloadbin
+    public :: loadtxt, sloadtxt, dloadtxt, qloadtxt
     ! #ifdef do_mpi
     public :: mpi_rpre
     ! #endif
@@ -70,40 +72,31 @@ module forlab
     end interface
 
     !! Polymorphic Interfaces
-    interface det
-        !! Version: expermental
-        !!
-        !! det computes the matrix determinant.
+    interface angle
+        !! angle compute the phase angle.
         !!
         !!## Syntax
-        !!    x = det(A)  
-        !!    x = det(A, L, U)  
+        !!    p = angle(z)
+        !!    P = angle(Z)
         !!
         !!## Description
-        !! `x = det(A)` returns the determinant of the square matrix A, as the
-        !! product of the diagonal elements of the upper triangular matrix from
-        !! the LU factorization of A.
+        !! `p = angle(z)` returns the phase angle in radians of the complex
+        !! number z.
         !!
-        !! `x = det(A, L, U)` returns the determinant of the square matrix A and
-        !! outputs the LU factorization matrices of A used for the calculation.
-        !!
-        !!## Examples
-        !!    A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 0. ], [ 3, 3 ], &  
-        !!                order = [ 2, 1 ])  
-        !!    x = det(A)  
-        !!        27. 
-        real(sp) module function det_sp (A, outL, outU)
-            real(sp), dimension(:, :), intent(in) :: A
-            real(sp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
+        !! `P = angle(Z)` returns the phase angles in radians of each complex
+        !! numbers in vector Z.
+        real(sp) elemental module function angle_sp(z)
+            complex(sp), intent(in) :: z
         end function
-        real(dp) module function det_dp (A, outL, outU)
-            real(dp), dimension(:, :), intent(in) :: A
-            real(dp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
+
+        real(dp) elemental module function angle_dp(z)
+            complex(dp), intent(in) :: z
         end function
-        real(qp) module function det_qp (A, outL, outU)
-            real(qp), dimension(:, :), intent(in) :: A
-            real(qp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
+
+        real(qp) elemental module function angle_qp(z)
+            complex(qp), intent(in) :: z
         end function
+
     end interface
 
     interface acosd
@@ -398,10 +391,6 @@ module forlab
     end interface tand
 
 
-    interface angle
-        module procedure angle0, angle1
-    end interface angle
-
     interface arange
         !! Version: expermental
         !!
@@ -504,6 +493,43 @@ module forlab
     interface deg2utm
         module procedure deg2utm0, deg2utm1
     end interface deg2utm
+
+    
+    interface det
+        !! Version: expermental
+        !!
+        !! det computes the matrix determinant.
+        !!
+        !!## Syntax
+        !!    x = det(A)  
+        !!    x = det(A, L, U)  
+        !!
+        !!## Description
+        !! `x = det(A)` returns the determinant of the square matrix A, as the
+        !! product of the diagonal elements of the upper triangular matrix from
+        !! the LU factorization of A.
+        !!
+        !! `x = det(A, L, U)` returns the determinant of the square matrix A and
+        !! outputs the LU factorization matrices of A used for the calculation.
+        !!
+        !!## Examples
+        !!    A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 0. ], [ 3, 3 ], &  
+        !!                order = [ 2, 1 ])  
+        !!    x = det(A)  
+        !!        27. 
+        real(sp) module function det_sp (A, outL, outU)
+            real(sp), dimension(:, :), intent(in) :: A
+            real(sp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
+        end function
+        real(dp) module function det_dp (A, outL, outU)
+            real(dp), dimension(:, :), intent(in) :: A
+            real(dp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
+        end function
+        real(qp) module function det_qp (A, outL, outU)
+            real(qp), dimension(:, :), intent(in) :: A
+            real(qp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
+        end function
+    end interface
 
     interface diag
         !! Version: expermental
@@ -838,37 +864,37 @@ module forlab
             real(dp), allocatable :: empty_3_default (:,:,:)
         end function
 
-        module function empty_1_sp (dim1, flag)
+        module function empty_1_sp(dim1, flag)
             integer, intent(in) :: dim1
             real(sp), allocatable :: empty_1_sp (:)
             real(sp), intent(in) :: flag
         end function
 
-        module function empty_1_dp (dim1, flag)
+        module function empty_1_dp(dim1, flag)
             integer, intent(in) :: dim1
             real(dp), allocatable :: empty_1_dp (:)
             real(dp), intent(in) :: flag
         end function
 
-        module function empty_1_qp (dim1, flag)
+        module function empty_1_qp(dim1, flag)
             integer, intent(in) :: dim1
             real(qp), allocatable :: empty_1_qp (:)
             real(qp), intent(in) :: flag
         end function
 
-        module function empty_2_sp (dim1, dim2, flag)
+        module function empty_2_sp(dim1, dim2, flag)
             integer, intent(in) :: dim1, dim2
             real(sp), allocatable :: empty_2_sp (:,:)
             real(sp), intent(in) :: flag
         end function
 
-        module function empty_2_dp (dim1, dim2, flag)
+        module function empty_2_dp(dim1, dim2, flag)
             integer, intent(in) :: dim1, dim2
             real(dp), allocatable :: empty_2_dp (:,:)
             real(dp), intent(in) :: flag
         end function
 
-        module function empty_2_qp (dim1, dim2, flag)
+        module function empty_2_qp(dim1, dim2, flag)
             integer, intent(in) :: dim1, dim2
             real(qp), allocatable :: empty_2_qp (:,:)
             real(qp), intent(in) :: flag
@@ -1235,17 +1261,155 @@ module forlab
     end interface kurtosis
 
     interface linspace
-        module procedure linspace_r8r8, linspace_r4r4, linspace_i4i4, &
-            linspace_r8i4, linspace_r4i4, linspace_i4r8, linspace_i4r4
+        !! Version: experimental
+        !!
+        !! linspace creates a linearly spaced vector.   
+        !!
+        !!## Syntax
+        !!    x = linspace(x1, x2, n)
+        !!
+        !!## Description
+        !! `x = linspace(x1, x2, n)` returns a vector of n evenly spaced points
+        !! between x1 and x2.
+        !!
+        !!## Examples
+        !!    x = linspace(0, 10, 11)
+        !!        0.  1.  2.  3.  4.  5.  6.  7.  8.  9.  10.
+        module function linspace_sp(first, last, n)
+            real(sp), dimension(:), allocatable :: linspace_sp
+            real(sp), intent(in) :: first, last
+            integer, intent(in) :: n
+        end function
+
+        module function linspace_int_sp(first, last, n, flag)
+            real(sp), dimension(:), allocatable :: linspace_int_sp
+            integer, intent(in) :: first, last
+            integer, intent(in) :: n
+            real(sp), intent(in) :: flag
+        end function 
+
+        module function linspace_ri_sp(first, last, n)
+            real(sp), dimension(:), allocatable :: linspace_ri_sp
+            real(sp), intent(in) :: first
+            integer, intent(in) :: last
+            integer, intent(in) :: n
+        end function
+    
+        module function linspace_ir_sp(first, last, n)
+            real(sp), dimension(:), allocatable :: linspace_ir_sp
+            integer, intent(in) :: first
+            real(sp), intent(in) :: last
+            integer, intent(in) :: n
+        end function
+
+        module function linspace_dp(first, last, n)
+            real(dp), dimension(:), allocatable :: linspace_dp
+            real(dp), intent(in) :: first, last
+            integer, intent(in) :: n
+        end function
+
+        module function linspace_int_dp(first, last, n, flag)
+            real(dp), dimension(:), allocatable :: linspace_int_dp
+            integer, intent(in) :: first, last
+            integer, intent(in) :: n
+            real(dp), intent(in) :: flag
+        end function 
+
+        module function linspace_ri_dp(first, last, n)
+            real(dp), dimension(:), allocatable :: linspace_ri_dp
+            real(dp), intent(in) :: first
+            integer, intent(in) :: last
+            integer, intent(in) :: n
+        end function
+    
+        module function linspace_ir_dp(first, last, n)
+            real(dp), dimension(:), allocatable :: linspace_ir_dp
+            integer, intent(in) :: first
+            real(dp), intent(in) :: last
+            integer, intent(in) :: n
+        end function
+
+        module function linspace_qp(first, last, n)
+            real(qp), dimension(:), allocatable :: linspace_qp
+            real(qp), intent(in) :: first, last
+            integer, intent(in) :: n
+        end function
+
+        module function linspace_int_qp(first, last, n, flag)
+            real(qp), dimension(:), allocatable :: linspace_int_qp
+            integer, intent(in) :: first, last
+            integer, intent(in) :: n
+            real(qp), intent(in) :: flag
+        end function 
+
+        module function linspace_ri_qp(first, last, n)
+            real(qp), dimension(:), allocatable :: linspace_ri_qp
+            real(qp), intent(in) :: first
+            integer, intent(in) :: last
+            integer, intent(in) :: n
+        end function
+    
+        module function linspace_ir_qp(first, last, n)
+            real(qp), dimension(:), allocatable :: linspace_ir_qp
+            integer, intent(in) :: first
+            real(qp), intent(in) :: last
+            integer, intent(in) :: n
+        end function
+
+        module function linspace_default(first, last, n)
+            real(dp), dimension(:), allocatable :: linspace_default
+            integer, intent(in) :: first, last
+            integer, intent(in) :: n
+        end function 
+
     end interface linspace
 
     interface loadbin
-        module procedure loadbin0, loadbin1, loadbin2, loadbin3
-    end interface loadbin
+        procedure loadbin_0_sp
+        procedure loadbin_1_sp
+        procedure loadbin_2_sp
+        procedure loadbin_3_sp
+    end interface
+
+    interface sloadbin
+        procedure loadbin_0_sp
+        procedure loadbin_1_sp
+        procedure loadbin_2_sp
+        procedure loadbin_3_sp
+    end interface
+    
+    interface dloadbin
+        procedure loadbin_0_dp
+        procedure loadbin_1_dp
+        procedure loadbin_2_dp
+        procedure loadbin_3_dp
+    end interface
+    
+    interface qloadbin
+        procedure loadbin_0_qp
+        procedure loadbin_1_qp
+        procedure loadbin_2_qp
+        procedure loadbin_3_qp
+    end interface
+    
+
 
     interface loadtxt
-        module procedure loadtxt1, loadtxt2
-    end interface loadtxt
+        procedure loadtxt_1_sp, loadtxt_2_sp
+    end interface
+
+    interface sloadtxt
+        procedure loadtxt_1_sp, loadtxt_2_sp
+    end interface
+
+    interface dloadtxt
+        procedure loadtxt_1_dp, loadtxt_2_dp
+    end interface
+
+    interface qloadtxt
+        procedure loadtxt_1_qp, loadtxt_2_qp
+    end interface
+
 
     interface log2
         module procedure log2_i0, log2_r0, log2_i1, log2_r1
@@ -2017,44 +2181,166 @@ module forlab
         end subroutine
 
     end interface
+
+    interface
+        ! loadbin
+        !-----------------------------------------------------------------------
+        ! loadbin loads binary files.
+        !
+        ! Syntax
+        !-----------------------------------------------------------------------
+        ! x = loadbin(filename)
+        ! x = loadbin(filename, kind)
+        ! x = loadbin(filename, kind, dim1)
+        ! A = loadbin(filename, kind, dim1, dim2)
+        ! X = loadbin(filename, kind, dim1, dim2, dim3)
+        !
+        ! Description
+        !-----------------------------------------------------------------------
+        ! x = loadbin(filename) loads a 1-dimensional array into x from the
+        ! binary file filename treated as 32 bytes floating points.
+        !
+        ! x = loadbin(filename, kind) loads a 1-dimensional array into x from
+        ! the binary file filename.
+        !
+        ! x = loadbin(filename, kind, dim1) loads a 1-dimensional array into x
+        ! from the binary file filename.
+        !
+        ! A = loadbin(filename, kind, dim1, dim2) loads a 2-dimensional array
+        ! into A from the binary file filename.
+        !
+        ! X = loadbin(filename, kind, dim1, dim2, dim3) loads a 3-dimensional
+        ! array into X from the binary file filename.
+        !
+        ! Notes
+        !-----------------------------------------------------------------------
+        ! Make sure to use the exact kind:
+        !   -   4 for 32 bytes floating points,
+        !   -   8 for 64 bytes floating points.
+
+        
+        ! loadtxt
+        !-----------------------------------------------------------------------
+        ! loadtxt loads txt files.
+        !
+        ! Syntax
+        !-----------------------------------------------------------------------
+        ! x = loadtxt(filename)
+        ! A = loadtxt(filename, dim2)
+        !
+        ! Description
+        !-----------------------------------------------------------------------
+        ! x = loadtxt(filename) loads a 1-dimensional array into x from a txt
+        ! file filename.
+        !
+        ! A = loadtxt(filename, dim2) loads a 2-dimensional array into A from a
+        ! txt file filename. dim2 indicates the number of columns of the array.
+
+        module function loadbin_0_sp(filename)
+            real(sp), dimension(:), allocatable :: loadbin_0_sp
+            character(len=*), intent(in) :: filename
+        end function
+
+        module function loadbin_1_sp(filename, dim1)
+            real(sp), dimension(:), allocatable :: loadbin_1_sp
+            character(len=*), intent(in) :: filename
+            integer, intent(in) :: dim1
+        end function
+
+        module function loadbin_2_sp(filename, dim1, dim2)
+            real(sp), dimension(:, :), allocatable :: loadbin_2_sp
+            character(len=*), intent(in) :: filename
+            integer, intent(in) :: dim1, dim2
+        end function
+
+        module function loadbin_3_sp(filename, dim1, dim2, dim3)
+            real(sp), dimension(:, :, :), allocatable :: loadbin_3_sp
+            character(len=*), intent(in) :: filename
+            integer, intent(in) :: dim1, dim2, dim3
+        end function
+
+        module function loadtxt_1_sp(filename)
+            real(sp), dimension(:), allocatable :: loadtxt_1_sp
+            character(len=*), intent(in) :: filename
+        end function
+
+        module function loadtxt_2_sp(filename, dim2)
+            real(sp), dimension(:, :), allocatable :: loadtxt_2_sp
+            character(len=*), intent(in) :: filename
+            integer(kind=IPRE), intent(in) :: dim2
+        end function
+        
+        module function loadbin_0_dp(filename)
+            real(dp), dimension(:), allocatable :: loadbin_0_dp
+            character(len=*), intent(in) :: filename
+        end function
+
+        module function loadbin_1_dp(filename, dim1)
+            real(dp), dimension(:), allocatable :: loadbin_1_dp
+            character(len=*), intent(in) :: filename
+            integer, intent(in) :: dim1
+        end function
+
+        module function loadbin_2_dp(filename, dim1, dim2)
+            real(dp), dimension(:, :), allocatable :: loadbin_2_dp
+            character(len=*), intent(in) :: filename
+            integer, intent(in) :: dim1, dim2
+        end function
+
+        module function loadbin_3_dp(filename, dim1, dim2, dim3)
+            real(dp), dimension(:, :, :), allocatable :: loadbin_3_dp
+            character(len=*), intent(in) :: filename
+            integer, intent(in) :: dim1, dim2, dim3
+        end function
+
+        module function loadtxt_1_dp(filename)
+            real(dp), dimension(:), allocatable :: loadtxt_1_dp
+            character(len=*), intent(in) :: filename
+        end function
+
+        module function loadtxt_2_dp(filename, dim2)
+            real(dp), dimension(:, :), allocatable :: loadtxt_2_dp
+            character(len=*), intent(in) :: filename
+            integer(kind=IPRE), intent(in) :: dim2
+        end function
+        
+        module function loadbin_0_qp(filename)
+            real(qp), dimension(:), allocatable :: loadbin_0_qp
+            character(len=*), intent(in) :: filename
+        end function
+
+        module function loadbin_1_qp(filename, dim1)
+            real(qp), dimension(:), allocatable :: loadbin_1_qp
+            character(len=*), intent(in) :: filename
+            integer, intent(in) :: dim1
+        end function
+
+        module function loadbin_2_qp(filename, dim1, dim2)
+            real(qp), dimension(:, :), allocatable :: loadbin_2_qp
+            character(len=*), intent(in) :: filename
+            integer, intent(in) :: dim1, dim2
+        end function
+
+        module function loadbin_3_qp(filename, dim1, dim2, dim3)
+            real(qp), dimension(:, :, :), allocatable :: loadbin_3_qp
+            character(len=*), intent(in) :: filename
+            integer, intent(in) :: dim1, dim2, dim3
+        end function
+
+        module function loadtxt_1_qp(filename)
+            real(qp), dimension(:), allocatable :: loadtxt_1_qp
+            character(len=*), intent(in) :: filename
+        end function
+
+        module function loadtxt_2_qp(filename, dim2)
+            real(qp), dimension(:, :), allocatable :: loadtxt_2_qp
+            character(len=*), intent(in) :: filename
+            integer(kind=IPRE), intent(in) :: dim2
+        end function
+        
+    end interface
+
 contains
-
-    ! angle
-    !-----------------------------------------------------------------------
-    ! angle compute the phase angle.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! p = angle(z)
-    ! P = angle(Z)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! p = angle(z) returns the phase angle in radians of the complex
-    ! number z.
-    !
-    ! P = angle(Z) returns the phase angles in radians of each complex
-    ! numbers in vector Z.
-
-    real(kind=RPRE) function angle0(z)
-        complex(kind=RPRE), intent(in) :: z
-
-        angle0 = imag(log(z))
-        return
-    end function angle0
-
-    function angle1(Z)
-        real(kind=RPRE), dimension(:), allocatable :: angle1
-        complex(kind=RPRE), dimension(:), intent(in) :: Z
-        integer(kind=IPRE) :: i, n
-
-        n = size(Z)
-        angle1 = zeros(n)
-        do i = 1, n
-            angle1(i) = angle0(Z(i))
-        end do
-        return
-    end function angle1
 
     ! argmax
     !-----------------------------------------------------------------------
@@ -5463,336 +5749,6 @@ contains
         end if
         return
     end function kurtosis2
-
-    ! linspace
-    !-----------------------------------------------------------------------
-    ! linspace creates a linearly spaced vector.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! x = linspace(x1, x2, n)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! x = linspace(x1, x2, n) returns a vector of n evenly spaced points
-    ! between x1 and x2.
-    !
-    ! Examples
-    !-----------------------------------------------------------------------
-    ! x = linspace(0, 10, 11)
-    !     0.  1.  2.  3.  4.  5.  6.  7.  8.  9.  10.
-
-    function linspace_r8r8(first, last, n)
-        real(kind=RPRE), dimension(:), allocatable :: linspace_r8r8
-        real(kind=8), intent(in) :: first, last
-        integer(kind=IPRE), intent(in) :: n
-        integer(kind=IPRE) :: i
-        real(kind=8) :: step
-
-        allocate (linspace_r8r8(n))
-        step = (last - first)/(n - 1)
-        linspace_r8r8 = first + step*real([(i - 1, i=1, n)], RPRE)
-        return
-    end function linspace_r8r8
-
-    function linspace_r4r4(first, last, n)
-        real(kind=RPRE), dimension(:), allocatable :: linspace_r4r4
-        real(kind=4), intent(in) :: first, last
-        integer(kind=IPRE), intent(in) :: n
-
-        linspace_r4r4 = linspace(real(first, kind=8), real(last, kind=8), n)
-        return
-    end function linspace_r4r4
-
-    function linspace_i4i4(first, last, n)
-        real(kind=RPRE), dimension(:), allocatable :: linspace_i4i4
-        integer(kind=4), intent(in) :: first, last
-        integer(kind=IPRE), intent(in) :: n
-
-        linspace_i4i4 = linspace(real(first, kind=8), real(last, kind=8), n)
-        return
-    end function linspace_i4i4
-
-    function linspace_r8i4(first, last, n)
-        real(kind=RPRE), dimension(:), allocatable :: linspace_r8i4
-        real(kind=8), intent(in) :: first
-        integer(kind=4), intent(in) :: last
-        integer(kind=IPRE), intent(in) :: n
-
-        linspace_r8i4 = linspace(first, real(last, kind=8), n)
-        return
-    end function linspace_r8i4
-
-    function linspace_r4i4(first, last, n)
-        real(kind=RPRE), dimension(:), allocatable :: linspace_r4i4
-        real(kind=4), intent(in) :: first
-        integer(kind=4), intent(in) :: last
-        integer(kind=IPRE), intent(in) :: n
-
-        linspace_r4i4 = linspace(real(first, kind=8), real(last, kind=8), n)
-        return
-    end function linspace_r4i4
-
-    function linspace_i4r8(first, last, n)
-        real(kind=RPRE), dimension(:), allocatable :: linspace_i4r8
-        integer(kind=4), intent(in) :: first
-        real(kind=8), intent(in) :: last
-        integer(kind=IPRE), intent(in) :: n
-
-        linspace_i4r8 = linspace(real(first, kind=8), last, n)
-        return
-    end function linspace_i4r8
-
-    function linspace_i4r4(first, last, n)
-        real(kind=RPRE), dimension(:), allocatable :: linspace_i4r4
-        integer(kind=4), intent(in) :: first
-        real(kind=4), intent(in) :: last
-        integer(kind=IPRE), intent(in) :: n
-
-        linspace_i4r4 = linspace(real(first, kind=8), real(last, kind=8), n)
-        return
-    end function linspace_i4r4
-
-    ! loadbin
-    !-----------------------------------------------------------------------
-    ! loadbin loads binary files.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! x = loadbin(filename)
-    ! x = loadbin(filename, kind)
-    ! x = loadbin(filename, kind, dim1)
-    ! A = loadbin(filename, kind, dim1, dim2)
-    ! X = loadbin(filename, kind, dim1, dim2, dim3)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! x = loadbin(filename) loads a 1-dimensional array into x from the
-    ! binary file filename treated as 32 bytes floating points.
-    !
-    ! x = loadbin(filename, kind) loads a 1-dimensional array into x from
-    ! the binary file filename.
-    !
-    ! x = loadbin(filename, kind, dim1) loads a 1-dimensional array into x
-    ! from the binary file filename.
-    !
-    ! A = loadbin(filename, kind, dim1, dim2) loads a 2-dimensional array
-    ! into A from the binary file filename.
-    !
-    ! X = loadbin(filename, kind, dim1, dim2, dim3) loads a 3-dimensional
-    ! array into X from the binary file filename.
-    !
-    ! Notes
-    !-----------------------------------------------------------------------
-    ! Make sure to use the exact kind:
-    !   -   4 for 32 bytes floating points,
-    !   -   8 for 64 bytes floating points.
-
-    function loadbin0(filename, kind)
-        real(kind=RPRE), dimension(:), allocatable :: loadbin0
-        character(len=*), intent(in) :: filename
-        integer(kind=IPRE), intent(in), optional :: kind
-        integer(kind=IPRE) :: opt_kind, dim1, fs
-        real(kind=4), dimension(:), allocatable :: tmp4
-        real(kind=8), dimension(:), allocatable :: tmp8
-        type(File) :: infile
-
-        opt_kind = 4
-        if (present(kind)) opt_kind = kind
-
-        infile = File(999, trim(filename))
-        if (infile%exist()) then
-            inquire (file=filename, size=fs)
-            select case (opt_kind)
-            case (4)
-                if (mod(fs, 4) .eq. 0) then
-                    dim1 = fs/4
-                    allocate (tmp4(dim1), loadbin0(dim1))
-                    call infile%open(4*dim1)
-                    read (infile%unit, rec=1) tmp4
-                    call infile%close()
-                    loadbin0 = tmp4
-                else
-                    print *, "Error: in loadbin, file size mismatches kind."
-                    stop
-                end if
-            case (8)
-                if (mod(fs, 8) .eq. 0) then
-                    dim1 = fs/8
-                    allocate (tmp8(dim1), loadbin0(dim1))
-                    call infile%open(8*dim1)
-                    read (infile%unit, rec=1) tmp8
-                    call infile%close()
-                    loadbin0 = tmp8
-                else
-                    print *, "Error: in loadbin, file size mismatches kind."
-                    stop
-                end if
-            end select
-        else
-            print *, "Error: '"//trim(filename)//"' not found"
-            stop
-        end if
-        return
-    end function loadbin0
-
-    function loadbin1(filename, kind, dim1)
-        real(kind=RPRE), dimension(:), allocatable :: loadbin1
-        character(len=*), intent(in) :: filename
-        integer(kind=IPRE), intent(in) :: kind, dim1
-        real(kind=4), dimension(:), allocatable :: tmp4
-        real(kind=8), dimension(:), allocatable :: tmp8
-        type(File) :: infile
-
-        infile = File(999, trim(filename))
-        if (infile%exist()) then
-            allocate (loadbin1(dim1))
-            select case (kind)
-            case (4)
-                allocate (tmp4(dim1))
-                call infile%open(4*dim1)
-                read (infile%unit, rec=1) tmp4
-                call infile%close()
-                loadbin1 = tmp4
-            case (8)
-                allocate (tmp8(dim1))
-                call infile%open(8*dim1)
-                read (infile%unit, rec=1) tmp8
-                call infile%close()
-                loadbin1 = tmp8
-            end select
-        else
-            print *, "Error: '"//trim(filename)//"' not found"
-            stop
-        end if
-        return
-    end function loadbin1
-
-    function loadbin2(filename, kind, dim1, dim2)
-        real(kind=RPRE), dimension(:, :), allocatable :: loadbin2
-        character(len=*), intent(in) :: filename
-        integer(kind=IPRE), intent(in) :: kind, dim1, dim2
-        real(kind=4), dimension(:, :), allocatable :: tmp4
-        real(kind=8), dimension(:, :), allocatable :: tmp8
-        type(File) :: infile
-
-        infile = File(999, trim(filename))
-        if (infile%exist()) then
-            allocate (loadbin2(dim1, dim2))
-            select case (kind)
-            case (4)
-                allocate (tmp4(dim1, dim2))
-                call infile%open(4*dim1*dim2)
-                read (infile%unit, rec=1) tmp4
-                call infile%close()
-                loadbin2 = tmp4
-            case (8)
-                allocate (tmp8(dim1, dim2))
-                call infile%open(8*dim1*dim2)
-                read (infile%unit, rec=1) tmp8
-                call infile%close()
-                loadbin2 = tmp8
-            end select
-        else
-            print *, "Error: '"//trim(filename)//"' not found"
-            stop
-        end if
-        return
-    end function loadbin2
-
-    function loadbin3(filename, kind, dim1, dim2, dim3)
-        real(kind=RPRE), dimension(:, :, :), allocatable :: loadbin3
-        character(len=*), intent(in) :: filename
-        integer(kind=IPRE), intent(in) :: kind, dim1, dim2, dim3
-        real(kind=4), dimension(:, :, :), allocatable :: tmp4
-        real(kind=8), dimension(:, :, :), allocatable :: tmp8
-        type(File) :: infile
-
-        infile = File(999, trim(filename))
-        if (infile%exist()) then
-            allocate (loadbin3(dim1, dim2, dim3))
-            select case (kind)
-            case (4)
-                allocate (tmp4(dim1, dim2, dim3))
-                call infile%open(4*dim1*dim2*dim3)
-                read (infile%unit, rec=1) tmp4
-                call infile%close()
-                loadbin3 = tmp4
-            case (8)
-                allocate (tmp8(dim1, dim2, dim3))
-                call infile%open(8*dim1*dim2*dim3)
-                read (infile%unit, rec=1) tmp8
-                call infile%close()
-                loadbin3 = tmp8
-            end select
-        else
-            print *, "Error: '"//trim(filename)//"' not found"
-            stop
-        end if
-        return
-    end function loadbin3
-
-    ! loadtxt
-    !-----------------------------------------------------------------------
-    ! loadtxt loads txt files.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! x = loadtxt(filename)
-    ! A = loadtxt(filename, dim2)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! x = loadtxt(filename) loads a 1-dimensional array into x from a txt
-    ! file filename.
-    !
-    ! A = loadtxt(filename, dim2) loads a 2-dimensional array into A from a
-    ! txt file filename. dim2 indicates the number of columns of the array.
-
-    function loadtxt1(filename)
-        real(kind=RPRE), dimension(:), allocatable :: loadtxt1
-        character(len=*), intent(in) :: filename
-        integer(kind=IPRE) :: i, m
-        type(File) :: infile
-
-        infile = File(999, trim(filename))
-        if (infile%exist()) then
-            m = infile%countlines()
-            allocate (loadtxt1(m))
-            call infile%open()
-            do i = 1, m
-                read (infile%unit, *) loadtxt1(i)
-            end do
-            call infile%close()
-        else
-            print *, "Error: '"//trim(filename)//"' not found"
-            stop
-        end if
-        return
-    end function loadtxt1
-
-    function loadtxt2(filename, dim2)
-        real(kind=RPRE), dimension(:, :), allocatable :: loadtxt2
-        character(len=*), intent(in) :: filename
-        integer(kind=IPRE), intent(in) :: dim2
-        integer(kind=IPRE) :: i, j, m
-        type(File) :: infile
-
-        infile = File(999, trim(filename))
-        if (infile%exist()) then
-            m = infile%countlines()
-            allocate (loadtxt2(m, dim2))
-            call infile%open()
-            do i = 1, m
-                read (infile%unit, *) (loadtxt2(i, j), j=1, dim2)
-            end do
-            call infile%close()
-        else
-            print *, "Error: '"//trim(filename)//"' not found"
-            stop
-        end if
-        return
-    end function loadtxt2
 
     ! log2
     !-----------------------------------------------------------------------

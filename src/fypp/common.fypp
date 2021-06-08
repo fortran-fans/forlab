@@ -27,4 +27,7 @@
 #! Collected (kind, type) tuples for integer types
 #:set INT_KINDS_TYPES = list(zip(INT_KINDS, INT_TYPES))
 
+#! Default Kinds
+#:set DK = "sp"
+
 #:endmute
