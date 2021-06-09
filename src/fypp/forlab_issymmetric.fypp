@@ -3,37 +3,12 @@
 #:include 'common.fypp'
 
 submodule(forlab) forlab_issymmetric
-    !! Version: experimental
-    !!
-    !! Discussion:
-    !! ----
-    !! https://fortran-lang.discourse.group/t/fortran-function-return-value-polymorphism/1350/5
     use forlab_kinds
     implicit none
 contains
-    ! issymmetric
-    !-----------------------------------------------------------------------
-    ! issymmetric determines whether a square matrix is symmetric.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! bool = issymmetric(A)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! bool = issymmetric(A) returns .true. if A is symmetric, .false.
-    ! otherwise.
-    !
-    ! Examples
-    !-----------------------------------------------------------------------
-    ! A = eye(3)
-    ! bool = issymmetric(A)
-    !     .true.
-
         #:for k1, t1 in REAL_KINDS_TYPES
         module procedure issymmetric_${k1}$
         integer :: i, j, n
-
         issymmetric_${k1}$ = .true.
         if (.not. issquare(A)) then
             issymmetric_${k1}$ = .false.
@@ -51,6 +26,7 @@ contains
         end if
         return
     end procedure issymmetric_${k1}$
+
         #:endfor
 
 end submodule

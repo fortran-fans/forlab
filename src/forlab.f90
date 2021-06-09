@@ -48,7 +48,7 @@ module forlab
     ! #ifdef do_mpi
     public :: mpi_rpre
     ! #endif
-    
+
     ! Operators
     public :: operator(.i.), operator(.x.)
 
@@ -124,89 +124,28 @@ module forlab
         !!    y = acosd(x)
         !!        180.  90.   0.
 
-        !! 
-        !! asind computes the inverse sine in degrees.
-        !!
-        !!## Syntax
-        !!    y = asind(x)
-        !!
-        !!## Description
-        !! `y = asind(x)` returns the inverse sine of the elements in x in degrees.
-        !! For real elements of x in the domain [-1,1], asind returns values in
-        !! the range [-90,90]. For values of x outside this range, asind returns
-        !! NaN (Not a Number).
-        !!
-        !!## Examples
-        !!    y = asind(1.)
-        !!        90.
-        !!
-        !!    y = asind(2.)
-        !!        NaN
-        !!
-        !!    x = [ -1., 0., 1. ]
-        !!    y = asind(x)
-        !!        -90.  0.  90.
 
-        !! atand computes the inverse tangent in degrees.
-        !!
-        !!## Syntax
-        !!     y = atand(x)
-        !!
-        !!## Description
-        !! `y = atand(x)` returns the inverse tangent of the elements in x in
-        !! degrees. For real elements of x in the domain [-Inf,Inf], atand
-        !! returns values in the range [-90,90].
-        !!
-        !!## Examples
-        !!     y = atand(0.)
-        !!         0.
-        !!
-        !!     y = atand(50.)
-        !!         88.8542328
-        !!
-        !!     x = [ -50., 0., 50. ]
-        !!     y = atand(x)
-        !!         -88.8542328   0.  88.8542328
         pure elemental module function acosd_sp(x)
         real(sp),intent(in)::x
         real(sp)::acosd_sp
         end function
+
         pure elemental module function acosd_dp(x)
         real(dp),intent(in)::x
         real(dp)::acosd_dp
         end function
+
         pure elemental module function acosd_qp(x)
         real(qp),intent(in)::x
         real(qp)::acosd_qp
         end function
+
     end interface acosd
 
     interface asind
-        !! Version: expermental
-        !!
-        !! acosd computes the inverse cosine in degrees.
-        !!
-        !!## Syntax
-        !!    y = acosd(x)
-        !!
-        !!## Description
-        !! `y = acosd(x)` returns the inverse cosine of the elements in x in
-        !! degrees. For real elements of x in the domain [-1,1], acosd returns
-        !! values in the range [0,180]. For values of x outside this range,
-        !! acosd returns NaN (Not a Number).
-        !!
-        !!## Examples
-        !!    y = acosd(1.)
-        !!        1.
-        !!
-        !!    y = acosd(2.)
-        !!        NaN
-        !!
-        !!    x = [ -1., 0., 1. ]
-        !!    y = acosd(x)
-        !!        180.  90.   0.
 
-        !! 
+        !! asind
+        !!
         !! asind computes the inverse sine in degrees.
         !!
         !!## Syntax
@@ -229,88 +168,28 @@ module forlab
         !!    y = asind(x)
         !!        -90.  0.  90.
 
-        !! atand computes the inverse tangent in degrees.
-        !!
-        !!## Syntax
-        !!     y = atand(x)
-        !!
-        !!## Description
-        !! `y = atand(x)` returns the inverse tangent of the elements in x in
-        !! degrees. For real elements of x in the domain [-Inf,Inf], atand
-        !! returns values in the range [-90,90].
-        !!
-        !!## Examples
-        !!     y = atand(0.)
-        !!         0.
-        !!
-        !!     y = atand(50.)
-        !!         88.8542328
-        !!
-        !!     x = [ -50., 0., 50. ]
-        !!     y = atand(x)
-        !!         -88.8542328   0.  88.8542328
         pure elemental module function asind_sp(x)
         real(sp),intent(in)::x
         real(sp)::asind_sp
         end function
+
         pure elemental module function asind_dp(x)
         real(dp),intent(in)::x
         real(dp)::asind_dp
         end function
+
         pure elemental module function asind_qp(x)
         real(qp),intent(in)::x
         real(qp)::asind_qp
         end function
+
     end interface asind
 
     interface atand
-        !! Version: expermental
-        !!
-        !! acosd computes the inverse cosine in degrees.
-        !!
-        !!## Syntax
-        !!    y = acosd(x)
-        !!
-        !!## Description
-        !! `y = acosd(x)` returns the inverse cosine of the elements in x in
-        !! degrees. For real elements of x in the domain [-1,1], acosd returns
-        !! values in the range [0,180]. For values of x outside this range,
-        !! acosd returns NaN (Not a Number).
-        !!
-        !!## Examples
-        !!    y = acosd(1.)
-        !!        1.
-        !!
-        !!    y = acosd(2.)
-        !!        NaN
-        !!
-        !!    x = [ -1., 0., 1. ]
-        !!    y = acosd(x)
-        !!        180.  90.   0.
 
-        !! 
-        !! asind computes the inverse sine in degrees.
-        !!
-        !!## Syntax
-        !!    y = asind(x)
-        !!
-        !!## Description
-        !! `y = asind(x)` returns the inverse sine of the elements in x in degrees.
-        !! For real elements of x in the domain [-1,1], asind returns values in
-        !! the range [-90,90]. For values of x outside this range, asind returns
-        !! NaN (Not a Number).
-        !!
-        !!## Examples
-        !!    y = asind(1.)
-        !!        90.
-        !!
-        !!    y = asind(2.)
-        !!        NaN
-        !!
-        !!    x = [ -1., 0., 1. ]
-        !!    y = asind(x)
-        !!        -90.  0.  90.
 
+        !! atand
+        !!
         !! atand computes the inverse tangent in degrees.
         !!
         !!## Syntax
@@ -335,17 +214,42 @@ module forlab
         real(sp),intent(in)::x
         real(sp)::atand_sp
         end function
+
         pure elemental module function atand_dp(x)
         real(dp),intent(in)::x
         real(dp)::atand_dp
         end function
+
         pure elemental module function atand_qp(x)
         real(qp),intent(in)::x
         real(qp)::atand_qp
         end function
+
     end interface atand
 
     interface cosd
+
+        !! cosd computes the cosine of argument in degrees.
+        !!
+        !!## Syntax
+        !!
+        !!      y = cosd(x)
+        !!
+        !!## Description
+        !!
+        !!  `y = cosd(x)` returns the cosine of the elements in x, which are
+        !! expressed in degrees.
+        !!
+        !!## Examples
+        !!
+        !!      y = cosd(0.)
+        !!          1.
+        !!
+        !!      x = [ 0., 90., 180., 270. ]
+        !!      y = cosd(x)
+        !!          1.  0. -1.  0.
+
+
         pure elemental module function cosd_sp(x)
         real(sp),intent(in)::x
         real(sp)::cosd_sp
@@ -361,6 +265,28 @@ module forlab
     end interface cosd
 
     interface sind
+        !! sind computes the sine of argument in degrees.
+        !!
+        !!## Syntax
+        !!
+        !!      y = sind(x)
+        !!
+        !!## Description
+        !!
+        !!  `y = sind(x)` returns the sine of the elements in x, which are expressed
+        !! in degrees.
+        !!
+        !!## Examples
+        !!
+        !!      y = sind(90.)
+        !!          1.
+        !!
+        !!      x = [ 0., 90., 180., 270. ]
+        !!      y = sind(x)
+        !!            0.  1.  0.  -1.
+
+
+
         pure elemental module function sind_sp(x)
         real(sp),intent(in)::x
         real(sp)::sind_sp
@@ -376,6 +302,30 @@ module forlab
     end interface sind
 
     interface tand
+
+
+        !!## tand
+        !!
+        !! tand computes the tangent of argument in degrees.
+        !!
+        !!## Syntax
+        !!
+        !!      y = tand(x)
+        !!
+        !!## Description
+        !!
+        !!  `y = tand(x)` returns the tangent of the elements in x, which are
+        !! expressed in degrees.
+        !!
+        !!## Examples
+        !!
+        !!      y = tand(0.)
+        !!           0.
+        !!
+        !!      x = [ 0., 90., 180., 270. ]
+        !!      y = tand(x)
+        !!           0.  Inf   0.  -Inf
+
         pure elemental module function tand_sp(x)
         real(sp),intent(in)::x
         real(sp)::tand_sp
@@ -406,7 +356,7 @@ module forlab
         !! starting from first and ending at last.
         !!
         !!## Examples
-        !!     x = arange(1, 9)  
+        !!     x = arange(1, 9)
         !!          1   2   3   4   5   6   7   8   9
             module function arange_int8 (first, last)
                 integer(int8), dimension(:), allocatable :: arange_int8
@@ -435,6 +385,28 @@ module forlab
     end interface argmin
 
     interface argsort
+        !! Version: expermental
+        !!
+        !! argsort generates the indices that would sort an array.
+        !!
+        !!## Syntax
+        !!      y = argsort(x)
+        !!      y = argsort(x, 1)
+        !!      y = argsort(x, 2)
+        !!
+        !!## Description
+        !!
+        !! `y = argsort(x)` returns the indices that would sort an array in
+        !! ascending order.
+        !!
+        !! `y = argsort(x, 1)` (see `y = argsort(x)`).
+        !!
+        !! `y = argsort(x, 2)` returns the indices that would sort an array in
+        !! descending order.
+        !!
+        !!## Notes
+        !!
+        !! `x(argsort(x), order)` returns the same result as `sort(x, order)`.
         module function argsort_int8(x,order)
             integer,allocatable::argsort_int8(:)
             integer(int8),intent(in)::x(:)
@@ -504,6 +476,19 @@ module forlab
     end interface chi2rand
 
     interface chol
+        !! Version: expermental
+        !!
+        !! chol computes Cholesky's decomposition of a symmetric positive
+        !! definite matrix.
+        !!
+        !!## Syntax
+        !!
+        !!      L = chol(A)
+        !!
+        !!## Description
+        !!
+        !!  `L = chol(A)` returns a lower triangular matrix L satisfying the
+        !! equation A = L*Lt.
         module function chol_sp (A) result(L)
             real(sp), dimension(:, :), intent(in) :: A
             real(sp), dimension(:, :), allocatable :: L
@@ -561,15 +546,15 @@ module forlab
         module procedure deg2utm0, deg2utm1
     end interface deg2utm
 
-    
+
     interface det
         !! Version: expermental
         !!
         !! det computes the matrix determinant.
         !!
         !!## Syntax
-        !!    x = det(A)  
-        !!    x = det(A, L, U)  
+        !!    x = det(A)
+        !!    x = det(A, L, U)
         !!
         !!## Description
         !! `x = det(A)` returns the determinant of the square matrix A, as the
@@ -580,10 +565,10 @@ module forlab
         !! outputs the LU factorization matrices of A used for the calculation.
         !!
         !!## Examples
-        !!    A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 0. ], [ 3, 3 ], &  
-        !!                order = [ 2, 1 ])  
-        !!    x = det(A)  
-        !!        27. 
+        !!    A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 0. ], [ 3, 3 ], &
+        !!                order = [ 2, 1 ])
+        !!    x = det(A)
+        !!        27.
         real(sp) module function det_sp (A, outL, outU)
             real(sp), dimension(:, :), intent(in) :: A
             real(sp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
@@ -604,7 +589,7 @@ module forlab
         !! diag creates diagonal matrix or get the diagonal of a matrix.
         !!
         !!## Syntax
-        !!    x = diag(A)  
+        !!    x = diag(A)
         !!    A = diag(x)
         !!
         !!## Description
@@ -614,15 +599,15 @@ module forlab
         !! the main diagonal.
         !!
         !!## Examples
-        !!    A = eye(3)  
-        !!    x = diag(A)  
+        !!    A = eye(3)
+        !!    x = diag(A)
         !!        1.  1.  1.
         !!
-        !!    x = [ 1., 2., 3. ]  
-        !!    A = diag(x)  
-        !!        1.  0.  0.  
-        !!        0.  2.  0.  
-        !!        0.  0.  3.  
+        !!    x = [ 1., 2., 3. ]
+        !!    A = diag(x)
+        !!        1.  0.  0.
+        !!        0.  2.  0.
+        !!        0.  0.  3.
             module function diag1_sp (A)
                 real(sp), dimension(:), allocatable :: diag1_sp
                 real(sp), dimension(:, :), intent(in) :: A
@@ -660,17 +645,17 @@ module forlab
         !!
         !!## Syntax
         !!    call disp(string)
-        !!    call disp(x)  
-        !!    call disp(x, string)  
-        !!    call disp(A)  
-        !!    call disp(A, string)  
-        !!    call disp(X)  
-        !!    call disp(X, 1)  
-        !!    call disp(X, 1, string)  
-        !!    call disp(X, 2)  
-        !!    call disp(X, 2, string)  
-        !!    call disp(X, 3)  
-        !!    call disp(X, 3, string)  
+        !!    call disp(x)
+        !!    call disp(x, string)
+        !!    call disp(A)
+        !!    call disp(A, string)
+        !!    call disp(X)
+        !!    call disp(X, 1)
+        !!    call disp(X, 1, string)
+        !!    call disp(X, 2)
+        !!    call disp(X, 2, string)
+        !!    call disp(X, 3)
+        !!    call disp(X, 3, string)
         !!
         !!## Description
         !! `call disp(x)` displays the scalar or the vector x.
@@ -700,24 +685,24 @@ module forlab
         !! axis 3 preceded by string.
         !!
         !!## Examples
-        !!    x = [ 1. 2. 3. ]  
-        !!    call disp(x)  
-        !!        1.  
-        !!        2.  
-        !!        3.  
-        !!    call disp(x, "x = ")  
-        !!        x =  
-        !!            1.  
-        !!            2.  
+        !!    x = [ 1. 2. 3. ]
+        !!    call disp(x)
+        !!        1.
+        !!        2.
+        !!        3.
+        !!    call disp(x, "x = ")
+        !!        x =
+        !!            1.
+        !!            2.
         !!            3.
-        !!   
-        !!    A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 9. ], [ 3, 3 ], &  
-        !!                order = [ 2, 1 ])  
-        !!    call disp(A, "Matrix A is")  
-        !!        Matrix A is  
-        !!            1.  2.  3.  
-        !!            4.  5.  6.  
-        !!            7.  8.  9.  
+        !!
+        !!    A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 9. ], [ 3, 3 ], &
+        !!                order = [ 2, 1 ])
+        !!    call disp(A, "Matrix A is")
+        !!        Matrix A is
+        !!            1.  2.  3.
+        !!            4.  5.  6.
+        !!            7.  8.  9.
             module subroutine disp_rsp0(x, string)
                 real(sp), intent(in) :: x
                 character(len=*), intent(in), optional :: string
@@ -903,6 +888,22 @@ module forlab
     end interface
 
     interface eig
+        !! Version: expermental
+        !!
+        !! eig computes eigenvalues and eigenvectors of symmetric matrix using Jacobi algorithm.
+        !!
+        !!## Syntax
+        !!
+        !!      call eig(A, V, d)
+        !!      call eig(A, V, d, itermax)
+        !!
+        !!## Description
+        !!
+        !!  `call eig(A, V, d)` returns the eigenvalues of the symmetric matrix A
+        !! in the vector d and the associated eigenvectors in the matrix V.
+        !!
+        !!  `call eig(A, V, d, itermax)` returns eigenvalues and eigenvectors with a maximum
+        !! of itermax iterations.
         module subroutine eig_sp(A,V,d,itermax)
             real(sp), dimension(:, :), intent(in) :: A
             real(sp), dimension(:, :), allocatable, intent(out) :: V
@@ -1016,26 +1017,26 @@ module forlab
         !!
         !!## Description
         !! `I = eye(dim1)` returns an dim1-by-dim1 matrix with ones on the main
-        !! diagonal and zeros elsewhere.  
+        !! diagonal and zeros elsewhere.
         !! `I = eye(dim1, dim2)` returns a dim1-by-dim2 matrix with ones on the
         !! main diagonal and zeros elsewhere.
         !!
         !!## Examples
-        !!      I = eye(3)  
-        !!          1.  0.  0.  
-        !!          0.  1.  0.  
-        !!          0.  0.  1.
-        !!
-        !!      I = eye(3, 4)  
-        !!          1.  0.  0.  0.  
-        !!          0.  1.  0.  0.  
-        !!          0.  0.  1.  0.
-        !!
-        !!      I = eye(4, 3)  
+        !!      I = eye(3)
         !!          1.  0.  0.
         !!          0.  1.  0.
         !!          0.  0.  1.
-        !!          0.  0.  0.  
+        !!
+        !!      I = eye(3, 4)
+        !!          1.  0.  0.  0.
+        !!          0.  1.  0.  0.
+        !!          0.  0.  1.  0.
+        !!
+        !!      I = eye(4, 3)
+        !!          1.  0.  0.
+        !!          0.  1.  0.
+        !!          0.  0.  1.
+        !!          0.  0.  0.
         module function eye_1_default (dim1)
             real(dp), dimension(:, :), allocatable :: eye_1_default
             integer, intent(in) :: dim1
@@ -1047,7 +1048,7 @@ module forlab
             integer, intent(in) :: dim2
         end function
         module function eye_1_sp (dim1, flag)
-            real(sp), dimension(:, :), allocatable :: eye_1_sp 
+            real(sp), dimension(:, :), allocatable :: eye_1_sp
             integer, intent(in) :: dim1
             real(sp), intent(in) :: flag
 
@@ -1059,9 +1060,9 @@ module forlab
             integer, intent(in) :: dim2
             real(sp), intent(in) :: flag
         end function
-        
+
         module function eye_1_dp (dim1, flag)
-            real(dp), dimension(:, :), allocatable :: eye_1_dp 
+            real(dp), dimension(:, :), allocatable :: eye_1_dp
             integer, intent(in) :: dim1
             real(dp), intent(in) :: flag
 
@@ -1073,9 +1074,9 @@ module forlab
             integer, intent(in) :: dim2
             real(dp), intent(in) :: flag
         end function
-        
+
         module function eye_1_qp (dim1, flag)
-            real(qp), dimension(:, :), allocatable :: eye_1_qp 
+            real(qp), dimension(:, :), allocatable :: eye_1_qp
             integer, intent(in) :: dim1
             real(qp), intent(in) :: flag
 
@@ -1087,9 +1088,9 @@ module forlab
             integer, intent(in) :: dim2
             real(qp), intent(in) :: flag
         end function
-        
+
     end interface
-    
+
     interface file
         module procedure init_file
     end interface file
@@ -1237,13 +1238,13 @@ module forlab
             complex(sp), intent(in) :: m2(:, :)
             complex(sp) :: ret(size(m1, 1), size(m2, 2))
         end function
-        
+
         module function crmut_sp(m1, m2) result(ret)
             real(sp), intent(in) :: m2(:, :)
             complex(sp), intent(in) :: m1(:, :)
             complex(sp) :: ret(size(m1, 1), size(m2, 2))
         end function
-        
+
         module function rmut_dp(m1, m2) result(ret)
             real(dp), intent(in) :: m1(:, :), m2(:, :)
             real(dp) :: ret(size(m1, 1), size(m2, 2))
@@ -1259,13 +1260,13 @@ module forlab
             complex(dp), intent(in) :: m2(:, :)
             complex(dp) :: ret(size(m1, 1), size(m2, 2))
         end function
-        
+
         module function crmut_dp(m1, m2) result(ret)
             real(dp), intent(in) :: m2(:, :)
             complex(dp), intent(in) :: m1(:, :)
             complex(dp) :: ret(size(m1, 1), size(m2, 2))
         end function
-        
+
         module function rmut_qp(m1, m2) result(ret)
             real(qp), intent(in) :: m1(:, :), m2(:, :)
             real(qp) :: ret(size(m1, 1), size(m2, 2))
@@ -1281,13 +1282,13 @@ module forlab
             complex(qp), intent(in) :: m2(:, :)
             complex(qp) :: ret(size(m1, 1), size(m2, 2))
         end function
-        
+
         module function crmut_qp(m1, m2) result(ret)
             real(qp), intent(in) :: m2(:, :)
             complex(qp), intent(in) :: m1(:, :)
             complex(qp) :: ret(size(m1, 1), size(m2, 2))
         end function
-        
+
     end interface
 
     interface ismember
@@ -1301,11 +1302,11 @@ module forlab
         !! Determine if it is a square matrix
         !!
         !!## Example
-        !!    A = eye(3)  
-        !!    bool = issquare(A)  
-        !!           .true.  
-        !!    A = eye(3, 4)  
-        !!    bool = issquare0(A)  
+        !!    A = eye(3)
+        !!    bool = issquare(A)
+        !!           .true.
+        !!    A = eye(3, 4)
+        !!    bool = issquare0(A)
         !!           .false.
         logical module function issquare_rsp (A)
             real(sp), dimension(:, :), intent(in) :: A
@@ -1334,6 +1335,24 @@ module forlab
     end interface
 
     interface issymmetric
+        !! issymmetric
+        !!
+        !! issymmetric determines whether a square matrix is symmetric.
+        !!
+        !!## Syntax
+        !!
+        !!      bool = issymmetric(A)
+        !!
+        !!## Description
+        !!
+        !   `bool = issymmetric(A)` returns `.true.` if A is symmetric, `.false.`
+        !! otherwise.
+        !!
+        !!## Examples
+        !!
+        !        A = eye(3)
+        !        bool = issymmetric(A)
+        !!          .true.
             logical module function issymmetric_sp(A)
                 real(sp), dimension(:, :), intent(in) :: A
             end function
@@ -1363,7 +1382,7 @@ module forlab
     interface linspace
         !! Version: experimental
         !!
-        !! linspace creates a linearly spaced vector.   
+        !! linspace creates a linearly spaced vector.
         !!
         !!## Syntax
         !!    x = linspace(x1, x2, n)
@@ -1386,7 +1405,7 @@ module forlab
             integer, intent(in) :: first, last
             integer, intent(in) :: n
             real(sp), intent(in) :: flag
-        end function 
+        end function
 
         module function linspace_ri_sp(first, last, n)
             real(sp), dimension(:), allocatable :: linspace_ri_sp
@@ -1394,7 +1413,7 @@ module forlab
             integer, intent(in) :: last
             integer, intent(in) :: n
         end function
-    
+
         module function linspace_ir_sp(first, last, n)
             real(sp), dimension(:), allocatable :: linspace_ir_sp
             integer, intent(in) :: first
@@ -1413,7 +1432,7 @@ module forlab
             integer, intent(in) :: first, last
             integer, intent(in) :: n
             real(dp), intent(in) :: flag
-        end function 
+        end function
 
         module function linspace_ri_dp(first, last, n)
             real(dp), dimension(:), allocatable :: linspace_ri_dp
@@ -1421,7 +1440,7 @@ module forlab
             integer, intent(in) :: last
             integer, intent(in) :: n
         end function
-    
+
         module function linspace_ir_dp(first, last, n)
             real(dp), dimension(:), allocatable :: linspace_ir_dp
             integer, intent(in) :: first
@@ -1440,7 +1459,7 @@ module forlab
             integer, intent(in) :: first, last
             integer, intent(in) :: n
             real(qp), intent(in) :: flag
-        end function 
+        end function
 
         module function linspace_ri_qp(first, last, n)
             real(qp), dimension(:), allocatable :: linspace_ri_qp
@@ -1448,7 +1467,7 @@ module forlab
             integer, intent(in) :: last
             integer, intent(in) :: n
         end function
-    
+
         module function linspace_ir_qp(first, last, n)
             real(qp), dimension(:), allocatable :: linspace_ir_qp
             integer, intent(in) :: first
@@ -1460,7 +1479,7 @@ module forlab
             real(dp), dimension(:), allocatable :: linspace_default
             integer, intent(in) :: first, last
             integer, intent(in) :: n
-        end function 
+        end function
 
     end interface linspace
 
@@ -1477,21 +1496,21 @@ module forlab
         procedure loadbin_2_sp
         procedure loadbin_3_sp
     end interface
-    
+
     interface dloadbin
         procedure loadbin_0_dp
         procedure loadbin_1_dp
         procedure loadbin_2_dp
         procedure loadbin_3_dp
     end interface
-    
+
     interface qloadbin
         procedure loadbin_0_qp
         procedure loadbin_1_qp
         procedure loadbin_2_qp
         procedure loadbin_3_qp
     end interface
-    
+
 
 
     interface loadtxt
@@ -1520,32 +1539,32 @@ module forlab
         !!
         !! Syntax
         !!-----------------------------------------------------------------------
-        !! call lu(A, L, U)  
+        !! call lu(A, L, U)
         !!
         !! Description
         !!---------------------------------------------------------------------
         !! call lu(A, L, U) returns the LU matrix factorization of the input
-        !! square m-by-m matrix A. The output matrices are:  
-        !!   -   L is a m-by-m lower triangular matrix with ones on the diagonal,  
+        !! square m-by-m matrix A. The output matrices are:
+        !!   -   L is a m-by-m lower triangular matrix with ones on the diagonal,
         !!   -   U is a m-by-m upper triangular matrix.
         !!
         !! Examples
         !!---------------------------------------------------------------------
-        !! A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 9. ], [ 3, 3 ], &  
-        !!             order = [ 2, 1 ])  
-        !! call lu(A, L, U)  
-        !! call disp(L)  
-        !!     1.  0.  0.  
-        !!     4.  1.  0.  
-        !!     7.  2.  1.  
-        !! call disp(U)  
-        !!     1.  2.  3.  
-        !!     0. -3. -6.  
-        !!     0.  0.  0.  
-        !! call disp(matmul(L, U))  
-        !!     1.  2.  3.  
-        !!     4.  5.  6.  
-        !!     7.  8.  9.  
+        !! A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 9. ], [ 3, 3 ], &
+        !!             order = [ 2, 1 ])
+        !! call lu(A, L, U)
+        !! call disp(L)
+        !!     1.  0.  0.
+        !!     4.  1.  0.
+        !!     7.  2.  1.
+        !! call disp(U)
+        !!     1.  2.  3.
+        !!     0. -3. -6.
+        !!     0.  0.  0.
+        !! call disp(matmul(L, U))
+        !!     1.  2.  3.
+        !!     4.  5.  6.
+        !!     7.  8.  9.
             module subroutine lu_sp (A, L, U)
                 real(sp), dimension(:, :), intent(in) :: A
                 real(sp), dimension(:, :), allocatable, intent(out) :: L, U
@@ -1614,43 +1633,43 @@ module forlab
             real(sp), intent(in) :: x
             character(len=*), intent(in), optional :: fmt
         end function
-        
+
         module function num2str_dp(x, fmt)
             character(len=:), allocatable :: num2str_dp
             real(dp), intent(in) :: x
             character(len=*), intent(in), optional :: fmt
         end function
-        
+
         module function num2str_qp(x, fmt)
             character(len=:), allocatable :: num2str_qp
             real(qp), intent(in) :: x
             character(len=*), intent(in), optional :: fmt
         end function
-        
+
         module function num2str_int8(x, fmt)
             character(len=:), allocatable :: num2str_int8
             integer(int8), intent(in) :: x
             character(len=*), intent(in), optional :: fmt
         end function
-        
+
         module function num2str_int16(x, fmt)
             character(len=:), allocatable :: num2str_int16
             integer(int16), intent(in) :: x
             character(len=*), intent(in), optional :: fmt
         end function
-        
+
         module function num2str_int32(x, fmt)
             character(len=:), allocatable :: num2str_int32
             integer(int32), intent(in) :: x
             character(len=*), intent(in), optional :: fmt
         end function
-        
+
         module function num2str_int64(x, fmt)
             character(len=:), allocatable :: num2str_int64
             integer(int64), intent(in) :: x
             character(len=*), intent(in), optional :: fmt
         end function
-        
+
     end interface
 
     interface ones
@@ -2072,6 +2091,23 @@ module forlab
     end interface skewness
 
     interface sort
+    !! Version:experimental
+    !!
+    !! sort sorts arrays elements.
+    !!
+    !!## Syntax
+    !!
+    !!      y = sort(x)
+    !!      y = sort(x, 1)
+    !!      y = sort(x, 2)
+    !!
+    !!## Description
+    !!
+    !!  `y = sort(x)` returns the sorted elements of the vector x in the ascending order.
+    !!
+    !!  `y = sort(x, 1)` (see `y = sort(x)`).
+    !!
+    !!  `y = sort(x, 2)` returns the sorted elements of the vector x in the descending order.
         module function sort_int8(x,order)
             integer(int8),allocatable::sort_int8(:)
             integer(int8),intent(in)::x(:)
@@ -2156,18 +2192,46 @@ module forlab
         module subroutine toc_sp(t)
             real(sp), intent(out) :: t
         end subroutine
-        
+
         module subroutine toc_dp(t)
             real(dp), intent(out) :: t
         end subroutine
-        
+
         module subroutine toc_qp(t)
             real(qp), intent(out) :: t
         end subroutine
-        
+
     end interface
 
     interface tril
+        !! Version: expermental
+        !!
+        !! tril extracts the lower triangular part of a matrix.
+        !!
+        !!## Syntax
+        !!
+        !!      B = tril(A)
+        !!      B = tril(A, k)
+        !!
+        !!## Description
+        !!
+        !!  `B = tril(A)` returns the lower triangular part of matrix A.
+        !!
+        !!  `B = tril(A, k)` returns the elements on and below the kth diagonal of
+        !!      matrix X:
+        !!
+        !!      -   k = 0 is the main diagonal,
+        !!      -   k > 0 is above the main diagonal,
+        !!      -   k < 0 is below the main diagonal.
+        !!
+        !!## Examples
+        !!
+        !!      A = ones(4, 4)
+        !!      B = tril(A, -1)
+        !!          0.  0.  0.  0.
+        !!          1.  0.  0.  0.
+        !!          1.  1.  0.  0.
+        !!          1.  1.  1.  0.
         module function tril_int8(A,k)
             integer(int8), dimension(:, :), allocatable :: tril_int8
             integer(int8), dimension(:, :), intent(in) :: A
@@ -2231,6 +2295,34 @@ module forlab
     end interface tril
 
     interface triu
+        !! Version: expermental
+        !!
+        !! triu extracts the upper triangular part of a matrix.
+        !!
+        !!## Syntax
+        !!
+        !!      B = triu(A)
+        !!      B = triu(A, k)
+        !!
+        !!## Description
+        !!
+        !!  `B = triu(A)` returns the upper triangular part of matrix A.
+        !!
+        !!  `B = triu(A, k)` returns the elements on and above the kth diagonal of
+        !!
+        !!  matrix X:
+        !!      -   k = 0 is the main diagonal,
+        !!      -   k > 0 is above the main diagonal,
+        !!      -   k < 0 is below the main diagonal.
+        !!
+        !!## Examples
+        !!
+        !!      A = ones(4, 4)
+        !!      B = triu(A, -1)
+        !!          1.  1.  1.  1.
+        !!          1.  1.  1.  1.
+        !!          0.  1.  1.  1.
+        !!          0.  0.  1.  1.
         module function triu_int8(A,k)
             integer(int8), dimension(:, :), allocatable :: triu_int8
             integer(int8), dimension(:, :), intent(in) :: A
@@ -2313,13 +2405,13 @@ module forlab
         !!
         !!## Syntax
         !!    Default version                  Multi-precision version
-        !!    x = zeros(dim1)                  or  x = zeros(dim1, flag) 
+        !!    x = zeros(dim1)                  or  x = zeros(dim1, flag)
         !!    A = zeros(dim1, dim2)                A = zeros(dim1, dim2, flag)
         !!    X = zeros(dim1, dim2, dim3)          X = zeros(dim1, dim2, dim3, flag)
-        !! 
+        !!
         !!## Description
-        !! The precision of the flag variable should be consistent with 
-        !! the return value of the function.  
+        !! The precision of the flag variable should be consistent with
+        !! the return value of the function.
         !! Unlike dynamic scripting languages, static languages generally
         !! have multiple precision variables, so we need to explicitly provide precision hints.
         !!
@@ -2331,14 +2423,14 @@ module forlab
         !! 3-dimensional matrix of zeros.
         !!
         !!## Examples
-        !!    x = zeros(3)  
-        !!    x =  
-        !!        0.  0.  0.  
+        !!    x = zeros(3)
+        !!    x =
+        !!        0.  0.  0.
         !!
-        !!    A = zeros(3, 3)  
-        !!    A =  
-        !!        0.  0.  0.  
-        !!        0.  0.  0.  
+        !!    A = zeros(3, 3)
+        !!    A =
+        !!        0.  0.  0.
+        !!        0.  0.  0.
         !!        0.  0.  0.
         module function zeros_1_default (dim1)
             integer, intent(in) :: dim1
@@ -2402,7 +2494,7 @@ module forlab
 
     !! Normal Interfaces
     interface
-        module subroutine rng(seed)  
+        module subroutine rng(seed)
             !! Version: experimental
             !!
             ! rng
@@ -2481,7 +2573,7 @@ module forlab
         !   -   4 for 32 bytes floating points,
         !   -   8 for 64 bytes floating points.
 
-        
+
         ! loadtxt
         !-----------------------------------------------------------------------
         ! loadtxt loads txt files.
@@ -2532,7 +2624,7 @@ module forlab
             character(len=*), intent(in) :: filename
             integer(kind=IPRE), intent(in) :: dim2
         end function
-        
+
         module function loadbin_0_dp(filename)
             real(dp), dimension(:), allocatable :: loadbin_0_dp
             character(len=*), intent(in) :: filename
@@ -2566,7 +2658,7 @@ module forlab
             character(len=*), intent(in) :: filename
             integer(kind=IPRE), intent(in) :: dim2
         end function
-        
+
         module function loadbin_0_qp(filename)
             real(qp), dimension(:), allocatable :: loadbin_0_qp
             character(len=*), intent(in) :: filename
@@ -2600,7 +2692,7 @@ module forlab
             character(len=*), intent(in) :: filename
             integer(kind=IPRE), intent(in) :: dim2
         end function
-        
+
     end interface
 
 contains
@@ -2738,7 +2830,7 @@ contains
         if (present(order)) k = order
         if (present(n1)) opt_n1 = n1
 
-        if (k .gt. n) then
+        if (k > n) then
             print *, "Error: in bsplrep1, order k should be less than the " &
                 //"number of control points ("//num2str(k)//" > " &
                 //num2str(n)//")."
@@ -2751,7 +2843,7 @@ contains
         y1 = linspace(0, 1, opt_n1)
 
         do iq = 1, opt_n1
-            x0 = find(y1(iq) .ge. t)
+            x0 = find(y1(iq) >= t)
             j = min(n, x0(size(x0)))
             do i = j - k + 1, j
                 w = deboor(i, k, y1(iq), t)
@@ -2806,7 +2898,7 @@ contains
         if (present(n1)) opt_n1 = n1
         if (present(n2)) opt_n2 = n2
 
-        if (k .gt. min(m, n)) then
+        if (k > min(m, n)) then
             print *, "Error: in bsplrep2, order k should be less than the " &
                 //"number of control points ("//num2str(k)//" > " &
                 //num2str(min(m, n))//")."
@@ -2822,10 +2914,10 @@ contains
         y2 = linspace(0, 1, opt_n2)
 
         do iq1 = 1, opt_n1
-            x0 = find(y1(iq1) .ge. t1)
+            x0 = find(y1(iq1) >= t1)
             j1 = min(m, x0(size(x0)))
             do iq2 = 1, opt_n2
-                y0 = find(y2(iq2) .ge. t2)
+                y0 = find(y2(iq2) >= t2)
                 j2 = min(n, y0(size(y0)))
                 do i1 = j1 - k + 1, j1
                     w1 = deboor(i1, k, y1(iq1), t1)
@@ -2871,7 +2963,7 @@ contains
         opt_n1 = 100
         if (present(order)) k = order
         if (present(n1)) opt_n1 = n1
-        if (k .gt. n) then
+        if (k > n) then
             print *, "Error: in bspline1, order k should be less than the " &
                 //"number of control points ("//num2str(k)//" > " &
                 //num2str(n)//")."
@@ -2948,7 +3040,7 @@ contains
         integer(kind=IPRE) :: i
 
         i = len_trim(dirname)
-        if (dirname(i:i) .ne. "/") dirname = trim(dirname)//"/"
+        if (dirname(i:i) /= "/") dirname = trim(dirname)//"/"
         return
     end subroutine check_directory
 
@@ -3022,11 +3114,11 @@ contains
         real(kind=RPRE), pointer, save :: p_ptr
         integer(kind=IPRE), pointer, save :: v_ptr
 
-        if (p .le. 0. .or. p .ge. 1.) then
+        if (p <= 0. .or. p >= 1.) then
             print *, "Error: in chi2inv0(p, v), p should be between 0 and 1"
             stop
         end if
-        if (v .le. 0) then
+        if (v <= 0) then
             print *, "Error: in chi2inv0(p, v), v should be greater than 0"
             stop
         end if
@@ -3035,7 +3127,7 @@ contains
         v_ptr => v
         a = 0.
         b = real(v, RPRE)
-        do while (chi2cdf(b, v) .lt. p)
+        do while (chi2cdf(b, v) < p)
             b = b*b
         end do
         chi2inv0 = fminbnd(chi2func, a, b)
@@ -3096,7 +3188,7 @@ contains
         integer(kind=IPRE), intent(in) :: v
         real(kind=RPRE) :: v2
 
-        if (x .gt. 0.) then
+        if (x > 0.) then
             v2 = 0.5*real(v, RPRE)
             chi2pdf0 = 1./(2.*gamma(v2))*(x/2)**(v2 - 1.)*exp(-x/2.)
         else
@@ -3207,7 +3299,7 @@ contains
         call self%open()
         do
             read (self%unit, *, iostat=ierr)
-            if (ierr .lt. 0) exit
+            if (ierr < 0) exit
             countlines1 = countlines1 + 1
         end do
         call self%close()
@@ -3225,7 +3317,7 @@ contains
         call infile%open()
         do
             read (infile%unit, *, iostat=ierr)
-            if (ierr .lt. 0) exit
+            if (ierr < 0) exit
             countlines2 = countlines2 + 1
         end do
         call infile%close()
@@ -3339,7 +3431,7 @@ contains
         opt_w = 0
         if (present(w)) opt_w = w
 
-        if (all(shape(X) .eq. shape(Y))) then
+        if (all(shape(X) == shape(Y))) then
             cov2_2 = cov1_2(horzcat([X], [Y]), opt_w)
         else
             stop "Error: in cov(X, Y), X and Y should have the same shape."
@@ -3389,11 +3481,11 @@ contains
         m = size(A, 1)
         n = size(A, 2)
         cumsum2 = zeros(m, n)
-        if ((.not. present(dim)) .or. (dim .eq. 1)) then
+        if ((.not. present(dim)) .or. (dim == 1)) then
             do i = 1, n
                 cumsum2(:, i) = cumsum1(A(:, i))
             end do
-        elseif (dim .eq. 2) then
+        elseif (dim == 2) then
             do i = 1, m
                 cumsum2(i, :) = cumsum1(A(i, :))
             end do
@@ -3471,7 +3563,7 @@ contains
 
         ! Day
         !=====
-        if (d(3) .lt. 10) then
+        if (d(3) < 10) then
             dstr = "0"//num2str(d(3))//"-"
         else
             dstr = num2str(d(3))//"-"
@@ -3487,8 +3579,8 @@ contains
         !======
         dstr = trim(dstr)//num2str(d(1))
 
-        if ((d(4) .eq. 0) .and. (d(5) .eq. 0) &
-            .and. (d(6) .eq. 0) .and. (d(7) .eq. 0)) then
+        if ((d(4) == 0) .and. (d(5) == 0) &
+            .and. (d(6) == 0) .and. (d(7) == 0)) then
             datestr0_0 = trim(dstr)
             return
 
@@ -3496,7 +3588,7 @@ contains
 
             ! Hour
             !======
-            if (d(4) .lt. 10) then
+            if (d(4) < 10) then
                 dstr = trim(dstr)//" "//"0"//num2str(d(4))//":"
             else
                 dstr = trim(dstr)//" "//num2str(d(4))//":"
@@ -3504,7 +3596,7 @@ contains
 
             ! Minute
             !========
-            if (d(5) .lt. 10) then
+            if (d(5) < 10) then
                 dstr = trim(dstr)//"0"//num2str(d(5))//":"
             else
                 dstr = trim(dstr)//num2str(d(5))//":"
@@ -3512,7 +3604,7 @@ contains
 
             ! Second
             !========
-            if (d(6) .lt. 10) then
+            if (d(6) < 10) then
                 dstr = trim(dstr)//"0"//num2str(d(6))//"."
             else
                 dstr = trim(dstr)//num2str(d(6))//"."
@@ -3520,15 +3612,15 @@ contains
 
             ! Microsecond
             !=============
-            if (d(7) .lt. 10) then
+            if (d(7) < 10) then
                 dstr = trim(dstr)//"00000"//num2str(d(7))
-            elseif (d(7) .lt. 100) then
+            elseif (d(7) < 100) then
                 dstr = trim(dstr)//"0000"//num2str(d(7))
-            elseif (d(7) .lt. 1000) then
+            elseif (d(7) < 1000) then
                 dstr = trim(dstr)//"000"//num2str(d(7))
-            elseif (d(7) .lt. 10000) then
+            elseif (d(7) < 10000) then
                 dstr = trim(dstr)//"00"//num2str(d(7))
-            elseif (d(7) .lt. 100000) then
+            elseif (d(7) < 100000) then
                 dstr = trim(dstr)//"0"//num2str(d(7))
             else
                 dstr = trim(dstr)//num2str(d(7))
@@ -3578,7 +3670,7 @@ contains
             else
                 tmp = tmp + 365.0d0
             end if
-            if (tmp .lt. floor(t)) then
+            if (tmp < floor(t)) then
                 datevec0(1) = datevec0(1) + 1
             else
                 exit
@@ -3592,8 +3684,8 @@ contains
         days_per_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
         do i = 1, 12
             tmp = tmp + days_per_month(i)
-            if ((isleap(datevec0(1))) .and. (i .eq. 2)) tmp = tmp + 1
-            if (tmp .ge. dateres) then
+            if ((isleap(datevec0(1))) .and. (i == 2)) tmp = tmp + 1
+            if (tmp >= dateres) then
                 datevec0(2) = i
                 exit
             end if
@@ -3669,7 +3761,7 @@ contains
         real(kind=RPRE), dimension(:, :), allocatable :: A, mu
 
         K = size(means)
-        if (K .eq. 1) then
+        if (K == 1) then
             print *, "Warning: in dbindex, the Davies-Bouldin index cannot " &
                 //"be defined for K = 1."
             db = 1.0d0
@@ -3700,7 +3792,7 @@ contains
         real(kind=RPRE), dimension(:, :), allocatable :: R
 
         K = size(means, 1)
-        if (K .eq. 1) then
+        if (K == 1) then
             print *, "Warning: in dbindex, the Davies-Bouldin index cannot " &
                 //"be defined for K = 1."
             db = 1.0d0
@@ -3716,7 +3808,7 @@ contains
         !============================================
         S = zeros(K)
         do i = 1, K
-            idx = find(cluster .eq. i)
+            idx = find(cluster == i)
             do j = 1, size(idx)
                 S(i) = S(i) + norm(X(idx(j), :) - means(i, :), opt_q)**2
             end do
@@ -3763,27 +3855,27 @@ contains
         real(kind=RPRE), dimension(:), intent(in) :: t
         real(kind=RPRE) :: A1, A2
 
-        if (k .eq. 1) then
-            if (x .ne. t(size(t))) then
-                if ((x .ge. t(i)) .and. (x .lt. t(i + 1))) then
+        if (k == 1) then
+            if (x /= t(size(t))) then
+                if ((x >= t(i)) .and. (x < t(i + 1))) then
                     db = 1.0d0
                 else
                     db = 0.0d0
                 end if
             else
-                if ((x .ge. t(i)) .and. (x .le. t(i + 1))) then
+                if ((x >= t(i)) .and. (x <= t(i + 1))) then
                     db = 1.0d0
                 else
                     db = 0.0d0
                 end if
             end if
         else
-            if (t(i + k - 1) - t(i) .ne. 0.0d0) then
+            if (t(i + k - 1) - t(i) /= 0.0d0) then
                 A1 = (x - t(i))/(t(i + k - 1) - t(i))
             else
                 A1 = 0.0d0
             end if
-            if (t(i + k) - t(i + 1) .ne. 0.0d0) then
+            if (t(i + k) - t(i + 1) /= 0.0d0) then
                 A2 = (t(i + k) - x)/(t(i + k) - t(i + 1))
             else
                 A2 = 0.0d0
@@ -3860,7 +3952,7 @@ contains
         north = K0*(m + n*lat_tan*(a**2/2 + &
                                    a**4/24*(5 - lat_tan2 + 9*c + 4*c**2) + &
                                    a**6/720*(61 - 58*lat_tan2 + lat_tan4 + 600*c - 330*E_P2)))
-        if (lat .lt. 0.0d0) north = north + 10000000
+        if (lat < 0.0d0) north = north + 10000000
         return
 
     contains
@@ -3870,21 +3962,21 @@ contains
         !-------------------------------------------------------------------
         integer(kind=IPRE) function zone_number(lat, lon)
             real(kind=RPRE), intent(in) :: lat, lon
-            if ((lat .ge. 56.0d0) .and. (lat .le. 64.0d0) &
-                .and. (lon .ge. 3.0d0) .and. (lon .le. 12.0d0)) then
+            if ((lat >= 56.0d0) .and. (lat <= 64.0d0) &
+                .and. (lon >= 3.0d0) .and. (lon <= 12.0d0)) then
                 zone_number = 32
                 return
             end if
 
-            if ((lat .ge. 72.0d0) .and. (lat .le. 84.0d0) &
-                .and. (lon .ge. 0.0d0)) then
-                if (lon .le. 9.0d0) then
+            if ((lat >= 72.0d0) .and. (lat <= 84.0d0) &
+                .and. (lon >= 0.0d0)) then
+                if (lon <= 9.0d0) then
                     zone_number = 31
                     return
-                elseif (lon .le. 21.0d0) then
+                elseif (lon <= 21.0d0) then
                     zone_number = 33
                     return
-                elseif (lon .le. 42.0d0) then
+                elseif (lon <= 42.0d0) then
                     zone_number = 37
                     return
                 end if
@@ -3904,7 +3996,7 @@ contains
                                                    -8, -16, -24, -32, -40, -48, -56, -64, -72, -80]
             integer(kind=IPRE) :: i
             do i = 1, 21
-                if (lat .ge. ZONE_LATS(i)) then
+                if (lat >= ZONE_LATS(i)) then
                     zone_letter = ZONE_LETTERS(i:i)
                     exit
                 end if
@@ -3997,11 +4089,11 @@ contains
         if (present(n)) opt_n = n
 
         diff2 = A
-        if ((.not. present(dim)) .or. (dim .eq. 1)) then
+        if ((.not. present(dim)) .or. (dim == 1)) then
             do i = 1, opt_n
                 diff2 = diff2(2:, :) - diff2(:size(diff2, 1) - 1, :)
             end do
-        elseif (dim .eq. 2) then
+        elseif (dim == 2) then
             do i = 1, opt_n
                 diff2 = diff2(:, 2:) - diff2(:, :size(diff2, 2) - 1)
             end do
@@ -4085,11 +4177,11 @@ contains
     ! Examples
     !-----------------------------------------------------------------------
     ! x = [ 2., 1., 8., 7., 4., 6., 9., 3., 5. ]
-    ! y = find(x .ge. 5.)
+    ! y = find(x >= 5.)
     !     3   4   6   7   9
     !
     ! A = diag([1., 2., 3.])
-    ! y = find(A .ne. 0.)
+    ! y = find(A /= 0.)
     !     1   1
     !     2   2
     !     3   3
@@ -4100,7 +4192,7 @@ contains
         integer(kind=IPRE) :: i, j, n
 
         n = count(bool)
-        if (n .ne. 0) then
+        if (n /= 0) then
             find1 = zeros(n)
             j = 1
             do i = 1, size(bool)
@@ -4121,7 +4213,7 @@ contains
         integer(kind=IPRE) :: i, j, k, n
 
         n = count(bool)
-        if (n .ne. 0) then
+        if (n /= 0) then
             find2 = zeros(n, 2)
             k = 1
             do i = 1, size(bool, 1)
@@ -4145,7 +4237,7 @@ contains
         integer(kind=IPRE) :: i, j, k, l, n
 
         n = count(bool)
-        if (n .ne. 0) then
+        if (n /= 0) then
             find3 = zeros(n, 3)
             l = 1
             do i = 1, size(bool, 1)
@@ -4200,8 +4292,8 @@ contains
         x2 = b
         x3 = x2 - gr*(x2 - x1)
         x4 = x1 + gr*(x2 - x1)
-        do while (abs(x3 - x4) .gt. opt_eps)
-            if (fitness(x3) .lt. fitness(x4)) then
+        do while (abs(x3 - x4) > opt_eps)
+            if (fitness(x3) < fitness(x4)) then
                 x2 = x4
             else
                 x1 = x3
@@ -4278,9 +4370,9 @@ contains
         integer(kind=IPRE), dimension(:, :), intent(in) :: A
         integer(kind=IPRE), intent(in), optional :: dim
 
-        if ((.not. present(dim)) .or. (dim .eq. 1)) then
+        if ((.not. present(dim)) .or. (dim == 1)) then
             flip_i2 = flipud(A)
-        elseif (dim .eq. 2) then
+        elseif (dim == 2) then
             flip_i2 = fliplr(A)
         end if
         return
@@ -4291,9 +4383,9 @@ contains
         real(kind=RPRE), dimension(:, :), intent(in) :: A
         integer(kind=IPRE), intent(in), optional :: dim
 
-        if ((.not. present(dim)) .or. (dim .eq. 1)) then
+        if ((.not. present(dim)) .or. (dim == 1)) then
             flip_r2 = flipud(A)
-        elseif (dim .eq. 2) then
+        elseif (dim == 2) then
             flip_r2 = fliplr(A)
         end if
         return
@@ -4305,13 +4397,13 @@ contains
         integer(kind=IPRE), intent(in), optional :: dim
         integer(kind=IPRE) :: n
 
-        if ((.not. present(dim)) .or. (dim .eq. 1)) then
+        if ((.not. present(dim)) .or. (dim == 1)) then
             n = size(X, 1)
             flip_i3 = X(n:1:-1, :, :)
-        elseif (dim .eq. 2) then
+        elseif (dim == 2) then
             n = size(X, 2)
             flip_i3 = X(:, n:1:-1, :)
-        elseif (dim .eq. 3) then
+        elseif (dim == 3) then
             n = size(X, 3)
             flip_i3 = X(:, :, n:1:-1)
         end if
@@ -4324,13 +4416,13 @@ contains
         integer(kind=IPRE), intent(in), optional :: dim
         integer(kind=IPRE) :: n
 
-        if ((.not. present(dim)) .or. (dim .eq. 1)) then
+        if ((.not. present(dim)) .or. (dim == 1)) then
             n = size(X, 1)
             flip_r3 = X(n:1:-1, :, :)
-        elseif (dim .eq. 2) then
+        elseif (dim == 2) then
             n = size(X, 2)
             flip_r3 = X(:, n:1:-1, :)
-        elseif (dim .eq. 3) then
+        elseif (dim == 3) then
             n = size(X, 3)
             flip_r3 = X(:, :, n:1:-1)
         end if
@@ -4489,11 +4581,11 @@ contains
     real(kind=RPRE) function gammainc0(x, a)
         real(kind=RPRE), intent(in) :: x, a
 
-        if (x .lt. 0. .or. a .le. 0.) then
+        if (x < 0. .or. a <= 0.) then
             print *, "Error: in gammainc, x < 0 and/or a <= 0"
             stop
         end if
-        if (x .lt. a + 1.) then
+        if (x < a + 1.) then
             gammainc0 = gser(x, a)
         else
             gammainc0 = 1.-gcf(x, a)
@@ -4510,7 +4602,7 @@ contains
             real(kind=RPRE) :: gln, ap, del, s
 
             gln = log(gamma(a))
-            if (x .le. 0.) then
+            if (x <= 0.) then
                 gser = 0.
             else
                 ap = a
@@ -4520,7 +4612,7 @@ contains
                     ap = ap + 1.
                     del = del*x/ap
                     s = s + del
-                    if (abs(del) .lt. abs(s)*eps) exit
+                    if (abs(del) < abs(s)*eps) exit
                 end do
                 gser = s*exp(-x + a*log(x) - gln)
             end if
@@ -4543,13 +4635,13 @@ contains
                 an = -i*(i - a)
                 b = b + 2
                 d = an*d + b
-                if (abs(d) .lt. fpmin) d = fpmin
+                if (abs(d) < fpmin) d = fpmin
                 c = b + an/c
-                if (abs(c) .lt. fpmin) c = fpmin
+                if (abs(c) < fpmin) c = fpmin
                 d = 1./d
                 del = d*c
                 h = h*del
-                if (abs(del - 1.) .lt. eps) exit
+                if (abs(del - 1.) < eps) exit
             end do
             gcf = h*exp(-x + a*log(x) - gln)
             return
@@ -4623,7 +4715,7 @@ contains
         !========================
         w = zeros(n, K)
         iter = 0
-        do while (iter .lt. opt_itermax)
+        do while (iter < opt_itermax)
             iter = iter + 1
 
             ! Expectation
@@ -4646,7 +4738,7 @@ contains
                 sigma(j) = sqrt(sigma(j))
             end do
 
-            if (norm(mu - mu_prev) .lt. 1.0d-10) exit
+            if (norm(mu - mu_prev) < 1.0d-10) exit
         end do
 
         idx = zeros(n)
@@ -4699,7 +4791,7 @@ contains
         !========================
         w = zeros(n, K)
         iter = 0
-        do while (iter .lt. opt_itermax)
+        do while (iter < opt_itermax)
             iter = iter + 1
 
             ! Expectation
@@ -4728,7 +4820,7 @@ contains
                 end do
             end do
 
-            if (means_residuals(mu, mu_prev) .lt. 1.0d-10) exit
+            if (means_residuals(mu, mu_prev) < 1.0d-10) exit
         end do
 
         idx = zeros(n)
@@ -4967,9 +5059,9 @@ contains
         integer(kind=IPRE) :: i, x1, x2, ix(2)
         real(kind=RPRE) :: vn, xr(2), vr(2)
 
-        x1 = minloc(xq - x, 1, mask=xq .ge. x)
-        x2 = maxloc(xq - x, 1, mask=xq .lt. x)
-        if (x2 .ne. 0) then
+        x1 = minloc(xq - x, 1, mask=xq >= x)
+        x2 = maxloc(xq - x, 1, mask=xq < x)
+        if (x2 /= 0) then
             vn = abs((x(x2) - x(x1)))
             xr = x([x1, x2])
             vr = v([x1, x2])
@@ -5020,10 +5112,10 @@ contains
         integer(kind=IPRE) :: i, x1, y1, x2, y2, ix(4), iy(4)
         real(kind=RPRE) :: vn, xr(2), yr(2), N(4), vr(4)
 
-        x1 = minloc(xq - x, 1, mask=xq .ge. x)
-        y1 = minloc(yq - y, 1, mask=yq .ge. y)
-        x2 = maxloc(xq - x, 1, mask=xq .lt. x)
-        y2 = maxloc(yq - y, 1, mask=yq .lt. y)
+        x1 = minloc(xq - x, 1, mask=xq >= x)
+        y1 = minloc(yq - y, 1, mask=yq >= y)
+        x2 = maxloc(xq - x, 1, mask=xq < x)
+        y2 = maxloc(yq - y, 1, mask=yq < y)
         vn = abs((x(x2) - x(x1)) &
                  *(y(y2) - y(y1)))
         xr = x([x1, x2])
@@ -5087,12 +5179,12 @@ contains
                               ix(8), iy(8), iz(8)
         real(kind=RPRE) :: vn, xr(2), yr(2), zr(2), N(8), vr(8)
 
-        x1 = minloc(xq - x, 1, mask=xq .ge. x)
-        y1 = minloc(yq - y, 1, mask=yq .ge. y)
-        z1 = minloc(zq - z, 1, mask=zq .ge. z)
-        x2 = maxloc(xq - x, 1, mask=xq .lt. x)
-        y2 = maxloc(yq - y, 1, mask=yq .lt. y)
-        z2 = maxloc(zq - z, 1, mask=zq .lt. z)
+        x1 = minloc(xq - x, 1, mask=xq >= x)
+        y1 = minloc(yq - y, 1, mask=yq >= y)
+        z1 = minloc(zq - z, 1, mask=zq >= z)
+        x2 = maxloc(xq - x, 1, mask=xq < x)
+        y2 = maxloc(yq - y, 1, mask=yq < y)
+        z2 = maxloc(zq - z, 1, mask=zq < z)
         vn = abs((x(x2) - x(x1)) &
                  *(y(y2) - y(y1)) &
                  *(z(z2) - z(z1)))
@@ -5128,8 +5220,8 @@ contains
 
     logical function isleap(year)
         integer(kind=IPRE), intent(in) :: year
-        if ((mod(year, 400) .eq. 0) .or. &
-            ((mod(year, 4) .eq. 0) .and. (mod(year, 100) .ne. 0))) then
+        if ((mod(year, 400) == 0) .or. &
+            ((mod(year, 4) == 0) .and. (mod(year, 100) /= 0))) then
             isleap = .true.
         else
             isleap = .false.
@@ -5174,7 +5266,7 @@ contains
         ismember_i0i1 = .false.
         dim1 = size(y)
         do i = 1, dim1
-            if (x .eq. y(i)) then
+            if (x == y(i)) then
                 ismember_i0i1 = .true.
                 return
             end if
@@ -5190,7 +5282,7 @@ contains
         ismember_i0r1 = .false.
         dim1 = size(y)
         do i = 1, dim1
-            if (x .eq. y(i)) then
+            if (x == y(i)) then
                 ismember_i0r1 = .true.
                 return
             end if
@@ -5208,7 +5300,7 @@ contains
         dim2 = size(A, 2)
         do i = 1, dim1
             do j = 1, dim2
-                if (x .eq. A(i, j)) then
+                if (x == A(i, j)) then
                     ismember_i0i2 = .true.
                     return
                 end if
@@ -5227,7 +5319,7 @@ contains
         dim2 = size(A, 2)
         do i = 1, dim1
             do j = 1, dim2
-                if (x .eq. A(i, j)) then
+                if (x == A(i, j)) then
                     ismember_i0r2 = .true.
                     return
                 end if
@@ -5248,7 +5340,7 @@ contains
         do i = 1, dim1
             do j = 1, dim2
                 do k = 1, dim2
-                    if (x .eq. Y(i, j, k)) then
+                    if (x == Y(i, j, k)) then
                         ismember_i0i3 = .true.
                         return
                     end if
@@ -5270,7 +5362,7 @@ contains
         do i = 1, dim1
             do j = 1, dim2
                 do k = 1, dim2
-                    if (x .eq. Y(i, j, k)) then
+                    if (x == Y(i, j, k)) then
                         ismember_i0r3 = .true.
                         return
                     end if
@@ -5288,7 +5380,7 @@ contains
         ismember_r0i1 = .false.
         dim1 = size(y)
         do i = 1, dim1
-            if (x .eq. y(i)) then
+            if (x == y(i)) then
                 ismember_r0i1 = .true.
                 return
             end if
@@ -5304,7 +5396,7 @@ contains
         ismember_r0r1 = .false.
         dim1 = size(y)
         do i = 1, dim1
-            if (x .eq. y(i)) then
+            if (x == y(i)) then
                 ismember_r0r1 = .true.
                 return
             end if
@@ -5322,7 +5414,7 @@ contains
         dim2 = size(A, 2)
         do i = 1, dim1
             do j = 1, dim2
-                if (x .eq. A(i, j)) then
+                if (x == A(i, j)) then
                     ismember_r0i2 = .true.
                     return
                 end if
@@ -5341,7 +5433,7 @@ contains
         dim2 = size(A, 2)
         do i = 1, dim1
             do j = 1, dim2
-                if (x .eq. A(i, j)) then
+                if (x == A(i, j)) then
                     ismember_r0r2 = .true.
                     return
                 end if
@@ -5362,7 +5454,7 @@ contains
         do i = 1, dim1
             do j = 1, dim2
                 do k = 1, dim2
-                    if (x .eq. Y(i, j, k)) then
+                    if (x == Y(i, j, k)) then
                         ismember_r0i3 = .true.
                         return
                     end if
@@ -5384,7 +5476,7 @@ contains
         do i = 1, dim1
             do j = 1, dim2
                 do k = 1, dim2
-                    if (x .eq. Y(i, j, k)) then
+                    if (x == Y(i, j, k)) then
                         ismember_r0r3 = .true.
                         return
                     end if
@@ -5415,7 +5507,7 @@ contains
 
         opt_m = 3
         if (present(m)) opt_m = m
-        isoutlier = abs(x - median(x)) .gt. opt_m*mad(x, 2)
+        isoutlier = abs(x - median(x)) > opt_m*mad(x, 2)
         return
     end function isoutlier
 
@@ -5644,7 +5736,7 @@ contains
 
         n = size(x)
         kurtosis1 = (sum((x - mean(x))**4)/n)/(var(x, 1)**2)
-        if (opt_flag .eq. 0) then
+        if (opt_flag == 0) then
             kurtosis1 = (n - 1)/((n - 2)*(n - 3))*((n + 1)*kurtosis1 - 3*(n - 1)) + 3
         end if
         return
@@ -5661,12 +5753,12 @@ contains
 
         m = size(A, 1)
         n = size(A, 2)
-        if ((.not. present(dim)) .or. (dim .eq. 1)) then
+        if ((.not. present(dim)) .or. (dim == 1)) then
             allocate (kurtosis2(n))
             do i = 1, n
                 kurtosis2(i) = kurtosis1(A(:, i), opt_flag)
             end do
-        elseif (dim .eq. 2) then
+        elseif (dim == 2) then
             allocate (kurtosis2(m))
             do i = 1, m
                 kurtosis2(i) = kurtosis1(A(i, :), opt_flag)
@@ -5759,12 +5851,12 @@ contains
 
         eps = 4.685d0*mad(r, 2)/0.6745d0
         n = size(r)
-        if ((eps .eq. 0.0d0) .or. (ntype .eq. "none")) then
+        if ((eps == 0.0d0) .or. (ntype == "none")) then
             lsweight = eye(n)
-        elseif (ntype .eq. "biweight") then
+        elseif (ntype == "biweight") then
             lsweight = zeros(n, n)
             do i = 1, n
-                if (abs(r(i)) .le. eps) lsweight(i, i) = (1.0d0 - (r(i)/eps)**2)**2
+                if (abs(r(i)) <= eps) lsweight(i, i) = (1.0d0 - (r(i)/eps)**2)**2
             end do
         end if
         return
@@ -5860,8 +5952,8 @@ contains
         ! Loop until convergence
         !========================
         iter = 0
-        do while ((means_residuals(m, m1) .gt. 1.0d-10) &
-                  .and. (iter .lt. opt_itermax))
+        do while ((means_residuals(m, m1) > 1.0d-10) &
+                  .and. (iter < opt_itermax))
             iter = iter + 1
             m = m1
             idx = update_index(A, m)
@@ -5906,7 +5998,7 @@ contains
 
             means = zeros(K, p)
             do j = 1, K
-                means(j, :) = mean(A(find(idx .eq. j), :))
+                means(j, :) = mean(A(find(idx == j), :))
             end do
             return
         end function update_means
@@ -5973,9 +6065,9 @@ contains
         real(kind=RPRE), dimension(:), intent(in) :: x
         integer(kind=IPRE), intent(in), optional :: method
 
-        if ((.not. present(method)) .or. (method .eq. 1)) then
+        if ((.not. present(method)) .or. (method == 1)) then
             mad1 = mean(abs(x - mean(x)))
-        elseif (method .eq. 2) then
+        elseif (method == 2) then
             mad1 = median(abs(x - median(x)))
         end if
         return
@@ -5989,24 +6081,24 @@ contains
 
         m = size(A, 1)
         n = size(A, 2)
-        if ((.not. present(dim)) .or. (dim .eq. 1)) then
+        if ((.not. present(dim)) .or. (dim == 1)) then
             allocate (mad2(n))
-            if ((.not. present(method)) .or. (method .eq. 1)) then
+            if ((.not. present(method)) .or. (method == 1)) then
                 do i = 1, n
                     mad2(i) = mad(A(:, i), 1)
                 end do
-            elseif (method .eq. 2) then
+            elseif (method == 2) then
                 do i = 1, n
                     mad2(i) = mad(A(:, i), 2)
                 end do
             end if
-        elseif (dim .eq. 2) then
+        elseif (dim == 2) then
             allocate (mad2(m))
-            if ((.not. present(method)) .or. (method .eq. 1)) then
+            if ((.not. present(method)) .or. (method == 1)) then
                 do i = 1, m
                     mad2(i) = mad(A(i, :), 1)
                 end do
-            elseif (method .eq. 2) then
+            elseif (method == 2) then
                 do i = 1, m
                     mad2(i) = mad(A(i, :), 2)
                 end do
@@ -6115,7 +6207,7 @@ contains
             m1 = m                          ! Previous means
             idx = cache_means(B, m)         ! Cache means
             call update_means(m, v, B, idx) ! Update means with gradient
-            if (means_residuals(m, m1) .lt. 1.0d-2) exit
+            if (means_residuals(m, m1) < 1.0d-2) exit
         end do
 
         idx = cache_means(A, m)
@@ -6241,12 +6333,12 @@ contains
 
         m = size(A, 1)
         n = size(A, 2)
-        if ((.not. present(dim)) .or. (dim .eq. 1)) then
+        if ((.not. present(dim)) .or. (dim == 1)) then
             allocate (mean2(n))
             do i = 1, n
                 mean2(i) = mean(A(:, i))
             end do
-        elseif (dim .eq. 2) then
+        elseif (dim == 2) then
             allocate (mean2(m))
             do i = 1, m
                 mean2(i) = mean(A(i, :))
@@ -6303,7 +6395,7 @@ contains
         n = size(x)
         x_sort = sort(x)
         i = ceiling(real(n/2.0d0))
-        if (mod(n, 2) .eq. 0) then
+        if (mod(n, 2) == 0) then
             median1 = (x_sort(i) + x_sort(i + 1))/2
         else
             median1 = x_sort(i)
@@ -6319,12 +6411,12 @@ contains
 
         m = size(A, 1)
         n = size(A, 2)
-        if ((.not. present(dim)) .or. (dim .eq. 1)) then
+        if ((.not. present(dim)) .or. (dim == 1)) then
             allocate (median2(n))
             do i = 1, n
                 median2(i) = median(A(:, i))
             end do
-        elseif (dim .eq. 2) then
+        elseif (dim == 2) then
             allocate (median2(m))
             do i = 1, m
                 median2(i) = median(A(i, :))
@@ -6415,7 +6507,7 @@ contains
     ! Description
     !-----------------------------------------------------------------------
     ! p = nextpow2(x) returns the exponent for the smallest power of two
-    ! that satisfy 2**p .le. abs(x).
+    ! that satisfy 2**p <= abs(x).
     !
     ! P = nextpow2(X) returns the next power of 2 of each element in
     ! vector x.
@@ -6479,9 +6571,9 @@ contains
         real(kind=RPRE), dimension(:), intent(in) :: x
         real(kind=RPRE), intent(in), optional :: p
 
-        if ((.not. present(p)) .or. (p .eq. 2.)) then
+        if ((.not. present(p)) .or. (p == 2.)) then
             norm1 = sqrt(sum(abs(x)**2))
-        elseif (p .eq. 1.) then
+        elseif (p == 1.) then
             norm1 = sum(abs(x))
         else
             norm1 = (sum(abs(x)**p))**(1.0d0/p)
@@ -6494,10 +6586,10 @@ contains
         integer(kind=IPRE), intent(in), optional :: p
         real(kind=RPRE), dimension(:), allocatable :: w
 
-        if ((.not. present(p)) .or. (p .eq. 2.)) then
+        if ((.not. present(p)) .or. (p == 2.)) then
             call svd(A, w)
             norm2 = maxval(w)
-        elseif (p .eq. 1.) then
+        elseif (p == 1.) then
             norm2 = maxval(sum(abs(A), dim=2))
         end if
         return
@@ -6592,7 +6684,7 @@ contains
         integer(kind=IPRE) :: ierr
 
         allocate (ones1(dim1), stat=ierr)
-        if (ierr .ne. 0) then
+        if (ierr /= 0) then
             print *, "Error: in ones, could not allocate array."
             stop
         else
@@ -6607,7 +6699,7 @@ contains
         integer(kind=IPRE) :: ierr
 
         allocate (ones2(dim1, dim2), stat=ierr)
-        if (ierr .ne. 0) then
+        if (ierr /= 0) then
             print *, "Error: in ones, could not allocate array."
             stop
         else
@@ -6622,7 +6714,7 @@ contains
         integer(kind=IPRE) :: ierr
 
         allocate (ones3(dim1, dim2, dim3), stat=ierr)
-        if (ierr .ne. 0) then
+        if (ierr /= 0) then
             print *, "Error: in ones, could not allocate array."
             stop
         else
@@ -6648,14 +6740,14 @@ contains
 
     subroutine open1(self)
         !! Version: expermental
-        !! 
+        !!
         !! Use fortran08 NEWUNIT syntax.
         class(File), intent(inout) :: self
         integer(kind=IPRE) :: ierr
 
         open (newunit=self%unit, file=self%filename, access="sequential", &
               form="formatted", status="unknown", iostat=ierr)
-        if (ierr .ne. 0) then
+        if (ierr /= 0) then
             print *, "Error: cannot read '"//trim(self%filename)//"'"
             stop
         end if
@@ -6664,7 +6756,7 @@ contains
 
     subroutine open2(self, r)
         !! Version: expermental
-        !! 
+        !!
         !! Use fortran08 NEWUNIT syntax.
         class(File), intent(inout) :: self
         integer(kind=IPRE), intent(in) :: r
@@ -6672,7 +6764,7 @@ contains
 
         open (newunit=self%unit, file=self%filename, access="direct", &
               form="unformatted", status="unknown", recl=r, iostat=ierr)
-        if (ierr .ne. 0) then
+        if (ierr /= 0) then
             print *, "Error: cannot read '"//trim(self%filename)//"'"
             stop
         end if
@@ -6775,13 +6867,13 @@ contains
         prctile1 = zeros(np)
         xsort = sort(x)
         do i = 1, np
-            if (p(i) .le. 50.0d0/real(nx, RPRE)) then
+            if (p(i) <= 50.0d0/real(nx, RPRE)) then
                 prctile1(i) = xsort(1)
-            elseif (p(i) .ge. 100.0d0*((nx - 0.5d0)/real(nx, RPRE))) then
+            elseif (p(i) >= 100.0d0*((nx - 0.5d0)/real(nx, RPRE))) then
                 prctile1(i) = xsort(nx)
             else
                 ap = 100.0d0*(linspace(1, nx, nx) - 0.5d0)/real(nx, RPRE)
-                idx = maxval(find(p(i) .gt. ap))
+                idx = maxval(find(p(i) > ap))
                 prctile1(i) = xsort(idx) &
                               + (xsort(idx + 1) - xsort(idx))*(p(i) - ap(idx)) &
                               /(ap(idx + 1) - ap(idx))
@@ -6834,7 +6926,7 @@ contains
         bar(i + 4:i + 4) = "%"
 
         ! Fill the space
-        if (perc .lt. 100 .and. perc .gt. 50 - 100/opt_step) bar(i + 1:i + 1) = "="
+        if (perc < 100 .and. perc > 50 - 100/opt_step) bar(i + 1:i + 1) = "="
 
         ! Return to the beginning of the line and display the bar
         write (*, "(A1, A)", advance="no") char(13), bar
@@ -6868,7 +6960,7 @@ contains
         write (*, "(A1, A, F6.2, A)", advance="no") char(13), opt_prefix, perc, "%"
         return
     end subroutine progress_perc
-    
+
 
     ! randi
     !-----------------------------------------------------------------------
@@ -6973,7 +7065,7 @@ contains
 
         randi3_1 = minval(imax) + nint(randu(dim1, dim2, dim3)*real(maxval(imax) - minval(imax)))
         return
-    end function randi3_1 
+    end function randi3_1
 
     ! randperm
     !-----------------------------------------------------------------------
@@ -7012,7 +7104,7 @@ contains
         randperm = a(n - opt_k + 1:n)
         return
     end function randperm
-   
+
     ! repmat
     !-----------------------------------------------------------------------
     ! repmat repeats copies of arrays.
@@ -7042,12 +7134,12 @@ contains
         integer(kind=IPRE) :: i, m
 
         m = size(x)
-        if ((.not. present(dim)) .or. (dim .eq. 1)) then
+        if ((.not. present(dim)) .or. (dim == 1)) then
             repmat1 = zeros(m, n1)
             do i = 1, n1
                 repmat1(:, i) = x
             end do
-        elseif (dim .eq. 2) then
+        elseif (dim == 2) then
             repmat1 = zeros(n1, m)
             do i = 1, n1
                 repmat1(i, :) = x
@@ -7111,12 +7203,12 @@ contains
 
         m = size(A, 1)
         n = size(A, 2)
-        if ((.not. present(dim)) .or. (dim .eq. 1)) then
+        if ((.not. present(dim)) .or. (dim == 1)) then
             allocate (rms2(n))
             do i = 1, n
                 rms2(i) = rms(A(:, i))
             end do
-        elseif (dim .eq. 2) then
+        elseif (dim == 2) then
             allocate (rms2(m))
             do i = 1, m
                 rms2(i) = rms(A(i, :))
@@ -7147,9 +7239,9 @@ contains
 
     real(kind=RPRE) function signum0(x)
         real(kind=RPRE), intent(in) :: x
-        if (x .lt. 0.0d0) then
+        if (x < 0.0d0) then
             signum0 = -1.0d0
-        elseif (x .gt. 0.0d0) then
+        elseif (x > 0.0d0) then
             signum0 = 1.0d0
         else
             signum0 = 0.0d0
@@ -7234,7 +7326,7 @@ contains
 
         n = size(X, 1)
         K = maxval(cluster)
-        if (K .eq. 1) then
+        if (K == 1) then
             print *, "Warning: in silhouette, the silhouette value cannot " &
                 //"be defined for K = 1."
             s = zeros(n)
@@ -7245,7 +7337,7 @@ contains
         !======================
         allocate (cs(K))
         do j = 1, K
-            idx = find(cluster .eq. j)    ! All objects in cluster j
+            idx = find(cluster == j)    ! All objects in cluster j
             cs(j) = size(idx)
         end do
 
@@ -7258,14 +7350,14 @@ contains
             !================================================================
             d = zeros(K)          ! Cluster dissimilarity to object i
             do j = 1, K
-                idx = find(cluster .eq. j)
+                idx = find(cluster == j)
                 d(j) = sum((X(idx, :) - repmat(X(i, :), cs(j), 2))**2)/cs(j)
             end do
 
             ! Compute a(i)
             !==============
             j = cluster(i)
-            if (cs(j) .eq. 1) then
+            if (cs(j) == 1) then
                 s(i) = 0.0d0
                 cycle               ! Skip next statements and begin next iteration
             else
@@ -7274,7 +7366,7 @@ contains
 
             ! Compute b(i)
             !==============
-            b = minval(d, mask=d .ne. d(j) .and. d .ne. real(0., RPRE))
+            b = minval(d, mask=d /= d(j) .and. d /= real(0., RPRE))
 
             ! Compute s(i)
             !==============
@@ -7302,7 +7394,7 @@ contains
         real(kind=RPRE), intent(in) :: x
         real(kind=RPRE) :: y
 
-        if (x .eq. 0.0d0) then
+        if (x == 0.0d0) then
             sinc0 = 1.0d0
         else
             y = pi*x
@@ -7317,7 +7409,7 @@ contains
         real(kind=RPRE), dimension(:), allocatable :: y
 
         allocate (y(size(x)))
-        y = pi*merge(real(1.0e-20, RPRE), x, x .eq. 0.0d0)
+        y = pi*merge(real(1.0e-20, RPRE), x, x == 0.0d0)
         sinc1 = sin(y)/y
         return
     end function sinc1
@@ -7369,7 +7461,7 @@ contains
 
         n = size(x)
         skewness1 = (sum((x - mean(x))**3)/n)/(var(x, 1)**1.5)
-        if (opt_flag .eq. 0) then
+        if (opt_flag == 0) then
             skewness1 = skewness1*sqrt(real(n*(n - 1), RPRE))/real((n - 2), RPRE)
         end if
         return
@@ -7386,12 +7478,12 @@ contains
 
         m = size(A, 1)
         n = size(A, 2)
-        if ((.not. present(dim)) .or. (dim .eq. 1)) then
+        if ((.not. present(dim)) .or. (dim == 1)) then
             allocate (skewness2(n))
             do i = 1, n
                 skewness2(i) = skewness1(A(:, i), opt_flag)
             end do
-        elseif (dim .eq. 2) then
+        elseif (dim == 2) then
             allocate (skewness2(m))
             do i = 1, m
                 skewness2(i) = skewness1(A(i, :), opt_flag)
@@ -7525,7 +7617,7 @@ contains
         ! Evaluate
         !==========
         do i = 1, nq
-            x1 = max(1, minloc(xq(i) - x, 1, mask=xq(i) .gt. x))
+            x1 = max(1, minloc(xq(i) - x, 1, mask=xq(i) > x))
             yq(i) = d(x1) + (xq(i) - x(x1)) &
                     *(c(x1) + (xq(i) - x(x1)) &
                       *(b(x1) + (xq(i) - x(x1)) &
@@ -7603,8 +7695,8 @@ contains
 
             ! Locate the query point
             !========================
-            x0 = minloc(xq(iq) - x, 1, mask=xq(iq) .ge. x)
-            y0 = minloc(yq(iq) - y, 1, mask=yq(iq) .ge. y)
+            x0 = minloc(xq(iq) - x, 1, mask=xq(iq) >= x)
+            y0 = minloc(yq(iq) - y, 1, mask=yq(iq) >= y)
             dx = x(x0 + 1) - x(x0)
             dy = y(y0 + 1) - y(y0)
 
@@ -7780,7 +7872,7 @@ contains
         integer(kind=IPRE) :: idx
 
         idx = index(argin, "=")
-        if (idx .ne. 0) then
+        if (idx /= 0) then
             argname = trim(argin(:idx - 1))
             argval = trim(argin(idx + 1:))
         else
@@ -7937,16 +8029,16 @@ contains
             g = 0.0d0
             s = 0.0d0
             scale = 0.0d0
-            if (i .le. m) then
+            if (i <= m) then
                 scale = sum(abs(opt_u(i:m, i)))
-                if (scale .ne. 0.0d0) then
+                if (scale /= 0.0d0) then
                     opt_u(i:m, i) = opt_u(i:m, i)/scale
                     s = sum(opt_u(i:m, i)**2)
                     f = opt_u(i, i)
                     g = -sign(sqrt(s), f)
                     h = f*g - s
                     opt_u(i, i) = f - g
-                    if (i .ne. n) then
+                    if (i /= n) then
                         do j = l, n
                             s = dot_product(opt_u(i:m, i), opt_u(i:m, j))
                             opt_u(i:m, j) = opt_u(i:m, j) + s*opt_u(i:m, i)/h
@@ -7961,9 +8053,9 @@ contains
             s = 0.0d0
             scale = 0.0d0
 
-            if ((i .le. m) .and. (i .ne. n)) then
+            if ((i <= m) .and. (i /= n)) then
                 scale = sum(abs(opt_u(i, l:n)))
-                if (scale .ne. 0.0d0) then
+                if (scale /= 0.0d0) then
                     opt_u(i, l:n) = opt_u(i, l:n)/scale
                     s = sum(opt_u(i, l:n)**2)
                     f = opt_u(i, l)
@@ -7972,7 +8064,7 @@ contains
                     opt_u(i, l) = f - g
                     rv1(l:n) = opt_u(i, l:n)/h
 
-                    if (i .ne. m) then
+                    if (i /= m) then
                         do j = l, m
                             s = dot_product(opt_u(j, l:n), opt_u(i, l:n))
                             opt_u(j, l:n) = opt_u(j, l:n) + s*rv1(l:n)
@@ -7990,8 +8082,8 @@ contains
         !============================================
         if (outv) then
             do i = n, 1, -1
-                if (i .ne. n) then
-                    if (g .ne. 0.0d0) then
+                if (i /= n) then
+                    if (g /= 0.0d0) then
                         opt_v(l:n, i) = (opt_u(i, l:n)/opt_u(i, l))/g
                         do j = l, n
                             s = dot_product(opt_u(i, l:n), opt_v(l:n, j))
@@ -8014,9 +8106,9 @@ contains
             do i = min(m, n), 1, -1
                 l = i + 1
                 g = w(i)
-                if (i .ne. n) opt_u(i, l:n) = 0.0d0
-                if (g .ne. 0.0d0) then
-                    if (i .ne. mn) then
+                if (i /= n) opt_u(i, l:n) = 0.0d0
+                if (g /= 0.0d0) then
+                    if (i /= mn) then
                         do j = l, n
                             s = dot_product(opt_u(l:m, i), opt_u(l:m, j))
                             f = (s/opt_u(i, i))/g
@@ -8046,9 +8138,9 @@ contains
                 l1 = k - ll
                 l = l1 + 1
                 tst2 = tst1 + abs(rv1(l))
-                if (tst2 .eq. tst1) goto 565
+                if (tst2 == tst1) goto 565
                 tst2 = tst1 + abs(w(l1))
-                if (tst2 .eq. tst1) exit
+                if (tst2 == tst1) exit
             end do
 
             ! Cancellation of rv1(l) if L greater than 1
@@ -8059,7 +8151,7 @@ contains
                 f = s*rv1(i)
                 rv1(i) = c*rv1(i)
                 tst2 = tst1 + abs(f)
-                if (tst2 .eq. tst1) goto 565
+                if (tst2 == tst1) goto 565
                 g = w(i)
                 h = pythag(f, g)
                 w(i) = h
@@ -8079,11 +8171,11 @@ contains
             !======================
 565         continue
             z = w(k)
-            if (l .eq. k) goto 650
+            if (l == k) goto 650
 
             ! Shift from bottom 2 by 2 minor
             !================================
-            if (its .ge. 30) then
+            if (its >= 30) then
                 if (outierr) ierr = k
                 return
             end if
@@ -8127,7 +8219,7 @@ contains
 
                 ! Rotation can be arbitrary if Z is zero
                 !========================================
-                if (z .ne. 0.0d0) then
+                if (z /= 0.0d0) then
                     c = f/z
                     s = h/z
                 end if
@@ -8150,7 +8242,7 @@ contains
             ! Convergence
             !=============
 650         continue
-            if (z .le. 0.0d0) then
+            if (z <= 0.0d0) then
                 w(k) = -z
                 if (outv) then
                     opt_v(1:n, k) = -opt_v(1:n, k)
@@ -8182,11 +8274,11 @@ contains
             real(kind=RPRE) :: r, s, t, u
 
             pythag = max(abs(x1), abs(x2))
-            if (pythag .ne. 0.0d0) then
+            if (pythag /= 0.0d0) then
                 r = (min(abs(x1), abs(x2))/pythag)**2
                 do
                     t = 4.0d0 + r
-                    if (t .eq. 4.0d0) exit
+                    if (t == 4.0d0) exit
                     s = r/t
                     u = 1.0d0 + 2.0d0*s
                     pythag = u*pythag
@@ -8309,7 +8401,7 @@ contains
 
         x = east - 500000
         y = north
-        if (verify(zl, "OXWVUTSRQPN") .ne. 0) y = y - 10000000
+        if (verify(zl, "OXWVUTSRQPN") /= 0) y = y - 10000000
 
         E_P2 = E/(1.0d0 - E)
         M1 = (1 - E/4 - 3*E**2/64 - 5*E**3/256)
@@ -8440,12 +8532,12 @@ contains
 
         m = size(A, 1)
         n = size(A, 2)
-        if ((.not. present(dim)) .or. (dim .eq. 1)) then
+        if ((.not. present(dim)) .or. (dim == 1)) then
             allocate (var2(n))
             do i = 1, n
                 var2(i) = var1(A(:, i), opt_w)
             end do
-        elseif (dim .eq. 2) then
+        elseif (dim == 2) then
             allocate (var2(m))
             do i = 1, m
                 var2(i) = var1(A(i, :), opt_w)

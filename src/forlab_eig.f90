@@ -1,31 +1,9 @@
 
 
 submodule(forlab) forlab_eig
-    !! Version: experimental
-    !!
-    !! Discussion:
-    !! ----
-    !! https://fortran-lang.discourse.group/t/fortran-function-return-value-polymorphism/1350/5
     use forlab_kinds
     implicit none
 contains
-    ! eig
-    !-----------------------------------------------------------------------
-    ! eig computes eigenvalues and eigenvectors of symmetric matrix using
-    ! Jacobi algorithm.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! call eig(A, V, d)
-    ! call eig(A, V, d, itermax)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! call eig(A, V, d) returns the eigenvalues of the symmetric matrix A
-    ! in the vector d and the associated eigenvectors in the matrix V.
-    !
-    ! call eig(A, V, d) returns eigenvalues and eigenvectors with a maximum
-    ! of itermax iterations.
     module procedure eig_sp
         integer :: opt_itermax, iter, i, j, k, n
         integer, dimension(:), allocatable :: idx
