@@ -1162,6 +1162,32 @@ module forlab
         module procedure ones1, ones2, ones3
     end interface ones
 
+    interface outer
+        !! outer
+        !!-----------------------------------------------------------------------
+        !! outer computes the outer product of two vectors.
+        !!
+        !! Syntax
+        !!-----------------------------------------------------------------------
+        !! A = outer(x, y)
+        !!
+        !! Description
+        !!-----------------------------------------------------------------------
+        !! A = outer(x, y) returns the outer product of vectors x and y.
+        #:for k1,t1 in INT_KINDS_TYPES
+        module function outer_${k1}$(x, y)
+            ${t1}$, dimension(:,:), allocatable :: outer_${k1}$
+            ${t1}$, dimension(:), intent(in) :: x, y
+        end function
+        #:endfor
+        #:for k1,t1 in REAL_KINDS_TYPES
+        module function outer_${k1}$(x, y)
+            ${t1}$, dimension(:,:), allocatable :: outer_${k1}$
+            ${t1}$, dimension(:), intent(in) :: x, y
+        end function
+        #:endfor
+    end interface
+
     interface prctile
         module procedure prctile0, prctile1
     end interface prctile
@@ -5899,29 +5925,6 @@ contains
         end if
         return
     end subroutine open2
-
-    ! outer
-    !-----------------------------------------------------------------------
-    ! outer computes the outer product of two vectors.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! A = outer(x, y)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! A = outer(x, y) returns the outer product of vectors x and y.
-
-    function outer(x, y) result(A)
-        real(kind=RPRE), dimension(:, :), allocatable :: A
-        real(kind=RPRE), dimension(:), intent(in) :: x, y
-        integer(kind=IPRE) :: m, n
-
-        m = size(x)
-        n = size(y)
-        A = spread(x, 2, n)*spread(y, 1, m)
-        return
-    end function outer
 
     ! pascal
     !-----------------------------------------------------------------------
