@@ -6,36 +6,32 @@ program main
     real(8), allocatable :: y(:, :)
     real(16), allocatable :: z(:, :)
 
-    real :: flag_sp
-    real(8) :: flag_dp
-    real(16) :: flag_qp
-
     call disp('-----------------------')
     call disp('TEST for SP👍:')
 
     x = empty(2, 3)
-    call disp(x, 'empty x without flag:')
+    call disp(x, 'empty x:')
 
     x = zeros(2, 3)
-    call disp(x, 'zeros x without flag:')
+    call disp(x, 'zeros x:')
 
     call disp('-----------------------')
     call disp('TEST for DP👍:')
 
     y = empty(2, 3)
-    call disp(y, 'empty y without flag:')
+    call disp(y, 'empty y:')
 
     y = zeros(2, 3)
-    call disp(y, 'zeros y without flag:')
+    call disp(y, 'zeros y:')
 
     call disp('-----------------------')
     call disp('TEST for QP👍:')
 
     z = empty(2, 3)
-    call disp(z, 'empty z without flag:')
+    call disp(z, 'empty z:')
 
     z = zeros(2, 3)
-    call disp(z, 'zeros z without flag:')
+    call disp(z, 'zeros z:')
 
     call disp('-----------------------')
 

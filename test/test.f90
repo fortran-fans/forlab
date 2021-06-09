@@ -75,10 +75,10 @@ program main
     end block
 
     block
-        use forlab, only: linspace, disp, pi
+        use forlab, only: linspace, dlinspace, disp, pi
         call disp('-----------------------')
-        call disp(linspace(1, pi, 5), 'linspace 1:')
-        call disp(linspace(pi, 3*pi, 1), 'linspace 2:')
+        call disp(linspace(1, 3, 5), 'linspace 1:')
+        call disp(linspace(1.1d0, pi, 1), 'linspace 2:')
     end block
 
     block

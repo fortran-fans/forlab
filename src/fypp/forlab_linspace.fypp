@@ -20,38 +20,33 @@ submodule(forlab) forlab_linspace
 contains
 
     #:for k1, t1 in REAL_KINDS_TYPES
-    module procedure linspace_${k1}$
+    module procedure linspace_rr_${k1}$
         integer :: i
         real(${k1}$) :: step
-        if (n<=1) print *, ('Error: in linspace, n could not be <= 1.')
-        allocate (linspace_${k1}$(n))
+        if (n<=1) print *, ('Error: in linspace, n should be > 1.')
+        allocate (linspace_rr_${k1}$(n))
         step = (last - first)/(n - 1)
-        linspace_${k1}$ = first + step*real([(i - 1, i=1, n)], ${k1}$)
+        linspace_rr_${k1}$ = first + step*real([(i - 1, i=1, n)], ${k1}$)
         return
     end procedure
 
-    module procedure linspace_int_${k1}$
-        if (n<=1) print *, ('Error: in linspace, n could not be <= 1.')
-        linspace_int_${k1}$ = linspace(real(first, kind=${k1}$), real(last, kind=${k1}$), n)
+    module procedure linspace_ii_${k1}$
+        if (n<=1) print *, ('Error: in linspace, n should be > 1.')
+        linspace_ii_${k1}$ = ${k1[0]}$linspace(real(first, kind=${k1}$), real(last, kind=${k1}$), n)
     end procedure 
 
     module procedure linspace_ri_${k1}$
-        if (n<=1) print *, ('Error: in linspace, n could not be <= 1.')
-        linspace_ri_${k1}$ = linspace(first, real(last, kind=${k1}$), n)
+        if (n<=1) print *, ('Error: in linspace, n should be > 1.')
+        linspace_ri_${k1}$ = ${k1[0]}$linspace(first, real(last, kind=${k1}$), n)
         return
     end procedure
 
     module procedure linspace_ir_${k1}$
-        if (n<=1) print *, ('Error: in linspace, n could not be <= 1.')
-        linspace_ir_${k1}$ = linspace(real(first, kind=${k1}$), last, n)
+        if (n>1) print *, ('Error: in linspace, n should be > 1.')
+        linspace_ir_${k1}$ = ${k1[0]}$linspace(real(first, kind=${k1}$), last, n)
         return
     end procedure
 
     #:endfor
-
-    module procedure linspace_default
-        if (n<=1) print *, ('Error: in linspace, n could not be <= 1.')
-        linspace_default = linspace(real(first, kind=8), real(last, kind=8), n)
-    end procedure 
 
 end submodule

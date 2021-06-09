@@ -18,91 +18,86 @@ submodule(forlab) forlab_linspace
 
 contains
 
-    module procedure linspace_sp
+    module procedure linspace_rr_sp
         integer :: i
         real(sp) :: step
-        if (n<=1) print *, ('Error: in linspace, n could not be <= 1.')
-        allocate (linspace_sp(n))
+        if (n<=1) print *, ('Error: in linspace, n should be > 1.')
+        allocate (linspace_rr_sp(n))
         step = (last - first)/(n - 1)
-        linspace_sp = first + step*real([(i - 1, i=1, n)], sp)
+        linspace_rr_sp = first + step*real([(i - 1, i=1, n)], sp)
         return
     end procedure
 
-    module procedure linspace_int_sp
-        if (n<=1) print *, ('Error: in linspace, n could not be <= 1.')
-        linspace_int_sp = linspace(real(first, kind=sp), real(last, kind=sp), n)
+    module procedure linspace_ii_sp
+        if (n<=1) print *, ('Error: in linspace, n should be > 1.')
+        linspace_ii_sp = slinspace(real(first, kind=sp), real(last, kind=sp), n)
     end procedure 
 
     module procedure linspace_ri_sp
-        if (n<=1) print *, ('Error: in linspace, n could not be <= 1.')
-        linspace_ri_sp = linspace(first, real(last, kind=sp), n)
+        if (n<=1) print *, ('Error: in linspace, n should be > 1.')
+        linspace_ri_sp = slinspace(first, real(last, kind=sp), n)
         return
     end procedure
 
     module procedure linspace_ir_sp
-        if (n<=1) print *, ('Error: in linspace, n could not be <= 1.')
-        linspace_ir_sp = linspace(real(first, kind=sp), last, n)
+        if (n>1) print *, ('Error: in linspace, n should be > 1.')
+        linspace_ir_sp = slinspace(real(first, kind=sp), last, n)
         return
     end procedure
 
-    module procedure linspace_dp
+    module procedure linspace_rr_dp
         integer :: i
         real(dp) :: step
-        if (n<=1) print *, ('Error: in linspace, n could not be <= 1.')
-        allocate (linspace_dp(n))
+        if (n<=1) print *, ('Error: in linspace, n should be > 1.')
+        allocate (linspace_rr_dp(n))
         step = (last - first)/(n - 1)
-        linspace_dp = first + step*real([(i - 1, i=1, n)], dp)
+        linspace_rr_dp = first + step*real([(i - 1, i=1, n)], dp)
         return
     end procedure
 
-    module procedure linspace_int_dp
-        if (n<=1) print *, ('Error: in linspace, n could not be <= 1.')
-        linspace_int_dp = linspace(real(first, kind=dp), real(last, kind=dp), n)
+    module procedure linspace_ii_dp
+        if (n<=1) print *, ('Error: in linspace, n should be > 1.')
+        linspace_ii_dp = dlinspace(real(first, kind=dp), real(last, kind=dp), n)
     end procedure 
 
     module procedure linspace_ri_dp
-        if (n<=1) print *, ('Error: in linspace, n could not be <= 1.')
-        linspace_ri_dp = linspace(first, real(last, kind=dp), n)
+        if (n<=1) print *, ('Error: in linspace, n should be > 1.')
+        linspace_ri_dp = dlinspace(first, real(last, kind=dp), n)
         return
     end procedure
 
     module procedure linspace_ir_dp
-        if (n<=1) print *, ('Error: in linspace, n could not be <= 1.')
-        linspace_ir_dp = linspace(real(first, kind=dp), last, n)
+        if (n>1) print *, ('Error: in linspace, n should be > 1.')
+        linspace_ir_dp = dlinspace(real(first, kind=dp), last, n)
         return
     end procedure
 
-    module procedure linspace_qp
+    module procedure linspace_rr_qp
         integer :: i
         real(qp) :: step
-        if (n<=1) print *, ('Error: in linspace, n could not be <= 1.')
-        allocate (linspace_qp(n))
+        if (n<=1) print *, ('Error: in linspace, n should be > 1.')
+        allocate (linspace_rr_qp(n))
         step = (last - first)/(n - 1)
-        linspace_qp = first + step*real([(i - 1, i=1, n)], qp)
+        linspace_rr_qp = first + step*real([(i - 1, i=1, n)], qp)
         return
     end procedure
 
-    module procedure linspace_int_qp
-        if (n<=1) print *, ('Error: in linspace, n could not be <= 1.')
-        linspace_int_qp = linspace(real(first, kind=qp), real(last, kind=qp), n)
+    module procedure linspace_ii_qp
+        if (n<=1) print *, ('Error: in linspace, n should be > 1.')
+        linspace_ii_qp = qlinspace(real(first, kind=qp), real(last, kind=qp), n)
     end procedure 
 
     module procedure linspace_ri_qp
-        if (n<=1) print *, ('Error: in linspace, n could not be <= 1.')
-        linspace_ri_qp = linspace(first, real(last, kind=qp), n)
+        if (n<=1) print *, ('Error: in linspace, n should be > 1.')
+        linspace_ri_qp = qlinspace(first, real(last, kind=qp), n)
         return
     end procedure
 
     module procedure linspace_ir_qp
-        if (n<=1) print *, ('Error: in linspace, n could not be <= 1.')
-        linspace_ir_qp = linspace(real(first, kind=qp), last, n)
+        if (n>1) print *, ('Error: in linspace, n should be > 1.')
+        linspace_ir_qp = qlinspace(real(first, kind=qp), last, n)
         return
     end procedure
 
-
-    module procedure linspace_default
-        if (n<=1) print *, ('Error: in linspace, n could not be <= 1.')
-        linspace_default = linspace(real(first, kind=8), real(last, kind=8), n)
-    end procedure 
 
 end submodule

@@ -36,7 +36,7 @@ module forlab
               eig, &
               find, flip, fliplr, flipud, fminbnd, gammainc, horzcat, &
               hann, interp1, interp2, interp3, inv, ismember, isoutlier, issquare, &
-              isleap, issymmetric, kurtosis, k2test, kde, linspace, &
+              isleap, issymmetric, kurtosis, k2test, kde, &
               mean, median, mad, meshgrid, nextpow2, norm, normpdf, num2str, ones, &
               outer, pascal, prctile, progress_bar, progress_perc, rng, randu, randn, &
               randi, randperm, repmat, rms, savetxt, savebin, sind, sort, solve, &
@@ -45,6 +45,7 @@ module forlab
               var, dbindex, gmm, kmeans, mbkmeans, silhouette
     public :: empty, sempty, dempty, qempty
     public :: eye, seye, deye, qeye
+    public :: linspace, slinspace, dlinspace, qlinspace
     public :: loadbin, sloadbin, dloadbin, qloadbin
     public :: loadtxt, sloadtxt, dloadtxt, qloadtxt
     public :: zeros, szeros, dzeros, qzeros
@@ -1270,108 +1271,36 @@ module forlab
     end interface kurtosis
 
     interface linspace
-        !! Version: experimental
-        !!
-        !! linspace creates a linearly spaced vector.   
-        !!
-        !!## Syntax
-        !!    x = linspace(x1, x2, n)
-        !!
-        !!## Description
-        !! `x = linspace(x1, x2, n)` returns a vector of n evenly spaced points
-        !! between x1 and x2.
-        !!
-        !!## Examples
-        !!    x = linspace(0, 10, 11)
-        !!        0.  1.  2.  3.  4.  5.  6.  7.  8.  9.  10.
-        module function linspace_sp(first, last, n)
-            real(sp), dimension(:), allocatable :: linspace_sp
-            real(sp), intent(in) :: first, last
-            integer, intent(in) :: n
-        end function
+        procedure linspace_ii_sp
+        procedure linspace_rr_sp, &
+                  linspace_ri_sp, &
+                  linspace_ir_sp
+        procedure linspace_rr_dp, &
+                  linspace_ri_dp, &
+                  linspace_ir_dp
+        procedure linspace_rr_qp, &
+                  linspace_ri_qp, &
+                  linspace_ir_qp
+    end interface
 
-        module function linspace_int_sp(first, last, n, flag)
-            real(sp), dimension(:), allocatable :: linspace_int_sp
-            integer, intent(in) :: first, last
-            integer, intent(in) :: n
-            real(sp), intent(in) :: flag
-        end function 
-
-        module function linspace_ri_sp(first, last, n)
-            real(sp), dimension(:), allocatable :: linspace_ri_sp
-            real(sp), intent(in) :: first
-            integer, intent(in) :: last
-            integer, intent(in) :: n
-        end function
-    
-        module function linspace_ir_sp(first, last, n)
-            real(sp), dimension(:), allocatable :: linspace_ir_sp
-            integer, intent(in) :: first
-            real(sp), intent(in) :: last
-            integer, intent(in) :: n
-        end function
-
-        module function linspace_dp(first, last, n)
-            real(dp), dimension(:), allocatable :: linspace_dp
-            real(dp), intent(in) :: first, last
-            integer, intent(in) :: n
-        end function
-
-        module function linspace_int_dp(first, last, n, flag)
-            real(dp), dimension(:), allocatable :: linspace_int_dp
-            integer, intent(in) :: first, last
-            integer, intent(in) :: n
-            real(dp), intent(in) :: flag
-        end function 
-
-        module function linspace_ri_dp(first, last, n)
-            real(dp), dimension(:), allocatable :: linspace_ri_dp
-            real(dp), intent(in) :: first
-            integer, intent(in) :: last
-            integer, intent(in) :: n
-        end function
-    
-        module function linspace_ir_dp(first, last, n)
-            real(dp), dimension(:), allocatable :: linspace_ir_dp
-            integer, intent(in) :: first
-            real(dp), intent(in) :: last
-            integer, intent(in) :: n
-        end function
-
-        module function linspace_qp(first, last, n)
-            real(qp), dimension(:), allocatable :: linspace_qp
-            real(qp), intent(in) :: first, last
-            integer, intent(in) :: n
-        end function
-
-        module function linspace_int_qp(first, last, n, flag)
-            real(qp), dimension(:), allocatable :: linspace_int_qp
-            integer, intent(in) :: first, last
-            integer, intent(in) :: n
-            real(qp), intent(in) :: flag
-        end function 
-
-        module function linspace_ri_qp(first, last, n)
-            real(qp), dimension(:), allocatable :: linspace_ri_qp
-            real(qp), intent(in) :: first
-            integer, intent(in) :: last
-            integer, intent(in) :: n
-        end function
-    
-        module function linspace_ir_qp(first, last, n)
-            real(qp), dimension(:), allocatable :: linspace_ir_qp
-            integer, intent(in) :: first
-            real(qp), intent(in) :: last
-            integer, intent(in) :: n
-        end function
-
-        module function linspace_default(first, last, n)
-            real(dp), dimension(:), allocatable :: linspace_default
-            integer, intent(in) :: first, last
-            integer, intent(in) :: n
-        end function 
-
-    end interface linspace
+    interface slinspace
+        procedure linspace_ii_sp
+        procedure linspace_rr_sp, &
+                  linspace_ri_sp, &
+                  linspace_ir_sp
+    end interface
+    interface dlinspace
+        procedure linspace_ii_dp
+        procedure linspace_rr_dp, &
+                  linspace_ri_dp, &
+                  linspace_ir_dp
+    end interface
+    interface qlinspace
+        procedure linspace_ii_qp
+        procedure linspace_rr_qp, &
+                  linspace_ri_qp, &
+                  linspace_ir_qp
+    end interface
 
     interface loadbin
         procedure loadbin_0_sp
@@ -2221,10 +2150,9 @@ module forlab
         !! zeros creates array all of zeros.
         !!
         !!## Syntax
-        !!    Default version                  Multi-precision version
-        !!    x = zeros(dim1)                  or  x = zeros(dim1, flag) 
-        !!    A = zeros(dim1, dim2)                A = zeros(dim1, dim2, flag)
-        !!    X = zeros(dim1, dim2, dim3)          X = zeros(dim1, dim2, dim3, flag)
+        !!    x = zeros(dim1)                
+        !!    A = zeros(dim1, dim2)          
+        !!    X = zeros(dim1, dim2, dim3)    
         !! 
         !!## Description
         !! The precision of the flag variable should be consistent with 
@@ -2312,6 +2240,102 @@ module forlab
             !!## Examples
             !!    call tic()
         end subroutine
+
+    end interface
+
+    interface
+        !! Version: experimental
+        !!
+        !! linspace creates a linearly spaced vector.   
+        !!
+        !!## Syntax
+        !!    x = linspace(x1, x2, n)
+        !!
+        !!## Description
+        !! `x = linspace(x1, x2, n)` returns a vector of n evenly spaced points
+        !! between x1 and x2.
+        !!
+        !!## Examples
+        !!    x = linspace(0, 10, 11)
+        !!        0.  1.  2.  3.  4.  5.  6.  7.  8.  9.  10.
+        module function linspace_rr_sp(first, last, n)
+            real(sp), dimension(:), allocatable :: linspace_rr_sp
+            real(sp), intent(in) :: first, last
+            integer, intent(in) :: n
+        end function
+
+        module function linspace_ii_sp(first, last, n)
+            real(sp), dimension(:), allocatable :: linspace_ii_sp
+            integer, intent(in) :: first, last
+            integer, intent(in) :: n
+        end function 
+
+        module function linspace_ri_sp(first, last, n)
+            real(sp), dimension(:), allocatable :: linspace_ri_sp
+            real(sp), intent(in) :: first
+            integer, intent(in) :: last
+            integer, intent(in) :: n
+        end function
+    
+        module function linspace_ir_sp(first, last, n)
+            real(sp), dimension(:), allocatable :: linspace_ir_sp
+            integer, intent(in) :: first
+            real(sp), intent(in) :: last
+            integer, intent(in) :: n
+        end function
+
+        module function linspace_rr_dp(first, last, n)
+            real(dp), dimension(:), allocatable :: linspace_rr_dp
+            real(dp), intent(in) :: first, last
+            integer, intent(in) :: n
+        end function
+
+        module function linspace_ii_dp(first, last, n)
+            real(dp), dimension(:), allocatable :: linspace_ii_dp
+            integer, intent(in) :: first, last
+            integer, intent(in) :: n
+        end function 
+
+        module function linspace_ri_dp(first, last, n)
+            real(dp), dimension(:), allocatable :: linspace_ri_dp
+            real(dp), intent(in) :: first
+            integer, intent(in) :: last
+            integer, intent(in) :: n
+        end function
+    
+        module function linspace_ir_dp(first, last, n)
+            real(dp), dimension(:), allocatable :: linspace_ir_dp
+            integer, intent(in) :: first
+            real(dp), intent(in) :: last
+            integer, intent(in) :: n
+        end function
+
+        module function linspace_rr_qp(first, last, n)
+            real(qp), dimension(:), allocatable :: linspace_rr_qp
+            real(qp), intent(in) :: first, last
+            integer, intent(in) :: n
+        end function
+
+        module function linspace_ii_qp(first, last, n)
+            real(qp), dimension(:), allocatable :: linspace_ii_qp
+            integer, intent(in) :: first, last
+            integer, intent(in) :: n
+        end function 
+
+        module function linspace_ri_qp(first, last, n)
+            real(qp), dimension(:), allocatable :: linspace_ri_qp
+            real(qp), intent(in) :: first
+            integer, intent(in) :: last
+            integer, intent(in) :: n
+        end function
+    
+        module function linspace_ir_qp(first, last, n)
+            real(qp), dimension(:), allocatable :: linspace_ir_qp
+            integer, intent(in) :: first
+            real(qp), intent(in) :: last
+            integer, intent(in) :: n
+        end function
+
 
     end interface
 
@@ -2630,12 +2654,12 @@ module forlab
         !!    x = empty(2, 3)
         module function empty_1_sp (dim1)
             integer, intent(in) :: dim1
-            real(qp), allocatable :: empty_1_sp (:)
+            real(sp), allocatable :: empty_1_sp (:)
         end function
 
         module function empty_1_dp (dim1)
             integer, intent(in) :: dim1
-            real(qp), allocatable :: empty_1_dp (:)
+            real(dp), allocatable :: empty_1_dp (:)
         end function
 
         module function empty_1_qp (dim1)
@@ -2645,12 +2669,12 @@ module forlab
 
         module function empty_2_sp (dim1, dim2)
             integer, intent(in) :: dim1, dim2
-            real(qp), allocatable :: empty_2_sp (:,:)
+            real(sp), allocatable :: empty_2_sp (:,:)
         end function
 
         module function empty_2_dp (dim1, dim2)
             integer, intent(in) :: dim1, dim2
-            real(qp), allocatable :: empty_2_dp (:,:)
+            real(dp), allocatable :: empty_2_dp (:,:)
         end function
 
         module function empty_2_qp (dim1, dim2)
@@ -2660,12 +2684,12 @@ module forlab
 
         module function empty_3_sp (dim1, dim2, dim3)
             integer, intent(in) :: dim1, dim2, dim3
-            real(qp), allocatable :: empty_3_sp (:,:,:)
+            real(sp), allocatable :: empty_3_sp (:,:,:)
         end function
 
         module function empty_3_dp (dim1, dim2, dim3)
             integer, intent(in) :: dim1, dim2, dim3
-            real(qp), allocatable :: empty_3_dp (:,:,:)
+            real(dp), allocatable :: empty_3_dp (:,:,:)
         end function
 
         module function empty_3_qp (dim1, dim2, dim3)
@@ -2819,7 +2843,7 @@ contains
 
         xq = zeros(opt_n1)
         yq = zeros(opt_n1)
-        t = [dzeros(k - 1), linspace(0, 1, n - k + 2), ones(k - 1)]
+        t = [dzeros(k - 1), dlinspace(0, 1, n - k + 2), ones(k - 1)]
         y1 = linspace(0, 1, opt_n1)
 
         do iq = 1, opt_n1
@@ -2888,8 +2912,8 @@ contains
         xq = zeros(opt_n1, opt_n2)
         yq = zeros(opt_n1, opt_n2)
         zq = zeros(opt_n1, opt_n2)
-        t1 = [dzeros(k - 1), linspace(0, 1, m - k + 2), ones(k - 1)]
-        t2 = [dzeros(k - 1), linspace(0, 1, n - k + 2), ones(k - 1)]
+        t1 = [dzeros(k - 1), dlinspace(0, 1, m - k + 2), ones(k - 1)]
+        t2 = [dzeros(k - 1), dlinspace(0, 1, n - k + 2), ones(k - 1)]
         y1 = linspace(0, 1, opt_n1)
         y2 = linspace(0, 1, opt_n2)
 
@@ -5607,7 +5631,7 @@ contains
             opt_xi = xi
         else
             nx = 100
-            opt_xi = linspace(minval(x) - 3*opt_bw, maxval(x) + 3*opt_bw, nx)
+            opt_xi = dlinspace(minval(x) - 3*opt_bw, maxval(x) + 3*opt_bw, nx)
         end if
 
         f = zeros(nx)
@@ -5642,14 +5666,14 @@ contains
             opt_xi = xi
         else
             nx = 100
-            opt_xi = linspace(minval(A(:, 1)) - 3*opt_H(1, 1), maxval(A(:, 1)) + 3*opt_H(1, 1), nx)
+            opt_xi = dlinspace(minval(A(:, 1)) - 3*opt_H(1, 1), maxval(A(:, 1)) + 3*opt_H(1, 1), nx)
         end if
         if (present(yi) .and. allocated(yi)) then
             ny = size(yi)
             opt_yi = yi
         else
             ny = 100
-            opt_yi = linspace(minval(A(:, 2)) - 3*opt_H(2, 2), maxval(A(:, 2)) + 3*opt_H(2, 2), ny)
+            opt_yi = dlinspace(minval(A(:, 2)) - 3*opt_H(2, 2), maxval(A(:, 2)) + 3*opt_H(2, 2), ny)
         end if
 
         invH = inv(opt_H)

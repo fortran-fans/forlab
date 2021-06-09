@@ -40,7 +40,7 @@ module forlab
               eig, &
               find, flip, fliplr, flipud, fminbnd, gammainc, horzcat, &
               hann, interp1, interp2, interp3, inv, ismember, isoutlier, issquare, &
-              isleap, issymmetric, kurtosis, k2test, kde, linspace, &
+              isleap, issymmetric, kurtosis, k2test, kde, &
               mean, median, mad, meshgrid, nextpow2, norm, normpdf, num2str, ones, &
               outer, pascal, prctile, progress_bar, progress_perc, rng, randu, randn, &
               randi, randperm, repmat, rms, savetxt, savebin, sind, sort, solve, &
@@ -49,6 +49,7 @@ module forlab
               var, dbindex, gmm, kmeans, mbkmeans, silhouette
     public :: empty, sempty, dempty, qempty
     public :: eye, seye, deye, qeye
+    public :: linspace, slinspace, dlinspace, qlinspace
     public :: loadbin, sloadbin, dloadbin, qloadbin
     public :: loadtxt, sloadtxt, dloadtxt, qloadtxt
     public :: zeros, szeros, dzeros, qzeros
@@ -790,56 +791,22 @@ module forlab
     end interface kurtosis
 
     interface linspace
-        !! Version: experimental
-        !!
-        !! linspace creates a linearly spaced vector.   
-        !!
-        !!## Syntax
-        !!    x = linspace(x1, x2, n)
-        !!
-        !!## Description
-        !! `x = linspace(x1, x2, n)` returns a vector of n evenly spaced points
-        !! between x1 and x2.
-        !!
-        !!## Examples
-        !!    x = linspace(0, 10, 11)
-        !!        0.  1.  2.  3.  4.  5.  6.  7.  8.  9.  10.
-        #:for k1, t1 in REAL_KINDS_TYPES
-        module function linspace_${k1}$(first, last, n)
-            ${t1}$, dimension(:), allocatable :: linspace_${k1}$
-            ${t1}$, intent(in) :: first, last
-            integer, intent(in) :: n
-        end function
-
-        module function linspace_int_${k1}$(first, last, n, flag)
-            ${t1}$, dimension(:), allocatable :: linspace_int_${k1}$
-            integer, intent(in) :: first, last
-            integer, intent(in) :: n
-            ${t1}$, intent(in) :: flag
-        end function 
-
-        module function linspace_ri_${k1}$(first, last, n)
-            ${t1}$, dimension(:), allocatable :: linspace_ri_${k1}$
-            ${t1}$, intent(in) :: first
-            integer, intent(in) :: last
-            integer, intent(in) :: n
-        end function
-    
-        module function linspace_ir_${k1}$(first, last, n)
-            ${t1}$, dimension(:), allocatable :: linspace_ir_${k1}$
-            integer, intent(in) :: first
-            ${t1}$, intent(in) :: last
-            integer, intent(in) :: n
-        end function
-
+        procedure linspace_ii_${DK}$
+        #:for k1 in REAL_KINDS
+        procedure linspace_rr_${k1}$, &
+                  linspace_ri_${k1}$, &
+                  linspace_ir_${k1}$
         #:endfor
-        module function linspace_default(first, last, n)
-            real(dp), dimension(:), allocatable :: linspace_default
-            integer, intent(in) :: first, last
-            integer, intent(in) :: n
-        end function 
+    end interface
 
-    end interface linspace
+    #:for k1 in REAL_KINDS
+    interface ${k1[0]}$linspace
+        procedure linspace_ii_${k1}$
+        procedure linspace_rr_${k1}$, &
+                  linspace_ri_${k1}$, &
+                  linspace_ir_${k1}$
+    end interface
+    #:endfor
 
     interface loadbin
         #:set RANKS = range(0, 4)
@@ -1366,10 +1333,9 @@ module forlab
         !! zeros creates array all of zeros.
         !!
         !!## Syntax
-        !!    Default version                  Multi-precision version
-        !!    x = zeros(dim1)                  or  x = zeros(dim1, flag) 
-        !!    A = zeros(dim1, dim2)                A = zeros(dim1, dim2, flag)
-        !!    X = zeros(dim1, dim2, dim3)          X = zeros(dim1, dim2, dim3, flag)
+        !!    x = zeros(dim1)                
+        !!    A = zeros(dim1, dim2)          
+        !!    X = zeros(dim1, dim2, dim3)    
         !! 
         !!## Description
         !! The precision of the flag variable should be consistent with 
@@ -1451,6 +1417,52 @@ module forlab
             !!## Examples
             !!    call tic()
         end subroutine
+
+    end interface
+
+    interface
+        !! Version: experimental
+        !!
+        !! linspace creates a linearly spaced vector.   
+        !!
+        !!## Syntax
+        !!    x = linspace(x1, x2, n)
+        !!
+        !!## Description
+        !! `x = linspace(x1, x2, n)` returns a vector of n evenly spaced points
+        !! between x1 and x2.
+        !!
+        !!## Examples
+        !!    x = linspace(0, 10, 11)
+        !!        0.  1.  2.  3.  4.  5.  6.  7.  8.  9.  10.
+        #:for k1, t1 in REAL_KINDS_TYPES
+        module function linspace_rr_${k1}$(first, last, n)
+            ${t1}$, dimension(:), allocatable :: linspace_rr_${k1}$
+            ${t1}$, intent(in) :: first, last
+            integer, intent(in) :: n
+        end function
+
+        module function linspace_ii_${k1}$(first, last, n)
+            ${t1}$, dimension(:), allocatable :: linspace_ii_${k1}$
+            integer, intent(in) :: first, last
+            integer, intent(in) :: n
+        end function 
+
+        module function linspace_ri_${k1}$(first, last, n)
+            ${t1}$, dimension(:), allocatable :: linspace_ri_${k1}$
+            ${t1}$, intent(in) :: first
+            integer, intent(in) :: last
+            integer, intent(in) :: n
+        end function
+    
+        module function linspace_ir_${k1}$(first, last, n)
+            ${t1}$, dimension(:), allocatable :: linspace_ir_${k1}$
+            integer, intent(in) :: first
+            ${t1}$, intent(in) :: last
+            integer, intent(in) :: n
+        end function
+
+        #:endfor
 
     end interface
 
@@ -1659,7 +1671,7 @@ module forlab
         !!    real, allocatable :: x(:, :)
         !!    x = empty(2, 3)
         #:for RANK in RANKS
-        #:for k1 in REAL_KINDS
+        #:for k1, t1 in REAL_KINDS_TYPES
         #:if RANK == 1
         module function empty_${RANK}$_${k1}$ (dim1)
             integer, intent(in) :: dim1
@@ -1821,7 +1833,7 @@ contains
 
         xq = zeros(opt_n1)
         yq = zeros(opt_n1)
-        t = [dzeros(k - 1), linspace(0, 1, n - k + 2), ones(k - 1)]
+        t = [dzeros(k - 1), dlinspace(0, 1, n - k + 2), ones(k - 1)]
         y1 = linspace(0, 1, opt_n1)
 
         do iq = 1, opt_n1
@@ -1890,8 +1902,8 @@ contains
         xq = zeros(opt_n1, opt_n2)
         yq = zeros(opt_n1, opt_n2)
         zq = zeros(opt_n1, opt_n2)
-        t1 = [dzeros(k - 1), linspace(0, 1, m - k + 2), ones(k - 1)]
-        t2 = [dzeros(k - 1), linspace(0, 1, n - k + 2), ones(k - 1)]
+        t1 = [dzeros(k - 1), dlinspace(0, 1, m - k + 2), ones(k - 1)]
+        t2 = [dzeros(k - 1), dlinspace(0, 1, n - k + 2), ones(k - 1)]
         y1 = linspace(0, 1, opt_n1)
         y2 = linspace(0, 1, opt_n2)
 
@@ -4609,7 +4621,7 @@ contains
             opt_xi = xi
         else
             nx = 100
-            opt_xi = linspace(minval(x) - 3*opt_bw, maxval(x) + 3*opt_bw, nx)
+            opt_xi = dlinspace(minval(x) - 3*opt_bw, maxval(x) + 3*opt_bw, nx)
         end if
 
         f = zeros(nx)
@@ -4644,14 +4656,14 @@ contains
             opt_xi = xi
         else
             nx = 100
-            opt_xi = linspace(minval(A(:, 1)) - 3*opt_H(1, 1), maxval(A(:, 1)) + 3*opt_H(1, 1), nx)
+            opt_xi = dlinspace(minval(A(:, 1)) - 3*opt_H(1, 1), maxval(A(:, 1)) + 3*opt_H(1, 1), nx)
         end if
         if (present(yi) .and. allocated(yi)) then
             ny = size(yi)
             opt_yi = yi
         else
             ny = 100
-            opt_yi = linspace(minval(A(:, 2)) - 3*opt_H(2, 2), maxval(A(:, 2)) + 3*opt_H(2, 2), ny)
+            opt_yi = dlinspace(minval(A(:, 2)) - 3*opt_H(2, 2), maxval(A(:, 2)) + 3*opt_H(2, 2), ny)
         end if
 
         invH = inv(opt_H)
