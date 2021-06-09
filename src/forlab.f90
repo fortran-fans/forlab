@@ -6900,7 +6900,7 @@ contains
     subroutine open2(self, r)
         !! Version: experimental
         !! 
-        integer(kind=IPRE) :: r
+        integer(kind=IPRE), intent(in) :: r
         class(File), intent(inout) :: self
         integer(kind=IPRE) :: ierr
 

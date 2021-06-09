@@ -160,4 +160,5 @@ program main
         call disp(ib, "b=")
         call disp(iX, "a .outer. b=")
     end block
+    
 end program

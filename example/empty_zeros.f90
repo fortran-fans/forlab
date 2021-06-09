@@ -1,38 +1,15 @@
 program main
-    use forlab, only: empty, zeros, disp
+    use forlab, only: empty, zeros, disp, dzeros
     implicit none
 
     real, allocatable :: x(:, :)
-    real(8), allocatable :: y(:, :)
-    real(16), allocatable :: z(:, :)
+    real(16), allocatable :: y(:, :)
 
     call disp('-----------------------')
-    call disp('TEST for SP👍:')
-
     x = empty(2, 3)
     call disp(x, 'empty x:')
 
-    x = zeros(2, 3)
-    call disp(x, 'zeros x:')
-
-    call disp('-----------------------')
-    call disp('TEST for DP👍:')
-
-    y = empty(2, 3)
-    call disp(y, 'empty y:')
-
-    y = zeros(2, 3)
-    call disp(y, 'zeros y:')
-
-    call disp('-----------------------')
-    call disp('TEST for QP👍:')
-
-    z = empty(2, 3)
-    call disp(z, 'empty z:')
-
-    z = zeros(2, 3)
-    call disp(z, 'zeros z:')
-
-    call disp('-----------------------')
+    y = qzeros(2, 3)
+    call disp(y, 'zeros z:')
 
 end program
