@@ -1,13 +1,10 @@
 program main
-    use forlab, only: rng, disp, randu, randn
+    use forlab, only: rng, disp, randu, randn, drandn
     implicit none
-    real*8 :: flag
 
     call rng()
     call disp(randu(1, 5), 'randu series:')
-    call disp(randu(1, 5, flag), 'randu series:')
 
-    call disp(randn(1, 5), 'randn series:')
-    call disp(randn(1, 5, flag), 'randn series:')
+    call disp(drandn(1, 5), 'randn series:')
 
 end program

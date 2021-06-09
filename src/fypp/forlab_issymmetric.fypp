@@ -30,8 +30,8 @@ contains
     ! bool = issymmetric(A)
     !     .true.
 
-        #:for k1, t1 in REAL_KINDS_TYPES
-        module procedure issymmetric_${k1}$
+    #:for k1, t1 in REAL_KINDS_TYPES
+    module procedure issymmetric_${k1}$
         integer :: i, j, n
 
         issymmetric_${k1}$ = .true.
@@ -51,7 +51,7 @@ contains
         end if
         return
     end procedure issymmetric_${k1}$
-        #:endfor
+    #:endfor
 
 end submodule
 

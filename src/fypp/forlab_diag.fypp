@@ -1,7 +1,8 @@
 #:include "common.fypp"
 submodule(forlab) forlab_diag
     use forlab_kinds
-
+    implicit none
+    
 contains
     #:for k1,t1 in REAL_KINDS_TYPES
     module procedure diag1_${k1}$

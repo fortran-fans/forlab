@@ -1,6 +1,7 @@
 #:include "common.fypp"
 submodule(forlab) forlab_disp
     use forlab_kinds
+    implicit none
     #:for k1,t1 in REAL_KINDS_TYPES
         ${t1}$, parameter :: nearzero_${k1}$ = 1.0e-10_${k1}$
     #:endfor

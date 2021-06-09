@@ -38,7 +38,7 @@ module forlab
               hann, interp1, interp2, interp3, inv, ismember, isoutlier, issquare, &
               isleap, issymmetric, kurtosis, k2test, kde, &
               mean, median, mad, meshgrid, nextpow2, norm, normpdf, num2str, ones, &
-              outer, pascal, prctile, progress_bar, progress_perc, rng, randu, randn, &
+              outer, pascal, prctile, progress_bar, progress_perc, rng, &
               randi, randperm, repmat, rms, savetxt, savebin, sind, sort, solve, &
               svd, svdsolve, std, spline1, spline2, skewness, signum, sinc, &
               split_argument, tand, tic, toc, trace, tril, triu, utm2deg, vertcat, &
@@ -47,6 +47,8 @@ module forlab
     public :: eye, seye, deye, qeye
     public :: linspace, slinspace, dlinspace, qlinspace
     public :: loadbin, sloadbin, dloadbin, qloadbin
+    public :: randn, srandn, drandn, qrandn
+    public :: randu, srandu, drandu, qrandu
     public :: loadtxt, sloadtxt, dloadtxt, qloadtxt
     public :: zeros, szeros, dzeros, qzeros
     ! #ifdef do_mpi
@@ -104,7 +106,7 @@ module forlab
     end interface
 
     interface acosd
-        !! Version: expermental
+        !! Version: experimental
         !!
         !! acosd computes the inverse cosine in degrees.
         !!
@@ -186,7 +188,7 @@ module forlab
     end interface acosd
 
     interface asind
-        !! Version: expermental
+        !! Version: experimental
         !!
         !! acosd computes the inverse cosine in degrees.
         !!
@@ -268,7 +270,7 @@ module forlab
     end interface asind
 
     interface atand
-        !! Version: expermental
+        !! Version: experimental
         !!
         !! acosd computes the inverse cosine in degrees.
         !!
@@ -396,7 +398,7 @@ module forlab
 
 
     interface arange
-        !! Version: expermental
+        !! Version: experimental
         !!
         !! arange
         !!
@@ -567,7 +569,7 @@ module forlab
 
     
     interface det
-        !! Version: expermental
+        !! Version: experimental
         !!
         !! det computes the matrix determinant.
         !!
@@ -603,7 +605,7 @@ module forlab
     end interface
 
     interface diag
-        !! Version: expermental
+        !! Version: experimental
         !!
         !! diag creates diagonal matrix or get the diagonal of a matrix.
         !!
@@ -658,7 +660,7 @@ module forlab
     end interface diff
 
     interface disp
-        !! Version: expermental
+        !! Version: experimental
         !!
         !! disp displays the value of a variable.
         !!
@@ -1046,7 +1048,7 @@ module forlab
     end interface interp3
 
     interface inv
-        !! Version: expermental
+        !! Version: experimental
         !! inv computes the matrix inverse.
         !! inv0
         !!-----------------------------------------------------------------------
@@ -1128,7 +1130,7 @@ module forlab
     end interface operator(.i.)
 
     interface operator(.x.)
-        !! Version: expermental
+        !! Version: experimental
         !! Real and complex matrix multiplication
         !!## Example
         !!    z(1:2,1:2) = x(1:2, 1:3) .x. y(1:3, 1:2)
@@ -1431,7 +1433,7 @@ module forlab
     end interface normpdf
 
     interface num2str
-        !! Version: expermental
+        !! Version: experimental
         !!
         !! num2str converts numbers to strings.
         !!
@@ -1504,228 +1506,56 @@ module forlab
             randi2_1, randi3_0, randi3_1
     end interface randi
 
-    interface randu
-        !! Version: experimental
-        !!
-        !! randu generates uniformly distributed random numbers.
-        !!
-        !!## Syntax
-        !!    x = randu()
-        !!    x = randu(dim1)
-        !!    A = randu(dim1, dim2)
-        !!    X = randu(dim1, dim2, dim3)
-        !!
-        !!## Description
-        !! `x = randu()` returns a single uniformly distributed random number in
-        !! the interval [0,1].
-        !!
-        !! `x = randu(dim1)` returns a dim1 vector of uniformly distributed random
-        !! numbers.
-        !!
-        !! `A = randu(dim1, dim2)` returns a dim1-by-dim2 matrix of uniformly
-        !! distributed random numbers.
-        !!
-        !! `X = randu(dim1, dim2, dim3)` returns a dim1-by-dim2-by-dim3
-        !! 3-dimensional matrix of uniformly distributed random numbers.
-        !!
-        !!## Examples
-        !!    x = randu()
-        !!        0.383413825
-        !!
-        !!    x = randu(5)*2 - 1
-        !!        0.640258908  -0.873707294   0.787327528
-        module function randu_0_default ()
-            real(dp) :: randu_0_default 
-        end function
-        module function randu_1_default (dim1)
-            integer, intent(in) :: dim1
-            real(dp), allocatable :: randu_1_default (:)
-        end function
-        module function randu_2_default (dim1, dim2)
-            integer, intent(in) :: dim1, dim2
-            real(dp), allocatable :: randu_2_default (:,:)
-        end function
-        module function randu_3_default (dim1, dim2, dim3)
-            integer, intent(in) :: dim1, dim2, dim3
-            real(dp), allocatable :: randu_3_default (:,:,:)
-        end function
-        !! Multi-precision versions
-        module function randu_0_sp (flag)
-            real(sp) :: randu_0_sp 
-            real(sp), intent(in) :: flag
-        end function
-        module function randu_0_dp (flag)
-            real(dp) :: randu_0_dp 
-            real(dp), intent(in) :: flag
-        end function
-        module function randu_0_qp (flag)
-            real(qp) :: randu_0_qp 
-            real(qp), intent(in) :: flag
-        end function
-        module function randu_1_sp (dim1, flag)
-            !! Unlike dynamic scripting languages, static languages generally
-            !! have multiple precision variables, so we need to explicitly provide precision hints.
-            integer, intent(in) :: dim1
-            real(sp), allocatable :: randu_1_sp (:)
-            real(sp), intent(in) :: flag
-        end function
-        module function randu_1_dp (dim1, flag)
-            !! Unlike dynamic scripting languages, static languages generally
-            !! have multiple precision variables, so we need to explicitly provide precision hints.
-            integer, intent(in) :: dim1
-            real(dp), allocatable :: randu_1_dp (:)
-            real(dp), intent(in) :: flag
-        end function
-        module function randu_1_qp (dim1, flag)
-            !! Unlike dynamic scripting languages, static languages generally
-            !! have multiple precision variables, so we need to explicitly provide precision hints.
-            integer, intent(in) :: dim1
-            real(qp), allocatable :: randu_1_qp (:)
-            real(qp), intent(in) :: flag
-        end function
-        module function randu_2_sp (dim1, dim2, flag)
-            integer, intent(in) :: dim1, dim2
-            real(sp), allocatable :: randu_2_sp (:,:)
-            real(sp), intent(in) :: flag
-        end function
-        module function randu_2_dp (dim1, dim2, flag)
-            integer, intent(in) :: dim1, dim2
-            real(dp), allocatable :: randu_2_dp (:,:)
-            real(dp), intent(in) :: flag
-        end function
-        module function randu_2_qp (dim1, dim2, flag)
-            integer, intent(in) :: dim1, dim2
-            real(qp), allocatable :: randu_2_qp (:,:)
-            real(qp), intent(in) :: flag
-        end function
-        module function randu_3_sp (dim1, dim2, dim3, flag)
-            integer, intent(in) :: dim1, dim2, dim3
-            real(sp), allocatable :: randu_3_sp (:,:,:)
-            real(sp), intent(in) :: flag
-        end function
-        module function randu_3_dp (dim1, dim2, dim3, flag)
-            integer, intent(in) :: dim1, dim2, dim3
-            real(dp), allocatable :: randu_3_dp (:,:,:)
-            real(dp), intent(in) :: flag
-        end function
-        module function randu_3_qp (dim1, dim2, dim3, flag)
-            integer, intent(in) :: dim1, dim2, dim3
-            real(qp), allocatable :: randu_3_qp (:,:,:)
-            real(qp), intent(in) :: flag
-        end function
+    interface randn
+        procedure randn_0_sp
+        procedure randn_1_sp
+        procedure randn_2_sp
+        procedure randn_3_sp
     end interface
 
-    interface randn
-        !! Version: experimental
-        !!
-        ! randn
-        !-----------------------------------------------------------------------
-        ! randn generates normally distributed random numbers using polar
-        ! Box-Muller algorithm.
-        !
-        ! Syntax
-        !-----------------------------------------------------------------------
-        ! x = randn()
-        ! x = randn(dim1)
-        !
-        ! Description
-        !-----------------------------------------------------------------------
-        ! x = randn() returns a single normally distributed random number with
-        ! mean 0 and standard deviation 1.
-        !
-        ! x = randn(dim1) returns a dim1 vector of normally distributed random
-        ! numbers.
-        !
-        ! A = randn(dim1, dim2) returns a dim1-by-dim2 matrix of normally
-        ! distributed random numbers.
-        !
-        ! X = randn(dim1, dim2, dim3) returns a dim1-by-dim2-by-dim3
-        ! 3-dimensional matrix of normally distributed random numbers.
-        !
-        ! Examples
-        !-----------------------------------------------------------------------
-        ! x = randn(3)
-        !     -1.22003853  -0.211721316   0.522971511
-        !! Default versions
-        module function randn_0_default ()
-            real(dp) :: randn_0_default 
-        end function
-        module function randn_1_default (dim1)
-            integer, intent(in) :: dim1
-            real(dp), allocatable :: randn_1_default (:)
-        end function
-        module function randn_2_default (dim1, dim2)
-            integer, intent(in) :: dim1, dim2
-            real(dp), allocatable :: randn_2_default (:,:)
-        end function
-        module function randn_3_default (dim1, dim2, dim3)
-            integer, intent(in) :: dim1, dim2, dim3
-            real(dp), allocatable :: randn_3_default (:,:,:)
-        end function
-        !! Multi-precision versions
-        module function randn_0_sp (flag)
-            real(sp) :: randn_0_sp 
-            real(sp), intent(in) :: flag
-        end function
-        module function randn_0_dp (flag)
-            real(dp) :: randn_0_dp 
-            real(dp), intent(in) :: flag
-        end function
-        module function randn_0_qp (flag)
-            real(qp) :: randn_0_qp 
-            real(qp), intent(in) :: flag
-        end function
-        module function randn_1_sp (dim1, flag)
-            !! Unlike dynamic scripting languages, static languages generally
-            !! have multiple precision variables, so we need to explicitly provide precision hints.
-            integer, intent(in) :: dim1
-            real(sp), allocatable :: randn_1_sp (:)
-            real(sp), intent(in) :: flag
-        end function
-        module function randn_1_dp (dim1, flag)
-            !! Unlike dynamic scripting languages, static languages generally
-            !! have multiple precision variables, so we need to explicitly provide precision hints.
-            integer, intent(in) :: dim1
-            real(dp), allocatable :: randn_1_dp (:)
-            real(dp), intent(in) :: flag
-        end function
-        module function randn_1_qp (dim1, flag)
-            !! Unlike dynamic scripting languages, static languages generally
-            !! have multiple precision variables, so we need to explicitly provide precision hints.
-            integer, intent(in) :: dim1
-            real(qp), allocatable :: randn_1_qp (:)
-            real(qp), intent(in) :: flag
-        end function
-        module function randn_2_sp (dim1, dim2, flag)
-            integer, intent(in) :: dim1, dim2
-            real(sp), allocatable :: randn_2_sp (:,:)
-            real(sp), intent(in) :: flag
-        end function
-        module function randn_2_dp (dim1, dim2, flag)
-            integer, intent(in) :: dim1, dim2
-            real(dp), allocatable :: randn_2_dp (:,:)
-            real(dp), intent(in) :: flag
-        end function
-        module function randn_2_qp (dim1, dim2, flag)
-            integer, intent(in) :: dim1, dim2
-            real(qp), allocatable :: randn_2_qp (:,:)
-            real(qp), intent(in) :: flag
-        end function
-        module function randn_3_sp (dim1, dim2, dim3, flag)
-            integer, intent(in) :: dim1, dim2, dim3
-            real(sp), allocatable :: randn_3_sp (:,:,:)
-            real(sp), intent(in) :: flag
-        end function
-        module function randn_3_dp (dim1, dim2, dim3, flag)
-            integer, intent(in) :: dim1, dim2, dim3
-            real(dp), allocatable :: randn_3_dp (:,:,:)
-            real(dp), intent(in) :: flag
-        end function
-        module function randn_3_qp (dim1, dim2, dim3, flag)
-            integer, intent(in) :: dim1, dim2, dim3
-            real(qp), allocatable :: randn_3_qp (:,:,:)
-            real(qp), intent(in) :: flag
-        end function
+    interface srandn
+        procedure randn_0_sp
+        procedure randn_1_sp
+        procedure randn_2_sp
+        procedure randn_3_sp
+    end interface
+    interface drandn
+        procedure randn_0_dp
+        procedure randn_1_dp
+        procedure randn_2_dp
+        procedure randn_3_dp
+    end interface
+    interface qrandn
+        procedure randn_0_qp
+        procedure randn_1_qp
+        procedure randn_2_qp
+        procedure randn_3_qp
+    end interface
+
+    interface randu
+        procedure randu_0_sp
+        procedure randu_1_sp
+        procedure randu_2_sp
+        procedure randu_3_sp
+    end interface
+
+    interface srandu
+        procedure randu_0_sp
+        procedure randu_1_sp
+        procedure randu_2_sp
+        procedure randu_3_sp
+    end interface
+    interface drandu
+        procedure randu_0_dp
+        procedure randu_1_dp
+        procedure randu_2_dp
+        procedure randu_3_dp
+    end interface
+    interface qrandu
+        procedure randu_0_qp
+        procedure randu_1_qp
+        procedure randu_2_qp
+        procedure randu_3_qp
     end interface
 
     interface repmat
@@ -1737,7 +1567,7 @@ module forlab
     end interface rms
 
     interface savebin
-        !! Version: expermental
+        !! Version: experimental
         !!
         ! savebin saves arrays to binary files.
         !
@@ -1805,7 +1635,7 @@ module forlab
     end interface savebin
 
     interface savetxt
-        !! Version: expermental
+        !! Version: experimental
         !!
         ! savetxt saves 1 and 2-dimensional arrays to txt files.
         !
@@ -1967,7 +1797,7 @@ module forlab
     end interface std
 
     interface toc
-        !! Version: expermental
+        !! Version: experimental
         !!
         !! tic saves the elapsed CPU time in seconds.
         !! toc displays and returns the elapsed time since tic.
@@ -2200,6 +2030,91 @@ module forlab
 
     !! Normal Interfaces
     interface
+        !! Version: experimental
+        !!
+        !! randn generates normally distributed random numbers using polar
+        !! Box-Muller algorithm.
+        !!
+        !!## Syntax
+        !!    x = randn()
+        !!    x = randn(dim1)
+        !!
+        !!## Description
+        !! `x = randn()` returns a single normally distributed random number with
+        !! mean 0 and standard deviation 1.
+        !!
+        !! `x = randn(dim1)` returns a dim1 vector of normally distributed random
+        !! numbers.
+        !!
+        !! `A = randn(dim1, dim2)` returns a dim1-by-dim2 matrix of normally
+        !! distributed random numbers.
+        !!
+        !! `X = randn(dim1, dim2, dim3)` returns a dim1-by-dim2-by-dim3
+        !! 3-dimensional matrix of normally distributed random numbers.
+        !!
+        !!## Examples
+        !!    x = randn(3)
+        !!        -1.22003853  -0.211721316   0.522971511
+        module function randn_0_sp ()
+            real(sp) :: randn_0_sp 
+        end function
+
+        module function randn_1_sp (dim1)
+            integer, intent(in) :: dim1
+            real(sp), allocatable :: randn_1_sp (:)
+        end function
+
+        module function randn_2_sp (dim1, dim2)
+            integer, intent(in) :: dim1, dim2
+            real(sp), allocatable :: randn_2_sp (:,:)
+        end function
+
+        module function randn_3_sp (dim1, dim2, dim3)
+            integer, intent(in) :: dim1, dim2, dim3
+            real(sp), allocatable :: randn_3_sp (:,:,:)
+        end function
+
+        module function randn_0_dp ()
+            real(dp) :: randn_0_dp 
+        end function
+
+        module function randn_1_dp (dim1)
+            integer, intent(in) :: dim1
+            real(dp), allocatable :: randn_1_dp (:)
+        end function
+
+        module function randn_2_dp (dim1, dim2)
+            integer, intent(in) :: dim1, dim2
+            real(dp), allocatable :: randn_2_dp (:,:)
+        end function
+
+        module function randn_3_dp (dim1, dim2, dim3)
+            integer, intent(in) :: dim1, dim2, dim3
+            real(dp), allocatable :: randn_3_dp (:,:,:)
+        end function
+
+        module function randn_0_qp ()
+            real(qp) :: randn_0_qp 
+        end function
+
+        module function randn_1_qp (dim1)
+            integer, intent(in) :: dim1
+            real(qp), allocatable :: randn_1_qp (:)
+        end function
+
+        module function randn_2_qp (dim1, dim2)
+            integer, intent(in) :: dim1, dim2
+            real(qp), allocatable :: randn_2_qp (:,:)
+        end function
+
+        module function randn_3_qp (dim1, dim2, dim3)
+            integer, intent(in) :: dim1, dim2, dim3
+            real(qp), allocatable :: randn_3_qp (:,:,:)
+        end function
+
+    end interface
+
+    interface
         module subroutine rng(seed)  
             !! Version: experimental
             !!
@@ -2227,7 +2142,7 @@ module forlab
         end subroutine rng
 
         module subroutine tic()
-            !! Version: expermental
+            !! Version: experimental
             !!
             !! tic saves the elapsed CPU time in seconds.
             !!
@@ -2424,7 +2339,7 @@ module forlab
         module function loadtxt_2_sp(filename, dim2)
             real(sp), dimension(:, :), allocatable :: loadtxt_2_sp
             character(len=*), intent(in) :: filename
-            integer(kind=IPRE), intent(in) :: dim2
+            integer, intent(in) :: dim2
         end function
         
         module function loadbin_0_dp(filename)
@@ -2458,7 +2373,7 @@ module forlab
         module function loadtxt_2_dp(filename, dim2)
             real(dp), dimension(:, :), allocatable :: loadtxt_2_dp
             character(len=*), intent(in) :: filename
-            integer(kind=IPRE), intent(in) :: dim2
+            integer, intent(in) :: dim2
         end function
         
         module function loadbin_0_qp(filename)
@@ -2492,11 +2407,100 @@ module forlab
         module function loadtxt_2_qp(filename, dim2)
             real(qp), dimension(:, :), allocatable :: loadtxt_2_qp
             character(len=*), intent(in) :: filename
-            integer(kind=IPRE), intent(in) :: dim2
+            integer, intent(in) :: dim2
         end function
         
     end interface
-    
+
+    interface
+        !! Version: experimental
+        !!
+        !! randu generates uniformly distributed random numbers.
+        !!
+        !!## Syntax
+        !!    x = randu()
+        !!    x = randu(dim1)
+        !!    A = randu(dim1, dim2)
+        !!    X = randu(dim1, dim2, dim3)
+        !!
+        !!## Description
+        !! `x = randu()` returns a single uniformly distributed random number in
+        !! the interval [0,1].
+        !!
+        !! `x = randu(dim1)` returns a dim1 vector of uniformly distributed random
+        !! numbers.
+        !!
+        !! `A = randu(dim1, dim2)` returns a dim1-by-dim2 matrix of uniformly
+        !! distributed random numbers.
+        !!
+        !! `X = randu(dim1, dim2, dim3)` returns a dim1-by-dim2-by-dim3
+        !! 3-dimensional matrix of uniformly distributed random numbers.
+        !!
+        !!## Examples
+        !!    x = randu()
+        !!        0.383413825
+        !!
+        !!    x = randu(5)*2 - 1
+        !!        0.640258908  -0.873707294   0.787327528
+        module function randu_0_sp ()
+            real(sp) :: randu_0_sp 
+        end function
+
+        module function randu_1_sp (dim1)
+            integer, intent(in) :: dim1
+            real(sp), allocatable :: randu_1_sp (:)
+        end function
+
+        module function randu_2_sp (dim1, dim2)
+            integer, intent(in) :: dim1, dim2
+            real(sp), allocatable :: randu_2_sp (:,:)
+        end function
+
+        module function randu_3_sp (dim1, dim2, dim3)
+            integer, intent(in) :: dim1, dim2, dim3
+            real(sp), allocatable :: randu_3_sp (:,:,:)
+        end function
+
+        module function randu_0_dp ()
+            real(dp) :: randu_0_dp 
+        end function
+
+        module function randu_1_dp (dim1)
+            integer, intent(in) :: dim1
+            real(dp), allocatable :: randu_1_dp (:)
+        end function
+
+        module function randu_2_dp (dim1, dim2)
+            integer, intent(in) :: dim1, dim2
+            real(dp), allocatable :: randu_2_dp (:,:)
+        end function
+
+        module function randu_3_dp (dim1, dim2, dim3)
+            integer, intent(in) :: dim1, dim2, dim3
+            real(dp), allocatable :: randu_3_dp (:,:,:)
+        end function
+
+        module function randu_0_qp ()
+            real(qp) :: randu_0_qp 
+        end function
+
+        module function randu_1_qp (dim1)
+            integer, intent(in) :: dim1
+            real(qp), allocatable :: randu_1_qp (:)
+        end function
+
+        module function randu_2_qp (dim1, dim2)
+            integer, intent(in) :: dim1, dim2
+            real(qp), allocatable :: randu_2_qp (:,:)
+        end function
+
+        module function randu_3_qp (dim1, dim2, dim3)
+            integer, intent(in) :: dim1, dim2, dim3
+            real(qp), allocatable :: randu_3_qp (:,:,:)
+        end function
+
+    end interface
+
     interface
         !! Version: experimental
         !!
@@ -2644,7 +2648,7 @@ module forlab
     end interface
 
     interface
-        !! Version: expermental
+        !! Version: experimental
         !!
         !! Create uninitialized matrices quickly, faster than `ones`/`zeros` function,
         !! and use `empty` function with caution.
@@ -6743,7 +6747,7 @@ contains
     ! where r is the record length.
 
     subroutine open1(self)
-        !! Version: expermental
+        !! Version: experimental
         !! 
         !! Use fortran08 NEWUNIT syntax.
         class(File), intent(inout) :: self
@@ -6759,7 +6763,7 @@ contains
     end subroutine open1
 
     subroutine open2(self, r)
-        !! Version: expermental
+        !! Version: experimental
         !! 
         !! Use fortran08 NEWUNIT syntax.
         class(File), intent(inout) :: self

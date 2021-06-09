@@ -1,5 +1,6 @@
 submodule(forlab) forlab_disp
     use forlab_kinds
+    implicit none
         real(sp), parameter :: nearzero_sp = 1.0e-10_sp
         real(dp), parameter :: nearzero_dp = 1.0e-10_dp
         real(qp), parameter :: nearzero_qp = 1.0e-10_qp

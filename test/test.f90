@@ -51,7 +51,7 @@ program main
 
         call disp('----------------------------')
         call tic()
-        x = randn(1000, time_qp)
+        x = randn(1000)
         call disp(size(x), 'x size:')
 
         call toc()

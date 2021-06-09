@@ -10,7 +10,7 @@ submodule(forlab) forlab_sort
     implicit none
 contains
     !! Default versions
-    ! sort\tofix
+    ! sort
     !-----------------------------------------------------------------------
     ! sort sorts arrays elements.
     !

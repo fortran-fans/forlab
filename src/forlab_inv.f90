@@ -1,7 +1,7 @@
 
 submodule(forlab) forlab_inv
     use forlab_kinds
-
+    implicit none
 contains
     module procedure inv_rsp
     !! inv0 computes the real matrix inverse.

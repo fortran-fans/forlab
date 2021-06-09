@@ -2,7 +2,7 @@
 
 submodule(forlab) forlab_inv
     use forlab_kinds
-
+    implicit none
 contains
     #:for k1,t1 in REAL_KINDS_TYPES
     module procedure inv_${t1[0]}$${k1}$

@@ -1,7 +1,8 @@
 #:include "common.fypp"
 submodule(forlab) forlab_det
     use forlab_kinds
-
+    implicit none
+    
 contains
     #:for k1,t1 in REAL_KINDS_TYPES
     module procedure det_${k1}$

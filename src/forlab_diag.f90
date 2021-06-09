@@ -1,6 +1,7 @@
 submodule(forlab) forlab_diag
     use forlab_kinds
-
+    implicit none
+    
 contains
     module procedure diag1_sp
         integer :: i, n

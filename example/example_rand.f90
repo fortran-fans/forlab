@@ -7,7 +7,7 @@
 
 program example_rand
 
-  use forlab, only: IPRE, RPRE, randi, randu, randn, randperm, rng, &
+  use forlab, only: IPRE, RPRE, randi, randu, randn, drandn, randperm, rng, &
                     disp, num2str, mean, std, skewness, kurtosis, k2test, &
                     kde, chol, repmat, linspace, prctile, horzcat, vertcat, &
                     chi2rand, chi2inv, zeros, var, savebin
@@ -115,7 +115,7 @@ program example_rand
 
   ! Bell 2
   n2 = 1000
-  x = [ x, 7. + 1. * randn(n2) ]
+  x = [ x, 7. + 1. * drandn(n2) ]
 
   xi = linspace(-5, 15, 200)
   call kde(x, f1, xi)

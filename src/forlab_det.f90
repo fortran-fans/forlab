@@ -1,6 +1,7 @@
 submodule(forlab) forlab_det
     use forlab_kinds
-
+    implicit none
+    
 contains
     module procedure det_sp
         real(sp), dimension(:, :), allocatable :: L, U

@@ -2,7 +2,7 @@
 #:set RC_KINDS_TYPES = REAL_KINDS_TYPES + CMPLX_KINDS_TYPES
 submodule(forlab) forlab_issquare
     use forlab_kinds
-
+    implicit none
 contains
     #:for k1,t1 in RC_KINDS_TYPES
     module procedure issquare_${t1[0]}$${k1}$

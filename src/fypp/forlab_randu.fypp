@@ -6,35 +6,11 @@ $:'' if RANK == 0 else '(' + ':' + ',:' * (RANK - 1) + ')'
 
 #:set RANKS = range(0, 4)
 submodule(forlab) forlab_randu
-    !! Version: experimental
-    !!
-    !! Discussion:
-    !! ----
-    !! https://fortran-lang.discourse.group/t/fortran-function-return-value-polymorphism/1350/5
     use forlab_kinds
     implicit none
 contains
-    !! Default versions
-    #:for RANK in RANKS
-    module procedure randu_${RANK}$_default
-        #:if RANK == 0
-
-        #:elif RANK == 1
-        allocate (randu_${RANK}$_default (dim1))
-        #:elif RANK == 2
-        allocate (randu_${RANK}$_default (dim1, dim2))
-        #:elif RANK == 3
-        allocate (randu_${RANK}$_default (dim1, dim2, dim3))
-        #:endif
-
-        call random_number(randu_${RANK}$_default)
-        return
-    end procedure
-    #:endfor
-
-    !! Multi-precision versions
-    #:for RANK in RANKS
     #:for k1, t1 in REAL_KINDS_TYPES
+    #:for RANK in RANKS
     module procedure randu_${RANK}$_${k1}$
         #:if RANK == 0
 
@@ -49,6 +25,7 @@ contains
         call random_number(randu_${RANK}$_${k1}$)
         return
     end procedure
+
     #:endfor
     #:endfor
 end submodule

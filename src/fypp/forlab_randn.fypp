@@ -15,58 +15,11 @@ submodule(forlab) forlab_randn
     implicit none
 contains
     !! Default versions
-    #:for RANK in RANKS
-    module procedure randn_${RANK}$_default
-    #:if RANK == 0
-        real(dp) :: u, v, s
-    #:elif RANK == 1
-        integer :: i
-    #:elif RANK == 2
-        integer :: i, j
-    #:elif RANK == 3
-        integer :: i, j, k
-    #:endif
-        #:if RANK == 0
-        do
-            u = 2.d0*randu() - 1.d0
-            v = 2.d0*randu() - 1.d0
-            s = u*u + v*v
-            if ((s > 0.d0) .and. (s < 1.d0)) exit
-        end do
-        randn_${RANK}$_default = u*sqrt(-2.0d0*log(s)/s)
-        #:elif RANK == 1
-        allocate (randn_${RANK}$_default (dim1))
-        do i = 1, dim1
-            randn_${RANK}$_default (i) = randn_0_default()
-        end do
-        #:elif RANK == 2
-        allocate (randn_${RANK}$_default (dim1, dim2))
-        do i = 1, dim1
-            do j = 1, dim2
-                randn_${RANK}$_default (i, j) = randn_0_default()
-            end do
-        end do
-        #:elif RANK == 3
-        allocate (randn_${RANK}$_default (dim1, dim2, dim3))
-        do i = 1, dim1
-            do j = 1, dim2
-                do k = 1, dim3
-                    randn_${RANK}$_default (i, j, k) = randn_0_default()
-                end do
-            end do
-        end do
-        #:endif
-
-        return
-    end procedure
-    
-    #:endfor
-    !! Multi-precision versions
-    #:for RANK in RANKS
     #:for k1, t1 in REAL_KINDS_TYPES
+    #:for RANK in RANKS
     module procedure randn_${RANK}$_${k1}$
     #:if RANK == 0
-        ${t1}$ :: u, v, s
+        real(${k1}$) :: u, v, s
     #:elif RANK == 1
         integer :: i
     #:elif RANK == 2
@@ -74,11 +27,10 @@ contains
     #:elif RANK == 3
         integer :: i, j, k
     #:endif
-
         #:if RANK == 0
         do
-            u = 2._${k1}$*randu(flag) - 1._${k1}$
-            v = 2._${k1}$*randu(flag) - 1._${k1}$
+            u = 2._${k1}$*randu() - 1._${k1}$
+            v = 2._${k1}$*randu() - 1._${k1}$
             s = u*u + v*v
             if ((s > 0._${k1}$) .and. (s < 1._${k1}$)) exit
         end do
@@ -86,13 +38,13 @@ contains
         #:elif RANK == 1
         allocate (randn_${RANK}$_${k1}$ (dim1))
         do i = 1, dim1
-            randn_${RANK}$_${k1}$ (i) = randn_0_${k1}$ (flag)
+            randn_${RANK}$_${k1}$ (i) = randn_0_${k1}$()
         end do
         #:elif RANK == 2
         allocate (randn_${RANK}$_${k1}$ (dim1, dim2))
         do i = 1, dim1
             do j = 1, dim2
-                randn_${RANK}$_${k1}$ (i, j) = randn_0_${k1}$ (flag)
+                randn_${RANK}$_${k1}$ (i, j) = randn_0_${k1}$()
             end do
         end do
         #:elif RANK == 3
@@ -100,7 +52,7 @@ contains
         do i = 1, dim1
             do j = 1, dim2
                 do k = 1, dim3
-                    randn_${RANK}$_${k1}$ (i, j, k) = randn_0_${k1}$ (flag)
+                    randn_${RANK}$_${k1}$ (i, j, k) = randn_0_${k1}$()
                 end do
             end do
         end do

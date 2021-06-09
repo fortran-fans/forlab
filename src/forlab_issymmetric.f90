@@ -29,7 +29,7 @@ contains
     ! bool = issymmetric(A)
     !     .true.
 
-        module procedure issymmetric_sp
+    module procedure issymmetric_sp
         integer :: i, j, n
 
         issymmetric_sp = .true.
@@ -49,7 +49,7 @@ contains
         end if
         return
     end procedure issymmetric_sp
-        module procedure issymmetric_dp
+    module procedure issymmetric_dp
         integer :: i, j, n
 
         issymmetric_dp = .true.
@@ -69,7 +69,7 @@ contains
         end if
         return
     end procedure issymmetric_dp
-        module procedure issymmetric_qp
+    module procedure issymmetric_qp
         integer :: i, j, n
 
         issymmetric_qp = .true.

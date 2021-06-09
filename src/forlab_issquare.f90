@@ -1,6 +1,6 @@
 submodule(forlab) forlab_issquare
     use forlab_kinds
-
+    implicit none
 contains
     module procedure issquare_rsp
 
