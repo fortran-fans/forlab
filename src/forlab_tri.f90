@@ -1,37 +1,9 @@
 
 
 submodule(forlab) forlab_tri
-    !! https://fortran-lang.discourse.group/t/fortran-function-return-value-polymorphism/1350/5
     use forlab_kinds
     implicit none
 contains
-    ! tril
-    !-----------------------------------------------------------------------
-    ! tril extracts the lower triangular part of a matrix.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! B = tril(A)
-    ! B = tril(A, k)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! B = tril(A) returns the lower triangular part of matrix A.
-    !
-    ! B = tril(A, k) returns the elements on and below the kth diagonal of
-    ! matrix X:
-    !   -   k = 0 is the main diagonal,
-    !   -   k > 0 is above the main diagonal,
-    !   -   k < 0 is below the main diagonal.
-    !
-    ! Examples
-    !-----------------------------------------------------------------------
-    ! A = ones(4, 4)
-    ! B = tril(A, -1)
-    !     0.  0.  0.  0.
-    !     1.  0.  0.  0.
-    !     1.  1.  0.  0.
-    !     1.  1.  1.  0.
     module procedure tril_int8
         integer::opt_k,i,m,n
         opt_k = 0
@@ -129,33 +101,6 @@ contains
         end do
     end procedure tril_csp
 
-    ! triu
-    !-----------------------------------------------------------------------
-    ! triu extracts the upper triangular part of a matrix.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! B = triu(A)
-    ! B = triu(A, k)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! B = triu(A) returns the upper triangular part of matrix A.
-    !
-    ! B = triu(A, k) returns the elements on and above the kth diagonal of
-    ! matrix X:
-    !   -   k = 0 is the main diagonal,
-    !   -   k > 0 is above the main diagonal,
-    !   -   k < 0 is below the main diagonal.
-    !
-    ! Examples
-    !-----------------------------------------------------------------------
-    ! A = ones(4, 4)
-    ! B = triu(A, -1)
-    !     1.  1.  1.  1.
-    !     1.  1.  1.  1.
-    !     0.  1.  1.  1.
-    !     0.  0.  1.  1.
 
     module procedure tril_cdp
         integer::opt_k,i,m,n
@@ -169,33 +114,6 @@ contains
         end do
     end procedure tril_cdp
 
-    ! triu
-    !-----------------------------------------------------------------------
-    ! triu extracts the upper triangular part of a matrix.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! B = triu(A)
-    ! B = triu(A, k)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! B = triu(A) returns the upper triangular part of matrix A.
-    !
-    ! B = triu(A, k) returns the elements on and above the kth diagonal of
-    ! matrix X:
-    !   -   k = 0 is the main diagonal,
-    !   -   k > 0 is above the main diagonal,
-    !   -   k < 0 is below the main diagonal.
-    !
-    ! Examples
-    !-----------------------------------------------------------------------
-    ! A = ones(4, 4)
-    ! B = triu(A, -1)
-    !     1.  1.  1.  1.
-    !     1.  1.  1.  1.
-    !     0.  1.  1.  1.
-    !     0.  0.  1.  1.
 
     module procedure tril_cqp
         integer::opt_k,i,m,n
@@ -209,33 +127,6 @@ contains
         end do
     end procedure tril_cqp
 
-    ! triu
-    !-----------------------------------------------------------------------
-    ! triu extracts the upper triangular part of a matrix.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! B = triu(A)
-    ! B = triu(A, k)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! B = triu(A) returns the upper triangular part of matrix A.
-    !
-    ! B = triu(A, k) returns the elements on and above the kth diagonal of
-    ! matrix X:
-    !   -   k = 0 is the main diagonal,
-    !   -   k > 0 is above the main diagonal,
-    !   -   k < 0 is below the main diagonal.
-    !
-    ! Examples
-    !-----------------------------------------------------------------------
-    ! A = ones(4, 4)
-    ! B = triu(A, -1)
-    !     1.  1.  1.  1.
-    !     1.  1.  1.  1.
-    !     0.  1.  1.  1.
-    !     0.  0.  1.  1.
 
     module procedure triu_int8
         integer::opt_k,i,m,n

@@ -138,4 +138,26 @@ program main
         L=chol(a)
         call disp(L,"L=")
     end block
+
+    block
+        use forlab, only: outer, disp
+        real :: ra(3) = [1, 2, 3]
+        real :: rb(4) = [1, 2, 3, 4]
+        real, allocatable :: rX(:,:)
+        integer :: ia(3) = [1, 2, 3]
+        integer :: ib(4) = [1, 2, 3, 4]
+        integer, allocatable :: iX(:,:)
+
+        call disp("outer test")
+        call disp("outer for real")
+        rX = outer(ra, rb)
+        call disp(ra, "a=")
+        call disp(rb, "b=")
+        call disp(rX, "a .outer. b=")
+        call disp("outer for integer")
+        iX = outer(ia, ib)
+        call disp(ia, "a=")
+        call disp(ib, "b=")
+        call disp(iX, "a .outer. b=")
+    end block
 end program

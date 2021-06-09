@@ -2,11 +2,6 @@
 
 
 submodule(forlab) forlab_issymmetric
-    !! Version: experimental
-    !!
-    !! Discussion:
-    !! ----
-    !! https://fortran-lang.discourse.group/t/fortran-function-return-value-polymorphism/1350/5
     use forlab_kinds
     implicit none
 contains
@@ -31,7 +26,6 @@ contains
 
     module procedure issymmetric_sp
         integer :: i, j, n
-
         issymmetric_sp = .true.
         if (.not. issquare(A)) then
             issymmetric_sp = .false.
@@ -51,7 +45,6 @@ contains
     end procedure issymmetric_sp
     module procedure issymmetric_dp
         integer :: i, j, n
-
         issymmetric_dp = .true.
         if (.not. issquare(A)) then
             issymmetric_dp = .false.
@@ -71,7 +64,6 @@ contains
     end procedure issymmetric_dp
     module procedure issymmetric_qp
         integer :: i, j, n
-
         issymmetric_qp = .true.
         if (.not. issquare(A)) then
             issymmetric_qp = .false.
