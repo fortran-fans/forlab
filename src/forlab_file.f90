@@ -12,7 +12,7 @@ module forlab_file
         generic, public :: exist => file_exist
     end type file
     interface file
-        module procedure init_file
+        procedure init_file
     end interface file
 contains
 
