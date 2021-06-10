@@ -3,19 +3,18 @@
 submodule(forlab) forlab_issquare
     !! Determine if it is a square matrix
     !!
-    !!## Example
+    !!### Example
     !!    A = eye(3)
     !!    bool = issquare(A)
     !!           .true.
     !!    A = eye(3, 4)
-    !!    bool = issquare0(A)
+    !!    bool = issquare(A)
     !!           .false.
     use forlab_kinds
     implicit none
 contains
     #:for k1,t1 in RC_KINDS_TYPES
     module procedure issquare_${t1[0]}$${k1}$
-
         issquare_${t1[0]}$${k1}$ = .false.
         if (size(A, 1) .eq. size(A, 2)) issquare_${t1[0]}$${k1}$ = .true.
         return

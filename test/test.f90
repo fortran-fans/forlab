@@ -198,8 +198,8 @@ program main
         call disp(randi(1),'x = randi(imax):')
         call disp(randi(-1),'x = randi(imax):')
         call disp(randi(10),'x = randi(imax):')
-        call disp(randi([10, 100]),'x = randi([imin, imax]):')
-        call disp(randi([10, 100], 2, 3),'A = randi([imin, imax], dim1, dim2):')
+        call disp(randi([10, 100]),'x = randi([10, 100]):')
+        call disp(randi([10, 100], 2, 3),'A = randi([10, 100], 2, 3):')
     end block
 
 end program

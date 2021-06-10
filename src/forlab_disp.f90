@@ -65,11 +65,13 @@ submodule(forlab) forlab_disp
     !!            7.  8.  9.
     use forlab_kinds
     implicit none
-        real(sp), parameter :: nearzero_sp = 1.0e-10_sp
-        real(dp), parameter :: nearzero_dp = 1.0e-10_dp
-        real(qp), parameter :: nearzero_qp = 1.0e-10_qp
+
+    real(sp), parameter :: nearzero_sp = 1.0e-10_sp
+    real(dp), parameter :: nearzero_dp = 1.0e-10_dp
+    real(qp), parameter :: nearzero_qp = 1.0e-10_qp
     character(len=*), parameter :: fmt_r = "( *( g11.4, 1x ) )"
     character(len=*), parameter :: fmt_c = "( *( g11.4, a1, g11.4, a1, 1x ) )"
+
     interface filter
         procedure filter_sp
         procedure filter_dp
@@ -577,7 +579,6 @@ contains
         filter_sp = x
         if (abs(x) < nearzero_sp) filter_sp = 0.0_sp
     end function
-
     module function filter_dp(x)
         !! Filter near-zero. Note: elemental
         real(dp), intent(in) :: x
@@ -585,7 +586,6 @@ contains
         filter_dp = x
         if (abs(x) < nearzero_dp) filter_dp = 0.0_dp
     end function
-
     module function filter_qp(x)
         !! Filter near-zero. Note: elemental
         real(qp), intent(in) :: x
@@ -593,7 +593,7 @@ contains
         filter_qp = x
         if (abs(x) < nearzero_qp) filter_qp = 0.0_qp
     end function
-
+    
     module procedure disp_str
         if (present(string)) then
             print *, trim(string)
