@@ -160,5 +160,37 @@ program main
         call disp(ib, "b=")
         call disp(iX, "a .outer. b=")
     end block
+
+    block
+        use forlab, only: disp,svd
+        integer::i
+        real(8) ::a(3,3)=reshape([real::(i,i=1,9)],shape(a),order=[1,2])
+        real(8),allocatable::w(:),u(:,:),v(:,:)
+        call disp("test Svd")
+        call svd(a,w)
+        call disp(a,"a=")
+        call disp(w,"w=")
+        call svd(a,w,u,v)
+        call disp(a,"a=")
+        call disp(w,"w=")
+        call disp(u,"u=")
+        call disp(v,"v=")
+    end block
+
+    block
+        use forlab, only: disp,solve
+        integer::i
+        real(8) ::a(2,2)=reshape([1,2,2,1],shape(a))
+        real(8) ::b(2)=[3,4]
+        real(8) ::c(3,2)=reshape([1,1,2,4,2,3],shape(c))
+        real(8) ::d(3)=[-2,6,1]
+        call disp("Test solve")
+        call disp(a,"a=")
+        call disp(b,"b=")
+        call disp(solve(a,b),"x=")
+        call disp(c,"a=")
+        call disp(d,"b=")
+        call disp(solve(c,d),"x=")
+    end block
     
 end program
