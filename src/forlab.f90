@@ -37,8 +37,8 @@ module forlab
               find, flip, fliplr, flipud, fminbnd, gammainc, horzcat, &
               hann, interp1, interp2, interp3, inv, ismember, isoutlier, issquare, &
               isleap, issymmetric, kurtosis, k2test, kde, &
-              mean, median, mad, meshgrid, nextpow2, norm, normpdf, num2str, &
-              outer, pascal, prctile, progress_bar, progress_perc, rng, &
+              mean, median, mad,matpow, meshgrid, nextpow2, norm, normpdf, num2str, &
+              outer, pascal, prctile, progress_bar, progress_perc,qr, rng, &
               randi, randperm, repmat, rms, savetxt, savebin, sind, sort, solve, &
               svd, svdsolve, std, spline1, spline2, skewness, signum, sinc, &
               split_argument, tand, tic, toc, trace, tril, triu, utm2deg, vertcat, &
@@ -1125,6 +1125,27 @@ module forlab
         module procedure mad1, mad2
     end interface mad
 
+    interface matpow
+        module function matpow_sp(a,num)result(c)
+            real(sp), dimension(:,:), intent(in) :: a
+            real(sp),allocatable :: c(:,:)
+            integer::num
+        end function matpow_sp
+
+        module function matpow_dp(a,num)result(c)
+            real(dp), dimension(:,:), intent(in) :: a
+            real(dp),allocatable :: c(:,:)
+            integer::num
+        end function matpow_dp
+
+        module function matpow_qp(a,num)result(c)
+            real(qp), dimension(:,:), intent(in) :: a
+            real(qp),allocatable :: c(:,:)
+            integer::num
+        end function matpow_qp
+
+    end interface
+
     interface mbkmeans
         module procedure mbkmeans1, mbkmeans2
     end interface mbkmeans
@@ -1981,6 +2002,28 @@ module forlab
         end function
     end interface
 
+    !! qr
+    interface qr
+        module subroutine qr_sp(a,q,r,l)
+            real(sp),intent(in)::a(:,:)
+            real(sp),allocatable,intent(out)::q(:,:),r(:,:)
+            integer,optional::l
+        end subroutine qr_sp
+
+        module subroutine qr_dp(a,q,r,l)
+            real(dp),intent(in)::a(:,:)
+            real(dp),allocatable,intent(out)::q(:,:),r(:,:)
+            integer,optional::l
+        end subroutine qr_dp
+
+        module subroutine qr_qp(a,q,r,l)
+            real(qp),intent(in)::a(:,:)
+            real(qp),allocatable,intent(out)::q(:,:),r(:,:)
+            integer,optional::l
+        end subroutine qr_qp
+
+    end interface qr
+
     !! Rng
     interface
         module subroutine rng(seed)
@@ -1989,6 +2032,7 @@ module forlab
         module subroutine tic()
         end subroutine
     end interface
+
 
     !! Linspace
     interface
@@ -6070,22 +6114,6 @@ contains
         pow = ceiling(log(real(abs(x)))/log(2.))
         return
     end function nextpow2_1
-
-
-    real(kind=RPRE) function norm1(x, p)
-        real(kind=RPRE), dimension(:), intent(in) :: x
-        real(kind=RPRE), intent(in), optional :: p
-
-
-        return
-    end function norm1
-
-    real(kind=RPRE) function norm2(A, p)
-        real(kind=RPRE), dimension(:, :), intent(in) :: A
-        integer(kind=IPRE), intent(in), optional :: p
-        return
-    end function norm2
-
 
     ! normpdf
     !-----------------------------------------------------------------------

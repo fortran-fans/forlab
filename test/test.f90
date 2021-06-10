@@ -193,4 +193,30 @@ program main
         call disp(solve(c,d),"x=")
     end block
     
+    block
+        use forlab, only: disp,qr
+        integer::i
+        real(8) ::a(4,3)=reshape([1.0,2.0,1.0,-1.0,1.0,1.0,-1.0,2.0,-1.0,0.0,0.0,1.0],shape(a))
+        real(8),allocatable ::q(:,:),r(:,:)
+        real(8),allocatable ::q1(:,:),r1(:,:)
+        call disp("Test QR")
+        call disp(a,"a=")
+        call qr(a,q,r)
+        call disp(q,"q=")
+        call disp(r,"r=")
+        call qr(a,q1,r1,2)
+        call disp(q1,"q1=")
+        call disp(r1,"r1=")
+    end block
+
+    block
+        use forlab, only: disp,matpow
+        integer::i
+        real(8) ::a(3,3)=reshape([1,0,0,0,1,0,1,0,1],shape(a))
+        real(8),allocatable ::c(:,:)
+        call disp("Test matpow")
+        call disp(a,"a=")
+        c=matpow(a,0)
+        call disp(c,"c=")
+    end block
 end program
