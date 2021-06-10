@@ -543,6 +543,8 @@ module forlab
     end interface log2
 
     interface lu
+        !! lu computes the LU matrix factorization.
+        !!([Specification](../module/forlab_lu.html))
         #:for k1,t1 in REAL_KINDS_TYPES
         module subroutine lu_${k1}$ (A, L, U)
             ${t1}$, dimension(:, :), intent(in) :: A

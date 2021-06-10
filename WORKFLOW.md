@@ -24,6 +24,8 @@ bash command:
 ```bash
 make    # or `make dev`
 fpm test
+---
+make&&fpm test
 ```
 ### Development sequence
 1. idea & discussion.
@@ -39,7 +41,7 @@ last, don't forget log your work has been done in `ChangeLog.md`✔.
 ### fypp example
 #### submodule.fypp example
 ```fortran
-!! comments for this file
+!! brief comments for this file
 
 submodule (forlab) forlab_zeros
     !! comments for this submodule
@@ -55,7 +57,7 @@ end submodule
 ```fortran
 module forlab
     interface zeros
-        !! brief comment for this function/subroutine interface
+        !! brief comments for this function/subroutine interface
         !!([Specification](../module/forlab_zeros.html))
 
         ...
