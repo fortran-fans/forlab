@@ -73,175 +73,33 @@ module forlab
     end interface
 
     !! Polymorphic Interfaces
+
     interface angle
+        !! angle compute the phase angle.
+        !!([Specification](../module/forlab_angle.html))
         #:for k1, t1 in REAL_KINDS_TYPES
         real(${k1}$) elemental module function angle_${k1}$(z)
             complex(${k1}$), intent(in) :: z
         end function
-
         #:endfor
     end interface
 
     #:set CIR_NAME=["acos","asin","atan"]
     #:for l1 in CIR_NAME
     interface ${l1}$d
-        #:if l1 == 'acos'
-        !! Version: experimental
-        !!
-        !! acosd computes the inverse cosine in degrees.
-        !!
-        !!## Syntax
-        !!    y = acosd(x)
-        !!
-        !!## Description
-        !! `y = acosd(x)` returns the inverse cosine of the elements in x in
-        !! degrees. For real elements of x in the domain [-1,1], acosd returns
-        !! values in the range [0,180]. For values of x outside this range,
-        !! acosd returns NaN (Not a Number).
-        !!
-        !!## Examples
-        !!    y = acosd(1.)
-        !!        1.
-        !!
-        !!    y = acosd(2.)
-        !!        NaN
-        !!
-        !!    x = [ -1., 0., 1. ]
-        !!    y = acosd(x)
-        !!        180.  90.   0.
-        #:endif
-
-        #:if l1=="asin"
-        !! asind
-        !!
-        !! asind computes the inverse sine in degrees.
-        !!
-        !!## Syntax
-        !!    y = asind(x)
-        !!
-        !!## Description
-        !! `y = asind(x)` returns the inverse sine of the elements in x in degrees.
-        !! For real elements of x in the domain [-1,1], asind returns values in
-        !! the range [-90,90]. For values of x outside this range, asind returns
-        !! NaN (Not a Number).
-        !!
-        !!## Examples
-        !!    y = asind(1.)
-        !!        90.
-        !!
-        !!    y = asind(2.)
-        !!        NaN
-        !!
-        !!    x = [ -1., 0., 1. ]
-        !!    y = asind(x)
-        !!        -90.  0.  90.
-        #:endif
-
-        #:if l1=="atan"
-        !! atand
-        !!
-        !! atand computes the inverse tangent in degrees.
-        !!
-        !!## Syntax
-        !!     y = atand(x)
-        !!
-        !!## Description
-        !! `y = atand(x)` returns the inverse tangent of the elements in x in
-        !! degrees. For real elements of x in the domain [-Inf,Inf], atand
-        !! returns values in the range [-90,90].
-        !!
-        !!## Examples
-        !!     y = atand(0.)
-        !!         0.
-        !!
-        !!     y = atand(50.)
-        !!         88.8542328
-        !!
-        !!     x = [ -50., 0., 50. ]
-        !!     y = atand(x)
-        !!         -88.8542328   0.  88.8542328
-        #:endif
+        !! degree circular functions
+        !!([Specification](../module/forlab_degcir.html))
         #:for k1,t1 in REAL_KINDS_TYPES
         pure elemental module function ${l1}$d_${k1}$(x)
         ${t1}$,intent(in)::x
         ${t1}$::${l1}$d_${k1}$
         end function
-
         #:endfor
     end interface ${l1}$d
-
     #:endfor
     #:set CIR_NAME=["cos","sin","tan"]
     #:for l1 in CIR_NAME
     interface ${l1}$d
-        #:if l1=="sin"
-        !! sind computes the sine of argument in degrees.
-        !!
-        !!## Syntax
-        !!
-        !!      y = sind(x)
-        !!
-        !!## Description
-        !!
-        !!  `y = sind(x)` returns the sine of the elements in x, which are expressed
-        !! in degrees.
-        !!
-        !!## Examples
-        !!
-        !!      y = sind(90.)
-        !!          1.
-        !!
-        !!      x = [ 0., 90., 180., 270. ]
-        !!      y = sind(x)
-        !!            0.  1.  0.  -1.
-        #:endif
-
-        #:if l1=="cos"
-        !! cosd computes the cosine of argument in degrees.
-        !!
-        !!## Syntax
-        !!
-        !!      y = cosd(x)
-        !!
-        !!## Description
-        !!
-        !!  `y = cosd(x)` returns the cosine of the elements in x, which are
-        !! expressed in degrees.
-        !!
-        !!## Examples
-        !!
-        !!      y = cosd(0.)
-        !!          1.
-        !!
-        !!      x = [ 0., 90., 180., 270. ]
-        !!      y = cosd(x)
-        !!          1.  0. -1.  0.
-        #:endif
-
-        #:if l1=="tan"
-        !!## tand
-        !!
-        !! tand computes the tangent of argument in degrees.
-        !!
-        !!## Syntax
-        !!
-        !!      y = tand(x)
-        !!
-        !!## Description
-        !!
-        !!  `y = tand(x)` returns the tangent of the elements in x, which are
-        !! expressed in degrees.
-        !!
-        !!## Examples
-        !!
-        !!      y = tand(0.)
-        !!           0.
-        !!
-        !!      x = [ 0., 90., 180., 270. ]
-        !!      y = tand(x)
-        !!           0.  Inf   0.  -Inf
-        #:endif
-
         #:for k1,t1 in REAL_KINDS_TYPES
         pure elemental module function ${l1}$d_${k1}$(x)
         ${t1}$,intent(in)::x
@@ -249,15 +107,16 @@ module forlab
         end function
         #:endfor
     end interface ${l1}$d
-
     #:endfor
 
     interface arange
+        !! arange returns evenly spaced vector.
+        !!([Specification](../module/forlab_arange.html))
         #:for k1, t1 in INT_KINDS_TYPES
-            module function arange_${k1}$ (first, last)
-                ${t1}$, dimension(:), allocatable :: arange_${k1}$
-                ${t1}$, intent(in) :: first, last
-            end function
+        module function arange_${k1}$ (first, last)
+            ${t1}$, dimension(:), allocatable :: arange_${k1}$
+            ${t1}$, intent(in) :: first, last
+        end function
         #:endfor
     end interface
 
@@ -270,36 +129,15 @@ module forlab
     end interface argmin
 
     interface argsort
-        !! Version: expermental
-        !!
         !! argsort generates the indices that would sort an array.
-        !!
-        !!## Syntax
-        !!      y = argsort(x)
-        !!      y = argsort(x, 1)
-        !!      y = argsort(x, 2)
-        !!
-        !!## Description
-        !!
-        !! `y = argsort(x)` returns the indices that would sort an array in
-        !! ascending order.
-        !!
-        !! `y = argsort(x, 1)` (see `y = argsort(x)`).
-        !!
-        !! `y = argsort(x, 2)` returns the indices that would sort an array in
-        !! descending order.
-        !!
-        !!## Notes
-        !!
-        !! `x(argsort(x), order)` returns the same result as `sort(x, order)`.
-    #:for k1, t1 in INT_KINDS_TYPES+REAL_KINDS_TYPES
+        !!([Specification](../module/forlab_argsort.html))
+        #:for k1, t1 in INT_KINDS_TYPES+REAL_KINDS_TYPES
         module function argsort_${k1}$(x,order)
             integer,allocatable::argsort_${k1}$(:)
             ${t1}$,intent(in)::x(:)
             integer,optional,intent(in)::order
         end function argsort_${k1}$
-
-    #:endfor
+        #:endfor
     end interface argsort
 
     interface bspline1
@@ -327,19 +165,9 @@ module forlab
     end interface chi2rand
 
     interface chol
-        !! Version: expermental
-        !!
         !! chol computes Cholesky's decomposition of a symmetric positive
         !! definite matrix.
-        !!
-        !!## Syntax
-        !!
-        !!      L = chol(A)
-        !!
-        !!## Description
-        !!
-        !!  `L = chol(A)` returns a lower triangular matrix L satisfying the
-        !! equation A = L*Lt.
+        !!([Specification](../module/forlab_chol.html))
         #:for k1,t1 in REAL_KINDS_TYPES
         module function chol_${k1}$ (A) result(L)
             ${t1}$, dimension(:, :), intent(in) :: A
@@ -354,10 +182,6 @@ module forlab
         !    end function
         !#:endfor
     end interface
-
-    interface countlines
-        module procedure countlines2
-    end interface countlines
 
     interface cov
         module procedure cov1_1, cov1_2, cov2_1, cov2_2
