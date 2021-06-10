@@ -1,5 +1,5 @@
 program main
-    use forlab, only: empty, zeros, disp, dzeros
+    use forlab, only: empty, zeros, disp, qzeros
     implicit none
 
     real, allocatable :: x(:, :)

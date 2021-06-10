@@ -192,6 +192,15 @@ program main
         call disp(d,"b=")
         call disp(solve(c,d),"x=")
     end block
+
+    block
+        use forlab, only: disp,randi
+        call disp(randi(1),'x = randi(imax):')
+        call disp(randi(-1),'x = randi(imax):')
+        call disp(randi(10),'x = randi(imax):')
+        call disp(randi([10, 100]),'x = randi([imin, imax]):')
+        call disp(randi([10, 100], 2, 3),'A = randi([imin, imax], dim1, dim2):')
+    end block
     
     block
         use forlab, only: disp,qr
