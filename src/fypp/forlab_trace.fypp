@@ -1,0 +1,16 @@
+
+
+#:include "common.fypp"
+
+submodule(forlab) forlab_trace
+    use forlab_kinds
+
+contains
+    #:for k1,t1 in REAL_KINDS_TYPES
+    module procedure trace_${k1}$
+        trace = sum(diag(A))
+    end procedure trace_${k1}$
+    #:endfor
+
+end submodule
+

@@ -1,0 +1,44 @@
+
+
+#:include "common.fypp"
+
+submodule(forlab) forlab_norm
+    use forlab_kinds
+
+contains
+    #:for k1,t1 in REAL_KINDS_TYPES
+    module procedure norm1_${k1}$
+        ${t1}$::temp
+        if (.not. present(p))then
+            temp =2.0_${k1}$
+        else
+            temp = p
+        end if
+
+        if(temp == 2.0_${k1}$) then
+            norm1 = sqrt(sum(abs(x)**2))
+        elseif (temp == 1.0_${k1}$) then
+            norm1 = sum(abs(x))
+        else
+            norm1 = (sum(abs(x)**p))**(1.0_${k1}$/p)
+        end if
+    end procedure norm1_${k1}$
+
+    module procedure norm2_${k1}$
+        ${t1}$::temp
+        ${t1}$, dimension(:), allocatable :: w
+        if (.not. present(p))then
+            temp =2.0_${k1}$
+        else
+            temp = p
+        end if
+        if(temp==2.0_${k1}$)then
+            call svd(A, w)
+            norm2 = maxval(w)
+        elseif (temp == 1.0_${k1}$) then
+            norm2 = maxval(sum(abs(A), dim=2))
+        end if
+    end procedure norm2_${k1}$
+    #:endfor
+end submodule
+

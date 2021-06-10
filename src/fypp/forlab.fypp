@@ -1055,7 +1055,47 @@ module forlab
     end interface nextpow2
 
     interface norm
-        module procedure norm1, norm2
+        !! norm computes vector and matrix norms.
+        !!
+        !!## Syntax
+        !!
+        !!      y = norm(x)
+        !!      y = norm(x, p)
+        !!      x = norm(A)
+        !!      x = norm(A, p)
+        !!
+        !!## Description
+        !!
+        !! `y = norm(x)` returns the 2-norm or Euclidian norm of vector x.
+        !!
+        !! `y = norm(x, p)` returns the p-norm of vector x, where p is any positive
+        !! real value.
+        !!
+        !! `x = norm(A)` returns the 2-norm of matrix A (largest singular value).
+        !!
+        !! `x = norm(A, p)` returns the p-norm of matrix A, where p is {1, 2}.
+        !!
+        !!## Examples
+        !!
+        !!      x = [ 1., 2., 3. ]
+        !!      y = norm(x)
+        !!          3.74165750
+        !!      y = norm(x, 3.)
+        !!          3.30192733
+        #:for k1,t1 in REAL_KINDS_TYPES
+        module function norm1_${k1}$(x,p)result(norm1)
+            ${t1}$, dimension(:), intent(in) :: x
+            ${t1}$, intent(in), optional :: p
+            ${t1}$:: norm1
+        end function norm1_${k1}$
+
+        module function norm2_${k1}$(A,p)result(norm2)
+            ${t1}$, dimension(:,:), intent(in) :: A
+            ${t1}$, intent(in), optional :: p
+            ${t1}$:: norm2
+        end function norm2_${k1}$
+
+        #:endfor
     end interface norm
 
     interface normpdf
@@ -1268,6 +1308,34 @@ module forlab
         module procedure skewness1, skewness2
     end interface skewness
 
+    interface solve
+        !! solve solves a linear matrix equation.
+        !!
+        !!## Syntax
+        !!
+        !!      x = solve(A, b)
+        !!
+        !!## Description
+        !!
+        !! `x = solve(A, b)` returns the "exact" solution of the well-determined
+        !! linear matrix equation Ax = b.
+        !!
+        !!## Examples
+        !!
+        !!      A = reshape([ 11., 7., 3., 2., 12., 6., 7., 9., 4. ], [ 3, 3 ], &
+        !!                  order = [ 2, 1 ])
+        !!      b = [ 34., 44., 37. ]
+        !!      x = solve(A, b)
+        !!          1.  2.  3.
+    #:for k1,t1 in REAL_KINDS_TYPES
+        module function solve_${k1}$(A, b) result(x)
+            ${t1}$, dimension(:, :), intent(in) :: A
+            ${t1}$, dimension(:), intent(in) :: b
+            ${t1}$, dimension(:), allocatable :: x
+        end function solve_${k1}$
+
+    #:endfor
+    end interface solve
     interface sort
     !! Version:experimental
     !!
@@ -1307,7 +1375,93 @@ module forlab
     interface std
         module procedure std1, std2
     end interface std
+    interface svd
+    !! svd computes the singular value decomposition.
+    !!
+    !!## Syntax
+    !!
+    !!      call svd(A, w)
+    !!      call svd(A, w, U, V)
+    !!
+    !!## Description
+    !!
+    !! `call svd(A, w)` returns the singular values of the matrix A sorted in
+    !! descending order.
+    !!
+    !! `call svd(A, w, U, V)` returns the singular values of the m-by-n
+    !! matrix A sorted in descending order. The output matrices are:
+    !!
+    !!      -   w is a n vector
+    !!      -   U is a m-by-n unitary matrix
+    !!      -   V is a n-by-n unitary matrix
+    !!
+    !!## Examples
+    !!
+    !!      A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 9. ], [ 3, 3 ], &
+    !!                     order = [ 2, 1 ])
+    !!      call svd(A, w)
+    !!      call disp(w)
+    !!          16.8481007  1.06836963  2.10855418E-07
+    !!      call svd(A, w, U, V)
+    !!      call disp(U)
+    !!          -0.214837193   -0.887230873   -0.408247918
+    !!          -0.520587385   -0.249643773   -0.816496670
+    !!          -0.826337695    0.387942642    0.408248365
+    !!      call disp(V)
+    !!          -0.479671091    0.776690900   -0.408248752
+    !!          -0.572367728    0.075686932    0.816496611
+    !!          -0.665064454   -O.625318289   -0.408247977
+    !!
+    !!## Notes
+    !!
+    !! This code is adapted from Numerical Recipes in Fortran 90.
+    #:for k1, t1 in REAL_KINDS_TYPES
+        module subroutine svd_${k1}$(a, w, u, v , d, ierr)
+            ${t1}$, dimension(:, :), intent(in) :: a
+            ${t1}$, dimension(:), allocatable, intent(out) :: w
+            ${t1}$, dimension(:, :), allocatable, intent(out), optional :: u, v
+            integer, intent(out), optional :: ierr
+            logical,intent(in),optional ::d
+        end subroutine svd_${k1}$
 
+    #:endfor
+    end interface svd
+
+    interface svdsolve
+        !! svdsolve solves a linear matrix equation from the singular value
+        !! decomposition of A.
+        !!
+        !!## Syntax
+        !!
+        !!      x = svdsolve(A, b)
+        !!      x = svdsolve(A, b, k)
+        !!
+        !!## Description
+        !!
+        !! `x = svdsolve(A, b)` returns the full-rank solution of the linear matrix
+        !! equation Ax = b.
+        !!
+        !! `x = svdsolve(A, b, k)` returns the reduced-rank solution of the linear
+        !! matrix equation Ax = b, where A is a m-by-n matrix. Therefore, the
+        !! rank of the solution is n-k.
+        !!
+        !!## Notes
+        !!
+        !! Sometimes, too small singular values produce very large solution. A
+        !! proper way to determine the cut-off singular value is using a L-curve
+        !! criterion. The cut-off singular value corresponds to the singular
+        !! value from which the residuals norm is not improved while the solution
+        !! norm increases substantially.
+        #:for k1, t1 in REAL_KINDS_TYPES
+        module function svdsolve_${k1}$(A, b, cutoff) result(x)
+            ${t1}$, dimension(:, :), intent(in) :: A
+            ${t1}$, dimension(:), intent(in) :: b
+            ${t1}$, dimension(:), allocatable :: x
+            integer, intent(in), optional :: cutoff
+        end function svdsolve_${k1}$
+
+        #:endfor
+    end interface svdsolve
     interface toc
         !! Version: experimental
         !!
@@ -1341,6 +1495,31 @@ module forlab
         #:endfor
     end interface
 
+    interface trace
+        !! trace computes the sum of diagonal elements.
+        !!
+        !!## Syntax
+        !!
+        !!      x = trace(A)
+        !!
+        !!## Description
+        !!
+        !! `x = trace(A)` returns the sum of the elements on the main diagonal of
+        !! the matrix A.
+        !!
+        !!## Examples
+        !!
+        !!      A = eye(3)
+        !!      x = trace(A)
+        !!          3.
+        #:for k1,t1 in REAL_KINDS_TYPES
+        module function trace_${k1}$(A)result(trace)
+            ${t1}$, dimension(:, :), intent(in) :: A
+            ${t1}$::trace
+        end function trace_${k1}$
+
+        #:endfor
+    end interface trace
     interface tril
         !! Version: expermental
         !!
@@ -5760,61 +5939,18 @@ contains
         return
     end function nextpow2_1
 
-    ! norm
-    !-----------------------------------------------------------------------
-    ! norm computes vector and matrix norms.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! y = norm(x)
-    ! y = norm(x, p)
-    ! x = norm(A)
-    ! x = norm(A, p)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! y = norm(x) returns the 2-norm or Euclidian norm of vector x.
-    !
-    ! y = norm(x, p) returns the p-norm of vector x, where p is any positive
-    ! real value.
-    !
-    ! x = norm(A) returns the 2-norm of matrix A (largest singular value).
-    !
-    ! x = norm(A, p) returns the p-norm of matrix A, where p is {1, 2}.
-    !
-    ! Examples
-    !-----------------------------------------------------------------------
-    ! x = [ 1., 2., 3. ]
-    ! y = norm(x)
-    !     3.74165750
-    ! y = norm(x, 3.)
-    !     3.30192733
 
     real(kind=RPRE) function norm1(x, p)
         real(kind=RPRE), dimension(:), intent(in) :: x
         real(kind=RPRE), intent(in), optional :: p
 
-        if ((.not. present(p)) .or. (p == 2.)) then
-            norm1 = sqrt(sum(abs(x)**2))
-        elseif (p == 1.) then
-            norm1 = sum(abs(x))
-        else
-            norm1 = (sum(abs(x)**p))**(1.0d0/p)
-        end if
+
         return
     end function norm1
 
     real(kind=RPRE) function norm2(A, p)
         real(kind=RPRE), dimension(:, :), intent(in) :: A
         integer(kind=IPRE), intent(in), optional :: p
-        real(kind=RPRE), dimension(:), allocatable :: w
-
-        if ((.not. present(p)) .or. (p == 2.)) then
-            call svd(A, w)
-            norm2 = maxval(w)
-        elseif (p == 1.) then
-            norm2 = maxval(sum(abs(A), dim=2))
-        end if
         return
     end function norm2
 
@@ -6691,69 +6827,7 @@ contains
         return
     end function skewness2
 
-    ! solve
-    !-----------------------------------------------------------------------
-    ! solve solves a linear matrix equation.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! x = solve(A, b)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! x = solve(A, b) returns the "exact" solution of the well-determined
-    ! linear matrix equation Ax = b.
-    !
-    ! Examples
-    !-----------------------------------------------------------------------
-    ! A = reshape([ 11., 7., 3., 2., 12., 6., 7., 9., 4. ], [ 3, 3 ], &
-    !             order = [ 2, 1 ])
-    ! b = [ 34., 44., 37. ]
-    ! x = solve(A, b)
-    !     1.  2.  3.
 
-    function solve(A, b) result(x)
-        real(kind=RPRE), dimension(:, :), intent(in) :: A
-        real(kind=RPRE), dimension(:), intent(in) :: b
-        integer :: i, j, m, n
-        real(kind=RPRE), dimension(:), allocatable :: w, x, y
-        real(kind=RPRE), dimension(:, :), allocatable :: L, U, V
-
-        m = size(A, 1)
-        n = size(A, 2)
-        if (issquare(A)) then
-            x = zeros(m)
-            y = zeros(m)
-            y(1) = b(1)
-
-            ! LU decomposition to solve LUx = b
-            !===================================
-            call lu(A, L, U)
-
-            ! Forward substitution: Ly = b
-            !==============================
-            do i = 2, m
-                y(i) = b(i)
-                do j = 1, i - 1
-                    y(i) = y(i) - y(j)*L(i, j)
-                end do
-            end do
-
-            ! Back substitution: Ux = y
-            !===========================
-            x(m) = y(m)/U(m, m)
-            do i = m - 1, 1, -1
-                x(i) = y(i)
-                do j = m, i + 1, -1
-                    x(i) = x(i) - x(j)*U(i, j)
-                end do
-                x(i) = x(i)/U(i, i)
-            end do
-        else
-            x = svdsolve(A, b)
-        end if
-        return
-    end function solve
 
     ! spline1
     !-----------------------------------------------------------------------
@@ -7149,421 +7223,6 @@ contains
         return
     end function std2
 
-    ! svd
-    !-----------------------------------------------------------------------
-    ! svd computes the singular value decomposition.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! call svd(A, w)
-    ! call svd(A, w, U, V)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! call svd(A, w) returns the singular values of the matrix A sorted in
-    ! descending order.
-    !
-    ! call svd(A, w, U, V) returns the singular values of the m-by-n
-    ! matrix A sorted in descending order. The output matrices are:
-    !   -   w is a n vector
-    !   -   U is a m-by-n unitary matrix
-    !   -   V is a n-by-n unitary matrix
-    !
-    ! Examples
-    !-----------------------------------------------------------------------
-    ! A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 9. ], [ 3, 3 ], &
-    !             order = [ 2, 1 ])
-    ! call svd(A, w)
-    ! call disp(w)
-    !     16.8481007  1.06836963  2.10855418E-07
-    ! call svd(A, w, U, V)
-    ! call disp(U)
-    !     -0.214837193   -0.887230873   -0.408247918
-    !     -0.520587385   -0.249643773   -0.816496670
-    !     -0.826337695    0.387942642    0.408248365
-    ! call disp(V)
-    !     -0.479671091    0.776690900   -0.408248752
-    !     -0.572367728    0.075686932    0.816496611
-    !     -0.665064454   -O.625318289   -0.408247977
-    !
-    ! Notes
-    !-----------------------------------------------------------------------
-    ! This code is adapted from Numerical Recipes in Fortran 90.
-
-    subroutine svd(a, w, u, v, d, ierr)
-        real(kind=RPRE), dimension(:, :), intent(in) :: a
-        real(kind=RPRE), dimension(:), allocatable, intent(out) :: w
-        real(kind=RPRE), dimension(:, :), allocatable, intent(out), optional :: u, v
-        logical, intent(in), optional :: d
-        integer(kind=IPRE), intent(out), optional :: ierr
-        integer(kind=IPRE) :: m, n, i, its, i1, j, k, kk, k1, l, ll, l1, mn
-        integer(kind=IPRE), dimension(:), allocatable :: idx
-        real(kind=RPRE) :: c, f, g, h, s, scale, tst1, tst2, x, y, z
-        real(kind=RPRE), dimension(:), allocatable :: rv1
-        real(kind=RPRE), dimension(:, :), allocatable :: opt_u, opt_v
-        logical :: outu = .false., outv = .false., opt_d = .true., outierr = .false.
-
-        m = size(a, 1)
-        n = size(a, 2)
-
-        if (.not. allocated(w)) allocate (w(n))
-        allocate (rv1(n), opt_u(m, n), opt_v(n, n))
-
-        opt_u = a
-
-        if (present(d)) opt_d = d
-        if (present(u)) outu = .true.
-        if (present(v)) outv = .true.
-        if (present(ierr)) outierr = .true.
-
-        ! Householder reduction to bidiagonal form
-        !==========================================
-        g = 0.0d0
-        scale = 0.0d0
-        x = 0.0d0
-
-        do i = 1, n
-            l = i + 1
-            rv1(i) = scale*g
-            g = 0.0d0
-            s = 0.0d0
-            scale = 0.0d0
-            if (i <= m) then
-                scale = sum(abs(opt_u(i:m, i)))
-                if (scale /= 0.0d0) then
-                    opt_u(i:m, i) = opt_u(i:m, i)/scale
-                    s = sum(opt_u(i:m, i)**2)
-                    f = opt_u(i, i)
-                    g = -sign(sqrt(s), f)
-                    h = f*g - s
-                    opt_u(i, i) = f - g
-                    if (i /= n) then
-                        do j = l, n
-                            s = dot_product(opt_u(i:m, i), opt_u(i:m, j))
-                            opt_u(i:m, j) = opt_u(i:m, j) + s*opt_u(i:m, i)/h
-                        end do
-                    end if
-                    opt_u(i:m, i) = scale*opt_u(i:m, i)
-                end if
-            end if
-
-            w(i) = scale*g
-            g = 0.0d0
-            s = 0.0d0
-            scale = 0.0d0
-
-            if ((i <= m) .and. (i /= n)) then
-                scale = sum(abs(opt_u(i, l:n)))
-                if (scale /= 0.0d0) then
-                    opt_u(i, l:n) = opt_u(i, l:n)/scale
-                    s = sum(opt_u(i, l:n)**2)
-                    f = opt_u(i, l)
-                    g = -sign(sqrt(s), f)
-                    h = f*g - s
-                    opt_u(i, l) = f - g
-                    rv1(l:n) = opt_u(i, l:n)/h
-
-                    if (i /= m) then
-                        do j = l, m
-                            s = dot_product(opt_u(j, l:n), opt_u(i, l:n))
-                            opt_u(j, l:n) = opt_u(j, l:n) + s*rv1(l:n)
-                        end do
-                    end if
-
-                    opt_u(i, l:n) = scale*opt_u(i, l:n)
-                end if
-            end if
-
-            x = max(x, abs(w(i)) + abs(rv1(i)))
-        end do
-
-        ! Accumulation of right-hand transformations
-        !============================================
-        if (outv) then
-            do i = n, 1, -1
-                if (i /= n) then
-                    if (g /= 0.0d0) then
-                        opt_v(l:n, i) = (opt_u(i, l:n)/opt_u(i, l))/g
-                        do j = l, n
-                            s = dot_product(opt_u(i, l:n), opt_v(l:n, j))
-                            opt_v(l:n, j) = opt_v(l:n, j) + s*opt_v(l:n, i)
-                        end do
-                    end if
-                    opt_v(i, l:n) = 0.0d0
-                    opt_v(l:n, i) = 0.0d0
-                end if
-                opt_v(i, i) = 1.0d0
-                g = rv1(i)
-                l = i
-            end do
-        end if
-
-        ! Accumulation of left-hand transformations
-        !===========================================
-        if (outu) then
-            mn = min(m, n)
-            do i = min(m, n), 1, -1
-                l = i + 1
-                g = w(i)
-                if (i /= n) opt_u(i, l:n) = 0.0d0
-                if (g /= 0.0d0) then
-                    if (i /= mn) then
-                        do j = l, n
-                            s = dot_product(opt_u(l:m, i), opt_u(l:m, j))
-                            f = (s/opt_u(i, i))/g
-                            opt_u(i:m, j) = opt_u(i:m, j) + f*opt_u(i:m, i)
-                        end do
-                    end if
-                    opt_u(i:m, i) = opt_u(i:m, i)/g
-                else
-                    opt_u(i:m, i) = 0.0d0
-                end if
-                opt_u(i, i) = opt_u(i, i) + 1.0d0
-            end do
-        end if
-
-        ! Diagonalization of the bidiagonal form
-        !========================================
-        tst1 = x
-        do kk = 1, n
-            k1 = n - kk
-            k = k1 + 1
-            its = 0
-
-            ! Test for splitting
-            !====================
-520         continue
-            do ll = 1, k
-                l1 = k - ll
-                l = l1 + 1
-                tst2 = tst1 + abs(rv1(l))
-                if (tst2 == tst1) goto 565
-                tst2 = tst1 + abs(w(l1))
-                if (tst2 == tst1) exit
-            end do
-
-            ! Cancellation of rv1(l) if L greater than 1
-            !============================================
-            c = 0.0d0
-            s = 1.0d0
-            do i = l, k
-                f = s*rv1(i)
-                rv1(i) = c*rv1(i)
-                tst2 = tst1 + abs(f)
-                if (tst2 == tst1) goto 565
-                g = w(i)
-                h = pythag(f, g)
-                w(i) = h
-                c = g/h
-                s = -f/h
-                if (outu) then
-                    do j = 1, m
-                        y = opt_u(j, l1)
-                        z = opt_u(j, i)
-                        opt_u(j, l1) = y*c + z*s
-                        opt_u(j, i) = -y*s + z*c
-                    end do
-                end if
-            end do
-
-            ! Test for convergence
-            !======================
-565         continue
-            z = w(k)
-            if (l == k) goto 650
-
-            ! Shift from bottom 2 by 2 minor
-            !================================
-            if (its >= 30) then
-                if (outierr) ierr = k
-                return
-            end if
-            its = its + 1
-            x = w(l)
-            y = w(k1)
-            g = rv1(k1)
-            h = rv1(k)
-            f = 0.5d0*(((g + z)/h)*((g - z)/y) + y/h - h/y)
-            g = pythag(f, real(1., kind=RPRE))
-            f = x - (z/x)*z + (h/x)*(y/(f + sign(g, f)) - h)
-
-            ! Next QR transformation
-            !========================
-            c = 1.0d0
-            s = 1.0d0
-            do i1 = l, k1
-                i = i1 + 1
-                g = rv1(i)
-                y = w(i)
-                h = s*g
-                g = c*g
-                z = pythag(f, h)
-                rv1(i1) = z
-                c = f/z
-                s = h/z
-                f = x*c + g*s
-                g = -x*s + g*c
-                h = y*s
-                y = y*c
-                if (outv) then
-                    do j = 1, n
-                        x = opt_v(j, i1)
-                        z = opt_v(j, i)
-                        opt_v(j, i1) = x*c + z*s
-                        opt_v(j, i) = -x*s + z*c
-                    end do
-                end if
-                z = pythag(f, h)
-                w(i1) = z
-
-                ! Rotation can be arbitrary if Z is zero
-                !========================================
-                if (z /= 0.0d0) then
-                    c = f/z
-                    s = h/z
-                end if
-                f = c*g + s*y
-                x = -s*g + c*y
-                if (outu) then
-                    do j = 1, m
-                        y = opt_u(j, i1)
-                        z = opt_u(j, i)
-                        opt_u(j, i1) = y*c + z*s
-                        opt_u(j, i) = -y*s + z*c
-                    end do
-                end if
-            end do
-            rv1(l) = 0.0d0
-            rv1(k) = f
-            w(k) = x
-            go to 520
-
-            ! Convergence
-            !=============
-650         continue
-            if (z <= 0.0d0) then
-                w(k) = -z
-                if (outv) then
-                    opt_v(1:n, k) = -opt_v(1:n, k)
-                end if
-            end if
-        end do
-
-        ! Sort singular values
-        !======================
-        if (opt_d) then
-            idx = argsort(w, 2)
-            w = w(idx)
-            if (present(u)) u = opt_u(:, idx)
-            if (present(v)) v = opt_v(:, idx)
-        else
-            if (present(u)) u = opt_u
-            if (present(v)) v = opt_v
-        end if
-
-        return
-
-    contains
-
-        !-------------------------------------------------------------------
-        ! pythag
-        !-------------------------------------------------------------------
-        real(kind=RPRE) function pythag(x1, x2)
-            real(kind=RPRE), intent(in) :: x1, x2
-            real(kind=RPRE) :: r, s, t, u
-
-            pythag = max(abs(x1), abs(x2))
-            if (pythag /= 0.0d0) then
-                r = (min(abs(x1), abs(x2))/pythag)**2
-                do
-                    t = 4.0d0 + r
-                    if (t == 4.0d0) exit
-                    s = r/t
-                    u = 1.0d0 + 2.0d0*s
-                    pythag = u*pythag
-                    r = (s/u)**2*r
-                end do
-            end if
-            return
-        end function pythag
-
-    end subroutine svd
-
-    ! svdsolve
-    !-----------------------------------------------------------------------
-    ! svdsolve solves a linear matrix equation from the singular value
-    ! decomposition of A.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! x = svdsolve(A, b)
-    ! x = svdsolve(A, b, k)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! x = svdsolve(A, b) returns the full-rank solution of the linear matrix
-    ! equation Ax = b.
-    !
-    ! x = svdsolve(A, b, k) returns the reduced-rank solution of the linear
-    ! matrix equation Ax = b, where A is a m-by-n matrix. Therefore, the
-    ! rank of the solution is n-k.
-    !
-    ! Notes
-    !-----------------------------------------------------------------------
-    ! Sometimes, too small singular values produce very large solution. A
-    ! proper way to determine the cut-off singular value is using a L-curve
-    ! criterion. The cut-off singular value corresponds to the singular
-    ! value from which the residuals norm is not improved while the solution
-    ! norm increases substantially.
-
-    function svdsolve(A, b, cutoff) result(x)
-        real(kind=RPRE), dimension(:, :), intent(in) :: A
-        real(kind=RPRE), dimension(:), intent(in) :: b
-        integer(kind=IPRE), intent(in), optional :: cutoff
-        integer :: i, k, n
-        real(kind=RPRE), dimension(:), allocatable :: w, x, xnorm, resnorm
-        real(kind=RPRE), dimension(:, :), allocatable :: U, V
-
-        n = size(A, 2)
-        k = n
-        if (present(cutoff)) k = k - cutoff
-        xnorm = zeros(n)
-        resnorm = zeros(n)
-        call svd(A, w, U, V)
-        do i = 1, n
-            x = matmul(matmul(matmul(V(:, :i), diag(1/w(:i))), transpose(U(:, :i))), b)
-            xnorm(i) = norm(x)
-            resnorm(i) = norm(matmul(A, x) - b)
-        end do
-        x = matmul(matmul(matmul(V(:, :k), diag(1/w(:k))), transpose(U(:, :k))), b)
-        return
-    end function svdsolve
-
-    ! trace
-    !-----------------------------------------------------------------------
-    ! trace computes the sum of diagonal elements.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! x = trace(A)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! x = trace(A) returns the sum of the elements on the main diagonal of
-    ! the matrix A.
-    !
-    ! Examples
-    !-----------------------------------------------------------------------
-    ! A = eye(3)
-    ! x = trace(A)
-    !     3.
-
-    real(kind=RPRE) function trace(A)
-        real(kind=RPRE), dimension(:, :), intent(in) :: A
-
-        trace = sum(diag(A))
-        return
-    end function trace
 
     ! utm2deg
     !-----------------------------------------------------------------------
