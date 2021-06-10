@@ -42,6 +42,7 @@ forlab = { git = "https://github.com/zoziha/forlab.git" }
 ```bash
 ford API-doc-FORD-file.md  # todo
 ```
+[forlab-API-doc](https://zoziha.github.io/forlab-API-doc/) is here.
 ## Precision Description
 Forlab uses double precision by default.  
 If you have special needs, you can change the variables `ipre` and `rpre` in the `forlab.f90` by yourself.  
