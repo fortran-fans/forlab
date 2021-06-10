@@ -206,7 +206,7 @@ program main
         use forlab, only: disp,logspace
         call disp(logspace(1, 11, 3),'logspace(1, 11, 3):')
         call disp(logspace(1, 1, 3),'logspace(1, 1, 3):')
-        call disp(logspace(1, 0, 1),'logspace(1, 1, 3):')
+        call disp(logspace(1, 0, 1),'logspace(1, 1, 1):')
     end block
 
 end program
