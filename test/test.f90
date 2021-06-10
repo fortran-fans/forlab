@@ -86,7 +86,7 @@ program main
         real*8, allocatable :: x(:)
         call disp('---------------------')
         call rng()
-        x = randn(5)
+        x = randn(3)
         call disp(x)
         call savebin('DP.bin', x)
         call savetxt('DP.txt', x)
@@ -201,5 +201,5 @@ program main
         call disp(randi([10, 100]),'x = randi([imin, imax]):')
         call disp(randi([10, 100], 2, 3),'A = randi([imin, imax], dim1, dim2):')
     end block
-    
+
 end program
