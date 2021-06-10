@@ -2,8 +2,6 @@
 submodule(forlab) forlab_empty
     !! Version: experimental
     !!
-    !! Interface: empty, sempty, dempty, qempty
-    !!
     !! Create uninitialized matrices quickly, faster than `ones`/`zeros` function,
     !! and use `empty` function with caution.
     !!
