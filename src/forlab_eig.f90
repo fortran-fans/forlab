@@ -1,6 +1,22 @@
 
 
 submodule(forlab) forlab_eig
+    !! Version: expermental
+    !!
+    !! eig computes eigenvalues and eigenvectors of symmetric matrix using Jacobi algorithm.
+    !!([Interface](../interface/eig.html))
+    !!## Syntax
+    !!
+    !!      call eig(A, V, d)
+    !!      call eig(A, V, d, itermax)
+    !!
+    !!## Description
+    !!
+    !!  `call eig(A, V, d)` returns the eigenvalues of the symmetric matrix A
+    !! in the vector d and the associated eigenvectors in the matrix V.
+    !!
+    !!  `call eig(A, V, d, itermax)` returns eigenvalues and eigenvectors with a maximum
+    !! of itermax iterations.
     use forlab_kinds
     implicit none
 contains

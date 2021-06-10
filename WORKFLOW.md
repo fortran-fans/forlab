@@ -36,6 +36,37 @@ fpm test
 last, don't forget log your work has been done in `ChangeLog.md`✔.  
 > Please refer to [gnu changelog](https://www.gnu.org/prep/standards/html_node/Change-Logs.html) for the format of `ChangeLog.md`.
 
+### fypp example
+#### submodule.fypp example
+```fortran
+!! comments for this file
+
+submodule (forlab) forlab_zeros
+    !! comments for this submodule
+    !!([Interface](../interface/zeros.html))
+
+    ...
+
+contains
+end submodule
+
+```
+#### forlab.fypp example
+```fortran
+module forlab
+    interface zeros
+        !! brief comment for this function/subroutine interface
+        !!([Specification](../module/forlab_zeros.html))
+
+        ...
+
+    end interface
+
+end module
+
+```
+
+
 ### Push your work
 1. git add your work.
 2. git push to origin repo.
@@ -53,17 +84,3 @@ for forlab and make it more perfect.
 1. [Armadillo](http://arma.sourceforge.net/docs.html):   
 C++ library for linear algebra & scientific computing.
 2. 
-
-### ~~Add f90 files~~
-**Note: In order to avoid ambiguity, we will not add the f90 file source code now.**
-1. add a submodule f90 files
-    + submodule name
-    + use forlab_kinds
-    + module porcedure
-    + formatted
-2. add forlab interface
-3. update makefile
-    + add f90
-    + add dependencies
-4. make test
-    + make && test

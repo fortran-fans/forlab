@@ -217,6 +217,8 @@ module forlab
 
 
     interface det
+        !! det computes the matrix determinant.
+        !!([Specification](../module/forlab_det.html))
         #:for k1,t1 in REAL_KINDS_TYPES
         ${t1}$ module function det_${k1}$ (A, outL, outU)
             ${t1}$, dimension(:, :), intent(in) :: A
@@ -226,30 +228,8 @@ module forlab
     end interface
 
     interface diag
-        !! Version: experimental
-        !!
         !! diag creates diagonal matrix or get the diagonal of a matrix.
-        !!
-        !!## Syntax
-        !!    x = diag(A)
-        !!    A = diag(x)
-        !!
-        !!## Description
-        !! `x = diag(A)` returns the main diagonal of matrix `A`.
-        !!
-        !! `A = diag(x)` returns a square diagonal matrix with the elements of `x` on
-        !! the main diagonal.
-        !!
-        !!## Examples
-        !!    A = eye(3)
-        !!    x = diag(A)
-        !!        1.  1.  1.
-        !!
-        !!    x = [ 1., 2., 3. ]
-        !!    A = diag(x)
-        !!        1.  0.  0.
-        !!        0.  2.  0.
-        !!        0.  0.  3.
+        !!([Specification](../module/forlab_diag.html))
         #:for k1,t1 in REAL_KINDS_TYPES
             module function diag1_${k1}$ (A)
                 ${t1}$, dimension(:), allocatable :: diag1_${k1}$
@@ -337,22 +317,8 @@ module forlab
     end interface
 
     interface eig
-        !! Version: expermental
-        !!
         !! eig computes eigenvalues and eigenvectors of symmetric matrix using Jacobi algorithm.
-        !!
-        !!## Syntax
-        !!
-        !!      call eig(A, V, d)
-        !!      call eig(A, V, d, itermax)
-        !!
-        !!## Description
-        !!
-        !!  `call eig(A, V, d)` returns the eigenvalues of the symmetric matrix A
-        !! in the vector d and the associated eigenvectors in the matrix V.
-        !!
-        !!  `call eig(A, V, d, itermax)` returns eigenvalues and eigenvectors with a maximum
-        !! of itermax iterations.
+        !!([Specification](../module/forlab_eig.html))
         #:for k1, t1 in REAL_KINDS_TYPES
         module subroutine eig_${k1}$(A,V,d,itermax)
             ${t1}$, dimension(:, :), intent(in) :: A
@@ -360,7 +326,6 @@ module forlab
             ${t1}$, dimension(:), allocatable, intent(out) :: d
             integer, intent(in), optional :: itermax
         end subroutine eig_${k1}$
-
         #:endfor
     end interface eig
 
@@ -623,32 +588,7 @@ module forlab
 
     interface norm
         !! norm computes vector and matrix norms.
-        !!
-        !!## Syntax
-        !!
-        !!      y = norm(x)
-        !!      y = norm(x, p)
-        !!      x = norm(A)
-        !!      x = norm(A, p)
-        !!
-        !!## Description
-        !!
-        !! `y = norm(x)` returns the 2-norm or Euclidian norm of vector x.
-        !!
-        !! `y = norm(x, p)` returns the p-norm of vector x, where p is any positive
-        !! real value.
-        !!
-        !! `x = norm(A)` returns the 2-norm of matrix A (largest singular value).
-        !!
-        !! `x = norm(A, p)` returns the p-norm of matrix A, where p is {1, 2}.
-        !!
-        !!## Examples
-        !!
-        !!      x = [ 1., 2., 3. ]
-        !!      y = norm(x)
-        !!          3.74165750
-        !!      y = norm(x, 3.)
-        !!          3.30192733
+        !!([Specification](../module/forlab_norm.html))
         #:for k1,t1 in REAL_KINDS_TYPES
         module function norm1_${k1}$(x,p)result(norm1)
             ${t1}$, dimension(:), intent(in) :: x

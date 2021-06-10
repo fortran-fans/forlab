@@ -1,5 +1,27 @@
 
 submodule(forlab) forlab_argsort
+    !! Version: expermental
+    !!# argsort
+    !! argsort generates the indices that would sort an array.
+    !!
+    !!## Syntax
+    !!      y = argsort(x)
+    !!      y = argsort(x, 1)
+    !!      y = argsort(x, 2)
+    !!
+    !!## Description
+    !!
+    !! `y = argsort(x)` returns the indices that would sort an array in
+    !! ascending order.
+    !!
+    !! `y = argsort(x, 1)` (see `y = argsort(x)`).
+    !!
+    !! `y = argsort(x, 2)` returns the indices that would sort an array in
+    !! descending order.
+    !!
+    !!## Notes
+    !!
+    !! `x(argsort(x), order)` returns the same result as `sort(x, order)`.
     use forlab_kinds
     implicit none
 contains
