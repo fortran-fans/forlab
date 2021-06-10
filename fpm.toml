@@ -14,5 +14,7 @@ source-dir="src"
 
 [build]
 auto-executables = false
+# If you want to test or run the `example` folder examples, 
+# just set to : auto-examples = true
 auto-examples = false
 auto-tests = true

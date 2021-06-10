@@ -880,6 +880,8 @@ module forlab
     end interface log2
 
     interface lu
+        !! lu computes the LU matrix factorization.
+        !!([Specification](../module/forlab_lu.html))
         module subroutine lu_sp (A, L, U)
             real(sp), dimension(:, :), intent(in) :: A
             real(sp), dimension(:, :), allocatable, intent(out) :: L, U
@@ -926,37 +928,31 @@ module forlab
             real(sp), intent(in), optional :: p
             real(sp):: norm1
         end function norm1_sp
-
         module function norm2_sp(A,p)result(norm2)
             real(sp), dimension(:,:), intent(in) :: A
             real(sp), intent(in), optional :: p
             real(sp):: norm2
         end function norm2_sp
-
         module function norm1_dp(x,p)result(norm1)
             real(dp), dimension(:), intent(in) :: x
             real(dp), intent(in), optional :: p
             real(dp):: norm1
         end function norm1_dp
-
         module function norm2_dp(A,p)result(norm2)
             real(dp), dimension(:,:), intent(in) :: A
             real(dp), intent(in), optional :: p
             real(dp):: norm2
         end function norm2_dp
-
         module function norm1_qp(x,p)result(norm1)
             real(qp), dimension(:), intent(in) :: x
             real(qp), intent(in), optional :: p
             real(qp):: norm1
         end function norm1_qp
-
         module function norm2_qp(A,p)result(norm2)
             real(qp), dimension(:,:), intent(in) :: A
             real(qp), intent(in), optional :: p
             real(qp):: norm2
         end function norm2_qp
-
     end interface norm
 
     interface normpdf
@@ -1048,9 +1044,15 @@ module forlab
     end interface prctile
 
     interface randi
-        module procedure randi0_0, randi0_1, randi1_0, randi1_1, randi2_0, &
-            randi2_1, randi3_0, randi3_1
-    end interface randi
+        procedure :: randi_0_0
+        procedure :: randi_0_1
+        procedure :: randi_1_0
+        procedure :: randi_1_1
+        procedure :: randi_2_0
+        procedure :: randi_2_1
+        procedure :: randi_3_0
+        procedure :: randi_3_1
+    end interface
 
     interface randn
         procedure randn_0_sp
@@ -1893,6 +1895,48 @@ module forlab
             real(qp), dimension(:, :), allocatable :: loadtxt_2_qp
             character(len=*), intent(in) :: filename
             integer, intent(in) :: dim2
+        end function
+    end interface
+
+    !! Randi
+    interface
+        module function randi_0_0(imax)
+            integer :: randi_0_0
+            integer, intent(in) :: imax
+        end function
+        module function randi_0_1(imax)
+            integer :: randi_0_1
+            integer, dimension(2), intent(in) :: imax
+        end function
+        module function randi_1_0(imax, dim1)
+            integer, dimension(:), allocatable :: randi_1_0
+            integer, intent(in) :: dim1
+            integer, intent(in) :: imax
+        end function
+        module function randi_1_1(imax, dim1)
+            integer, dimension(:), allocatable :: randi_1_1
+            integer, intent(in) :: dim1
+            integer, dimension(2), intent(in) :: imax
+        end function
+        module function randi_2_0(imax, dim1, dim2)
+            integer, dimension(:,:), allocatable :: randi_2_0
+            integer, intent(in) :: dim1, dim2
+            integer, intent(in) :: imax
+        end function
+        module function randi_2_1(imax, dim1, dim2)
+            integer, dimension(:,:), allocatable :: randi_2_1
+            integer, intent(in) :: dim1, dim2
+            integer, dimension(2), intent(in) :: imax
+        end function
+        module function randi_3_0(imax, dim1, dim2, dim3)
+            integer, dimension(:,:,:), allocatable :: randi_3_0
+            integer, intent(in) :: dim1, dim2, dim3
+            integer, intent(in) :: imax
+        end function
+        module function randi_3_1(imax, dim1, dim2, dim3)
+            integer, dimension(:,:,:), allocatable :: randi_3_1
+            integer, intent(in) :: dim1, dim2, dim3
+            integer, dimension(2), intent(in) :: imax
         end function
     end interface
 
@@ -6052,112 +6096,6 @@ contains
         write (*, "(A1, A, F6.2, A)", advance="no") char(13), opt_prefix, perc, "%"
         return
     end subroutine progress_perc
-
-
-    ! randi
-    !-----------------------------------------------------------------------
-    ! randi generates uniformly distributed random integers.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! x = randi(imax)
-    ! x = randi([imin, imax])
-    ! x = randi(imax, dim1)
-    ! x = randi([imin, imax], dim1)
-    ! A = randi(imax, dim1, dim2)
-    ! A = randi([imin, imax], dim1, dim2)
-    ! X = randi(imax, dim1, dim2, dim3)
-    ! X = randi([imin, imax], dim1, dim2, dim3)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! x = randi(imax) returns a random scalar integer between 1 and imax.
-    !
-    ! x = randi([imin, imax]) returns a random scalar integer between imin
-    ! and imax.
-    !
-    ! x = randi(imax, dim1) returns a dim1 vector of random scalar integers
-    ! between 1 and imax.
-    !
-    ! x = randi([imin, imax], dim1) returns a dim1 vector of random scalar
-    ! integers between imin and imax.
-    !
-    ! A = randi(imax, dim1, dim2) returns a dim1-by-dim2 matrix of random
-    ! scalar integers between 1 and imax.
-    !
-    ! A = randi([imin, imax], dim1, dim2) returns a dim1-by-dim2 matrix of
-    ! random scalar integers between imin and imax.
-    !
-    ! X = randi(imax, dim1, dim2, dim3) returns a dim1-by-dim2-by-dim3
-    ! 3-dimensional matrix of random scalar integers between 1 and imax.
-    !
-    ! X = randi([imin, imax], dim1, dim2, dim3) returns a dim1-by-dim2-by-dim3
-    ! 3-dimensional matrix of random scalar integers between imin and imax.
-
-    integer(kind=IPRE) function randi0_0(imax)
-        integer(kind=IPRE), intent(in) :: imax
-
-        randi0_0 = floor(randu()*real(imax)) + 1
-        return
-    end function randi0_0
-
-    integer(kind=IPRE) function randi0_1(imax)
-        integer(kind=IPRE), dimension(2), intent(in) :: imax
-
-        randi0_1 = minval(imax) + nint(randu()*real(maxval(imax) - minval(imax)))
-        return
-    end function randi0_1
-
-    function randi1_0(imax, dim1)
-        integer(kind=IPRE), dimension(:), allocatable :: randi1_0
-        integer(kind=IPRE), intent(in) :: imax, dim1
-
-        randi1_0 = floor(randu(dim1)*real(imax)) + 1
-        return
-    end function randi1_0
-
-    function randi1_1(imax, dim1)
-        integer(kind=IPRE), dimension(:), allocatable :: randi1_1
-        integer(kind=IPRE), dimension(2), intent(in) :: imax
-        integer(kind=IPRE), intent(in) :: dim1
-
-        randi1_1 = minval(imax) + nint(randu(dim1)*real(maxval(imax) - minval(imax)))
-        return
-    end function randi1_1
-
-    function randi2_0(imax, dim1, dim2)
-        integer(kind=IPRE), dimension(:, :), allocatable :: randi2_0
-        integer(kind=IPRE), intent(in) :: imax, dim1, dim2
-
-        randi2_0 = floor(randu(dim1, dim2)*real(imax)) + 1
-        return
-    end function randi2_0
-
-    function randi2_1(imax, dim1, dim2)
-        integer(kind=IPRE), dimension(:, :), allocatable :: randi2_1
-        integer(kind=IPRE), dimension(2), intent(in) :: imax
-        integer(kind=IPRE), intent(in) :: dim1, dim2
-
-        randi2_1 = minval(imax) + nint(randu(dim1, dim2)*real(maxval(imax) - minval(imax)))
-        return
-    end function randi2_1
-
-    function randi3_0(imax, dim1, dim2, dim3)
-        integer(kind=IPRE), dimension(:, :, :), allocatable :: randi3_0
-        integer(kind=IPRE), intent(in) :: imax, dim1, dim2, dim3
-
-        randi3_0 = floor(randu(dim1, dim2, dim3)*real(imax)) + 1
-        return
-    end function randi3_0
-
-    function randi3_1(imax, dim1, dim2, dim3)
-        integer(kind=IPRE), dimension(:, :, :), allocatable :: randi3_1
-        integer(kind=IPRE), dimension(2), intent(in) :: imax
-        integer(kind=IPRE), intent(in) :: dim1, dim2, dim3
-
-        randi3_1 = minval(imax) + nint(randu(dim1, dim2, dim3)*real(maxval(imax) - minval(imax)))
-        return
-    end function randi3_1
 
     ! randperm
     !-----------------------------------------------------------------------

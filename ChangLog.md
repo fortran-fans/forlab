@@ -21,7 +21,8 @@
         * src/fypp/forlab_load.fypp:
         * src/fypp/forlab_num2str.fypp: (#10 PR)
         * src/fypp/forlab_ones.fypp:
-        * src/fypp/forlab_operator_x.fypp:
+        * src/fypp/forlab_operator_x.fypp: matmul
+        * src/fypp/forlab_randi.fypp: integer(4)
         * src/fypp/forlab_randn.fypp:
         * src/fypp/forlab_randu.fypp:
         * src/fypp/forlab_rng.fypp:
@@ -39,15 +40,17 @@
         Provide multi-precision functions, set submodule files.
 
         * src/fypp/forlab_argsort.fypp:
-        * src/fypp/forlab_degcir.fypp:
         * src/fypp/forlab_chol.fypp:
+        * src/fypp/forlab_degcir.fypp:
         * src/fypp/forlab_eig.fypp:
         * src/fypp/forlab_issymmertric.fypp:
         * src/fypp/forlab_norm.fypp:
         * src/fypp/forlab_sort.fypp:
-        * src/fypp/forlab_tri.fypp:
+        * src/fypp/forlab_solve.fypp:
         * src/fypp/forlab_svd.fypp:
         * src/fypp/forlab_svdsolve.fypp:
+        * src/fypp/forlab_trace.fypp:
+        * src/fypp/forlab_tri.fypp:
 
 2021-06-09  St-Maxwell
 

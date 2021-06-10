@@ -7,11 +7,11 @@ submodule(forlab) forlab_chol
     !! chol computes Cholesky's decomposition of a symmetric positive
     !! definite matrix.
     !!
-    !!## Syntax
+    !!### Syntax
     !!
     !!      L = chol(A)
     !!
-    !!## Description
+    !!### Description
     !!
     !!  `L = chol(A)` returns a lower triangular matrix L satisfying the
     !! equation A = L*Lt.

@@ -1,34 +1,32 @@
 submodule(forlab) forlab_lu
     !! lu computes the LU matrix factorization.
+    !!([Interface](../interface/lu.html))
     !!
-    !! Syntax
-    !!-----------------------------------------------------------------------
-    !! call lu(A, L, U)
+    !!### Syntax
+    !!    call lu(A, L, U)
     !!
-    !! Description
-    !!---------------------------------------------------------------------
-    !! call lu(A, L, U) returns the LU matrix factorization of the input
+    !!### Description
+    !! `call lu(A, L, U)` returns the LU matrix factorization of the input
     !! square m-by-m matrix A. The output matrices are:
     !!   -   L is a m-by-m lower triangular matrix with ones on the diagonal,
     !!   -   U is a m-by-m upper triangular matrix.
     !!
-    !! Examples
-    !!---------------------------------------------------------------------
-    !! A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 9. ], [ 3, 3 ], &
-    !!             order = [ 2, 1 ])
-    !! call lu(A, L, U)
-    !! call disp(L)
-    !!     1.  0.  0.
-    !!     4.  1.  0.
-    !!     7.  2.  1.
-    !! call disp(U)
-    !!     1.  2.  3.
-    !!     0. -3. -6.
-    !!     0.  0.  0.
-    !! call disp(matmul(L, U))
-    !!     1.  2.  3.
-    !!     4.  5.  6.
-    !!     7.  8.  9.
+    !!### Examples
+    !!    A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 9. ], [ 3, 3 ], &
+    !!                order = [ 2, 1 ])
+    !!    call lu(A, L, U)
+    !!    call disp(L)
+    !!        1.  0.  0.
+    !!        4.  1.  0.
+    !!        7.  2.  1.
+    !!    call disp(U)
+    !!        1.  2.  3.
+    !!        0. -3. -6.
+    !!        0.  0.  0.
+    !!    call disp(matmul(L, U))
+    !!        1.  2.  3.
+    !!        4.  5.  6.
+    !!        7.  8.  9.
     use forlab_kinds
     implicit none
     
