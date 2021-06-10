@@ -11,9 +11,14 @@ module forlab_file
         generic, public :: countlines => countlines1
         generic, public :: exist => file_exist
     end type file
+
     interface file
         procedure init_file
     end interface file
+
+    interface countlines
+        procedure countlines2
+    end interface countlines
 contains
 
     ! open
