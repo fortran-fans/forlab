@@ -13,6 +13,7 @@
 ! When changing precision (IPRE and/or RPRE), the whole program needs to
 ! be recompiled.
 
+
 module forlab
 
     use forlab_kinds
@@ -43,7 +44,7 @@ module forlab
               svd, svdsolve, std, spline1, spline2, skewness, signum, sinc, &
               split_argument, tand, tic, toc, trace, tril, triu, utm2deg, vertcat, &
               var, dbindex, gmm, kmeans, mbkmeans, silhouette
-    !!\TODO: fixme with fypp function
+
     public :: empty, sempty, dempty, qempty
     public :: eye, seye, deye, qeye
     public :: linspace, slinspace, dlinspace, qlinspace

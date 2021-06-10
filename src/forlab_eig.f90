@@ -53,7 +53,7 @@ contains
 
             do i = 1, n
             do j = i + 1, n
-            gapj = 10*abs(B(i, j))
+            gapj = 10_sp*abs(B(i, j))
             termi = gapj + abs(d(i))
             termj = gapj + abs(d(j))
 
@@ -158,7 +158,7 @@ contains
 
             do i = 1, n
             do j = i + 1, n
-            gapj = 10*abs(B(i, j))
+            gapj = 10_dp*abs(B(i, j))
             termi = gapj + abs(d(i))
             termj = gapj + abs(d(j))
 
@@ -263,7 +263,7 @@ contains
 
             do i = 1, n
             do j = i + 1, n
-            gapj = 10*abs(B(i, j))
+            gapj = 10_qp*abs(B(i, j))
             termi = gapj + abs(d(i))
             termj = gapj + abs(d(j))
 

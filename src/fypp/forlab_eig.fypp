@@ -55,7 +55,7 @@ contains
 
             do i = 1, n
             do j = i + 1, n
-            gapj = 10*abs(B(i, j))
+            gapj = 10_${k1}$*abs(B(i, j))
             termi = gapj + abs(d(i))
             termj = gapj + abs(d(j))
 

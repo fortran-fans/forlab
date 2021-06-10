@@ -66,11 +66,13 @@ submodule(forlab) forlab_disp
     !!            7.  8.  9.
     use forlab_kinds
     implicit none
+
     #:for k1,t1 in REAL_KINDS_TYPES
-        ${t1}$, parameter :: nearzero_${k1}$ = 1.0e-10_${k1}$
+    ${t1}$, parameter :: nearzero_${k1}$ = 1.0e-10_${k1}$
     #:endfor
     character(len=*), parameter :: fmt_r = "( *( g11.4, 1x ) )"
     character(len=*), parameter :: fmt_c = "( *( g11.4, a1, g11.4, a1, 1x ) )"
+
     interface filter
         #:for k1,t1 in REAL_KINDS_TYPES
         procedure filter_${k1}$
@@ -258,8 +260,8 @@ contains
         filter_${k1}$ = x
         if (abs(x) < nearzero_${k1}$) filter_${k1}$ = 0.0_${k1}$
     end function
-
     #:endfor
+    
     module procedure disp_str
         if (present(string)) then
             print *, trim(string)
