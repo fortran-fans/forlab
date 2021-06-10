@@ -3,15 +3,15 @@ submodule(forlab) forlab_linspace
     !! Version: experimental
     !!
     !! linspace creates a linearly spaced vector.   
-    !!
-    !!## Syntax
+    !!([Interface](../interface/linspace.html))
+    !!### Syntax
     !!    x = linspace(x1, x2, n)
     !!
-    !!## Description
+    !!### Description
     !! `x = linspace(x1, x2, n)` returns a vector of n evenly spaced points
-    !! between x1 and x2.
+    !! between `x1` and `x2`.
     !!
-    !!## Examples
+    !!### Examples
     !!    x = linspace(0, 10, 11)
     !!        0.  1.  2.  3.  4.  5.  6.  7.  8.  9.  10.
     use forlab_kinds
@@ -31,19 +31,39 @@ contains
     end procedure
 
     module procedure linspace_ii_${k1}$
-        if (n<=1) print *, ('Error: in linspace, n should be > 1.')
         linspace_ii_${k1}$ = ${k1[0]}$linspace(real(first, kind=${k1}$), real(last, kind=${k1}$), n)
     end procedure 
 
     module procedure linspace_ri_${k1}$
-        if (n<=1) print *, ('Error: in linspace, n should be > 1.')
         linspace_ri_${k1}$ = ${k1[0]}$linspace(first, real(last, kind=${k1}$), n)
         return
     end procedure
 
     module procedure linspace_ir_${k1}$
-        if (n>1) print *, ('Error: in linspace, n should be > 1.')
         linspace_ir_${k1}$ = ${k1[0]}$linspace(real(first, kind=${k1}$), last, n)
+        return
+    end procedure
+
+    module procedure logspace_rr_${k1}$
+        logspace_rr_${k1}$ = ${k1[0]}$linspace(log10(first), log10(last), n)
+        logspace_rr_${k1}$ = 10._${k1}$**logspace_rr_${k1}$
+        return
+    end procedure
+
+    module procedure logspace_ii_${k1}$
+        logspace_ii_${k1}$ = ${k1[0]}$linspace(log10(real(first, kind=${k1}$)), log10(real(last, kind=${k1}$)), n)
+        logspace_ii_${k1}$ = 10._${k1}$**logspace_ii_${k1}$
+    end procedure 
+
+    module procedure logspace_ri_${k1}$
+        logspace_ri_${k1}$ = ${k1[0]}$linspace(log10(first), log10(real(last, kind=${k1}$)), n)
+        logspace_ri_${k1}$ = 10._${k1}$**logspace_ri_${k1}$
+        return
+    end procedure
+
+    module procedure logspace_ir_${k1}$
+        logspace_ir_${k1}$ = ${k1[0]}$linspace(log10(real(first, kind=${k1}$)), log10(last), n)
+        logspace_ir_${k1}$ = 10._${k1}$**logspace_ir_${k1}$
         return
     end procedure
 
