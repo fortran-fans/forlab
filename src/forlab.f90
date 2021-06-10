@@ -69,172 +69,70 @@ module forlab
     end interface
 
     !! Polymorphic Interfaces
+
     interface angle
+        !! angle compute the phase angle.
+        !!([Specification](../module/forlab_angle.html))
         real(sp) elemental module function angle_sp(z)
             complex(sp), intent(in) :: z
         end function
-
         real(dp) elemental module function angle_dp(z)
             complex(dp), intent(in) :: z
         end function
-
         real(qp) elemental module function angle_qp(z)
             complex(qp), intent(in) :: z
         end function
-
     end interface
 
     interface acosd
-        !! Version: experimental
-        !!
-        !! acosd computes the inverse cosine in degrees.
-        !!
-        !!## Syntax
-        !!    y = acosd(x)
-        !!
-        !!## Description
-        !! `y = acosd(x)` returns the inverse cosine of the elements in x in
-        !! degrees. For real elements of x in the domain [-1,1], acosd returns
-        !! values in the range [0,180]. For values of x outside this range,
-        !! acosd returns NaN (Not a Number).
-        !!
-        !!## Examples
-        !!    y = acosd(1.)
-        !!        1.
-        !!
-        !!    y = acosd(2.)
-        !!        NaN
-        !!
-        !!    x = [ -1., 0., 1. ]
-        !!    y = acosd(x)
-        !!        180.  90.   0.
-
-
+        !! degree circular functions
+        !!([Specification](../module/forlab_degcir.html))
         pure elemental module function acosd_sp(x)
         real(sp),intent(in)::x
         real(sp)::acosd_sp
         end function
-
         pure elemental module function acosd_dp(x)
         real(dp),intent(in)::x
         real(dp)::acosd_dp
         end function
-
         pure elemental module function acosd_qp(x)
         real(qp),intent(in)::x
         real(qp)::acosd_qp
         end function
-
     end interface acosd
-
     interface asind
-
-        !! asind
-        !!
-        !! asind computes the inverse sine in degrees.
-        !!
-        !!## Syntax
-        !!    y = asind(x)
-        !!
-        !!## Description
-        !! `y = asind(x)` returns the inverse sine of the elements in x in degrees.
-        !! For real elements of x in the domain [-1,1], asind returns values in
-        !! the range [-90,90]. For values of x outside this range, asind returns
-        !! NaN (Not a Number).
-        !!
-        !!## Examples
-        !!    y = asind(1.)
-        !!        90.
-        !!
-        !!    y = asind(2.)
-        !!        NaN
-        !!
-        !!    x = [ -1., 0., 1. ]
-        !!    y = asind(x)
-        !!        -90.  0.  90.
-
+        !! degree circular functions
+        !!([Specification](../module/forlab_degcir.html))
         pure elemental module function asind_sp(x)
         real(sp),intent(in)::x
         real(sp)::asind_sp
         end function
-
         pure elemental module function asind_dp(x)
         real(dp),intent(in)::x
         real(dp)::asind_dp
         end function
-
         pure elemental module function asind_qp(x)
         real(qp),intent(in)::x
         real(qp)::asind_qp
         end function
-
     end interface asind
-
     interface atand
-
-
-        !! atand
-        !!
-        !! atand computes the inverse tangent in degrees.
-        !!
-        !!## Syntax
-        !!     y = atand(x)
-        !!
-        !!## Description
-        !! `y = atand(x)` returns the inverse tangent of the elements in x in
-        !! degrees. For real elements of x in the domain [-Inf,Inf], atand
-        !! returns values in the range [-90,90].
-        !!
-        !!## Examples
-        !!     y = atand(0.)
-        !!         0.
-        !!
-        !!     y = atand(50.)
-        !!         88.8542328
-        !!
-        !!     x = [ -50., 0., 50. ]
-        !!     y = atand(x)
-        !!         -88.8542328   0.  88.8542328
+        !! degree circular functions
+        !!([Specification](../module/forlab_degcir.html))
         pure elemental module function atand_sp(x)
         real(sp),intent(in)::x
         real(sp)::atand_sp
         end function
-
         pure elemental module function atand_dp(x)
         real(dp),intent(in)::x
         real(dp)::atand_dp
         end function
-
         pure elemental module function atand_qp(x)
         real(qp),intent(in)::x
         real(qp)::atand_qp
         end function
-
     end interface atand
-
     interface cosd
-
-        !! cosd computes the cosine of argument in degrees.
-        !!
-        !!## Syntax
-        !!
-        !!      y = cosd(x)
-        !!
-        !!## Description
-        !!
-        !!  `y = cosd(x)` returns the cosine of the elements in x, which are
-        !! expressed in degrees.
-        !!
-        !!## Examples
-        !!
-        !!      y = cosd(0.)
-        !!          1.
-        !!
-        !!      x = [ 0., 90., 180., 270. ]
-        !!      y = cosd(x)
-        !!          1.  0. -1.  0.
-
-
         pure elemental module function cosd_sp(x)
         real(sp),intent(in)::x
         real(sp)::cosd_sp
@@ -248,30 +146,7 @@ module forlab
         real(qp)::cosd_qp
         end function
     end interface cosd
-
     interface sind
-        !! sind computes the sine of argument in degrees.
-        !!
-        !!## Syntax
-        !!
-        !!      y = sind(x)
-        !!
-        !!## Description
-        !!
-        !!  `y = sind(x)` returns the sine of the elements in x, which are expressed
-        !! in degrees.
-        !!
-        !!## Examples
-        !!
-        !!      y = sind(90.)
-        !!          1.
-        !!
-        !!      x = [ 0., 90., 180., 270. ]
-        !!      y = sind(x)
-        !!            0.  1.  0.  -1.
-
-
-
         pure elemental module function sind_sp(x)
         real(sp),intent(in)::x
         real(sp)::sind_sp
@@ -285,32 +160,7 @@ module forlab
         real(qp)::sind_qp
         end function
     end interface sind
-
     interface tand
-
-
-        !!## tand
-        !!
-        !! tand computes the tangent of argument in degrees.
-        !!
-        !!## Syntax
-        !!
-        !!      y = tand(x)
-        !!
-        !!## Description
-        !!
-        !!  `y = tand(x)` returns the tangent of the elements in x, which are
-        !! expressed in degrees.
-        !!
-        !!## Examples
-        !!
-        !!      y = tand(0.)
-        !!           0.
-        !!
-        !!      x = [ 0., 90., 180., 270. ]
-        !!      y = tand(x)
-        !!           0.  Inf   0.  -Inf
-
         pure elemental module function tand_sp(x)
         real(sp),intent(in)::x
         real(sp)::tand_sp
@@ -325,24 +175,25 @@ module forlab
         end function
     end interface tand
 
-
     interface arange
-            module function arange_int8 (first, last)
-                integer(int8), dimension(:), allocatable :: arange_int8
-                integer(int8), intent(in) :: first, last
-            end function
-            module function arange_int16 (first, last)
-                integer(int16), dimension(:), allocatable :: arange_int16
-                integer(int16), intent(in) :: first, last
-            end function
-            module function arange_int32 (first, last)
-                integer(int32), dimension(:), allocatable :: arange_int32
-                integer(int32), intent(in) :: first, last
-            end function
-            module function arange_int64 (first, last)
-                integer(int64), dimension(:), allocatable :: arange_int64
-                integer(int64), intent(in) :: first, last
-            end function
+        !! arange returns evenly spaced vector.
+        !!([Specification](../module/forlab_arange.html))
+        module function arange_int8 (first, last)
+            integer(int8), dimension(:), allocatable :: arange_int8
+            integer(int8), intent(in) :: first, last
+        end function
+        module function arange_int16 (first, last)
+            integer(int16), dimension(:), allocatable :: arange_int16
+            integer(int16), intent(in) :: first, last
+        end function
+        module function arange_int32 (first, last)
+            integer(int32), dimension(:), allocatable :: arange_int32
+            integer(int32), intent(in) :: first, last
+        end function
+        module function arange_int64 (first, last)
+            integer(int64), dimension(:), allocatable :: arange_int64
+            integer(int64), intent(in) :: first, last
+        end function
     end interface
 
     interface argmax
@@ -354,70 +205,43 @@ module forlab
     end interface argmin
 
     interface argsort
-        !! Version: expermental
-        !!
         !! argsort generates the indices that would sort an array.
-        !!
-        !!## Syntax
-        !!      y = argsort(x)
-        !!      y = argsort(x, 1)
-        !!      y = argsort(x, 2)
-        !!
-        !!## Description
-        !!
-        !! `y = argsort(x)` returns the indices that would sort an array in
-        !! ascending order.
-        !!
-        !! `y = argsort(x, 1)` (see `y = argsort(x)`).
-        !!
-        !! `y = argsort(x, 2)` returns the indices that would sort an array in
-        !! descending order.
-        !!
-        !!## Notes
-        !!
-        !! `x(argsort(x), order)` returns the same result as `sort(x, order)`.
+        !!([Specification](../module/forlab_argsort.html))
         module function argsort_int8(x,order)
             integer,allocatable::argsort_int8(:)
             integer(int8),intent(in)::x(:)
             integer,optional,intent(in)::order
         end function argsort_int8
-
         module function argsort_int16(x,order)
             integer,allocatable::argsort_int16(:)
             integer(int16),intent(in)::x(:)
             integer,optional,intent(in)::order
         end function argsort_int16
-
         module function argsort_int32(x,order)
             integer,allocatable::argsort_int32(:)
             integer(int32),intent(in)::x(:)
             integer,optional,intent(in)::order
         end function argsort_int32
-
         module function argsort_int64(x,order)
             integer,allocatable::argsort_int64(:)
             integer(int64),intent(in)::x(:)
             integer,optional,intent(in)::order
         end function argsort_int64
-
         module function argsort_sp(x,order)
             integer,allocatable::argsort_sp(:)
             real(sp),intent(in)::x(:)
             integer,optional,intent(in)::order
         end function argsort_sp
-
         module function argsort_dp(x,order)
             integer,allocatable::argsort_dp(:)
             real(dp),intent(in)::x(:)
             integer,optional,intent(in)::order
         end function argsort_dp
-
         module function argsort_qp(x,order)
             integer,allocatable::argsort_qp(:)
             real(qp),intent(in)::x(:)
             integer,optional,intent(in)::order
         end function argsort_qp
-
     end interface argsort
 
     interface bspline1
@@ -445,19 +269,9 @@ module forlab
     end interface chi2rand
 
     interface chol
-        !! Version: expermental
-        !!
         !! chol computes Cholesky's decomposition of a symmetric positive
         !! definite matrix.
-        !!
-        !!## Syntax
-        !!
-        !!      L = chol(A)
-        !!
-        !!## Description
-        !!
-        !!  `L = chol(A)` returns a lower triangular matrix L satisfying the
-        !! equation A = L*Lt.
+        !!([Specification](../module/forlab_chol.html))
         module function chol_sp (A) result(L)
             real(sp), dimension(:, :), intent(in) :: A
             real(sp), dimension(:, :), allocatable :: L
@@ -478,10 +292,6 @@ module forlab
         !    end function
         !#:endfor
     end interface
-
-    interface countlines
-        module procedure countlines2
-    end interface countlines
 
     interface cov
         module procedure cov1_1, cov1_2, cov2_1, cov2_2
@@ -517,6 +327,8 @@ module forlab
 
 
     interface det
+        !! det computes the matrix determinant.
+        !!([Specification](../module/forlab_det.html))
         real(sp) module function det_sp (A, outL, outU)
             real(sp), dimension(:, :), intent(in) :: A
             real(sp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
@@ -532,30 +344,8 @@ module forlab
     end interface
 
     interface diag
-        !! Version: experimental
-        !!
         !! diag creates diagonal matrix or get the diagonal of a matrix.
-        !!
-        !!## Syntax
-        !!    x = diag(A)
-        !!    A = diag(x)
-        !!
-        !!## Description
-        !! `x = diag(A)` returns the main diagonal of matrix `A`.
-        !!
-        !! `A = diag(x)` returns a square diagonal matrix with the elements of `x` on
-        !! the main diagonal.
-        !!
-        !!## Examples
-        !!    A = eye(3)
-        !!    x = diag(A)
-        !!        1.  1.  1.
-        !!
-        !!    x = [ 1., 2., 3. ]
-        !!    A = diag(x)
-        !!        1.  0.  0.
-        !!        0.  2.  0.
-        !!        0.  0.  3.
+        !!([Specification](../module/forlab_diag.html))
             module function diag1_sp (A)
                 real(sp), dimension(:), allocatable :: diag1_sp
                 real(sp), dimension(:, :), intent(in) :: A
@@ -760,43 +550,26 @@ module forlab
     end interface
 
     interface eig
-        !! Version: expermental
-        !!
         !! eig computes eigenvalues and eigenvectors of symmetric matrix using Jacobi algorithm.
-        !!
-        !!## Syntax
-        !!
-        !!      call eig(A, V, d)
-        !!      call eig(A, V, d, itermax)
-        !!
-        !!## Description
-        !!
-        !!  `call eig(A, V, d)` returns the eigenvalues of the symmetric matrix A
-        !! in the vector d and the associated eigenvectors in the matrix V.
-        !!
-        !!  `call eig(A, V, d, itermax)` returns eigenvalues and eigenvectors with a maximum
-        !! of itermax iterations.
+        !!([Specification](../module/forlab_eig.html))
         module subroutine eig_sp(A,V,d,itermax)
             real(sp), dimension(:, :), intent(in) :: A
             real(sp), dimension(:, :), allocatable, intent(out) :: V
             real(sp), dimension(:), allocatable, intent(out) :: d
             integer, intent(in), optional :: itermax
         end subroutine eig_sp
-
         module subroutine eig_dp(A,V,d,itermax)
             real(dp), dimension(:, :), intent(in) :: A
             real(dp), dimension(:, :), allocatable, intent(out) :: V
             real(dp), dimension(:), allocatable, intent(out) :: d
             integer, intent(in), optional :: itermax
         end subroutine eig_dp
-
         module subroutine eig_qp(A,V,d,itermax)
             real(qp), dimension(:, :), intent(in) :: A
             real(qp), dimension(:, :), allocatable, intent(out) :: V
             real(qp), dimension(:), allocatable, intent(out) :: d
             integer, intent(in), optional :: itermax
         end subroutine eig_qp
-
     end interface eig
 
     interface eye
@@ -1147,32 +920,7 @@ module forlab
 
     interface norm
         !! norm computes vector and matrix norms.
-        !!
-        !!## Syntax
-        !!
-        !!      y = norm(x)
-        !!      y = norm(x, p)
-        !!      x = norm(A)
-        !!      x = norm(A, p)
-        !!
-        !!## Description
-        !!
-        !! `y = norm(x)` returns the 2-norm or Euclidian norm of vector x.
-        !!
-        !! `y = norm(x, p)` returns the p-norm of vector x, where p is any positive
-        !! real value.
-        !!
-        !! `x = norm(A)` returns the 2-norm of matrix A (largest singular value).
-        !!
-        !! `x = norm(A, p)` returns the p-norm of matrix A, where p is {1, 2}.
-        !!
-        !!## Examples
-        !!
-        !!      x = [ 1., 2., 3. ]
-        !!      y = norm(x)
-        !!          3.74165750
-        !!      y = norm(x, 3.)
-        !!          3.30192733
+        !!([Specification](../module/forlab_norm.html))
         module function norm1_sp(x,p)result(norm1)
             real(sp), dimension(:), intent(in) :: x
             real(sp), intent(in), optional :: p

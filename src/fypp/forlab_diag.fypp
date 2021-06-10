@@ -1,5 +1,29 @@
 #:include "common.fypp"
 submodule(forlab) forlab_diag
+    !! Version: experimental
+    !!
+    !! diag creates diagonal matrix or get the diagonal of a matrix.
+    !!([Interface](../interface/diag.html))
+    !!### Syntax
+    !!    x = diag(A)
+    !!    A = diag(x)
+    !!
+    !!### Description
+    !! `x = diag(A)` returns the main diagonal of matrix `A`.
+    !!
+    !! `A = diag(x)` returns a square diagonal matrix with the elements of `x` on
+    !! the main diagonal.
+    !!
+    !!### Examples
+    !!    A = eye(3)
+    !!    x = diag(A)
+    !!        1.  1.  1.
+    !!
+    !!    x = [ 1., 2., 3. ]
+    !!    A = diag(x)
+    !!        1.  0.  0.
+    !!        0.  2.  0.
+    !!        0.  0.  3.
     use forlab_kinds
     implicit none
     

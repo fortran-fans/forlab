@@ -2,6 +2,7 @@ submodule(forlab) forlab_det
     !! Version: experimental
     !!
     !! det computes the matrix determinant.
+    !!([Interface](../interface/det.html))
     !!
     !!## Syntax
     !!    x = det(A)
