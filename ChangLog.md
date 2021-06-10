@@ -9,9 +9,10 @@
         * src/fypp/forlab_arange.fypp:
         * src/fypp/forlab_det.fypp:
         * src/fypp/forlab_disp.fypp:
-        * src/fypp/forlab_datenum.fypp: attention only dp-version
-        * src/fypp/forlab_empty.fypp: attention flag args
-        * src/fypp/forlab_eye.fypp: attention flag args
+        * src/fypp/forlab_datenum.fypp: 
+        * src/fypp/forlab_empty.fypp:
+        * src/fypp/forlab_eye.fypp:
+        * src/fypp/forlab_file.fypp:
         * src/fypp/forlab_inv.fypp: 
         * src/fypp/forlab_issquare.fypp:
         * src/fypp/forlab_kinds.fypp:
@@ -19,13 +20,14 @@
         * src/fypp/forlab_linspace.fypp:
         * src/fypp/forlab_load.fypp:
         * src/fypp/forlab_num2str.fypp: (#10 PR)
+        * src/fypp/forlab_ones.fypp:
         * src/fypp/forlab_operator_x.fypp:
         * src/fypp/forlab_randn.fypp:
         * src/fypp/forlab_randu.fypp:
         * src/fypp/forlab_rng.fypp:
         * src/fypp/forlab_save.fypp:
         * src/fypp/forlab_tioc.fypp: attention precision changes (#10 PR)
-        * src/fypp/forlab_zeros.fypp: attention flag args
+        * src/fypp/forlab_zeros.fypp:
         * src/fypp/forlab.fypp: Modify the interface of the above functions
         * src/fypp/Makefile: make it more smart. (#9 issue, #10 PR)
         * src/fypp/README.md:
@@ -41,5 +43,14 @@
         * src/fypp/forlab_chol.fypp:
         * src/fypp/forlab_eig.fypp:
         * src/fypp/forlab_issymmertric.fypp:
+        * src/fypp/forlab_norm.fypp:
         * src/fypp/forlab_sort.fypp:
         * src/fypp/forlab_tri.fypp:
+        * src/fypp/forlab_svd.fypp:
+        * src/fypp/forlab_svdsolve.fypp:
+
+2021-06-09  St-Maxwell
+
+        Provide multi-precision functions, set submodule files.
+
+        * src/fypp/forlab_outer.fypp:
