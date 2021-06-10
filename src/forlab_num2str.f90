@@ -1,4 +1,20 @@
 submodule(forlab) forlab_num2str
+    !! Version: experimental
+    !!
+    !! num2str converts numbers to strings.
+    !!
+    !!## Syntax
+    !!    str = num2str(x)
+    !!    str = num2str(x, fmt)
+    !!
+    !!## Description
+    !! `str = num2str(x)` converts `x` into a string.
+    !!
+    !! `str = num2str(x, fmt)` converts `x` into a string with the format fmt.
+    !!
+    !!## Examples
+    !!    print *, "Percentage: " // num2str(50.431, "(F6.2)") // "%"
+    !!        Percentage: 50.43%
     use forlab_kinds
     implicit none
 

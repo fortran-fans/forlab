@@ -1,4 +1,27 @@
 submodule(forlab) forlab_tioc
+    !! Version: experimental
+    !!
+    !! tic saves the elapsed CPU time in seconds.
+    !! toc displays and returns the elapsed time since tic.
+    !!
+    !!## Syntax
+    !!    call tic()
+    !!    call toc()
+    !!    call toc(t)
+    !!
+    !!## Description
+    !! `call tic()` saves the elapsed CPU time in seconds.
+    !!
+    !! `call toc()` displays the elapsed time since `call tic()`.
+    !!
+    !! `call toc(t)` displays and saves the elapsed time since `call tic()`.
+    !!
+    !!## Examples
+    !!    call tic()
+    !!    ! ... some codes ...
+    !!    call toc()
+    !!        Elapsed time: 0.1 seconds
+
     !! We believe that the accuracy requirements of the `tic` and `toc` functions are not high,
     !! and we only provide the double-precision version at the preliminary stage.
     use forlab_kinds

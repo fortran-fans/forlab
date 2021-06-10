@@ -1,5 +1,27 @@
 
 submodule(forlab) forlab_rng
+    !! Version: experimental
+    !!
+    ! rng
+    !-----------------------------------------------------------------------
+    ! rng controls random number generation.
+    !
+    ! Syntax
+    !-----------------------------------------------------------------------
+    ! call rng()
+    ! call rng(seed)
+    !
+    ! Description
+    !-----------------------------------------------------------------------
+    ! call rng() uses the current date and time as seed for random number
+    ! generation.
+    !
+    ! call rng(seed) sets the input seed for random number generation.
+    !
+    ! Notes
+    !-----------------------------------------------------------------------
+    ! It is advised to call rng at the beginning of a program so that each
+    ! run of the program produces different sequences of random numbers.
     implicit none
 
 contains

@@ -29,7 +29,7 @@ module forlab
     integer, public, parameter :: CLEN = 512
     real(kind=8), public, parameter :: pi = 3.141592653589793238460d0
     #:for k1,t1 in REAL_KINDS_TYPES
-    ${t1}$,public, parameter ::pi_${k1}$=acos(-1.0_${k1}$)
+    ${t1}$, public, parameter ::pi_${k1}$=acos(-1.0_${k1}$)
     #:endfor
     ! Functions
     private
@@ -41,7 +41,7 @@ module forlab
               find, flip, fliplr, flipud, fminbnd, gammainc, horzcat, &
               hann, interp1, interp2, interp3, inv, ismember, isoutlier, issquare, &
               isleap, issymmetric, kurtosis, k2test, kde, &
-              mean, median, mad, meshgrid, nextpow2, norm, normpdf, num2str, ones, &
+              mean, median, mad, meshgrid, nextpow2, norm, normpdf, num2str, &
               outer, pascal, prctile, progress_bar, progress_perc, rng, &
               randi, randperm, repmat, rms, savetxt, savebin, sind, sort, solve, &
               svd, svdsolve, std, spline1, spline2, skewness, signum, sinc, &
@@ -52,6 +52,7 @@ module forlab
     public :: eye, seye, deye, qeye
     public :: linspace, slinspace, dlinspace, qlinspace
     public :: loadbin, sloadbin, dloadbin, qloadbin
+    public :: ones, sones, dones, qones
     public :: randn, srandn, drandn, qrandn
     public :: randu, srandu, drandu, qrandu
     public :: loadtxt, sloadtxt, dloadtxt, qloadtxt
@@ -84,18 +85,6 @@ module forlab
 
     !! Polymorphic Interfaces
     interface angle
-        !! angle compute the phase angle.
-        !!
-        !!## Syntax
-        !!    p = angle(z)
-        !!    P = angle(Z)
-        !!
-        !!## Description
-        !! `p = angle(z)` returns the phase angle in radians of the complex
-        !! number z.
-        !!
-        !! `P = angle(Z)` returns the phase angles in radians of each complex
-        !! numbers in vector Z.
         #:for k1, t1 in REAL_KINDS_TYPES
         real(${k1}$) elemental module function angle_${k1}$(z)
             complex(${k1}$), intent(in) :: z
@@ -275,22 +264,6 @@ module forlab
     #:endfor
 
     interface arange
-        !! Version: experimental
-        !!
-        !! arange
-        !!
-        !! arange returns evenly spaced vector.
-        !!
-        !!## Syntax
-        !!     x = arange(first, last)
-        !!
-        !!## Description
-        !! `x = arange(first, last)` returns an evenly spaced integer vector
-        !! starting from first and ending at last.
-        !!
-        !!## Examples
-        !!     x = arange(1, 9)
-        !!          1   2   3   4   5   6   7   8   9
         #:for k1, t1 in INT_KINDS_TYPES
             module function arange_${k1}$ (first, last)
                 ${t1}$, dimension(:), allocatable :: arange_${k1}$
@@ -431,27 +404,6 @@ module forlab
 
 
     interface det
-        !! Version: experimental
-        !!
-        !! det computes the matrix determinant.
-        !!
-        !!## Syntax
-        !!    x = det(A)
-        !!    x = det(A, L, U)
-        !!
-        !!## Description
-        !! `x = det(A)` returns the determinant of the square matrix A, as the
-        !! product of the diagonal elements of the upper triangular matrix from
-        !! the LU factorization of A.
-        !!
-        !! `x = det(A, L, U)` returns the determinant of the square matrix A and
-        !! outputs the LU factorization matrices of A used for the calculation.
-        !!
-        !!## Examples
-        !!    A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 0. ], [ 3, 3 ], &
-        !!                order = [ 2, 1 ])
-        !!    x = det(A)
-        !!        27.
         #:for k1,t1 in REAL_KINDS_TYPES
         ${t1}$ module function det_${k1}$ (A, outL, outU)
             ${t1}$, dimension(:, :), intent(in) :: A
@@ -502,106 +454,38 @@ module forlab
     end interface diff
 
     interface disp
-        !! Version: experimental
-        !!
-        !! disp displays the value of a variable.
-        !!
-        !!## Syntax
-        !!    call disp(string)
-        !!    call disp(x)
-        !!    call disp(x, string)
-        !!    call disp(A)
-        !!    call disp(A, string)
-        !!    call disp(X)
-        !!    call disp(X, 1)
-        !!    call disp(X, 1, string)
-        !!    call disp(X, 2)
-        !!    call disp(X, 2, string)
-        !!    call disp(X, 3)
-        !!    call disp(X, 3, string)
-        !!
-        !!## Description
-        !! `call disp(x)` displays the scalar or the vector x.
-        !!
-        !! `call disp(x, string)` displays the scalar or the vector x preceded by
-        !! string.
-        !!
-        !! `call disp(A)` displays the matrix A.
-        !!
-        !! `call disp(A, string)` displays the matrix A preceded by string.
-        !!
-        !! `call disp(X)` displays the 3-dimensional matrix X along the axis 1.
-        !!
-        !! `call disp(X, 1)` (see `call disp(X)`).
-        !!
-        !! `call disp(X, 1, string)` displays the 3-dimensional matrix X along the
-        !! axis 1 preceded by string.
-        !!
-        !! `call disp(X, 2)` displays the 3-dimensional matrix X along the axis 2.
-        !!
-        !! `call disp(X, 2, string)` displays the 3-dimensional matrix X along the
-        !! axis 2 preceded by string.
-        !!
-        !! `call disp(X, 3)` displays the 3-dimensional matrix X along the axis 3.
-        !!
-        !! `call disp(X, 3, string)` displays the 3-dimensional matrix X along the
-        !! axis 3 preceded by string.
-        !!
-        !!## Examples
-        !!    x = [ 1. 2. 3. ]
-        !!    call disp(x)
-        !!        1.
-        !!        2.
-        !!        3.
-        !!    call disp(x, "x = ")
-        !!        x =
-        !!            1.
-        !!            2.
-        !!            3.
-        !!
-        !!    A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 9. ], [ 3, 3 ], &
-        !!                order = [ 2, 1 ])
-        !!    call disp(A, "Matrix A is")
-        !!        Matrix A is
-        !!            1.  2.  3.
-        !!            4.  5.  6.
-        !!            7.  8.  9.
         #:for k1,t1 in REAL_KINDS_TYPES
-            module subroutine disp_r${k1}$0(x, string)
-                ${t1}$, intent(in) :: x
-                character(len=*), intent(in), optional :: string
-            end subroutine
-
-            module subroutine disp_r${k1}$1(x, string)
-                ${t1}$, dimension(:), intent(in) :: x
-                character(len=*), intent(in), optional :: string
-            end subroutine
-
-            module subroutine disp_r${k1}$2(A, string)
-                ${t1}$, dimension(:, :), intent(in) :: A
-                character(len=*), intent(in), optional :: string
-            end subroutine
-
-            module subroutine disp_r${k1}$3(X, dim, string)
-                ${t1}$, dimension(:, :, :), intent(in) :: X
-                integer, intent(in), optional :: dim
-                character(len=*), intent(in), optional :: string
-            end subroutine
+        module subroutine disp_r${k1}$0(x, string)
+            ${t1}$, intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_r${k1}$1(x, string)
+            ${t1}$, dimension(:), intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_r${k1}$2(A, string)
+            ${t1}$, dimension(:, :), intent(in) :: A
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_r${k1}$3(X, dim, string)
+            ${t1}$, dimension(:, :, :), intent(in) :: X
+            integer, intent(in), optional :: dim
+            character(len=*), intent(in), optional :: string
+        end subroutine
         #:endfor
         #:for k1, t1 in CMPLX_KINDS_TYPES
-            module subroutine disp_c${k1}$0(x, string)
-                ${t1}$, intent(in) :: x
-                character(len=*), intent(in), optional :: string
-            end subroutine
-
-            module subroutine disp_c${k1}$1(x, string)
-                ${t1}$, dimension(:), intent(in) :: x
-                character(len=*), intent(in), optional :: string
-            end subroutine
-            module subroutine disp_c${k1}$2(A, string)
-                ${t1}$, dimension(:, :), intent(in) :: A
-                character(len=*), intent(in), optional :: string
-            end subroutine
+        module subroutine disp_c${k1}$0(x, string)
+            ${t1}$, intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_c${k1}$1(x, string)
+            ${t1}$, dimension(:), intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_c${k1}$2(A, string)
+            ${t1}$, dimension(:, :), intent(in) :: A
+            character(len=*), intent(in), optional :: string
+        end subroutine
         #:endfor
         module subroutine disp_l0(x, string)
             logical, intent(in) :: x
@@ -616,23 +500,23 @@ module forlab
             character(len=*), intent(in), optional :: string
         end subroutine disp_l2
         #:for k1, t1 in INT_KINDS_TYPES
-            module subroutine disp_0_${k1}$(x, string)
-                ${t1}$, intent(in) :: x
-                character(len=*), intent(in), optional :: string
-            end subroutine
-            module subroutine disp_1_${k1}$(x, string)
-                ${t1}$, dimension(:), intent(in) :: x
-                character(len=*), intent(in), optional :: string
-            end subroutine
-            module subroutine disp_2_${k1}$(A, string)
-                ${t1}$, dimension(:, :), intent(in) :: A
-                character(len=*), intent(in), optional :: string
-            end subroutine
-            module subroutine disp_3_${k1}$(X, dim, string)
-                ${t1}$, dimension(:, :, :), intent(in) :: X
-                integer, intent(in), optional :: dim
-                character(len=*), intent(in), optional :: string
-            end subroutine
+        module subroutine disp_0_${k1}$(x, string)
+            ${t1}$, intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_1_${k1}$(x, string)
+            ${t1}$, dimension(:), intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_2_${k1}$(A, string)
+            ${t1}$, dimension(:, :), intent(in) :: A
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_3_${k1}$(X, dim, string)
+            ${t1}$, dimension(:, :, :), intent(in) :: X
+            integer, intent(in), optional :: dim
+            character(len=*), intent(in), optional :: string
+        end subroutine
         #:endfor
         module subroutine disp_str(string)
             character(len=*), intent(in), optional :: string
@@ -667,53 +551,7 @@ module forlab
         #:endfor
     end interface eig
 
-    interface empty
-        #:set RANKS = range(1, 4)
-        #:for RANK in RANKS
-        procedure empty_${RANK}$_${DK}$
-        #:endfor
-    end interface
-
-    #:set RANKS = range(1, 4)
-    #:for k1 in REAL_KINDS
-    interface ${k1[0]}$empty
-        #:for RANK in RANKS
-        procedure empty_${RANK}$_${k1}$
-        #:endfor
-    end interface
-    #:endfor
-
     interface eye
-        !! Version: experimental
-        !!
-        !! eye creates the identity matrix.
-        !!
-        !!## Syntax
-        !!    I = eye(dim1)
-        !!    I = eye(dim1, dim2)
-        !!
-        !!## Description
-        !! `I = eye(dim1)` returns an dim1-by-dim1 matrix with ones on the main
-        !! diagonal and zeros elsewhere.
-        !! `I = eye(dim1, dim2)` returns a dim1-by-dim2 matrix with ones on the
-        !! main diagonal and zeros elsewhere.
-        !!
-        !!## Examples
-        !!      I = eye(3)
-        !!          1.  0.  0.
-        !!          0.  1.  0.
-        !!          0.  0.  1.
-        !!
-        !!      I = eye(3, 4)
-        !!          1.  0.  0.  0.
-        !!          0.  1.  0.  0.
-        !!          0.  0.  1.  0.
-        !!
-        !!      I = eye(4, 3)
-        !!          1.  0.  0.
-        !!          0.  1.  0.
-        !!          0.  0.  1.
-        !!          0.  0.  0.  
         #:set RANKS = range(1, 3)
         #:for RANK in RANKS
         procedure eye_${RANK}$_${DK}$
@@ -775,47 +613,6 @@ module forlab
     end interface interp3
 
     interface inv
-        !! Version: experimental
-        !! inv computes the matrix inverse.
-        !! inv0
-        !!-----------------------------------------------------------------------
-        !! inv0 computes the real matrix inverse.
-        !!
-        !! Syntax
-        !!-----------------------------------------------------------------------
-        !! B = inv0(A)
-        !!
-        !! Description
-        !!-----------------------------------------------------------------------
-        !! B = inv0(A) returns the inverse of the real matrix A if A is inversible
-        !! (det(A) /= 0.).
-        !!
-        !! Examples
-        !!-----------------------------------------------------------------------
-        !! A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 0. ], [ 3, 3 ], &
-        !!             order = [ 2, 1 ])
-        !! B = inv0(A)
-        !!     -1.77777779   0.888888896  -0.111111112
-        !!      1.55555558  -0.777777791   0.222222224
-        !!     -0.11111112   0.222222224  -0.111111112
-
-        ! isleap
-        !-----------------------------------------------------------------------
-        ! isleap determines whether a year is a leap year.
-        !
-        ! Syntax
-        !-----------------------------------------------------------------------
-        ! bool = isleap(year)
-        !
-        ! Description
-        !-----------------------------------------------------------------------
-        ! bool = isleap(year) returns .true. if year is a leap year, .false.
-        ! otherwise.
-        !
-        ! Examples
-        !-----------------------------------------------------------------------
-        ! bool = isleap(2016)
-        !     .true.
         #:for k1,t1 in REAL_KINDS_TYPES
             module function inv_${t1[0]}$${k1}$ (A)
                 ${t1}$, dimension(:, :), allocatable :: inv_${t1[0]}$${k1}$
@@ -836,11 +633,10 @@ module forlab
         !! ---
         !! inv_of_A = .i.A
         #:for k1,t1 in REAL_KINDS_TYPES
-            procedure inv_${t1[0]}$${k1}$
+        procedure inv_${t1[0]}$${k1}$
         #:endfor
-
         #:for k1,t1 in CMPLX_KINDS_TYPES
-            procedure inv_${t1[0]}$${k1}$
+        procedure inv_${t1[0]}$${k1}$
         #:endfor
     end interface operator(.i.)
 
@@ -854,24 +650,20 @@ module forlab
             real(${k1}$), intent(in) :: m1(:, :), m2(:, :)
             real(${k1}$) :: ret(size(m1, 1), size(m2, 2))
         end function
-
         module function cmut_${k1}$(m1, m2) result(ret)
             complex(${k1}$), intent(in) :: m1(:, :), m2(:, :)
             complex(${k1}$) :: ret(size(m1, 1), size(m2, 2))
         end function
-
         module function rcmut_${k1}$(m1, m2) result(ret)
             real(${k1}$), intent(in) :: m1(:, :)
             complex(${k1}$), intent(in) :: m2(:, :)
             complex(${k1}$) :: ret(size(m1, 1), size(m2, 2))
         end function
-
         module function crmut_${k1}$(m1, m2) result(ret)
             real(${k1}$), intent(in) :: m2(:, :)
             complex(${k1}$), intent(in) :: m1(:, :)
             complex(${k1}$) :: ret(size(m1, 1), size(m2, 2))
         end function
-
         #:endfor
     end interface
 
@@ -883,21 +675,11 @@ module forlab
     end interface ismember
 
     interface issquare
-        !! Determine if it is a square matrix
-        !!
-        !!## Example
-        !!    A = eye(3)
-        !!    bool = issquare(A)
-        !!           .true.
-        !!    A = eye(3, 4)
-        !!    bool = issquare0(A)
-        !!           .false.
         #:set RC_KINDS_TYPES = REAL_KINDS_TYPES + CMPLX_KINDS_TYPES
         #:for k1, t1 in RC_KINDS_TYPES
         logical module function issquare_${t1[0]}$${k1}$ (A)
             ${t1}$, dimension(:, :), intent(in) :: A
         end function
-
         #:endfor
     end interface
 
@@ -948,7 +730,6 @@ module forlab
                   linspace_ir_${k1}$
         #:endfor
     end interface
-
     #:for k1 in REAL_KINDS
     interface ${k1[0]}$linspace
         procedure linspace_ii_${k1}$
@@ -964,7 +745,6 @@ module forlab
         procedure loadbin_${RANK}$_${DK}$
         #:endfor
     end interface
-
     #:set RANKS = range(0, 4)
     #:for k1 in REAL_KINDS
     interface ${k1[0]}$loadbin
@@ -972,19 +752,16 @@ module forlab
         procedure loadbin_${RANK}$_${k1}$
         #:endfor
     end interface
-
     #:endfor
 
 
     interface loadtxt
         procedure loadtxt_1_sp, loadtxt_2_sp
     end interface
-
     #:for k1 in REAL_KINDS
     interface ${k1[0]}$loadtxt
         procedure loadtxt_1_${k1}$, loadtxt_2_${k1}$
     end interface
-
     #:endfor
 
     interface log2
@@ -992,41 +769,11 @@ module forlab
     end interface log2
 
     interface lu
-        !! lu computes the LU matrix factorization.
-        !!
-        !! Syntax
-        !!-----------------------------------------------------------------------
-        !! call lu(A, L, U)
-        !!
-        !! Description
-        !!---------------------------------------------------------------------
-        !! call lu(A, L, U) returns the LU matrix factorization of the input
-        !! square m-by-m matrix A. The output matrices are:
-        !!   -   L is a m-by-m lower triangular matrix with ones on the diagonal,
-        !!   -   U is a m-by-m upper triangular matrix.
-        !!
-        !! Examples
-        !!---------------------------------------------------------------------
-        !! A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 9. ], [ 3, 3 ], &
-        !!             order = [ 2, 1 ])
-        !! call lu(A, L, U)
-        !! call disp(L)
-        !!     1.  0.  0.
-        !!     4.  1.  0.
-        !!     7.  2.  1.
-        !! call disp(U)
-        !!     1.  2.  3.
-        !!     0. -3. -6.
-        !!     0.  0.  0.
-        !! call disp(matmul(L, U))
-        !!     1.  2.  3.
-        !!     4.  5.  6.
-        !!     7.  8.  9.
         #:for k1,t1 in REAL_KINDS_TYPES
-            module subroutine lu_${k1}$ (A, L, U)
-                ${t1}$, dimension(:, :), intent(in) :: A
-                ${t1}$, dimension(:, :), allocatable, intent(out) :: L, U
-            end subroutine
+        module subroutine lu_${k1}$ (A, L, U)
+            ${t1}$, dimension(:, :), intent(in) :: A
+            ${t1}$, dimension(:, :), allocatable, intent(out) :: L, U
+        end subroutine
         #:endfor
     end interface
 
@@ -1063,22 +810,6 @@ module forlab
     end interface normpdf
 
     interface num2str
-        !! Version: experimental
-        !!
-        !! num2str converts numbers to strings.
-        !!
-        !!## Syntax
-        !!    str = num2str(x)
-        !!    str = num2str(x, fmt)
-        !!
-        !!## Description
-        !! `str = num2str(x)` converts `x` into a string.
-        !!
-        !! `str = num2str(x, fmt)` converts `x` into a string with the format fmt.
-        !!
-        !!## Examples
-        !!    print *, "Percentage: " // num2str(50.431, "(F6.2)") // "%"
-        !!        Percentage: 50.43%
         #:set RI_KINDS_TYPES = REAL_KINDS_TYPES + INT_KINDS_TYPES
         #:for k1, t1 in RI_KINDS_TYPES
         module function num2str_${k1}$(x, fmt)
@@ -1086,13 +817,8 @@ module forlab
             ${t1}$, intent(in) :: x
             character(len=*), intent(in), optional :: fmt
         end function
-
         #:endfor
     end interface
-
-    interface ones
-        module procedure ones1, ones2, ones3
-    end interface ones
 
     interface outer
         !! outer
@@ -1151,7 +877,6 @@ module forlab
         procedure randu_${RANK}$_${DK}$
         #:endfor
     end interface
-
     #:set RANKS = range(0, 4)
     #:for k1 in REAL_KINDS
     interface ${k1[0]}$randu
@@ -1170,85 +895,42 @@ module forlab
     end interface rms
 
     interface savebin
-        !! Version: experimental
-        !!
-        ! savebin saves arrays to binary files.
-        !
-        ! Syntax
-        !-----------------------------------------------------------------------
-        ! call savebin(filename, x)
-        ! call savebin(filename, A)
-        ! call savebin(filename, X)
-        !
-        ! Description
-        !-----------------------------------------------------------------------
-        ! call savebin(filename, x) saves a vector x into the binary file
-        ! filename.
-        !
-        ! call savebin(filename, A) saves a 2-dimensional array into the binary
-        ! file filename.
-        !
-        ! call savebin(filename, X) saves a 3-dimensional array into the binary
-        ! file filename.
         #:for k1,t1 in REAL_KINDS_TYPES
         module subroutine savebin_1_${k1}$(filename, x)
             character(len=*), intent(in) :: filename
             ${t1}$, dimension(:), intent(in) :: x
         end subroutine
-
         module subroutine savebin_2_${k1}$(filename, A)
             character(len=*), intent(in) :: filename
             ${t1}$, dimension(:, :), intent(in) :: A
         end subroutine
-
         module subroutine savebin_3_${k1}$(filename, X)
             character(len=*), intent(in) :: filename
             ${t1}$, dimension(:, :, :), intent(in) :: X
         end subroutine
-
         #:endfor
     end interface savebin
 
     interface savetxt
-        !! Version: experimental
-        !!
-        ! savetxt saves 1 and 2-dimensional arrays to txt files.
-        !
-        ! Syntax
-        !-----------------------------------------------------------------------
-        ! call savetxt(filename, x)
-        ! call savetxt(filename, A)
-        !
-        ! Description
-        !-----------------------------------------------------------------------
-        ! call savetxt(filename, x) saves a vector array x into the txt file
-        ! filename.
-        !
-        ! call savetxt(filename, A) saves a 2-dimensional array A into the txt
-        ! file filename.
         #:for k1,t1 in REAL_KINDS_TYPES
         module subroutine savetxt_1_${k1}$(filename, x)
             character(len=*), intent(in) :: filename
             ${t1}$, dimension(:), intent(in) :: x
         end subroutine
-
         module subroutine savetxt_2_${k1}$(filename, A)
             character(len=*), intent(in) :: filename
             ${t1}$, dimension(:, :), intent(in) :: A
         end subroutine
-
         #:endfor
         #:for k1, t1 in INT_KINDS_TYPES
         module subroutine savetxt_1_${k1}$(filename, x)
             character(len=*), intent(in) :: filename
             ${t1}$, dimension(:), intent(in) :: x
         end subroutine
-
         module subroutine savetxt_2_${k1}$(filename, A)
             character(len=*), intent(in) :: filename
             ${t1}$, dimension(:, :), intent(in) :: A
         end subroutine
-
         #:endfor
     end interface
 
@@ -1309,130 +991,47 @@ module forlab
     end interface std
 
     interface toc
-        !! Version: experimental
-        !!
-        !! tic saves the elapsed CPU time in seconds.
-        !! toc displays and returns the elapsed time since tic.
-        !!
-        !!## Syntax
-        !!    call tic()
-        !!    call toc()
-        !!    call toc(t)
-        !!
-        !!## Description
-        !! `call tic()` saves the elapsed CPU time in seconds.
-        !!
-        !! `call toc()` displays the elapsed time since `call tic()`.
-        !!
-        !! `call toc(t)` displays and saves the elapsed time since `call tic()`.
-        !!
-        !!## Examples
-        !!    call tic()
-        !!    ! ... some codes ...
-        !!    call toc()
-        !!        Elapsed time: 0.1 seconds
         module subroutine toc_default()
         end subroutine
         #:for k1, t1 in REAL_KINDS_TYPES
         module subroutine toc_${k1}$(t)
             ${t1}$, intent(out) :: t
         end subroutine
-
         #:endfor
     end interface
 
     interface tril
-        !! Version: expermental
-        !!
-        !! tril extracts the lower triangular part of a matrix.
-        !!
-        !!## Syntax
-        !!
-        !!      B = tril(A)
-        !!      B = tril(A, k)
-        !!
-        !!## Description
-        !!
-        !!  `B = tril(A)` returns the lower triangular part of matrix A.
-        !!
-        !!  `B = tril(A, k)` returns the elements on and below the kth diagonal of
-        !!      matrix X:
-        !!
-        !!      -   k = 0 is the main diagonal,
-        !!      -   k > 0 is above the main diagonal,
-        !!      -   k < 0 is below the main diagonal.
-        !!
-        !!## Examples
-        !!
-        !!      A = ones(4, 4)
-        !!      B = tril(A, -1)
-        !!          0.  0.  0.  0.
-        !!          1.  0.  0.  0.
-        !!          1.  1.  0.  0.
-        !!          1.  1.  1.  0.
-    #:for k1,t1 in INT_KINDS_TYPES+REAL_KINDS_TYPES
+        #:for k1,t1 in INT_KINDS_TYPES+REAL_KINDS_TYPES
         module function tril_${k1}$(A,k)
             ${t1}$, dimension(:, :), allocatable :: tril_${k1}$
             ${t1}$, dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function tril_${k1}$
-
-    #:endfor
-    #:for k1,t1 in CMPLX_KINDS_TYPES
+        #:endfor
+        #:for k1,t1 in CMPLX_KINDS_TYPES
         module function tril_c${k1}$(A,k)
             ${t1}$, dimension(:, :), allocatable :: tril_c${k1}$
             ${t1}$, dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function tril_c${k1}$
-
     #:endfor
     end interface tril
 
     interface triu
-        !! Version: expermental
-        !!
-        !! triu extracts the upper triangular part of a matrix.
-        !!
-        !!## Syntax
-        !!
-        !!      B = triu(A)
-        !!      B = triu(A, k)
-        !!
-        !!## Description
-        !!
-        !!  `B = triu(A)` returns the upper triangular part of matrix A.
-        !!
-        !!  `B = triu(A, k)` returns the elements on and above the kth diagonal of
-        !!
-        !!      matrix X:
-        !!      -   k = 0 is the main diagonal,
-        !!      -   k > 0 is above the main diagonal,
-        !!      -   k < 0 is below the main diagonal.
-        !!
-        !!## Examples
-        !!
-        !!      A = ones(4, 4)
-        !!      B = triu(A, -1)
-        !!          1.  1.  1.  1.
-        !!          1.  1.  1.  1.
-        !!          0.  1.  1.  1.
-        !!          0.  0.  1.  1.
-    #:for k1,t1 in INT_KINDS_TYPES+REAL_KINDS_TYPES
+        #:for k1,t1 in INT_KINDS_TYPES+REAL_KINDS_TYPES
         module function triu_${k1}$(A,k)
             ${t1}$, dimension(:, :), allocatable :: triu_${k1}$
             ${t1}$, dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function triu_${k1}$
-
-    #:endfor
-    #:for k1,t1 in CMPLX_KINDS_TYPES
+        #:endfor
+        #:for k1,t1 in CMPLX_KINDS_TYPES
         module function triu_c${k1}$(A,k)
             ${t1}$, dimension(:, :), allocatable :: triu_c${k1}$
             ${t1}$, dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function triu_c${k1}$
-
-    #:endfor
+        #:endfor
     end interface triu
 
     interface utm2deg
@@ -1448,82 +1047,28 @@ module forlab
             vertcat_r21
     end interface vertcat
 
-    interface zeros
-        !! Version: experimental
-        !!
-        !! zeros creates array all of zeros.
-        !!
-        !!## Syntax
-        !!    x = zeros(dim1)                
-        !!    A = zeros(dim1, dim2)          
-        !!    X = zeros(dim1, dim2, dim3)    
-        !! 
-        !!## Description
-        !! The precision of the flag variable should be consistent with
-        !! the return value of the function.
-        !! Unlike dynamic scripting languages, static languages generally
-        !! have multiple precision variables, so we need to explicitly provide precision hints.
-        !!
-        !! `x = zeros(dim1)` returns a dim1 vector of zeros.
-        !!
-        !! `A = zeros(dim1, dim2)` returns a dim1-by-dim2 matrix of zeros.
-        !!
-        !! `X = zeros(dim1, dim2, dim3)` returns a dim1-by-dim2-by-dim3
-        !! 3-dimensional matrix of zeros.
-        !!
-        !!## Examples
-        !!    x = zeros(3)
-        !!    x =
-        !!        0.  0.  0.
-        !!
-        !!    A = zeros(3, 3)
-        !!    A =
-        !!        0.  0.  0.
-        !!        0.  0.  0.
-        !!        0.  0.  0.
+    #:set EZO_NAME = ['empty', 'zeros', 'ones']
+    #:set RANKS = range(1, 4)
+    #:for e1 in EZO_NAME
+    interface ${e1}$
         #:set RANKS = range(1, 4)
         #:for RANK in RANKS
-        procedure zeros_${RANK}$_${DK}$
+        procedure ${e1}$_${RANK}$_${DK}$
         #:endfor
     end interface
 
-    #:set RANKS = range(1, 4)
     #:for k1 in REAL_KINDS
-    interface ${k1[0]}$zeros
+    interface ${k1[0]}$${e1}$
         #:for RANK in RANKS
-        procedure zeros_${RANK}$_${k1}$
+        procedure ${e1}$_${RANK}$_${k1}$
         #:endfor
     end interface
+    #:endfor
     #:endfor
 
     !! Normal Interfaces
     #:set RANKS = range(0, 4)
     interface
-        !! Version: experimental
-        !!
-        !! randn generates normally distributed random numbers using polar
-        !! Box-Muller algorithm.
-        !!
-        !!## Syntax
-        !!    x = randn()
-        !!    x = randn(dim1)
-        !!
-        !!## Description
-        !! `x = randn()` returns a single normally distributed random number with
-        !! mean 0 and standard deviation 1.
-        !!
-        !! `x = randn(dim1)` returns a dim1 vector of normally distributed random
-        !! numbers.
-        !!
-        !! `A = randn(dim1, dim2)` returns a dim1-by-dim2 matrix of normally
-        !! distributed random numbers.
-        !!
-        !! `X = randn(dim1, dim2, dim3)` returns a dim1-by-dim2-by-dim3
-        !! 3-dimensional matrix of normally distributed random numbers.
-        !!
-        !!## Examples
-        !!    x = randn(3)
-        !!        -1.22003853  -0.211721316   0.522971511
         #:for k1, t1 in REAL_KINDS_TYPES
         #:for RANK in RANKS
         #:if RANK == 0
@@ -1544,224 +1089,80 @@ module forlab
             ${t1}$, allocatable :: randn_${RANK}$_${k1}$ ${ranksuffix(RANK)}$
             #:endif
         end function
-
         #:endfor
         #:endfor
     end interface
 
     interface
         module subroutine rng(seed)
-            !! Version: experimental
-            !!
-            ! rng
-            !-----------------------------------------------------------------------
-            ! rng controls random number generation.
-            !
-            ! Syntax
-            !-----------------------------------------------------------------------
-            ! call rng()
-            ! call rng(seed)
-            !
-            ! Description
-            !-----------------------------------------------------------------------
-            ! call rng() uses the current date and time as seed for random number
-            ! generation.
-            !
-            ! call rng(seed) sets the input seed for random number generation.
-            !
-            ! Notes
-            !-----------------------------------------------------------------------
-            ! It is advised to call rng at the beginning of a program so that each
-            ! run of the program produces different sequences of random numbers.
             integer, intent(in), optional :: seed
         end subroutine rng
-
         module subroutine tic()
-            !! Version: experimental
-            !!
-            !! tic saves the elapsed CPU time in seconds.
-            !!
-            !!## Syntax
-            !!    call tic()
-            !!
-            !!## Description
-            !! `call tic()` saves the elapsed CPU time in seconds.
-            !!
-            !!## Examples
-            !!    call tic()
         end subroutine
-
     end interface
 
     interface
-        !! Version: experimental
-        !!
-        !! linspace creates a linearly spaced vector.   
-        !!
-        !!## Syntax
-        !!    x = linspace(x1, x2, n)
-        !!
-        !!## Description
-        !! `x = linspace(x1, x2, n)` returns a vector of n evenly spaced points
-        !! between x1 and x2.
-        !!
-        !!## Examples
-        !!    x = linspace(0, 10, 11)
-        !!        0.  1.  2.  3.  4.  5.  6.  7.  8.  9.  10.
         #:for k1, t1 in REAL_KINDS_TYPES
         module function linspace_rr_${k1}$(first, last, n)
             ${t1}$, dimension(:), allocatable :: linspace_rr_${k1}$
             ${t1}$, intent(in) :: first, last
             integer, intent(in) :: n
         end function
-
         module function linspace_ii_${k1}$(first, last, n)
             ${t1}$, dimension(:), allocatable :: linspace_ii_${k1}$
             integer, intent(in) :: first, last
             integer, intent(in) :: n
         end function 
-
         module function linspace_ri_${k1}$(first, last, n)
             ${t1}$, dimension(:), allocatable :: linspace_ri_${k1}$
             ${t1}$, intent(in) :: first
             integer, intent(in) :: last
             integer, intent(in) :: n
         end function
-    
         module function linspace_ir_${k1}$(first, last, n)
             ${t1}$, dimension(:), allocatable :: linspace_ir_${k1}$
             integer, intent(in) :: first
             ${t1}$, intent(in) :: last
             integer, intent(in) :: n
         end function
-
         #:endfor
-
     end interface
 
     interface
-        ! loadbin
-        !-----------------------------------------------------------------------
-        ! loadbin loads binary files.
-        !
-        ! Syntax
-        !-----------------------------------------------------------------------
-        ! x = loadbin(filename)
-        ! x = loadbin(filename, kind)
-        ! x = loadbin(filename, kind, dim1)
-        ! A = loadbin(filename, kind, dim1, dim2)
-        ! X = loadbin(filename, kind, dim1, dim2, dim3)
-        !
-        ! Description
-        !-----------------------------------------------------------------------
-        ! x = loadbin(filename) loads a 1-dimensional array into x from the
-        ! binary file filename treated as 32 bytes floating points.
-        !
-        ! x = loadbin(filename, kind) loads a 1-dimensional array into x from
-        ! the binary file filename.
-        !
-        ! x = loadbin(filename, kind, dim1) loads a 1-dimensional array into x
-        ! from the binary file filename.
-        !
-        ! A = loadbin(filename, kind, dim1, dim2) loads a 2-dimensional array
-        ! into A from the binary file filename.
-        !
-        ! X = loadbin(filename, kind, dim1, dim2, dim3) loads a 3-dimensional
-        ! array into X from the binary file filename.
-        !
-        ! Notes
-        !-----------------------------------------------------------------------
-        ! Make sure to use the exact kind:
-        !   -   4 for 32 bytes floating points,
-        !   -   8 for 64 bytes floating points.
-
-
-        ! loadtxt
-        !-----------------------------------------------------------------------
-        ! loadtxt loads txt files.
-        !
-        ! Syntax
-        !-----------------------------------------------------------------------
-        ! x = loadtxt(filename)
-        ! A = loadtxt(filename, dim2)
-        !
-        ! Description
-        !-----------------------------------------------------------------------
-        ! x = loadtxt(filename) loads a 1-dimensional array into x from a txt
-        ! file filename.
-        !
-        ! A = loadtxt(filename, dim2) loads a 2-dimensional array into A from a
-        ! txt file filename. dim2 indicates the number of columns of the array.
-
         #:for k1, t1 in REAL_KINDS_TYPES
         module function loadbin_0_${k1}$(filename)
             ${t1}$, dimension(:), allocatable :: loadbin_0_${k1}$
             character(len=*), intent(in) :: filename
         end function
-
         module function loadbin_1_${k1}$(filename, dim1)
             ${t1}$, dimension(:), allocatable :: loadbin_1_${k1}$
             character(len=*), intent(in) :: filename
             integer, intent(in) :: dim1
         end function
-
         module function loadbin_2_${k1}$(filename, dim1, dim2)
             ${t1}$, dimension(:, :), allocatable :: loadbin_2_${k1}$
             character(len=*), intent(in) :: filename
             integer, intent(in) :: dim1, dim2
         end function
-
         module function loadbin_3_${k1}$(filename, dim1, dim2, dim3)
             ${t1}$, dimension(:, :, :), allocatable :: loadbin_3_${k1}$
             character(len=*), intent(in) :: filename
             integer, intent(in) :: dim1, dim2, dim3
         end function
-
         module function loadtxt_1_${k1}$(filename)
             ${t1}$, dimension(:), allocatable :: loadtxt_1_${k1}$
             character(len=*), intent(in) :: filename
         end function
-
         module function loadtxt_2_${k1}$(filename, dim2)
             ${t1}$, dimension(:, :), allocatable :: loadtxt_2_${k1}$
             character(len=*), intent(in) :: filename
             integer, intent(in) :: dim2
         end function
-
         #:endfor
     end interface
 
     #:set RANKS = range(0, 4)
     interface
-        !! Version: experimental
-        !!
-        !! randu generates uniformly distributed random numbers.
-        !!
-        !!## Syntax
-        !!    x = randu()
-        !!    x = randu(dim1)
-        !!    A = randu(dim1, dim2)
-        !!    X = randu(dim1, dim2, dim3)
-        !!
-        !!## Description
-        !! `x = randu()` returns a single uniformly distributed random number in
-        !! the interval [0,1].
-        !!
-        !! `x = randu(dim1)` returns a dim1 vector of uniformly distributed random
-        !! numbers.
-        !!
-        !! `A = randu(dim1, dim2)` returns a dim1-by-dim2 matrix of uniformly
-        !! distributed random numbers.
-        !!
-        !! `X = randu(dim1, dim2, dim3)` returns a dim1-by-dim2-by-dim3
-        !! 3-dimensional matrix of uniformly distributed random numbers.
-        !!
-        !!## Examples
-        !!    x = randu()
-        !!        0.383413825
-        !!
-        !!    x = randu(5)*2 - 1
-        !!        0.640258908  -0.873707294   0.787327528
         #:for k1, t1 in REAL_KINDS_TYPES
         #:for RANK in RANKS
         #:if RANK == 0
@@ -1782,95 +1183,34 @@ module forlab
             ${t1}$, allocatable :: randu_${RANK}$_${k1}$ ${ranksuffix(RANK)}$
             #:endif
         end function
-
         #:endfor
         #:endfor
     end interface
 
+    #:set EZO_NAME = ['empty', 'zeros', 'ones']
     #:set RANKS = range(1, 4)
+    #:for e1 in EZO_NAME
     interface
-        !! Version: experimental
-        !!
-        !! zeros creates array all of zeros.
-        !!
-        !!## Syntax
-        !!    x = zeros(dim1)                
-        !!    A = zeros(dim1, dim2)          
-        !!    X = zeros(dim1, dim2, dim3)    
-        !! 
-        !!## Description
-        !! The precision of the flag variable should be consistent with 
-        !! the return value of the function.  
-        !! Unlike dynamic scripting languages, static languages generally
-        !! have multiple precision variables, so we need to explicitly provide precision hints.
-        !!
-        !! `x = zeros(dim1)` returns a dim1 vector of zeros.
-        !!
-        !! `A = zeros(dim1, dim2)` returns a dim1-by-dim2 matrix of zeros.
-        !!
-        !! `X = zeros(dim1, dim2, dim3)` returns a dim1-by-dim2-by-dim3
-        !! 3-dimensional matrix of zeros.
-        !!
-        !!## Examples
-        !!    x = zeros(3)  
-        !!    x =  
-        !!        0.  0.  0.  
-        !!
-        !!    A = zeros(3, 3)  
-        !!    A =  
-        !!        0.  0.  0.  
-        !!        0.  0.  0.  
-        !!        0.  0.  0.
         #:for RANK in RANKS
         #:for k1, t1 in REAL_KINDS_TYPES
         #:if RANK == 1
-        module function zeros_${RANK}$_${k1}$ (dim1)
+        module function ${e1}$_${RANK}$_${k1}$ (dim1)
             integer, intent(in) :: dim1
         #:elif RANK == 2
-        module function zeros_${RANK}$_${k1}$ (dim1, dim2)
+        module function ${e1}$_${RANK}$_${k1}$ (dim1, dim2)
             integer, intent(in) :: dim1, dim2
         #:elif RANK == 3
-        module function zeros_${RANK}$_${k1}$ (dim1, dim2, dim3)
+        module function ${e1}$_${RANK}$_${k1}$ (dim1, dim2, dim3)
             integer, intent(in) :: dim1, dim2, dim3
         #:endif
-            ${t1}$, allocatable :: zeros_${RANK}$_${k1}$ ${ranksuffix(RANK)}$
+            ${t1}$, allocatable :: ${e1}$_${RANK}$_${k1}$ ${ranksuffix(RANK)}$
         end function
-
         #:endfor
         #:endfor
     end interface
+    #:endfor
 
     interface
-        !! Version: experimental
-        !!
-        !! eye creates the identity matrix.
-        !!
-        !!## Syntax
-        !!    I = eye(dim1)
-        !!    I = eye(dim1, dim2)
-        !!
-        !!## Description
-        !! `I = eye(dim1)` returns an dim1-by-dim1 matrix with ones on the main
-        !! diagonal and zeros elsewhere.  
-        !! `I = eye(dim1, dim2)` returns a dim1-by-dim2 matrix with ones on the
-        !! main diagonal and zeros elsewhere.
-        !!
-        !!## Examples
-        !!      I = eye(3)  
-        !!          1.  0.  0.  
-        !!          0.  1.  0.  
-        !!          0.  0.  1.
-        !!
-        !!      I = eye(3, 4)  
-        !!          1.  0.  0.  0.  
-        !!          0.  1.  0.  0.  
-        !!          0.  0.  1.  0.
-        !!
-        !!      I = eye(4, 3)  
-        !!          1.  0.  0.
-        !!          0.  1.  0.
-        !!          0.  0.  1.
-        !!          0.  0.  0. 
         #:set RANKS = range(1, 3)
         #:for k1, t1 in REAL_KINDS_TYPES
         #:for RANK in RANKS
@@ -1883,35 +1223,6 @@ module forlab
             integer, intent(in) :: dim1
         #:endif
             ${t1}$, dimension(:, :), allocatable :: eye_${RANK}$_${k1}$
-        end function
-
-        #:endfor
-        #:endfor
-    end interface
-
-    #:set RANKS = range(1, 4)
-    interface
-        !! Version: experimental
-        !!
-        !! Create uninitialized matrices quickly, faster than `ones`/`zeros` function,
-        !! and use `empty` function with caution.
-        !!
-        !!## Example
-        !!    real, allocatable :: x(:, :)
-        !!    x = empty(2, 3)
-        #:for RANK in RANKS
-        #:for k1, t1 in REAL_KINDS_TYPES
-        #:if RANK == 1
-        module function empty_${RANK}$_${k1}$ (dim1)
-            integer, intent(in) :: dim1
-        #:elif RANK == 2
-        module function empty_${RANK}$_${k1}$ (dim1, dim2)
-            integer, intent(in) :: dim1, dim2
-        #:elif RANK == 3
-        module function empty_${RANK}$_${k1}$ (dim1, dim2, dim3)
-            integer, intent(in) :: dim1, dim2, dim3
-        #:endif
-            ${t1}$, allocatable :: empty_${RANK}$_${k1}$ ${ranksuffix(RANK)}$
         end function
 
         #:endfor
@@ -2062,7 +1373,7 @@ contains
 
         xq = zeros(opt_n1)
         yq = zeros(opt_n1)
-        t = [dzeros(k - 1), dlinspace(0, 1, n - k + 2), ones(k - 1)]
+        t = [dzeros(k - 1), dlinspace(0, 1, n - k + 2), dones(k - 1)]
         y1 = linspace(0, 1, opt_n1)
 
         do iq = 1, opt_n1
@@ -2131,8 +1442,8 @@ contains
         xq = zeros(opt_n1, opt_n2)
         yq = zeros(opt_n1, opt_n2)
         zq = zeros(opt_n1, opt_n2)
-        t1 = [dzeros(k - 1), dlinspace(0, 1, m - k + 2), ones(k - 1)]
-        t2 = [dzeros(k - 1), dlinspace(0, 1, n - k + 2), ones(k - 1)]
+        t1 = [dzeros(k - 1), dlinspace(0, 1, m - k + 2), dones(k - 1)]
+        t2 = [dzeros(k - 1), dlinspace(0, 1, n - k + 2), dones(k - 1)]
         y1 = linspace(0, 1, opt_n1)
         y2 = linspace(0, 1, opt_n2)
 
@@ -5869,82 +5180,6 @@ contains
         pdf = pdf/sqrt((2.0d0*pi)**n*det(sigma))
         return
     end function normpdf2
-
-    ! ones
-    !-----------------------------------------------------------------------
-    ! ones creates array all of ones.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! x = ones(dim1)
-    ! A = ones(dim1, dim2)
-    ! X = ones(dim1, dim2, dim3)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! x = ones(dim1) returns a dim1 vector of ones.
-    !
-    ! A = ones(dim1, dim2) returns a dim1-by-dim2 matrix of ones.
-    !
-    ! X = ones(dim1, dim2, dim3) returns a dim1-by-dim2-by-dim3
-    ! 3-dimensional matrix of ones.
-    !
-    ! Examples
-    !-----------------------------------------------------------------------
-    ! x = ones(3)
-    ! x =
-    !     1.  1.  1.
-    !
-    ! A = ones(3, 3)
-    ! A =
-    !     1.  1.  1.
-    !     1.  1.  1.
-    !     1.  1.  1.
-
-    function ones1(dim1)
-        real(kind=RPRE), dimension(:), allocatable :: ones1
-        integer(kind=IPRE), intent(in) :: dim1
-        integer(kind=IPRE) :: ierr
-
-        allocate (ones1(dim1), stat=ierr)
-        if (ierr /= 0) then
-            print *, "Error: in ones, could not allocate array."
-            stop
-        else
-            ones1 = 1.0d0
-        end if
-        return
-    end function ones1
-
-    function ones2(dim1, dim2)
-        real(kind=RPRE), dimension(:, :), allocatable :: ones2
-        integer(kind=IPRE), intent(in) :: dim1, dim2
-        integer(kind=IPRE) :: ierr
-
-        allocate (ones2(dim1, dim2), stat=ierr)
-        if (ierr /= 0) then
-            print *, "Error: in ones, could not allocate array."
-            stop
-        else
-            ones2 = 1.0d0
-        end if
-        return
-    end function ones2
-
-    function ones3(dim1, dim2, dim3)
-        real(kind=RPRE), dimension(:, :, :), allocatable :: ones3
-        integer(kind=IPRE), intent(in) :: dim1, dim2, dim3
-        integer(kind=IPRE) :: ierr
-
-        allocate (ones3(dim1, dim2, dim3), stat=ierr)
-        if (ierr /= 0) then
-            print *, "Error: in ones, could not allocate array."
-            stop
-        else
-            ones3 = 1.0d0
-        end if
-        return
-    end function ones3
     ! open
     !-----------------------------------------------------------------------
     ! open opens a File object with sequential or direct access.

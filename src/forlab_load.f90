@@ -1,9 +1,4 @@
 submodule(forlab) forlab_load
-    use forlab_kinds
-    implicit none
-
-contains
-
     ! loadbin
     !-----------------------------------------------------------------------
     ! loadbin loads binary files.
@@ -39,6 +34,28 @@ contains
     !   -   4 for 32 bytes floating points,
     !   -   8 for 64 bytes floating points.
 
+
+    ! loadtxt
+    !-----------------------------------------------------------------------
+    ! loadtxt loads txt files.
+    !
+    ! Syntax
+    !-----------------------------------------------------------------------
+    ! x = loadtxt(filename)
+    ! A = loadtxt(filename, dim2)
+    !
+    ! Description
+    !-----------------------------------------------------------------------
+    ! x = loadtxt(filename) loads a 1-dimensional array into x from a txt
+    ! file filename.
+    !
+    ! A = loadtxt(filename, dim2) loads a 2-dimensional array into A from a
+    ! txt file filename. dim2 indicates the number of columns of the array.
+
+    use forlab_kinds
+    implicit none
+
+contains
     module procedure loadbin_0_sp
         integer :: opt_kind, dim1, fs
         type(File) :: infile

@@ -1,4 +1,13 @@
 submodule(forlab) forlab_issquare
+    !! Determine if it is a square matrix
+    !!
+    !!## Example
+    !!    A = eye(3)
+    !!    bool = issquare(A)
+    !!           .true.
+    !!    A = eye(3, 4)
+    !!    bool = issquare0(A)
+    !!           .false.
     use forlab_kinds
     implicit none
 contains

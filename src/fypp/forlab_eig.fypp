@@ -25,10 +25,10 @@ contains
 
             B = A
             n = size(B, 1)
-            V = eye(n)
+            V = ${k1[0]}$eye(n)
             d = diag(B)
             bw = d
-            zw = zeros(n)
+            zw = ${k1[0]}$zeros(n)
 
             iter = 0
             do while (iter .lt. opt_itermax)

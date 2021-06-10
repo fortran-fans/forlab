@@ -24,9 +24,9 @@ module forlab
     integer, public, parameter :: RPRE = 8
     integer, public, parameter :: CLEN = 512
     real(kind=8), public, parameter :: pi = 3.141592653589793238460d0
-    real(sp),public, parameter ::pi_sp=acos(-1.0_sp)
-    real(dp),public, parameter ::pi_dp=acos(-1.0_dp)
-    real(qp),public, parameter ::pi_qp=acos(-1.0_qp)
+    real(sp), public, parameter ::pi_sp=acos(-1.0_sp)
+    real(dp), public, parameter ::pi_dp=acos(-1.0_dp)
+    real(qp), public, parameter ::pi_qp=acos(-1.0_qp)
     ! Functions
     private
     public :: File, acosd, asind, atand, argmax, argmin, argsort, arange, &
@@ -37,7 +37,7 @@ module forlab
               find, flip, fliplr, flipud, fminbnd, gammainc, horzcat, &
               hann, interp1, interp2, interp3, inv, ismember, isoutlier, issquare, &
               isleap, issymmetric, kurtosis, k2test, kde, &
-              mean, median, mad, meshgrid, nextpow2, norm, normpdf, num2str, ones, &
+              mean, median, mad, meshgrid, nextpow2, norm, normpdf, num2str, &
               outer, pascal, prctile, progress_bar, progress_perc, rng, &
               randi, randperm, repmat, rms, savetxt, savebin, sind, sort, solve, &
               svd, svdsolve, std, spline1, spline2, skewness, signum, sinc, &
@@ -48,6 +48,7 @@ module forlab
     public :: eye, seye, deye, qeye
     public :: linspace, slinspace, dlinspace, qlinspace
     public :: loadbin, sloadbin, dloadbin, qloadbin
+    public :: ones, sones, dones, qones
     public :: randn, srandn, drandn, qrandn
     public :: randu, srandu, drandu, qrandu
     public :: loadtxt, sloadtxt, dloadtxt, qloadtxt
@@ -80,18 +81,6 @@ module forlab
 
     !! Polymorphic Interfaces
     interface angle
-        !! angle compute the phase angle.
-        !!
-        !!## Syntax
-        !!    p = angle(z)
-        !!    P = angle(Z)
-        !!
-        !!## Description
-        !! `p = angle(z)` returns the phase angle in radians of the complex
-        !! number z.
-        !!
-        !! `P = angle(Z)` returns the phase angles in radians of each complex
-        !! numbers in vector Z.
         real(sp) elemental module function angle_sp(z)
             complex(sp), intent(in) :: z
         end function
@@ -349,22 +338,6 @@ module forlab
 
 
     interface arange
-        !! Version: experimental
-        !!
-        !! arange
-        !!
-        !! arange returns evenly spaced vector.
-        !!
-        !!## Syntax
-        !!     x = arange(first, last)
-        !!
-        !!## Description
-        !! `x = arange(first, last)` returns an evenly spaced integer vector
-        !! starting from first and ending at last.
-        !!
-        !!## Examples
-        !!     x = arange(1, 9)
-        !!          1   2   3   4   5   6   7   8   9
             module function arange_int8 (first, last)
                 integer(int8), dimension(:), allocatable :: arange_int8
                 integer(int8), intent(in) :: first, last
@@ -555,27 +528,6 @@ module forlab
 
 
     interface det
-        !! Version: experimental
-        !!
-        !! det computes the matrix determinant.
-        !!
-        !!## Syntax
-        !!    x = det(A)
-        !!    x = det(A, L, U)
-        !!
-        !!## Description
-        !! `x = det(A)` returns the determinant of the square matrix A, as the
-        !! product of the diagonal elements of the upper triangular matrix from
-        !! the LU factorization of A.
-        !!
-        !! `x = det(A, L, U)` returns the determinant of the square matrix A and
-        !! outputs the LU factorization matrices of A used for the calculation.
-        !!
-        !!## Examples
-        !!    A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 0. ], [ 3, 3 ], &
-        !!                order = [ 2, 1 ])
-        !!    x = det(A)
-        !!        27.
         real(sp) module function det_sp (A, outL, outU)
             real(sp), dimension(:, :), intent(in) :: A
             real(sp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
@@ -646,169 +598,93 @@ module forlab
     end interface diff
 
     interface disp
-        !! Version: experimental
-        !!
-        !! disp displays the value of a variable.
-        !!
-        !!## Syntax
-        !!    call disp(string)
-        !!    call disp(x)
-        !!    call disp(x, string)
-        !!    call disp(A)
-        !!    call disp(A, string)
-        !!    call disp(X)
-        !!    call disp(X, 1)
-        !!    call disp(X, 1, string)
-        !!    call disp(X, 2)
-        !!    call disp(X, 2, string)
-        !!    call disp(X, 3)
-        !!    call disp(X, 3, string)
-        !!
-        !!## Description
-        !! `call disp(x)` displays the scalar or the vector x.
-        !!
-        !! `call disp(x, string)` displays the scalar or the vector x preceded by
-        !! string.
-        !!
-        !! `call disp(A)` displays the matrix A.
-        !!
-        !! `call disp(A, string)` displays the matrix A preceded by string.
-        !!
-        !! `call disp(X)` displays the 3-dimensional matrix X along the axis 1.
-        !!
-        !! `call disp(X, 1)` (see `call disp(X)`).
-        !!
-        !! `call disp(X, 1, string)` displays the 3-dimensional matrix X along the
-        !! axis 1 preceded by string.
-        !!
-        !! `call disp(X, 2)` displays the 3-dimensional matrix X along the axis 2.
-        !!
-        !! `call disp(X, 2, string)` displays the 3-dimensional matrix X along the
-        !! axis 2 preceded by string.
-        !!
-        !! `call disp(X, 3)` displays the 3-dimensional matrix X along the axis 3.
-        !!
-        !! `call disp(X, 3, string)` displays the 3-dimensional matrix X along the
-        !! axis 3 preceded by string.
-        !!
-        !!## Examples
-        !!    x = [ 1. 2. 3. ]
-        !!    call disp(x)
-        !!        1.
-        !!        2.
-        !!        3.
-        !!    call disp(x, "x = ")
-        !!        x =
-        !!            1.
-        !!            2.
-        !!            3.
-        !!
-        !!    A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 9. ], [ 3, 3 ], &
-        !!                order = [ 2, 1 ])
-        !!    call disp(A, "Matrix A is")
-        !!        Matrix A is
-        !!            1.  2.  3.
-        !!            4.  5.  6.
-        !!            7.  8.  9.
-            module subroutine disp_rsp0(x, string)
-                real(sp), intent(in) :: x
-                character(len=*), intent(in), optional :: string
-            end subroutine
-
-            module subroutine disp_rsp1(x, string)
-                real(sp), dimension(:), intent(in) :: x
-                character(len=*), intent(in), optional :: string
-            end subroutine
-
-            module subroutine disp_rsp2(A, string)
-                real(sp), dimension(:, :), intent(in) :: A
-                character(len=*), intent(in), optional :: string
-            end subroutine
-
-            module subroutine disp_rsp3(X, dim, string)
-                real(sp), dimension(:, :, :), intent(in) :: X
-                integer, intent(in), optional :: dim
-                character(len=*), intent(in), optional :: string
-            end subroutine
-            module subroutine disp_rdp0(x, string)
-                real(dp), intent(in) :: x
-                character(len=*), intent(in), optional :: string
-            end subroutine
-
-            module subroutine disp_rdp1(x, string)
-                real(dp), dimension(:), intent(in) :: x
-                character(len=*), intent(in), optional :: string
-            end subroutine
-
-            module subroutine disp_rdp2(A, string)
-                real(dp), dimension(:, :), intent(in) :: A
-                character(len=*), intent(in), optional :: string
-            end subroutine
-
-            module subroutine disp_rdp3(X, dim, string)
-                real(dp), dimension(:, :, :), intent(in) :: X
-                integer, intent(in), optional :: dim
-                character(len=*), intent(in), optional :: string
-            end subroutine
-            module subroutine disp_rqp0(x, string)
-                real(qp), intent(in) :: x
-                character(len=*), intent(in), optional :: string
-            end subroutine
-
-            module subroutine disp_rqp1(x, string)
-                real(qp), dimension(:), intent(in) :: x
-                character(len=*), intent(in), optional :: string
-            end subroutine
-
-            module subroutine disp_rqp2(A, string)
-                real(qp), dimension(:, :), intent(in) :: A
-                character(len=*), intent(in), optional :: string
-            end subroutine
-
-            module subroutine disp_rqp3(X, dim, string)
-                real(qp), dimension(:, :, :), intent(in) :: X
-                integer, intent(in), optional :: dim
-                character(len=*), intent(in), optional :: string
-            end subroutine
-            module subroutine disp_csp0(x, string)
-                complex(sp), intent(in) :: x
-                character(len=*), intent(in), optional :: string
-            end subroutine
-
-            module subroutine disp_csp1(x, string)
-                complex(sp), dimension(:), intent(in) :: x
-                character(len=*), intent(in), optional :: string
-            end subroutine
-            module subroutine disp_csp2(A, string)
-                complex(sp), dimension(:, :), intent(in) :: A
-                character(len=*), intent(in), optional :: string
-            end subroutine
-            module subroutine disp_cdp0(x, string)
-                complex(dp), intent(in) :: x
-                character(len=*), intent(in), optional :: string
-            end subroutine
-
-            module subroutine disp_cdp1(x, string)
-                complex(dp), dimension(:), intent(in) :: x
-                character(len=*), intent(in), optional :: string
-            end subroutine
-            module subroutine disp_cdp2(A, string)
-                complex(dp), dimension(:, :), intent(in) :: A
-                character(len=*), intent(in), optional :: string
-            end subroutine
-            module subroutine disp_cqp0(x, string)
-                complex(qp), intent(in) :: x
-                character(len=*), intent(in), optional :: string
-            end subroutine
-
-            module subroutine disp_cqp1(x, string)
-                complex(qp), dimension(:), intent(in) :: x
-                character(len=*), intent(in), optional :: string
-            end subroutine
-            module subroutine disp_cqp2(A, string)
-                complex(qp), dimension(:, :), intent(in) :: A
-                character(len=*), intent(in), optional :: string
-            end subroutine
+        module subroutine disp_rsp0(x, string)
+            real(sp), intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_rsp1(x, string)
+            real(sp), dimension(:), intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_rsp2(A, string)
+            real(sp), dimension(:, :), intent(in) :: A
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_rsp3(X, dim, string)
+            real(sp), dimension(:, :, :), intent(in) :: X
+            integer, intent(in), optional :: dim
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_rdp0(x, string)
+            real(dp), intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_rdp1(x, string)
+            real(dp), dimension(:), intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_rdp2(A, string)
+            real(dp), dimension(:, :), intent(in) :: A
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_rdp3(X, dim, string)
+            real(dp), dimension(:, :, :), intent(in) :: X
+            integer, intent(in), optional :: dim
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_rqp0(x, string)
+            real(qp), intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_rqp1(x, string)
+            real(qp), dimension(:), intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_rqp2(A, string)
+            real(qp), dimension(:, :), intent(in) :: A
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_rqp3(X, dim, string)
+            real(qp), dimension(:, :, :), intent(in) :: X
+            integer, intent(in), optional :: dim
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_csp0(x, string)
+            complex(sp), intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_csp1(x, string)
+            complex(sp), dimension(:), intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_csp2(A, string)
+            complex(sp), dimension(:, :), intent(in) :: A
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_cdp0(x, string)
+            complex(dp), intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_cdp1(x, string)
+            complex(dp), dimension(:), intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_cdp2(A, string)
+            complex(dp), dimension(:, :), intent(in) :: A
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_cqp0(x, string)
+            complex(qp), intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_cqp1(x, string)
+            complex(qp), dimension(:), intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_cqp2(A, string)
+            complex(qp), dimension(:, :), intent(in) :: A
+            character(len=*), intent(in), optional :: string
+        end subroutine
         module subroutine disp_l0(x, string)
             logical, intent(in) :: x
             character(len=*), intent(in), optional :: string
@@ -821,74 +697,74 @@ module forlab
             logical, dimension(:, :), intent(in) :: A
             character(len=*), intent(in), optional :: string
         end subroutine disp_l2
-            module subroutine disp_0_int8(x, string)
-                integer(int8), intent(in) :: x
-                character(len=*), intent(in), optional :: string
-            end subroutine
-            module subroutine disp_1_int8(x, string)
-                integer(int8), dimension(:), intent(in) :: x
-                character(len=*), intent(in), optional :: string
-            end subroutine
-            module subroutine disp_2_int8(A, string)
-                integer(int8), dimension(:, :), intent(in) :: A
-                character(len=*), intent(in), optional :: string
-            end subroutine
-            module subroutine disp_3_int8(X, dim, string)
-                integer(int8), dimension(:, :, :), intent(in) :: X
-                integer, intent(in), optional :: dim
-                character(len=*), intent(in), optional :: string
-            end subroutine
-            module subroutine disp_0_int16(x, string)
-                integer(int16), intent(in) :: x
-                character(len=*), intent(in), optional :: string
-            end subroutine
-            module subroutine disp_1_int16(x, string)
-                integer(int16), dimension(:), intent(in) :: x
-                character(len=*), intent(in), optional :: string
-            end subroutine
-            module subroutine disp_2_int16(A, string)
-                integer(int16), dimension(:, :), intent(in) :: A
-                character(len=*), intent(in), optional :: string
-            end subroutine
-            module subroutine disp_3_int16(X, dim, string)
-                integer(int16), dimension(:, :, :), intent(in) :: X
-                integer, intent(in), optional :: dim
-                character(len=*), intent(in), optional :: string
-            end subroutine
-            module subroutine disp_0_int32(x, string)
-                integer(int32), intent(in) :: x
-                character(len=*), intent(in), optional :: string
-            end subroutine
-            module subroutine disp_1_int32(x, string)
-                integer(int32), dimension(:), intent(in) :: x
-                character(len=*), intent(in), optional :: string
-            end subroutine
-            module subroutine disp_2_int32(A, string)
-                integer(int32), dimension(:, :), intent(in) :: A
-                character(len=*), intent(in), optional :: string
-            end subroutine
-            module subroutine disp_3_int32(X, dim, string)
-                integer(int32), dimension(:, :, :), intent(in) :: X
-                integer, intent(in), optional :: dim
-                character(len=*), intent(in), optional :: string
-            end subroutine
-            module subroutine disp_0_int64(x, string)
-                integer(int64), intent(in) :: x
-                character(len=*), intent(in), optional :: string
-            end subroutine
-            module subroutine disp_1_int64(x, string)
-                integer(int64), dimension(:), intent(in) :: x
-                character(len=*), intent(in), optional :: string
-            end subroutine
-            module subroutine disp_2_int64(A, string)
-                integer(int64), dimension(:, :), intent(in) :: A
-                character(len=*), intent(in), optional :: string
-            end subroutine
-            module subroutine disp_3_int64(X, dim, string)
-                integer(int64), dimension(:, :, :), intent(in) :: X
-                integer, intent(in), optional :: dim
-                character(len=*), intent(in), optional :: string
-            end subroutine
+        module subroutine disp_0_int8(x, string)
+            integer(int8), intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_1_int8(x, string)
+            integer(int8), dimension(:), intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_2_int8(A, string)
+            integer(int8), dimension(:, :), intent(in) :: A
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_3_int8(X, dim, string)
+            integer(int8), dimension(:, :, :), intent(in) :: X
+            integer, intent(in), optional :: dim
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_0_int16(x, string)
+            integer(int16), intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_1_int16(x, string)
+            integer(int16), dimension(:), intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_2_int16(A, string)
+            integer(int16), dimension(:, :), intent(in) :: A
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_3_int16(X, dim, string)
+            integer(int16), dimension(:, :, :), intent(in) :: X
+            integer, intent(in), optional :: dim
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_0_int32(x, string)
+            integer(int32), intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_1_int32(x, string)
+            integer(int32), dimension(:), intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_2_int32(A, string)
+            integer(int32), dimension(:, :), intent(in) :: A
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_3_int32(X, dim, string)
+            integer(int32), dimension(:, :, :), intent(in) :: X
+            integer, intent(in), optional :: dim
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_0_int64(x, string)
+            integer(int64), intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_1_int64(x, string)
+            integer(int64), dimension(:), intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_2_int64(A, string)
+            integer(int64), dimension(:, :), intent(in) :: A
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_3_int64(X, dim, string)
+            integer(int64), dimension(:, :, :), intent(in) :: X
+            integer, intent(in), optional :: dim
+            character(len=*), intent(in), optional :: string
+        end subroutine
         module subroutine disp_str(string)
             character(len=*), intent(in), optional :: string
         end subroutine
@@ -934,59 +810,7 @@ module forlab
 
     end interface eig
 
-    interface empty
-        procedure empty_1_sp
-        procedure empty_2_sp
-        procedure empty_3_sp
-    end interface
-
-    interface sempty
-        procedure empty_1_sp
-        procedure empty_2_sp
-        procedure empty_3_sp
-    end interface
-    interface dempty
-        procedure empty_1_dp
-        procedure empty_2_dp
-        procedure empty_3_dp
-    end interface
-    interface qempty
-        procedure empty_1_qp
-        procedure empty_2_qp
-        procedure empty_3_qp
-    end interface
-
     interface eye
-        !! Version: experimental
-        !!
-        !! eye creates the identity matrix.
-        !!
-        !!## Syntax
-        !!    I = eye(dim1)
-        !!    I = eye(dim1, dim2)
-        !!
-        !!## Description
-        !! `I = eye(dim1)` returns an dim1-by-dim1 matrix with ones on the main
-        !! diagonal and zeros elsewhere.
-        !! `I = eye(dim1, dim2)` returns a dim1-by-dim2 matrix with ones on the
-        !! main diagonal and zeros elsewhere.
-        !!
-        !!## Examples
-        !!      I = eye(3)
-        !!          1.  0.  0.
-        !!          0.  1.  0.
-        !!          0.  0.  1.
-        !!
-        !!      I = eye(3, 4)
-        !!          1.  0.  0.  0.
-        !!          0.  1.  0.  0.
-        !!          0.  0.  1.  0.
-        !!
-        !!      I = eye(4, 3)
-        !!          1.  0.  0.
-        !!          0.  1.  0.
-        !!          0.  0.  1.
-        !!          0.  0.  0.  
         procedure eye_1_sp
         procedure eye_2_sp
     end interface
@@ -1050,47 +874,6 @@ module forlab
     end interface interp3
 
     interface inv
-        !! Version: experimental
-        !! inv computes the matrix inverse.
-        !! inv0
-        !!-----------------------------------------------------------------------
-        !! inv0 computes the real matrix inverse.
-        !!
-        !! Syntax
-        !!-----------------------------------------------------------------------
-        !! B = inv0(A)
-        !!
-        !! Description
-        !!-----------------------------------------------------------------------
-        !! B = inv0(A) returns the inverse of the real matrix A if A is inversible
-        !! (det(A) /= 0.).
-        !!
-        !! Examples
-        !!-----------------------------------------------------------------------
-        !! A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 0. ], [ 3, 3 ], &
-        !!             order = [ 2, 1 ])
-        !! B = inv0(A)
-        !!     -1.77777779   0.888888896  -0.111111112
-        !!      1.55555558  -0.777777791   0.222222224
-        !!     -0.11111112   0.222222224  -0.111111112
-
-        ! isleap
-        !-----------------------------------------------------------------------
-        ! isleap determines whether a year is a leap year.
-        !
-        ! Syntax
-        !-----------------------------------------------------------------------
-        ! bool = isleap(year)
-        !
-        ! Description
-        !-----------------------------------------------------------------------
-        ! bool = isleap(year) returns .true. if year is a leap year, .false.
-        ! otherwise.
-        !
-        ! Examples
-        !-----------------------------------------------------------------------
-        ! bool = isleap(2016)
-        !     .true.
             module function inv_rsp (A)
                 real(sp), dimension(:, :), allocatable :: inv_rsp
                 real(sp), dimension(:, :), intent(in) :: A
@@ -1122,13 +905,12 @@ module forlab
         !! Example
         !! ---
         !! inv_of_A = .i.A
-            procedure inv_rsp
-            procedure inv_rdp
-            procedure inv_rqp
-
-            procedure inv_csp
-            procedure inv_cdp
-            procedure inv_cqp
+        procedure inv_rsp
+        procedure inv_rdp
+        procedure inv_rqp
+        procedure inv_csp
+        procedure inv_cdp
+        procedure inv_cqp
     end interface operator(.i.)
 
     interface operator(.x.)
@@ -1140,68 +922,56 @@ module forlab
             real(sp), intent(in) :: m1(:, :), m2(:, :)
             real(sp) :: ret(size(m1, 1), size(m2, 2))
         end function
-
         module function cmut_sp(m1, m2) result(ret)
             complex(sp), intent(in) :: m1(:, :), m2(:, :)
             complex(sp) :: ret(size(m1, 1), size(m2, 2))
         end function
-
         module function rcmut_sp(m1, m2) result(ret)
             real(sp), intent(in) :: m1(:, :)
             complex(sp), intent(in) :: m2(:, :)
             complex(sp) :: ret(size(m1, 1), size(m2, 2))
         end function
-
         module function crmut_sp(m1, m2) result(ret)
             real(sp), intent(in) :: m2(:, :)
             complex(sp), intent(in) :: m1(:, :)
             complex(sp) :: ret(size(m1, 1), size(m2, 2))
         end function
-
         module function rmut_dp(m1, m2) result(ret)
             real(dp), intent(in) :: m1(:, :), m2(:, :)
             real(dp) :: ret(size(m1, 1), size(m2, 2))
         end function
-
         module function cmut_dp(m1, m2) result(ret)
             complex(dp), intent(in) :: m1(:, :), m2(:, :)
             complex(dp) :: ret(size(m1, 1), size(m2, 2))
         end function
-
         module function rcmut_dp(m1, m2) result(ret)
             real(dp), intent(in) :: m1(:, :)
             complex(dp), intent(in) :: m2(:, :)
             complex(dp) :: ret(size(m1, 1), size(m2, 2))
         end function
-
         module function crmut_dp(m1, m2) result(ret)
             real(dp), intent(in) :: m2(:, :)
             complex(dp), intent(in) :: m1(:, :)
             complex(dp) :: ret(size(m1, 1), size(m2, 2))
         end function
-
         module function rmut_qp(m1, m2) result(ret)
             real(qp), intent(in) :: m1(:, :), m2(:, :)
             real(qp) :: ret(size(m1, 1), size(m2, 2))
         end function
-
         module function cmut_qp(m1, m2) result(ret)
             complex(qp), intent(in) :: m1(:, :), m2(:, :)
             complex(qp) :: ret(size(m1, 1), size(m2, 2))
         end function
-
         module function rcmut_qp(m1, m2) result(ret)
             real(qp), intent(in) :: m1(:, :)
             complex(qp), intent(in) :: m2(:, :)
             complex(qp) :: ret(size(m1, 1), size(m2, 2))
         end function
-
         module function crmut_qp(m1, m2) result(ret)
             real(qp), intent(in) :: m2(:, :)
             complex(qp), intent(in) :: m1(:, :)
             complex(qp) :: ret(size(m1, 1), size(m2, 2))
         end function
-
     end interface
 
     interface ismember
@@ -1212,39 +982,24 @@ module forlab
     end interface ismember
 
     interface issquare
-        !! Determine if it is a square matrix
-        !!
-        !!## Example
-        !!    A = eye(3)
-        !!    bool = issquare(A)
-        !!           .true.
-        !!    A = eye(3, 4)
-        !!    bool = issquare0(A)
-        !!           .false.
         logical module function issquare_rsp (A)
             real(sp), dimension(:, :), intent(in) :: A
         end function
-
         logical module function issquare_rdp (A)
             real(dp), dimension(:, :), intent(in) :: A
         end function
-
         logical module function issquare_rqp (A)
             real(qp), dimension(:, :), intent(in) :: A
         end function
-
         logical module function issquare_csp (A)
             complex(sp), dimension(:, :), intent(in) :: A
         end function
-
         logical module function issquare_cdp (A)
             complex(dp), dimension(:, :), intent(in) :: A
         end function
-
         logical module function issquare_cqp (A)
             complex(qp), dimension(:, :), intent(in) :: A
         end function
-
     end interface
 
     interface issymmetric
@@ -1304,7 +1059,6 @@ module forlab
                   linspace_ri_qp, &
                   linspace_ir_qp
     end interface
-
     interface slinspace
         procedure linspace_ii_sp
         procedure linspace_rr_sp, &
@@ -1330,21 +1084,18 @@ module forlab
         procedure loadbin_2_sp
         procedure loadbin_3_sp
     end interface
-
     interface sloadbin
         procedure loadbin_0_sp
         procedure loadbin_1_sp
         procedure loadbin_2_sp
         procedure loadbin_3_sp
     end interface
-
     interface dloadbin
         procedure loadbin_0_dp
         procedure loadbin_1_dp
         procedure loadbin_2_dp
         procedure loadbin_3_dp
     end interface
-
     interface qloadbin
         procedure loadbin_0_qp
         procedure loadbin_1_qp
@@ -1353,71 +1104,36 @@ module forlab
     end interface
 
 
-
     interface loadtxt
         procedure loadtxt_1_sp, loadtxt_2_sp
     end interface
-
     interface sloadtxt
         procedure loadtxt_1_sp, loadtxt_2_sp
     end interface
-
     interface dloadtxt
         procedure loadtxt_1_dp, loadtxt_2_dp
     end interface
-
     interface qloadtxt
         procedure loadtxt_1_qp, loadtxt_2_qp
     end interface
-
 
     interface log2
         module procedure log2_i0, log2_r0, log2_i1, log2_r1
     end interface log2
 
     interface lu
-        !! lu computes the LU matrix factorization.
-        !!
-        !! Syntax
-        !!-----------------------------------------------------------------------
-        !! call lu(A, L, U)
-        !!
-        !! Description
-        !!---------------------------------------------------------------------
-        !! call lu(A, L, U) returns the LU matrix factorization of the input
-        !! square m-by-m matrix A. The output matrices are:
-        !!   -   L is a m-by-m lower triangular matrix with ones on the diagonal,
-        !!   -   U is a m-by-m upper triangular matrix.
-        !!
-        !! Examples
-        !!---------------------------------------------------------------------
-        !! A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 9. ], [ 3, 3 ], &
-        !!             order = [ 2, 1 ])
-        !! call lu(A, L, U)
-        !! call disp(L)
-        !!     1.  0.  0.
-        !!     4.  1.  0.
-        !!     7.  2.  1.
-        !! call disp(U)
-        !!     1.  2.  3.
-        !!     0. -3. -6.
-        !!     0.  0.  0.
-        !! call disp(matmul(L, U))
-        !!     1.  2.  3.
-        !!     4.  5.  6.
-        !!     7.  8.  9.
-            module subroutine lu_sp (A, L, U)
-                real(sp), dimension(:, :), intent(in) :: A
-                real(sp), dimension(:, :), allocatable, intent(out) :: L, U
-            end subroutine
-            module subroutine lu_dp (A, L, U)
-                real(dp), dimension(:, :), intent(in) :: A
-                real(dp), dimension(:, :), allocatable, intent(out) :: L, U
-            end subroutine
-            module subroutine lu_qp (A, L, U)
-                real(qp), dimension(:, :), intent(in) :: A
-                real(qp), dimension(:, :), allocatable, intent(out) :: L, U
-            end subroutine
+        module subroutine lu_sp (A, L, U)
+            real(sp), dimension(:, :), intent(in) :: A
+            real(sp), dimension(:, :), allocatable, intent(out) :: L, U
+        end subroutine
+        module subroutine lu_dp (A, L, U)
+            real(dp), dimension(:, :), intent(in) :: A
+            real(dp), dimension(:, :), allocatable, intent(out) :: L, U
+        end subroutine
+        module subroutine lu_qp (A, L, U)
+            real(qp), dimension(:, :), intent(in) :: A
+            real(qp), dimension(:, :), allocatable, intent(out) :: L, U
+        end subroutine
     end interface
 
     interface mad
@@ -1453,69 +1169,42 @@ module forlab
     end interface normpdf
 
     interface num2str
-        !! Version: experimental
-        !!
-        !! num2str converts numbers to strings.
-        !!
-        !!## Syntax
-        !!    str = num2str(x)
-        !!    str = num2str(x, fmt)
-        !!
-        !!## Description
-        !! `str = num2str(x)` converts `x` into a string.
-        !!
-        !! `str = num2str(x, fmt)` converts `x` into a string with the format fmt.
-        !!
-        !!## Examples
-        !!    print *, "Percentage: " // num2str(50.431, "(F6.2)") // "%"
-        !!        Percentage: 50.43%
         module function num2str_sp(x, fmt)
             character(len=:), allocatable :: num2str_sp
             real(sp), intent(in) :: x
             character(len=*), intent(in), optional :: fmt
         end function
-
         module function num2str_dp(x, fmt)
             character(len=:), allocatable :: num2str_dp
             real(dp), intent(in) :: x
             character(len=*), intent(in), optional :: fmt
         end function
-
         module function num2str_qp(x, fmt)
             character(len=:), allocatable :: num2str_qp
             real(qp), intent(in) :: x
             character(len=*), intent(in), optional :: fmt
         end function
-
         module function num2str_int8(x, fmt)
             character(len=:), allocatable :: num2str_int8
             integer(int8), intent(in) :: x
             character(len=*), intent(in), optional :: fmt
         end function
-
         module function num2str_int16(x, fmt)
             character(len=:), allocatable :: num2str_int16
             integer(int16), intent(in) :: x
             character(len=*), intent(in), optional :: fmt
         end function
-
         module function num2str_int32(x, fmt)
             character(len=:), allocatable :: num2str_int32
             integer(int32), intent(in) :: x
             character(len=*), intent(in), optional :: fmt
         end function
-
         module function num2str_int64(x, fmt)
             character(len=:), allocatable :: num2str_int64
             integer(int64), intent(in) :: x
             character(len=*), intent(in), optional :: fmt
         end function
-
     end interface
-
-    interface ones
-        module procedure ones1, ones2, ones3
-    end interface ones
 
     interface outer
         !! outer
@@ -1600,7 +1289,6 @@ module forlab
         procedure randu_2_sp
         procedure randu_3_sp
     end interface
-
     interface srandu
         procedure randu_0_sp
         procedure randu_1_sp
@@ -1629,160 +1317,101 @@ module forlab
     end interface rms
 
     interface savebin
-        !! Version: experimental
-        !!
-        ! savebin saves arrays to binary files.
-        !
-        ! Syntax
-        !-----------------------------------------------------------------------
-        ! call savebin(filename, x)
-        ! call savebin(filename, A)
-        ! call savebin(filename, X)
-        !
-        ! Description
-        !-----------------------------------------------------------------------
-        ! call savebin(filename, x) saves a vector x into the binary file
-        ! filename.
-        !
-        ! call savebin(filename, A) saves a 2-dimensional array into the binary
-        ! file filename.
-        !
-        ! call savebin(filename, X) saves a 3-dimensional array into the binary
-        ! file filename.
         module subroutine savebin_1_sp(filename, x)
             character(len=*), intent(in) :: filename
             real(sp), dimension(:), intent(in) :: x
         end subroutine
-
         module subroutine savebin_2_sp(filename, A)
             character(len=*), intent(in) :: filename
             real(sp), dimension(:, :), intent(in) :: A
         end subroutine
-
         module subroutine savebin_3_sp(filename, X)
             character(len=*), intent(in) :: filename
             real(sp), dimension(:, :, :), intent(in) :: X
         end subroutine
-
         module subroutine savebin_1_dp(filename, x)
             character(len=*), intent(in) :: filename
             real(dp), dimension(:), intent(in) :: x
         end subroutine
-
         module subroutine savebin_2_dp(filename, A)
             character(len=*), intent(in) :: filename
             real(dp), dimension(:, :), intent(in) :: A
         end subroutine
-
         module subroutine savebin_3_dp(filename, X)
             character(len=*), intent(in) :: filename
             real(dp), dimension(:, :, :), intent(in) :: X
         end subroutine
-
         module subroutine savebin_1_qp(filename, x)
             character(len=*), intent(in) :: filename
             real(qp), dimension(:), intent(in) :: x
         end subroutine
-
         module subroutine savebin_2_qp(filename, A)
             character(len=*), intent(in) :: filename
             real(qp), dimension(:, :), intent(in) :: A
         end subroutine
-
         module subroutine savebin_3_qp(filename, X)
             character(len=*), intent(in) :: filename
             real(qp), dimension(:, :, :), intent(in) :: X
         end subroutine
-
     end interface savebin
 
     interface savetxt
-        !! Version: experimental
-        !!
-        ! savetxt saves 1 and 2-dimensional arrays to txt files.
-        !
-        ! Syntax
-        !-----------------------------------------------------------------------
-        ! call savetxt(filename, x)
-        ! call savetxt(filename, A)
-        !
-        ! Description
-        !-----------------------------------------------------------------------
-        ! call savetxt(filename, x) saves a vector array x into the txt file
-        ! filename.
-        !
-        ! call savetxt(filename, A) saves a 2-dimensional array A into the txt
-        ! file filename.
         module subroutine savetxt_1_sp(filename, x)
             character(len=*), intent(in) :: filename
             real(sp), dimension(:), intent(in) :: x
         end subroutine
-
         module subroutine savetxt_2_sp(filename, A)
             character(len=*), intent(in) :: filename
             real(sp), dimension(:, :), intent(in) :: A
         end subroutine
-
         module subroutine savetxt_1_dp(filename, x)
             character(len=*), intent(in) :: filename
             real(dp), dimension(:), intent(in) :: x
         end subroutine
-
         module subroutine savetxt_2_dp(filename, A)
             character(len=*), intent(in) :: filename
             real(dp), dimension(:, :), intent(in) :: A
         end subroutine
-
         module subroutine savetxt_1_qp(filename, x)
             character(len=*), intent(in) :: filename
             real(qp), dimension(:), intent(in) :: x
         end subroutine
-
         module subroutine savetxt_2_qp(filename, A)
             character(len=*), intent(in) :: filename
             real(qp), dimension(:, :), intent(in) :: A
         end subroutine
-
         module subroutine savetxt_1_int8(filename, x)
             character(len=*), intent(in) :: filename
             integer(int8), dimension(:), intent(in) :: x
         end subroutine
-
         module subroutine savetxt_2_int8(filename, A)
             character(len=*), intent(in) :: filename
             integer(int8), dimension(:, :), intent(in) :: A
         end subroutine
-
         module subroutine savetxt_1_int16(filename, x)
             character(len=*), intent(in) :: filename
             integer(int16), dimension(:), intent(in) :: x
         end subroutine
-
         module subroutine savetxt_2_int16(filename, A)
             character(len=*), intent(in) :: filename
             integer(int16), dimension(:, :), intent(in) :: A
         end subroutine
-
         module subroutine savetxt_1_int32(filename, x)
             character(len=*), intent(in) :: filename
             integer(int32), dimension(:), intent(in) :: x
         end subroutine
-
         module subroutine savetxt_2_int32(filename, A)
             character(len=*), intent(in) :: filename
             integer(int32), dimension(:, :), intent(in) :: A
         end subroutine
-
         module subroutine savetxt_1_int64(filename, x)
             character(len=*), intent(in) :: filename
             integer(int64), dimension(:), intent(in) :: x
         end subroutine
-
         module subroutine savetxt_2_int64(filename, A)
             character(len=*), intent(in) :: filename
             integer(int64), dimension(:, :), intent(in) :: A
         end subroutine
-
     end interface
 
     interface signum
@@ -1876,224 +1505,123 @@ module forlab
     end interface std
 
     interface toc
-        !! Version: experimental
-        !!
-        !! tic saves the elapsed CPU time in seconds.
-        !! toc displays and returns the elapsed time since tic.
-        !!
-        !!## Syntax
-        !!    call tic()
-        !!    call toc()
-        !!    call toc(t)
-        !!
-        !!## Description
-        !! `call tic()` saves the elapsed CPU time in seconds.
-        !!
-        !! `call toc()` displays the elapsed time since `call tic()`.
-        !!
-        !! `call toc(t)` displays and saves the elapsed time since `call tic()`.
-        !!
-        !!## Examples
-        !!    call tic()
-        !!    ! ... some codes ...
-        !!    call toc()
-        !!        Elapsed time: 0.1 seconds
         module subroutine toc_default()
         end subroutine
         module subroutine toc_sp(t)
             real(sp), intent(out) :: t
         end subroutine
-
         module subroutine toc_dp(t)
             real(dp), intent(out) :: t
         end subroutine
-
         module subroutine toc_qp(t)
             real(qp), intent(out) :: t
         end subroutine
-
     end interface
 
     interface tril
-        !! Version: expermental
-        !!
-        !! tril extracts the lower triangular part of a matrix.
-        !!
-        !!## Syntax
-        !!
-        !!      B = tril(A)
-        !!      B = tril(A, k)
-        !!
-        !!## Description
-        !!
-        !!  `B = tril(A)` returns the lower triangular part of matrix A.
-        !!
-        !!  `B = tril(A, k)` returns the elements on and below the kth diagonal of
-        !!      matrix X:
-        !!
-        !!      -   k = 0 is the main diagonal,
-        !!      -   k > 0 is above the main diagonal,
-        !!      -   k < 0 is below the main diagonal.
-        !!
-        !!## Examples
-        !!
-        !!      A = ones(4, 4)
-        !!      B = tril(A, -1)
-        !!          0.  0.  0.  0.
-        !!          1.  0.  0.  0.
-        !!          1.  1.  0.  0.
-        !!          1.  1.  1.  0.
         module function tril_int8(A,k)
             integer(int8), dimension(:, :), allocatable :: tril_int8
             integer(int8), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function tril_int8
-
         module function tril_int16(A,k)
             integer(int16), dimension(:, :), allocatable :: tril_int16
             integer(int16), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function tril_int16
-
         module function tril_int32(A,k)
             integer(int32), dimension(:, :), allocatable :: tril_int32
             integer(int32), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function tril_int32
-
         module function tril_int64(A,k)
             integer(int64), dimension(:, :), allocatable :: tril_int64
             integer(int64), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function tril_int64
-
         module function tril_sp(A,k)
             real(sp), dimension(:, :), allocatable :: tril_sp
             real(sp), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function tril_sp
-
         module function tril_dp(A,k)
             real(dp), dimension(:, :), allocatable :: tril_dp
             real(dp), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function tril_dp
-
         module function tril_qp(A,k)
             real(qp), dimension(:, :), allocatable :: tril_qp
             real(qp), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function tril_qp
-
         module function tril_csp(A,k)
             complex(sp), dimension(:, :), allocatable :: tril_csp
             complex(sp), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function tril_csp
-
         module function tril_cdp(A,k)
             complex(dp), dimension(:, :), allocatable :: tril_cdp
             complex(dp), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function tril_cdp
-
         module function tril_cqp(A,k)
             complex(qp), dimension(:, :), allocatable :: tril_cqp
             complex(qp), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function tril_cqp
-
     end interface tril
 
     interface triu
-        !! Version: expermental
-        !!
-        !! triu extracts the upper triangular part of a matrix.
-        !!
-        !!## Syntax
-        !!
-        !!      B = triu(A)
-        !!      B = triu(A, k)
-        !!
-        !!## Description
-        !!
-        !!  `B = triu(A)` returns the upper triangular part of matrix A.
-        !!
-        !!  `B = triu(A, k)` returns the elements on and above the kth diagonal of
-        !!
-        !!      matrix X:
-        !!      -   k = 0 is the main diagonal,
-        !!      -   k > 0 is above the main diagonal,
-        !!      -   k < 0 is below the main diagonal.
-        !!
-        !!## Examples
-        !!
-        !!      A = ones(4, 4)
-        !!      B = triu(A, -1)
-        !!          1.  1.  1.  1.
-        !!          1.  1.  1.  1.
-        !!          0.  1.  1.  1.
-        !!          0.  0.  1.  1.
         module function triu_int8(A,k)
             integer(int8), dimension(:, :), allocatable :: triu_int8
             integer(int8), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function triu_int8
-
         module function triu_int16(A,k)
             integer(int16), dimension(:, :), allocatable :: triu_int16
             integer(int16), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function triu_int16
-
         module function triu_int32(A,k)
             integer(int32), dimension(:, :), allocatable :: triu_int32
             integer(int32), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function triu_int32
-
         module function triu_int64(A,k)
             integer(int64), dimension(:, :), allocatable :: triu_int64
             integer(int64), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function triu_int64
-
         module function triu_sp(A,k)
             real(sp), dimension(:, :), allocatable :: triu_sp
             real(sp), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function triu_sp
-
         module function triu_dp(A,k)
             real(dp), dimension(:, :), allocatable :: triu_dp
             real(dp), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function triu_dp
-
         module function triu_qp(A,k)
             real(qp), dimension(:, :), allocatable :: triu_qp
             real(qp), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function triu_qp
-
         module function triu_csp(A,k)
             complex(sp), dimension(:, :), allocatable :: triu_csp
             complex(sp), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function triu_csp
-
         module function triu_cdp(A,k)
             complex(dp), dimension(:, :), allocatable :: triu_cdp
             complex(dp), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function triu_cdp
-
         module function triu_cqp(A,k)
             complex(qp), dimension(:, :), allocatable :: triu_cqp
             complex(qp), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function triu_cqp
-
     end interface triu
 
     interface utm2deg
@@ -2109,39 +1637,28 @@ module forlab
             vertcat_r21
     end interface vertcat
 
+    interface empty
+        procedure empty_1_sp
+        procedure empty_2_sp
+        procedure empty_3_sp
+    end interface
+
+    interface sempty
+        procedure empty_1_sp
+        procedure empty_2_sp
+        procedure empty_3_sp
+    end interface
+    interface dempty
+        procedure empty_1_dp
+        procedure empty_2_dp
+        procedure empty_3_dp
+    end interface
+    interface qempty
+        procedure empty_1_qp
+        procedure empty_2_qp
+        procedure empty_3_qp
+    end interface
     interface zeros
-        !! Version: experimental
-        !!
-        !! zeros creates array all of zeros.
-        !!
-        !!## Syntax
-        !!    x = zeros(dim1)                
-        !!    A = zeros(dim1, dim2)          
-        !!    X = zeros(dim1, dim2, dim3)    
-        !! 
-        !!## Description
-        !! The precision of the flag variable should be consistent with
-        !! the return value of the function.
-        !! Unlike dynamic scripting languages, static languages generally
-        !! have multiple precision variables, so we need to explicitly provide precision hints.
-        !!
-        !! `x = zeros(dim1)` returns a dim1 vector of zeros.
-        !!
-        !! `A = zeros(dim1, dim2)` returns a dim1-by-dim2 matrix of zeros.
-        !!
-        !! `X = zeros(dim1, dim2, dim3)` returns a dim1-by-dim2-by-dim3
-        !! 3-dimensional matrix of zeros.
-        !!
-        !!## Examples
-        !!    x = zeros(3)
-        !!    x =
-        !!        0.  0.  0.
-        !!
-        !!    A = zeros(3, 3)
-        !!    A =
-        !!        0.  0.  0.
-        !!        0.  0.  0.
-        !!        0.  0.  0.
         procedure zeros_1_sp
         procedure zeros_2_sp
         procedure zeros_3_sp
@@ -2162,591 +1679,405 @@ module forlab
         procedure zeros_2_qp
         procedure zeros_3_qp
     end interface
+    interface ones
+        procedure ones_1_sp
+        procedure ones_2_sp
+        procedure ones_3_sp
+    end interface
+
+    interface sones
+        procedure ones_1_sp
+        procedure ones_2_sp
+        procedure ones_3_sp
+    end interface
+    interface dones
+        procedure ones_1_dp
+        procedure ones_2_dp
+        procedure ones_3_dp
+    end interface
+    interface qones
+        procedure ones_1_qp
+        procedure ones_2_qp
+        procedure ones_3_qp
+    end interface
 
     !! Normal Interfaces
     interface
-        !! Version: experimental
-        !!
-        !! randn generates normally distributed random numbers using polar
-        !! Box-Muller algorithm.
-        !!
-        !!## Syntax
-        !!    x = randn()
-        !!    x = randn(dim1)
-        !!
-        !!## Description
-        !! `x = randn()` returns a single normally distributed random number with
-        !! mean 0 and standard deviation 1.
-        !!
-        !! `x = randn(dim1)` returns a dim1 vector of normally distributed random
-        !! numbers.
-        !!
-        !! `A = randn(dim1, dim2)` returns a dim1-by-dim2 matrix of normally
-        !! distributed random numbers.
-        !!
-        !! `X = randn(dim1, dim2, dim3)` returns a dim1-by-dim2-by-dim3
-        !! 3-dimensional matrix of normally distributed random numbers.
-        !!
-        !!## Examples
-        !!    x = randn(3)
-        !!        -1.22003853  -0.211721316   0.522971511
         module function randn_0_sp ()
             real(sp) :: randn_0_sp 
         end function
-
         module function randn_1_sp (dim1)
             integer, intent(in) :: dim1
             real(sp), allocatable :: randn_1_sp (:)
         end function
-
         module function randn_2_sp (dim1, dim2)
             integer, intent(in) :: dim1, dim2
             real(sp), allocatable :: randn_2_sp (:,:)
         end function
-
         module function randn_3_sp (dim1, dim2, dim3)
             integer, intent(in) :: dim1, dim2, dim3
             real(sp), allocatable :: randn_3_sp (:,:,:)
         end function
-
         module function randn_0_dp ()
             real(dp) :: randn_0_dp 
         end function
-
         module function randn_1_dp (dim1)
             integer, intent(in) :: dim1
             real(dp), allocatable :: randn_1_dp (:)
         end function
-
         module function randn_2_dp (dim1, dim2)
             integer, intent(in) :: dim1, dim2
             real(dp), allocatable :: randn_2_dp (:,:)
         end function
-
         module function randn_3_dp (dim1, dim2, dim3)
             integer, intent(in) :: dim1, dim2, dim3
             real(dp), allocatable :: randn_3_dp (:,:,:)
         end function
-
         module function randn_0_qp ()
             real(qp) :: randn_0_qp 
         end function
-
         module function randn_1_qp (dim1)
             integer, intent(in) :: dim1
             real(qp), allocatable :: randn_1_qp (:)
         end function
-
         module function randn_2_qp (dim1, dim2)
             integer, intent(in) :: dim1, dim2
             real(qp), allocatable :: randn_2_qp (:,:)
         end function
-
         module function randn_3_qp (dim1, dim2, dim3)
             integer, intent(in) :: dim1, dim2, dim3
             real(qp), allocatable :: randn_3_qp (:,:,:)
         end function
-
     end interface
 
     interface
         module subroutine rng(seed)
-            !! Version: experimental
-            !!
-            ! rng
-            !-----------------------------------------------------------------------
-            ! rng controls random number generation.
-            !
-            ! Syntax
-            !-----------------------------------------------------------------------
-            ! call rng()
-            ! call rng(seed)
-            !
-            ! Description
-            !-----------------------------------------------------------------------
-            ! call rng() uses the current date and time as seed for random number
-            ! generation.
-            !
-            ! call rng(seed) sets the input seed for random number generation.
-            !
-            ! Notes
-            !-----------------------------------------------------------------------
-            ! It is advised to call rng at the beginning of a program so that each
-            ! run of the program produces different sequences of random numbers.
             integer, intent(in), optional :: seed
         end subroutine rng
-
         module subroutine tic()
-            !! Version: experimental
-            !!
-            !! tic saves the elapsed CPU time in seconds.
-            !!
-            !!## Syntax
-            !!    call tic()
-            !!
-            !!## Description
-            !! `call tic()` saves the elapsed CPU time in seconds.
-            !!
-            !!## Examples
-            !!    call tic()
         end subroutine
-
     end interface
 
     interface
-        !! Version: experimental
-        !!
-        !! linspace creates a linearly spaced vector.   
-        !!
-        !!## Syntax
-        !!    x = linspace(x1, x2, n)
-        !!
-        !!## Description
-        !! `x = linspace(x1, x2, n)` returns a vector of n evenly spaced points
-        !! between x1 and x2.
-        !!
-        !!## Examples
-        !!    x = linspace(0, 10, 11)
-        !!        0.  1.  2.  3.  4.  5.  6.  7.  8.  9.  10.
         module function linspace_rr_sp(first, last, n)
             real(sp), dimension(:), allocatable :: linspace_rr_sp
             real(sp), intent(in) :: first, last
             integer, intent(in) :: n
         end function
-
         module function linspace_ii_sp(first, last, n)
             real(sp), dimension(:), allocatable :: linspace_ii_sp
             integer, intent(in) :: first, last
             integer, intent(in) :: n
         end function 
-
         module function linspace_ri_sp(first, last, n)
             real(sp), dimension(:), allocatable :: linspace_ri_sp
             real(sp), intent(in) :: first
             integer, intent(in) :: last
             integer, intent(in) :: n
         end function
-    
         module function linspace_ir_sp(first, last, n)
             real(sp), dimension(:), allocatable :: linspace_ir_sp
             integer, intent(in) :: first
             real(sp), intent(in) :: last
             integer, intent(in) :: n
         end function
-
         module function linspace_rr_dp(first, last, n)
             real(dp), dimension(:), allocatable :: linspace_rr_dp
             real(dp), intent(in) :: first, last
             integer, intent(in) :: n
         end function
-
         module function linspace_ii_dp(first, last, n)
             real(dp), dimension(:), allocatable :: linspace_ii_dp
             integer, intent(in) :: first, last
             integer, intent(in) :: n
         end function 
-
         module function linspace_ri_dp(first, last, n)
             real(dp), dimension(:), allocatable :: linspace_ri_dp
             real(dp), intent(in) :: first
             integer, intent(in) :: last
             integer, intent(in) :: n
         end function
-    
         module function linspace_ir_dp(first, last, n)
             real(dp), dimension(:), allocatable :: linspace_ir_dp
             integer, intent(in) :: first
             real(dp), intent(in) :: last
             integer, intent(in) :: n
         end function
-
         module function linspace_rr_qp(first, last, n)
             real(qp), dimension(:), allocatable :: linspace_rr_qp
             real(qp), intent(in) :: first, last
             integer, intent(in) :: n
         end function
-
         module function linspace_ii_qp(first, last, n)
             real(qp), dimension(:), allocatable :: linspace_ii_qp
             integer, intent(in) :: first, last
             integer, intent(in) :: n
         end function 
-
         module function linspace_ri_qp(first, last, n)
             real(qp), dimension(:), allocatable :: linspace_ri_qp
             real(qp), intent(in) :: first
             integer, intent(in) :: last
             integer, intent(in) :: n
         end function
-    
         module function linspace_ir_qp(first, last, n)
             real(qp), dimension(:), allocatable :: linspace_ir_qp
             integer, intent(in) :: first
             real(qp), intent(in) :: last
             integer, intent(in) :: n
         end function
-
-
     end interface
 
     interface
-        ! loadbin
-        !-----------------------------------------------------------------------
-        ! loadbin loads binary files.
-        !
-        ! Syntax
-        !-----------------------------------------------------------------------
-        ! x = loadbin(filename)
-        ! x = loadbin(filename, kind)
-        ! x = loadbin(filename, kind, dim1)
-        ! A = loadbin(filename, kind, dim1, dim2)
-        ! X = loadbin(filename, kind, dim1, dim2, dim3)
-        !
-        ! Description
-        !-----------------------------------------------------------------------
-        ! x = loadbin(filename) loads a 1-dimensional array into x from the
-        ! binary file filename treated as 32 bytes floating points.
-        !
-        ! x = loadbin(filename, kind) loads a 1-dimensional array into x from
-        ! the binary file filename.
-        !
-        ! x = loadbin(filename, kind, dim1) loads a 1-dimensional array into x
-        ! from the binary file filename.
-        !
-        ! A = loadbin(filename, kind, dim1, dim2) loads a 2-dimensional array
-        ! into A from the binary file filename.
-        !
-        ! X = loadbin(filename, kind, dim1, dim2, dim3) loads a 3-dimensional
-        ! array into X from the binary file filename.
-        !
-        ! Notes
-        !-----------------------------------------------------------------------
-        ! Make sure to use the exact kind:
-        !   -   4 for 32 bytes floating points,
-        !   -   8 for 64 bytes floating points.
-
-
-        ! loadtxt
-        !-----------------------------------------------------------------------
-        ! loadtxt loads txt files.
-        !
-        ! Syntax
-        !-----------------------------------------------------------------------
-        ! x = loadtxt(filename)
-        ! A = loadtxt(filename, dim2)
-        !
-        ! Description
-        !-----------------------------------------------------------------------
-        ! x = loadtxt(filename) loads a 1-dimensional array into x from a txt
-        ! file filename.
-        !
-        ! A = loadtxt(filename, dim2) loads a 2-dimensional array into A from a
-        ! txt file filename. dim2 indicates the number of columns of the array.
-
         module function loadbin_0_sp(filename)
             real(sp), dimension(:), allocatable :: loadbin_0_sp
             character(len=*), intent(in) :: filename
         end function
-
         module function loadbin_1_sp(filename, dim1)
             real(sp), dimension(:), allocatable :: loadbin_1_sp
             character(len=*), intent(in) :: filename
             integer, intent(in) :: dim1
         end function
-
         module function loadbin_2_sp(filename, dim1, dim2)
             real(sp), dimension(:, :), allocatable :: loadbin_2_sp
             character(len=*), intent(in) :: filename
             integer, intent(in) :: dim1, dim2
         end function
-
         module function loadbin_3_sp(filename, dim1, dim2, dim3)
             real(sp), dimension(:, :, :), allocatable :: loadbin_3_sp
             character(len=*), intent(in) :: filename
             integer, intent(in) :: dim1, dim2, dim3
         end function
-
         module function loadtxt_1_sp(filename)
             real(sp), dimension(:), allocatable :: loadtxt_1_sp
             character(len=*), intent(in) :: filename
         end function
-
         module function loadtxt_2_sp(filename, dim2)
             real(sp), dimension(:, :), allocatable :: loadtxt_2_sp
             character(len=*), intent(in) :: filename
             integer, intent(in) :: dim2
         end function
-
         module function loadbin_0_dp(filename)
             real(dp), dimension(:), allocatable :: loadbin_0_dp
             character(len=*), intent(in) :: filename
         end function
-
         module function loadbin_1_dp(filename, dim1)
             real(dp), dimension(:), allocatable :: loadbin_1_dp
             character(len=*), intent(in) :: filename
             integer, intent(in) :: dim1
         end function
-
         module function loadbin_2_dp(filename, dim1, dim2)
             real(dp), dimension(:, :), allocatable :: loadbin_2_dp
             character(len=*), intent(in) :: filename
             integer, intent(in) :: dim1, dim2
         end function
-
         module function loadbin_3_dp(filename, dim1, dim2, dim3)
             real(dp), dimension(:, :, :), allocatable :: loadbin_3_dp
             character(len=*), intent(in) :: filename
             integer, intent(in) :: dim1, dim2, dim3
         end function
-
         module function loadtxt_1_dp(filename)
             real(dp), dimension(:), allocatable :: loadtxt_1_dp
             character(len=*), intent(in) :: filename
         end function
-
         module function loadtxt_2_dp(filename, dim2)
             real(dp), dimension(:, :), allocatable :: loadtxt_2_dp
             character(len=*), intent(in) :: filename
             integer, intent(in) :: dim2
         end function
-
         module function loadbin_0_qp(filename)
             real(qp), dimension(:), allocatable :: loadbin_0_qp
             character(len=*), intent(in) :: filename
         end function
-
         module function loadbin_1_qp(filename, dim1)
             real(qp), dimension(:), allocatable :: loadbin_1_qp
             character(len=*), intent(in) :: filename
             integer, intent(in) :: dim1
         end function
-
         module function loadbin_2_qp(filename, dim1, dim2)
             real(qp), dimension(:, :), allocatable :: loadbin_2_qp
             character(len=*), intent(in) :: filename
             integer, intent(in) :: dim1, dim2
         end function
-
         module function loadbin_3_qp(filename, dim1, dim2, dim3)
             real(qp), dimension(:, :, :), allocatable :: loadbin_3_qp
             character(len=*), intent(in) :: filename
             integer, intent(in) :: dim1, dim2, dim3
         end function
-
         module function loadtxt_1_qp(filename)
             real(qp), dimension(:), allocatable :: loadtxt_1_qp
             character(len=*), intent(in) :: filename
         end function
-
         module function loadtxt_2_qp(filename, dim2)
             real(qp), dimension(:, :), allocatable :: loadtxt_2_qp
             character(len=*), intent(in) :: filename
             integer, intent(in) :: dim2
         end function
-
     end interface
 
     interface
-        !! Version: experimental
-        !!
-        !! randu generates uniformly distributed random numbers.
-        !!
-        !!## Syntax
-        !!    x = randu()
-        !!    x = randu(dim1)
-        !!    A = randu(dim1, dim2)
-        !!    X = randu(dim1, dim2, dim3)
-        !!
-        !!## Description
-        !! `x = randu()` returns a single uniformly distributed random number in
-        !! the interval [0,1].
-        !!
-        !! `x = randu(dim1)` returns a dim1 vector of uniformly distributed random
-        !! numbers.
-        !!
-        !! `A = randu(dim1, dim2)` returns a dim1-by-dim2 matrix of uniformly
-        !! distributed random numbers.
-        !!
-        !! `X = randu(dim1, dim2, dim3)` returns a dim1-by-dim2-by-dim3
-        !! 3-dimensional matrix of uniformly distributed random numbers.
-        !!
-        !!## Examples
-        !!    x = randu()
-        !!        0.383413825
-        !!
-        !!    x = randu(5)*2 - 1
-        !!        0.640258908  -0.873707294   0.787327528
         module function randu_0_sp ()
             real(sp) :: randu_0_sp 
         end function
-
         module function randu_1_sp (dim1)
             integer, intent(in) :: dim1
             real(sp), allocatable :: randu_1_sp (:)
         end function
-
         module function randu_2_sp (dim1, dim2)
             integer, intent(in) :: dim1, dim2
             real(sp), allocatable :: randu_2_sp (:,:)
         end function
-
         module function randu_3_sp (dim1, dim2, dim3)
             integer, intent(in) :: dim1, dim2, dim3
             real(sp), allocatable :: randu_3_sp (:,:,:)
         end function
-
         module function randu_0_dp ()
             real(dp) :: randu_0_dp 
         end function
-
         module function randu_1_dp (dim1)
             integer, intent(in) :: dim1
             real(dp), allocatable :: randu_1_dp (:)
         end function
-
         module function randu_2_dp (dim1, dim2)
             integer, intent(in) :: dim1, dim2
             real(dp), allocatable :: randu_2_dp (:,:)
         end function
-
         module function randu_3_dp (dim1, dim2, dim3)
             integer, intent(in) :: dim1, dim2, dim3
             real(dp), allocatable :: randu_3_dp (:,:,:)
         end function
-
         module function randu_0_qp ()
             real(qp) :: randu_0_qp 
         end function
-
         module function randu_1_qp (dim1)
             integer, intent(in) :: dim1
             real(qp), allocatable :: randu_1_qp (:)
         end function
-
         module function randu_2_qp (dim1, dim2)
             integer, intent(in) :: dim1, dim2
             real(qp), allocatable :: randu_2_qp (:,:)
         end function
-
         module function randu_3_qp (dim1, dim2, dim3)
             integer, intent(in) :: dim1, dim2, dim3
             real(qp), allocatable :: randu_3_qp (:,:,:)
         end function
-
     end interface
 
     interface
-        !! Version: experimental
-        !!
-        !! zeros creates array all of zeros.
-        !!
-        !!## Syntax
-        !!    x = zeros(dim1)                
-        !!    A = zeros(dim1, dim2)          
-        !!    X = zeros(dim1, dim2, dim3)    
-        !! 
-        !!## Description
-        !! The precision of the flag variable should be consistent with 
-        !! the return value of the function.  
-        !! Unlike dynamic scripting languages, static languages generally
-        !! have multiple precision variables, so we need to explicitly provide precision hints.
-        !!
-        !! `x = zeros(dim1)` returns a dim1 vector of zeros.
-        !!
-        !! `A = zeros(dim1, dim2)` returns a dim1-by-dim2 matrix of zeros.
-        !!
-        !! `X = zeros(dim1, dim2, dim3)` returns a dim1-by-dim2-by-dim3
-        !! 3-dimensional matrix of zeros.
-        !!
-        !!## Examples
-        !!    x = zeros(3)  
-        !!    x =  
-        !!        0.  0.  0.  
-        !!
-        !!    A = zeros(3, 3)  
-        !!    A =  
-        !!        0.  0.  0.  
-        !!        0.  0.  0.  
-        !!        0.  0.  0.
+        module function empty_1_sp (dim1)
+            integer, intent(in) :: dim1
+            real(sp), allocatable :: empty_1_sp (:)
+        end function
+        module function empty_1_dp (dim1)
+            integer, intent(in) :: dim1
+            real(dp), allocatable :: empty_1_dp (:)
+        end function
+        module function empty_1_qp (dim1)
+            integer, intent(in) :: dim1
+            real(qp), allocatable :: empty_1_qp (:)
+        end function
+        module function empty_2_sp (dim1, dim2)
+            integer, intent(in) :: dim1, dim2
+            real(sp), allocatable :: empty_2_sp (:,:)
+        end function
+        module function empty_2_dp (dim1, dim2)
+            integer, intent(in) :: dim1, dim2
+            real(dp), allocatable :: empty_2_dp (:,:)
+        end function
+        module function empty_2_qp (dim1, dim2)
+            integer, intent(in) :: dim1, dim2
+            real(qp), allocatable :: empty_2_qp (:,:)
+        end function
+        module function empty_3_sp (dim1, dim2, dim3)
+            integer, intent(in) :: dim1, dim2, dim3
+            real(sp), allocatable :: empty_3_sp (:,:,:)
+        end function
+        module function empty_3_dp (dim1, dim2, dim3)
+            integer, intent(in) :: dim1, dim2, dim3
+            real(dp), allocatable :: empty_3_dp (:,:,:)
+        end function
+        module function empty_3_qp (dim1, dim2, dim3)
+            integer, intent(in) :: dim1, dim2, dim3
+            real(qp), allocatable :: empty_3_qp (:,:,:)
+        end function
+    end interface
+    interface
         module function zeros_1_sp (dim1)
             integer, intent(in) :: dim1
             real(sp), allocatable :: zeros_1_sp (:)
         end function
-
         module function zeros_1_dp (dim1)
             integer, intent(in) :: dim1
             real(dp), allocatable :: zeros_1_dp (:)
         end function
-
         module function zeros_1_qp (dim1)
             integer, intent(in) :: dim1
             real(qp), allocatable :: zeros_1_qp (:)
         end function
-
         module function zeros_2_sp (dim1, dim2)
             integer, intent(in) :: dim1, dim2
             real(sp), allocatable :: zeros_2_sp (:,:)
         end function
-
         module function zeros_2_dp (dim1, dim2)
             integer, intent(in) :: dim1, dim2
             real(dp), allocatable :: zeros_2_dp (:,:)
         end function
-
         module function zeros_2_qp (dim1, dim2)
             integer, intent(in) :: dim1, dim2
             real(qp), allocatable :: zeros_2_qp (:,:)
         end function
-
         module function zeros_3_sp (dim1, dim2, dim3)
             integer, intent(in) :: dim1, dim2, dim3
             real(sp), allocatable :: zeros_3_sp (:,:,:)
         end function
-
         module function zeros_3_dp (dim1, dim2, dim3)
             integer, intent(in) :: dim1, dim2, dim3
             real(dp), allocatable :: zeros_3_dp (:,:,:)
         end function
-
         module function zeros_3_qp (dim1, dim2, dim3)
             integer, intent(in) :: dim1, dim2, dim3
             real(qp), allocatable :: zeros_3_qp (:,:,:)
         end function
-
+    end interface
+    interface
+        module function ones_1_sp (dim1)
+            integer, intent(in) :: dim1
+            real(sp), allocatable :: ones_1_sp (:)
+        end function
+        module function ones_1_dp (dim1)
+            integer, intent(in) :: dim1
+            real(dp), allocatable :: ones_1_dp (:)
+        end function
+        module function ones_1_qp (dim1)
+            integer, intent(in) :: dim1
+            real(qp), allocatable :: ones_1_qp (:)
+        end function
+        module function ones_2_sp (dim1, dim2)
+            integer, intent(in) :: dim1, dim2
+            real(sp), allocatable :: ones_2_sp (:,:)
+        end function
+        module function ones_2_dp (dim1, dim2)
+            integer, intent(in) :: dim1, dim2
+            real(dp), allocatable :: ones_2_dp (:,:)
+        end function
+        module function ones_2_qp (dim1, dim2)
+            integer, intent(in) :: dim1, dim2
+            real(qp), allocatable :: ones_2_qp (:,:)
+        end function
+        module function ones_3_sp (dim1, dim2, dim3)
+            integer, intent(in) :: dim1, dim2, dim3
+            real(sp), allocatable :: ones_3_sp (:,:,:)
+        end function
+        module function ones_3_dp (dim1, dim2, dim3)
+            integer, intent(in) :: dim1, dim2, dim3
+            real(dp), allocatable :: ones_3_dp (:,:,:)
+        end function
+        module function ones_3_qp (dim1, dim2, dim3)
+            integer, intent(in) :: dim1, dim2, dim3
+            real(qp), allocatable :: ones_3_qp (:,:,:)
+        end function
     end interface
 
     interface
-        !! Version: experimental
-        !!
-        !! eye creates the identity matrix.
-        !!
-        !!## Syntax
-        !!    I = eye(dim1)
-        !!    I = eye(dim1, dim2)
-        !!
-        !!## Description
-        !! `I = eye(dim1)` returns an dim1-by-dim1 matrix with ones on the main
-        !! diagonal and zeros elsewhere.  
-        !! `I = eye(dim1, dim2)` returns a dim1-by-dim2 matrix with ones on the
-        !! main diagonal and zeros elsewhere.
-        !!
-        !!## Examples
-        !!      I = eye(3)  
-        !!          1.  0.  0.  
-        !!          0.  1.  0.  
-        !!          0.  0.  1.
-        !!
-        !!      I = eye(3, 4)  
-        !!          1.  0.  0.  0.  
-        !!          0.  1.  0.  0.  
-        !!          0.  0.  1.  0.
-        !!
-        !!      I = eye(4, 3)  
-        !!          1.  0.  0.
-        !!          0.  1.  0.
-        !!          0.  0.  1.
-        !!          0.  0.  0. 
         module function eye_1_sp(dim1)
             integer, intent(in) :: dim1
             real(sp), dimension(:, :), allocatable :: eye_1_sp
@@ -2778,62 +2109,6 @@ module forlab
             integer, intent(in) :: dim2
             integer, intent(in) :: dim1
             real(qp), dimension(:, :), allocatable :: eye_2_qp
-        end function
-
-    end interface
-
-    interface
-        !! Version: experimental
-        !!
-        !! Create uninitialized matrices quickly, faster than `ones`/`zeros` function,
-        !! and use `empty` function with caution.
-        !!
-        !!## Example
-        !!    real, allocatable :: x(:, :)
-        !!    x = empty(2, 3)
-        module function empty_1_sp (dim1)
-            integer, intent(in) :: dim1
-            real(sp), allocatable :: empty_1_sp (:)
-        end function
-
-        module function empty_1_dp (dim1)
-            integer, intent(in) :: dim1
-            real(dp), allocatable :: empty_1_dp (:)
-        end function
-
-        module function empty_1_qp (dim1)
-            integer, intent(in) :: dim1
-            real(qp), allocatable :: empty_1_qp (:)
-        end function
-
-        module function empty_2_sp (dim1, dim2)
-            integer, intent(in) :: dim1, dim2
-            real(sp), allocatable :: empty_2_sp (:,:)
-        end function
-
-        module function empty_2_dp (dim1, dim2)
-            integer, intent(in) :: dim1, dim2
-            real(dp), allocatable :: empty_2_dp (:,:)
-        end function
-
-        module function empty_2_qp (dim1, dim2)
-            integer, intent(in) :: dim1, dim2
-            real(qp), allocatable :: empty_2_qp (:,:)
-        end function
-
-        module function empty_3_sp (dim1, dim2, dim3)
-            integer, intent(in) :: dim1, dim2, dim3
-            real(sp), allocatable :: empty_3_sp (:,:,:)
-        end function
-
-        module function empty_3_dp (dim1, dim2, dim3)
-            integer, intent(in) :: dim1, dim2, dim3
-            real(dp), allocatable :: empty_3_dp (:,:,:)
-        end function
-
-        module function empty_3_qp (dim1, dim2, dim3)
-            integer, intent(in) :: dim1, dim2, dim3
-            real(qp), allocatable :: empty_3_qp (:,:,:)
         end function
 
     end interface
@@ -2982,7 +2257,7 @@ contains
 
         xq = zeros(opt_n1)
         yq = zeros(opt_n1)
-        t = [dzeros(k - 1), dlinspace(0, 1, n - k + 2), ones(k - 1)]
+        t = [dzeros(k - 1), dlinspace(0, 1, n - k + 2), dones(k - 1)]
         y1 = linspace(0, 1, opt_n1)
 
         do iq = 1, opt_n1
@@ -3051,8 +2326,8 @@ contains
         xq = zeros(opt_n1, opt_n2)
         yq = zeros(opt_n1, opt_n2)
         zq = zeros(opt_n1, opt_n2)
-        t1 = [dzeros(k - 1), dlinspace(0, 1, m - k + 2), ones(k - 1)]
-        t2 = [dzeros(k - 1), dlinspace(0, 1, n - k + 2), ones(k - 1)]
+        t1 = [dzeros(k - 1), dlinspace(0, 1, m - k + 2), dones(k - 1)]
+        t2 = [dzeros(k - 1), dlinspace(0, 1, n - k + 2), dones(k - 1)]
         y1 = linspace(0, 1, opt_n1)
         y2 = linspace(0, 1, opt_n2)
 
@@ -6789,82 +6064,6 @@ contains
         pdf = pdf/sqrt((2.0d0*pi)**n*det(sigma))
         return
     end function normpdf2
-
-    ! ones
-    !-----------------------------------------------------------------------
-    ! ones creates array all of ones.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! x = ones(dim1)
-    ! A = ones(dim1, dim2)
-    ! X = ones(dim1, dim2, dim3)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! x = ones(dim1) returns a dim1 vector of ones.
-    !
-    ! A = ones(dim1, dim2) returns a dim1-by-dim2 matrix of ones.
-    !
-    ! X = ones(dim1, dim2, dim3) returns a dim1-by-dim2-by-dim3
-    ! 3-dimensional matrix of ones.
-    !
-    ! Examples
-    !-----------------------------------------------------------------------
-    ! x = ones(3)
-    ! x =
-    !     1.  1.  1.
-    !
-    ! A = ones(3, 3)
-    ! A =
-    !     1.  1.  1.
-    !     1.  1.  1.
-    !     1.  1.  1.
-
-    function ones1(dim1)
-        real(kind=RPRE), dimension(:), allocatable :: ones1
-        integer(kind=IPRE), intent(in) :: dim1
-        integer(kind=IPRE) :: ierr
-
-        allocate (ones1(dim1), stat=ierr)
-        if (ierr /= 0) then
-            print *, "Error: in ones, could not allocate array."
-            stop
-        else
-            ones1 = 1.0d0
-        end if
-        return
-    end function ones1
-
-    function ones2(dim1, dim2)
-        real(kind=RPRE), dimension(:, :), allocatable :: ones2
-        integer(kind=IPRE), intent(in) :: dim1, dim2
-        integer(kind=IPRE) :: ierr
-
-        allocate (ones2(dim1, dim2), stat=ierr)
-        if (ierr /= 0) then
-            print *, "Error: in ones, could not allocate array."
-            stop
-        else
-            ones2 = 1.0d0
-        end if
-        return
-    end function ones2
-
-    function ones3(dim1, dim2, dim3)
-        real(kind=RPRE), dimension(:, :, :), allocatable :: ones3
-        integer(kind=IPRE), intent(in) :: dim1, dim2, dim3
-        integer(kind=IPRE) :: ierr
-
-        allocate (ones3(dim1, dim2, dim3), stat=ierr)
-        if (ierr /= 0) then
-            print *, "Error: in ones, could not allocate array."
-            stop
-        else
-            ones3 = 1.0d0
-        end if
-        return
-    end function ones3
     ! open
     !-----------------------------------------------------------------------
     ! open opens a File object with sequential or direct access.

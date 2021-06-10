@@ -1,4 +1,20 @@
 submodule(forlab) forlab_arange
+    !! Version: experimental
+    !!
+    !! arange
+    !!
+    !! arange returns evenly spaced vector.
+    !!
+    !!## Syntax
+    !!     x = arange(first, last)
+    !!
+    !!## Description
+    !! `x = arange(first, last)` returns an evenly spaced integer vector
+    !! starting from first and ending at last.
+    !!
+    !!## Examples
+    !!     x = arange(1, 9)
+    !!          1   2   3   4   5   6   7   8   9
     use forlab_kinds
     implicit none
 

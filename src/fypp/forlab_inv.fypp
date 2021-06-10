@@ -1,6 +1,47 @@
 #:include "common.fypp"
 
 submodule(forlab) forlab_inv
+    !! Version: experimental
+    !! inv computes the matrix inverse.
+    !! inv0
+    !!-----------------------------------------------------------------------
+    !! inv0 computes the real matrix inverse.
+    !!
+    !! Syntax
+    !!-----------------------------------------------------------------------
+    !! B = inv0(A)
+    !!
+    !! Description
+    !!-----------------------------------------------------------------------
+    !! B = inv0(A) returns the inverse of the real matrix A if A is inversible
+    !! (det(A) /= 0.).
+    !!
+    !! Examples
+    !!-----------------------------------------------------------------------
+    !! A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 0. ], [ 3, 3 ], &
+    !!             order = [ 2, 1 ])
+    !! B = inv0(A)
+    !!     -1.77777779   0.888888896  -0.111111112
+    !!      1.55555558  -0.777777791   0.222222224
+    !!     -0.11111112   0.222222224  -0.111111112
+
+    ! isleap
+    !-----------------------------------------------------------------------
+    ! isleap determines whether a year is a leap year.
+    !
+    ! Syntax
+    !-----------------------------------------------------------------------
+    ! bool = isleap(year)
+    !
+    ! Description
+    !-----------------------------------------------------------------------
+    ! bool = isleap(year) returns .true. if year is a leap year, .false.
+    ! otherwise.
+    !
+    ! Examples
+    !-----------------------------------------------------------------------
+    ! bool = isleap(2016)
+    !     .true.
     use forlab_kinds
     implicit none
 contains
@@ -19,7 +60,7 @@ contains
             else
                 D = det(A, L, U)
             end if
-            if (D .ne. 0.) then
+            if (D .ne. 0._${k1}$) then
                 inv_${t1[0]}$${k1}$ = ${k1[0]}$zeros(m, m)
                 if (m .eq. 2) then
                     inv_${t1[0]}$${k1}$ (1, 1) = A(2, 2)
@@ -117,7 +158,7 @@ contains
                         end if
                     end do
                 end do
-                if (d + 1.0 .eq. 1.0) then
+                if (d + 1.0_${k1}$ .eq. 1.0_${k1}$) then
                     flag = 0
                     stop 'ERROR: A is not inversible (= 0)'
                 end if
@@ -192,7 +233,7 @@ contains
                 end do
             end do
             forall (i=1:n, j=1:n)
-                inv_${t1[0]}$${k1}$ (i, j) = dcmplx(ar(i, j), ai(i, j))
+                inv_${t1[0]}$${k1}$ (i, j) = cmplx(ar(i, j), ai(i, j), ${k1}$)
             end forall
         else
             stop 'Error: in inv(A), A should be square.'

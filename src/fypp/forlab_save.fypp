@@ -1,5 +1,40 @@
 #:include 'common.fypp'
 submodule(forlab) forlab_save
+    !! Version: experimental
+    !!
+    ! savetxt saves 1 and 2-dimensional arrays to txt files.
+    !
+    ! Syntax
+    !-----------------------------------------------------------------------
+    ! call savetxt(filename, x)
+    ! call savetxt(filename, A)
+    !
+    ! Description
+    !-----------------------------------------------------------------------
+    ! call savetxt(filename, x) saves a vector array x into the txt file
+    ! filename.
+    !
+    ! call savetxt(filename, A) saves a 2-dimensional array A into the txt
+    ! file filename.
+    !
+    ! savebin saves arrays to binary files.
+    !
+    ! Syntax
+    !-----------------------------------------------------------------------
+    ! call savebin(filename, x)
+    ! call savebin(filename, A)
+    ! call savebin(filename, X)
+    !
+    ! Description
+    !-----------------------------------------------------------------------
+    ! call savebin(filename, x) saves a vector x into the binary file
+    ! filename.
+    !
+    ! call savebin(filename, A) saves a 2-dimensional array into the binary
+    ! file filename.
+    !
+    ! call savebin(filename, X) saves a 3-dimensional array into the binary
+    ! file filename.
     use forlab_kinds
     implicit none
 

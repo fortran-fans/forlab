@@ -1,6 +1,35 @@
 
 
 submodule(forlab) forlab_randu
+    !! Version: experimental
+    !!
+    !! randu generates uniformly distributed random numbers.
+    !!
+    !!## Syntax
+    !!    x = randu()
+    !!    x = randu(dim1)
+    !!    A = randu(dim1, dim2)
+    !!    X = randu(dim1, dim2, dim3)
+    !!
+    !!## Description
+    !! `x = randu()` returns a single uniformly distributed random number in
+    !! the interval [0,1].
+    !!
+    !! `x = randu(dim1)` returns a dim1 vector of uniformly distributed random
+    !! numbers.
+    !!
+    !! `A = randu(dim1, dim2)` returns a dim1-by-dim2 matrix of uniformly
+    !! distributed random numbers.
+    !!
+    !! `X = randu(dim1, dim2, dim3)` returns a dim1-by-dim2-by-dim3
+    !! 3-dimensional matrix of uniformly distributed random numbers.
+    !!
+    !!## Examples
+    !!    x = randu()
+    !!        0.383413825
+    !!
+    !!    x = randu(5)*2 - 1
+    !!        0.640258908  -0.873707294   0.787327528
     use forlab_kinds
     implicit none
 contains

@@ -1,5 +1,13 @@
 
 submodule(forlab) forlab_empty
+    !! Version: experimental
+    !!
+    !! Create uninitialized matrices quickly, faster than `ones`/`zeros` function,
+    !! and use `empty` function with caution.
+    !!
+    !!## Example
+    !!    real, allocatable :: x(:, :)
+    !!    x = empty(2, 3)
     use forlab_kinds
     implicit none
     

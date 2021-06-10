@@ -1,0 +1,59 @@
+#:include 'common.fypp'
+submodule(forlab) forlab_ones
+    !! Version: experimental
+    !!
+    !! ones creates array all of ones.
+    !!
+    !!## Syntax
+    !!   x = ones(dim1)
+    !!   A = ones(dim1, dim2)
+    !!   X = ones(dim1, dim2, dim3)
+    !!
+    !!## Description
+    !! `x = ones(dim1)` returns a dim1 vector of ones.
+    !!
+    !! `A = ones(dim1, dim2)` returns a dim1-by-dim2 matrix of ones.
+    !!
+    !! `X = ones(dim1, dim2, dim3)` returns a dim1-by-dim2-by-dim3
+    !! 3-dimensional matrix of ones.
+    !!
+    !!## Examples
+    !!    x = ones(3)
+    !!    x =
+    !!        1.  1.  1.
+    !!
+    !!    A = ones(3, 3)
+    !!    A =
+    !!        1.  1.  1.
+    !!        1.  1.  1.
+    !!        1.  1.  1.
+    use forlab_kinds
+    implicit none
+
+contains
+    #:set RANKS = range(1, 4)
+    #:for k1, t1 in REAL_KINDS_TYPES
+    #:for RANK in RANKS
+    module procedure ones_${RANK}$_${k1}$
+        integer :: ierr
+
+        #:if RANK == 1
+        allocate (ones_${RANK}$_${k1}$(dim1), stat=ierr)
+        #:elif RANK == 2
+        allocate (ones_${RANK}$_${k1}$(dim1, dim2), stat=ierr)
+        #:elif RANK == 3
+        allocate (ones_${RANK}$_${k1}$(dim1, dim2, dim3), stat=ierr)
+        #:endif
+
+        if (ierr /= 0) then
+            print *, "Error: in ones, could not allocate array."
+            stop
+        else
+            ones_${RANK}$_${k1}$ = 1.0_${k1}$
+        end if
+        return
+    end procedure
+
+    #:endfor
+    #:endfor
+end submodule

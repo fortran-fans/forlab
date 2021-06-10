@@ -23,10 +23,10 @@ contains
 
             B = A
             n = size(B, 1)
-            V = eye(n)
+            V = seye(n)
             d = diag(B)
             bw = d
-            zw = zeros(n)
+            zw = szeros(n)
 
             iter = 0
             do while (iter .lt. opt_itermax)
@@ -128,10 +128,10 @@ contains
 
             B = A
             n = size(B, 1)
-            V = eye(n)
+            V = deye(n)
             d = diag(B)
             bw = d
-            zw = zeros(n)
+            zw = dzeros(n)
 
             iter = 0
             do while (iter .lt. opt_itermax)
@@ -233,10 +233,10 @@ contains
 
             B = A
             n = size(B, 1)
-            V = eye(n)
+            V = qeye(n)
             d = diag(B)
             bw = d
-            zw = zeros(n)
+            zw = qzeros(n)
 
             iter = 0
             do while (iter .lt. opt_itermax)

@@ -16,7 +16,7 @@ contains
     module procedure diag2_sp
         integer :: i, n
         n = size(x)
-        diag2_sp = zeros(n, n)
+        diag2_sp = szeros(n, n)
         do i = 1, n
             diag2_sp (i, i) = x(i)
         end do
@@ -35,7 +35,7 @@ contains
     module procedure diag2_dp
         integer :: i, n
         n = size(x)
-        diag2_dp = zeros(n, n)
+        diag2_dp = dzeros(n, n)
         do i = 1, n
             diag2_dp (i, i) = x(i)
         end do
@@ -54,7 +54,7 @@ contains
     module procedure diag2_qp
         integer :: i, n
         n = size(x)
-        diag2_qp = zeros(n, n)
+        diag2_qp = qzeros(n, n)
         do i = 1, n
             diag2_qp (i, i) = x(i)
         end do

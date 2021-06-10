@@ -3,9 +3,36 @@
 submodule(forlab) forlab_zeros
     !! Version: experimental
     !!
-    !! Discussion:
-    !! ----
-    !! https://fortran-lang.discourse.group/t/fortran-function-return-value-polymorphism/1350/5
+    !! zeros creates array all of zeros.
+    !!
+    !!## Syntax
+    !!    x = zeros(dim1)                
+    !!    A = zeros(dim1, dim2)          
+    !!    X = zeros(dim1, dim2, dim3)    
+    !! 
+    !!## Description
+    !! The precision of the flag variable should be consistent with 
+    !! the return value of the function.  
+    !! Unlike dynamic scripting languages, static languages generally
+    !! have multiple precision variables, so we need to explicitly provide precision hints.
+    !!
+    !! `x = zeros(dim1)` returns a dim1 vector of zeros.
+    !!
+    !! `A = zeros(dim1, dim2)` returns a dim1-by-dim2 matrix of zeros.
+    !!
+    !! `X = zeros(dim1, dim2, dim3)` returns a dim1-by-dim2-by-dim3
+    !! 3-dimensional matrix of zeros.
+    !!
+    !!## Examples
+    !!    x = zeros(3)  
+    !!    x =  
+    !!        0.  0.  0.  
+    !!
+    !!    A = zeros(3, 3)  
+    !!    A =  
+    !!        0.  0.  0.  
+    !!        0.  0.  0.  
+    !!        0.  0.  0.
     use forlab_kinds
     implicit none
 contains

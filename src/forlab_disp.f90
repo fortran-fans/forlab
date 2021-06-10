@@ -1,4 +1,68 @@
 submodule(forlab) forlab_disp
+    !! Version: experimental
+    !!
+    !! disp displays the value of a variable.
+    !!
+    !!## Syntax
+    !!    call disp(string)
+    !!    call disp(x)
+    !!    call disp(x, string)
+    !!    call disp(A)
+    !!    call disp(A, string)
+    !!    call disp(X)
+    !!    call disp(X, 1)
+    !!    call disp(X, 1, string)
+    !!    call disp(X, 2)
+    !!    call disp(X, 2, string)
+    !!    call disp(X, 3)
+    !!    call disp(X, 3, string)
+    !!
+    !!## Description
+    !! `call disp(x)` displays the scalar or the vector x.
+    !!
+    !! `call disp(x, string)` displays the scalar or the vector x preceded by
+    !! string.
+    !!
+    !! `call disp(A)` displays the matrix A.
+    !!
+    !! `call disp(A, string)` displays the matrix A preceded by string.
+    !!
+    !! `call disp(X)` displays the 3-dimensional matrix X along the axis 1.
+    !!
+    !! `call disp(X, 1)` (see `call disp(X)`).
+    !!
+    !! `call disp(X, 1, string)` displays the 3-dimensional matrix X along the
+    !! axis 1 preceded by string.
+    !!
+    !! `call disp(X, 2)` displays the 3-dimensional matrix X along the axis 2.
+    !!
+    !! `call disp(X, 2, string)` displays the 3-dimensional matrix X along the
+    !! axis 2 preceded by string.
+    !!
+    !! `call disp(X, 3)` displays the 3-dimensional matrix X along the axis 3.
+    !!
+    !! `call disp(X, 3, string)` displays the 3-dimensional matrix X along the
+    !! axis 3 preceded by string.
+    !!
+    !!## Examples
+    !!    x = [ 1. 2. 3. ]
+    !!    call disp(x)
+    !!        1.
+    !!        2.
+    !!        3.
+    !!    call disp(x, "x = ")
+    !!        x =
+    !!            1.
+    !!            2.
+    !!            3.
+    !!
+    !!    A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 9. ], [ 3, 3 ], &
+    !!                order = [ 2, 1 ])
+    !!    call disp(A, "Matrix A is")
+    !!        Matrix A is
+    !!            1.  2.  3.
+    !!            4.  5.  6.
+    !!            7.  8.  9.
     use forlab_kinds
     implicit none
         real(sp), parameter :: nearzero_sp = 1.0e-10_sp
@@ -7,9 +71,9 @@ submodule(forlab) forlab_disp
     character(len=*), parameter :: fmt_r = "( *( g11.4, 1x ) )"
     character(len=*), parameter :: fmt_c = "( *( g11.4, a1, g11.4, a1, 1x ) )"
     interface filter
-            module procedure filter_sp
-            module procedure filter_dp
-            module procedure filter_qp
+        procedure filter_sp
+        procedure filter_dp
+        procedure filter_qp
     end interface
 contains
 
@@ -529,7 +593,6 @@ contains
         filter_qp = x
         if (abs(x) < nearzero_qp) filter_qp = 0.0_qp
     end function
-
 
     module procedure disp_str
         if (present(string)) then

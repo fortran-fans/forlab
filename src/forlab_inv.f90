@@ -1,5 +1,46 @@
 
 submodule(forlab) forlab_inv
+    !! Version: experimental
+    !! inv computes the matrix inverse.
+    !! inv0
+    !!-----------------------------------------------------------------------
+    !! inv0 computes the real matrix inverse.
+    !!
+    !! Syntax
+    !!-----------------------------------------------------------------------
+    !! B = inv0(A)
+    !!
+    !! Description
+    !!-----------------------------------------------------------------------
+    !! B = inv0(A) returns the inverse of the real matrix A if A is inversible
+    !! (det(A) /= 0.).
+    !!
+    !! Examples
+    !!-----------------------------------------------------------------------
+    !! A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 0. ], [ 3, 3 ], &
+    !!             order = [ 2, 1 ])
+    !! B = inv0(A)
+    !!     -1.77777779   0.888888896  -0.111111112
+    !!      1.55555558  -0.777777791   0.222222224
+    !!     -0.11111112   0.222222224  -0.111111112
+
+    ! isleap
+    !-----------------------------------------------------------------------
+    ! isleap determines whether a year is a leap year.
+    !
+    ! Syntax
+    !-----------------------------------------------------------------------
+    ! bool = isleap(year)
+    !
+    ! Description
+    !-----------------------------------------------------------------------
+    ! bool = isleap(year) returns .true. if year is a leap year, .false.
+    ! otherwise.
+    !
+    ! Examples
+    !-----------------------------------------------------------------------
+    ! bool = isleap(2016)
+    !     .true.
     use forlab_kinds
     implicit none
 contains
@@ -17,7 +58,7 @@ contains
             else
                 D = det(A, L, U)
             end if
-            if (D .ne. 0.) then
+            if (D .ne. 0._sp) then
                 inv_rsp = szeros(m, m)
                 if (m .eq. 2) then
                     inv_rsp (1, 1) = A(2, 2)
@@ -92,7 +133,7 @@ contains
             else
                 D = det(A, L, U)
             end if
-            if (D .ne. 0.) then
+            if (D .ne. 0._dp) then
                 inv_rdp = dzeros(m, m)
                 if (m .eq. 2) then
                     inv_rdp (1, 1) = A(2, 2)
@@ -167,7 +208,7 @@ contains
             else
                 D = det(A, L, U)
             end if
-            if (D .ne. 0.) then
+            if (D .ne. 0._qp) then
                 inv_rqp = qzeros(m, m)
                 if (m .eq. 2) then
                     inv_rqp (1, 1) = A(2, 2)
@@ -263,7 +304,7 @@ contains
                         end if
                     end do
                 end do
-                if (d + 1.0 .eq. 1.0) then
+                if (d + 1.0_sp .eq. 1.0_sp) then
                     flag = 0
                     stop 'ERROR: A is not inversible (= 0)'
                 end if
@@ -338,7 +379,7 @@ contains
                 end do
             end do
             forall (i=1:n, j=1:n)
-                inv_csp (i, j) = dcmplx(ar(i, j), ai(i, j))
+                inv_csp (i, j) = cmplx(ar(i, j), ai(i, j), sp)
             end forall
         else
             stop 'Error: in inv(A), A should be square.'
@@ -379,7 +420,7 @@ contains
                         end if
                     end do
                 end do
-                if (d + 1.0 .eq. 1.0) then
+                if (d + 1.0_dp .eq. 1.0_dp) then
                     flag = 0
                     stop 'ERROR: A is not inversible (= 0)'
                 end if
@@ -454,7 +495,7 @@ contains
                 end do
             end do
             forall (i=1:n, j=1:n)
-                inv_cdp (i, j) = dcmplx(ar(i, j), ai(i, j))
+                inv_cdp (i, j) = cmplx(ar(i, j), ai(i, j), dp)
             end forall
         else
             stop 'Error: in inv(A), A should be square.'
@@ -495,7 +536,7 @@ contains
                         end if
                     end do
                 end do
-                if (d + 1.0 .eq. 1.0) then
+                if (d + 1.0_qp .eq. 1.0_qp) then
                     flag = 0
                     stop 'ERROR: A is not inversible (= 0)'
                 end if
@@ -570,7 +611,7 @@ contains
                 end do
             end do
             forall (i=1:n, j=1:n)
-                inv_cqp (i, j) = dcmplx(ar(i, j), ai(i, j))
+                inv_cqp (i, j) = cmplx(ar(i, j), ai(i, j), qp)
             end forall
         else
             stop 'Error: in inv(A), A should be square.'

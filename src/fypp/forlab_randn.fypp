@@ -8,9 +8,29 @@ $:'' if RANK == 0 else '(' + ':' + ',:' * (RANK - 1) + ')'
 submodule(forlab) forlab_randn
     !! Version: experimental
     !!
-    !! Discussion:
-    !! ----
-    !! https://fortran-lang.discourse.group/t/fortran-function-return-value-polymorphism/1350/5
+    !! randn generates normally distributed random numbers using polar
+    !! Box-Muller algorithm.
+    !!
+    !!## Syntax
+    !!    x = randn()
+    !!    x = randn(dim1)
+    !!
+    !!## Description
+    !! `x = randn()` returns a single normally distributed random number with
+    !! mean 0 and standard deviation 1.
+    !!
+    !! `x = randn(dim1)` returns a dim1 vector of normally distributed random
+    !! numbers.
+    !!
+    !! `A = randn(dim1, dim2)` returns a dim1-by-dim2 matrix of normally
+    !! distributed random numbers.
+    !!
+    !! `X = randn(dim1, dim2, dim3)` returns a dim1-by-dim2-by-dim3
+    !! 3-dimensional matrix of normally distributed random numbers.
+    !!
+    !!## Examples
+    !!    x = randn(3)
+    !!        -1.22003853  -0.211721316   0.522971511
     use forlab_kinds
     implicit none
 contains
