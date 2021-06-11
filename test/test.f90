@@ -213,7 +213,7 @@ program main
         use forlab, only: disp,var,randn,rng,mean
         real, allocatable :: x(:)
         call rng()
-        x = randn(100)
+        x = randn(5)
         ! call disp(x,'randn(n)')
         call disp(mean(x),'mean(randn(n)):')
         call disp(var(x),'var(randn(n)):')

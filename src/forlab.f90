@@ -1864,12 +1864,7 @@ module forlab
         end subroutine
     end interface
 
-<<<<<<< HEAD
     !! Linspace & Logspace
-=======
-
-    !! Linspace
->>>>>>> master
     interface
         module function linspace_rr_sp(first, last, n)
             real(sp), dimension(:), allocatable :: linspace_rr_sp
