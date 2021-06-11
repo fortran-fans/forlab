@@ -45,8 +45,8 @@ module forlab
               find, flip, fliplr, flipud, fminbnd, gammainc, horzcat, &
               hann, interp1, interp2, interp3, inv, ismember, isoutlier, issquare, &
               isleap, issymmetric, kurtosis, k2test, kde, &
-              mean, median, mad, meshgrid, nextpow2, norm, normpdf, num2str, &
-              outer, pascal, prctile, progress_bar, progress_perc, rng, &
+              mean, median, mad,matpow, meshgrid, nextpow2, norm, normpdf, num2str, &
+              outer, pascal, prctile, progress_bar, progress_perc,qr, rng, &
               randi, randperm, repmat, rms, savetxt, savebin, sind, sort, solve, &
               svd, svdsolve, std, spline1, spline2, skewness, signum, sinc, &
               split_argument, tand, tic, toc, trace, tril, triu, utm2deg, vertcat, &
@@ -560,6 +560,17 @@ module forlab
         module procedure mad1, mad2
     end interface mad
 
+    interface matpow
+        #:for k1,t1 in REAL_KINDS_TYPES
+        module function matpow_${k1}$(a,num)result(c)
+            ${t1}$, dimension(:,:), intent(in) :: a
+            ${t1}$,allocatable :: c(:,:)
+            integer::num
+        end function matpow_${k1}$
+
+        #:endfor
+    end interface
+
     interface mbkmeans
         module procedure mbkmeans1, mbkmeans2
     end interface mbkmeans
@@ -1048,6 +1059,18 @@ module forlab
         #:endfor
         #:endfor
     end interface
+
+    !! qr
+    interface qr
+        #:for k1,t1 in REAL_KINDS_TYPES
+        module subroutine qr_${k1}$(a,q,r,l)
+            ${t1}$,intent(in)::a(:,:)
+            ${t1}$,allocatable,intent(out)::q(:,:),r(:,:)
+            integer,optional::l
+        end subroutine qr_${k1}$
+
+        #:endfor
+    end interface qr
 
     !! Rng
     interface
@@ -4881,22 +4904,6 @@ contains
         pow = ceiling(log(real(abs(x)))/log(2.))
         return
     end function nextpow2_1
-
-
-    real(kind=RPRE) function norm1(x, p)
-        real(kind=RPRE), dimension(:), intent(in) :: x
-        real(kind=RPRE), intent(in), optional :: p
-
-
-        return
-    end function norm1
-
-    real(kind=RPRE) function norm2(A, p)
-        real(kind=RPRE), dimension(:, :), intent(in) :: A
-        integer(kind=IPRE), intent(in), optional :: p
-        return
-    end function norm2
-
 
     ! normpdf
     !-----------------------------------------------------------------------
