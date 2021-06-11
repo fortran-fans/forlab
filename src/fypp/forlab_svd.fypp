@@ -1,5 +1,44 @@
 #:include "common.fypp"
 submodule(forlab) forlab_svd
+    !! svd computes the singular value decomposition.
+    !!
+    !!## Syntax
+    !!
+    !!      call svd(A, w)
+    !!      call svd(A, w, U, V)
+    !!
+    !!## Description
+    !!
+    !! `call svd(A, w)` returns the singular values of the matrix A sorted in
+    !! descending order.
+    !!
+    !! `call svd(A, w, U, V)` returns the singular values of the m-by-n
+    !! matrix A sorted in descending order. The output matrices are:
+    !!
+    !!      -   w is a n vector
+    !!      -   U is a m-by-n unitary matrix
+    !!      -   V is a n-by-n unitary matrix
+    !!
+    !!## Examples
+    !!
+    !!      A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 9. ], [ 3, 3 ], &
+    !!                     order = [ 2, 1 ])
+    !!      call svd(A, w)
+    !!      call disp(w)
+    !!          16.8481007  1.06836963  2.10855418E-07
+    !!      call svd(A, w, U, V)
+    !!      call disp(U)
+    !!          -0.214837193   -0.887230873   -0.408247918
+    !!          -0.520587385   -0.249643773   -0.816496670
+    !!          -0.826337695    0.387942642    0.408248365
+    !!      call disp(V)
+    !!          -0.479671091    0.776690900   -0.408248752
+    !!          -0.572367728    0.075686932    0.816496611
+    !!          -0.665064454   -O.625318289   -0.408247977
+    !!
+    !!## Notes
+    !!
+    !! This code is adapted from Numerical Recipes in Fortran 90.
     use forlab_kinds
 contains
     #:for k1,t1 in REAL_KINDS_TYPES

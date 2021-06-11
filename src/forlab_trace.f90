@@ -2,6 +2,22 @@
 
 
 submodule(forlab) forlab_trace
+    !! trace computes the sum of diagonal elements.
+    !!
+    !!## Syntax
+    !!
+    !!      x = trace(A)
+    !!
+    !!## Description
+    !!
+    !! `x = trace(A)` returns the sum of the elements on the main diagonal of
+    !! the matrix A.
+    !!
+    !!## Examples
+    !!
+    !!      A = eye(3)
+    !!      x = trace(A)
+    !!          3.
     use forlab_kinds
 
 contains

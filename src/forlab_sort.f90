@@ -1,29 +1,26 @@
 
 
 submodule(forlab) forlab_sort
+    !! Version:experimental
+    !!
+    !! sort sorts arrays elements.
+    !!
+    !!### Syntax
+    !!
+    !!      y = sort(x)
+    !!      y = sort(x, 1)
+    !!      y = sort(x, 2)
+    !!
+    !!### Description
+    !!
+    !!  `y = sort(x)` returns the sorted elements of the vector x in the ascending order.
+    !!
+    !!  `y = sort(x, 1)` (see `y = sort(x)`).
+    !!
+    !!  `y = sort(x, 2)` returns the sorted elements of the vector x in the descending order.
     use forlab_kinds
     implicit none
 contains
-    !! Default versions
-    ! sort
-    !-----------------------------------------------------------------------
-    ! sort sorts arrays elements.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! y = sort(x)
-    ! y = sort(x, 1)
-    ! y = sort(x, 2)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! y = sort(x) returns the sorted elements of the vector x in the
-    ! ascending order.
-    !
-    ! y = sort(x, 1) (see y = sort(x)).
-    !
-    ! y = sort(x, 2) returns the sorted elements of the vector x in the
-    ! descending order.
     module procedure sort_int8
         integer :: n,order1
         n = size(x)

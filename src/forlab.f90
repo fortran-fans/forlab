@@ -1,17 +1,17 @@
-! Forlab
-!-----------------------------------------------------------------------
-! Forlab aims to provide a package of functions for scientific
-! computing in Fortran.
-!
-! Created by
-!     Keurfon Luu <keurfon.luu@mines-paristech.fr>
-!     MINES ParisTech - Centre de Géosciences
-!     PSL - Research University
-!
-! Notes
-!-----------------------------------------------------------------------
-! When changing precision (IPRE and/or RPRE), the whole program needs to
-! be recompiled.
+!!# Forlab
+!! Forlab aims to provide a package of functions for scientific
+!! computing in Fortran.
+!!
+!!## Created by
+!! Keurfon Luu <keurfon.luu@mines-paristech.fr>
+!! MINES ParisTech - Centre de Géosciences
+!! PSL - Research University
+!!## Updated by 
+!! Forlab Contributors
+!!
+!!## Notes
+!! forlab is still in the rapid development stage.
+
 
 
 module forlab
@@ -20,7 +20,7 @@ module forlab
     use forlab_file
     implicit none
 
-    ! Parameters
+    !! Parameters
     integer, public, parameter :: IPRE = 4
     integer, public, parameter :: RPRE = 8
     integer, public, parameter :: CLEN = 512
@@ -28,7 +28,7 @@ module forlab
     real(sp), public, parameter ::pi_sp=acos(-1.0_sp)
     real(dp), public, parameter ::pi_dp=acos(-1.0_dp)
     real(qp), public, parameter ::pi_qp=acos(-1.0_qp)
-    ! Functions
+    !! Functions
     private
     public :: File, acosd, asind, atand, argmax, argmin, argsort, arange, &
               angle, bsplrep1, bsplrep2, bspline1, bspline2, chol, cosd, countlines, &
@@ -55,14 +55,14 @@ module forlab
     public :: randu, srandu, drandu, qrandu
     public :: loadtxt, sloadtxt, dloadtxt, qloadtxt
     public :: zeros, szeros, dzeros, qzeros
-    ! #ifdef do_mpi
+    !! #ifdef do_mpi
     public :: mpi_rpre
-    ! #endif
+    !! #endif
 
-    ! Operators
+    !! Operators
     public :: operator(.i.), operator(.x.)
 
-    ! Abstract function
+    !! Abstract function
     abstract interface
         real(kind=RPRE) function func1d(x)
             import :: RPRE
@@ -71,7 +71,6 @@ module forlab
     end interface
 
     !! Polymorphic Interfaces
-
     interface angle
         !! angle compute the phase angle.
         !!([Specification](../module/forlab_angle.html))
@@ -304,7 +303,7 @@ module forlab
     end interface cumsum
 
     interface datenum
-        real(kind=8) module function datenum0(year, month, day, hour, minute, &
+        real(dp) module function datenum0(year, month, day, hour, minute, &
                                     second, microsecond)
             integer, intent(in) :: year, month, day
             integer, intent(in), optional :: hour, minute, second, microsecond
@@ -674,10 +673,6 @@ module forlab
     end interface operator(.i.)
 
     interface operator(.x.)
-        !! Version: experimental
-        !! Real and complex matrix multiplication
-        !!## Example
-        !!    z(1:2,1:2) = x(1:2, 1:3) .x. y(1:3, 1:2)
         module function rmut_sp(m1, m2) result(ret)
             real(sp), intent(in) :: m1(:, :), m2(:, :)
             real(sp) :: ret(size(m1, 1), size(m2, 2))
@@ -763,24 +758,6 @@ module forlab
     end interface
 
     interface issymmetric
-        !! issymmetric
-        !!
-        !! issymmetric determines whether a square matrix is symmetric.
-        !!
-        !!## Syntax
-        !!
-        !!      bool = issymmetric(A)
-        !!
-        !!## Description
-        !!
-        !   `bool = issymmetric(A)` returns `.true.` if A is symmetric, `.false.`
-        !! otherwise.
-        !!
-        !!## Examples
-        !!
-        !        A = eye(3)
-        !        bool = issymmetric(A)
-        !!          .true.
             logical module function issymmetric_sp(A)
                 real(sp), dimension(:, :), intent(in) :: A
             end function
@@ -938,19 +915,16 @@ module forlab
             real(sp),allocatable :: c(:,:)
             integer::num
         end function matpow_sp
-
         module function matpow_dp(a,num)result(c)
             real(dp), dimension(:,:), intent(in) :: a
             real(dp),allocatable :: c(:,:)
             integer::num
         end function matpow_dp
-
         module function matpow_qp(a,num)result(c)
             real(qp), dimension(:,:), intent(in) :: a
             real(qp),allocatable :: c(:,:)
             integer::num
         end function matpow_qp
-
     end interface
 
     interface mbkmeans
@@ -1074,17 +1048,6 @@ module forlab
     end interface
 
     interface outer
-        !! outer
-        !!-----------------------------------------------------------------------
-        !! outer computes the outer product of two vectors.
-        !!
-        !! Syntax
-        !!-----------------------------------------------------------------------
-        !! A = outer(x, y)
-        !!
-        !! Description
-        !!-----------------------------------------------------------------------
-        !! A = outer(x, y) returns the outer product of vectors x and y.
         module function outer_int8(x, y)
             integer(int8), dimension(:,:), allocatable :: outer_int8
             integer(int8), dimension(:), intent(in) :: x, y
@@ -1304,24 +1267,6 @@ module forlab
     end interface skewness
 
     interface solve
-        !! solve solves a linear matrix equation.
-        !!
-        !!## Syntax
-        !!
-        !!      x = solve(A, b)
-        !!
-        !!## Description
-        !!
-        !! `x = solve(A, b)` returns the "exact" solution of the well-determined
-        !! linear matrix equation Ax = b.
-        !!
-        !!## Examples
-        !!
-        !!      A = reshape([ 11., 7., 3., 2., 12., 6., 7., 9., 4. ], [ 3, 3 ], &
-        !!                  order = [ 2, 1 ])
-        !!      b = [ 34., 44., 37. ]
-        !!      x = solve(A, b)
-        !!          1.  2.  3.
         module function solve_sp(A, b) result(x)
             real(sp), dimension(:, :), intent(in) :: A
             real(sp), dimension(:), intent(in) :: b
@@ -1341,24 +1286,8 @@ module forlab
         end function solve_qp
 
     end interface solve
+
     interface sort
-    !! Version:experimental
-    !!
-    !! sort sorts arrays elements.
-    !!
-    !!## Syntax
-    !!
-    !!      y = sort(x)
-    !!      y = sort(x, 1)
-    !!      y = sort(x, 2)
-    !!
-    !!## Description
-    !!
-    !!  `y = sort(x)` returns the sorted elements of the vector x in the ascending order.
-    !!
-    !!  `y = sort(x, 1)` (see `y = sort(x)`).
-    !!
-    !!  `y = sort(x, 2)` returns the sorted elements of the vector x in the descending order.
         module function sort_int8(x,order)
             integer(int8),allocatable::sort_int8(:)
             integer(int8),intent(in)::x(:)
@@ -1414,46 +1343,8 @@ module forlab
     interface std
         module procedure std1, std2
     end interface std
+
     interface svd
-    !! svd computes the singular value decomposition.
-    !!
-    !!## Syntax
-    !!
-    !!      call svd(A, w)
-    !!      call svd(A, w, U, V)
-    !!
-    !!## Description
-    !!
-    !! `call svd(A, w)` returns the singular values of the matrix A sorted in
-    !! descending order.
-    !!
-    !! `call svd(A, w, U, V)` returns the singular values of the m-by-n
-    !! matrix A sorted in descending order. The output matrices are:
-    !!
-    !!      -   w is a n vector
-    !!      -   U is a m-by-n unitary matrix
-    !!      -   V is a n-by-n unitary matrix
-    !!
-    !!## Examples
-    !!
-    !!      A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 9. ], [ 3, 3 ], &
-    !!                     order = [ 2, 1 ])
-    !!      call svd(A, w)
-    !!      call disp(w)
-    !!          16.8481007  1.06836963  2.10855418E-07
-    !!      call svd(A, w, U, V)
-    !!      call disp(U)
-    !!          -0.214837193   -0.887230873   -0.408247918
-    !!          -0.520587385   -0.249643773   -0.816496670
-    !!          -0.826337695    0.387942642    0.408248365
-    !!      call disp(V)
-    !!          -0.479671091    0.776690900   -0.408248752
-    !!          -0.572367728    0.075686932    0.816496611
-    !!          -0.665064454   -O.625318289   -0.408247977
-    !!
-    !!## Notes
-    !!
-    !! This code is adapted from Numerical Recipes in Fortran 90.
         module subroutine svd_sp(a, w, u, v , d, ierr)
             real(sp), dimension(:, :), intent(in) :: a
             real(sp), dimension(:), allocatable, intent(out) :: w
@@ -1481,30 +1372,6 @@ module forlab
     end interface svd
 
     interface svdsolve
-        !! svdsolve solves a linear matrix equation from the singular value
-        !! decomposition of A.
-        !!
-        !!## Syntax
-        !!
-        !!      x = svdsolve(A, b)
-        !!      x = svdsolve(A, b, k)
-        !!
-        !!## Description
-        !!
-        !! `x = svdsolve(A, b)` returns the full-rank solution of the linear matrix
-        !! equation Ax = b.
-        !!
-        !! `x = svdsolve(A, b, k)` returns the reduced-rank solution of the linear
-        !! matrix equation Ax = b, where A is a m-by-n matrix. Therefore, the
-        !! rank of the solution is n-k.
-        !!
-        !!## Notes
-        !!
-        !! Sometimes, too small singular values produce very large solution. A
-        !! proper way to determine the cut-off singular value is using a L-curve
-        !! criterion. The cut-off singular value corresponds to the singular
-        !! value from which the residuals norm is not improved while the solution
-        !! norm increases substantially.
         module function svdsolve_sp(A, b, cutoff) result(x)
             real(sp), dimension(:, :), intent(in) :: A
             real(sp), dimension(:), intent(in) :: b
@@ -1542,22 +1409,6 @@ module forlab
     end interface
 
     interface trace
-        !! trace computes the sum of diagonal elements.
-        !!
-        !!## Syntax
-        !!
-        !!      x = trace(A)
-        !!
-        !!## Description
-        !!
-        !! `x = trace(A)` returns the sum of the elements on the main diagonal of
-        !! the matrix A.
-        !!
-        !!## Examples
-        !!
-        !!      A = eye(3)
-        !!      x = trace(A)
-        !!          3.
         module function trace_sp(A)result(trace)
             real(sp), dimension(:, :), intent(in) :: A
             real(sp)::trace
@@ -1783,7 +1634,6 @@ module forlab
         procedure ones_3_qp
     end interface
 
-    !! Normal Interfaces
     !! Randn
     interface
         module function randn_0_sp ()
@@ -1833,7 +1683,7 @@ module forlab
         end function
     end interface
 
-    !! qr
+    !! Qr
     interface qr
         module subroutine qr_sp(a,q,r,l)
             real(sp),intent(in)::a(:,:)

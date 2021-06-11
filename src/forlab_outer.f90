@@ -1,4 +1,15 @@
 submodule(forlab) forlab_outer
+    !! outer
+    !!-----------------------------------------------------------------------
+    !! outer computes the outer product of two vectors.
+    !!
+    !! Syntax
+    !!-----------------------------------------------------------------------
+    !! A = outer(x, y)
+    !!
+    !! Description
+    !!-----------------------------------------------------------------------
+    !! A = outer(x, y) returns the outer product of vectors x and y.
     use forlab_kinds
 
 contains

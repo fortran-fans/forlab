@@ -2,27 +2,25 @@
 
 
 submodule(forlab) forlab_issymmetric
+    !! Version: experimental
+    !!
+    !!## issymmetric
+    !! issymmetric determines whether a square matrix is symmetric.
+    !!
+    !!### Syntax
+    !!    bool = issymmetric(A)
+    !!
+    !!### Description
+    !! `bool = issymmetric(A)` returns `.true.` if `A` is symmetric, `.false.`
+    !! otherwise.
+    !!
+    !!### Examples
+    !!    A = eye(3)
+    !!    bool = issymmetric(A)
+    !!        .true.
     use forlab_kinds
     implicit none
 contains
-    ! issymmetric
-    !-----------------------------------------------------------------------
-    ! issymmetric determines whether a square matrix is symmetric.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! bool = issymmetric(A)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! bool = issymmetric(A) returns .true. if A is symmetric, .false.
-    ! otherwise.
-    !
-    ! Examples
-    !-----------------------------------------------------------------------
-    ! A = eye(3)
-    ! bool = issymmetric(A)
-    !     .true.
 
     module procedure issymmetric_sp
         integer :: i, j, n

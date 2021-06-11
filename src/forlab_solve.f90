@@ -2,6 +2,24 @@
 
 
 submodule(forlab) forlab_solve
+    !! solve solves a linear matrix equation.
+    !!
+    !!## Syntax
+    !!
+    !!      x = solve(A, b)
+    !!
+    !!## Description
+    !!
+    !! `x = solve(A, b)` returns the "exact" solution of the well-determined
+    !! linear matrix equation Ax = b.
+    !!
+    !!## Examples
+    !!
+    !!      A = reshape([ 11., 7., 3., 2., 12., 6., 7., 9., 4. ], [ 3, 3 ], &
+    !!                  order = [ 2, 1 ])
+    !!      b = [ 34., 44., 37. ]
+    !!      x = solve(A, b)
+    !!          1.  2.  3.
     use forlab_kinds
 
 contains
