@@ -962,7 +962,30 @@ module forlab
     end interface median
 
     interface mean
-        module procedure mean1, mean2
+        real(sp) module function mean_1_sp(x)
+            real(sp), dimension(:), intent(in) :: x
+        end function
+        module function mean_2_sp(A, dim)
+            real(sp), dimension(:), allocatable :: mean_2_sp
+            real(sp), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: dim
+        end function
+        real(dp) module function mean_1_dp(x)
+            real(dp), dimension(:), intent(in) :: x
+        end function
+        module function mean_2_dp(A, dim)
+            real(dp), dimension(:), allocatable :: mean_2_dp
+            real(dp), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: dim
+        end function
+        real(qp) module function mean_1_qp(x)
+            real(qp), dimension(:), intent(in) :: x
+        end function
+        module function mean_2_qp(A, dim)
+            real(qp), dimension(:), allocatable :: mean_2_qp
+            real(qp), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: dim
+        end function
     end interface mean
 
     interface meshgrid
@@ -1662,8 +1685,34 @@ module forlab
     end interface utm2deg
 
     interface var
-        module procedure var1, var2
-    end interface var
+        real(sp) module function var_1_sp(x, w)
+            real(sp), dimension(:), intent(in) :: x
+            integer, intent(in), optional :: w
+        end function
+        module function var_2_sp(A, w, dim)
+            real(sp), dimension(:), allocatable :: var_2_sp
+            real(sp), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: w, dim
+        end function
+        real(dp) module function var_1_dp(x, w)
+            real(dp), dimension(:), intent(in) :: x
+            integer, intent(in), optional :: w
+        end function
+        module function var_2_dp(A, w, dim)
+            real(dp), dimension(:), allocatable :: var_2_dp
+            real(dp), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: w, dim
+        end function
+        real(qp) module function var_1_qp(x, w)
+            real(qp), dimension(:), intent(in) :: x
+            integer, intent(in), optional :: w
+        end function
+        module function var_2_qp(A, w, dim)
+            real(qp), dimension(:), allocatable :: var_2_qp
+            real(qp), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: w, dim
+        end function
+    end interface
 
     interface vertcat
         module procedure vertcat_r1, vertcat_r2, vertcat_c2, vertcat_r12, &
@@ -5749,71 +5798,6 @@ contains
 
     end function mbkmeans2
 
-    ! mean
-    !-----------------------------------------------------------------------
-    ! mean computes the mean value of an array.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! y = mean(x)
-    ! x = mean(A)
-    ! x = mean(A, 1)
-    ! x = mean(A, 2)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! y = mean(x) returns the mean value of the vector x.
-    !
-    ! x = mean(A) returns a dim2 vector with the mean values of each column
-    ! of matrix A.
-    !
-    ! x = mean(A, 1) (see x = mean(A)).
-    !
-    ! x = mean(A, 2) returns a dim1 vector with the mean values of each row
-    ! of matrix A.
-    !
-    ! Examples
-    !-----------------------------------------------------------------------
-    ! x = [ 1., 2., 3. ]
-    ! y = mean(x)
-    !     2.
-    !
-    ! A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 9. ], [ 3, 3 ], &
-    !             order = [ 2, 1 ])
-    ! x = mean(A)
-    !     4.  5.  6.
-    ! x = mean(A, 2)
-    !     2.  5.  8.
-
-    real(kind=RPRE) function mean1(x)
-        real(kind=RPRE), dimension(:), intent(in) :: x
-
-        mean1 = sum(x)/size(x)
-        return
-    end function mean1
-
-    function mean2(A, dim)
-        real(kind=RPRE), dimension(:), allocatable :: mean2
-        real(kind=RPRE), dimension(:, :), intent(in) :: A
-        integer(kind=IPRE), intent(in), optional :: dim
-        integer(kind=IPRE) :: i, m, n
-
-        m = size(A, 1)
-        n = size(A, 2)
-        if ((.not. present(dim)) .or. (dim == 1)) then
-            allocate (mean2(n))
-            do i = 1, n
-                mean2(i) = mean(A(:, i))
-            end do
-        elseif (dim == 2) then
-            allocate (mean2(m))
-            do i = 1, m
-                mean2(i) = mean(A(i, :))
-            end do
-        end if
-        return
-    end function mean2
-
     ! median
     !-----------------------------------------------------------------------
     ! median computes the median value of an array.
@@ -7142,86 +7126,6 @@ contains
         end do
         return
     end subroutine utm2deg1
-
-    ! var
-    !-----------------------------------------------------------------------
-    ! var computes vector and matrix variances.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! y = var(x)
-    ! y = var(x, w)
-    ! x = var(A)
-    ! x = var(A, w)
-    ! x = var(A, 1)
-    ! x = var(A, w, 1)
-    ! x = var(A, 2)
-    ! x = var(A, w, 2)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! y = var(x) returns the variance of the vector x.
-    !
-    ! y = var(x, w) returns the variance of the vector x with the
-    ! normalization option w.
-    !   -   0 (default) normalize by N-1,
-    !   -   1 normalize by N.
-    !
-    ! x = var(A) returns a dim2 vector with the variances of each column of
-    ! matrix A.
-    !
-    ! x = var(A, w) returns a dim2 vector with the normalization option w.
-    !
-    ! x = var(A, 1) (see x = var(A)).
-    !
-    ! w = var(A, w, 1) (see x = var(A, w))
-    !
-    ! x = var(A, 2) returns a dim1 vector with the variances of each row of
-    ! matrix A.
-    !
-    ! x = var(A, w, 2) returns a dim1 vector with the normalization option
-    ! w.
-
-    real(kind=RPRE) function var1(x, w)
-        real(kind=RPRE), dimension(:), intent(in) :: x
-        integer(kind=IPRE), intent(in), optional :: w
-        integer(kind=IPRE) :: opt_w
-
-        opt_w = 0
-        if (present(w)) opt_w = w
-
-        select case (opt_w)
-        case (0)
-            var1 = sum((x - mean(x))**2)/(size(x) - 1)
-        case (1)
-            var1 = sum((x - mean(x))**2)/size(x)
-        end select
-        return
-    end function var1
-
-    function var2(A, w, dim)
-        real(kind=RPRE), dimension(:), allocatable :: var2
-        real(kind=RPRE), dimension(:, :), intent(in) :: A
-        integer(kind=IPRE), intent(in), optional :: w, dim
-        integer(kind=IPRE) :: opt_w, i, m, n
-
-        opt_w = 0
-        if (present(w)) opt_w = w
-
-        m = size(A, 1)
-        n = size(A, 2)
-        if ((.not. present(dim)) .or. (dim == 1)) then
-            allocate (var2(n))
-            do i = 1, n
-                var2(i) = var1(A(:, i), opt_w)
-            end do
-        elseif (dim == 2) then
-            allocate (var2(m))
-            do i = 1, m
-                var2(i) = var1(A(i, :), opt_w)
-            end do
-        end if
-    end function var2
 
     ! vertcat
     !-----------------------------------------------------------------------

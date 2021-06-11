@@ -27,7 +27,7 @@ You can build using provided Makefiles:
 make
 make test
 ```
-### Build with fpm
+### Build with [fpm](https://github.com/fortran-lang/fpm)
 You can build using provided `fpm.toml`:
 ```bash
 fpm build
