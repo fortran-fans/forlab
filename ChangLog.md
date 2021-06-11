@@ -19,6 +19,7 @@
         * src/fypp/forlab_lu.fypp:
         * src/fypp/forlab_linspace.fypp:
         * src/fypp/forlab_load.fypp:
+        * src/fypp/forlab_mean.fypp: (#10 PR)
         * src/fypp/forlab_num2str.fypp: (#10 PR)
         * src/fypp/forlab_ones.fypp:
         * src/fypp/forlab_operator_x.fypp: matmul
@@ -28,6 +29,7 @@
         * src/fypp/forlab_rng.fypp:
         * src/fypp/forlab_save.fypp:
         * src/fypp/forlab_tioc.fypp: attention precision changes (#10 PR)
+        * src/fypp/forlab_var.fypp:
         * src/fypp/forlab_zeros.fypp:
         * src/fypp/forlab.fypp: Modify the interface of the above functions
         * src/fypp/Makefile: make it more smart. (#9 issue, #10 PR)
