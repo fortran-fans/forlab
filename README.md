@@ -24,8 +24,7 @@ The following combinations are tested on the default branch of `forlab`:
 ### Build with Make
 You can build using provided Makefiles:
 ```bash
-make
-make test
+cd src && make
 ```
 ### Build with [fpm](https://github.com/fortran-lang/fpm)
 You can build using provided `fpm.toml`:
@@ -42,7 +41,7 @@ forlab = { git = "https://github.com/zoziha/forlab.git" }
 ```bash
 ford API-doc-FORD-file.md  # todo
 ```
-[forlab-API-doc](https://zoziha.github.io/forlab-API-doc/) is here.
+[forlab-API-doc](https://zoziha.github.io/forlab-API-doc/) is alse in here.
 ## Precision Description
 Forlab uses double precision by default.  
 If you have special needs, you can change the variables `ipre` and `rpre` in the `forlab.f90` by yourself.  
@@ -58,8 +57,8 @@ If you have special needs, you can change the variables `ipre` and `rpre` in the
               find, flip, fliplr, flipud, fminbnd, gammainc, horzcat, &
               hann, interp1, interp2, interp3, inv, ismember, isoutlier, issquare, &
               isleap, issymmetric, kurtosis, k2test, kde, &
-              mean, median, mad, meshgrid, nextpow2, norm, normpdf, num2str, &
-              outer, pascal, prctile, progress_bar, progress_perc, rng, &
+              mean, median, mad,matpow, meshgrid, nextpow2, norm, normpdf, num2str, &
+              outer, pascal, prctile, progress_bar, progress_perc,qr, rng, &
               randi, randperm, repmat, rms, savetxt, savebin, sind, sort, solve, &
               svd, svdsolve, std, spline1, spline2, skewness, signum, sinc, &
               split_argument, tand, tic, toc, trace, tril, triu, utm2deg, vertcat, &
@@ -68,23 +67,20 @@ If you have special needs, you can change the variables `ipre` and `rpre` in the
     public :: empty, sempty, dempty, qempty
     public :: eye, seye, deye, qeye
     public :: linspace, slinspace, dlinspace, qlinspace
+    public :: logspace, slogspace, dlogspace, qlogspace
     public :: loadbin, sloadbin, dloadbin, qloadbin
     public :: ones, sones, dones, qones
     public :: randn, srandn, drandn, qrandn
     public :: randu, srandu, drandu, qrandu
     public :: loadtxt, sloadtxt, dloadtxt, qloadtxt
     public :: zeros, szeros, dzeros, qzeros
-    ! #ifdef do_mpi
+    !! #ifdef do_mpi
     public :: mpi_rpre
-    ! #endif
+    !! #endif
 
-    ! Operators
+    !! Operators
     public :: operator(.i.), operator(.x.)
-
 ```
-
-## To Fix
-1. When using the "gfortran -g" option and the `sort` function, an error "segment error" appears; when using the "gfortran -o3"  option and the `sort` function, it runs normally.
 
 ## Link
 [keurfonluu/Forlab](https://github.com/keurfonluu/Forlab)
