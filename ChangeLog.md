@@ -46,6 +46,8 @@
         * src/fypp/forlab_degcir.fypp:
         * src/fypp/forlab_eig.fypp:
         * src/fypp/forlab_issymmertric.fypp:
+        * src/fypp/forlab_qr.fypp:
+        * src/fypp/forlab_matpow.fypp:
         * src/fypp/forlab_norm.fypp:
         * src/fypp/forlab_sort.fypp:
         * src/fypp/forlab_solve.fypp:
