@@ -48,6 +48,7 @@ module forlab
     public :: empty, sempty, dempty, qempty
     public :: eye, seye, deye, qeye
     public :: linspace, slinspace, dlinspace, qlinspace
+    public :: logspace, slogspace, dlogspace, qlogspace
     public :: loadbin, sloadbin, dloadbin, qloadbin
     public :: ones, sones, dones, qones
     public :: randn, srandn, drandn, qrandn
@@ -835,6 +836,36 @@ module forlab
         procedure linspace_rr_qp, &
                   linspace_ri_qp, &
                   linspace_ir_qp
+    end interface
+    interface logspace
+        procedure logspace_ii_sp
+        procedure logspace_rr_sp, &
+                  logspace_ri_sp, &
+                  logspace_ir_sp
+        procedure logspace_rr_dp, &
+                  logspace_ri_dp, &
+                  logspace_ir_dp
+        procedure logspace_rr_qp, &
+                  logspace_ri_qp, &
+                  logspace_ir_qp
+    end interface
+    interface slogspace
+        procedure logspace_ii_sp
+        procedure logspace_rr_sp, &
+                  logspace_ri_sp, &
+                  logspace_ir_sp
+    end interface
+    interface dlogspace
+        procedure logspace_ii_dp
+        procedure logspace_rr_dp, &
+                  logspace_ri_dp, &
+                  logspace_ir_dp
+    end interface
+    interface qlogspace
+        procedure logspace_ii_qp
+        procedure logspace_rr_qp, &
+                  logspace_ri_qp, &
+                  logspace_ir_qp
     end interface
 
     interface loadbin
@@ -1784,8 +1815,7 @@ module forlab
         end subroutine
     end interface
 
-
-    !! Linspace
+    !! Linspace & Logspace
     interface
         module function linspace_rr_sp(first, last, n)
             real(sp), dimension(:), allocatable :: linspace_rr_sp
@@ -1849,6 +1879,72 @@ module forlab
         end function
         module function linspace_ir_qp(first, last, n)
             real(qp), dimension(:), allocatable :: linspace_ir_qp
+            integer, intent(in) :: first
+            real(qp), intent(in) :: last
+            integer, intent(in) :: n
+        end function
+        module function logspace_rr_sp(first, last, n)
+            real(sp), dimension(:), allocatable :: logspace_rr_sp
+            real(sp), intent(in) :: first, last
+            integer, intent(in) :: n
+        end function
+        module function logspace_ii_sp(first, last, n)
+            real(sp), dimension(:), allocatable :: logspace_ii_sp
+            integer, intent(in) :: first, last
+            integer, intent(in) :: n
+        end function 
+        module function logspace_ri_sp(first, last, n)
+            real(sp), dimension(:), allocatable :: logspace_ri_sp
+            real(sp), intent(in) :: first
+            integer, intent(in) :: last
+            integer, intent(in) :: n
+        end function
+        module function logspace_ir_sp(first, last, n)
+            real(sp), dimension(:), allocatable :: logspace_ir_sp
+            integer, intent(in) :: first
+            real(sp), intent(in) :: last
+            integer, intent(in) :: n
+        end function
+        module function logspace_rr_dp(first, last, n)
+            real(dp), dimension(:), allocatable :: logspace_rr_dp
+            real(dp), intent(in) :: first, last
+            integer, intent(in) :: n
+        end function
+        module function logspace_ii_dp(first, last, n)
+            real(dp), dimension(:), allocatable :: logspace_ii_dp
+            integer, intent(in) :: first, last
+            integer, intent(in) :: n
+        end function 
+        module function logspace_ri_dp(first, last, n)
+            real(dp), dimension(:), allocatable :: logspace_ri_dp
+            real(dp), intent(in) :: first
+            integer, intent(in) :: last
+            integer, intent(in) :: n
+        end function
+        module function logspace_ir_dp(first, last, n)
+            real(dp), dimension(:), allocatable :: logspace_ir_dp
+            integer, intent(in) :: first
+            real(dp), intent(in) :: last
+            integer, intent(in) :: n
+        end function
+        module function logspace_rr_qp(first, last, n)
+            real(qp), dimension(:), allocatable :: logspace_rr_qp
+            real(qp), intent(in) :: first, last
+            integer, intent(in) :: n
+        end function
+        module function logspace_ii_qp(first, last, n)
+            real(qp), dimension(:), allocatable :: logspace_ii_qp
+            integer, intent(in) :: first, last
+            integer, intent(in) :: n
+        end function 
+        module function logspace_ri_qp(first, last, n)
+            real(qp), dimension(:), allocatable :: logspace_ri_qp
+            real(qp), intent(in) :: first
+            integer, intent(in) :: last
+            integer, intent(in) :: n
+        end function
+        module function logspace_ir_qp(first, last, n)
+            real(qp), dimension(:), allocatable :: logspace_ir_qp
             integer, intent(in) :: first
             real(qp), intent(in) :: last
             integer, intent(in) :: n

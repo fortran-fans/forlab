@@ -52,7 +52,7 @@ module forlab
               split_argument, tand, tic, toc, trace, tril, triu, utm2deg, vertcat, &
               var, dbindex, gmm, kmeans, mbkmeans, silhouette
 
-    #:set itfname = ['empty', 'eye', 'linspace', 'loadbin', 'ones', 'randn', &
+    #:set itfname = ['empty', 'eye', 'linspace', 'logspace', 'loadbin', 'ones', 'randn', &
                     & 'randu', 'loadtxt', 'zeros']
     #:for itf in itfname
     ${publicompl(itf)}$
@@ -496,21 +496,24 @@ module forlab
         module procedure kurtosis1, kurtosis2
     end interface kurtosis
 
-    interface linspace
-        procedure linspace_ii_${DK}$
+    #:set SPACE = ['linspace', 'logspace']
+    #:for s1 in SPACE
+    interface ${s1}$
+        procedure ${s1}$_ii_${DK}$
         #:for k1 in REAL_KINDS
-        procedure linspace_rr_${k1}$, &
-                  linspace_ri_${k1}$, &
-                  linspace_ir_${k1}$
+        procedure ${s1}$_rr_${k1}$, &
+                  ${s1}$_ri_${k1}$, &
+                  ${s1}$_ir_${k1}$
         #:endfor
     end interface
     #:for k1 in REAL_KINDS
-    interface ${k1[0]}$linspace
-        procedure linspace_ii_${k1}$
-        procedure linspace_rr_${k1}$, &
-                  linspace_ri_${k1}$, &
-                  linspace_ir_${k1}$
+    interface ${k1[0]}$${s1}$
+        procedure ${s1}$_ii_${k1}$
+        procedure ${s1}$_rr_${k1}$, &
+                  ${s1}$_ri_${k1}$, &
+                  ${s1}$_ir_${k1}$
     end interface
+    #:endfor
     #:endfor
 
     interface loadbin
@@ -1059,32 +1062,34 @@ module forlab
         end subroutine
     end interface
 
-
-    !! Linspace
+    !! Linspace & Logspace
     interface
+        #:set SPACE = ['linspace', 'logspace']
+        #:for s1 in SPACE
         #:for k1, t1 in REAL_KINDS_TYPES
-        module function linspace_rr_${k1}$(first, last, n)
-            ${t1}$, dimension(:), allocatable :: linspace_rr_${k1}$
+        module function ${s1}$_rr_${k1}$(first, last, n)
+            ${t1}$, dimension(:), allocatable :: ${s1}$_rr_${k1}$
             ${t1}$, intent(in) :: first, last
             integer, intent(in) :: n
         end function
-        module function linspace_ii_${k1}$(first, last, n)
-            ${t1}$, dimension(:), allocatable :: linspace_ii_${k1}$
+        module function ${s1}$_ii_${k1}$(first, last, n)
+            ${t1}$, dimension(:), allocatable :: ${s1}$_ii_${k1}$
             integer, intent(in) :: first, last
             integer, intent(in) :: n
         end function 
-        module function linspace_ri_${k1}$(first, last, n)
-            ${t1}$, dimension(:), allocatable :: linspace_ri_${k1}$
+        module function ${s1}$_ri_${k1}$(first, last, n)
+            ${t1}$, dimension(:), allocatable :: ${s1}$_ri_${k1}$
             ${t1}$, intent(in) :: first
             integer, intent(in) :: last
             integer, intent(in) :: n
         end function
-        module function linspace_ir_${k1}$(first, last, n)
-            ${t1}$, dimension(:), allocatable :: linspace_ir_${k1}$
+        module function ${s1}$_ir_${k1}$(first, last, n)
+            ${t1}$, dimension(:), allocatable :: ${s1}$_ir_${k1}$
             integer, intent(in) :: first
             ${t1}$, intent(in) :: last
             integer, intent(in) :: n
         end function
+        #:endfor
         #:endfor
     end interface
 
