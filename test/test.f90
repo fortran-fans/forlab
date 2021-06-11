@@ -86,7 +86,7 @@ program main
         real*8, allocatable :: x(:)
         call disp('---------------------')
         call rng()
-        x = randn(5)
+        x = randn(3)
         call disp(x)
         call savebin('DP.bin', x)
         call savetxt('DP.txt', x)
@@ -228,4 +228,5 @@ program main
         c=matpow(a,0)
         call disp(c,"c=")
     end block
+
 end program
