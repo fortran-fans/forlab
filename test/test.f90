@@ -246,21 +246,4 @@ program main
         call disp(c,"c=")
     end block
 
-    block
-        use forlab, only: disp,logspace
-        call disp(logspace(1, 11, 3),'logspace(1, 11, 3):')
-        call disp(logspace(1, 1, 3),'logspace(1, 1, 3):')
-        call disp(logspace(1, 0, 1),'logspace(1, 1, 1):')
-    end block
-
-    block
-        use forlab, only: disp,var,randn,rng,mean
-        real, allocatable :: x(:)
-        call rng()
-        x = randn(100)
-        ! call disp(x,'randn(n)')
-        call disp(mean(x),'mean(randn(n)):')
-        call disp(var(x),'var(randn(n)):')
-    end block
-
 end program
