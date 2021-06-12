@@ -263,4 +263,16 @@ program main
         call disp(c,"c=")
     end block
 
+    block
+        use forlab, only: disp,vertcat
+        real*8, dimension(:,:), allocatable :: A1, A2, A
+        A1 = reshape([ 1., 2., 3., 4. ], [ 2, 2 ], order = [ 2, 1 ])
+        A2 = reshape([ 5., 6., 7., 8. ], [ 2, 2 ], order = [ 2, 1 ])
+        A = vertcat(A1, A2)
+        call disp(A,"A=")
+        A2 = reshape([ 5., 6., 7., 8. ], [ 2, 1 ], order = [ 1, 2 ])
+        A = vertcat(A1, A2)
+        call disp(A,"A=")
+    end block
+
 end program
