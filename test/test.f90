@@ -264,7 +264,7 @@ program main
     end block
 
     block
-        use forlab, only: disp,vertcat
+        use forlab, only: disp,vertcat,progress_bar
         real*8, dimension(:,:), allocatable :: A1, A2, A
         A1 = reshape([ 1., 2., 3., 4. ], [ 2, 2 ], order = [ 2, 1 ])
         A2 = reshape([ 5., 6., 7., 8. ], [ 2, 2 ], order = [ 2, 1 ])
@@ -273,6 +273,12 @@ program main
         A2 = reshape([ 5., 6., 7., 8. ], [ 2, 1 ], order = [ 1, 2 ])
         A = vertcat(A1, A2)
         call disp(A,"A=")
+        ! call progress_bar(57,100)
+        ! call sleep(2)
+        ! call progress_bar(89,100)
+        ! call sleep(3)
+        ! call progress_bar(100,100)
+        ! call disp()
     end block
 
 end program

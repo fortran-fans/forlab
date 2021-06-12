@@ -1,4 +1,38 @@
 submodule(forlab) forlab_datenum
+    ! datenum
+    !-----------------------------------------------------------------------
+    ! datenum converts the datetime values into serial date numbers (since
+    ! 0000-01-01 00:00:00).
+    !
+    ! Syntax
+    !-----------------------------------------------------------------------
+    ! d = datenum(year, month, day)
+    ! d = datenum(year, month, day, hour, minute, second)
+    ! d = datenum(year, month, day, hour, minute, second, microsecond)
+    !
+    ! Description
+    !-----------------------------------------------------------------------
+    ! d = datenum(year, month, day) returns an integer serial date number
+    ! given by year, month and day.
+    !
+    ! d = datenum(year, month, day, hour, minute, second) returns a floating
+    ! serial date number given by year, month, day, hour, minute and second.
+    !
+    ! d = datenum(year, month, day, hour, minute, second, microsecond)
+    ! returns a floating serial date number given by year, month, day, hour,
+    ! minute, second and microsecond.
+    !
+    ! Examples
+    !-----------------------------------------------------------------------
+    ! d = datenum(2016, 1, 1)
+    !     736330.
+    !
+    ! d = datenum(2016, 1, 17, 22, 28, 30, 250000)
+    !     736346.93646122678
+    !
+    ! Notes
+    !-----------------------------------------------------------------------
+    ! Use double precision for accuracy.
     use forlab_kinds
     implicit none
 

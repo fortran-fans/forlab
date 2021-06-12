@@ -26,6 +26,10 @@ make    # or `make dev`
 fpm test
 ---
 make&&fpm test
+---
+make&&fpm test > test.txt
+---
+make&&fpm test --flag '-g' > test.txt
 ```
 ### Development sequence
 1. idea & discussion.

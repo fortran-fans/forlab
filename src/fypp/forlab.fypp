@@ -561,6 +561,8 @@ module forlab
     end interface mad
 
     interface matpow
+        !! Calculat matrix power
+        !!([Specification](../module/forlab_matpow.html))
         #:for k1,t1 in REAL_KINDS_TYPES
         module function matpow_${k1}$(a,num)result(c)
             ${t1}$, dimension(:,:), intent(in) :: a
@@ -649,6 +651,18 @@ module forlab
     interface prctile
         module procedure prctile0, prctile1
     end interface prctile
+
+    !! Progress_bar & Progress_perc
+    interface
+        module subroutine progress_bar(iter, itermax, step)
+            integer, intent(in) :: iter, itermax
+            integer, intent(in), optional :: step
+        end subroutine progress_bar
+        module subroutine progress_perc(iter, itermax, prefix)
+            integer, intent(in) :: iter, itermax
+            character(len=*), intent(in), optional :: prefix
+        end subroutine progress_perc
+    end interface
 
     interface randi
         #:set RANKS = range(0, 4)
@@ -871,6 +885,8 @@ module forlab
     end interface utm2deg
 
     interface var
+        !! `var` computes vector and matrix variances.
+        !!([Specification](../module/forlab_var.html))
         #:for k1, t1 in REAL_KINDS_TYPES
         ${t1}$ module function var_1_${k1}$(x, w)
             ${t1}$, dimension(:), intent(in) :: x
@@ -1847,42 +1863,6 @@ contains
         end if
         return
     end function cumsum2
-
-    ! datenum
-    !-----------------------------------------------------------------------
-    ! datenum converts the datetime values into serial date numbers (since
-    ! 0000-01-01 00:00:00).
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! d = datenum(year, month, day)
-    ! d = datenum(year, month, day, hour, minute, second)
-    ! d = datenum(year, month, day, hour, minute, second, microsecond)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! d = datenum(year, month, day) returns an integer serial date number
-    ! given by year, month and day.
-    !
-    ! d = datenum(year, month, day, hour, minute, second) returns a floating
-    ! serial date number given by year, month, day, hour, minute and second.
-    !
-    ! d = datenum(year, month, day, hour, minute, second, microsecond)
-    ! returns a floating serial date number given by year, month, day, hour,
-    ! minute, second and microsecond.
-    !
-    ! Examples
-    !-----------------------------------------------------------------------
-    ! d = datenum(2016, 1, 1)
-    !     736330.
-    !
-    ! d = datenum(2016, 1, 17, 22, 28, 30, 250000)
-    !     736346.93646122678
-    !
-    ! Notes
-    !-----------------------------------------------------------------------
-    ! Use double precision for accuracy.
-
 
     ! datestr
     !-----------------------------------------------------------------------
@@ -4750,85 +4730,6 @@ contains
         end do
         return
     end function prctile1
-
-    ! progress_bar
-    !-----------------------------------------------------------------------
-    ! Display a progression bar.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! call progress_bar(iter, itermax, step)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! call progress_bar(iter, itermax, step) displays a progress bar given
-    ! the current iteration iter, the maximum number of iterations itermax,
-    ! and the length of the bar steps.
-
-    subroutine progress_bar(iter, itermax, step)
-        integer(kind=IPRE), intent(in) :: iter, itermax
-        integer(kind=IPRE), intent(in), optional :: step
-        integer(kind=IPRE) :: i, perc, opt_step
-        character(len=:), allocatable :: bar
-
-        opt_step = 50
-        if (present(step)) opt_step = step
-
-        ! Initialize the bar
-        bar = "  ["
-        do i = 1, opt_step
-            bar = bar//" "
-        end do
-        bar = bar//"]"
-
-        ! Compute the percentage
-        perc = real(iter)/real(itermax)*100.
-
-        ! Fill the bar
-        do i = 1, floor(perc/(100./opt_step))
-            bar(3 + i:3 + i) = "="
-        end do
-
-        ! Place the percentage
-        i = ceiling((opt_step + 2)/2.)
-        write (bar(i + 1:i + 3), "(I3)") perc
-        bar(i + 4:i + 4) = "%"
-
-        ! Fill the space
-        if (perc < 100 .and. perc > 50 - 100/opt_step) bar(i + 1:i + 1) = "="
-
-        ! Return to the beginning of the line and display the bar
-        write (*, "(A1, A)", advance="no") char(13), bar
-        return
-    end subroutine progress_bar
-
-    ! progress_perc
-    !-----------------------------------------------------------------------
-    ! Display a progression percentage.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! call progress_perc(iter, itermax, prefix)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! call progress_perc(iter, itermax, prefix) displays a percentage given
-    ! the current iteration iter, the maximum number of iterations itermax,
-    ! and a prefix.
-
-    subroutine progress_perc(iter, itermax, prefix)
-        integer(kind=IPRE), intent(in) :: iter, itermax
-        character(len=*), intent(in), optional :: prefix
-        real(kind=RPRE) :: perc
-        character(len=:), allocatable :: opt_prefix
-
-        opt_prefix = ""
-        if (present(prefix)) opt_prefix = prefix
-
-        perc = real(iter)/real(itermax)*100.
-        write (*, "(A1, A, F6.2, A)", advance="no") char(13), opt_prefix, perc, "%"
-        return
-    end subroutine progress_perc
 
     ! randperm
     !-----------------------------------------------------------------------
