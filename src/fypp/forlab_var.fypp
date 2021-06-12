@@ -37,45 +37,96 @@ submodule(forlab) forlab_var
     !!
     !! `x = var(A, w, 2)` returns a dim1 vector with the normalization option
     !! `w`.
+    !!## std
+    !! `std` computes vector and matrix standard deviations.
+    !!
+    !!### Syntax
+    !!    y = std(x)
+    !!    y = std(x, w)
+    !!    x = std(A)
+    !!    x = std(A, w)
+    !!    x = std(A, 1)
+    !!    x = std(A, w, 1)
+    !!    x = std(A, 2)
+    !!    x = std(A, w, 2)
+    !!
+    !!### Description
+    !!-----------------------------------------------------------------------
+    !! `y = std(x)` returns the standard deviation of the vector `x`.
+    !!
+    !! `y = std(x, w)` returns the standard deviation of the vector `x` with the
+    !! normalization option w.
+    !!   -   `0` (default) normalize by `N-1`,
+    !!   -   `1` normalize by `N`.
+    !!
+    !! `x = std(A)` returns a `dim2` vector with the standard deviations of each
+    !! column of matrix A.
+    !!
+    !! `x = std(A, w)` returns a `dim2` vector with the normalization option w.
+    !!
+    !! `x = std(A, 1)` (see `x = std(A)`).
+    !!
+    !! `x = std(A, w, 1)` (see `x = std(A, w)`)
+    !!
+    !! `x = std(A, 2)` returns a `dim1` vector with the standard deviations of
+    !! each row of matrix A.
+    !!
+    !! `x = std(A, w, 2)` returns a `dim1` vector with the normalization option
+    !! `w`.
     use forlab_kinds
     implicit none
 
 contains
+    #:set VSNAME = ['var', 'std']
+    #:for v1 in VSNAME
     #:for k1, t1 in REAL_KINDS_TYPES
-    module procedure var_1_${k1}$
+    module procedure ${v1}$_1_${k1}$
         integer :: opt_w
 
         opt_w = 0
         if (present(w)) opt_w = w
-
+        #:if v1 == 'var'
         select case (opt_w)
         case (0)
-            var_1_${k1}$ = sum((x - mean(x))**2)/(size(x) - 1)
+            ${v1}$_1_${k1}$ = sum((x - mean(x))**2)/(size(x) - 1)
         case (1)
-            var_1_${k1}$ = sum((x - mean(x))**2)/size(x)
+            ${v1}$_1_${k1}$ = sum((x - mean(x))**2)/size(x)
         end select
+        #:elif v1 == 'std'
+        ${v1}$_1_${k1}$ = sqrt(var_1_${k1}$(x, opt_w))
+        #:endif
         return
     end procedure
 
-    module procedure var_2_${k1}$
+    module procedure ${v1}$_2_${k1}$
         integer :: opt_w, i, m, n
 
         opt_w = 0
         if (present(w)) opt_w = w
-
+        #:if v1 == 'var'
         m = size(A, 1)
         n = size(A, 2)
         if ((.not. present(dim)) .or. (dim == 1)) then
-            allocate (var_2_${k1}$(n))
+            allocate (${v1}$_2_${k1}$(n))
             do i = 1, n
-                var_2_${k1}$(i) = var_1_${k1}$(A(:, i), opt_w)
+                ${v1}$_2_${k1}$(i) = ${v1}$_1_${k1}$(A(:, i), opt_w)
             end do
         elseif (dim == 2) then
-            allocate (var_2_${k1}$(m))
+            allocate (${v1}$_2_${k1}$(m))
             do i = 1, m
-                var_2_${k1}$(i) = var_1_${k1}$(A(i, :), opt_w)
+                ${v1}$_2_${k1}$(i) = ${v1}$_1_${k1}$(A(i, :), opt_w)
             end do
         end if
+        #:elif v1 == 'std'
+        if (.not. present(dim)) then
+            std_2_${k1}$ = sqrt(var_2_${k1}$(A, opt_w))
+        else
+            std_2_${k1}$ = sqrt(var_2_${k1}$(A, opt_w, dim))
+        end if
+        #:endif
+        return
     end procedure
     #:endfor
+    #:endfor
+
 end submodule

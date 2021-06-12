@@ -210,13 +210,14 @@ program main
     end block
 
     block
-        use forlab, only: disp,var,randn,rng,mean
+        use forlab, only: disp,var,randn,rng,mean,std
         real, allocatable :: x(:)
         call rng()
         x = randn(5)
         ! call disp(x,'randn(n)')
         call disp(mean(x),'mean(randn(n)):')
         call disp(var(x),'var(randn(n)):')
+        call disp(std(x), 'std(randn(n)):')
     end block
 
     block

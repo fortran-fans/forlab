@@ -1715,10 +1715,6 @@ module forlab
         module procedure spline2_1, spline2_2
     end interface spline2
 
-    interface std
-        module procedure std1, std2
-    end interface std
-
     interface svd
         module subroutine svd_sp(a, w, u, v , d, ierr)
             real(sp), dimension(:, :), intent(in) :: a
@@ -1910,6 +1906,7 @@ module forlab
         module procedure utm2deg0, utm2deg1
     end interface utm2deg
 
+    !! Var & Std
     interface var
         !! `var` computes vector and matrix variances.
         !!([Specification](../module/forlab_var.html))
@@ -1937,6 +1934,37 @@ module forlab
         end function
         module function var_2_qp(A, w, dim)
             real(qp), dimension(:), allocatable :: var_2_qp
+            real(qp), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: w, dim
+        end function
+    end interface
+    interface std
+        !! `std` computes vector and matrix standard deviations.
+        !!([Specification](../module/forlab_var.html))
+        real(sp) module function std_1_sp(x, w)
+            real(sp), dimension(:), intent(in) :: x
+            integer, intent(in), optional :: w
+        end function
+        module function std_2_sp(A, w, dim)
+            real(sp), dimension(:), allocatable :: std_2_sp
+            real(sp), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: w, dim
+        end function
+        real(dp) module function std_1_dp(x, w)
+            real(dp), dimension(:), intent(in) :: x
+            integer, intent(in), optional :: w
+        end function
+        module function std_2_dp(A, w, dim)
+            real(dp), dimension(:), allocatable :: std_2_dp
+            real(dp), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: w, dim
+        end function
+        real(qp) module function std_1_qp(x, w)
+            real(qp), dimension(:), intent(in) :: x
+            integer, intent(in), optional :: w
+        end function
+        module function std_2_qp(A, w, dim)
+            real(qp), dimension(:), allocatable :: std_2_qp
             real(qp), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: w, dim
         end function
@@ -6902,75 +6930,6 @@ contains
         end if
         return
     end subroutine split_argument
-
-    ! std
-    !-----------------------------------------------------------------------
-    ! std computes vector and matrix standard deviations.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! y = std(x)
-    ! y = std(x, w)
-    ! x = std(A)
-    ! x = std(A, w)
-    ! x = std(A, 1)
-    ! x = std(A, w, 1)
-    ! x = std(A, 2)
-    ! x = std(A, w, 2)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! y = std(x) returns the standard deviation of the vector x.
-    !
-    ! y = std(x, w) returns the standard deviation of the vector x with the
-    ! normalization option w.
-    !   -   0 (default) normalize by N-1,
-    !   -   1 normalize by N.
-    !
-    ! x = std(A) returns a dim2 vector with the standard deviations of each
-    ! column of matrix A.
-    !
-    ! x = std(A, w) returns a dim2 vector with the normalization option w.
-    !
-    ! x = std(A, 1) (see x = std(A)).
-    !
-    ! x = std(A, w, 1) (see x = std(A, w))
-    !
-    ! x = std(A, 2) returns a dim1 vector with the standard deviations of
-    ! each row of matrix A.
-    !
-    ! x = std(A, w, 2) returns a dim1 vector with the normalization option
-    ! w.
-
-    real(kind=RPRE) function std1(x, w)
-        real(kind=RPRE), dimension(:), intent(in) :: x
-        integer(kind=IPRE), intent(in), optional :: w
-        integer(kind=IPRE) :: opt_w
-
-        opt_w = 0
-        if (present(w)) opt_w = w
-
-        std1 = sqrt(var(x, opt_w))
-        return
-    end function std1
-
-    function std2(A, w, dim)
-        real(kind=RPRE), dimension(:), allocatable :: std2
-        real(kind=RPRE), dimension(:, :), intent(in) :: A
-        integer(kind=IPRE), intent(in), optional :: w, dim
-        integer(kind=IPRE) :: opt_w
-
-        opt_w = 0
-        if (present(w)) opt_w = w
-
-        if (.not. present(dim)) then
-            std2 = sqrt(var(A, opt_w))
-        else
-            std2 = sqrt(var(A, opt_w, dim))
-        end if
-        return
-    end function std2
-
 
     ! utm2deg
     !-----------------------------------------------------------------------
