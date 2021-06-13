@@ -1,29 +1,30 @@
-
-
 submodule(forlab) forlab_zeros
     !! Version: experimental
+    !!## zeros: `szeros(zeros)/dzeros/qzeros`
+    !! `zeros` creates array all of zeros.
     !!
-    !! zeros creates array all of zeros.
-    !!
-    !!## Syntax
+    !!### Syntax
     !!    x = zeros(dim1)                
     !!    A = zeros(dim1, dim2)          
     !!    X = zeros(dim1, dim2, dim3)    
     !! 
-    !!## Description
-    !! The precision of the flag variable should be consistent with 
-    !! the return value of the function.  
-    !! Unlike dynamic scripting languages, static languages generally
-    !! have multiple precision variables, so we need to explicitly provide precision hints.
+    !!### Description
+    !! 
+    !! Unlike other dynamic languages, Fortran has a variety of precisions, 
+    !! using integer input and outputting polymorphic return 
+    !! values is difficult to achieve, so we set three `zeros` functions: 
+    !! `szeros(zeros)/dzeros/qzeros`.
     !!
-    !! `x = zeros(dim1)` returns a dim1 vector of zeros.
+    !! `x = (s)zeros(dim1)` returns a dim1 vector of zeros with single precision.
+    !! `x = dzeros(dim1)` returns a dim1 vector of zeros with double precision.
+    !! `x = qzeros(dim1)` returns a dim1 vector of zeros with quadruple precision.
     !!
     !! `A = zeros(dim1, dim2)` returns a dim1-by-dim2 matrix of zeros.
     !!
     !! `X = zeros(dim1, dim2, dim3)` returns a dim1-by-dim2-by-dim3
     !! 3-dimensional matrix of zeros.
     !!
-    !!## Examples
+    !!### Examples
     !!    x = zeros(3)  
     !!    x =  
     !!        0.  0.  0.  
@@ -40,7 +41,7 @@ contains
         integer :: ierr
         allocate (zeros_1_sp (dim1), stat=ierr)
         if (ierr .ne. 0) then
-            print *, "Error: in zeros, could not allocate array."
+            call disp("Error: in (s/d/q)zeros, could not allocate array.")
             stop
         else
             zeros_1_sp = 0.0_sp
@@ -52,7 +53,7 @@ contains
         integer :: ierr
         allocate (zeros_2_sp (dim1, dim2), stat=ierr)
         if (ierr .ne. 0) then
-            print *, "Error: in zeros, could not allocate array."
+            call disp("Error: in (s/d/q)zeros, could not allocate array.")
             stop
         else
             zeros_2_sp = 0.0_sp
@@ -64,7 +65,7 @@ contains
         integer :: ierr
         allocate (zeros_3_sp (dim1, dim2, dim3), stat=ierr)
         if (ierr .ne. 0) then
-            print *, "Error: in zeros, could not allocate array."
+            call disp("Error: in (s/d/q)zeros, could not allocate array.")
             stop
         else
             zeros_3_sp = 0.0_sp
@@ -76,7 +77,7 @@ contains
         integer :: ierr
         allocate (zeros_1_dp (dim1), stat=ierr)
         if (ierr .ne. 0) then
-            print *, "Error: in zeros, could not allocate array."
+            call disp("Error: in (s/d/q)zeros, could not allocate array.")
             stop
         else
             zeros_1_dp = 0.0_dp
@@ -88,7 +89,7 @@ contains
         integer :: ierr
         allocate (zeros_2_dp (dim1, dim2), stat=ierr)
         if (ierr .ne. 0) then
-            print *, "Error: in zeros, could not allocate array."
+            call disp("Error: in (s/d/q)zeros, could not allocate array.")
             stop
         else
             zeros_2_dp = 0.0_dp
@@ -100,7 +101,7 @@ contains
         integer :: ierr
         allocate (zeros_3_dp (dim1, dim2, dim3), stat=ierr)
         if (ierr .ne. 0) then
-            print *, "Error: in zeros, could not allocate array."
+            call disp("Error: in (s/d/q)zeros, could not allocate array.")
             stop
         else
             zeros_3_dp = 0.0_dp
@@ -112,7 +113,7 @@ contains
         integer :: ierr
         allocate (zeros_1_qp (dim1), stat=ierr)
         if (ierr .ne. 0) then
-            print *, "Error: in zeros, could not allocate array."
+            call disp("Error: in (s/d/q)zeros, could not allocate array.")
             stop
         else
             zeros_1_qp = 0.0_qp
@@ -124,7 +125,7 @@ contains
         integer :: ierr
         allocate (zeros_2_qp (dim1, dim2), stat=ierr)
         if (ierr .ne. 0) then
-            print *, "Error: in zeros, could not allocate array."
+            call disp("Error: in (s/d/q)zeros, could not allocate array.")
             stop
         else
             zeros_2_qp = 0.0_qp
@@ -136,7 +137,7 @@ contains
         integer :: ierr
         allocate (zeros_3_qp (dim1, dim2, dim3), stat=ierr)
         if (ierr .ne. 0) then
-            print *, "Error: in zeros, could not allocate array."
+            call disp("Error: in (s/d/q)zeros, could not allocate array.")
             stop
         else
             zeros_3_qp = 0.0_qp

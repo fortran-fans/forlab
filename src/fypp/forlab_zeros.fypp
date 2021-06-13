@@ -1,34 +1,32 @@
 #:include 'common.fypp'
-
-#:def ranksuffix(RANK)
-$:'' if RANK == 0 else '(' + ':' + ',:' * (RANK - 1) + ')'
-#:enddef ranksuffix
-
 #:set RANKS = range(1, 4)
 submodule(forlab) forlab_zeros
     !! Version: experimental
+    !!## zeros: `szeros(zeros)/dzeros/qzeros`
+    !! `zeros` creates array all of zeros.
     !!
-    !! zeros creates array all of zeros.
-    !!
-    !!## Syntax
+    !!### Syntax
     !!    x = zeros(dim1)                
     !!    A = zeros(dim1, dim2)          
     !!    X = zeros(dim1, dim2, dim3)    
     !! 
-    !!## Description
-    !! The precision of the flag variable should be consistent with 
-    !! the return value of the function.  
-    !! Unlike dynamic scripting languages, static languages generally
-    !! have multiple precision variables, so we need to explicitly provide precision hints.
+    !!### Description
+    !! 
+    !! Unlike other dynamic languages, Fortran has a variety of precisions, 
+    !! using integer input and outputting polymorphic return 
+    !! values is difficult to achieve, so we set three `zeros` functions: 
+    !! `szeros(zeros)/dzeros/qzeros`.
     !!
-    !! `x = zeros(dim1)` returns a dim1 vector of zeros.
+    !! `x = (s)zeros(dim1)` returns a dim1 vector of zeros with single precision.
+    !! `x = dzeros(dim1)` returns a dim1 vector of zeros with double precision.
+    !! `x = qzeros(dim1)` returns a dim1 vector of zeros with quadruple precision.
     !!
     !! `A = zeros(dim1, dim2)` returns a dim1-by-dim2 matrix of zeros.
     !!
     !! `X = zeros(dim1, dim2, dim3)` returns a dim1-by-dim2-by-dim3
     !! 3-dimensional matrix of zeros.
     !!
-    !!## Examples
+    !!### Examples
     !!    x = zeros(3)  
     !!    x =  
     !!        0.  0.  0.  
@@ -53,7 +51,7 @@ contains
         allocate (zeros_${RANK}$_${k1}$ (dim1, dim2, dim3), stat=ierr)
         #:endif
         if (ierr .ne. 0) then
-            print *, "Error: in zeros, could not allocate array."
+            call disp("Error: in (s/d/q)zeros, could not allocate array.")
             stop
         else
             zeros_${RANK}$_${k1}$ = 0.0_${k1}$

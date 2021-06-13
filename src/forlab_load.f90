@@ -59,11 +59,10 @@ contains
     module procedure loadbin_0_sp
         integer :: opt_kind, dim1, fs
         type(File) :: infile
-        integer :: unit
 
         opt_kind = sp
 
-        infile = File(unit, trim(filename))
+        infile = File(trim(filename))
         if (infile%exist()) then
             inquire (file=filename, size=fs)
             if (mod(fs, opt_kind) .eq. 0) then
@@ -85,9 +84,8 @@ contains
 
     module procedure loadbin_1_sp
         type(File) :: infile
-        integer :: unit
 
-        infile = File(unit, trim(filename))
+        infile = File(trim(filename))
         if (infile%exist()) then
             allocate (loadbin_1_sp(dim1))
             call infile%open(sp*dim1)
@@ -102,9 +100,8 @@ contains
 
     module procedure loadbin_2_sp
         type(File) :: infile
-        integer :: unit
 
-        infile = File(unit, trim(filename))
+        infile = File(trim(filename))
         if (infile%exist()) then
             allocate (loadbin_2_sp(dim1, dim2))
             call infile%open(sp*dim1*dim2)
@@ -119,9 +116,8 @@ contains
 
     module procedure loadbin_3_sp
         type(File) :: infile
-        integer :: unit
 
-        infile = File(unit, trim(filename))
+        infile = File(trim(filename))
         if (infile%exist()) then
             allocate (loadbin_3_sp(dim1, dim2, dim3))
             call infile%open(sp*dim1*dim2*dim3)
@@ -152,10 +148,10 @@ contains
     ! txt file filename. dim2 indicates the number of columns of the array.
 
     module procedure loadtxt_1_sp
-        integer :: i, m, unit
+        integer :: i, m
         type(File) :: infile
 
-        infile = File(unit, trim(filename))
+        infile = File(trim(filename))
         if (infile%exist()) then
             m = infile%countlines()
             allocate (loadtxt_1_sp(m))
@@ -172,10 +168,10 @@ contains
     end procedure
 
     module procedure loadtxt_2_sp
-        integer(kind=IPRE) :: i, j, m, unit
+        integer :: i, j, m
         type(File) :: infile
 
-        infile = File(unit, trim(filename))
+        infile = File(trim(filename))
         if (infile%exist()) then
             m = infile%countlines()
             allocate (loadtxt_2_sp(m, dim2))
@@ -194,11 +190,10 @@ contains
     module procedure loadbin_0_dp
         integer :: opt_kind, dim1, fs
         type(File) :: infile
-        integer :: unit
 
         opt_kind = dp
 
-        infile = File(unit, trim(filename))
+        infile = File(trim(filename))
         if (infile%exist()) then
             inquire (file=filename, size=fs)
             if (mod(fs, opt_kind) .eq. 0) then
@@ -220,9 +215,8 @@ contains
 
     module procedure loadbin_1_dp
         type(File) :: infile
-        integer :: unit
 
-        infile = File(unit, trim(filename))
+        infile = File(trim(filename))
         if (infile%exist()) then
             allocate (loadbin_1_dp(dim1))
             call infile%open(dp*dim1)
@@ -237,9 +231,8 @@ contains
 
     module procedure loadbin_2_dp
         type(File) :: infile
-        integer :: unit
 
-        infile = File(unit, trim(filename))
+        infile = File(trim(filename))
         if (infile%exist()) then
             allocate (loadbin_2_dp(dim1, dim2))
             call infile%open(dp*dim1*dim2)
@@ -254,9 +247,8 @@ contains
 
     module procedure loadbin_3_dp
         type(File) :: infile
-        integer :: unit
 
-        infile = File(unit, trim(filename))
+        infile = File(trim(filename))
         if (infile%exist()) then
             allocate (loadbin_3_dp(dim1, dim2, dim3))
             call infile%open(dp*dim1*dim2*dim3)
@@ -287,10 +279,10 @@ contains
     ! txt file filename. dim2 indicates the number of columns of the array.
 
     module procedure loadtxt_1_dp
-        integer :: i, m, unit
+        integer :: i, m
         type(File) :: infile
 
-        infile = File(unit, trim(filename))
+        infile = File(trim(filename))
         if (infile%exist()) then
             m = infile%countlines()
             allocate (loadtxt_1_dp(m))
@@ -307,10 +299,10 @@ contains
     end procedure
 
     module procedure loadtxt_2_dp
-        integer(kind=IPRE) :: i, j, m, unit
+        integer :: i, j, m
         type(File) :: infile
 
-        infile = File(unit, trim(filename))
+        infile = File(trim(filename))
         if (infile%exist()) then
             m = infile%countlines()
             allocate (loadtxt_2_dp(m, dim2))
@@ -329,11 +321,10 @@ contains
     module procedure loadbin_0_qp
         integer :: opt_kind, dim1, fs
         type(File) :: infile
-        integer :: unit
 
         opt_kind = qp
 
-        infile = File(unit, trim(filename))
+        infile = File(trim(filename))
         if (infile%exist()) then
             inquire (file=filename, size=fs)
             if (mod(fs, opt_kind) .eq. 0) then
@@ -355,9 +346,8 @@ contains
 
     module procedure loadbin_1_qp
         type(File) :: infile
-        integer :: unit
 
-        infile = File(unit, trim(filename))
+        infile = File(trim(filename))
         if (infile%exist()) then
             allocate (loadbin_1_qp(dim1))
             call infile%open(qp*dim1)
@@ -372,9 +362,8 @@ contains
 
     module procedure loadbin_2_qp
         type(File) :: infile
-        integer :: unit
 
-        infile = File(unit, trim(filename))
+        infile = File(trim(filename))
         if (infile%exist()) then
             allocate (loadbin_2_qp(dim1, dim2))
             call infile%open(qp*dim1*dim2)
@@ -389,9 +378,8 @@ contains
 
     module procedure loadbin_3_qp
         type(File) :: infile
-        integer :: unit
 
-        infile = File(unit, trim(filename))
+        infile = File(trim(filename))
         if (infile%exist()) then
             allocate (loadbin_3_qp(dim1, dim2, dim3))
             call infile%open(qp*dim1*dim2*dim3)
@@ -422,10 +410,10 @@ contains
     ! txt file filename. dim2 indicates the number of columns of the array.
 
     module procedure loadtxt_1_qp
-        integer :: i, m, unit
+        integer :: i, m
         type(File) :: infile
 
-        infile = File(unit, trim(filename))
+        infile = File(trim(filename))
         if (infile%exist()) then
             m = infile%countlines()
             allocate (loadtxt_1_qp(m))
@@ -442,10 +430,10 @@ contains
     end procedure
 
     module procedure loadtxt_2_qp
-        integer(kind=IPRE) :: i, j, m, unit
+        integer :: i, j, m
         type(File) :: infile
 
-        infile = File(unit, trim(filename))
+        infile = File(trim(filename))
         if (infile%exist()) then
             m = infile%countlines()
             allocate (loadtxt_2_qp(m, dim2))

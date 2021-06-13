@@ -2,39 +2,39 @@
 submodule(forlab) forlab_save
     !! Version: experimental
     !!
-    ! savetxt saves 1 and 2-dimensional arrays to txt files.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! call savetxt(filename, x)
-    ! call savetxt(filename, A)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! call savetxt(filename, x) saves a vector array x into the txt file
-    ! filename.
-    !
-    ! call savetxt(filename, A) saves a 2-dimensional array A into the txt
-    ! file filename.
-    !
-    ! savebin saves arrays to binary files.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! call savebin(filename, x)
-    ! call savebin(filename, A)
-    ! call savebin(filename, X)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! call savebin(filename, x) saves a vector x into the binary file
-    ! filename.
-    !
-    ! call savebin(filename, A) saves a 2-dimensional array into the binary
-    ! file filename.
-    !
-    ! call savebin(filename, X) saves a 3-dimensional array into the binary
-    ! file filename.
+    !! savetxt saves 1 and 2-dimensional arrays to txt files.
+    !!
+    !! Syntax
+    !!-----------------------------------------------------------------------
+    !! call savetxt(filename, x)
+    !! call savetxt(filename, A)
+    !!
+    !! Description
+    !!-----------------------------------------------------------------------
+    !! call savetxt(filename, x) saves a vector array x into the txt file
+    !! filename.
+    !!
+    !! call savetxt(filename, A) saves a 2-dimensional array A into the txt
+    !! file filename.
+    !!
+    !! savebin saves arrays to binary files.
+    !!
+    !! Syntax
+    !!-----------------------------------------------------------------------
+    !! call savebin(filename, x)
+    !! call savebin(filename, A)
+    !! call savebin(filename, X)
+    !!
+    !! Description
+    !!-----------------------------------------------------------------------
+    !! call savebin(filename, x) saves a vector x into the binary file
+    !! filename.
+    !!
+    !! call savebin(filename, A) saves a 2-dimensional array into the binary
+    !! file filename.
+    !!
+    !! call savebin(filename, X) saves a 3-dimensional array into the binary
+    !! file filename.
     use forlab_kinds
     implicit none
 
@@ -44,9 +44,8 @@ contains
     module procedure savetxt_1_${k1}$
         integer :: i, m
         type(file) :: infile
-        integer :: unit
 
-        infile = file(unit, trim(filename))
+        infile = file(trim(filename))
         m = size(x)
         call infile%open()
         do i = 1, m
@@ -59,9 +58,8 @@ contains
     module procedure savetxt_2_${k1}$
         integer :: i, m
         type(File) :: infile
-        integer :: unit
 
-        infile = File(unit, trim(filename))
+        infile = File(trim(filename))
         m = size(A, 1)
         call infile%open()
         do i = 1, m
@@ -73,9 +71,8 @@ contains
 
     module procedure savebin_1_${k1}$
         type(File) :: infile
-        integer :: unit
 
-        infile = File(unit, trim(filename))
+        infile = File(trim(filename))
         call infile%open(kind(x)*size(x))
         write (infile%unit, rec=1) x
         call infile%close()
@@ -84,9 +81,8 @@ contains
 
     module procedure savebin_2_${k1}$
         type(File) :: infile
-        integer :: unit
 
-        infile = File(unit, trim(filename))
+        infile = File(trim(filename))
         call infile%open(kind(A)*size(A))
         write (infile%unit, rec=1) A
         call infile%close()
@@ -95,9 +91,8 @@ contains
 
     module procedure savebin_3_${k1}$
         type(File) :: infile
-        integer :: unit
 
-        infile = File(unit, trim(filename))
+        infile = File(trim(filename))
         call infile%open(kind(X)*size(X))
         write (infile%unit, rec=1) X
         call infile%close()
@@ -111,9 +106,8 @@ contains
     module procedure savetxt_1_${k1}$
         integer :: i, m
         type(File) :: infile
-        integer :: unit
 
-        infile = File(unit, trim(filename))
+        infile = File(trim(filename))
         m = size(x)
         call infile%open()
         do i = 1, m
@@ -126,9 +120,8 @@ contains
     module procedure savetxt_2_${k1}$
         integer :: i, m
         type(File) :: infile
-        integer :: unit
 
-        infile = File(unit, trim(filename))
+        infile = File(trim(filename))
         m = size(A, 1)
         call infile%open()
         do i = 1, m

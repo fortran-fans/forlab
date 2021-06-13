@@ -125,9 +125,8 @@ contains
         character(len=*), intent(in) :: filename
         integer :: ierr
         type(File) :: infile
-        integer :: unit
 
-        infile = File(unit, trim(filename))
+        infile = File(trim(filename))
         countlines2 = 0
         call infile%open()
         do
@@ -165,27 +164,25 @@ contains
     !
     ! Syntax
     !-----------------------------------------------------------------------
-    ! ofile = File(unit, filename)
+    ! ofile = File(filename)
     !
     ! Description
     !-----------------------------------------------------------------------
-    ! ofile = File(unit, filename) returns a File object associated to the
+    ! ofile = File(filename) returns a File object associated to the
     ! file filename with the identifier unit.
     !
     ! Examples
     !-----------------------------------------------------------------------
     ! type(File) :: ofile
     !
-    ! ofile = File(10, "myfile.txt")
+    ! ofile = File("myfile.txt")
     ! call ofile%open()
     ! ! ... some operations on this file ...
     ! call ofile%close()
 
-    type(File) function init_File(unit, filename)
-        integer, intent(in) :: unit
+    type(File) function init_File(filename)
         character(len=*), intent(in) :: filename
 
-        init_File%unit = unit
         init_File%filename = trim(filename)
         return
     end function init_File

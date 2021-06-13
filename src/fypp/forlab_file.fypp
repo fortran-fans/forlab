@@ -5,11 +5,11 @@ module forlab_file
         integer :: unit
         character(:), allocatable :: filename
     contains
-        procedure, private :: open1, open2, countlines1, file_exist
+        procedure, private :: open1, open2, countlines1, file_exist1
         procedure, public :: close
         generic, public :: open => open1, open2
         generic, public :: countlines => countlines1
-        generic, public :: exist => file_exist
+        generic, public :: exist => file_exist1
     end type file
 
     interface file
@@ -19,6 +19,10 @@ module forlab_file
     interface countlines
         procedure countlines2
     end interface countlines
+
+    interface file_exist
+        procedure file_exist2
+    end interface file_exist
 contains
 
     ! open
@@ -125,9 +129,8 @@ contains
         character(len=*), intent(in) :: filename
         integer :: ierr
         type(File) :: infile
-        integer :: unit
 
-        infile = File(unit, trim(filename))
+        infile = File(trim(filename))
         countlines2 = 0
         call infile%open()
         do
@@ -152,12 +155,26 @@ contains
     ! call ofile % exist() returns .true. if the File object ofile exists,
     ! .false. otherwise.
 
-    logical function file_exist(self)
+    logical function file_exist1(self)
         class(File), intent(inout) :: self
 
-        inquire (file=trim(self%filename), exist=file_exist)
+        inquire (file=trim(self%filename), exist=file_exist1)
         return
-    end function file_exist
+    end function file_exist1
+
+    logical function file_exist2(filename)
+    !! The `countlines2` function returns the number of lines of the file
+        character(len=*), intent(in) :: filename
+        integer :: ierr
+        type(File) :: infile
+
+        infile = File(trim(filename))
+        countlines2 = 0
+        call infile%open()
+        file_exist2 = infile%file_exist()
+        call infile%close()
+        return
+    end function file_exist2
 
     ! File (constructor)
     !-----------------------------------------------------------------------
@@ -165,27 +182,25 @@ contains
     !
     ! Syntax
     !-----------------------------------------------------------------------
-    ! ofile = File(unit, filename)
+    ! ofile = File(filename)
     !
     ! Description
     !-----------------------------------------------------------------------
-    ! ofile = File(unit, filename) returns a File object associated to the
+    ! ofile = File(filename) returns a File object associated to the
     ! file filename with the identifier unit.
     !
     ! Examples
     !-----------------------------------------------------------------------
     ! type(File) :: ofile
     !
-    ! ofile = File(10, "myfile.txt")
+    ! ofile = File("myfile.txt")
     ! call ofile%open()
     ! ! ... some operations on this file ...
     ! call ofile%close()
 
-    type(File) function init_File(unit, filename)
-        integer, intent(in) :: unit
+    type(File) function init_File(filename)
         character(len=*), intent(in) :: filename
 
-        init_File%unit = unit
         init_File%filename = trim(filename)
         return
     end function init_File

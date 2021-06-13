@@ -218,7 +218,7 @@ program main
         call disp(mean(x),'mean(randn(n)):')
         call disp(var(x),'var(randn(n)):')
         call disp(std(x), 'std(randn(n)):')
-        call disp(randn(5,mean=10.,1.0),'randn(5,10.,1.0)')
+        call disp(randn(5,mean=10.,std=1.0),'randn(5,10.,1.0)')
     end block
 
     block

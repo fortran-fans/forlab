@@ -36,6 +36,7 @@ submodule(forlab) forlab_var
     !!
     !! `x = var(A, w, 2)` returns a dim1 vector with the normalization option
     !! `w`.
+    !!
     !!## std
     !! `std` computes vector and matrix standard deviations.
     !!
@@ -50,7 +51,6 @@ submodule(forlab) forlab_var
     !!    x = std(A, w, 2)
     !!
     !!### Description
-    !!-----------------------------------------------------------------------
     !! `y = std(x)` returns the standard deviation of the vector `x`.
     !!
     !! `y = std(x, w)` returns the standard deviation of the vector `x` with the
@@ -68,7 +68,7 @@ submodule(forlab) forlab_var
     !! `x = std(A, w, 1)` (see `x = std(A, w)`)
     !!
     !! `x = std(A, 2)` returns a `dim1` vector with the standard deviations of
-    !! each row of matrix A.
+    !! each row of matrix `A`.
     !!
     !! `x = std(A, w, 2)` returns a `dim1` vector with the normalization option
     !! `w`.
