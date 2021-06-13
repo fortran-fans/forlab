@@ -47,6 +47,18 @@ contains
     #:elif RANK == 3
         integer :: i, j, k
     #:endif
+        real(${k1}$) :: opt_mean, opt_std 
+        if(present(mean)) then
+            opt_mean = mean
+        else
+            opt_mean = 0.0_${k1}$
+        endif
+        if (present(std)) then
+            opt_std = std
+        else
+            opt_std = 1.0_${k1}$
+        end if
+
         #:if RANK == 0
         do
             u = 2._${k1}$*randu() - 1._${k1}$
@@ -54,17 +66,17 @@ contains
             s = u*u + v*v
             if ((s > 0._${k1}$) .and. (s < 1._${k1}$)) exit
         end do
-        randn_${RANK}$_${k1}$ = u*sqrt(-2.0_${k1}$*log(s)/s)
+        randn_${RANK}$_${k1}$ = opt_mean + u*sqrt(-2.0_${k1}$*log(s)/s)*opt_std
         #:elif RANK == 1
         allocate (randn_${RANK}$_${k1}$ (dim1))
         do i = 1, dim1
-            randn_${RANK}$_${k1}$ (i) = randn_0_${k1}$()
+            randn_${RANK}$_${k1}$ (i) = randn_0_${k1}$(mean=opt_mean, std=opt_std)
         end do
         #:elif RANK == 2
         allocate (randn_${RANK}$_${k1}$ (dim1, dim2))
         do i = 1, dim1
             do j = 1, dim2
-                randn_${RANK}$_${k1}$ (i, j) = randn_0_${k1}$()
+                randn_${RANK}$_${k1}$ (i, j) = randn_0_${k1}$(mean=opt_mean, std=opt_std)
             end do
         end do
         #:elif RANK == 3
@@ -72,7 +84,7 @@ contains
         do i = 1, dim1
             do j = 1, dim2
                 do k = 1, dim3
-                    randn_${RANK}$_${k1}$ (i, j, k) = randn_0_${k1}$()
+                    randn_${RANK}$_${k1}$ (i, j, k) = randn_0_${k1}$(mean=opt_mean, std=opt_std)
                 end do
             end do
         end do

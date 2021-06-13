@@ -99,7 +99,11 @@ contains
     end procedure
 
     module procedure ${v1}$_2_${k1}$
+        #:if v1 == 'var'
         integer :: opt_w, i, m, n
+        #:elif v1 == 'std'
+        integer :: opt_w, i
+        #:endif
 
         opt_w = 0
         if (present(w)) opt_w = w

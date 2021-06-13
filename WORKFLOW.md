@@ -30,6 +30,10 @@ make&&fpm test
 make&&fpm test > test.txt
 ---
 make&&fpm test --flag '-g' > test.txt
+---
+time make&&fpm test --flag '-g' > test.txt
+---
+\time -v make&&fpm test --flag ' ' > test.txt
 ```
 ### Development sequence
 1. idea & discussion.

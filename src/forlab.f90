@@ -2036,50 +2036,62 @@ module forlab
 
     !! Randn
     interface
-        module function randn_0_sp ()
+        module function randn_0_sp (mean, std)
             real(sp) :: randn_0_sp 
+            real(sp), intent(in), optional :: mean, std
         end function
-        module function randn_1_sp (dim1)
+        module function randn_1_sp (dim1, mean, std)
             integer, intent(in) :: dim1
             real(sp), allocatable :: randn_1_sp (:)
+            real(sp), intent(in), optional :: mean, std
         end function
-        module function randn_2_sp (dim1, dim2)
+        module function randn_2_sp (dim1, dim2, mean, std)
             integer, intent(in) :: dim1, dim2
             real(sp), allocatable :: randn_2_sp (:,:)
+            real(sp), intent(in), optional :: mean, std
         end function
-        module function randn_3_sp (dim1, dim2, dim3)
+        module function randn_3_sp (dim1, dim2, dim3, mean, std)
             integer, intent(in) :: dim1, dim2, dim3
             real(sp), allocatable :: randn_3_sp (:,:,:)
+            real(sp), intent(in), optional :: mean, std
         end function
-        module function randn_0_dp ()
+        module function randn_0_dp (mean, std)
             real(dp) :: randn_0_dp 
+            real(dp), intent(in), optional :: mean, std
         end function
-        module function randn_1_dp (dim1)
+        module function randn_1_dp (dim1, mean, std)
             integer, intent(in) :: dim1
             real(dp), allocatable :: randn_1_dp (:)
+            real(dp), intent(in), optional :: mean, std
         end function
-        module function randn_2_dp (dim1, dim2)
+        module function randn_2_dp (dim1, dim2, mean, std)
             integer, intent(in) :: dim1, dim2
             real(dp), allocatable :: randn_2_dp (:,:)
+            real(dp), intent(in), optional :: mean, std
         end function
-        module function randn_3_dp (dim1, dim2, dim3)
+        module function randn_3_dp (dim1, dim2, dim3, mean, std)
             integer, intent(in) :: dim1, dim2, dim3
             real(dp), allocatable :: randn_3_dp (:,:,:)
+            real(dp), intent(in), optional :: mean, std
         end function
-        module function randn_0_qp ()
+        module function randn_0_qp (mean, std)
             real(qp) :: randn_0_qp 
+            real(qp), intent(in), optional :: mean, std
         end function
-        module function randn_1_qp (dim1)
+        module function randn_1_qp (dim1, mean, std)
             integer, intent(in) :: dim1
             real(qp), allocatable :: randn_1_qp (:)
+            real(qp), intent(in), optional :: mean, std
         end function
-        module function randn_2_qp (dim1, dim2)
+        module function randn_2_qp (dim1, dim2, mean, std)
             integer, intent(in) :: dim1, dim2
             real(qp), allocatable :: randn_2_qp (:,:)
+            real(qp), intent(in), optional :: mean, std
         end function
-        module function randn_3_qp (dim1, dim2, dim3)
+        module function randn_3_qp (dim1, dim2, dim3, mean, std)
             integer, intent(in) :: dim1, dim2, dim3
             real(qp), allocatable :: randn_3_qp (:,:,:)
+            real(qp), intent(in), optional :: mean, std
         end function
     end interface
 

@@ -930,15 +930,15 @@ module forlab
         #:for k1, t1 in REAL_KINDS_TYPES
         #:for RANK in RANKS
         #:if RANK == 0
-        module function randn_${RANK}$_${k1}$ ()
+        module function randn_${RANK}$_${k1}$ (mean, std)
         #:elif RANK == 1
-        module function randn_${RANK}$_${k1}$ (dim1)
+        module function randn_${RANK}$_${k1}$ (dim1, mean, std)
             integer, intent(in) :: dim1
         #:elif RANK == 2
-        module function randn_${RANK}$_${k1}$ (dim1, dim2)
+        module function randn_${RANK}$_${k1}$ (dim1, dim2, mean, std)
             integer, intent(in) :: dim1, dim2
         #:elif RANK == 3
-        module function randn_${RANK}$_${k1}$ (dim1, dim2, dim3)
+        module function randn_${RANK}$_${k1}$ (dim1, dim2, dim3, mean, std)
             integer, intent(in) :: dim1, dim2, dim3
         #:endif
             #:if RANK == 0
@@ -946,6 +946,7 @@ module forlab
             #:else
             ${t1}$, allocatable :: randn_${RANK}$_${k1}$ ${ranksuffix(RANK)}$
             #:endif
+            ${t1}$, intent(in), optional :: mean, std
         end function
         #:endfor
         #:endfor
