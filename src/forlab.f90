@@ -34,10 +34,10 @@ module forlab
               angle, bsplrep1, bsplrep2, bspline1, bspline2, chol, cosd, countlines, &
               cov, cumsum, chi2cdf, chi2pdf, chi2inv, chi2rand, check_directory, &
               det, diag, disp, deg2utm, datenum, datevec, datestr, deboor, diff, &
-              eig, &
+              eig, file_exist, &
               find, flip, fliplr, flipud, fminbnd, gammainc, horzcat, &
               hann, interp1, interp2, interp3, inv, ismember, isoutlier, issquare, &
-              isleap, issymmetric, kurtosis, k2test, kde, &
+              isleap, issymmetric, kurtosis, k2test, kde, loadbin, loadtxt, &
               mean, median, mad,matpow, meshgrid, nextpow2, norm, normpdf, num2str, &
               outer, pascal, prctile, progress_bar, progress_perc,qr, rng, &
               randi, randperm, repmat, rms, savetxt, savebin, sind, sort, solve, &
@@ -49,11 +49,9 @@ module forlab
     public :: eye, seye, deye, qeye
     public :: linspace, slinspace, dlinspace, qlinspace
     public :: logspace, slogspace, dlogspace, qlogspace
-    public :: loadbin, sloadbin, dloadbin, qloadbin
     public :: ones, sones, dones, qones
     public :: randn, srandn, drandn, qrandn
     public :: randu, srandu, drandu, qrandu
-    public :: loadtxt, sloadtxt, dloadtxt, qloadtxt
     public :: zeros, szeros, dzeros, qzeros
     !! #ifdef do_mpi
     public :: mpi_rpre
@@ -1207,42 +1205,209 @@ module forlab
     end interface
 
     interface loadbin
-        procedure loadbin_0_sp
-        procedure loadbin_1_sp
-        procedure loadbin_2_sp
-        procedure loadbin_3_sp
+        module subroutine loadbin_1_rsp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(sp), dimension(:), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_1_rdp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(dp), dimension(:), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_1_rqp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(qp), dimension(:), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_1_iint8(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int8), dimension(:), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_1_iint16(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int16), dimension(:), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_1_iint32(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int32), dimension(:), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_1_iint64(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int64), dimension(:), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_1_csp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(sp), dimension(:), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_1_cdp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(dp), dimension(:), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_1_cqp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(qp), dimension(:), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_2_rsp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(sp), dimension(:, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_2_rdp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(dp), dimension(:, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_2_rqp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(qp), dimension(:, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_2_iint8(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int8), dimension(:, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_2_iint16(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int16), dimension(:, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_2_iint32(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int32), dimension(:, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_2_iint64(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int64), dimension(:, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_2_csp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(sp), dimension(:, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_2_cdp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(dp), dimension(:, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_2_cqp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(qp), dimension(:, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_3_rsp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(sp), dimension(:, :, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_3_rdp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(dp), dimension(:, :, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_3_rqp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(qp), dimension(:, :, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_3_iint8(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int8), dimension(:, :, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_3_iint16(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int16), dimension(:, :, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_3_iint32(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int32), dimension(:, :, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_3_iint64(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int64), dimension(:, :, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_3_csp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(sp), dimension(:, :, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_3_cdp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(dp), dimension(:, :, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_3_cqp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(qp), dimension(:, :, :), allocatable, intent(out) :: X
+        end subroutine
     end interface
-    interface sloadbin
-        procedure loadbin_0_sp
-        procedure loadbin_1_sp
-        procedure loadbin_2_sp
-        procedure loadbin_3_sp
-    end interface
-    interface dloadbin
-        procedure loadbin_0_dp
-        procedure loadbin_1_dp
-        procedure loadbin_2_dp
-        procedure loadbin_3_dp
-    end interface
-    interface qloadbin
-        procedure loadbin_0_qp
-        procedure loadbin_1_qp
-        procedure loadbin_2_qp
-        procedure loadbin_3_qp
-    end interface
-
 
     interface loadtxt
-        procedure loadtxt_1_sp, loadtxt_2_sp
-    end interface
-    interface sloadtxt
-        procedure loadtxt_1_sp, loadtxt_2_sp
-    end interface
-    interface dloadtxt
-        procedure loadtxt_1_dp, loadtxt_2_dp
-    end interface
-    interface qloadtxt
-        procedure loadtxt_1_qp, loadtxt_2_qp
+        module subroutine loadtxt_1_rsp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(sp), dimension(:), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadtxt_1_rdp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(dp), dimension(:), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadtxt_1_rqp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(qp), dimension(:), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadtxt_1_iint8(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int8), dimension(:), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadtxt_1_iint16(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int16), dimension(:), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadtxt_1_iint32(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int32), dimension(:), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadtxt_1_iint64(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int64), dimension(:), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadtxt_1_csp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(sp), dimension(:), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadtxt_1_cdp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(dp), dimension(:), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadtxt_1_cqp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(qp), dimension(:), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadtxt_2_rsp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(sp), dimension(:, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadtxt_2_rdp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(dp), dimension(:, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadtxt_2_rqp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(qp), dimension(:, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadtxt_2_iint8(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int8), dimension(:, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadtxt_2_iint16(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int16), dimension(:, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadtxt_2_iint32(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int32), dimension(:, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadtxt_2_iint64(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int64), dimension(:, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadtxt_2_csp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(sp), dimension(:, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadtxt_2_cdp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(dp), dimension(:, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadtxt_2_cqp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(qp), dimension(:, :), allocatable, intent(out) :: X
+        end subroutine
     end interface
 
     interface log2
@@ -1528,100 +1693,208 @@ module forlab
     end interface rms
 
     interface savebin
-        module subroutine savebin_1_sp(filename, x)
+        module subroutine savebin_1_rsp(filename, X)
             character(len=*), intent(in) :: filename
-            real(sp), dimension(:), intent(in) :: x
+            real(sp), dimension(:), intent(in) :: X
         end subroutine
-        module subroutine savebin_2_sp(filename, A)
+        module subroutine savebin_1_rdp(filename, X)
             character(len=*), intent(in) :: filename
-            real(sp), dimension(:, :), intent(in) :: A
+            real(dp), dimension(:), intent(in) :: X
         end subroutine
-        module subroutine savebin_3_sp(filename, X)
+        module subroutine savebin_1_rqp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(qp), dimension(:), intent(in) :: X
+        end subroutine
+        module subroutine savebin_1_iint8(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int8), dimension(:), intent(in) :: X
+        end subroutine
+        module subroutine savebin_1_iint16(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int16), dimension(:), intent(in) :: X
+        end subroutine
+        module subroutine savebin_1_iint32(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int32), dimension(:), intent(in) :: X
+        end subroutine
+        module subroutine savebin_1_iint64(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int64), dimension(:), intent(in) :: X
+        end subroutine
+        module subroutine savebin_1_csp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(sp), dimension(:), intent(in) :: X
+        end subroutine
+        module subroutine savebin_1_cdp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(dp), dimension(:), intent(in) :: X
+        end subroutine
+        module subroutine savebin_1_cqp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(qp), dimension(:), intent(in) :: X
+        end subroutine
+        module subroutine savebin_2_rsp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(sp), dimension(:, :), intent(in) :: X
+        end subroutine
+        module subroutine savebin_2_rdp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(dp), dimension(:, :), intent(in) :: X
+        end subroutine
+        module subroutine savebin_2_rqp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(qp), dimension(:, :), intent(in) :: X
+        end subroutine
+        module subroutine savebin_2_iint8(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int8), dimension(:, :), intent(in) :: X
+        end subroutine
+        module subroutine savebin_2_iint16(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int16), dimension(:, :), intent(in) :: X
+        end subroutine
+        module subroutine savebin_2_iint32(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int32), dimension(:, :), intent(in) :: X
+        end subroutine
+        module subroutine savebin_2_iint64(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int64), dimension(:, :), intent(in) :: X
+        end subroutine
+        module subroutine savebin_2_csp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(sp), dimension(:, :), intent(in) :: X
+        end subroutine
+        module subroutine savebin_2_cdp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(dp), dimension(:, :), intent(in) :: X
+        end subroutine
+        module subroutine savebin_2_cqp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(qp), dimension(:, :), intent(in) :: X
+        end subroutine
+        module subroutine savebin_3_rsp(filename, X)
             character(len=*), intent(in) :: filename
             real(sp), dimension(:, :, :), intent(in) :: X
         end subroutine
-        module subroutine savebin_1_dp(filename, x)
-            character(len=*), intent(in) :: filename
-            real(dp), dimension(:), intent(in) :: x
-        end subroutine
-        module subroutine savebin_2_dp(filename, A)
-            character(len=*), intent(in) :: filename
-            real(dp), dimension(:, :), intent(in) :: A
-        end subroutine
-        module subroutine savebin_3_dp(filename, X)
+        module subroutine savebin_3_rdp(filename, X)
             character(len=*), intent(in) :: filename
             real(dp), dimension(:, :, :), intent(in) :: X
         end subroutine
-        module subroutine savebin_1_qp(filename, x)
-            character(len=*), intent(in) :: filename
-            real(qp), dimension(:), intent(in) :: x
-        end subroutine
-        module subroutine savebin_2_qp(filename, A)
-            character(len=*), intent(in) :: filename
-            real(qp), dimension(:, :), intent(in) :: A
-        end subroutine
-        module subroutine savebin_3_qp(filename, X)
+        module subroutine savebin_3_rqp(filename, X)
             character(len=*), intent(in) :: filename
             real(qp), dimension(:, :, :), intent(in) :: X
         end subroutine
-    end interface savebin
+        module subroutine savebin_3_iint8(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int8), dimension(:, :, :), intent(in) :: X
+        end subroutine
+        module subroutine savebin_3_iint16(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int16), dimension(:, :, :), intent(in) :: X
+        end subroutine
+        module subroutine savebin_3_iint32(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int32), dimension(:, :, :), intent(in) :: X
+        end subroutine
+        module subroutine savebin_3_iint64(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int64), dimension(:, :, :), intent(in) :: X
+        end subroutine
+        module subroutine savebin_3_csp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(sp), dimension(:, :, :), intent(in) :: X
+        end subroutine
+        module subroutine savebin_3_cdp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(dp), dimension(:, :, :), intent(in) :: X
+        end subroutine
+        module subroutine savebin_3_cqp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(qp), dimension(:, :, :), intent(in) :: X
+        end subroutine
+    end interface
 
     interface savetxt
-        module subroutine savetxt_1_sp(filename, x)
+        module subroutine savetxt_1_rsp(filename, X)
             character(len=*), intent(in) :: filename
-            real(sp), dimension(:), intent(in) :: x
+            real(sp), dimension(:), intent(in) :: X
         end subroutine
-        module subroutine savetxt_2_sp(filename, A)
+        module subroutine savetxt_1_rdp(filename, X)
             character(len=*), intent(in) :: filename
-            real(sp), dimension(:, :), intent(in) :: A
+            real(dp), dimension(:), intent(in) :: X
         end subroutine
-        module subroutine savetxt_1_dp(filename, x)
+        module subroutine savetxt_1_rqp(filename, X)
             character(len=*), intent(in) :: filename
-            real(dp), dimension(:), intent(in) :: x
+            real(qp), dimension(:), intent(in) :: X
         end subroutine
-        module subroutine savetxt_2_dp(filename, A)
+        module subroutine savetxt_1_iint8(filename, X)
             character(len=*), intent(in) :: filename
-            real(dp), dimension(:, :), intent(in) :: A
+            integer(int8), dimension(:), intent(in) :: X
         end subroutine
-        module subroutine savetxt_1_qp(filename, x)
+        module subroutine savetxt_1_iint16(filename, X)
             character(len=*), intent(in) :: filename
-            real(qp), dimension(:), intent(in) :: x
+            integer(int16), dimension(:), intent(in) :: X
         end subroutine
-        module subroutine savetxt_2_qp(filename, A)
+        module subroutine savetxt_1_iint32(filename, X)
             character(len=*), intent(in) :: filename
-            real(qp), dimension(:, :), intent(in) :: A
+            integer(int32), dimension(:), intent(in) :: X
         end subroutine
-        module subroutine savetxt_1_int8(filename, x)
+        module subroutine savetxt_1_iint64(filename, X)
             character(len=*), intent(in) :: filename
-            integer(int8), dimension(:), intent(in) :: x
+            integer(int64), dimension(:), intent(in) :: X
         end subroutine
-        module subroutine savetxt_2_int8(filename, A)
+        module subroutine savetxt_1_csp(filename, X)
             character(len=*), intent(in) :: filename
-            integer(int8), dimension(:, :), intent(in) :: A
+            complex(sp), dimension(:), intent(in) :: X
         end subroutine
-        module subroutine savetxt_1_int16(filename, x)
+        module subroutine savetxt_1_cdp(filename, X)
             character(len=*), intent(in) :: filename
-            integer(int16), dimension(:), intent(in) :: x
+            complex(dp), dimension(:), intent(in) :: X
         end subroutine
-        module subroutine savetxt_2_int16(filename, A)
+        module subroutine savetxt_1_cqp(filename, X)
             character(len=*), intent(in) :: filename
-            integer(int16), dimension(:, :), intent(in) :: A
+            complex(qp), dimension(:), intent(in) :: X
         end subroutine
-        module subroutine savetxt_1_int32(filename, x)
+        module subroutine savetxt_2_rsp(filename, X)
             character(len=*), intent(in) :: filename
-            integer(int32), dimension(:), intent(in) :: x
+            real(sp), dimension(:, :), intent(in) :: X
         end subroutine
-        module subroutine savetxt_2_int32(filename, A)
+        module subroutine savetxt_2_rdp(filename, X)
             character(len=*), intent(in) :: filename
-            integer(int32), dimension(:, :), intent(in) :: A
+            real(dp), dimension(:, :), intent(in) :: X
         end subroutine
-        module subroutine savetxt_1_int64(filename, x)
+        module subroutine savetxt_2_rqp(filename, X)
             character(len=*), intent(in) :: filename
-            integer(int64), dimension(:), intent(in) :: x
+            real(qp), dimension(:, :), intent(in) :: X
         end subroutine
-        module subroutine savetxt_2_int64(filename, A)
+        module subroutine savetxt_2_iint8(filename, X)
             character(len=*), intent(in) :: filename
-            integer(int64), dimension(:, :), intent(in) :: A
+            integer(int8), dimension(:, :), intent(in) :: X
+        end subroutine
+        module subroutine savetxt_2_iint16(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int16), dimension(:, :), intent(in) :: X
+        end subroutine
+        module subroutine savetxt_2_iint32(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int32), dimension(:, :), intent(in) :: X
+        end subroutine
+        module subroutine savetxt_2_iint64(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int64), dimension(:, :), intent(in) :: X
+        end subroutine
+        module subroutine savetxt_2_csp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(sp), dimension(:, :), intent(in) :: X
+        end subroutine
+        module subroutine savetxt_2_cdp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(dp), dimension(:, :), intent(in) :: X
+        end subroutine
+        module subroutine savetxt_2_cqp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(qp), dimension(:, :), intent(in) :: X
         end subroutine
     end interface
 
@@ -2259,94 +2532,6 @@ module forlab
             integer, intent(in) :: first
             real(qp), intent(in) :: last
             integer, intent(in) :: n
-        end function
-    end interface
-
-    !! Loadbin
-    interface
-        module function loadbin_0_sp(filename)
-            real(sp), dimension(:), allocatable :: loadbin_0_sp
-            character(len=*), intent(in) :: filename
-        end function
-        module function loadbin_1_sp(filename, dim1)
-            real(sp), dimension(:), allocatable :: loadbin_1_sp
-            character(len=*), intent(in) :: filename
-            integer, intent(in) :: dim1
-        end function
-        module function loadbin_2_sp(filename, dim1, dim2)
-            real(sp), dimension(:, :), allocatable :: loadbin_2_sp
-            character(len=*), intent(in) :: filename
-            integer, intent(in) :: dim1, dim2
-        end function
-        module function loadbin_3_sp(filename, dim1, dim2, dim3)
-            real(sp), dimension(:, :, :), allocatable :: loadbin_3_sp
-            character(len=*), intent(in) :: filename
-            integer, intent(in) :: dim1, dim2, dim3
-        end function
-        module function loadtxt_1_sp(filename)
-            real(sp), dimension(:), allocatable :: loadtxt_1_sp
-            character(len=*), intent(in) :: filename
-        end function
-        module function loadtxt_2_sp(filename, dim2)
-            real(sp), dimension(:, :), allocatable :: loadtxt_2_sp
-            character(len=*), intent(in) :: filename
-            integer, intent(in) :: dim2
-        end function
-        module function loadbin_0_dp(filename)
-            real(dp), dimension(:), allocatable :: loadbin_0_dp
-            character(len=*), intent(in) :: filename
-        end function
-        module function loadbin_1_dp(filename, dim1)
-            real(dp), dimension(:), allocatable :: loadbin_1_dp
-            character(len=*), intent(in) :: filename
-            integer, intent(in) :: dim1
-        end function
-        module function loadbin_2_dp(filename, dim1, dim2)
-            real(dp), dimension(:, :), allocatable :: loadbin_2_dp
-            character(len=*), intent(in) :: filename
-            integer, intent(in) :: dim1, dim2
-        end function
-        module function loadbin_3_dp(filename, dim1, dim2, dim3)
-            real(dp), dimension(:, :, :), allocatable :: loadbin_3_dp
-            character(len=*), intent(in) :: filename
-            integer, intent(in) :: dim1, dim2, dim3
-        end function
-        module function loadtxt_1_dp(filename)
-            real(dp), dimension(:), allocatable :: loadtxt_1_dp
-            character(len=*), intent(in) :: filename
-        end function
-        module function loadtxt_2_dp(filename, dim2)
-            real(dp), dimension(:, :), allocatable :: loadtxt_2_dp
-            character(len=*), intent(in) :: filename
-            integer, intent(in) :: dim2
-        end function
-        module function loadbin_0_qp(filename)
-            real(qp), dimension(:), allocatable :: loadbin_0_qp
-            character(len=*), intent(in) :: filename
-        end function
-        module function loadbin_1_qp(filename, dim1)
-            real(qp), dimension(:), allocatable :: loadbin_1_qp
-            character(len=*), intent(in) :: filename
-            integer, intent(in) :: dim1
-        end function
-        module function loadbin_2_qp(filename, dim1, dim2)
-            real(qp), dimension(:, :), allocatable :: loadbin_2_qp
-            character(len=*), intent(in) :: filename
-            integer, intent(in) :: dim1, dim2
-        end function
-        module function loadbin_3_qp(filename, dim1, dim2, dim3)
-            real(qp), dimension(:, :, :), allocatable :: loadbin_3_qp
-            character(len=*), intent(in) :: filename
-            integer, intent(in) :: dim1, dim2, dim3
-        end function
-        module function loadtxt_1_qp(filename)
-            real(qp), dimension(:), allocatable :: loadtxt_1_qp
-            character(len=*), intent(in) :: filename
-        end function
-        module function loadtxt_2_qp(filename, dim2)
-            real(qp), dimension(:, :), allocatable :: loadtxt_2_qp
-            character(len=*), intent(in) :: filename
-            integer, intent(in) :: dim2
         end function
     end interface
 

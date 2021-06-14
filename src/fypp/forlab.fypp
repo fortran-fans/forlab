@@ -44,7 +44,7 @@ module forlab
               eig, file_exist, &
               find, flip, fliplr, flipud, fminbnd, gammainc, horzcat, &
               hann, interp1, interp2, interp3, inv, ismember, isoutlier, issquare, &
-              isleap, issymmetric, kurtosis, k2test, kde, &
+              isleap, issymmetric, kurtosis, k2test, kde, loadbin, loadtxt, &
               mean, median, mad,matpow, meshgrid, nextpow2, norm, normpdf, num2str, &
               outer, pascal, prctile, progress_bar, progress_perc,qr, rng, &
               randi, randperm, repmat, rms, savetxt, savebin, sind, sort, solve, &
@@ -52,8 +52,8 @@ module forlab
               split_argument, tand, tic, toc, trace, tril, triu, utm2deg, vertcat, &
               var, dbindex, gmm, kmeans, mbkmeans, silhouette
 
-    #:set itfname = ['empty', 'eye', 'linspace', 'logspace', 'loadbin', 'ones', 'randn', &
-                    & 'randu', 'loadtxt', 'zeros']
+    #:set itfname = ['empty', 'eye', 'linspace', 'logspace',  'ones', 'randn', &
+                    & 'randu', 'zeros']
     #:for itf in itfname
     ${publicompl(itf)}$
     #:endfor
@@ -517,29 +517,40 @@ module forlab
     #:endfor
 
     interface loadbin
-        #:set RANKS = range(0, 4)
+        #:set RCI_KINDS_TYPES = REAL_KINDS_TYPES + INT_KINDS_TYPES + CMPLX_KINDS_TYPES
+        #:set RANKS = range(1,4)
         #:for RANK in RANKS
-        procedure loadbin_${RANK}$_${DK}$
+        #:for k1,t1 in RCI_KINDS_TYPES
+        module subroutine loadbin_${RANK}$_${t1[0]}$${k1}$(filename, X)
+            character(len=*), intent(in) :: filename
+            #:if RANK == 1
+            ${t1}$, dimension(:), allocatable, intent(out) :: X
+            #:elif RANK == 2
+            ${t1}$, dimension(:, :), allocatable, intent(out) :: X
+            #:elif RANK == 3
+            ${t1}$, dimension(:, :, :), allocatable, intent(out) :: X
+            #:endif
+        end subroutine
+        #:endfor
         #:endfor
     end interface
-    #:set RANKS = range(0, 4)
-    #:for k1 in REAL_KINDS
-    interface ${k1[0]}$loadbin
-        #:for RANK in RANKS
-        procedure loadbin_${RANK}$_${k1}$
-        #:endfor
-    end interface
-    #:endfor
-
 
     interface loadtxt
-        procedure loadtxt_1_sp, loadtxt_2_sp
+        #:set RCI_KINDS_TYPES = REAL_KINDS_TYPES + INT_KINDS_TYPES + CMPLX_KINDS_TYPES
+        #:set RANKS = range(1,3)
+        #:for RANK in RANKS
+        #:for k1,t1 in RCI_KINDS_TYPES
+        module subroutine loadtxt_${RANK}$_${t1[0]}$${k1}$(filename, X)
+            character(len=*), intent(in) :: filename
+            #:if RANK == 1
+            ${t1}$, dimension(:), allocatable, intent(out) :: X
+            #:elif RANK == 2
+            ${t1}$, dimension(:, :), allocatable, intent(out) :: X
+            #:endif
+        end subroutine
+        #:endfor
+        #:endfor
     end interface
-    #:for k1 in REAL_KINDS
-    interface ${k1[0]}$loadtxt
-        procedure loadtxt_1_${k1}$, loadtxt_2_${k1}$
-    end interface
-    #:endfor
 
     interface log2
         module procedure log2_i0, log2_r0, log2_i1, log2_r1
@@ -714,42 +725,38 @@ module forlab
     end interface rms
 
     interface savebin
-        #:for k1,t1 in REAL_KINDS_TYPES
-        module subroutine savebin_1_${k1}$(filename, x)
+        #:set RCI_KINDS_TYPES = REAL_KINDS_TYPES + INT_KINDS_TYPES + CMPLX_KINDS_TYPES
+        #:set RANKS = range(1,4)
+        #:for RANK in RANKS
+        #:for k1,t1 in RCI_KINDS_TYPES
+        module subroutine savebin_${RANK}$_${t1[0]}$${k1}$(filename, X)
             character(len=*), intent(in) :: filename
-            ${t1}$, dimension(:), intent(in) :: x
-        end subroutine
-        module subroutine savebin_2_${k1}$(filename, A)
-            character(len=*), intent(in) :: filename
-            ${t1}$, dimension(:, :), intent(in) :: A
-        end subroutine
-        module subroutine savebin_3_${k1}$(filename, X)
-            character(len=*), intent(in) :: filename
+            #:if RANK == 1
+            ${t1}$, dimension(:), intent(in) :: X
+            #:elif RANK == 2
+            ${t1}$, dimension(:, :), intent(in) :: X
+            #:elif RANK == 3
             ${t1}$, dimension(:, :, :), intent(in) :: X
+            #:endif
         end subroutine
         #:endfor
-    end interface savebin
+        #:endfor
+    end interface
 
     interface savetxt
-        #:for k1,t1 in REAL_KINDS_TYPES
-        module subroutine savetxt_1_${k1}$(filename, x)
+        #:set RCI_KINDS_TYPES = REAL_KINDS_TYPES + INT_KINDS_TYPES + CMPLX_KINDS_TYPES
+        #:set RANKS = range(1,3)
+        #:for RANK in RANKS
+        #:for k1,t1 in RCI_KINDS_TYPES
+        module subroutine savetxt_${RANK}$_${t1[0]}$${k1}$(filename, X)
             character(len=*), intent(in) :: filename
-            ${t1}$, dimension(:), intent(in) :: x
-        end subroutine
-        module subroutine savetxt_2_${k1}$(filename, A)
-            character(len=*), intent(in) :: filename
-            ${t1}$, dimension(:, :), intent(in) :: A
+            #:if RANK == 1
+            ${t1}$, dimension(:), intent(in) :: X
+            #:elif RANK == 2
+            ${t1}$, dimension(:, :), intent(in) :: X
+            #:endif
         end subroutine
         #:endfor
-        #:for k1, t1 in INT_KINDS_TYPES
-        module subroutine savetxt_1_${k1}$(filename, x)
-            character(len=*), intent(in) :: filename
-            ${t1}$, dimension(:), intent(in) :: x
-        end subroutine
-        module subroutine savetxt_2_${k1}$(filename, A)
-            character(len=*), intent(in) :: filename
-            ${t1}$, dimension(:, :), intent(in) :: A
-        end subroutine
         #:endfor
     end interface
 
@@ -1001,40 +1008,6 @@ module forlab
             integer, intent(in) :: n
         end function
         #:endfor
-        #:endfor
-    end interface
-
-    !! Loadbin
-    interface
-        #:for k1, t1 in REAL_KINDS_TYPES
-        module function loadbin_0_${k1}$(filename)
-            ${t1}$, dimension(:), allocatable :: loadbin_0_${k1}$
-            character(len=*), intent(in) :: filename
-        end function
-        module function loadbin_1_${k1}$(filename, dim1)
-            ${t1}$, dimension(:), allocatable :: loadbin_1_${k1}$
-            character(len=*), intent(in) :: filename
-            integer, intent(in) :: dim1
-        end function
-        module function loadbin_2_${k1}$(filename, dim1, dim2)
-            ${t1}$, dimension(:, :), allocatable :: loadbin_2_${k1}$
-            character(len=*), intent(in) :: filename
-            integer, intent(in) :: dim1, dim2
-        end function
-        module function loadbin_3_${k1}$(filename, dim1, dim2, dim3)
-            ${t1}$, dimension(:, :, :), allocatable :: loadbin_3_${k1}$
-            character(len=*), intent(in) :: filename
-            integer, intent(in) :: dim1, dim2, dim3
-        end function
-        module function loadtxt_1_${k1}$(filename)
-            ${t1}$, dimension(:), allocatable :: loadtxt_1_${k1}$
-            character(len=*), intent(in) :: filename
-        end function
-        module function loadtxt_2_${k1}$(filename, dim2)
-            ${t1}$, dimension(:, :), allocatable :: loadtxt_2_${k1}$
-            character(len=*), intent(in) :: filename
-            integer, intent(in) :: dim2
-        end function
         #:endfor
     end interface
 

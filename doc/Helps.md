@@ -25,7 +25,7 @@ ok = file_exist('ASCII.txt')
 ---
 infile = file(filename)
     !! Initialization file
-ok = infile%file_exist()
+ok = infile%exist()
 ```
 ### ForLab file operations
 We hide the direct specification of the unit number and leave it to the compiler to specify, we can access the file unit number through `infile%unit`.  
@@ -34,18 +34,19 @@ Type `file` contains two data: `file%unit`, `file%filename`.
 type(file) :: infile
 infile = file(filename)
     !! Initialization file
-call infile%open()
-ok = infile%file_exist()
-filelines = infile%file_exist()
+call infile%open('r')
+ok = infile%exist()
+filelines = infile%countlines()
 call infile%close()
 ```
 ### Save/Load methods
 #### ASCII files
-It is difficult to realize that the fortran return value is polymorphic. We use `(s)loadtxt` to read and accept single-precision data (`dloadtxt-dp; qloadtxt-qp`)
+It is difficult to realize that the fortran return value is polymorphic. 
+We choose to use subroutines.
 ```fortran
 call savetxt(filename, x)
     !! Store the data of x in filename, the maximum dimension of x is 2 dimensions
-x = (s/d/q)loadtxt(filename)
+call loadtxt(filename, x)
     !! Read data from file
 ```
 #### Binary file
@@ -53,7 +54,7 @@ Similar to the ASCII file reading and writing method.
 ```fortran
 call savebin(filename, x)
     !! Store the data of x in filename, the maximum dimension of x is 3 dimensions
-x = (s/d/q)loadbin(filename)
+call loadbin(filename, x)
     !! Read data from file
 ```
 If you need more complex requirements, please use the open source `hdf5` and `netcdf` packages.
