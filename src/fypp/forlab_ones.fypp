@@ -31,14 +31,19 @@ submodule(forlab) forlab_ones
     implicit none
 
 contains
-    #:set RANKS = range(1, 4)
-    #:for k1, t1 in REAL_KINDS_TYPES
-    #:for RANK in RANKS
-    module procedure ones_${k1}$
+
+    #:set RCI_KINDS_TYPES = REAL_KINDS_TYPES + CMPLX_KINDS_TYPES + INT_KINDS_TYPES
+    #:for k1, t1 in RCI_KINDS_TYPES
+    module procedure ones_${t1[0]}$${k1}$   
+        #:if t1[0] == 'r'
         X = 1.0_${k1}$
+        #:elif t1[0] == 'i'
+        X = 1
+        #:elif t1[0] == 'c'
+        X = cmplx(1.0_${k1}$, 1.0_${k1}$, ${k1}$)
+        #:endif
         return
     end procedure
 
-    #:endfor
     #:endfor
 end submodule

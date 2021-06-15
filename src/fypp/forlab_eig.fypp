@@ -41,10 +41,12 @@ contains
 
             B = A
             n = size(B, 1)
-            V = ${k1[0]}$eye(n)
+            allocate(V(n, n))
+            call eye(V)
             d = diag(B)
             bw = d
-            zw = ${k1[0]}$zeros(n)
+            allocate(zw(n))
+            call zeros(zw)
 
             iter = 0
             do while (iter .lt. opt_itermax)

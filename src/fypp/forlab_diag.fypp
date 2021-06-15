@@ -42,7 +42,8 @@ contains
     module procedure diag2_${k1}$
         integer :: i, n
         n = size(x)
-        diag2_${k1}$ = ${k1[0]}$zeros(n, n)
+        allocate(diag2_${k1}$(n,n))
+        call zeros(diag2_${k1}$)
         do i = 1, n
             diag2_${k1}$ (i, i) = x(i)
         end do

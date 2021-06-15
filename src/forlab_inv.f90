@@ -53,13 +53,15 @@ contains
 
         if (issquare(A)) then
             m = size(A, 1)
+            allocate(inv_rsp(m,m))
+            allocate(x(m), y(m), e(m))
             if (m .le. 3) then
                 D = det(A)
             else
                 D = det(A, L, U)
             end if
             if (D .ne. 0._sp) then
-                inv_rsp = szeros(m, m)
+                call zeros(inv_rsp)
                 if (m .eq. 2) then
                     inv_rsp (1, 1) = A(2, 2)
                     inv_rsp (1, 2) = -A(1, 2)
@@ -79,9 +81,9 @@ contains
                     inv_rsp = inv_rsp/D
                 else
                     do k = 1, m
-                        x = szeros(m)
-                        y = szeros(m)
-                        e = szeros(m)
+                        call zeros(x)
+                        call zeros(y)
+                        call zeros(e)
                         e(k) = 1.
                         y(1) = e(1)
 
@@ -128,13 +130,15 @@ contains
 
         if (issquare(A)) then
             m = size(A, 1)
+            allocate(inv_rdp(m,m))
+            allocate(x(m), y(m), e(m))
             if (m .le. 3) then
                 D = det(A)
             else
                 D = det(A, L, U)
             end if
             if (D .ne. 0._dp) then
-                inv_rdp = dzeros(m, m)
+                call zeros(inv_rdp)
                 if (m .eq. 2) then
                     inv_rdp (1, 1) = A(2, 2)
                     inv_rdp (1, 2) = -A(1, 2)
@@ -154,9 +158,9 @@ contains
                     inv_rdp = inv_rdp/D
                 else
                     do k = 1, m
-                        x = dzeros(m)
-                        y = dzeros(m)
-                        e = dzeros(m)
+                        call zeros(x)
+                        call zeros(y)
+                        call zeros(e)
                         e(k) = 1.
                         y(1) = e(1)
 
@@ -203,13 +207,15 @@ contains
 
         if (issquare(A)) then
             m = size(A, 1)
+            allocate(inv_rqp(m,m))
+            allocate(x(m), y(m), e(m))
             if (m .le. 3) then
                 D = det(A)
             else
                 D = det(A, L, U)
             end if
             if (D .ne. 0._qp) then
-                inv_rqp = qzeros(m, m)
+                call zeros(inv_rqp)
                 if (m .eq. 2) then
                     inv_rqp (1, 1) = A(2, 2)
                     inv_rqp (1, 2) = -A(1, 2)
@@ -229,9 +235,9 @@ contains
                     inv_rqp = inv_rqp/D
                 else
                     do k = 1, m
-                        x = qzeros(m)
-                        y = qzeros(m)
-                        e = qzeros(m)
+                        call zeros(x)
+                        call zeros(y)
+                        call zeros(e)
                         e(k) = 1.
                         y(1) = e(1)
 
@@ -282,9 +288,10 @@ contains
 
         if (issquare(A)) then
             n = size(A, 1)
-            inv_csp = szeros(n, n)
-            ar = szeros(n, n)
-            ai = szeros(n, n)
+            allocate(inv_csp(n,n),ar(n,n),ai(n,n))
+            call zeros(inv_csp)
+            call zeros(ar)
+            call zeros(ai)
             allocate(is(n),js(n))
             is = 0
             js = 0
@@ -398,9 +405,10 @@ contains
 
         if (issquare(A)) then
             n = size(A, 1)
-            inv_cdp = dzeros(n, n)
-            ar = dzeros(n, n)
-            ai = dzeros(n, n)
+            allocate(inv_cdp(n,n),ar(n,n),ai(n,n))
+            call zeros(inv_cdp)
+            call zeros(ar)
+            call zeros(ai)
             allocate(is(n),js(n))
             is = 0
             js = 0
@@ -514,9 +522,10 @@ contains
 
         if (issquare(A)) then
             n = size(A, 1)
-            inv_cqp = qzeros(n, n)
-            ar = qzeros(n, n)
-            ai = qzeros(n, n)
+            allocate(inv_cqp(n,n),ar(n,n),ai(n,n))
+            call zeros(inv_cqp)
+            call zeros(ar)
+            call zeros(ai)
             allocate(is(n),js(n))
             is = 0
             js = 0

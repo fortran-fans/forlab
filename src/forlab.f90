@@ -17,6 +17,8 @@ module forlab
 
     use forlab_kinds
     use forlab_file
+    use forlab_optval, only: optval
+    use forlab_error
     implicit none
 
     !! Parameters
@@ -29,20 +31,20 @@ module forlab
     real(qp), public, parameter ::pi_qp=acos(-1.0_qp)
     !! Functions
     private
-    public :: File, acosd, asind, atand, argmax, argmin, argsort, arange, &
+    public :: File, acosd, asind, atand, argmax, argmin, argsort, &
               angle, bsplrep1, bsplrep2, bspline1, bspline2, chol, cosd, countlines, &
               cov, cumsum, chi2cdf, chi2pdf, chi2inv, chi2rand, check_directory, &
               det, diag, disp, deg2utm, datenum, datevec, datestr, deboor, diff, &
-              eig, file_exist, &
+              eig, eye, file_exist, &
               find, flip, fliplr, flipud, fminbnd, gammainc, horzcat, &
               hann, interp1, interp2, interp3, inv, ismember, isoutlier, issquare, &
-              isleap, issymmetric, kurtosis, k2test, kde, loadbin, loadtxt, &
+              isleap, issymmetric, kurtosis, k2test, kde, loadbin, loadtxt, linspace, logspace, &
               mean, median, mad,matpow, meshgrid, nextpow2, norm, normpdf, num2str, &
-              outer, pascal, prctile, progress_bar, progress_perc,qr, rng, &
-              randi, randperm, repmat, rms, savetxt, savebin, sind, sort, solve, &
+              ones, outer, pascal, prctile, progress_bar, progress_perc,qr, rng, randn,randperm, randu, &
+              repmat, rms, savetxt, savebin, sind, sort, solve, &
               svd, svdsolve, std, spline1, spline2, skewness, signum, sinc, &
               split_argument, tand, tic, toc, trace, tril, triu, utm2deg, vertcat, &
-              var, dbindex, gmm, kmeans, mbkmeans, silhouette, zeros
+              var, dbindex, gmm, kmeans, mbkmeans, silhouette, seq, zeros
 
     !! #ifdef do_mpi
     public :: mpi_rpre
@@ -236,7 +238,21 @@ module forlab
     end interface chi2pdf
 
     interface chi2rand
-        module procedure chi2rand0, chi2rand1
+        impure elemental module subroutine chi2rand_sp(X, v)
+            implicit none
+            real(sp), intent(out) :: X
+            integer, intent(in) :: v
+        end subroutine
+        impure elemental module subroutine chi2rand_dp(X, v)
+            implicit none
+            real(dp), intent(out) :: X
+            integer, intent(in) :: v
+        end subroutine
+        impure elemental module subroutine chi2rand_qp(X, v)
+            implicit none
+            real(qp), intent(out) :: X
+            integer, intent(in) :: v
+        end subroutine
     end interface chi2rand
 
     interface chol
@@ -544,7 +560,7 @@ module forlab
     end interface eig
 
     !! Eye
-    interface
+    interface eye
         module subroutine eye_sp(X)
             real(sp), intent(out) :: X(:, :)
         end subroutine
@@ -1111,7 +1127,7 @@ module forlab
     end interface kurtosis
 
     !! Linspace & Logspace
-    interface
+    interface linspace
         module subroutine linspace_sp(X, from, to)
             real(sp), dimension(:) :: X
             real(sp), intent(in) :: from, to
@@ -1125,7 +1141,7 @@ module forlab
             real(qp), intent(in) :: from, to
         end subroutine
     end interface
-    interface
+    interface logspace
         module subroutine logspace_sp(X, from, to)
             real(sp), dimension(:) :: X
             real(sp), intent(in) :: from, to
@@ -1512,14 +1528,35 @@ module forlab
     end interface
 
     interface ones
-        elemental module subroutine ones_sp(X)
+        impure elemental module subroutine ones_rsp(X)
             real(sp), intent(out) :: X
         end subroutine
-        elemental module subroutine ones_dp(X)
+        impure elemental module subroutine ones_rdp(X)
             real(dp), intent(out) :: X
         end subroutine
-        elemental module subroutine ones_qp(X)
+        impure elemental module subroutine ones_rqp(X)
             real(qp), intent(out) :: X
+        end subroutine
+        impure elemental module subroutine ones_csp(X)
+            complex(sp), intent(out) :: X
+        end subroutine
+        impure elemental module subroutine ones_cdp(X)
+            complex(dp), intent(out) :: X
+        end subroutine
+        impure elemental module subroutine ones_cqp(X)
+            complex(qp), intent(out) :: X
+        end subroutine
+        impure elemental module subroutine ones_iint8(X)
+            integer(int8), intent(out) :: X
+        end subroutine
+        impure elemental module subroutine ones_iint16(X)
+            integer(int16), intent(out) :: X
+        end subroutine
+        impure elemental module subroutine ones_iint32(X)
+            integer(int32), intent(out) :: X
+        end subroutine
+        impure elemental module subroutine ones_iint64(X)
+            integer(int64), intent(out) :: X
         end subroutine
     end interface
 
@@ -1789,39 +1826,39 @@ module forlab
     interface seq
         !! seq returns evenly spaced vector.
         !!([Specification](../module/forlab_seq.html))
-        elemental module subroutine seq_sp (X, from, to, by)
-            real(sp), dimension(:), allocatable :: X
-            real(sp), intent(in) :: first, last
+        module subroutine seq_sp (X, from, to, by)
+            real(sp), dimension(:), allocatable, intent(out) :: X
+            real(sp), intent(in) :: from, to
             real(sp), optional, intent(in) :: by
         end subroutine
-        elemental module subroutine seq_dp (X, from, to, by)
-            real(dp), dimension(:), allocatable :: X
-            real(dp), intent(in) :: first, last
+        module subroutine seq_dp (X, from, to, by)
+            real(dp), dimension(:), allocatable, intent(out) :: X
+            real(dp), intent(in) :: from, to
             real(dp), optional, intent(in) :: by
         end subroutine
-        elemental module subroutine seq_qp (X, from, to, by)
-            real(qp), dimension(:), allocatable :: X
-            real(qp), intent(in) :: first, last
+        module subroutine seq_qp (X, from, to, by)
+            real(qp), dimension(:), allocatable, intent(out) :: X
+            real(qp), intent(in) :: from, to
             real(qp), optional, intent(in) :: by
         end subroutine
-        elemental module subroutine seq_int8 (X, from, to, by)
-            integer(int8), dimension(:), allocatable :: X
-            integer(int8), intent(in) :: first, last
+        module subroutine seq_int8 (X, from, to, by)
+            integer(int8), dimension(:), allocatable, intent(out) :: X
+            integer(int8), intent(in) :: from, to
             integer(int8), optional, intent(in) :: by
         end subroutine
-        elemental module subroutine seq_int16 (X, from, to, by)
-            integer(int16), dimension(:), allocatable :: X
-            integer(int16), intent(in) :: first, last
+        module subroutine seq_int16 (X, from, to, by)
+            integer(int16), dimension(:), allocatable, intent(out) :: X
+            integer(int16), intent(in) :: from, to
             integer(int16), optional, intent(in) :: by
         end subroutine
-        elemental module subroutine seq_int32 (X, from, to, by)
-            integer(int32), dimension(:), allocatable :: X
-            integer(int32), intent(in) :: first, last
+        module subroutine seq_int32 (X, from, to, by)
+            integer(int32), dimension(:), allocatable, intent(out) :: X
+            integer(int32), intent(in) :: from, to
             integer(int32), optional, intent(in) :: by
         end subroutine
-        elemental module subroutine seq_int64 (X, from, to, by)
-            integer(int64), dimension(:), allocatable :: X
-            integer(int64), intent(in) :: first, last
+        module subroutine seq_int64 (X, from, to, by)
+            integer(int64), dimension(:), allocatable, intent(out) :: X
+            integer(int64), intent(in) :: from, to
             integer(int64), optional, intent(in) :: by
         end subroutine
     end interface
@@ -2171,110 +2208,6 @@ module forlab
         end function
     end interface
 
-    interface empty
-        procedure empty_1_sp
-        procedure empty_2_sp
-        procedure empty_3_sp
-    end interface
-
-    interface sempty
-        procedure empty_1_sp
-        procedure empty_2_sp
-        procedure empty_3_sp
-    end interface
-    interface dempty
-        procedure empty_1_dp
-        procedure empty_2_dp
-        procedure empty_3_dp
-    end interface
-    interface qempty
-        procedure empty_1_qp
-        procedure empty_2_qp
-        procedure empty_3_qp
-    end interface
-    interface ones
-        procedure ones_1_sp
-        procedure ones_2_sp
-        procedure ones_3_sp
-    end interface
-
-    interface sones
-        procedure ones_1_sp
-        procedure ones_2_sp
-        procedure ones_3_sp
-    end interface
-    interface dones
-        procedure ones_1_dp
-        procedure ones_2_dp
-        procedure ones_3_dp
-    end interface
-    interface qones
-        procedure ones_1_qp
-        procedure ones_2_qp
-        procedure ones_3_qp
-    end interface
-
-    !! Randn
-    interface
-        module function randn_0_sp (mean, std)
-            real(sp) :: randn_0_sp 
-            real(sp), intent(in), optional :: mean, std
-        end function
-        module function randn_1_sp (dim1, mean, std)
-            integer, intent(in) :: dim1
-            real(sp), allocatable :: randn_1_sp (:)
-            real(sp), intent(in), optional :: mean, std
-        end function
-        module function randn_2_sp (dim1, dim2, mean, std)
-            integer, intent(in) :: dim1, dim2
-            real(sp), allocatable :: randn_2_sp (:,:)
-            real(sp), intent(in), optional :: mean, std
-        end function
-        module function randn_3_sp (dim1, dim2, dim3, mean, std)
-            integer, intent(in) :: dim1, dim2, dim3
-            real(sp), allocatable :: randn_3_sp (:,:,:)
-            real(sp), intent(in), optional :: mean, std
-        end function
-        module function randn_0_dp (mean, std)
-            real(dp) :: randn_0_dp 
-            real(dp), intent(in), optional :: mean, std
-        end function
-        module function randn_1_dp (dim1, mean, std)
-            integer, intent(in) :: dim1
-            real(dp), allocatable :: randn_1_dp (:)
-            real(dp), intent(in), optional :: mean, std
-        end function
-        module function randn_2_dp (dim1, dim2, mean, std)
-            integer, intent(in) :: dim1, dim2
-            real(dp), allocatable :: randn_2_dp (:,:)
-            real(dp), intent(in), optional :: mean, std
-        end function
-        module function randn_3_dp (dim1, dim2, dim3, mean, std)
-            integer, intent(in) :: dim1, dim2, dim3
-            real(dp), allocatable :: randn_3_dp (:,:,:)
-            real(dp), intent(in), optional :: mean, std
-        end function
-        module function randn_0_qp (mean, std)
-            real(qp) :: randn_0_qp 
-            real(qp), intent(in), optional :: mean, std
-        end function
-        module function randn_1_qp (dim1, mean, std)
-            integer, intent(in) :: dim1
-            real(qp), allocatable :: randn_1_qp (:)
-            real(qp), intent(in), optional :: mean, std
-        end function
-        module function randn_2_qp (dim1, dim2, mean, std)
-            integer, intent(in) :: dim1, dim2
-            real(qp), allocatable :: randn_2_qp (:,:)
-            real(qp), intent(in), optional :: mean, std
-        end function
-        module function randn_3_qp (dim1, dim2, dim3, mean, std)
-            integer, intent(in) :: dim1, dim2, dim3
-            real(qp), allocatable :: randn_3_qp (:,:,:)
-            real(qp), intent(in), optional :: mean, std
-        end function
-    end interface
-
     !! Qr
     interface qr
         module subroutine qr_sp(a,q,r,l)
@@ -2308,61 +2241,82 @@ module forlab
 
     !! Randn
     interface randn
-        impure elemental module subroutine randu_sp(X, mean, std)
+        impure elemental module subroutine randn_sp(X, mean, std)
             real(sp), intent(out) :: X
             real(sp), optional, intent(in) :: mean, std
         end subroutine
-        impure elemental module subroutine randu_dp(X, mean, std)
+        impure elemental module subroutine randn_dp(X, mean, std)
             real(dp), intent(out) :: X
             real(dp), optional, intent(in) :: mean, std
         end subroutine
-        impure elemental module subroutine randu_qp(X, mean, std)
+        impure elemental module subroutine randn_qp(X, mean, std)
             real(qp), intent(out) :: X
             real(qp), optional, intent(in) :: mean, std
         end subroutine
     end interface
 
     !! Randu
-    interface radnu
-        impure elemental module subroutine randu_sp(X, from, to)
+    interface randu
+        impure elemental module subroutine randu_rsp(X, from, to)
             real(sp), intent(out) :: X
-            real(sp), optional, intent(in) :: from, to
+            real(sp), optional, intent(in) :: from, to 
         end subroutine
-        impure elemental module subroutine randu_dp(X, from, to)
+        impure elemental module subroutine randu_rdp(X, from, to)
             real(dp), intent(out) :: X
-            real(dp), optional, intent(in) :: from, to
+            real(dp), optional, intent(in) :: from, to 
         end subroutine
-        impure elemental module subroutine randu_qp(X, from, to)
+        impure elemental module subroutine randu_rqp(X, from, to)
             real(qp), intent(out) :: X
-            real(qp), optional, intent(in) :: from, to
+            real(qp), optional, intent(in) :: from, to 
         end subroutine
-    end interface
-
-    !! Randn
-    interface radnn
-        elemental module subroutine randu_sp(X, from, to)
-            real(sp), intent(out) :: X
-            real(sp), optional, intent(in) :: from, to
+        impure elemental module subroutine randu_iint8(X, from, to)
+            integer(int8), intent(out) :: X
+            integer(int8), optional, intent(in) :: from, to 
         end subroutine
-        elemental module subroutine randu_dp(X, from, to)
-            real(dp), intent(out) :: X
-            real(dp), optional, intent(in) :: from, to
+        impure elemental module subroutine randu_iint16(X, from, to)
+            integer(int16), intent(out) :: X
+            integer(int16), optional, intent(in) :: from, to 
         end subroutine
-        elemental module subroutine randu_qp(X, from, to)
-            real(qp), intent(out) :: X
-            real(qp), optional, intent(in) :: from, to
+        impure elemental module subroutine randu_iint32(X, from, to)
+            integer(int32), intent(out) :: X
+            integer(int32), optional, intent(in) :: from, to 
+        end subroutine
+        impure elemental module subroutine randu_iint64(X, from, to)
+            integer(int64), intent(out) :: X
+            integer(int64), optional, intent(in) :: from, to 
         end subroutine
     end interface
 
     interface zeros
-        elemental module subroutine zeros_sp (X)
-            real(sp), intent(in) :: X
+        impure elemental module subroutine zeros_rsp(X)
+            real(sp), intent(out) :: X
         end subroutine
-        elemental module subroutine zeros_dp (X)
-            real(dp), intent(in) :: X
+        impure elemental module subroutine zeros_rdp(X)
+            real(dp), intent(out) :: X
         end subroutine
-        elemental module subroutine zeros_qp (X)
-            real(qp), intent(in) :: X
+        impure elemental module subroutine zeros_rqp(X)
+            real(qp), intent(out) :: X
+        end subroutine
+        impure elemental module subroutine zeros_csp(X)
+            complex(sp), intent(out) :: X
+        end subroutine
+        impure elemental module subroutine zeros_cdp(X)
+            complex(dp), intent(out) :: X
+        end subroutine
+        impure elemental module subroutine zeros_cqp(X)
+            complex(qp), intent(out) :: X
+        end subroutine
+        impure elemental module subroutine zeros_iint8(X)
+            integer(int8), intent(out) :: X
+        end subroutine
+        impure elemental module subroutine zeros_iint16(X)
+            integer(int16), intent(out) :: X
+        end subroutine
+        impure elemental module subroutine zeros_iint32(X)
+            integer(int32), intent(out) :: X
+        end subroutine
+        impure elemental module subroutine zeros_iint64(X)
+            integer(int64), intent(out) :: X
         end subroutine
     end interface
 
@@ -2508,10 +2462,20 @@ contains
             stop
         end if
 
-        xq = zeros(opt_n1)
-        yq = zeros(opt_n1)
-        t = [dzeros(k - 1), dlinspace(0, 1, n - k + 2), dones(k - 1)]
-        y1 = linspace(0, 1, opt_n1)
+        allocate(xq(opt_n1), yq(opt_n1))
+        call zeros(xq)
+        call zeros(yq)
+
+        block
+            real(8), allocatable :: tmp1(:), tmp2(:), tmp3(:)
+            allocate(tmp1(k-1),tmp2(n-k+2),tmp3(k-1))
+            call zeros(tmp1)
+            call linspace(tmp2, 0.d0, 1.d0)
+            call ones(tmp3)
+            t = [tmp1, tmp2, tmp3]
+        endblock
+        allocate(y1(opt_n1))
+        call linspace(y1, 0.d0, 1.d0)
 
         do iq = 1, opt_n1
             x0 = find(y1(iq) >= t)
@@ -2576,13 +2540,25 @@ contains
             stop
         end if
 
-        xq = zeros(opt_n1, opt_n2)
-        yq = zeros(opt_n1, opt_n2)
-        zq = zeros(opt_n1, opt_n2)
-        t1 = [dzeros(k - 1), dlinspace(0, 1, m - k + 2), dones(k - 1)]
-        t2 = [dzeros(k - 1), dlinspace(0, 1, n - k + 2), dones(k - 1)]
-        y1 = linspace(0, 1, opt_n1)
-        y2 = linspace(0, 1, opt_n2)
+        allocate(xq(opt_n1, opt_n2), yq(opt_n1, opt_n2), zq(opt_n1, opt_n2))
+        call zeros(xq)
+        call zeros(yq)
+        call zeros(zq)
+
+        block
+            real(8), allocatable :: tmp1(:), tmp2(:), tmp3(:)
+            allocate(tmp1(k-1),tmp2(m-k+2),tmp3(k-1))
+            call zeros(tmp1)
+            call linspace(tmp2, 0.d0, 1.d0)
+            call ones(tmp3)
+            t1 = [tmp1, tmp2, tmp3]
+            allocate(tmp2(n-k+2))
+            t2 = [tmp1, tmp2, tmp3]
+        endblock
+
+        allocate(y1(opt_n1), y2(opt_n2))
+        call linspace(y1, 0.d0, 1.d0)
+        call linspace(y2, 0.d0, 1.d0)
 
         do iq1 = 1, opt_n1
             x0 = find(y1(iq1) >= t1)
@@ -2680,12 +2656,14 @@ contains
         k = 4
         if (present(order)) k = order
 
-        tmp = zeros(ny, n)
+        allocate(tmp(ny, n))
+        call zeros(tmp)
         do i = 1, ny
             tmp(i, :) = bspline1(x, z(i, :), xq(i, :), k)
         end do
 
-        zq = zeros(m, n)
+        allocate(tmp(m, n))
+        call zeros(tmp)
         do i = 1, n
             zq(:, i) = bspline1(y, tmp(:, i), yq(:, i), k)
         end do
@@ -2743,7 +2721,8 @@ contains
         integer(kind=IPRE) :: i, n
 
         n = size(X)
-        chi2cdf1_0 = zeros(n)
+        allocate(chi2cdf1_0(n))
+        call zeros(chi2cdf1_0)
         do i = 1, n
             chi2cdf1_0(i) = chi2cdf0(X(i), v)
         end do
@@ -2757,7 +2736,8 @@ contains
         integer(kind=IPRE) :: i, n
 
         n = size(X)
-        chi2cdf1_1 = zeros(n)
+        allocate(chi2cdf1_1(n))
+        call zeros(chi2cdf1_1)
         do i = 1, n
             chi2cdf1_1(i) = chi2cdf0(X(i), V(i))
         end do
@@ -2820,7 +2800,8 @@ contains
         integer(kind=IPRE) :: i, n
 
         n = size(P)
-        chi2inv1_0 = zeros(n)
+        allocate(chi2inv1_0(n))
+        call zeros(chi2inv1_0)
         do i = 1, n
             chi2inv1_0(i) = chi2inv0(P(i), v)
         end do
@@ -2834,7 +2815,8 @@ contains
         integer(kind=IPRE) :: i, n
 
         n = size(P)
-        chi2inv1_1 = zeros(n)
+        allocate(chi2inv1_1(n))
+        call zeros(chi2inv1_1)
         do i = 1, n
             chi2inv1_1(i) = chi2inv0(P(i), V(i))
         end do
@@ -2875,7 +2857,8 @@ contains
         integer(kind=IPRE) :: i, n
 
         n = size(X)
-        chi2pdf1_0 = zeros(n)
+        allocate(chi2pdf1_0(n))
+        call zeros(chi2pdf1_0)
         do i = 1, n
             chi2pdf1_0(i) = chi2pdf0(X(i), v)
         end do
@@ -2889,42 +2872,13 @@ contains
         integer(kind=IPRE) :: i, n
 
         n = size(X)
-        chi2pdf1_1 = zeros(n)
+        allocate(chi2pdf1_1(n))
+        call zeros(chi2pdf1_1)
         do i = 1, n
             chi2pdf1_1(i) = chi2pdf0(X(i), V(i))
         end do
         return
     end function chi2pdf1_1
-
-    ! chi2rand
-    !-----------------------------------------------------------------------
-    ! chi2rand generates chi-square random numbers.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! r = chi2rand(v)
-    ! r = chi2rand(v, dim1)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! r = chi2rand(v) returns a chi-square distributed random number with
-    ! v degrees of freedom.
-    !
-    ! r = chi2rand(v, dim1) returns a dim1 vector of chi-square distributed
-    ! random number with v degrees of freedom.
-
-    real(kind=RPRE) function chi2rand0(v)
-        integer(kind=IPRE), intent(in) :: v
-        chi2rand0 = sum(randn(v)**2)
-        return
-    end function chi2rand0
-
-    function chi2rand1(v, dim1)
-        real(kind=RPRE), dimension(:), allocatable :: chi2rand1
-        integer(kind=IPRE), intent(in) :: v, dim1
-        chi2rand1 = sum(randn(dim1, v)**2, dim=2)
-        return
-    end function chi2rand1
 
     ! cov
     !-----------------------------------------------------------------------
@@ -3082,7 +3036,8 @@ contains
 
         m = size(A, 1)
         n = size(A, 2)
-        cumsum2 = zeros(m, n)
+        allocate(cumsum2(m,n))
+        call zeros(cumsum2)
         if ((.not. present(dim)) .or. (dim == 1)) then
             do i = 1, n
                 cumsum2(:, i) = cumsum1(A(:, i))
@@ -3372,7 +3327,8 @@ contains
 
         ! Measure the scattering within each cluster
         !============================================
-        S = zeros(K)
+        allocate(S(K))
+        call zeros(S)
         do i = 1, K
             idx = find(cluster == i)
             do j = 1, size(idx)
@@ -3383,7 +3339,8 @@ contains
 
         ! Measure the similarity function R between each cluster
         !========================================================
-        R = zeros(K, K)
+        allocate(R(K,K))
+        call zeros(R)
         do i = 1, K - 1
             do j = i + 1, K
                 Mij = norm(means(i, :) - means(j, :), opt_p)  ! Distance between clusters i and j
@@ -3707,7 +3664,8 @@ contains
 
         n = count(bool)
         if (n /= 0) then
-            find1 = zeros(n)
+            allocate(find1(n))
+            call zeros(find1)
             j = 1
             do i = 1, size(bool)
                 if (bool(i)) then
@@ -3716,7 +3674,8 @@ contains
                 end if
             end do
         else
-            find1 = zeros(0)
+            allocate(find1(0))
+            call zeros(find1)
         end if
         return
     end function find1
@@ -3728,7 +3687,8 @@ contains
 
         n = count(bool)
         if (n /= 0) then
-            find2 = zeros(n, 2)
+            allocate(find2(n,2))
+            call zeros(find2)
             k = 1
             do i = 1, size(bool, 1)
                 do j = 1, size(bool, 2)
@@ -3740,7 +3700,8 @@ contains
                 end do
             end do
         else
-            find2 = zeros(0, 2)
+            allocate(find2(0,2))
+            call zeros(find2)
         end if
         return
     end function find2
@@ -3752,7 +3713,8 @@ contains
 
         n = count(bool)
         if (n /= 0) then
-            find3 = zeros(n, 3)
+            allocate(find3(n,3))
+            call zeros(find3)
             l = 1
             do i = 1, size(bool, 1)
                 do j = 1, size(bool, 2)
@@ -3767,7 +3729,8 @@ contains
                 end do
             end do
         else
-            find3 = zeros(0, 3)
+            allocate(find3(0,3))
+            call zeros(find3)
         end if
         return
     end function find3
@@ -4170,7 +4133,8 @@ contains
         integer(kind=IPRE) :: i, n
 
         n = size(X)
-        gammainc1_0 = zeros(n)
+        allocate(gammainc1_0(n))
+        call zeros(gammainc1_0)
         do i = 1, n
             gammainc1_0(i) = gammainc0(X(i), a)
         end do
@@ -4221,20 +4185,31 @@ contains
 
         ! Initialization
         !================
-        phi = ones(K)/real(K)     ! Equal initial probabilities for each cluster
-        mu = x(randperm(n, K))      ! Random initial means
-        sigma = ones(K)*std(x)    ! Covariance matrices for each variable
+        allocate(phi(K), sigma(K))
+        call ones(phi)
+        call ones(sigma)
+        phi = phi/real(K)           ! Equal initial probabilities for each cluster
+        block
+            integer, allocatable :: tmp(:)
+            allocate(tmp(n))
+            call randperm(tmp,K)
+            mu = x(tmp)             ! Random initial means
+        endblock
+        sigma = sigma*std(x)        ! Covariance matrices for each variable
 
         ! Loop until convergence
         !========================
-        w = zeros(n, K)
+        allocate(w(n, K))
+        call zeros(w)
         iter = 0
         do while (iter < opt_itermax)
             iter = iter + 1
 
             ! Expectation
             !=============
-            pdf = zeros(n, K)
+            allocate(pdf(n, K))
+            call zeros(pdf)
+
             do j = 1, K
                 pdf(:, j) = normpdf(x, mu(j), sigma(j))
             end do
@@ -4255,7 +4230,8 @@ contains
             if (norm(mu - mu_prev) < 1.0d-10) exit
         end do
 
-        idx = zeros(n)
+        allocate(idx(n))
+        call zeros(idx)
         do i = 1, n
             idx(i:i) = maxloc(pdf(i, :))
         end do
@@ -4292,9 +4268,16 @@ contains
 
         ! Initialization
         !================
-        phi = ones(K)/real(K)     ! Equal initial probabilities for each cluster
-        mu = A(randperm(n, K), :)    ! Random initial means
-        sigma = zeros(p, p, K)      ! Covariance matrices for each variable
+        allocate(phi(K), sigma(p,p,K))
+        call ones(phi)
+        phi = phi/real(K)     ! Equal initial probabilities for each cluster
+        block
+            integer, allocatable :: tmp(:)
+            allocate(tmp(n))
+            call randperm(tmp, K)
+            mu = A(tmp, :)    ! Random initial means
+        endblock
+        call zeros(sigma)     ! Covariance matrices for each variable
 
         tmp = cov(A)
         do j = 1, K
@@ -4303,14 +4286,16 @@ contains
 
         ! Loop until convergence
         !========================
-        w = zeros(n, K)
+        allocate(w(n,K))
+        call zeros(w)
         iter = 0
         do while (iter < opt_itermax)
             iter = iter + 1
 
             ! Expectation
             !=============
-            pdf = zeros(n, K)
+            allocate(pdf(n, K))
+            call zeros(pdf)
             do j = 1, K
                 pdf(:, j) = normpdf(A, mu(j, :), sigma(:, :, j))
             end do
@@ -4325,8 +4310,12 @@ contains
                 phi(j) = mean(w(:, j))
                 mu(j, :) = matmul(w(:, j), A)/sum(w(:, j))
                 tmp = A - repmat(mu(j, :), n, 2)
-
-                sigma(:, :, j) = zeros(p, p)
+                block
+                    integer, allocatable :: tmp(:,:)
+                    allocate(tmp(p,p))
+                    call zeros(tmp)
+                    sigma(:, :, j) = tmp
+                endblock
                 do i = 1, n
                     sigma(:, :, j) = sigma(:, :, j) &
                                      + w(i, j)*matmul(transpose(tmp(i:i, :)), tmp(i:i, :)) &
@@ -4337,7 +4326,8 @@ contains
             if (means_residuals(mu, mu_prev) < 1.0d-10) exit
         end do
 
-        idx = zeros(n)
+        allocate(idx(n))
+        call zeros(idx)
         do i = 1, n
             idx(i:i) = maxloc(pdf(i, :))
         end do
@@ -4386,7 +4376,9 @@ contains
         real(kind=RPRE), dimension(:), allocatable :: hann
         integer(kind=IPRE), intent(in) :: n
 
-        hann = 0.5d0*(1 - cos(2.0d0*pi*linspace(0, n - 1, n)/n))
+        allocate(hann(n))
+        call linspace(hann, 0.d0, real(n-1,8))
+        hann = 0.5d0*(1 - cos(2.0d0*pi*hann/n))
         return
     end function hann
 
@@ -4430,7 +4422,8 @@ contains
         integer(kind=IPRE) :: i, n
 
         n = size(xq)
-        vq = zeros(n)
+        allocate(vq(n))
+        call zeros(vq)
         do i = 1, n
             vq(i) = interp1_0(x, v, xq(i))
         end do
@@ -4489,7 +4482,8 @@ contains
         integer(kind=IPRE) :: i, n
 
         n = size(xq)
-        vq = zeros(n)
+        allocate(vq(n))
+        call zeros(vq)
         do i = 1, n
             vq(i) = interp2_0(x, y, v, xq(i), yq(i))
         end do
@@ -4562,7 +4556,8 @@ contains
         integer(kind=IPRE) :: i, n
 
         n = size(xq)
-        vq = zeros(n)
+        allocate(vq(n))
+        call zeros(vq)
         do i = 1, n
             vq(i) = interp3_0(x, y, z, v, xq(i), yq(i), zq(i))
         end do
@@ -4978,10 +4973,12 @@ contains
             opt_xi = xi
         else
             nx = 100
-            opt_xi = dlinspace(minval(x) - 3*opt_bw, maxval(x) + 3*opt_bw, nx)
+            allocate(opt_xi(nx))
+            call linspace(opt_xi, minval(x) - 3*opt_bw, maxval(x) + 3*opt_bw)
         end if
 
-        f = zeros(nx)
+        allocate(f(nx))
+        call zeros(f)
         do ix = 1, nx
             do j = 1, n
                 f(ix) = f(ix) + exp(-0.5*((opt_xi(ix) - x(j))/opt_bw)**2)
@@ -5013,18 +5010,21 @@ contains
             opt_xi = xi
         else
             nx = 100
-            opt_xi = dlinspace(minval(A(:, 1)) - 3*opt_H(1, 1), maxval(A(:, 1)) + 3*opt_H(1, 1), nx)
+            allocate(opt_yi(nx))
+            call linspace(opt_xi, minval(A(:, 1)) - 3*opt_H(1, 1), maxval(A(:, 1)) + 3*opt_H(1, 1))
         end if
         if (present(yi) .and. allocated(yi)) then
             ny = size(yi)
             opt_yi = yi
         else
             ny = 100
-            opt_yi = dlinspace(minval(A(:, 2)) - 3*opt_H(2, 2), maxval(A(:, 2)) + 3*opt_H(2, 2), ny)
+            allocate(opt_yi(ny))
+            call linspace(opt_yi, minval(A(:, 2)) - 3*opt_H(2, 2), maxval(A(:, 2)) + 3*opt_H(2, 2))
         end if
 
         invH = inv(opt_H)
-        f = zeros(nx, ny)
+        allocate(f(nx, ny))
+        call zeros(f)
         do ix = 1, nx
             do iy = 1, ny
                 do j = 1, n
@@ -5203,9 +5203,11 @@ contains
         eps = 4.685d0*mad(r, 2)/0.6745d0
         n = size(r)
         if ((eps == 0.0d0) .or. (ntype == "none")) then
-            lsweight = eye(n)
+            allocate(lsweight(n,n))
+            call eye(lsweight)
         elseif (ntype == "biweight") then
-            lsweight = zeros(n, n)
+            allocate(lsweight(n,n))
+            call zeros(lsweight)
             do i = 1, n
                 if (abs(r(i)) <= eps) lsweight(i, i) = (1.0d0 - (r(i)/eps)**2)**2
             end do
@@ -5260,7 +5262,12 @@ contains
         if (present(init)) then
             opt_init = reshape(init, shape=[K, 1], order=[1, 2])
         else
-            opt_init = reshape(x(randperm(n, K)), shape=[K, 1], order=[1, 2])
+            block
+                integer, allocatable :: tmp(:)
+                allocate(tmp(n))
+                call randperm(tmp, K)
+                opt_init = reshape(x(tmp), shape=[K, 1], order=[1, 2])
+            endblock
         end if
 
         A = reshape(x, shape=[n, 1], order=[1, 2])
@@ -5291,7 +5298,12 @@ contains
         if (present(init)) then
             opt_init = init
         else
-            opt_init = A(randperm(n, K), :)
+            block
+                integer, allocatable :: tmp(:)
+                allocate(tmp(n))
+                call randperm(tmp, K)
+                opt_init = A(tmp, :)
+            endblock
         end if
 
         ! Initialization
@@ -5326,9 +5338,10 @@ contains
             integer(kind=IPRE) :: i, j, b(1)
             real(kind=RPRE), dimension(:), allocatable :: dist
 
-            idx = zeros(n)
+            allocate(idx(n), dist(K))
+            call zeros(idx)
             do i = 1, n
-                dist = zeros(K)
+                call zeros(dist)
                 do j = 1, K
                     dist(j) = norm(A(i, :) - means(j, :))
                 end do
@@ -5347,7 +5360,8 @@ contains
             integer(kind=IPRE), dimension(:), intent(in) :: idx
             integer(kind=IPRE) :: j
 
-            means = zeros(K, p)
+            allocate(means(K, p))
+            call zeros(means)
             do j = 1, K
                 means(j, :) = mean(A(find(idx == j), :))
             end do
@@ -5506,7 +5520,12 @@ contains
         if (present(init)) then
             opt_init = reshape(init, shape=[K, 1], order=[1, 2])
         else
-            opt_init = reshape(x(randperm(n, K)), shape=[K, 1], order=[1, 2])
+            block
+                integer, allocatable :: tmp(:)
+                allocate(tmp(n))
+                call randperm(tmp,K)
+                opt_init = reshape(x(tmp), shape=[K, 1], order=[1, 2])
+            endblock
         end if
 
         A = reshape(x, shape=[n, 1], order=[1, 2])
@@ -5542,19 +5561,30 @@ contains
         if (present(init)) then
             opt_init = init
         else
-            opt_init = A(randperm(n, K), :)
+            block
+                integer, allocatable :: tmp(:)
+                allocate(tmp(n))
+                call randperm(tmp,K)
+                opt_init = A(tmp, :)
+            endblock
         end if
 
         ! Initialization
         !================
         bs = nint(opt_perc*n)   ! Batch size
         m = opt_init            ! Initial centroids
-        v = zeros(K)            ! Per-center counter
+        allocate(v(K))
+        call zeros(v)            ! Per-center counter
 
         ! Iterate until convergence
         !===========================
         do iter = 1, opt_itermax
-            B = A(randperm(n, bs), :)        ! Batch
+            block
+                integer, allocatable :: tmp(:)
+                allocate(tmp(n))
+                call randperm(tmp, bs)
+                B = A(tmp, :)        ! Batch
+            endblock
             m1 = m                          ! Previous means
             idx = cache_means(B, m)         ! Cache means
             call update_means(m, v, B, idx) ! Update means with gradient
@@ -5579,8 +5609,9 @@ contains
             real(kind=RPRE), dimension(:), allocatable :: dist
 
             n = size(A, 1)
-            idx = zeros(n)
-            dist = zeros(K)
+            allocate(idx(n), dist(K))
+            call zeros(idx)
+            call zeros(dist)
             do i = 1, n
                 dist = 0.0d0
                 do j = 1, K
@@ -5900,7 +5931,8 @@ contains
         integer(kind=IPRE), intent(in) :: n
         integer(kind=IPRE) :: i, j
 
-        pascal = ones(n, n)
+        allocate(pascal(n,n))
+        call ones(pascal)
         do i = 2, n
             do j = 2, n
                 pascal(i, j) = pascal(i - 1, j) + pascal(i, j - 1)
@@ -5944,7 +5976,8 @@ contains
 
         nx = size(x)
         np = size(p)
-        prctile1 = zeros(np)
+        allocate(prctile1(np))
+        call zeros(prctile1)
         xsort = sort(x)
         do i = 1, np
             if (p(i) <= 50.0d0/real(nx, RPRE)) then
@@ -5952,7 +5985,9 @@ contains
             elseif (p(i) >= 100.0d0*((nx - 0.5d0)/real(nx, RPRE))) then
                 prctile1(i) = xsort(nx)
             else
-                ap = 100.0d0*(linspace(1, nx, nx) - 0.5d0)/real(nx, RPRE)
+                allocate(ap(nx))
+                call linspace(ap, 1.d0,real(nx,RPRE))
+                ap = 100.0d0*(ap-0.5d0)/real(nx,rpre)
                 idx = maxval(find(p(i) > ap))
                 prctile1(i) = xsort(idx) &
                               + (xsort(idx + 1) - xsort(idx))*(p(i) - ap(idx)) &
@@ -5961,44 +5996,6 @@ contains
         end do
         return
     end function prctile1
-
-    ! randperm
-    !-----------------------------------------------------------------------
-    ! randperm draws unique random integers.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! x = randperm(n)
-    ! x = randperm(n, k)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! x = randperm(n) returns a row vector containing a random permutation
-    ! of the integers from 1 to n inclusive.
-    !
-    ! x = randperm(n, k) returns a row vector containing k unique integers
-    ! selected randomly from 1 to n inclusive.
-
-    function randperm(n, k)
-        integer(kind=IPRE), dimension(:), allocatable :: randperm
-        integer(kind=IPRE), intent(in) :: n
-        integer(kind=IPRE), intent(in), optional :: k
-        integer(kind=IPRE) :: opt_k, i, j, tmp
-        integer(kind=IPRE), dimension(:), allocatable :: a
-
-        opt_k = n
-        if (present(k)) opt_k = k
-
-        a = linspace(1, n, n)
-        do i = n, n - opt_k + 1, -1
-            j = randi(i)
-            tmp = a(i)
-            a(i) = a(j)
-            a(j) = tmp
-        end do
-        randperm = a(n - opt_k + 1:n)
-        return
-    end function randperm
 
     ! repmat
     !-----------------------------------------------------------------------
@@ -6030,12 +6027,14 @@ contains
 
         m = size(x)
         if ((.not. present(dim)) .or. (dim == 1)) then
-            repmat1 = zeros(m, n1)
+            allocate(repmat1(m, n1))
+            call zeros(repmat1)
             do i = 1, n1
                 repmat1(:, i) = x
             end do
         elseif (dim == 2) then
-            repmat1 = zeros(n1, m)
+            allocate(repmat1(n1, m))
+            call zeros(repmat1)
             do i = 1, n1
                 repmat1(i, :) = x
             end do
@@ -6051,7 +6050,8 @@ contains
 
         m = size(A, 1)
         n = size(A, 2)
-        repmat2 = zeros(m*n1, n*n2)
+        allocate(repmat2(m*n1, n*n2))
+        call zeros(repmat2)
         do i = 1, n1
             do j = 1, n2
                 repmat2((i - 1)*m + 1:i*m, (j - 1)*n + 1:j*n) = A
@@ -6112,6 +6112,45 @@ contains
         return
     end function rms2
 
+    ! randperm
+    !-----------------------------------------------------------------------
+    ! randperm draws unique random integers.
+    !
+    ! Syntax
+    !-----------------------------------------------------------------------
+    ! x = randperm(n)
+    ! x = randperm(n, k)
+    !
+    ! Description
+    !-----------------------------------------------------------------------
+    ! x = randperm(n) returns a row vector containing a random permutation
+    ! of the integers from 1 to n inclusive.
+    !
+    ! x = randperm(n, k) returns a row vector containing k unique integers
+    ! selected randomly from 1 to n inclusive.
+
+    subroutine randperm(X, k)
+        !!\FIXME:
+        integer, dimension(:), intent(out) :: X
+        integer :: n
+        integer, intent(in), optional :: k
+        integer :: k_, i, j, tmp
+        integer, dimension(:), allocatable :: a
+
+        n = size(X)
+        k_ = optval(k,n)
+        allocate(a(n))
+        call seq(a, 1, n)
+        do i = n, n - k_ + 1, -1
+            call randu(j,1,i)
+            tmp = a(i)
+            a(i) = a(j)
+            a(j) = tmp
+        end do
+        X = a(n - k_ + 1:n)
+        return
+    end subroutine randperm
+
     ! signum
     !-----------------------------------------------------------------------
     ! signum returns the sign of an array.
@@ -6150,7 +6189,8 @@ contains
         integer(kind=IPRE) :: i, n
 
         n = size(x)
-        signum1 = zeros(n)
+        allocate(signum1(n))
+        call zeros(signum1)
         do i = 1, n
             signum1(i) = signum0(x(i))
         end do
@@ -6164,7 +6204,8 @@ contains
 
         m = size(A, 1)
         n = size(A, 2)
-        signum2 = zeros(m, n)
+        allocate(signum2(m,n))
+        call zeros(signum2)
         do i = 1, m
             do j = 1, n
                 signum2(i, j) = signum0(A(i, j))
@@ -6224,7 +6265,8 @@ contains
         if (K == 1) then
             print *, "Warning: in silhouette, the silhouette value cannot " &
                 //"be defined for K = 1."
-            s = zeros(n)
+            allocate(s(n))
+            call zeros(s)
             return
         end if
 
@@ -6238,12 +6280,14 @@ contains
 
         ! Loop over objects
         !===================
-        s = zeros(n)
+        allocate(s(n))
+        call zeros(s)
         do i = 1, n
 
             ! Compute the dissimilarity for each cluster to current object i
             !================================================================
-            d = zeros(K)          ! Cluster dissimilarity to object i
+            allocate(d(K))
+            call zeros(d)          ! Cluster dissimilarity to object i
             do j = 1, K
                 idx = find(cluster == j)
                 d(j) = sum((X(idx, :) - repmat(X(i, :), cs(j), 2))**2)/cs(j)
@@ -6522,7 +6566,8 @@ contains
 
         ! Loop for each query point
         !===========================
-        zq = zeros(nq)
+        allocate(zq(nq))
+        call zeros(zq)
 
         do iq = 1, nq
 

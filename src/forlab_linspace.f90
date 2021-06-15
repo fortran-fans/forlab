@@ -19,10 +19,10 @@ submodule(forlab) forlab_linspace
 contains
 
     module procedure linspace_sp
-        integer :: i
+        integer :: i, n
         real(sp) :: by
         n = size(X)
-        by = (to - from)/(n - 1)
+        by = (to - from)/real(n - 1, sp)
         X = from + by*real([(i - 1, i=1, n)], sp)
         return
     end procedure
@@ -33,10 +33,10 @@ contains
         return
     end procedure
     module procedure linspace_dp
-        integer :: i
+        integer :: i, n
         real(dp) :: by
         n = size(X)
-        by = (to - from)/(n - 1)
+        by = (to - from)/real(n - 1, dp)
         X = from + by*real([(i - 1, i=1, n)], dp)
         return
     end procedure
@@ -47,10 +47,10 @@ contains
         return
     end procedure
     module procedure linspace_qp
-        integer :: i
+        integer :: i, n
         real(qp) :: by
         n = size(X)
-        by = (to - from)/(n - 1)
+        by = (to - from)/real(n - 1, qp)
         X = from + by*real([(i - 1, i=1, n)], qp)
         return
     end procedure

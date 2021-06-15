@@ -50,7 +50,11 @@ contains
         if (n > 1) then
             left = 0
             right = n + 1
-            pivot = x(randi(n))
+            block
+                integer :: tmp
+                call randu(tmp,1,n)
+                pivot = x(tmp)
+            endblock
             select case (order)
             case (1)
                 do while (left < right)
@@ -127,7 +131,11 @@ contains
         if (n > 1) then
             left = 0
             right = n + 1
-            pivot = x(randi(n))
+            block
+                integer :: tmp
+                call randu(tmp,1,n)
+                pivot = x(tmp)
+            endblock
             select case (order)
             case (1)
                 do while (left < right)
@@ -204,7 +212,11 @@ contains
         if (n > 1) then
             left = 0
             right = n + 1
-            pivot = x(randi(n))
+            block
+                integer :: tmp
+                call randu(tmp,1,n)
+                pivot = x(tmp)
+            endblock
             select case (order)
             case (1)
                 do while (left < right)
@@ -281,7 +293,11 @@ contains
         if (n > 1) then
             left = 0
             right = n + 1
-            pivot = x(randi(n))
+            block
+                integer :: tmp
+                call randu(tmp,1,n)
+                pivot = x(tmp)
+            endblock
             select case (order)
             case (1)
                 do while (left < right)
@@ -358,7 +374,11 @@ contains
         if (n > 1) then
             left = 0
             right = n + 1
-            pivot = x(randi(n))
+            block
+                integer :: tmp
+                call randu(tmp,1,n)
+                pivot = x(tmp)
+            endblock
             select case (order)
             case (1)
                 do while (left < right)
@@ -435,7 +455,11 @@ contains
         if (n > 1) then
             left = 0
             right = n + 1
-            pivot = x(randi(n))
+            block
+                integer :: tmp
+                call randu(tmp,1,n)
+                pivot = x(tmp)
+            endblock
             select case (order)
             case (1)
                 do while (left < right)
@@ -512,7 +536,11 @@ contains
         if (n > 1) then
             left = 0
             right = n + 1
-            pivot = x(randi(n))
+            block
+                integer :: tmp
+                call randu(tmp,1,n)
+                pivot = x(tmp)
+            endblock
             select case (order)
             case (1)
                 do while (left < right)
