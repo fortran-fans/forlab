@@ -41,21 +41,8 @@ submodule(forlab) forlab_zeros
 contains
     #:for k1, t1 in REAL_KINDS_TYPES
     #:for RANK in RANKS
-    module procedure zeros_${RANK}$_${k1}$
-        integer :: ierr
-        #:if RANK == 1
-        allocate (zeros_${RANK}$_${k1}$ (dim1), stat=ierr)
-        #:elif RANK == 2
-        allocate (zeros_${RANK}$_${k1}$ (dim1, dim2), stat=ierr)
-        #:elif RANK == 3
-        allocate (zeros_${RANK}$_${k1}$ (dim1, dim2, dim3), stat=ierr)
-        #:endif
-        if (ierr .ne. 0) then
-            call disp("Error: in (s/d/q)zeros, could not allocate array.")
-            stop
-        else
-            zeros_${RANK}$_${k1}$ = 0.0_${k1}$
-        end if
+    module procedure zeros_${RANK}$_${k1}$    
+        X = 0.0_${k1}$
         return
     end procedure
 

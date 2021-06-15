@@ -13,7 +13,6 @@
 !! forlab is still in the rapid development stage.
 
 
-
 module forlab
 
     use forlab_kinds
@@ -43,16 +42,8 @@ module forlab
               randi, randperm, repmat, rms, savetxt, savebin, sind, sort, solve, &
               svd, svdsolve, std, spline1, spline2, skewness, signum, sinc, &
               split_argument, tand, tic, toc, trace, tril, triu, utm2deg, vertcat, &
-              var, dbindex, gmm, kmeans, mbkmeans, silhouette
+              var, dbindex, gmm, kmeans, mbkmeans, silhouette, zeros
 
-    public :: empty, sempty, dempty, qempty
-    public :: eye, seye, deye, qeye
-    public :: linspace, slinspace, dlinspace, qlinspace
-    public :: logspace, slogspace, dlogspace, qlogspace
-    public :: ones, sones, dones, qones
-    public :: randn, srandn, drandn, qrandn
-    public :: randu, srandu, drandu, qrandu
-    public :: zeros, szeros, dzeros, qzeros
     !! #ifdef do_mpi
     public :: mpi_rpre
     !! #endif
@@ -83,6 +74,7 @@ module forlab
         end function
     end interface
 
+    !! Acos & Asin & Atan
     interface acosd
         !! degree circular functions
         !!([Specification](../module/forlab_degcir.html))
@@ -131,6 +123,7 @@ module forlab
         real(qp)::atand_qp
         end function
     end interface atand
+    !! Cos & Sin & Tan
     interface cosd
         pure elemental module function cosd_sp(x)
         real(sp),intent(in)::x
@@ -173,27 +166,6 @@ module forlab
         real(qp)::tand_qp
         end function
     end interface tand
-
-    interface arange
-        !! arange returns evenly spaced vector.
-        !!([Specification](../module/forlab_arange.html))
-        module function arange_int8 (first, last)
-            integer(int8), dimension(:), allocatable :: arange_int8
-            integer(int8), intent(in) :: first, last
-        end function
-        module function arange_int16 (first, last)
-            integer(int16), dimension(:), allocatable :: arange_int16
-            integer(int16), intent(in) :: first, last
-        end function
-        module function arange_int32 (first, last)
-            integer(int32), dimension(:), allocatable :: arange_int32
-            integer(int32), intent(in) :: first, last
-        end function
-        module function arange_int64 (first, last)
-            integer(int64), dimension(:), allocatable :: arange_int64
-            integer(int64), intent(in) :: first, last
-        end function
-    end interface
 
     interface argmax
         module procedure argmax1, argmax2, argmax3
@@ -571,22 +543,17 @@ module forlab
         end subroutine eig_qp
     end interface eig
 
-    interface eye
-        procedure eye_1_sp
-        procedure eye_2_sp
-    end interface
-
-    interface seye
-        procedure eye_1_sp
-        procedure eye_2_sp
-    end interface
-    interface deye
-        procedure eye_1_dp
-        procedure eye_2_dp
-    end interface
-    interface qeye
-        procedure eye_1_qp
-        procedure eye_2_qp
+    !! Eye
+    interface
+        module subroutine eye_sp(X)
+            real(sp), intent(out) :: X(:, :)
+        end subroutine
+        module subroutine eye_dp(X)
+            real(dp), intent(out) :: X(:, :)
+        end subroutine
+        module subroutine eye_qp(X)
+            real(qp), intent(out) :: X(:, :)
+        end subroutine
     end interface
 
     interface find
@@ -1143,65 +1110,34 @@ module forlab
         module procedure kurtosis1, kurtosis2
     end interface kurtosis
 
-    interface linspace
-        procedure linspace_ii_sp
-        procedure linspace_rr_sp, &
-                  linspace_ri_sp, &
-                  linspace_ir_sp
-        procedure linspace_rr_dp, &
-                  linspace_ri_dp, &
-                  linspace_ir_dp
-        procedure linspace_rr_qp, &
-                  linspace_ri_qp, &
-                  linspace_ir_qp
+    !! Linspace & Logspace
+    interface
+        module subroutine linspace_sp(X, from, to)
+            real(sp), dimension(:) :: X
+            real(sp), intent(in) :: from, to
+        end subroutine
+        module subroutine linspace_dp(X, from, to)
+            real(dp), dimension(:) :: X
+            real(dp), intent(in) :: from, to
+        end subroutine
+        module subroutine linspace_qp(X, from, to)
+            real(qp), dimension(:) :: X
+            real(qp), intent(in) :: from, to
+        end subroutine
     end interface
-    interface slinspace
-        procedure linspace_ii_sp
-        procedure linspace_rr_sp, &
-                  linspace_ri_sp, &
-                  linspace_ir_sp
-    end interface
-    interface dlinspace
-        procedure linspace_ii_dp
-        procedure linspace_rr_dp, &
-                  linspace_ri_dp, &
-                  linspace_ir_dp
-    end interface
-    interface qlinspace
-        procedure linspace_ii_qp
-        procedure linspace_rr_qp, &
-                  linspace_ri_qp, &
-                  linspace_ir_qp
-    end interface
-    interface logspace
-        procedure logspace_ii_sp
-        procedure logspace_rr_sp, &
-                  logspace_ri_sp, &
-                  logspace_ir_sp
-        procedure logspace_rr_dp, &
-                  logspace_ri_dp, &
-                  logspace_ir_dp
-        procedure logspace_rr_qp, &
-                  logspace_ri_qp, &
-                  logspace_ir_qp
-    end interface
-    interface slogspace
-        procedure logspace_ii_sp
-        procedure logspace_rr_sp, &
-                  logspace_ri_sp, &
-                  logspace_ir_sp
-    end interface
-    interface dlogspace
-        procedure logspace_ii_dp
-        procedure logspace_rr_dp, &
-                  logspace_ri_dp, &
-                  logspace_ir_dp
-    end interface
-    interface qlogspace
-        procedure logspace_ii_qp
-        procedure logspace_rr_qp, &
-                  logspace_ri_qp, &
-                  logspace_ir_qp
+    interface
+        module subroutine logspace_sp(X, from, to)
+            real(sp), dimension(:) :: X
+            real(sp), intent(in) :: from, to
+        end subroutine
+        module subroutine logspace_dp(X, from, to)
+            real(dp), dimension(:) :: X
+            real(dp), intent(in) :: from, to
+        end subroutine
+        module subroutine logspace_qp(X, from, to)
+            real(qp), dimension(:) :: X
+            real(qp), intent(in) :: from, to
+        end subroutine
     end interface
 
     interface loadbin
@@ -1575,6 +1511,18 @@ module forlab
         end function
     end interface
 
+    interface ones
+        elemental module subroutine ones_sp(X)
+            real(sp), intent(out) :: X
+        end subroutine
+        elemental module subroutine ones_dp(X)
+            real(dp), intent(out) :: X
+        end subroutine
+        elemental module subroutine ones_qp(X)
+            real(qp), intent(out) :: X
+        end subroutine
+    end interface
+
     interface outer
         module function outer_int8(x, y)
             integer(int8), dimension(:,:), allocatable :: outer_int8
@@ -1622,67 +1570,7 @@ module forlab
         end subroutine progress_perc
     end interface
 
-    interface randi
-        procedure :: randi_0_0
-        procedure :: randi_0_1
-        procedure :: randi_1_0
-        procedure :: randi_1_1
-        procedure :: randi_2_0
-        procedure :: randi_2_1
-        procedure :: randi_3_0
-        procedure :: randi_3_1
-    end interface
 
-    interface randn
-        procedure randn_0_sp
-        procedure randn_1_sp
-        procedure randn_2_sp
-        procedure randn_3_sp
-    end interface
-
-    interface srandn
-        procedure randn_0_sp
-        procedure randn_1_sp
-        procedure randn_2_sp
-        procedure randn_3_sp
-    end interface
-    interface drandn
-        procedure randn_0_dp
-        procedure randn_1_dp
-        procedure randn_2_dp
-        procedure randn_3_dp
-    end interface
-    interface qrandn
-        procedure randn_0_qp
-        procedure randn_1_qp
-        procedure randn_2_qp
-        procedure randn_3_qp
-    end interface
-
-    interface randu
-        procedure randu_0_sp
-        procedure randu_1_sp
-        procedure randu_2_sp
-        procedure randu_3_sp
-    end interface
-    interface srandu
-        procedure randu_0_sp
-        procedure randu_1_sp
-        procedure randu_2_sp
-        procedure randu_3_sp
-    end interface
-    interface drandu
-        procedure randu_0_dp
-        procedure randu_1_dp
-        procedure randu_2_dp
-        procedure randu_3_dp
-    end interface
-    interface qrandu
-        procedure randu_0_qp
-        procedure randu_1_qp
-        procedure randu_2_qp
-        procedure randu_3_qp
-    end interface
 
     interface repmat
         module procedure repmat1, repmat2
@@ -1895,6 +1783,46 @@ module forlab
         module subroutine savetxt_2_cqp(filename, X)
             character(len=*), intent(in) :: filename
             complex(qp), dimension(:, :), intent(in) :: X
+        end subroutine
+    end interface
+
+    interface seq
+        !! seq returns evenly spaced vector.
+        !!([Specification](../module/forlab_seq.html))
+        elemental module subroutine seq_sp (X, from, to, by)
+            real(sp), dimension(:), allocatable :: X
+            real(sp), intent(in) :: first, last
+            real(sp), optional, intent(in) :: by
+        end subroutine
+        elemental module subroutine seq_dp (X, from, to, by)
+            real(dp), dimension(:), allocatable :: X
+            real(dp), intent(in) :: first, last
+            real(dp), optional, intent(in) :: by
+        end subroutine
+        elemental module subroutine seq_qp (X, from, to, by)
+            real(qp), dimension(:), allocatable :: X
+            real(qp), intent(in) :: first, last
+            real(qp), optional, intent(in) :: by
+        end subroutine
+        elemental module subroutine seq_int8 (X, from, to, by)
+            integer(int8), dimension(:), allocatable :: X
+            integer(int8), intent(in) :: first, last
+            integer(int8), optional, intent(in) :: by
+        end subroutine
+        elemental module subroutine seq_int16 (X, from, to, by)
+            integer(int16), dimension(:), allocatable :: X
+            integer(int16), intent(in) :: first, last
+            integer(int16), optional, intent(in) :: by
+        end subroutine
+        elemental module subroutine seq_int32 (X, from, to, by)
+            integer(int32), dimension(:), allocatable :: X
+            integer(int32), intent(in) :: first, last
+            integer(int32), optional, intent(in) :: by
+        end subroutine
+        elemental module subroutine seq_int64 (X, from, to, by)
+            integer(int64), dimension(:), allocatable :: X
+            integer(int64), intent(in) :: first, last
+            integer(int64), optional, intent(in) :: by
         end subroutine
     end interface
 
@@ -2264,27 +2192,6 @@ module forlab
         procedure empty_2_qp
         procedure empty_3_qp
     end interface
-    interface zeros
-        procedure zeros_1_sp
-        procedure zeros_2_sp
-        procedure zeros_3_sp
-    end interface
-
-    interface szeros
-        procedure zeros_1_sp
-        procedure zeros_2_sp
-        procedure zeros_3_sp
-    end interface
-    interface dzeros
-        procedure zeros_1_dp
-        procedure zeros_2_dp
-        procedure zeros_3_dp
-    end interface
-    interface qzeros
-        procedure zeros_1_qp
-        procedure zeros_2_qp
-        procedure zeros_3_qp
-    end interface
     interface ones
         procedure ones_1_sp
         procedure ones_2_sp
@@ -2399,384 +2306,64 @@ module forlab
         end subroutine
     end interface
 
-    !! Linspace & Logspace
-    interface
-        module function linspace_rr_sp(first, last, n)
-            real(sp), dimension(:), allocatable :: linspace_rr_sp
-            real(sp), intent(in) :: first, last
-            integer, intent(in) :: n
-        end function
-        module function linspace_ii_sp(first, last, n)
-            real(sp), dimension(:), allocatable :: linspace_ii_sp
-            integer, intent(in) :: first, last
-            integer, intent(in) :: n
-        end function 
-        module function linspace_ri_sp(first, last, n)
-            real(sp), dimension(:), allocatable :: linspace_ri_sp
-            real(sp), intent(in) :: first
-            integer, intent(in) :: last
-            integer, intent(in) :: n
-        end function
-        module function linspace_ir_sp(first, last, n)
-            real(sp), dimension(:), allocatable :: linspace_ir_sp
-            integer, intent(in) :: first
-            real(sp), intent(in) :: last
-            integer, intent(in) :: n
-        end function
-        module function linspace_rr_dp(first, last, n)
-            real(dp), dimension(:), allocatable :: linspace_rr_dp
-            real(dp), intent(in) :: first, last
-            integer, intent(in) :: n
-        end function
-        module function linspace_ii_dp(first, last, n)
-            real(dp), dimension(:), allocatable :: linspace_ii_dp
-            integer, intent(in) :: first, last
-            integer, intent(in) :: n
-        end function 
-        module function linspace_ri_dp(first, last, n)
-            real(dp), dimension(:), allocatable :: linspace_ri_dp
-            real(dp), intent(in) :: first
-            integer, intent(in) :: last
-            integer, intent(in) :: n
-        end function
-        module function linspace_ir_dp(first, last, n)
-            real(dp), dimension(:), allocatable :: linspace_ir_dp
-            integer, intent(in) :: first
-            real(dp), intent(in) :: last
-            integer, intent(in) :: n
-        end function
-        module function linspace_rr_qp(first, last, n)
-            real(qp), dimension(:), allocatable :: linspace_rr_qp
-            real(qp), intent(in) :: first, last
-            integer, intent(in) :: n
-        end function
-        module function linspace_ii_qp(first, last, n)
-            real(qp), dimension(:), allocatable :: linspace_ii_qp
-            integer, intent(in) :: first, last
-            integer, intent(in) :: n
-        end function 
-        module function linspace_ri_qp(first, last, n)
-            real(qp), dimension(:), allocatable :: linspace_ri_qp
-            real(qp), intent(in) :: first
-            integer, intent(in) :: last
-            integer, intent(in) :: n
-        end function
-        module function linspace_ir_qp(first, last, n)
-            real(qp), dimension(:), allocatable :: linspace_ir_qp
-            integer, intent(in) :: first
-            real(qp), intent(in) :: last
-            integer, intent(in) :: n
-        end function
-        module function logspace_rr_sp(first, last, n)
-            real(sp), dimension(:), allocatable :: logspace_rr_sp
-            real(sp), intent(in) :: first, last
-            integer, intent(in) :: n
-        end function
-        module function logspace_ii_sp(first, last, n)
-            real(sp), dimension(:), allocatable :: logspace_ii_sp
-            integer, intent(in) :: first, last
-            integer, intent(in) :: n
-        end function 
-        module function logspace_ri_sp(first, last, n)
-            real(sp), dimension(:), allocatable :: logspace_ri_sp
-            real(sp), intent(in) :: first
-            integer, intent(in) :: last
-            integer, intent(in) :: n
-        end function
-        module function logspace_ir_sp(first, last, n)
-            real(sp), dimension(:), allocatable :: logspace_ir_sp
-            integer, intent(in) :: first
-            real(sp), intent(in) :: last
-            integer, intent(in) :: n
-        end function
-        module function logspace_rr_dp(first, last, n)
-            real(dp), dimension(:), allocatable :: logspace_rr_dp
-            real(dp), intent(in) :: first, last
-            integer, intent(in) :: n
-        end function
-        module function logspace_ii_dp(first, last, n)
-            real(dp), dimension(:), allocatable :: logspace_ii_dp
-            integer, intent(in) :: first, last
-            integer, intent(in) :: n
-        end function 
-        module function logspace_ri_dp(first, last, n)
-            real(dp), dimension(:), allocatable :: logspace_ri_dp
-            real(dp), intent(in) :: first
-            integer, intent(in) :: last
-            integer, intent(in) :: n
-        end function
-        module function logspace_ir_dp(first, last, n)
-            real(dp), dimension(:), allocatable :: logspace_ir_dp
-            integer, intent(in) :: first
-            real(dp), intent(in) :: last
-            integer, intent(in) :: n
-        end function
-        module function logspace_rr_qp(first, last, n)
-            real(qp), dimension(:), allocatable :: logspace_rr_qp
-            real(qp), intent(in) :: first, last
-            integer, intent(in) :: n
-        end function
-        module function logspace_ii_qp(first, last, n)
-            real(qp), dimension(:), allocatable :: logspace_ii_qp
-            integer, intent(in) :: first, last
-            integer, intent(in) :: n
-        end function 
-        module function logspace_ri_qp(first, last, n)
-            real(qp), dimension(:), allocatable :: logspace_ri_qp
-            real(qp), intent(in) :: first
-            integer, intent(in) :: last
-            integer, intent(in) :: n
-        end function
-        module function logspace_ir_qp(first, last, n)
-            real(qp), dimension(:), allocatable :: logspace_ir_qp
-            integer, intent(in) :: first
-            real(qp), intent(in) :: last
-            integer, intent(in) :: n
-        end function
-    end interface
-
-    !! Randi
-    interface
-        module function randi_0_0(imax)
-            integer :: randi_0_0
-            integer, intent(in) :: imax
-        end function
-        module function randi_0_1(imax)
-            integer :: randi_0_1
-            integer, dimension(2), intent(in) :: imax
-        end function
-        module function randi_1_0(imax, dim1)
-            integer, dimension(:), allocatable :: randi_1_0
-            integer, intent(in) :: dim1
-            integer, intent(in) :: imax
-        end function
-        module function randi_1_1(imax, dim1)
-            integer, dimension(:), allocatable :: randi_1_1
-            integer, intent(in) :: dim1
-            integer, dimension(2), intent(in) :: imax
-        end function
-        module function randi_2_0(imax, dim1, dim2)
-            integer, dimension(:,:), allocatable :: randi_2_0
-            integer, intent(in) :: dim1, dim2
-            integer, intent(in) :: imax
-        end function
-        module function randi_2_1(imax, dim1, dim2)
-            integer, dimension(:,:), allocatable :: randi_2_1
-            integer, intent(in) :: dim1, dim2
-            integer, dimension(2), intent(in) :: imax
-        end function
-        module function randi_3_0(imax, dim1, dim2, dim3)
-            integer, dimension(:,:,:), allocatable :: randi_3_0
-            integer, intent(in) :: dim1, dim2, dim3
-            integer, intent(in) :: imax
-        end function
-        module function randi_3_1(imax, dim1, dim2, dim3)
-            integer, dimension(:,:,:), allocatable :: randi_3_1
-            integer, intent(in) :: dim1, dim2, dim3
-            integer, dimension(2), intent(in) :: imax
-        end function
+    !! Randn
+    interface randn
+        impure elemental module subroutine randu_sp(X, mean, std)
+            real(sp), intent(out) :: X
+            real(sp), optional, intent(in) :: mean, std
+        end subroutine
+        impure elemental module subroutine randu_dp(X, mean, std)
+            real(dp), intent(out) :: X
+            real(dp), optional, intent(in) :: mean, std
+        end subroutine
+        impure elemental module subroutine randu_qp(X, mean, std)
+            real(qp), intent(out) :: X
+            real(qp), optional, intent(in) :: mean, std
+        end subroutine
     end interface
 
     !! Randu
-    interface
-        module function randu_0_sp ()
-            real(sp) :: randu_0_sp 
-        end function
-        module function randu_1_sp (dim1)
-            integer, intent(in) :: dim1
-            real(sp), allocatable :: randu_1_sp (:)
-        end function
-        module function randu_2_sp (dim1, dim2)
-            integer, intent(in) :: dim1, dim2
-            real(sp), allocatable :: randu_2_sp (:,:)
-        end function
-        module function randu_3_sp (dim1, dim2, dim3)
-            integer, intent(in) :: dim1, dim2, dim3
-            real(sp), allocatable :: randu_3_sp (:,:,:)
-        end function
-        module function randu_0_dp ()
-            real(dp) :: randu_0_dp 
-        end function
-        module function randu_1_dp (dim1)
-            integer, intent(in) :: dim1
-            real(dp), allocatable :: randu_1_dp (:)
-        end function
-        module function randu_2_dp (dim1, dim2)
-            integer, intent(in) :: dim1, dim2
-            real(dp), allocatable :: randu_2_dp (:,:)
-        end function
-        module function randu_3_dp (dim1, dim2, dim3)
-            integer, intent(in) :: dim1, dim2, dim3
-            real(dp), allocatable :: randu_3_dp (:,:,:)
-        end function
-        module function randu_0_qp ()
-            real(qp) :: randu_0_qp 
-        end function
-        module function randu_1_qp (dim1)
-            integer, intent(in) :: dim1
-            real(qp), allocatable :: randu_1_qp (:)
-        end function
-        module function randu_2_qp (dim1, dim2)
-            integer, intent(in) :: dim1, dim2
-            real(qp), allocatable :: randu_2_qp (:,:)
-        end function
-        module function randu_3_qp (dim1, dim2, dim3)
-            integer, intent(in) :: dim1, dim2, dim3
-            real(qp), allocatable :: randu_3_qp (:,:,:)
-        end function
+    interface radnu
+        impure elemental module subroutine randu_sp(X, from, to)
+            real(sp), intent(out) :: X
+            real(sp), optional, intent(in) :: from, to
+        end subroutine
+        impure elemental module subroutine randu_dp(X, from, to)
+            real(dp), intent(out) :: X
+            real(dp), optional, intent(in) :: from, to
+        end subroutine
+        impure elemental module subroutine randu_qp(X, from, to)
+            real(qp), intent(out) :: X
+            real(qp), optional, intent(in) :: from, to
+        end subroutine
     end interface
 
-    !! EZO
-    interface
-        module function empty_1_sp (dim1)
-            integer, intent(in) :: dim1
-            real(sp), allocatable :: empty_1_sp (:)
-        end function
-        module function empty_1_dp (dim1)
-            integer, intent(in) :: dim1
-            real(dp), allocatable :: empty_1_dp (:)
-        end function
-        module function empty_1_qp (dim1)
-            integer, intent(in) :: dim1
-            real(qp), allocatable :: empty_1_qp (:)
-        end function
-        module function empty_2_sp (dim1, dim2)
-            integer, intent(in) :: dim1, dim2
-            real(sp), allocatable :: empty_2_sp (:,:)
-        end function
-        module function empty_2_dp (dim1, dim2)
-            integer, intent(in) :: dim1, dim2
-            real(dp), allocatable :: empty_2_dp (:,:)
-        end function
-        module function empty_2_qp (dim1, dim2)
-            integer, intent(in) :: dim1, dim2
-            real(qp), allocatable :: empty_2_qp (:,:)
-        end function
-        module function empty_3_sp (dim1, dim2, dim3)
-            integer, intent(in) :: dim1, dim2, dim3
-            real(sp), allocatable :: empty_3_sp (:,:,:)
-        end function
-        module function empty_3_dp (dim1, dim2, dim3)
-            integer, intent(in) :: dim1, dim2, dim3
-            real(dp), allocatable :: empty_3_dp (:,:,:)
-        end function
-        module function empty_3_qp (dim1, dim2, dim3)
-            integer, intent(in) :: dim1, dim2, dim3
-            real(qp), allocatable :: empty_3_qp (:,:,:)
-        end function
-    end interface
-    interface
-        module function zeros_1_sp (dim1)
-            integer, intent(in) :: dim1
-            real(sp), allocatable :: zeros_1_sp (:)
-        end function
-        module function zeros_1_dp (dim1)
-            integer, intent(in) :: dim1
-            real(dp), allocatable :: zeros_1_dp (:)
-        end function
-        module function zeros_1_qp (dim1)
-            integer, intent(in) :: dim1
-            real(qp), allocatable :: zeros_1_qp (:)
-        end function
-        module function zeros_2_sp (dim1, dim2)
-            integer, intent(in) :: dim1, dim2
-            real(sp), allocatable :: zeros_2_sp (:,:)
-        end function
-        module function zeros_2_dp (dim1, dim2)
-            integer, intent(in) :: dim1, dim2
-            real(dp), allocatable :: zeros_2_dp (:,:)
-        end function
-        module function zeros_2_qp (dim1, dim2)
-            integer, intent(in) :: dim1, dim2
-            real(qp), allocatable :: zeros_2_qp (:,:)
-        end function
-        module function zeros_3_sp (dim1, dim2, dim3)
-            integer, intent(in) :: dim1, dim2, dim3
-            real(sp), allocatable :: zeros_3_sp (:,:,:)
-        end function
-        module function zeros_3_dp (dim1, dim2, dim3)
-            integer, intent(in) :: dim1, dim2, dim3
-            real(dp), allocatable :: zeros_3_dp (:,:,:)
-        end function
-        module function zeros_3_qp (dim1, dim2, dim3)
-            integer, intent(in) :: dim1, dim2, dim3
-            real(qp), allocatable :: zeros_3_qp (:,:,:)
-        end function
-    end interface
-    interface
-        module function ones_1_sp (dim1)
-            integer, intent(in) :: dim1
-            real(sp), allocatable :: ones_1_sp (:)
-        end function
-        module function ones_1_dp (dim1)
-            integer, intent(in) :: dim1
-            real(dp), allocatable :: ones_1_dp (:)
-        end function
-        module function ones_1_qp (dim1)
-            integer, intent(in) :: dim1
-            real(qp), allocatable :: ones_1_qp (:)
-        end function
-        module function ones_2_sp (dim1, dim2)
-            integer, intent(in) :: dim1, dim2
-            real(sp), allocatable :: ones_2_sp (:,:)
-        end function
-        module function ones_2_dp (dim1, dim2)
-            integer, intent(in) :: dim1, dim2
-            real(dp), allocatable :: ones_2_dp (:,:)
-        end function
-        module function ones_2_qp (dim1, dim2)
-            integer, intent(in) :: dim1, dim2
-            real(qp), allocatable :: ones_2_qp (:,:)
-        end function
-        module function ones_3_sp (dim1, dim2, dim3)
-            integer, intent(in) :: dim1, dim2, dim3
-            real(sp), allocatable :: ones_3_sp (:,:,:)
-        end function
-        module function ones_3_dp (dim1, dim2, dim3)
-            integer, intent(in) :: dim1, dim2, dim3
-            real(dp), allocatable :: ones_3_dp (:,:,:)
-        end function
-        module function ones_3_qp (dim1, dim2, dim3)
-            integer, intent(in) :: dim1, dim2, dim3
-            real(qp), allocatable :: ones_3_qp (:,:,:)
-        end function
+    !! Randn
+    interface radnn
+        elemental module subroutine randu_sp(X, from, to)
+            real(sp), intent(out) :: X
+            real(sp), optional, intent(in) :: from, to
+        end subroutine
+        elemental module subroutine randu_dp(X, from, to)
+            real(dp), intent(out) :: X
+            real(dp), optional, intent(in) :: from, to
+        end subroutine
+        elemental module subroutine randu_qp(X, from, to)
+            real(qp), intent(out) :: X
+            real(qp), optional, intent(in) :: from, to
+        end subroutine
     end interface
 
-    !! Eye
-    interface
-        module function eye_1_sp(dim1)
-            integer, intent(in) :: dim1
-            real(sp), dimension(:, :), allocatable :: eye_1_sp
-        end function
-
-        module function eye_2_sp (dim1, dim2)
-            integer, intent(in) :: dim2
-            integer, intent(in) :: dim1
-            real(sp), dimension(:, :), allocatable :: eye_2_sp
-        end function
-
-        module function eye_1_dp(dim1)
-            integer, intent(in) :: dim1
-            real(dp), dimension(:, :), allocatable :: eye_1_dp
-        end function
-
-        module function eye_2_dp (dim1, dim2)
-            integer, intent(in) :: dim2
-            integer, intent(in) :: dim1
-            real(dp), dimension(:, :), allocatable :: eye_2_dp
-        end function
-
-        module function eye_1_qp(dim1)
-            integer, intent(in) :: dim1
-            real(qp), dimension(:, :), allocatable :: eye_1_qp
-        end function
-
-        module function eye_2_qp (dim1, dim2)
-            integer, intent(in) :: dim2
-            integer, intent(in) :: dim1
-            real(qp), dimension(:, :), allocatable :: eye_2_qp
-        end function
-
+    interface zeros
+        elemental module subroutine zeros_sp (X)
+            real(sp), intent(in) :: X
+        end subroutine
+        elemental module subroutine zeros_dp (X)
+            real(dp), intent(in) :: X
+        end subroutine
+        elemental module subroutine zeros_qp (X)
+            real(qp), intent(in) :: X
+        end subroutine
     end interface
 
 contains

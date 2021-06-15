@@ -13,13 +13,6 @@
 !! forlab is still in the rapid development stage.
 
 #:include "common.fypp"
-#:def ranksuffix(RANK)
-$:'' if RANK == 0 else '(' + ':' + ',:' * (RANK - 1) + ')'
-#:enddef ranksuffix
-
-#:def publicompl(itfname)
-$:'' 'public :: ' + itfname + ', s' + itfname + ', d' + itfname + ', q' + itfname
-#:enddef publicompl
 
 module forlab
 
@@ -50,13 +43,8 @@ module forlab
               randi, randperm, repmat, rms, savetxt, savebin, sind, sort, solve, &
               svd, svdsolve, std, spline1, spline2, skewness, signum, sinc, &
               split_argument, tand, tic, toc, trace, tril, triu, utm2deg, vertcat, &
-              var, dbindex, gmm, kmeans, mbkmeans, silhouette
+              var, dbindex, gmm, kmeans, mbkmeans, silhouette, zeros
 
-    #:set itfname = ['empty', 'eye', 'linspace', 'logspace',  'ones', 'randn', &
-                    & 'randu', 'zeros']
-    #:for itf in itfname
-    ${publicompl(itf)}$
-    #:endfor
     !! #ifdef do_mpi
     public :: mpi_rpre
     !! #endif
@@ -83,6 +71,7 @@ module forlab
         #:endfor
     end interface
 
+    !! Acos & Asin & Atan
     #:set CIR_NAME=["acos","asin","atan"]
     #:for l1 in CIR_NAME
     interface ${l1}$d
@@ -96,6 +85,7 @@ module forlab
         #:endfor
     end interface ${l1}$d
     #:endfor
+    !! Cos & Sin & Tan
     #:set CIR_NAME=["cos","sin","tan"]
     #:for l1 in CIR_NAME
     interface ${l1}$d
@@ -107,17 +97,6 @@ module forlab
         #:endfor
     end interface ${l1}$d
     #:endfor
-
-    interface arange
-        !! arange returns evenly spaced vector.
-        !!([Specification](../module/forlab_arange.html))
-        #:for k1, t1 in INT_KINDS_TYPES
-        module function arange_${k1}$ (first, last)
-            ${t1}$, dimension(:), allocatable :: arange_${k1}$
-            ${t1}$, intent(in) :: first, last
-        end function
-        #:endfor
-    end interface
 
     interface argmax
         module procedure argmax1, argmax2, argmax3
@@ -328,21 +307,14 @@ module forlab
         #:endfor
     end interface eig
 
-    interface eye
-        #:set RANKS = range(1, 3)
-        #:for RANK in RANKS
-        procedure eye_${RANK}$_${DK}$
+    !! Eye
+    interface
+        #:for k1, t1 in REAL_KINDS_TYPES
+        module subroutine eye_${k1}$(X)
+            ${t1}$, intent(out) :: X(:, :)
+        end subroutine
         #:endfor
     end interface
-
-    #:set RANKS = range(1, 3)
-    #:for k1 in REAL_KINDS
-    interface ${k1[0]}$eye
-        #:for RANK in RANKS
-        procedure eye_${RANK}$_${k1}$
-        #:endfor
-    end interface
-    #:endfor
 
     interface find
         module procedure find1, find2, find3
@@ -496,24 +468,17 @@ module forlab
         module procedure kurtosis1, kurtosis2
     end interface kurtosis
 
+    !! Linspace & Logspace
     #:set SPACE = ['linspace', 'logspace']
     #:for s1 in SPACE
-    interface ${s1}$
-        procedure ${s1}$_ii_${DK}$
-        #:for k1 in REAL_KINDS
-        procedure ${s1}$_rr_${k1}$, &
-                  ${s1}$_ri_${k1}$, &
-                  ${s1}$_ir_${k1}$
+    interface
+        #:for k1, t1 in REAL_KINDS_TYPES
+        module subroutine ${s1}$_${k1}$(X, from, to)
+            ${t1}$, dimension(:) :: X
+            ${t1}$, intent(in) :: from, to
+        end subroutine
         #:endfor
     end interface
-    #:for k1 in REAL_KINDS
-    interface ${k1[0]}$${s1}$
-        procedure ${s1}$_ii_${k1}$
-        procedure ${s1}$_rr_${k1}$, &
-                  ${s1}$_ri_${k1}$, &
-                  ${s1}$_ir_${k1}$
-    end interface
-    #:endfor
     #:endfor
 
     interface loadbin
@@ -644,6 +609,14 @@ module forlab
         #:endfor
     end interface
 
+    interface ones
+        #:for k1, t1 in REAL_KINDS_TYPES
+        elemental module subroutine ones_${k1}$(X)
+            ${t1}$, intent(out) :: X
+        end subroutine
+        #:endfor
+    end interface
+
     interface outer
         #:for k1,t1 in INT_KINDS_TYPES
         module function outer_${k1}$(x, y)
@@ -675,46 +648,7 @@ module forlab
         end subroutine progress_perc
     end interface
 
-    interface randi
-        #:set RANKS = range(0, 4)
-        #:set RANKS2 = range(0, 2)
-        #:for RANK in RANKS
-        #:for RANK2 in RANKS2
-        procedure :: randi_${RANK}$_${RANK2}$
-        #:endfor
-        #:endfor
-    end interface
 
-    interface randn
-        #:set RANKS = range(0, 4)
-        #:for RANK in RANKS
-        procedure randn_${RANK}$_${DK}$
-        #:endfor
-    end interface
-
-    #:set RANKS = range(0, 4)
-    #:for k1 in REAL_KINDS
-    interface ${k1[0]}$randn
-        #:for RANK in RANKS
-        procedure randn_${RANK}$_${k1}$
-        #:endfor
-    end interface
-    #:endfor
-
-    interface randu
-        #:set RANKS = range(0, 4)
-        #:for RANK in RANKS
-        procedure randu_${RANK}$_${DK}$
-        #:endfor
-    end interface
-    #:set RANKS = range(0, 4)
-    #:for k1 in REAL_KINDS
-    interface ${k1[0]}$randu
-        #:for RANK in RANKS
-        procedure randu_${RANK}$_${k1}$
-        #:endfor
-    end interface
-    #:endfor
 
     interface repmat
         module procedure repmat1, repmat2
@@ -757,6 +691,19 @@ module forlab
             #:endif
         end subroutine
         #:endfor
+        #:endfor
+    end interface
+
+    interface seq
+        !! seq returns evenly spaced vector.
+        !!([Specification](../module/forlab_seq.html))
+        #:set RI_KINDS_TYPES = REAL_KINDS_TYPES + INT_KINDS_TYPES 
+        #:for k1, t1 in RI_KINDS_TYPES
+        elemental module subroutine seq_${k1}$ (X, from, to, by)
+            ${t1}$, dimension(:), allocatable :: X
+            ${t1}$, intent(in) :: first, last
+            ${t1}$, optional, intent(in) :: by
+        end subroutine
         #:endfor
     end interface
 
@@ -912,7 +859,7 @@ module forlab
     end interface
     #:endfor
 
-    #:set EZO_NAME = ['empty', 'zeros', 'ones']
+    #:set EZO_NAME = ['empty', 'ones']
     #:set RANKS = range(1, 4)
     #:for e1 in EZO_NAME
     interface ${e1}$
@@ -980,137 +927,41 @@ module forlab
         end subroutine
     end interface
 
-    !! Linspace & Logspace
-    interface
-        #:set SPACE = ['linspace', 'logspace']
-        #:for s1 in SPACE
+    !! Randn
+    interface randn
         #:for k1, t1 in REAL_KINDS_TYPES
-        module function ${s1}$_rr_${k1}$(first, last, n)
-            ${t1}$, dimension(:), allocatable :: ${s1}$_rr_${k1}$
-            ${t1}$, intent(in) :: first, last
-            integer, intent(in) :: n
-        end function
-        module function ${s1}$_ii_${k1}$(first, last, n)
-            ${t1}$, dimension(:), allocatable :: ${s1}$_ii_${k1}$
-            integer, intent(in) :: first, last
-            integer, intent(in) :: n
-        end function 
-        module function ${s1}$_ri_${k1}$(first, last, n)
-            ${t1}$, dimension(:), allocatable :: ${s1}$_ri_${k1}$
-            ${t1}$, intent(in) :: first
-            integer, intent(in) :: last
-            integer, intent(in) :: n
-        end function
-        module function ${s1}$_ir_${k1}$(first, last, n)
-            ${t1}$, dimension(:), allocatable :: ${s1}$_ir_${k1}$
-            integer, intent(in) :: first
-            ${t1}$, intent(in) :: last
-            integer, intent(in) :: n
-        end function
-        #:endfor
-        #:endfor
-    end interface
-
-    !! Randi
-    interface
-        #:set RANKS = range(0, 4)
-        #:set RANKS2 = range(0, 2)
-        #:for RANK in RANKS
-        #:for RANK2 in RANKS2
-        #:if RANK == 0
-        module function randi_${RANK}$_${RANK2}$(imax)
-            integer :: randi_${RANK}$_${RANK2}$
-        #:elif RANK == 1
-        module function randi_${RANK}$_${RANK2}$(imax, dim1)
-            integer, dimension(:), allocatable :: randi_${RANK}$_${RANK2}$
-            integer, intent(in) :: dim1
-        #:elif RANK == 2
-        module function randi_${RANK}$_${RANK2}$(imax, dim1, dim2)
-            integer, dimension(:,:), allocatable :: randi_${RANK}$_${RANK2}$
-            integer, intent(in) :: dim1, dim2
-        #:elif RANK == 3
-        module function randi_${RANK}$_${RANK2}$(imax, dim1, dim2, dim3)
-            integer, dimension(:,:,:), allocatable :: randi_${RANK}$_${RANK2}$
-            integer, intent(in) :: dim1, dim2, dim3
-        #:endif
-            #:if RANK2 == 0
-            integer, intent(in) :: imax
-            #:elif RANK2 == 1
-            integer, dimension(2), intent(in) :: imax
-            #:endif
-        end function
-        #:endfor
+        impure elemental module subroutine randu_${k1}$(X, mean, std)
+            ${t1}$, intent(out) :: X
+            ${t1}$, optional, intent(in) :: mean, std
+        end subroutine
         #:endfor
     end interface
 
     !! Randu
-    #:set RANKS = range(0, 4)
-    interface
+    interface radnu
         #:for k1, t1 in REAL_KINDS_TYPES
-        #:for RANK in RANKS
-        #:if RANK == 0
-        module function randu_${RANK}$_${k1}$ ()
-        #:elif RANK == 1
-        module function randu_${RANK}$_${k1}$ (dim1)
-            integer, intent(in) :: dim1
-        #:elif RANK == 2
-        module function randu_${RANK}$_${k1}$ (dim1, dim2)
-            integer, intent(in) :: dim1, dim2
-        #:elif RANK == 3
-        module function randu_${RANK}$_${k1}$ (dim1, dim2, dim3)
-            integer, intent(in) :: dim1, dim2, dim3
-        #:endif
-            #:if RANK == 0
-            ${t1}$ :: randu_${RANK}$_${k1}$ ${ranksuffix(RANK)}$
-            #:else
-            ${t1}$, allocatable :: randu_${RANK}$_${k1}$ ${ranksuffix(RANK)}$
-            #:endif
-        end function
-        #:endfor
+        impure elemental module subroutine randu_${k1}$(X, from, to)
+            ${t1}$, intent(out) :: X
+            ${t1}$, optional, intent(in) :: from, to
+        end subroutine
         #:endfor
     end interface
 
-    !! EZO
-    #:set EZO_NAME = ['empty', 'zeros', 'ones']
-    #:set RANKS = range(1, 4)
-    #:for e1 in EZO_NAME
-    interface
-        #:for RANK in RANKS
+    !! Randn
+    interface radnn
         #:for k1, t1 in REAL_KINDS_TYPES
-        #:if RANK == 1
-        module function ${e1}$_${RANK}$_${k1}$ (dim1)
-            integer, intent(in) :: dim1
-        #:elif RANK == 2
-        module function ${e1}$_${RANK}$_${k1}$ (dim1, dim2)
-            integer, intent(in) :: dim1, dim2
-        #:elif RANK == 3
-        module function ${e1}$_${RANK}$_${k1}$ (dim1, dim2, dim3)
-            integer, intent(in) :: dim1, dim2, dim3
-        #:endif
-            ${t1}$, allocatable :: ${e1}$_${RANK}$_${k1}$ ${ranksuffix(RANK)}$
-        end function
-        #:endfor
+        elemental module subroutine randu_${k1}$(X, from, to)
+            ${t1}$, intent(out) :: X
+            ${t1}$, optional, intent(in) :: from, to
+        end subroutine
         #:endfor
     end interface
-    #:endfor
 
-    !! Eye
-    interface
-        #:set RANKS = range(1, 3)
+    interface zeros
         #:for k1, t1 in REAL_KINDS_TYPES
-        #:for RANK in RANKS
-        #:if RANK == 1
-        module function eye_${RANK}$_${k1}$(dim1)
-            integer, intent(in) :: dim1
-        #:elif RANK == 2
-        module function eye_${RANK}$_${k1}$ (dim1, dim2)
-            integer, intent(in) :: dim2
-            integer, intent(in) :: dim1
-        #:endif
-            ${t1}$, dimension(:, :), allocatable :: eye_${RANK}$_${k1}$
-        end function
-
-        #:endfor
+        elemental module subroutine zeros_${k1}$ (X)
+            ${t1}$, intent(in) :: X
+        end subroutine
         #:endfor
     end interface
 

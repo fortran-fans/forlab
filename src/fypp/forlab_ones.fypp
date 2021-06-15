@@ -34,23 +34,8 @@ contains
     #:set RANKS = range(1, 4)
     #:for k1, t1 in REAL_KINDS_TYPES
     #:for RANK in RANKS
-    module procedure ones_${RANK}$_${k1}$
-        integer :: ierr
-
-        #:if RANK == 1
-        allocate (ones_${RANK}$_${k1}$(dim1), stat=ierr)
-        #:elif RANK == 2
-        allocate (ones_${RANK}$_${k1}$(dim1, dim2), stat=ierr)
-        #:elif RANK == 3
-        allocate (ones_${RANK}$_${k1}$(dim1, dim2, dim3), stat=ierr)
-        #:endif
-
-        if (ierr /= 0) then
-            print *, "Error: in ones, could not allocate array."
-            stop
-        else
-            ones_${RANK}$_${k1}$ = 1.0_${k1}$
-        end if
+    module procedure ones_${k1}$
+        X = 1.0_${k1}$
         return
     end procedure
 

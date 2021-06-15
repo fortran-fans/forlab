@@ -17,18 +17,32 @@ submodule(forlab) forlab_arange
     !!     x = arange(1, 9)
     !!          1   2   3   4   5   6   7   8   9
     use forlab_kinds
+    use forlab_optval, only: optval
     implicit none
 
 contains
-    #:for k1, t1 in INT_KINDS_TYPES
-    module procedure arange_${k1}$
-        ${t1}$ :: i
-        if (first <= last) then
-            arange_${k1}$ = [(i, i=first, last)]
+    #:set RI_KINDS_TYPES = REAL_KINDS_TYPES + INT_KINDS_TYPES
+    #:for k1, t1 in RI_KINDS_TYPES
+    module procedure seq_${k1}$
+        ${t1}$ :: i, by_
+
+        #:if t1 in REAL_KINDS_TYPES
+        by_ = optval(x=by, 1.0_${k1}$)
+        #:else
+        by_ = optval(x=by, 1)
+        #:endif
+
+        if (by <= 0) then
+            call error_stop('Error: In seq, `by` should be greater than 0.')
+        end if
+
+        if (from <= to) then
+            X = [(i, i=from, to, by_)]
         else
-            arange_${k1}$ = [(i, i=first, last, -1)]
+            X = [(i, i=from, to, -by_)]
         end if
         return
     end procedure
+    
     #:endfor
 end submodule

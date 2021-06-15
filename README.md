@@ -50,14 +50,14 @@ If you have special needs, you can change the variables `ipre` and `rpre` in the
 
 ## Interfaces
 ```fortran
-    public :: File, acosd, asind, atand, argmax, argmin, argsort, arange, &
+public :: File, acosd, asind, atand, argmax, argmin, argsort, arange, &
               angle, bsplrep1, bsplrep2, bspline1, bspline2, chol, cosd, countlines, &
               cov, cumsum, chi2cdf, chi2pdf, chi2inv, chi2rand, check_directory, &
               det, diag, disp, deg2utm, datenum, datevec, datestr, deboor, diff, &
-              eig, &
+              eig, file_exist, &
               find, flip, fliplr, flipud, fminbnd, gammainc, horzcat, &
               hann, interp1, interp2, interp3, inv, ismember, isoutlier, issquare, &
-              isleap, issymmetric, kurtosis, k2test, kde, &
+              isleap, issymmetric, kurtosis, k2test, kde, loadbin, loadtxt, &
               mean, median, mad,matpow, meshgrid, nextpow2, norm, normpdf, num2str, &
               outer, pascal, prctile, progress_bar, progress_perc,qr, rng, &
               randi, randperm, repmat, rms, savetxt, savebin, sind, sort, solve, &
@@ -69,11 +69,9 @@ If you have special needs, you can change the variables `ipre` and `rpre` in the
     public :: eye, seye, deye, qeye
     public :: linspace, slinspace, dlinspace, qlinspace
     public :: logspace, slogspace, dlogspace, qlogspace
-    public :: loadbin, sloadbin, dloadbin, qloadbin
     public :: ones, sones, dones, qones
     public :: randn, srandn, drandn, qrandn
     public :: randu, srandu, drandu, qrandu
-    public :: loadtxt, sloadtxt, dloadtxt, qloadtxt
     public :: zeros, szeros, dzeros, qzeros
     !! #ifdef do_mpi
     public :: mpi_rpre

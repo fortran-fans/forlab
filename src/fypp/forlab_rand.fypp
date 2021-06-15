@@ -1,10 +1,4 @@
 #:include 'common.fypp'
-
-#:def ranksuffix(RANK)
-$:'' if RANK == 0 else '(' + ':' + ',:' * (RANK - 1) + ')'
-#:enddef ranksuffix
-
-#:set RANKS = range(0, 4)
 submodule(forlab) forlab_randu
     !! Version: experimental
     !!
@@ -36,25 +30,38 @@ submodule(forlab) forlab_randu
     !!    x = randu(5)*2 - 1
     !!        0.640258908  -0.873707294   0.787327528
     use forlab_kinds
+    use forlab_optval, only: optval
     implicit none
 contains
     #:for k1, t1 in REAL_KINDS_TYPES
-    #:for RANK in RANKS
-    module procedure randu_${RANK}$_${k1}$
-        #:if RANK == 0
+    module procedure randu_${k1}$
+        ${k1}$ :: from_, to_
 
-        #:elif RANK == 1
-        allocate (randu_${RANK}$_${k1}$ (dim1))
-        #:elif RANK == 2
-        allocate (randu_${RANK}$_${k1}$ (dim1, dim2))
-        #:elif RANK == 3
-        allocate (randu_${RANK}$_${k1}$ (dim1, dim2, dim3))
-        #:endif
+        from_ = optval(x=from, 0.0_${k1}$)
+        to_ = optval(x=to, 1.0_${k1}$)
+        call random_number(X)
+        X = min(from_, to_) + X*(max(from_, to_) - min(from_, to_))
+        return
+    end procedure
 
-        call random_number(randu_${RANK}$_${k1}$)
+    module procedure randn_${k1}$
+        real(${k1}$) :: u, v, s
+        real(${k1}$) :: mean_, std_ 
+
+        mean_ = optval(x=mean, 0.0_${k1}$)
+        std_ = optval(x=std, 1.0_${k1}$)
+        do
+            call randu(u)
+            u = 2._${k1}$*u - 1._${k1}$
+            call radnu(v)
+            v = 2._${k1}$*v - 1._${k1}$
+            s = u*u + v*v
+            if ((s > 0._${k1}$) .and. (s < 1._${k1}$)) exit
+        end do
+        X = mean_ + u*sqrt(-2.0_${k1}$*log(s)/s)*std_
         return
     end procedure
 
     #:endfor
-    #:endfor
+
 end submodule
