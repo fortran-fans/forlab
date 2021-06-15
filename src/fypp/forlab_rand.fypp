@@ -1,3 +1,5 @@
+!!\TODO: Reduced speed. @2021-6-15
+
 #:include 'common.fypp'
 submodule(forlab) forlab_randu
     !! Version: experimental
@@ -45,7 +47,7 @@ contains
         #:elif t1[0] == 'i'
         real :: r
         from_ = optval(from, 0_${k1}$)  
-        to_ = optval(to, 100_${k1}$)
+        to_ = optval(to, 1_${k1}$)
         call random_number(r)
         X = min(from_, to_) + nint(r*real(max(from_, to_) - min(from_, to_)))
         #:endif

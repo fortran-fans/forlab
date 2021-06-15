@@ -51,7 +51,7 @@ program main
         real :: time_sp
         real(8) :: time_dp
         real(16) :: time_qp
-        real(16), allocatable :: x(:)
+        real(8), allocatable :: x(:)
 
         call disp('----------------------------')
         call tic()
@@ -195,7 +195,6 @@ program main
 
     block
         use forlab, only: disp,solve
-        integer::i
         real(8) ::a(2,2)=reshape([1,2,2,1],shape(a))
         real(8) ::b(2)=[3,4]
         real(8) ::c(3,2)=reshape([1,1,2,4,2,3],shape(c))
@@ -245,7 +244,6 @@ program main
 
     block
         use forlab, only: disp,qr
-        integer::i
         real(8) ::a(4,3)=reshape([1.0,2.0,1.0,-1.0,1.0,1.0,-1.0,2.0,-1.0,0.0,0.0,1.0],shape(a))
         real(8),allocatable ::q(:,:),r(:,:)
         real(8),allocatable ::q1(:,:),r1(:,:)
@@ -261,7 +259,6 @@ program main
 
     block
         use forlab, only: disp,matpow
-        integer::i
         real(8) ::a(3,3)=reshape([1,0,0,0,1,0,1,0,1],shape(a))
         real(8),allocatable ::c(:,:)
         call disp("Test matpow")

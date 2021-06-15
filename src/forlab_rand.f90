@@ -1,3 +1,5 @@
+!!\TODO: Reduced speed. @2021-6-15
+
 submodule(forlab) forlab_randu
     !! Version: experimental
     !!
@@ -116,7 +118,7 @@ contains
         integer(int8) :: from_, to_
         real :: r
         from_ = optval(from, 0_int8)  
-        to_ = optval(to, 100_int8)
+        to_ = optval(to, 1_int8)
         call random_number(r)
         X = min(from_, to_) + nint(r*real(max(from_, to_) - min(from_, to_)))
         return
@@ -127,7 +129,7 @@ contains
         integer(int16) :: from_, to_
         real :: r
         from_ = optval(from, 0_int16)  
-        to_ = optval(to, 100_int16)
+        to_ = optval(to, 1_int16)
         call random_number(r)
         X = min(from_, to_) + nint(r*real(max(from_, to_) - min(from_, to_)))
         return
@@ -138,7 +140,7 @@ contains
         integer(int32) :: from_, to_
         real :: r
         from_ = optval(from, 0_int32)  
-        to_ = optval(to, 100_int32)
+        to_ = optval(to, 1_int32)
         call random_number(r)
         X = min(from_, to_) + nint(r*real(max(from_, to_) - min(from_, to_)))
         return
@@ -149,7 +151,7 @@ contains
         integer(int64) :: from_, to_
         real :: r
         from_ = optval(from, 0_int64)  
-        to_ = optval(to, 100_int64)
+        to_ = optval(to, 1_int64)
         call random_number(r)
         X = min(from_, to_) + nint(r*real(max(from_, to_) - min(from_, to_)))
         return
