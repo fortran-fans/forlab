@@ -88,8 +88,9 @@ contains
         write(outfile%unit) size(X,1), size(X,2), size(X,3)
         #:endif
 
-        #:if t1 in CMPLX_KINDS_TYPES
-        write (outfile%unit) real(X,${k1}$), imag(X,${k1}$)
+        #:if t1[0] == 'c'
+        write (outfile%unit) real(X), imag(X)
+            !! Precision
             #! Store complex array values.
         #:else
         write (outfile%unit) X

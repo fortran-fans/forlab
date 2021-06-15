@@ -37,8 +37,9 @@ contains
         n = size(A, 2)
         k = n
         if (present(cutoff)) k = k - cutoff
-        xnorm = zeros(n)
-        resnorm = zeros(n)
+        allocate(xnorm(n),resnorm(n))
+        call zeros(n)
+        call zeros(n)
         call svd(A, w, U, V)
         do i = 1, n
             x = matmul(matmul(matmul(V(:, :i), diag(1/w(:i))), transpose(U(:, :i))), b)
@@ -54,8 +55,9 @@ contains
         n = size(A, 2)
         k = n
         if (present(cutoff)) k = k - cutoff
-        xnorm = zeros(n)
-        resnorm = zeros(n)
+        allocate(xnorm(n),resnorm(n))
+        call zeros(n)
+        call zeros(n)
         call svd(A, w, U, V)
         do i = 1, n
             x = matmul(matmul(matmul(V(:, :i), diag(1/w(:i))), transpose(U(:, :i))), b)
@@ -71,8 +73,9 @@ contains
         n = size(A, 2)
         k = n
         if (present(cutoff)) k = k - cutoff
-        xnorm = zeros(n)
-        resnorm = zeros(n)
+        allocate(xnorm(n),resnorm(n))
+        call zeros(n)
+        call zeros(n)
         call svd(A, w, U, V)
         do i = 1, n
             x = matmul(matmul(matmul(V(:, :i), diag(1/w(:i))), transpose(U(:, :i))), b)

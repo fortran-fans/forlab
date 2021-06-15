@@ -28,7 +28,8 @@ contains
         deallocate(V)
         if (all(d >= zero)) then
             n = size(A, 1)
-            L = zeros(n, n)
+            allocate(L(n, n))
+            call zeros(L)
             L(1, 1) = sqrt(A(1, 1))
             do i = 2, n
                 L(i, 1) = A(i, 1)/L(1, 1)
@@ -66,7 +67,8 @@ contains
         deallocate(V)
         if (all(d >= zero)) then
             n = size(A, 1)
-            L = zeros(n, n)
+            allocate(L(n, n))
+            call zeros(L)
             L(1, 1) = sqrt(A(1, 1))
             do i = 2, n
                 L(i, 1) = A(i, 1)/L(1, 1)
@@ -104,7 +106,8 @@ contains
         deallocate(V)
         if (all(d >= zero)) then
             n = size(A, 1)
-            L = zeros(n, n)
+            allocate(L(n, n))
+            call zeros(L)
             L(1, 1) = sqrt(A(1, 1))
             do i = 2, n
                 L(i, 1) = A(i, 1)/L(1, 1)

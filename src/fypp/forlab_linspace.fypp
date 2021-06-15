@@ -20,53 +20,20 @@ submodule(forlab) forlab_linspace
 contains
 
     #:for k1, t1 in REAL_KINDS_TYPES
-    module procedure linspace_rr_${k1}$
-        integer :: i
-        real(${k1}$) :: step
-        if (n<=1) print *, ('Error: in linspace, n should be > 1.')
-        allocate (linspace_rr_${k1}$(n))
-        step = (last - first)/(n - 1)
-        linspace_rr_${k1}$ = first + step*real([(i - 1, i=1, n)], ${k1}$)
+    module procedure linspace_${k1}$
+        integer :: i, n
+        real(${k1}$) :: by
+        n = size(X)
+        by = (to - from)/real(n - 1, ${k1}$)
+        X = from + by*real([(i - 1, i=1, n)], ${k1}$)
         return
     end procedure
 
-    module procedure linspace_ii_${k1}$
-        linspace_ii_${k1}$ = ${k1[0]}$linspace(real(first, kind=${k1}$), real(last, kind=${k1}$), n)
-    end procedure 
-
-    module procedure linspace_ri_${k1}$
-        linspace_ri_${k1}$ = ${k1[0]}$linspace(first, real(last, kind=${k1}$), n)
+    module procedure logspace_${k1}$
+        call linspace(X, log10(from), log10(to))
+        X = 10._${k1}$**X
         return
     end procedure
-
-    module procedure linspace_ir_${k1}$
-        linspace_ir_${k1}$ = ${k1[0]}$linspace(real(first, kind=${k1}$), last, n)
-        return
-    end procedure
-
-    module procedure logspace_rr_${k1}$
-        logspace_rr_${k1}$ = ${k1[0]}$linspace(log10(first), log10(last), n)
-        logspace_rr_${k1}$ = 10._${k1}$**logspace_rr_${k1}$
-        return
-    end procedure
-
-    module procedure logspace_ii_${k1}$
-        logspace_ii_${k1}$ = ${k1[0]}$linspace(log10(real(first, kind=${k1}$)), log10(real(last, kind=${k1}$)), n)
-        logspace_ii_${k1}$ = 10._${k1}$**logspace_ii_${k1}$
-    end procedure 
-
-    module procedure logspace_ri_${k1}$
-        logspace_ri_${k1}$ = ${k1[0]}$linspace(log10(first), log10(real(last, kind=${k1}$)), n)
-        logspace_ri_${k1}$ = 10._${k1}$**logspace_ri_${k1}$
-        return
-    end procedure
-
-    module procedure logspace_ir_${k1}$
-        logspace_ir_${k1}$ = ${k1[0]}$linspace(log10(real(first, kind=${k1}$)), log10(last), n)
-        logspace_ir_${k1}$ = 10._${k1}$**logspace_ir_${k1}$
-        return
-    end procedure
-
     #:endfor
 
 end submodule

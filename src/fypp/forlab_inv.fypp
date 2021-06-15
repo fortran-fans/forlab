@@ -55,13 +55,15 @@ contains
 
         if (issquare(A)) then
             m = size(A, 1)
+            allocate(inv_${t1[0]}$${k1}$(m,m))
+            allocate(x(m), y(m), e(m))
             if (m .le. 3) then
                 D = det(A)
             else
                 D = det(A, L, U)
             end if
             if (D .ne. 0._${k1}$) then
-                inv_${t1[0]}$${k1}$ = ${k1[0]}$zeros(m, m)
+                call zeros(inv_${t1[0]}$${k1}$)
                 if (m .eq. 2) then
                     inv_${t1[0]}$${k1}$ (1, 1) = A(2, 2)
                     inv_${t1[0]}$${k1}$ (1, 2) = -A(1, 2)
@@ -81,9 +83,9 @@ contains
                     inv_${t1[0]}$${k1}$ = inv_${t1[0]}$${k1}$/D
                 else
                     do k = 1, m
-                        x = ${k1[0]}$zeros(m)
-                        y = ${k1[0]}$zeros(m)
-                        e = ${k1[0]}$zeros(m)
+                        call zeros(x)
+                        call zeros(y)
+                        call zeros(e)
                         e(k) = 1.
                         y(1) = e(1)
 
@@ -136,9 +138,10 @@ contains
 
         if (issquare(A)) then
             n = size(A, 1)
-            inv_${t1[0]}$${k1}$ = ${k1[0]}$zeros(n, n)
-            ar = ${k1[0]}$zeros(n, n)
-            ai = ${k1[0]}$zeros(n, n)
+            allocate(inv_${t1[0]}$${k1}$(n,n),ar(n,n),ai(n,n))
+            call zeros(inv_${t1[0]}$${k1}$)
+            call zeros(ar)
+            call zeros(ai)
             allocate(is(n),js(n))
             is = 0
             js = 0

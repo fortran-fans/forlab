@@ -588,6 +588,7 @@ contains
         integer, allocatable :: nsize(:)
         character(8) :: datatype
         integer :: data_dim
+        real(sp), allocatable :: rp(:), ip(:)
 
         infile = File(trim(filename))
         if (infile%exist()) then
@@ -612,7 +613,10 @@ contains
             
             allocate (X(nsize(1)))
 
-            read (infile%unit) X
+            allocate (rp(nsize(1)))
+            allocate (ip(nsize(1)))
+            read (infile%unit) rp, ip
+            X = cmplx(rp,ip,sp)
 
             call infile%close()
         else
@@ -664,6 +668,7 @@ contains
         integer, allocatable :: nsize(:)
         character(8) :: datatype
         integer :: data_dim
+        real(dp), allocatable :: rp(:), ip(:)
 
         infile = File(trim(filename))
         if (infile%exist()) then
@@ -688,7 +693,10 @@ contains
             
             allocate (X(nsize(1)))
 
-            read (infile%unit) X
+            allocate (rp(nsize(1)))
+            allocate (ip(nsize(1)))
+            read (infile%unit) rp, ip
+            X = cmplx(rp,ip,dp)
 
             call infile%close()
         else
@@ -740,6 +748,7 @@ contains
         integer, allocatable :: nsize(:)
         character(8) :: datatype
         integer :: data_dim
+        real(qp), allocatable :: rp(:), ip(:)
 
         infile = File(trim(filename))
         if (infile%exist()) then
@@ -764,7 +773,10 @@ contains
             
             allocate (X(nsize(1)))
 
-            read (infile%unit) X
+            allocate (rp(nsize(1)))
+            allocate (ip(nsize(1)))
+            read (infile%unit) rp, ip
+            X = cmplx(rp,ip,qp)
 
             call infile%close()
         else
@@ -1348,6 +1360,7 @@ contains
         integer, allocatable :: nsize(:)
         character(8) :: datatype
         integer :: data_dim
+        real(sp), allocatable :: rp(:,:), ip(:,:)
 
         infile = File(trim(filename))
         if (infile%exist()) then
@@ -1372,7 +1385,10 @@ contains
             
             allocate (X(nsize(1),nsize(2)))
 
-            read (infile%unit) X
+            allocate (rp(nsize(1),nsize(2)))
+            allocate (ip(nsize(1),nsize(2)))
+            read (infile%unit) rp, ip
+            X = cmplx(rp,ip,sp)
 
             call infile%close()
         else
@@ -1424,6 +1440,7 @@ contains
         integer, allocatable :: nsize(:)
         character(8) :: datatype
         integer :: data_dim
+        real(dp), allocatable :: rp(:,:), ip(:,:)
 
         infile = File(trim(filename))
         if (infile%exist()) then
@@ -1448,7 +1465,10 @@ contains
             
             allocate (X(nsize(1),nsize(2)))
 
-            read (infile%unit) X
+            allocate (rp(nsize(1),nsize(2)))
+            allocate (ip(nsize(1),nsize(2)))
+            read (infile%unit) rp, ip
+            X = cmplx(rp,ip,dp)
 
             call infile%close()
         else
@@ -1500,6 +1520,7 @@ contains
         integer, allocatable :: nsize(:)
         character(8) :: datatype
         integer :: data_dim
+        real(qp), allocatable :: rp(:,:), ip(:,:)
 
         infile = File(trim(filename))
         if (infile%exist()) then
@@ -1524,7 +1545,10 @@ contains
             
             allocate (X(nsize(1),nsize(2)))
 
-            read (infile%unit) X
+            allocate (rp(nsize(1),nsize(2)))
+            allocate (ip(nsize(1),nsize(2)))
+            read (infile%unit) rp, ip
+            X = cmplx(rp,ip,qp)
 
             call infile%close()
         else
@@ -1856,6 +1880,7 @@ contains
         integer, allocatable :: nsize(:)
         character(8) :: datatype
         integer :: data_dim
+        real(sp), allocatable :: rp(:,:,:), ip(:,:,:)
 
         infile = File(trim(filename))
         if (infile%exist()) then
@@ -1880,7 +1905,10 @@ contains
             
             allocate (X(nsize(1),nsize(2),nsize(3)))
 
-            read (infile%unit) X
+            allocate (rp(nsize(1),nsize(2),nsize(3)))
+            allocate (ip(nsize(1),nsize(2),nsize(3)))
+            read (infile%unit) rp, ip
+            X = cmplx(rp,ip,sp)
 
             call infile%close()
         else
@@ -1896,6 +1924,7 @@ contains
         integer, allocatable :: nsize(:)
         character(8) :: datatype
         integer :: data_dim
+        real(dp), allocatable :: rp(:,:,:), ip(:,:,:)
 
         infile = File(trim(filename))
         if (infile%exist()) then
@@ -1920,7 +1949,10 @@ contains
             
             allocate (X(nsize(1),nsize(2),nsize(3)))
 
-            read (infile%unit) X
+            allocate (rp(nsize(1),nsize(2),nsize(3)))
+            allocate (ip(nsize(1),nsize(2),nsize(3)))
+            read (infile%unit) rp, ip
+            X = cmplx(rp,ip,dp)
 
             call infile%close()
         else
@@ -1936,6 +1968,7 @@ contains
         integer, allocatable :: nsize(:)
         character(8) :: datatype
         integer :: data_dim
+        real(qp), allocatable :: rp(:,:,:), ip(:,:,:)
 
         infile = File(trim(filename))
         if (infile%exist()) then
@@ -1960,7 +1993,10 @@ contains
             
             allocate (X(nsize(1),nsize(2),nsize(3)))
 
-            read (infile%unit) X
+            allocate (rp(nsize(1),nsize(2),nsize(3)))
+            allocate (ip(nsize(1),nsize(2),nsize(3)))
+            read (infile%unit) rp, ip
+            X = cmplx(rp,ip,qp)
 
             call infile%close()
         else

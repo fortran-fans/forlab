@@ -40,7 +40,8 @@ contains
     module procedure diag2_sp
         integer :: i, n
         n = size(x)
-        diag2_sp = szeros(n, n)
+        allocate(diag2_sp(n,n))
+        call zeros(diag2_sp)
         do i = 1, n
             diag2_sp (i, i) = x(i)
         end do
@@ -59,7 +60,8 @@ contains
     module procedure diag2_dp
         integer :: i, n
         n = size(x)
-        diag2_dp = dzeros(n, n)
+        allocate(diag2_dp(n,n))
+        call zeros(diag2_dp)
         do i = 1, n
             diag2_dp (i, i) = x(i)
         end do
@@ -78,7 +80,8 @@ contains
     module procedure diag2_qp
         integer :: i, n
         n = size(x)
-        diag2_qp = qzeros(n, n)
+        allocate(diag2_qp(n,n))
+        call zeros(diag2_qp)
         do i = 1, n
             diag2_qp (i, i) = x(i)
         end do

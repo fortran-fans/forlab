@@ -30,8 +30,9 @@ contains
         m = size(A, 1)
         n = size(A, 2)
         if (issquare(A)) then
-            x = zeros(m)
-            y = zeros(m)
+            allocate(x(m),y(m))
+            call zeros(x)
+            call zeros(y)
             y(1) = b(1)
             ! LU decomposition to solve LUx = b
             !===================================
@@ -65,8 +66,9 @@ contains
         m = size(A, 1)
         n = size(A, 2)
         if (issquare(A)) then
-            x = zeros(m)
-            y = zeros(m)
+            allocate(x(m),y(m))
+            call zeros(x)
+            call zeros(y)
             y(1) = b(1)
             ! LU decomposition to solve LUx = b
             !===================================
@@ -100,8 +102,9 @@ contains
         m = size(A, 1)
         n = size(A, 2)
         if (issquare(A)) then
-            x = zeros(m)
-            y = zeros(m)
+            allocate(x(m),y(m))
+            call zeros(x)
+            call zeros(y)
             y(1) = b(1)
             ! LU decomposition to solve LUx = b
             !===================================

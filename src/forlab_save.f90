@@ -326,7 +326,8 @@ contains
         write(outfile%unit) type, int(1, 4)
         write(outfile%unit) size(X,1)
 
-        write (outfile%unit) X
+        write (outfile%unit) real(X), imag(X)
+            !! Precision
         
         call outfile%close()
         return
@@ -363,7 +364,8 @@ contains
         write(outfile%unit) type, int(1, 4)
         write(outfile%unit) size(X,1)
 
-        write (outfile%unit) X
+        write (outfile%unit) real(X), imag(X)
+            !! Precision
         
         call outfile%close()
         return
@@ -400,7 +402,8 @@ contains
         write(outfile%unit) type, int(1, 4)
         write(outfile%unit) size(X,1)
 
-        write (outfile%unit) X
+        write (outfile%unit) real(X), imag(X)
+            !! Precision
         
         call outfile%close()
         return
@@ -696,7 +699,8 @@ contains
         write(outfile%unit) type, int(2, 4)
         write(outfile%unit) size(X,1), size(X,2)
 
-        write (outfile%unit) X
+        write (outfile%unit) real(X), imag(X)
+            !! Precision
         
         call outfile%close()
         return
@@ -733,7 +737,8 @@ contains
         write(outfile%unit) type, int(2, 4)
         write(outfile%unit) size(X,1), size(X,2)
 
-        write (outfile%unit) X
+        write (outfile%unit) real(X), imag(X)
+            !! Precision
         
         call outfile%close()
         return
@@ -770,7 +775,8 @@ contains
         write(outfile%unit) type, int(2, 4)
         write(outfile%unit) size(X,1), size(X,2)
 
-        write (outfile%unit) X
+        write (outfile%unit) real(X), imag(X)
+            !! Precision
         
         call outfile%close()
         return
@@ -898,7 +904,8 @@ contains
         write(outfile%unit) type, int(3, 4)
         write(outfile%unit) size(X,1), size(X,2), size(X,3)
 
-        write (outfile%unit) X
+        write (outfile%unit) real(X), imag(X)
+            !! Precision
         
         call outfile%close()
         return
@@ -914,7 +921,8 @@ contains
         write(outfile%unit) type, int(3, 4)
         write(outfile%unit) size(X,1), size(X,2), size(X,3)
 
-        write (outfile%unit) X
+        write (outfile%unit) real(X), imag(X)
+            !! Precision
         
         call outfile%close()
         return
@@ -930,7 +938,8 @@ contains
         write(outfile%unit) type, int(3, 4)
         write(outfile%unit) size(X,1), size(X,2), size(X,3)
 
-        write (outfile%unit) X
+        write (outfile%unit) real(X), imag(X)
+            !! Precision
         
         call outfile%close()
         return

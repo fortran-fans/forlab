@@ -65,7 +65,7 @@ contains
         integer, allocatable :: nsize(:)
         character(8) :: datatype
         integer :: data_dim
-        #:if t1 in CMPLX_KINDS_TYPES
+        #:if t1[0] == 'c'
         real(${k1}$), allocatable :: rp${ranksuffix(RANK)}$, ip${ranksuffix(RANK)}$
         #:endif
 
@@ -98,7 +98,7 @@ contains
             allocate (X(nsize(1),nsize(2),nsize(3)))
             #:endif
 
-            #:if t1 in CMPLX_KINDS_TYPES
+            #:if t1[0] == 'c'
             #:if RANK == 1
             allocate (rp(nsize(1)))
             allocate (ip(nsize(1)))

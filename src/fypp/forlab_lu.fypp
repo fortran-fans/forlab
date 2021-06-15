@@ -38,8 +38,14 @@ contains
 
         if (issquare(A)) then
             m = size(A, 1)
-            if (.not. allocated(L)) L = ${k1[0]}$eye(m)
-            if (.not. allocated(U)) U = ${k1[0]}$zeros(m, m)
+            if (.not. allocated(L)) then
+                allocate(L(m,m))
+                call eye(L)
+            endif
+            if (.not. allocated(U)) then
+                allocate(U(m,m))
+                call zeros(U)
+            endif
 
             do i = 1, m
                 do j = 1, m

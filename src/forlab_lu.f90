@@ -36,8 +36,14 @@ contains
 
         if (issquare(A)) then
             m = size(A, 1)
-            if (.not. allocated(L)) L = seye(m)
-            if (.not. allocated(U)) U = szeros(m, m)
+            if (.not. allocated(L)) then
+                allocate(L(m,m))
+                call eye(L)
+            endif
+            if (.not. allocated(U)) then
+                allocate(U(m,m))
+                call zeros(U)
+            endif
 
             do i = 1, m
                 do j = 1, m
@@ -65,8 +71,14 @@ contains
 
         if (issquare(A)) then
             m = size(A, 1)
-            if (.not. allocated(L)) L = deye(m)
-            if (.not. allocated(U)) U = dzeros(m, m)
+            if (.not. allocated(L)) then
+                allocate(L(m,m))
+                call eye(L)
+            endif
+            if (.not. allocated(U)) then
+                allocate(U(m,m))
+                call zeros(U)
+            endif
 
             do i = 1, m
                 do j = 1, m
@@ -94,8 +106,14 @@ contains
 
         if (issquare(A)) then
             m = size(A, 1)
-            if (.not. allocated(L)) L = qeye(m)
-            if (.not. allocated(U)) U = qzeros(m, m)
+            if (.not. allocated(L)) then
+                allocate(L(m,m))
+                call eye(L)
+            endif
+            if (.not. allocated(U)) then
+                allocate(U(m,m))
+                call zeros(U)
+            endif
 
             do i = 1, m
                 do j = 1, m

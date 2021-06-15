@@ -39,26 +39,18 @@ submodule(forlab) forlab_zeros
     use forlab_kinds
     implicit none
 contains
-    #:for k1, t1 in REAL_KINDS_TYPES
-    #:for RANK in RANKS
-    module procedure zeros_${RANK}$_${k1}$
-        integer :: ierr
-        #:if RANK == 1
-        allocate (zeros_${RANK}$_${k1}$ (dim1), stat=ierr)
-        #:elif RANK == 2
-        allocate (zeros_${RANK}$_${k1}$ (dim1, dim2), stat=ierr)
-        #:elif RANK == 3
-        allocate (zeros_${RANK}$_${k1}$ (dim1, dim2, dim3), stat=ierr)
+    #:set RCI_KINDS_TYPES = REAL_KINDS_TYPES + CMPLX_KINDS_TYPES + INT_KINDS_TYPES
+    #:for k1, t1 in RCI_KINDS_TYPES
+    module procedure zeros_${t1[0]}$${k1}$   
+        #:if t1[0] == 'r' 
+        X = 0.0_${k1}$
+        #:elif t1[0] == 'i'
+        X = 0
+        #:elif t1[0] == 'c'
+        X = cmplx(0.0_${k1}$, 0.0_${k1}$, ${k1}$)
         #:endif
-        if (ierr .ne. 0) then
-            call disp("Error: in (s/d/q)zeros, could not allocate array.")
-            stop
-        else
-            zeros_${RANK}$_${k1}$ = 0.0_${k1}$
-        end if
         return
     end procedure
 
-    #:endfor
     #:endfor
 end submodule

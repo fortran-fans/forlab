@@ -39,10 +39,12 @@ contains
 
             B = A
             n = size(B, 1)
-            V = seye(n)
+            allocate(V(n, n))
+            call eye(V)
             d = diag(B)
             bw = d
-            zw = szeros(n)
+            allocate(zw(n))
+            call zeros(zw)
 
             iter = 0
             do while (iter .lt. opt_itermax)
@@ -144,10 +146,12 @@ contains
 
             B = A
             n = size(B, 1)
-            V = deye(n)
+            allocate(V(n, n))
+            call eye(V)
             d = diag(B)
             bw = d
-            zw = dzeros(n)
+            allocate(zw(n))
+            call zeros(zw)
 
             iter = 0
             do while (iter .lt. opt_itermax)
@@ -249,10 +253,12 @@ contains
 
             B = A
             n = size(B, 1)
-            V = qeye(n)
+            allocate(V(n, n))
+            call eye(V)
             d = diag(B)
             bw = d
-            zw = qzeros(n)
+            allocate(zw(n))
+            call zeros(zw)
 
             iter = 0
             do while (iter .lt. opt_itermax)

@@ -24,13 +24,21 @@ $(OBJS): %.o: %.f90
 	$(FC) $(FFLAGS) -c $<
 
 # Fortran module dependencies
-OBJS_EXT = $(filter-out forlab_error.o forlab_file.o forlab_kinds.o forlab.o, $(OBJS))
+OBJS_EXT = $(filter-out \
+	forlab_optval.o \
+	forlab_error.o \
+	forlab_file.o \
+	forlab_kinds.o \
+	forlab.o, $(OBJS))
 forlab.o: \
 	forlab_file.o \
 	forlab_kinds.o
 forlab_file.o: \
 	forlab_error.o
-
+forlab_error.o: \
+	forlab_optval.o
+forlab_optval.o: \
+	forlab_kinds.o
 $(filter %.o, $(OBJS_EXT)): \
 	forlab.o \
 	forlab_kinds.o \

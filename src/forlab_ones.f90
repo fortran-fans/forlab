@@ -30,129 +30,54 @@ submodule(forlab) forlab_ones
     implicit none
 
 contains
-    module procedure ones_1_sp
-        integer :: ierr
 
-        allocate (ones_1_sp(dim1), stat=ierr)
-
-        if (ierr /= 0) then
-            print *, "Error: in ones, could not allocate array."
-            stop
-        else
-            ones_1_sp = 1.0_sp
-        end if
+    module procedure ones_rsp   
+        X = 1.0_sp
         return
     end procedure
 
-    module procedure ones_2_sp
-        integer :: ierr
-
-        allocate (ones_2_sp(dim1, dim2), stat=ierr)
-
-        if (ierr /= 0) then
-            print *, "Error: in ones, could not allocate array."
-            stop
-        else
-            ones_2_sp = 1.0_sp
-        end if
+    module procedure ones_rdp   
+        X = 1.0_dp
         return
     end procedure
 
-    module procedure ones_3_sp
-        integer :: ierr
-
-        allocate (ones_3_sp(dim1, dim2, dim3), stat=ierr)
-
-        if (ierr /= 0) then
-            print *, "Error: in ones, could not allocate array."
-            stop
-        else
-            ones_3_sp = 1.0_sp
-        end if
+    module procedure ones_rqp   
+        X = 1.0_qp
         return
     end procedure
 
-    module procedure ones_1_dp
-        integer :: ierr
-
-        allocate (ones_1_dp(dim1), stat=ierr)
-
-        if (ierr /= 0) then
-            print *, "Error: in ones, could not allocate array."
-            stop
-        else
-            ones_1_dp = 1.0_dp
-        end if
+    module procedure ones_csp   
+        X = cmplx(1.0_sp, 1.0_sp, sp)
         return
     end procedure
 
-    module procedure ones_2_dp
-        integer :: ierr
-
-        allocate (ones_2_dp(dim1, dim2), stat=ierr)
-
-        if (ierr /= 0) then
-            print *, "Error: in ones, could not allocate array."
-            stop
-        else
-            ones_2_dp = 1.0_dp
-        end if
+    module procedure ones_cdp   
+        X = cmplx(1.0_dp, 1.0_dp, dp)
         return
     end procedure
 
-    module procedure ones_3_dp
-        integer :: ierr
-
-        allocate (ones_3_dp(dim1, dim2, dim3), stat=ierr)
-
-        if (ierr /= 0) then
-            print *, "Error: in ones, could not allocate array."
-            stop
-        else
-            ones_3_dp = 1.0_dp
-        end if
+    module procedure ones_cqp   
+        X = cmplx(1.0_qp, 1.0_qp, qp)
         return
     end procedure
 
-    module procedure ones_1_qp
-        integer :: ierr
-
-        allocate (ones_1_qp(dim1), stat=ierr)
-
-        if (ierr /= 0) then
-            print *, "Error: in ones, could not allocate array."
-            stop
-        else
-            ones_1_qp = 1.0_qp
-        end if
+    module procedure ones_iint8   
+        X = 1
         return
     end procedure
 
-    module procedure ones_2_qp
-        integer :: ierr
-
-        allocate (ones_2_qp(dim1, dim2), stat=ierr)
-
-        if (ierr /= 0) then
-            print *, "Error: in ones, could not allocate array."
-            stop
-        else
-            ones_2_qp = 1.0_qp
-        end if
+    module procedure ones_iint16   
+        X = 1
         return
     end procedure
 
-    module procedure ones_3_qp
-        integer :: ierr
+    module procedure ones_iint32   
+        X = 1
+        return
+    end procedure
 
-        allocate (ones_3_qp(dim1, dim2, dim3), stat=ierr)
-
-        if (ierr /= 0) then
-            print *, "Error: in ones, could not allocate array."
-            stop
-        else
-            ones_3_qp = 1.0_qp
-        end if
+    module procedure ones_iint64   
+        X = 1
         return
     end procedure
 
