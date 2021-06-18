@@ -12,7 +12,6 @@
 !!## Notes
 !! forlab is still in the rapid development stage.
 
-#:include "common.fypp"
 
 module forlab
 
@@ -20,6 +19,7 @@ module forlab
     use forlab_file
     use forlab_optval, only: optval
     use forlab_error
+    use forlab_color, only: setcolor
     implicit none
 
     !! Parameters
@@ -27,9 +27,9 @@ module forlab
     integer, public, parameter :: RPRE = 8
     integer, public, parameter :: CLEN = 512
     real(kind=8), public, parameter :: pi = 3.141592653589793238460d0
-    #:for k1,t1 in REAL_KINDS_TYPES
-    ${t1}$, public, parameter ::pi_${k1}$=acos(-1.0_${k1}$)
-    #:endfor
+    real(sp), public, parameter ::pi_sp=acos(-1.0_sp)
+    real(dp), public, parameter ::pi_dp=acos(-1.0_dp)
+    real(qp), public, parameter ::pi_qp=acos(-1.0_qp)
     !! Functions
     private
     public :: File, acosd, asind, atand, argmax, argmin, argsort, &
@@ -45,7 +45,7 @@ module forlab
               repmat, rms, savetxt, savebin, sind, sort, solve, &
               svd, svdsolve, std, spline1, spline2, skewness, signum, sinc, &
               split_argument, tand, tic, toc, trace, tril, triu, utm2deg, vertcat, &
-              var, dbindex, gmm, kmeans, mbkmeans, silhouette, seq, zeros
+              var, dbindex, gmm, kmeans, mbkmeans, silhouette, seq, setcolor, zeros
 
     !! #ifdef do_mpi
     public :: mpi_rpre
@@ -66,39 +66,109 @@ module forlab
     interface angle
         !! angle compute the phase angle.
         !!([Specification](../module/forlab_angle.html))
-        #:for k1, t1 in REAL_KINDS_TYPES
-        real(${k1}$) elemental module function angle_${k1}$(z)
-            complex(${k1}$), intent(in) :: z
+        real(sp) elemental module function angle_sp(z)
+            complex(sp), intent(in) :: z
         end function
-        #:endfor
+        real(dp) elemental module function angle_dp(z)
+            complex(dp), intent(in) :: z
+        end function
+        real(qp) elemental module function angle_qp(z)
+            complex(qp), intent(in) :: z
+        end function
     end interface
 
     !! Acos & Asin & Atan
-    #:set CIR_NAME=["acos","asin","atan"]
-    #:for l1 in CIR_NAME
-    interface ${l1}$d
+    interface acosd
         !! degree circular functions
         !!([Specification](../module/forlab_degcir.html))
-        #:for k1,t1 in REAL_KINDS_TYPES
-        pure elemental module function ${l1}$d_${k1}$(x)
-        ${t1}$,intent(in)::x
-        ${t1}$::${l1}$d_${k1}$
+        pure elemental module function acosd_sp(x)
+        real(sp),intent(in)::x
+        real(sp)::acosd_sp
         end function
-        #:endfor
-    end interface ${l1}$d
-    #:endfor
+        pure elemental module function acosd_dp(x)
+        real(dp),intent(in)::x
+        real(dp)::acosd_dp
+        end function
+        pure elemental module function acosd_qp(x)
+        real(qp),intent(in)::x
+        real(qp)::acosd_qp
+        end function
+    end interface acosd
+    interface asind
+        !! degree circular functions
+        !!([Specification](../module/forlab_degcir.html))
+        pure elemental module function asind_sp(x)
+        real(sp),intent(in)::x
+        real(sp)::asind_sp
+        end function
+        pure elemental module function asind_dp(x)
+        real(dp),intent(in)::x
+        real(dp)::asind_dp
+        end function
+        pure elemental module function asind_qp(x)
+        real(qp),intent(in)::x
+        real(qp)::asind_qp
+        end function
+    end interface asind
+    interface atand
+        !! degree circular functions
+        !!([Specification](../module/forlab_degcir.html))
+        pure elemental module function atand_sp(x)
+        real(sp),intent(in)::x
+        real(sp)::atand_sp
+        end function
+        pure elemental module function atand_dp(x)
+        real(dp),intent(in)::x
+        real(dp)::atand_dp
+        end function
+        pure elemental module function atand_qp(x)
+        real(qp),intent(in)::x
+        real(qp)::atand_qp
+        end function
+    end interface atand
     !! Cos & Sin & Tan
-    #:set CIR_NAME=["cos","sin","tan"]
-    #:for l1 in CIR_NAME
-    interface ${l1}$d
-        #:for k1,t1 in REAL_KINDS_TYPES
-        pure elemental module function ${l1}$d_${k1}$(x)
-        ${t1}$,intent(in)::x
-        ${t1}$::${l1}$d_${k1}$
+    interface cosd
+        pure elemental module function cosd_sp(x)
+        real(sp),intent(in)::x
+        real(sp)::cosd_sp
         end function
-        #:endfor
-    end interface ${l1}$d
-    #:endfor
+        pure elemental module function cosd_dp(x)
+        real(dp),intent(in)::x
+        real(dp)::cosd_dp
+        end function
+        pure elemental module function cosd_qp(x)
+        real(qp),intent(in)::x
+        real(qp)::cosd_qp
+        end function
+    end interface cosd
+    interface sind
+        pure elemental module function sind_sp(x)
+        real(sp),intent(in)::x
+        real(sp)::sind_sp
+        end function
+        pure elemental module function sind_dp(x)
+        real(dp),intent(in)::x
+        real(dp)::sind_dp
+        end function
+        pure elemental module function sind_qp(x)
+        real(qp),intent(in)::x
+        real(qp)::sind_qp
+        end function
+    end interface sind
+    interface tand
+        pure elemental module function tand_sp(x)
+        real(sp),intent(in)::x
+        real(sp)::tand_sp
+        end function
+        pure elemental module function tand_dp(x)
+        real(dp),intent(in)::x
+        real(dp)::tand_dp
+        end function
+        pure elemental module function tand_qp(x)
+        real(qp),intent(in)::x
+        real(qp)::tand_qp
+        end function
+    end interface tand
 
     interface argmax
         module procedure argmax1, argmax2, argmax3
@@ -111,13 +181,41 @@ module forlab
     interface argsort
         !! argsort generates the indices that would sort an array.
         !!([Specification](../module/forlab_argsort.html))
-        #:for k1, t1 in INT_KINDS_TYPES+REAL_KINDS_TYPES
-        module function argsort_${k1}$(x,order)
-            integer,allocatable::argsort_${k1}$(:)
-            ${t1}$,intent(in)::x(:)
+        module function argsort_int8(x,order)
+            integer,allocatable::argsort_int8(:)
+            integer(int8),intent(in)::x(:)
             integer,optional,intent(in)::order
-        end function argsort_${k1}$
-        #:endfor
+        end function argsort_int8
+        module function argsort_int16(x,order)
+            integer,allocatable::argsort_int16(:)
+            integer(int16),intent(in)::x(:)
+            integer,optional,intent(in)::order
+        end function argsort_int16
+        module function argsort_int32(x,order)
+            integer,allocatable::argsort_int32(:)
+            integer(int32),intent(in)::x(:)
+            integer,optional,intent(in)::order
+        end function argsort_int32
+        module function argsort_int64(x,order)
+            integer,allocatable::argsort_int64(:)
+            integer(int64),intent(in)::x(:)
+            integer,optional,intent(in)::order
+        end function argsort_int64
+        module function argsort_sp(x,order)
+            integer,allocatable::argsort_sp(:)
+            real(sp),intent(in)::x(:)
+            integer,optional,intent(in)::order
+        end function argsort_sp
+        module function argsort_dp(x,order)
+            integer,allocatable::argsort_dp(:)
+            real(dp),intent(in)::x(:)
+            integer,optional,intent(in)::order
+        end function argsort_dp
+        module function argsort_qp(x,order)
+            integer,allocatable::argsort_qp(:)
+            real(qp),intent(in)::x(:)
+            integer,optional,intent(in)::order
+        end function argsort_qp
     end interface argsort
 
     interface bspline1
@@ -141,30 +239,44 @@ module forlab
     end interface chi2pdf
 
     interface chi2rand
-        #:for k1, t1 in REAL_KINDS_TYPES 
-        impure elemental module subroutine chi2rand_${k1}$(X, v)
+        impure elemental module subroutine chi2rand_sp(X, v)
             implicit none
-            ${t1}$, intent(out) :: X
+            real(sp), intent(out) :: X
             integer, intent(in) :: v
         end subroutine
-        #:endfor
+        impure elemental module subroutine chi2rand_dp(X, v)
+            implicit none
+            real(dp), intent(out) :: X
+            integer, intent(in) :: v
+        end subroutine
+        impure elemental module subroutine chi2rand_qp(X, v)
+            implicit none
+            real(qp), intent(out) :: X
+            integer, intent(in) :: v
+        end subroutine
     end interface chi2rand
 
     interface chol
         !! chol computes Cholesky's decomposition of a symmetric positive
         !! definite matrix.
         !!([Specification](../module/forlab_chol.html))
-        #:for k1,t1 in REAL_KINDS_TYPES
-        module function chol_${k1}$ (A) result(L)
-            ${t1}$, dimension(:, :), intent(in) :: A
-            ${t1}$, dimension(:, :), allocatable :: L
+        module function chol_sp (A) result(L)
+            real(sp), dimension(:, :), intent(in) :: A
+            real(sp), dimension(:, :), allocatable :: L
         end function
-        #:endfor
+        module function chol_dp (A) result(L)
+            real(dp), dimension(:, :), intent(in) :: A
+            real(dp), dimension(:, :), allocatable :: L
+        end function
+        module function chol_qp (A) result(L)
+            real(qp), dimension(:, :), intent(in) :: A
+            real(qp), dimension(:, :), allocatable :: L
+        end function
 
         !#:for k1,t1 in CMPLX_KINDS_TYPES
-        !    module function chol_c${k1}$ (A) result(L)
-        !        ${t1}$, dimension(:, :), intent(in) :: A
-        !        ${t1}$, dimension(:, :), allocatable :: L
+        !    module function chol_cqp (A) result(L)
+        !        real(qp), dimension(:, :), intent(in) :: A
+        !        real(qp), dimension(:, :), allocatable :: L
         !    end function
         !#:endfor
     end interface
@@ -205,27 +317,47 @@ module forlab
     interface det
         !! det computes the matrix determinant.
         !!([Specification](../module/forlab_det.html))
-        #:for k1,t1 in REAL_KINDS_TYPES
-        ${t1}$ module function det_${k1}$ (A, outL, outU)
-            ${t1}$, dimension(:, :), intent(in) :: A
-            ${t1}$, dimension(:, :), allocatable, intent(inout), optional :: outL, outU
+        real(sp) module function det_sp (A, outL, outU)
+            real(sp), dimension(:, :), intent(in) :: A
+            real(sp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
         end function
-        #:endfor
+        real(dp) module function det_dp (A, outL, outU)
+            real(dp), dimension(:, :), intent(in) :: A
+            real(dp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
+        end function
+        real(qp) module function det_qp (A, outL, outU)
+            real(qp), dimension(:, :), intent(in) :: A
+            real(qp), dimension(:, :), allocatable, intent(inout), optional :: outL, outU
+        end function
     end interface
 
     interface diag
         !! diag creates diagonal matrix or get the diagonal of a matrix.
         !!([Specification](../module/forlab_diag.html))
-        #:for k1,t1 in REAL_KINDS_TYPES
-            module function diag1_${k1}$ (A)
-                ${t1}$, dimension(:), allocatable :: diag1_${k1}$
-                ${t1}$, dimension(:, :), intent(in) :: A
+            module function diag1_sp (A)
+                real(sp), dimension(:), allocatable :: diag1_sp
+                real(sp), dimension(:, :), intent(in) :: A
             end function
-            module function diag2_${k1}$ (x)
-                ${t1}$, dimension(:, :), allocatable :: diag2_${k1}$
-                ${t1}$, dimension(:), intent(in) :: x
+            module function diag2_sp (x)
+                real(sp), dimension(:, :), allocatable :: diag2_sp
+                real(sp), dimension(:), intent(in) :: x
             end function
-        #:endfor
+            module function diag1_dp (A)
+                real(dp), dimension(:), allocatable :: diag1_dp
+                real(dp), dimension(:, :), intent(in) :: A
+            end function
+            module function diag2_dp (x)
+                real(dp), dimension(:, :), allocatable :: diag2_dp
+                real(dp), dimension(:), intent(in) :: x
+            end function
+            module function diag1_qp (A)
+                real(qp), dimension(:), allocatable :: diag1_qp
+                real(qp), dimension(:, :), intent(in) :: A
+            end function
+            module function diag2_qp (x)
+                real(qp), dimension(:, :), allocatable :: diag2_qp
+                real(qp), dimension(:), intent(in) :: x
+            end function
     end interface diag
 
     interface diff
@@ -233,39 +365,93 @@ module forlab
     end interface diff
 
     interface disp
-        #:for k1,t1 in REAL_KINDS_TYPES
-        module subroutine disp_r${k1}$0(x, string)
-            ${t1}$, intent(in) :: x
+        module subroutine disp_rsp0(x, string)
+            real(sp), intent(in) :: x
             character(len=*), intent(in), optional :: string
         end subroutine
-        module subroutine disp_r${k1}$1(x, string)
-            ${t1}$, dimension(:), intent(in) :: x
+        module subroutine disp_rsp1(x, string)
+            real(sp), dimension(:), intent(in) :: x
             character(len=*), intent(in), optional :: string
         end subroutine
-        module subroutine disp_r${k1}$2(A, string)
-            ${t1}$, dimension(:, :), intent(in) :: A
+        module subroutine disp_rsp2(A, string)
+            real(sp), dimension(:, :), intent(in) :: A
             character(len=*), intent(in), optional :: string
         end subroutine
-        module subroutine disp_r${k1}$3(X, dim, string)
-            ${t1}$, dimension(:, :, :), intent(in) :: X
+        module subroutine disp_rsp3(X, dim, string)
+            real(sp), dimension(:, :, :), intent(in) :: X
             integer, intent(in), optional :: dim
             character(len=*), intent(in), optional :: string
         end subroutine
-        #:endfor
-        #:for k1, t1 in CMPLX_KINDS_TYPES
-        module subroutine disp_c${k1}$0(x, string)
-            ${t1}$, intent(in) :: x
+        module subroutine disp_rdp0(x, string)
+            real(dp), intent(in) :: x
             character(len=*), intent(in), optional :: string
         end subroutine
-        module subroutine disp_c${k1}$1(x, string)
-            ${t1}$, dimension(:), intent(in) :: x
+        module subroutine disp_rdp1(x, string)
+            real(dp), dimension(:), intent(in) :: x
             character(len=*), intent(in), optional :: string
         end subroutine
-        module subroutine disp_c${k1}$2(A, string)
-            ${t1}$, dimension(:, :), intent(in) :: A
+        module subroutine disp_rdp2(A, string)
+            real(dp), dimension(:, :), intent(in) :: A
             character(len=*), intent(in), optional :: string
         end subroutine
-        #:endfor
+        module subroutine disp_rdp3(X, dim, string)
+            real(dp), dimension(:, :, :), intent(in) :: X
+            integer, intent(in), optional :: dim
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_rqp0(x, string)
+            real(qp), intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_rqp1(x, string)
+            real(qp), dimension(:), intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_rqp2(A, string)
+            real(qp), dimension(:, :), intent(in) :: A
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_rqp3(X, dim, string)
+            real(qp), dimension(:, :, :), intent(in) :: X
+            integer, intent(in), optional :: dim
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_csp0(x, string)
+            complex(sp), intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_csp1(x, string)
+            complex(sp), dimension(:), intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_csp2(A, string)
+            complex(sp), dimension(:, :), intent(in) :: A
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_cdp0(x, string)
+            complex(dp), intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_cdp1(x, string)
+            complex(dp), dimension(:), intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_cdp2(A, string)
+            complex(dp), dimension(:, :), intent(in) :: A
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_cqp0(x, string)
+            complex(qp), intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_cqp1(x, string)
+            complex(qp), dimension(:), intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_cqp2(A, string)
+            complex(qp), dimension(:, :), intent(in) :: A
+            character(len=*), intent(in), optional :: string
+        end subroutine
         module subroutine disp_l0(x, string)
             logical, intent(in) :: x
             character(len=*), intent(in), optional :: string
@@ -278,25 +464,74 @@ module forlab
             logical, dimension(:, :), intent(in) :: A
             character(len=*), intent(in), optional :: string
         end subroutine disp_l2
-        #:for k1, t1 in INT_KINDS_TYPES
-        module subroutine disp_0_${k1}$(x, string)
-            ${t1}$, intent(in) :: x
+        module subroutine disp_0_int8(x, string)
+            integer(int8), intent(in) :: x
             character(len=*), intent(in), optional :: string
         end subroutine
-        module subroutine disp_1_${k1}$(x, string)
-            ${t1}$, dimension(:), intent(in) :: x
+        module subroutine disp_1_int8(x, string)
+            integer(int8), dimension(:), intent(in) :: x
             character(len=*), intent(in), optional :: string
         end subroutine
-        module subroutine disp_2_${k1}$(A, string)
-            ${t1}$, dimension(:, :), intent(in) :: A
+        module subroutine disp_2_int8(A, string)
+            integer(int8), dimension(:, :), intent(in) :: A
             character(len=*), intent(in), optional :: string
         end subroutine
-        module subroutine disp_3_${k1}$(X, dim, string)
-            ${t1}$, dimension(:, :, :), intent(in) :: X
+        module subroutine disp_3_int8(X, dim, string)
+            integer(int8), dimension(:, :, :), intent(in) :: X
             integer, intent(in), optional :: dim
             character(len=*), intent(in), optional :: string
         end subroutine
-        #:endfor
+        module subroutine disp_0_int16(x, string)
+            integer(int16), intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_1_int16(x, string)
+            integer(int16), dimension(:), intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_2_int16(A, string)
+            integer(int16), dimension(:, :), intent(in) :: A
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_3_int16(X, dim, string)
+            integer(int16), dimension(:, :, :), intent(in) :: X
+            integer, intent(in), optional :: dim
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_0_int32(x, string)
+            integer(int32), intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_1_int32(x, string)
+            integer(int32), dimension(:), intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_2_int32(A, string)
+            integer(int32), dimension(:, :), intent(in) :: A
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_3_int32(X, dim, string)
+            integer(int32), dimension(:, :, :), intent(in) :: X
+            integer, intent(in), optional :: dim
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_0_int64(x, string)
+            integer(int64), intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_1_int64(x, string)
+            integer(int64), dimension(:), intent(in) :: x
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_2_int64(A, string)
+            integer(int64), dimension(:, :), intent(in) :: A
+            character(len=*), intent(in), optional :: string
+        end subroutine
+        module subroutine disp_3_int64(X, dim, string)
+            integer(int64), dimension(:, :, :), intent(in) :: X
+            integer, intent(in), optional :: dim
+            character(len=*), intent(in), optional :: string
+        end subroutine
         module subroutine disp_str(string)
             character(len=*), intent(in), optional :: string
         end subroutine
@@ -305,23 +540,37 @@ module forlab
     interface eig
         !! eig computes eigenvalues and eigenvectors of symmetric matrix using Jacobi algorithm.
         !!([Specification](../module/forlab_eig.html))
-        #:for k1, t1 in REAL_KINDS_TYPES
-        module subroutine eig_${k1}$(A,V,d,itermax)
-            ${t1}$, dimension(:, :), intent(in) :: A
-            ${t1}$, dimension(:, :), allocatable, intent(out) :: V
-            ${t1}$, dimension(:), allocatable, intent(out) :: d
+        module subroutine eig_sp(A,V,d,itermax)
+            real(sp), dimension(:, :), intent(in) :: A
+            real(sp), dimension(:, :), allocatable, intent(out) :: V
+            real(sp), dimension(:), allocatable, intent(out) :: d
             integer, intent(in), optional :: itermax
-        end subroutine eig_${k1}$
-        #:endfor
+        end subroutine eig_sp
+        module subroutine eig_dp(A,V,d,itermax)
+            real(dp), dimension(:, :), intent(in) :: A
+            real(dp), dimension(:, :), allocatable, intent(out) :: V
+            real(dp), dimension(:), allocatable, intent(out) :: d
+            integer, intent(in), optional :: itermax
+        end subroutine eig_dp
+        module subroutine eig_qp(A,V,d,itermax)
+            real(qp), dimension(:, :), intent(in) :: A
+            real(qp), dimension(:, :), allocatable, intent(out) :: V
+            real(qp), dimension(:), allocatable, intent(out) :: d
+            integer, intent(in), optional :: itermax
+        end subroutine eig_qp
     end interface eig
 
     !! Eye
     interface eye
-        #:for k1, t1 in REAL_KINDS_TYPES
-        module subroutine eye_${k1}$(X)
-            ${t1}$, intent(out) :: X(:, :)
+        module subroutine eye_sp(X)
+            real(sp), intent(out) :: X(:, :)
         end subroutine
-        #:endfor
+        module subroutine eye_dp(X)
+            real(dp), intent(out) :: X(:, :)
+        end subroutine
+        module subroutine eye_qp(X)
+            real(qp), intent(out) :: X(:, :)
+        end subroutine
     end interface
 
     interface find
@@ -349,32 +598,370 @@ module forlab
     end interface gmm
 
     !! Horzcat & Vertcat
-        #:set RCI_KINDS_TYPES = REAL_KINDS_TYPES + CMPLX_KINDS_TYPES + INT_KINDS_TYPES
-        #:set CATTYPE = ['horzcat', 'vertcat']
-        #:for c1 in CATTYPE
-    interface ${c1}$
-        #:for k1, t1 in RCI_KINDS_TYPES
-        module function ${c1}$_${t1[0]}$_1_${k1}$(x1, x2)
-            ${t1}$, dimension(:, :), allocatable :: ${c1}$_${t1[0]}$_1_${k1}$
-            ${t1}$, dimension(:), intent(in) :: x1, x2
+    interface horzcat
+        module function horzcat_r_1_sp(x1, x2)
+            real(sp), dimension(:, :), allocatable :: horzcat_r_1_sp
+            real(sp), dimension(:), intent(in) :: x1, x2
         end function
-        module function ${c1}$_${t1[0]}$_2_${k1}$(A1, A2)
-            ${t1}$, dimension(:, :), allocatable :: ${c1}$_${t1[0]}$_2_${k1}$
-            ${t1}$, dimension(:, :), intent(in) :: A1, A2
+        module function horzcat_r_2_sp(A1, A2)
+            real(sp), dimension(:, :), allocatable :: horzcat_r_2_sp
+            real(sp), dimension(:, :), intent(in) :: A1, A2
         end function
-        module function ${c1}$_${t1[0]}$_21_${k1}$(A1, x2)
-            ${t1}$, dimension(:, :), allocatable :: ${c1}$_${t1[0]}$_21_${k1}$
-            ${t1}$, dimension(:, :), intent(in) :: A1
-            ${t1}$, dimension(:), intent(in) :: x2
+        module function horzcat_r_21_sp(A1, x2)
+            real(sp), dimension(:, :), allocatable :: horzcat_r_21_sp
+            real(sp), dimension(:, :), intent(in) :: A1
+            real(sp), dimension(:), intent(in) :: x2
         end function
-        module function ${c1}$_${t1[0]}$_12_${k1}$(x1, A2)
-            ${t1}$, dimension(:, :), allocatable :: ${c1}$_${t1[0]}$_12_${k1}$
-            ${t1}$, dimension(:), intent(in) :: x1
+        module function horzcat_r_12_sp(x1, A2)
+            real(sp), dimension(:, :), allocatable :: horzcat_r_12_sp
+            real(sp), dimension(:), intent(in) :: x1
             integer, dimension(:, :), intent(in) :: A2
         end function
-        #:endfor
+        module function horzcat_r_1_dp(x1, x2)
+            real(dp), dimension(:, :), allocatable :: horzcat_r_1_dp
+            real(dp), dimension(:), intent(in) :: x1, x2
+        end function
+        module function horzcat_r_2_dp(A1, A2)
+            real(dp), dimension(:, :), allocatable :: horzcat_r_2_dp
+            real(dp), dimension(:, :), intent(in) :: A1, A2
+        end function
+        module function horzcat_r_21_dp(A1, x2)
+            real(dp), dimension(:, :), allocatable :: horzcat_r_21_dp
+            real(dp), dimension(:, :), intent(in) :: A1
+            real(dp), dimension(:), intent(in) :: x2
+        end function
+        module function horzcat_r_12_dp(x1, A2)
+            real(dp), dimension(:, :), allocatable :: horzcat_r_12_dp
+            real(dp), dimension(:), intent(in) :: x1
+            integer, dimension(:, :), intent(in) :: A2
+        end function
+        module function horzcat_r_1_qp(x1, x2)
+            real(qp), dimension(:, :), allocatable :: horzcat_r_1_qp
+            real(qp), dimension(:), intent(in) :: x1, x2
+        end function
+        module function horzcat_r_2_qp(A1, A2)
+            real(qp), dimension(:, :), allocatable :: horzcat_r_2_qp
+            real(qp), dimension(:, :), intent(in) :: A1, A2
+        end function
+        module function horzcat_r_21_qp(A1, x2)
+            real(qp), dimension(:, :), allocatable :: horzcat_r_21_qp
+            real(qp), dimension(:, :), intent(in) :: A1
+            real(qp), dimension(:), intent(in) :: x2
+        end function
+        module function horzcat_r_12_qp(x1, A2)
+            real(qp), dimension(:, :), allocatable :: horzcat_r_12_qp
+            real(qp), dimension(:), intent(in) :: x1
+            integer, dimension(:, :), intent(in) :: A2
+        end function
+        module function horzcat_c_1_sp(x1, x2)
+            complex(sp), dimension(:, :), allocatable :: horzcat_c_1_sp
+            complex(sp), dimension(:), intent(in) :: x1, x2
+        end function
+        module function horzcat_c_2_sp(A1, A2)
+            complex(sp), dimension(:, :), allocatable :: horzcat_c_2_sp
+            complex(sp), dimension(:, :), intent(in) :: A1, A2
+        end function
+        module function horzcat_c_21_sp(A1, x2)
+            complex(sp), dimension(:, :), allocatable :: horzcat_c_21_sp
+            complex(sp), dimension(:, :), intent(in) :: A1
+            complex(sp), dimension(:), intent(in) :: x2
+        end function
+        module function horzcat_c_12_sp(x1, A2)
+            complex(sp), dimension(:, :), allocatable :: horzcat_c_12_sp
+            complex(sp), dimension(:), intent(in) :: x1
+            integer, dimension(:, :), intent(in) :: A2
+        end function
+        module function horzcat_c_1_dp(x1, x2)
+            complex(dp), dimension(:, :), allocatable :: horzcat_c_1_dp
+            complex(dp), dimension(:), intent(in) :: x1, x2
+        end function
+        module function horzcat_c_2_dp(A1, A2)
+            complex(dp), dimension(:, :), allocatable :: horzcat_c_2_dp
+            complex(dp), dimension(:, :), intent(in) :: A1, A2
+        end function
+        module function horzcat_c_21_dp(A1, x2)
+            complex(dp), dimension(:, :), allocatable :: horzcat_c_21_dp
+            complex(dp), dimension(:, :), intent(in) :: A1
+            complex(dp), dimension(:), intent(in) :: x2
+        end function
+        module function horzcat_c_12_dp(x1, A2)
+            complex(dp), dimension(:, :), allocatable :: horzcat_c_12_dp
+            complex(dp), dimension(:), intent(in) :: x1
+            integer, dimension(:, :), intent(in) :: A2
+        end function
+        module function horzcat_c_1_qp(x1, x2)
+            complex(qp), dimension(:, :), allocatable :: horzcat_c_1_qp
+            complex(qp), dimension(:), intent(in) :: x1, x2
+        end function
+        module function horzcat_c_2_qp(A1, A2)
+            complex(qp), dimension(:, :), allocatable :: horzcat_c_2_qp
+            complex(qp), dimension(:, :), intent(in) :: A1, A2
+        end function
+        module function horzcat_c_21_qp(A1, x2)
+            complex(qp), dimension(:, :), allocatable :: horzcat_c_21_qp
+            complex(qp), dimension(:, :), intent(in) :: A1
+            complex(qp), dimension(:), intent(in) :: x2
+        end function
+        module function horzcat_c_12_qp(x1, A2)
+            complex(qp), dimension(:, :), allocatable :: horzcat_c_12_qp
+            complex(qp), dimension(:), intent(in) :: x1
+            integer, dimension(:, :), intent(in) :: A2
+        end function
+        module function horzcat_i_1_int8(x1, x2)
+            integer(int8), dimension(:, :), allocatable :: horzcat_i_1_int8
+            integer(int8), dimension(:), intent(in) :: x1, x2
+        end function
+        module function horzcat_i_2_int8(A1, A2)
+            integer(int8), dimension(:, :), allocatable :: horzcat_i_2_int8
+            integer(int8), dimension(:, :), intent(in) :: A1, A2
+        end function
+        module function horzcat_i_21_int8(A1, x2)
+            integer(int8), dimension(:, :), allocatable :: horzcat_i_21_int8
+            integer(int8), dimension(:, :), intent(in) :: A1
+            integer(int8), dimension(:), intent(in) :: x2
+        end function
+        module function horzcat_i_12_int8(x1, A2)
+            integer(int8), dimension(:, :), allocatable :: horzcat_i_12_int8
+            integer(int8), dimension(:), intent(in) :: x1
+            integer, dimension(:, :), intent(in) :: A2
+        end function
+        module function horzcat_i_1_int16(x1, x2)
+            integer(int16), dimension(:, :), allocatable :: horzcat_i_1_int16
+            integer(int16), dimension(:), intent(in) :: x1, x2
+        end function
+        module function horzcat_i_2_int16(A1, A2)
+            integer(int16), dimension(:, :), allocatable :: horzcat_i_2_int16
+            integer(int16), dimension(:, :), intent(in) :: A1, A2
+        end function
+        module function horzcat_i_21_int16(A1, x2)
+            integer(int16), dimension(:, :), allocatable :: horzcat_i_21_int16
+            integer(int16), dimension(:, :), intent(in) :: A1
+            integer(int16), dimension(:), intent(in) :: x2
+        end function
+        module function horzcat_i_12_int16(x1, A2)
+            integer(int16), dimension(:, :), allocatable :: horzcat_i_12_int16
+            integer(int16), dimension(:), intent(in) :: x1
+            integer, dimension(:, :), intent(in) :: A2
+        end function
+        module function horzcat_i_1_int32(x1, x2)
+            integer(int32), dimension(:, :), allocatable :: horzcat_i_1_int32
+            integer(int32), dimension(:), intent(in) :: x1, x2
+        end function
+        module function horzcat_i_2_int32(A1, A2)
+            integer(int32), dimension(:, :), allocatable :: horzcat_i_2_int32
+            integer(int32), dimension(:, :), intent(in) :: A1, A2
+        end function
+        module function horzcat_i_21_int32(A1, x2)
+            integer(int32), dimension(:, :), allocatable :: horzcat_i_21_int32
+            integer(int32), dimension(:, :), intent(in) :: A1
+            integer(int32), dimension(:), intent(in) :: x2
+        end function
+        module function horzcat_i_12_int32(x1, A2)
+            integer(int32), dimension(:, :), allocatable :: horzcat_i_12_int32
+            integer(int32), dimension(:), intent(in) :: x1
+            integer, dimension(:, :), intent(in) :: A2
+        end function
+        module function horzcat_i_1_int64(x1, x2)
+            integer(int64), dimension(:, :), allocatable :: horzcat_i_1_int64
+            integer(int64), dimension(:), intent(in) :: x1, x2
+        end function
+        module function horzcat_i_2_int64(A1, A2)
+            integer(int64), dimension(:, :), allocatable :: horzcat_i_2_int64
+            integer(int64), dimension(:, :), intent(in) :: A1, A2
+        end function
+        module function horzcat_i_21_int64(A1, x2)
+            integer(int64), dimension(:, :), allocatable :: horzcat_i_21_int64
+            integer(int64), dimension(:, :), intent(in) :: A1
+            integer(int64), dimension(:), intent(in) :: x2
+        end function
+        module function horzcat_i_12_int64(x1, A2)
+            integer(int64), dimension(:, :), allocatable :: horzcat_i_12_int64
+            integer(int64), dimension(:), intent(in) :: x1
+            integer, dimension(:, :), intent(in) :: A2
+        end function
     end interface
-        #:endfor
+    interface vertcat
+        module function vertcat_r_1_sp(x1, x2)
+            real(sp), dimension(:, :), allocatable :: vertcat_r_1_sp
+            real(sp), dimension(:), intent(in) :: x1, x2
+        end function
+        module function vertcat_r_2_sp(A1, A2)
+            real(sp), dimension(:, :), allocatable :: vertcat_r_2_sp
+            real(sp), dimension(:, :), intent(in) :: A1, A2
+        end function
+        module function vertcat_r_21_sp(A1, x2)
+            real(sp), dimension(:, :), allocatable :: vertcat_r_21_sp
+            real(sp), dimension(:, :), intent(in) :: A1
+            real(sp), dimension(:), intent(in) :: x2
+        end function
+        module function vertcat_r_12_sp(x1, A2)
+            real(sp), dimension(:, :), allocatable :: vertcat_r_12_sp
+            real(sp), dimension(:), intent(in) :: x1
+            integer, dimension(:, :), intent(in) :: A2
+        end function
+        module function vertcat_r_1_dp(x1, x2)
+            real(dp), dimension(:, :), allocatable :: vertcat_r_1_dp
+            real(dp), dimension(:), intent(in) :: x1, x2
+        end function
+        module function vertcat_r_2_dp(A1, A2)
+            real(dp), dimension(:, :), allocatable :: vertcat_r_2_dp
+            real(dp), dimension(:, :), intent(in) :: A1, A2
+        end function
+        module function vertcat_r_21_dp(A1, x2)
+            real(dp), dimension(:, :), allocatable :: vertcat_r_21_dp
+            real(dp), dimension(:, :), intent(in) :: A1
+            real(dp), dimension(:), intent(in) :: x2
+        end function
+        module function vertcat_r_12_dp(x1, A2)
+            real(dp), dimension(:, :), allocatable :: vertcat_r_12_dp
+            real(dp), dimension(:), intent(in) :: x1
+            integer, dimension(:, :), intent(in) :: A2
+        end function
+        module function vertcat_r_1_qp(x1, x2)
+            real(qp), dimension(:, :), allocatable :: vertcat_r_1_qp
+            real(qp), dimension(:), intent(in) :: x1, x2
+        end function
+        module function vertcat_r_2_qp(A1, A2)
+            real(qp), dimension(:, :), allocatable :: vertcat_r_2_qp
+            real(qp), dimension(:, :), intent(in) :: A1, A2
+        end function
+        module function vertcat_r_21_qp(A1, x2)
+            real(qp), dimension(:, :), allocatable :: vertcat_r_21_qp
+            real(qp), dimension(:, :), intent(in) :: A1
+            real(qp), dimension(:), intent(in) :: x2
+        end function
+        module function vertcat_r_12_qp(x1, A2)
+            real(qp), dimension(:, :), allocatable :: vertcat_r_12_qp
+            real(qp), dimension(:), intent(in) :: x1
+            integer, dimension(:, :), intent(in) :: A2
+        end function
+        module function vertcat_c_1_sp(x1, x2)
+            complex(sp), dimension(:, :), allocatable :: vertcat_c_1_sp
+            complex(sp), dimension(:), intent(in) :: x1, x2
+        end function
+        module function vertcat_c_2_sp(A1, A2)
+            complex(sp), dimension(:, :), allocatable :: vertcat_c_2_sp
+            complex(sp), dimension(:, :), intent(in) :: A1, A2
+        end function
+        module function vertcat_c_21_sp(A1, x2)
+            complex(sp), dimension(:, :), allocatable :: vertcat_c_21_sp
+            complex(sp), dimension(:, :), intent(in) :: A1
+            complex(sp), dimension(:), intent(in) :: x2
+        end function
+        module function vertcat_c_12_sp(x1, A2)
+            complex(sp), dimension(:, :), allocatable :: vertcat_c_12_sp
+            complex(sp), dimension(:), intent(in) :: x1
+            integer, dimension(:, :), intent(in) :: A2
+        end function
+        module function vertcat_c_1_dp(x1, x2)
+            complex(dp), dimension(:, :), allocatable :: vertcat_c_1_dp
+            complex(dp), dimension(:), intent(in) :: x1, x2
+        end function
+        module function vertcat_c_2_dp(A1, A2)
+            complex(dp), dimension(:, :), allocatable :: vertcat_c_2_dp
+            complex(dp), dimension(:, :), intent(in) :: A1, A2
+        end function
+        module function vertcat_c_21_dp(A1, x2)
+            complex(dp), dimension(:, :), allocatable :: vertcat_c_21_dp
+            complex(dp), dimension(:, :), intent(in) :: A1
+            complex(dp), dimension(:), intent(in) :: x2
+        end function
+        module function vertcat_c_12_dp(x1, A2)
+            complex(dp), dimension(:, :), allocatable :: vertcat_c_12_dp
+            complex(dp), dimension(:), intent(in) :: x1
+            integer, dimension(:, :), intent(in) :: A2
+        end function
+        module function vertcat_c_1_qp(x1, x2)
+            complex(qp), dimension(:, :), allocatable :: vertcat_c_1_qp
+            complex(qp), dimension(:), intent(in) :: x1, x2
+        end function
+        module function vertcat_c_2_qp(A1, A2)
+            complex(qp), dimension(:, :), allocatable :: vertcat_c_2_qp
+            complex(qp), dimension(:, :), intent(in) :: A1, A2
+        end function
+        module function vertcat_c_21_qp(A1, x2)
+            complex(qp), dimension(:, :), allocatable :: vertcat_c_21_qp
+            complex(qp), dimension(:, :), intent(in) :: A1
+            complex(qp), dimension(:), intent(in) :: x2
+        end function
+        module function vertcat_c_12_qp(x1, A2)
+            complex(qp), dimension(:, :), allocatable :: vertcat_c_12_qp
+            complex(qp), dimension(:), intent(in) :: x1
+            integer, dimension(:, :), intent(in) :: A2
+        end function
+        module function vertcat_i_1_int8(x1, x2)
+            integer(int8), dimension(:, :), allocatable :: vertcat_i_1_int8
+            integer(int8), dimension(:), intent(in) :: x1, x2
+        end function
+        module function vertcat_i_2_int8(A1, A2)
+            integer(int8), dimension(:, :), allocatable :: vertcat_i_2_int8
+            integer(int8), dimension(:, :), intent(in) :: A1, A2
+        end function
+        module function vertcat_i_21_int8(A1, x2)
+            integer(int8), dimension(:, :), allocatable :: vertcat_i_21_int8
+            integer(int8), dimension(:, :), intent(in) :: A1
+            integer(int8), dimension(:), intent(in) :: x2
+        end function
+        module function vertcat_i_12_int8(x1, A2)
+            integer(int8), dimension(:, :), allocatable :: vertcat_i_12_int8
+            integer(int8), dimension(:), intent(in) :: x1
+            integer, dimension(:, :), intent(in) :: A2
+        end function
+        module function vertcat_i_1_int16(x1, x2)
+            integer(int16), dimension(:, :), allocatable :: vertcat_i_1_int16
+            integer(int16), dimension(:), intent(in) :: x1, x2
+        end function
+        module function vertcat_i_2_int16(A1, A2)
+            integer(int16), dimension(:, :), allocatable :: vertcat_i_2_int16
+            integer(int16), dimension(:, :), intent(in) :: A1, A2
+        end function
+        module function vertcat_i_21_int16(A1, x2)
+            integer(int16), dimension(:, :), allocatable :: vertcat_i_21_int16
+            integer(int16), dimension(:, :), intent(in) :: A1
+            integer(int16), dimension(:), intent(in) :: x2
+        end function
+        module function vertcat_i_12_int16(x1, A2)
+            integer(int16), dimension(:, :), allocatable :: vertcat_i_12_int16
+            integer(int16), dimension(:), intent(in) :: x1
+            integer, dimension(:, :), intent(in) :: A2
+        end function
+        module function vertcat_i_1_int32(x1, x2)
+            integer(int32), dimension(:, :), allocatable :: vertcat_i_1_int32
+            integer(int32), dimension(:), intent(in) :: x1, x2
+        end function
+        module function vertcat_i_2_int32(A1, A2)
+            integer(int32), dimension(:, :), allocatable :: vertcat_i_2_int32
+            integer(int32), dimension(:, :), intent(in) :: A1, A2
+        end function
+        module function vertcat_i_21_int32(A1, x2)
+            integer(int32), dimension(:, :), allocatable :: vertcat_i_21_int32
+            integer(int32), dimension(:, :), intent(in) :: A1
+            integer(int32), dimension(:), intent(in) :: x2
+        end function
+        module function vertcat_i_12_int32(x1, A2)
+            integer(int32), dimension(:, :), allocatable :: vertcat_i_12_int32
+            integer(int32), dimension(:), intent(in) :: x1
+            integer, dimension(:, :), intent(in) :: A2
+        end function
+        module function vertcat_i_1_int64(x1, x2)
+            integer(int64), dimension(:, :), allocatable :: vertcat_i_1_int64
+            integer(int64), dimension(:), intent(in) :: x1, x2
+        end function
+        module function vertcat_i_2_int64(A1, A2)
+            integer(int64), dimension(:, :), allocatable :: vertcat_i_2_int64
+            integer(int64), dimension(:, :), intent(in) :: A1, A2
+        end function
+        module function vertcat_i_21_int64(A1, x2)
+            integer(int64), dimension(:, :), allocatable :: vertcat_i_21_int64
+            integer(int64), dimension(:, :), intent(in) :: A1
+            integer(int64), dimension(:), intent(in) :: x2
+        end function
+        module function vertcat_i_12_int64(x1, A2)
+            integer(int64), dimension(:, :), allocatable :: vertcat_i_12_int64
+            integer(int64), dimension(:), intent(in) :: x1
+            integer, dimension(:, :), intent(in) :: A2
+        end function
+    end interface
 
     interface interp1
         module procedure interp1_0, interp1_1
@@ -389,18 +976,30 @@ module forlab
     end interface interp3
 
     interface inv
-        #:for k1,t1 in REAL_KINDS_TYPES
-            module function inv_${t1[0]}$${k1}$ (A)
-                ${t1}$, dimension(:, :), allocatable :: inv_${t1[0]}$${k1}$
-                ${t1}$, dimension(:, :), intent(in) :: A
+            module function inv_rsp (A)
+                real(sp), dimension(:, :), allocatable :: inv_rsp
+                real(sp), dimension(:, :), intent(in) :: A
             end function
-        #:endfor
-        #:for k1,t1 in CMPLX_KINDS_TYPES
-            module function inv_${t1[0]}$${k1}$ (A)
-                ${t1}$, dimension(:, :), allocatable :: inv_${t1[0]}$${k1}$
-                ${t1}$, dimension(:, :), intent(in) :: A
+            module function inv_rdp (A)
+                real(dp), dimension(:, :), allocatable :: inv_rdp
+                real(dp), dimension(:, :), intent(in) :: A
             end function
-        #:endfor
+            module function inv_rqp (A)
+                real(qp), dimension(:, :), allocatable :: inv_rqp
+                real(qp), dimension(:, :), intent(in) :: A
+            end function
+            module function inv_csp (A)
+                complex(sp), dimension(:, :), allocatable :: inv_csp
+                complex(sp), dimension(:, :), intent(in) :: A
+            end function
+            module function inv_cdp (A)
+                complex(dp), dimension(:, :), allocatable :: inv_cdp
+                complex(dp), dimension(:, :), intent(in) :: A
+            end function
+            module function inv_cqp (A)
+                complex(qp), dimension(:, :), allocatable :: inv_cqp
+                complex(qp), dimension(:, :), intent(in) :: A
+            end function
     end interface inv
 
     interface operator(.i.)
@@ -408,35 +1007,69 @@ module forlab
         !! Example
         !! ---
         !! inv_of_A = .i.A
-        #:for k1,t1 in REAL_KINDS_TYPES
-        procedure inv_${t1[0]}$${k1}$
-        #:endfor
-        #:for k1,t1 in CMPLX_KINDS_TYPES
-        procedure inv_${t1[0]}$${k1}$
-        #:endfor
+        procedure inv_rsp
+        procedure inv_rdp
+        procedure inv_rqp
+        procedure inv_csp
+        procedure inv_cdp
+        procedure inv_cqp
     end interface operator(.i.)
 
     interface operator(.x.)
-        #:for k1 in REAL_KINDS
-        module function rmut_${k1}$(m1, m2) result(ret)
-            real(${k1}$), intent(in) :: m1(:, :), m2(:, :)
-            real(${k1}$) :: ret(size(m1, 1), size(m2, 2))
+        module function rmut_sp(m1, m2) result(ret)
+            real(sp), intent(in) :: m1(:, :), m2(:, :)
+            real(sp) :: ret(size(m1, 1), size(m2, 2))
         end function
-        module function cmut_${k1}$(m1, m2) result(ret)
-            complex(${k1}$), intent(in) :: m1(:, :), m2(:, :)
-            complex(${k1}$) :: ret(size(m1, 1), size(m2, 2))
+        module function cmut_sp(m1, m2) result(ret)
+            complex(sp), intent(in) :: m1(:, :), m2(:, :)
+            complex(sp) :: ret(size(m1, 1), size(m2, 2))
         end function
-        module function rcmut_${k1}$(m1, m2) result(ret)
-            real(${k1}$), intent(in) :: m1(:, :)
-            complex(${k1}$), intent(in) :: m2(:, :)
-            complex(${k1}$) :: ret(size(m1, 1), size(m2, 2))
+        module function rcmut_sp(m1, m2) result(ret)
+            real(sp), intent(in) :: m1(:, :)
+            complex(sp), intent(in) :: m2(:, :)
+            complex(sp) :: ret(size(m1, 1), size(m2, 2))
         end function
-        module function crmut_${k1}$(m1, m2) result(ret)
-            real(${k1}$), intent(in) :: m2(:, :)
-            complex(${k1}$), intent(in) :: m1(:, :)
-            complex(${k1}$) :: ret(size(m1, 1), size(m2, 2))
+        module function crmut_sp(m1, m2) result(ret)
+            real(sp), intent(in) :: m2(:, :)
+            complex(sp), intent(in) :: m1(:, :)
+            complex(sp) :: ret(size(m1, 1), size(m2, 2))
         end function
-        #:endfor
+        module function rmut_dp(m1, m2) result(ret)
+            real(dp), intent(in) :: m1(:, :), m2(:, :)
+            real(dp) :: ret(size(m1, 1), size(m2, 2))
+        end function
+        module function cmut_dp(m1, m2) result(ret)
+            complex(dp), intent(in) :: m1(:, :), m2(:, :)
+            complex(dp) :: ret(size(m1, 1), size(m2, 2))
+        end function
+        module function rcmut_dp(m1, m2) result(ret)
+            real(dp), intent(in) :: m1(:, :)
+            complex(dp), intent(in) :: m2(:, :)
+            complex(dp) :: ret(size(m1, 1), size(m2, 2))
+        end function
+        module function crmut_dp(m1, m2) result(ret)
+            real(dp), intent(in) :: m2(:, :)
+            complex(dp), intent(in) :: m1(:, :)
+            complex(dp) :: ret(size(m1, 1), size(m2, 2))
+        end function
+        module function rmut_qp(m1, m2) result(ret)
+            real(qp), intent(in) :: m1(:, :), m2(:, :)
+            real(qp) :: ret(size(m1, 1), size(m2, 2))
+        end function
+        module function cmut_qp(m1, m2) result(ret)
+            complex(qp), intent(in) :: m1(:, :), m2(:, :)
+            complex(qp) :: ret(size(m1, 1), size(m2, 2))
+        end function
+        module function rcmut_qp(m1, m2) result(ret)
+            real(qp), intent(in) :: m1(:, :)
+            complex(qp), intent(in) :: m2(:, :)
+            complex(qp) :: ret(size(m1, 1), size(m2, 2))
+        end function
+        module function crmut_qp(m1, m2) result(ret)
+            real(qp), intent(in) :: m2(:, :)
+            complex(qp), intent(in) :: m1(:, :)
+            complex(qp) :: ret(size(m1, 1), size(m2, 2))
+        end function
     end interface
 
     interface ismember
@@ -447,21 +1080,39 @@ module forlab
     end interface ismember
 
     interface issquare
-        #:set RC_KINDS_TYPES = REAL_KINDS_TYPES + CMPLX_KINDS_TYPES
-        #:for k1, t1 in RC_KINDS_TYPES
-        logical module function issquare_${t1[0]}$${k1}$ (A)
-            ${t1}$, dimension(:, :), intent(in) :: A
+        logical module function issquare_rsp (A)
+            real(sp), dimension(:, :), intent(in) :: A
         end function
-        #:endfor
+        logical module function issquare_rdp (A)
+            real(dp), dimension(:, :), intent(in) :: A
+        end function
+        logical module function issquare_rqp (A)
+            real(qp), dimension(:, :), intent(in) :: A
+        end function
+        logical module function issquare_csp (A)
+            complex(sp), dimension(:, :), intent(in) :: A
+        end function
+        logical module function issquare_cdp (A)
+            complex(dp), dimension(:, :), intent(in) :: A
+        end function
+        logical module function issquare_cqp (A)
+            complex(qp), dimension(:, :), intent(in) :: A
+        end function
     end interface
 
     interface issymmetric
-        #:for k1, t1 in REAL_KINDS_TYPES
-            logical module function issymmetric_${k1}$(A)
-                ${t1}$, dimension(:, :), intent(in) :: A
+            logical module function issymmetric_sp(A)
+                real(sp), dimension(:, :), intent(in) :: A
             end function
 
-        #:endfor
+            logical module function issymmetric_dp(A)
+                real(dp), dimension(:, :), intent(in) :: A
+            end function
+
+            logical module function issymmetric_qp(A)
+                real(qp), dimension(:, :), intent(in) :: A
+            end function
+
     end interface issymmetric
 
     interface kde
@@ -477,52 +1128,239 @@ module forlab
     end interface kurtosis
 
     !! Linspace & Logspace
-    #:set SPACE = ['linspace', 'logspace']
-    #:for s1 in SPACE
-    interface ${s1}$
-        #:for k1, t1 in REAL_KINDS_TYPES
-        module subroutine ${s1}$_${k1}$(X, from, to)
-            ${t1}$, dimension(:) :: X
-            ${t1}$, intent(in) :: from, to
+    interface linspace
+        module subroutine linspace_sp(X, from, to)
+            real(sp), dimension(:) :: X
+            real(sp), intent(in) :: from, to
         end subroutine
-        #:endfor
+        module subroutine linspace_dp(X, from, to)
+            real(dp), dimension(:) :: X
+            real(dp), intent(in) :: from, to
+        end subroutine
+        module subroutine linspace_qp(X, from, to)
+            real(qp), dimension(:) :: X
+            real(qp), intent(in) :: from, to
+        end subroutine
     end interface
-    #:endfor
+    interface logspace
+        module subroutine logspace_sp(X, from, to)
+            real(sp), dimension(:) :: X
+            real(sp), intent(in) :: from, to
+        end subroutine
+        module subroutine logspace_dp(X, from, to)
+            real(dp), dimension(:) :: X
+            real(dp), intent(in) :: from, to
+        end subroutine
+        module subroutine logspace_qp(X, from, to)
+            real(qp), dimension(:) :: X
+            real(qp), intent(in) :: from, to
+        end subroutine
+    end interface
 
     interface loadbin
-        #:set RCI_KINDS_TYPES = REAL_KINDS_TYPES + INT_KINDS_TYPES + CMPLX_KINDS_TYPES
-        #:set RANKS = range(1,4)
-        #:for RANK in RANKS
-        #:for k1,t1 in RCI_KINDS_TYPES
-        module subroutine loadbin_${RANK}$_${t1[0]}$${k1}$(filename, X)
+        module subroutine loadbin_1_rsp(filename, X)
             character(len=*), intent(in) :: filename
-            #:if RANK == 1
-            ${t1}$, dimension(:), allocatable, intent(out) :: X
-            #:elif RANK == 2
-            ${t1}$, dimension(:, :), allocatable, intent(out) :: X
-            #:elif RANK == 3
-            ${t1}$, dimension(:, :, :), allocatable, intent(out) :: X
-            #:endif
+            real(sp), dimension(:), allocatable, intent(out) :: X
         end subroutine
-        #:endfor
-        #:endfor
+        module subroutine loadbin_1_rdp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(dp), dimension(:), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_1_rqp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(qp), dimension(:), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_1_iint8(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int8), dimension(:), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_1_iint16(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int16), dimension(:), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_1_iint32(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int32), dimension(:), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_1_iint64(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int64), dimension(:), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_1_csp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(sp), dimension(:), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_1_cdp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(dp), dimension(:), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_1_cqp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(qp), dimension(:), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_2_rsp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(sp), dimension(:, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_2_rdp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(dp), dimension(:, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_2_rqp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(qp), dimension(:, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_2_iint8(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int8), dimension(:, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_2_iint16(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int16), dimension(:, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_2_iint32(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int32), dimension(:, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_2_iint64(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int64), dimension(:, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_2_csp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(sp), dimension(:, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_2_cdp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(dp), dimension(:, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_2_cqp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(qp), dimension(:, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_3_rsp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(sp), dimension(:, :, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_3_rdp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(dp), dimension(:, :, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_3_rqp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(qp), dimension(:, :, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_3_iint8(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int8), dimension(:, :, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_3_iint16(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int16), dimension(:, :, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_3_iint32(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int32), dimension(:, :, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_3_iint64(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int64), dimension(:, :, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_3_csp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(sp), dimension(:, :, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_3_cdp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(dp), dimension(:, :, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadbin_3_cqp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(qp), dimension(:, :, :), allocatable, intent(out) :: X
+        end subroutine
     end interface
 
     interface loadtxt
-        #:set RCI_KINDS_TYPES = REAL_KINDS_TYPES + INT_KINDS_TYPES + CMPLX_KINDS_TYPES
-        #:set RANKS = range(1,3)
-        #:for RANK in RANKS
-        #:for k1,t1 in RCI_KINDS_TYPES
-        module subroutine loadtxt_${RANK}$_${t1[0]}$${k1}$(filename, X)
+        module subroutine loadtxt_1_rsp(filename, X)
             character(len=*), intent(in) :: filename
-            #:if RANK == 1
-            ${t1}$, dimension(:), allocatable, intent(out) :: X
-            #:elif RANK == 2
-            ${t1}$, dimension(:, :), allocatable, intent(out) :: X
-            #:endif
+            real(sp), dimension(:), allocatable, intent(out) :: X
         end subroutine
-        #:endfor
-        #:endfor
+        module subroutine loadtxt_1_rdp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(dp), dimension(:), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadtxt_1_rqp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(qp), dimension(:), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadtxt_1_iint8(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int8), dimension(:), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadtxt_1_iint16(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int16), dimension(:), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadtxt_1_iint32(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int32), dimension(:), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadtxt_1_iint64(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int64), dimension(:), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadtxt_1_csp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(sp), dimension(:), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadtxt_1_cdp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(dp), dimension(:), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadtxt_1_cqp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(qp), dimension(:), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadtxt_2_rsp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(sp), dimension(:, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadtxt_2_rdp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(dp), dimension(:, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadtxt_2_rqp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(qp), dimension(:, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadtxt_2_iint8(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int8), dimension(:, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadtxt_2_iint16(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int16), dimension(:, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadtxt_2_iint32(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int32), dimension(:, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadtxt_2_iint64(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int64), dimension(:, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadtxt_2_csp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(sp), dimension(:, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadtxt_2_cdp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(dp), dimension(:, :), allocatable, intent(out) :: X
+        end subroutine
+        module subroutine loadtxt_2_cqp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(qp), dimension(:, :), allocatable, intent(out) :: X
+        end subroutine
     end interface
 
     interface log2
@@ -532,12 +1370,18 @@ module forlab
     interface lu
         !! lu computes the LU matrix factorization.
         !!([Specification](../module/forlab_lu.html))
-        #:for k1,t1 in REAL_KINDS_TYPES
-        module subroutine lu_${k1}$ (A, L, U)
-            ${t1}$, dimension(:, :), intent(in) :: A
-            ${t1}$, dimension(:, :), allocatable, intent(out) :: L, U
+        module subroutine lu_sp (A, L, U)
+            real(sp), dimension(:, :), intent(in) :: A
+            real(sp), dimension(:, :), allocatable, intent(out) :: L, U
         end subroutine
-        #:endfor
+        module subroutine lu_dp (A, L, U)
+            real(dp), dimension(:, :), intent(in) :: A
+            real(dp), dimension(:, :), allocatable, intent(out) :: L, U
+        end subroutine
+        module subroutine lu_qp (A, L, U)
+            real(qp), dimension(:, :), intent(in) :: A
+            real(qp), dimension(:, :), allocatable, intent(out) :: L, U
+        end subroutine
     end interface
 
     interface mad
@@ -547,13 +1391,21 @@ module forlab
     interface matpow
         !! Calculat matrix power
         !!([Specification](../module/forlab_matpow.html))
-        #:for k1,t1 in REAL_KINDS_TYPES
-        module function matpow_${k1}$(a,num)result(c)
-            ${t1}$, dimension(:,:), intent(in) :: a
-            ${t1}$,allocatable :: c(:,:)
+        module function matpow_sp(a,num)result(c)
+            real(sp), dimension(:,:), intent(in) :: a
+            real(sp),allocatable :: c(:,:)
             integer::num
-        end function matpow_${k1}$
-        #:endfor
+        end function matpow_sp
+        module function matpow_dp(a,num)result(c)
+            real(dp), dimension(:,:), intent(in) :: a
+            real(dp),allocatable :: c(:,:)
+            integer::num
+        end function matpow_dp
+        module function matpow_qp(a,num)result(c)
+            real(qp), dimension(:,:), intent(in) :: a
+            real(qp),allocatable :: c(:,:)
+            integer::num
+        end function matpow_qp
     end interface
 
     interface mbkmeans
@@ -565,16 +1417,30 @@ module forlab
     end interface median
 
     interface mean
-        #:for k1, t1 in REAL_KINDS_TYPES
-        ${t1}$ module function mean_1_${k1}$(x)
-            ${t1}$, dimension(:), intent(in) :: x
+        real(sp) module function mean_1_sp(x)
+            real(sp), dimension(:), intent(in) :: x
         end function
-        module function mean_2_${k1}$(A, dim)
-            ${t1}$, dimension(:), allocatable :: mean_2_${k1}$
-            ${t1}$, dimension(:, :), intent(in) :: A
+        module function mean_2_sp(A, dim)
+            real(sp), dimension(:), allocatable :: mean_2_sp
+            real(sp), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: dim
         end function
-        #:endfor
+        real(dp) module function mean_1_dp(x)
+            real(dp), dimension(:), intent(in) :: x
+        end function
+        module function mean_2_dp(A, dim)
+            real(dp), dimension(:), allocatable :: mean_2_dp
+            real(dp), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: dim
+        end function
+        real(qp) module function mean_1_qp(x)
+            real(qp), dimension(:), intent(in) :: x
+        end function
+        module function mean_2_qp(A, dim)
+            real(qp), dimension(:), allocatable :: mean_2_qp
+            real(qp), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: dim
+        end function
     end interface mean
 
     interface meshgrid
@@ -588,18 +1454,36 @@ module forlab
     interface norm
         !! norm computes vector and matrix norms.
         !!([Specification](../module/forlab_norm.html))
-        #:for k1,t1 in REAL_KINDS_TYPES
-        module function norm1_${k1}$(x,p)result(norm1)
-            ${t1}$, dimension(:), intent(in) :: x
-            ${t1}$, intent(in), optional :: p
-            ${t1}$:: norm1
-        end function norm1_${k1}$
-        module function norm2_${k1}$(A,p)result(norm2)
-            ${t1}$, dimension(:,:), intent(in) :: A
-            ${t1}$, intent(in), optional :: p
-            ${t1}$:: norm2
-        end function norm2_${k1}$
-        #:endfor
+        module function norm1_sp(x,p)result(norm1)
+            real(sp), dimension(:), intent(in) :: x
+            real(sp), intent(in), optional :: p
+            real(sp):: norm1
+        end function norm1_sp
+        module function norm2_sp(A,p)result(norm2)
+            real(sp), dimension(:,:), intent(in) :: A
+            real(sp), intent(in), optional :: p
+            real(sp):: norm2
+        end function norm2_sp
+        module function norm1_dp(x,p)result(norm1)
+            real(dp), dimension(:), intent(in) :: x
+            real(dp), intent(in), optional :: p
+            real(dp):: norm1
+        end function norm1_dp
+        module function norm2_dp(A,p)result(norm2)
+            real(dp), dimension(:,:), intent(in) :: A
+            real(dp), intent(in), optional :: p
+            real(dp):: norm2
+        end function norm2_dp
+        module function norm1_qp(x,p)result(norm1)
+            real(qp), dimension(:), intent(in) :: x
+            real(qp), intent(in), optional :: p
+            real(qp):: norm1
+        end function norm1_qp
+        module function norm2_qp(A,p)result(norm2)
+            real(qp), dimension(:,:), intent(in) :: A
+            real(qp), intent(in), optional :: p
+            real(qp):: norm2
+        end function norm2_qp
     end interface norm
 
     interface normpdf
@@ -607,38 +1491,105 @@ module forlab
     end interface normpdf
 
     interface num2str
-        #:set RI_KINDS_TYPES = REAL_KINDS_TYPES + INT_KINDS_TYPES
-        #:for k1, t1 in RI_KINDS_TYPES
-        module function num2str_${k1}$(x, fmt)
-            character(len=:), allocatable :: num2str_${k1}$
-            ${t1}$, intent(in) :: x
+        module function num2str_sp(x, fmt)
+            character(len=:), allocatable :: num2str_sp
+            real(sp), intent(in) :: x
             character(len=*), intent(in), optional :: fmt
         end function
-        #:endfor
+        module function num2str_dp(x, fmt)
+            character(len=:), allocatable :: num2str_dp
+            real(dp), intent(in) :: x
+            character(len=*), intent(in), optional :: fmt
+        end function
+        module function num2str_qp(x, fmt)
+            character(len=:), allocatable :: num2str_qp
+            real(qp), intent(in) :: x
+            character(len=*), intent(in), optional :: fmt
+        end function
+        module function num2str_int8(x, fmt)
+            character(len=:), allocatable :: num2str_int8
+            integer(int8), intent(in) :: x
+            character(len=*), intent(in), optional :: fmt
+        end function
+        module function num2str_int16(x, fmt)
+            character(len=:), allocatable :: num2str_int16
+            integer(int16), intent(in) :: x
+            character(len=*), intent(in), optional :: fmt
+        end function
+        module function num2str_int32(x, fmt)
+            character(len=:), allocatable :: num2str_int32
+            integer(int32), intent(in) :: x
+            character(len=*), intent(in), optional :: fmt
+        end function
+        module function num2str_int64(x, fmt)
+            character(len=:), allocatable :: num2str_int64
+            integer(int64), intent(in) :: x
+            character(len=*), intent(in), optional :: fmt
+        end function
     end interface
 
     interface ones
-        #:set RCI_KINDS_TYPES = REAL_KINDS_TYPES + CMPLX_KINDS_TYPES + INT_KINDS_TYPES
-        #:for k1, t1 in RCI_KINDS_TYPES
-        impure elemental module subroutine ones_${t1[0]}$${k1}$(X)
-            ${t1}$, intent(out) :: X
+        impure elemental module subroutine ones_rsp(X)
+            real(sp), intent(out) :: X
         end subroutine
-        #:endfor
+        impure elemental module subroutine ones_rdp(X)
+            real(dp), intent(out) :: X
+        end subroutine
+        impure elemental module subroutine ones_rqp(X)
+            real(qp), intent(out) :: X
+        end subroutine
+        impure elemental module subroutine ones_csp(X)
+            complex(sp), intent(out) :: X
+        end subroutine
+        impure elemental module subroutine ones_cdp(X)
+            complex(dp), intent(out) :: X
+        end subroutine
+        impure elemental module subroutine ones_cqp(X)
+            complex(qp), intent(out) :: X
+        end subroutine
+        impure elemental module subroutine ones_iint8(X)
+            integer(int8), intent(out) :: X
+        end subroutine
+        impure elemental module subroutine ones_iint16(X)
+            integer(int16), intent(out) :: X
+        end subroutine
+        impure elemental module subroutine ones_iint32(X)
+            integer(int32), intent(out) :: X
+        end subroutine
+        impure elemental module subroutine ones_iint64(X)
+            integer(int64), intent(out) :: X
+        end subroutine
     end interface
 
     interface outer
-        #:for k1,t1 in INT_KINDS_TYPES
-        module function outer_${k1}$(x, y)
-            ${t1}$, dimension(:,:), allocatable :: outer_${k1}$
-            ${t1}$, dimension(:), intent(in) :: x, y
+        module function outer_int8(x, y)
+            integer(int8), dimension(:,:), allocatable :: outer_int8
+            integer(int8), dimension(:), intent(in) :: x, y
         end function
-        #:endfor
-        #:for k1,t1 in REAL_KINDS_TYPES
-        module function outer_${k1}$(x, y)
-            ${t1}$, dimension(:,:), allocatable :: outer_${k1}$
-            ${t1}$, dimension(:), intent(in) :: x, y
+        module function outer_int16(x, y)
+            integer(int16), dimension(:,:), allocatable :: outer_int16
+            integer(int16), dimension(:), intent(in) :: x, y
         end function
-        #:endfor
+        module function outer_int32(x, y)
+            integer(int32), dimension(:,:), allocatable :: outer_int32
+            integer(int32), dimension(:), intent(in) :: x, y
+        end function
+        module function outer_int64(x, y)
+            integer(int64), dimension(:,:), allocatable :: outer_int64
+            integer(int64), dimension(:), intent(in) :: x, y
+        end function
+        module function outer_sp(x, y)
+            real(sp), dimension(:,:), allocatable :: outer_sp
+            real(sp), dimension(:), intent(in) :: x, y
+        end function
+        module function outer_dp(x, y)
+            real(dp), dimension(:,:), allocatable :: outer_dp
+            real(dp), dimension(:), intent(in) :: x, y
+        end function
+        module function outer_qp(x, y)
+            real(qp), dimension(:,:), allocatable :: outer_qp
+            real(qp), dimension(:), intent(in) :: x, y
+        end function
     end interface
 
     interface prctile
@@ -668,52 +1619,249 @@ module forlab
     end interface rms
 
     interface savebin
-        #:set RCI_KINDS_TYPES = REAL_KINDS_TYPES + INT_KINDS_TYPES + CMPLX_KINDS_TYPES
-        #:set RANKS = range(1,4)
-        #:for RANK in RANKS
-        #:for k1,t1 in RCI_KINDS_TYPES
-        module subroutine savebin_${RANK}$_${t1[0]}$${k1}$(filename, X)
+        module subroutine savebin_1_rsp(filename, X)
             character(len=*), intent(in) :: filename
-            #:if RANK == 1
-            ${t1}$, dimension(:), intent(in) :: X
-            #:elif RANK == 2
-            ${t1}$, dimension(:, :), intent(in) :: X
-            #:elif RANK == 3
-            ${t1}$, dimension(:, :, :), intent(in) :: X
-            #:endif
+            real(sp), dimension(:), intent(in) :: X
         end subroutine
-        #:endfor
-        #:endfor
+        module subroutine savebin_1_rdp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(dp), dimension(:), intent(in) :: X
+        end subroutine
+        module subroutine savebin_1_rqp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(qp), dimension(:), intent(in) :: X
+        end subroutine
+        module subroutine savebin_1_iint8(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int8), dimension(:), intent(in) :: X
+        end subroutine
+        module subroutine savebin_1_iint16(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int16), dimension(:), intent(in) :: X
+        end subroutine
+        module subroutine savebin_1_iint32(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int32), dimension(:), intent(in) :: X
+        end subroutine
+        module subroutine savebin_1_iint64(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int64), dimension(:), intent(in) :: X
+        end subroutine
+        module subroutine savebin_1_csp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(sp), dimension(:), intent(in) :: X
+        end subroutine
+        module subroutine savebin_1_cdp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(dp), dimension(:), intent(in) :: X
+        end subroutine
+        module subroutine savebin_1_cqp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(qp), dimension(:), intent(in) :: X
+        end subroutine
+        module subroutine savebin_2_rsp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(sp), dimension(:, :), intent(in) :: X
+        end subroutine
+        module subroutine savebin_2_rdp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(dp), dimension(:, :), intent(in) :: X
+        end subroutine
+        module subroutine savebin_2_rqp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(qp), dimension(:, :), intent(in) :: X
+        end subroutine
+        module subroutine savebin_2_iint8(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int8), dimension(:, :), intent(in) :: X
+        end subroutine
+        module subroutine savebin_2_iint16(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int16), dimension(:, :), intent(in) :: X
+        end subroutine
+        module subroutine savebin_2_iint32(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int32), dimension(:, :), intent(in) :: X
+        end subroutine
+        module subroutine savebin_2_iint64(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int64), dimension(:, :), intent(in) :: X
+        end subroutine
+        module subroutine savebin_2_csp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(sp), dimension(:, :), intent(in) :: X
+        end subroutine
+        module subroutine savebin_2_cdp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(dp), dimension(:, :), intent(in) :: X
+        end subroutine
+        module subroutine savebin_2_cqp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(qp), dimension(:, :), intent(in) :: X
+        end subroutine
+        module subroutine savebin_3_rsp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(sp), dimension(:, :, :), intent(in) :: X
+        end subroutine
+        module subroutine savebin_3_rdp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(dp), dimension(:, :, :), intent(in) :: X
+        end subroutine
+        module subroutine savebin_3_rqp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(qp), dimension(:, :, :), intent(in) :: X
+        end subroutine
+        module subroutine savebin_3_iint8(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int8), dimension(:, :, :), intent(in) :: X
+        end subroutine
+        module subroutine savebin_3_iint16(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int16), dimension(:, :, :), intent(in) :: X
+        end subroutine
+        module subroutine savebin_3_iint32(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int32), dimension(:, :, :), intent(in) :: X
+        end subroutine
+        module subroutine savebin_3_iint64(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int64), dimension(:, :, :), intent(in) :: X
+        end subroutine
+        module subroutine savebin_3_csp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(sp), dimension(:, :, :), intent(in) :: X
+        end subroutine
+        module subroutine savebin_3_cdp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(dp), dimension(:, :, :), intent(in) :: X
+        end subroutine
+        module subroutine savebin_3_cqp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(qp), dimension(:, :, :), intent(in) :: X
+        end subroutine
     end interface
 
     interface savetxt
-        #:set RCI_KINDS_TYPES = REAL_KINDS_TYPES + INT_KINDS_TYPES + CMPLX_KINDS_TYPES
-        #:set RANKS = range(1,3)
-        #:for RANK in RANKS
-        #:for k1,t1 in RCI_KINDS_TYPES
-        module subroutine savetxt_${RANK}$_${t1[0]}$${k1}$(filename, X)
+        module subroutine savetxt_1_rsp(filename, X)
             character(len=*), intent(in) :: filename
-            #:if RANK == 1
-            ${t1}$, dimension(:), intent(in) :: X
-            #:elif RANK == 2
-            ${t1}$, dimension(:, :), intent(in) :: X
-            #:endif
+            real(sp), dimension(:), intent(in) :: X
         end subroutine
-        #:endfor
-        #:endfor
+        module subroutine savetxt_1_rdp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(dp), dimension(:), intent(in) :: X
+        end subroutine
+        module subroutine savetxt_1_rqp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(qp), dimension(:), intent(in) :: X
+        end subroutine
+        module subroutine savetxt_1_iint8(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int8), dimension(:), intent(in) :: X
+        end subroutine
+        module subroutine savetxt_1_iint16(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int16), dimension(:), intent(in) :: X
+        end subroutine
+        module subroutine savetxt_1_iint32(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int32), dimension(:), intent(in) :: X
+        end subroutine
+        module subroutine savetxt_1_iint64(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int64), dimension(:), intent(in) :: X
+        end subroutine
+        module subroutine savetxt_1_csp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(sp), dimension(:), intent(in) :: X
+        end subroutine
+        module subroutine savetxt_1_cdp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(dp), dimension(:), intent(in) :: X
+        end subroutine
+        module subroutine savetxt_1_cqp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(qp), dimension(:), intent(in) :: X
+        end subroutine
+        module subroutine savetxt_2_rsp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(sp), dimension(:, :), intent(in) :: X
+        end subroutine
+        module subroutine savetxt_2_rdp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(dp), dimension(:, :), intent(in) :: X
+        end subroutine
+        module subroutine savetxt_2_rqp(filename, X)
+            character(len=*), intent(in) :: filename
+            real(qp), dimension(:, :), intent(in) :: X
+        end subroutine
+        module subroutine savetxt_2_iint8(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int8), dimension(:, :), intent(in) :: X
+        end subroutine
+        module subroutine savetxt_2_iint16(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int16), dimension(:, :), intent(in) :: X
+        end subroutine
+        module subroutine savetxt_2_iint32(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int32), dimension(:, :), intent(in) :: X
+        end subroutine
+        module subroutine savetxt_2_iint64(filename, X)
+            character(len=*), intent(in) :: filename
+            integer(int64), dimension(:, :), intent(in) :: X
+        end subroutine
+        module subroutine savetxt_2_csp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(sp), dimension(:, :), intent(in) :: X
+        end subroutine
+        module subroutine savetxt_2_cdp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(dp), dimension(:, :), intent(in) :: X
+        end subroutine
+        module subroutine savetxt_2_cqp(filename, X)
+            character(len=*), intent(in) :: filename
+            complex(qp), dimension(:, :), intent(in) :: X
+        end subroutine
     end interface
 
     interface seq
         !! seq returns evenly spaced vector.
         !!([Specification](../module/forlab_seq.html))
-        #:set RI_KINDS_TYPES = REAL_KINDS_TYPES + INT_KINDS_TYPES 
-        #:for k1, t1 in RI_KINDS_TYPES
-        module subroutine seq_${k1}$ (X, from, to, by)
-            ${t1}$, dimension(:), allocatable, intent(out) :: X
-            ${t1}$, intent(in) :: from, to
-            ${t1}$, optional, intent(in) :: by
+        module subroutine seq_sp (X, from, to, by)
+            real(sp), dimension(:), allocatable, intent(out) :: X
+            real(sp), intent(in) :: from, to
+            real(sp), optional, intent(in) :: by
         end subroutine
-        #:endfor
+        module subroutine seq_dp (X, from, to, by)
+            real(dp), dimension(:), allocatable, intent(out) :: X
+            real(dp), intent(in) :: from, to
+            real(dp), optional, intent(in) :: by
+        end subroutine
+        module subroutine seq_qp (X, from, to, by)
+            real(qp), dimension(:), allocatable, intent(out) :: X
+            real(qp), intent(in) :: from, to
+            real(qp), optional, intent(in) :: by
+        end subroutine
+        module subroutine seq_int8 (X, from, to, by)
+            integer(int8), dimension(:), allocatable, intent(out) :: X
+            integer(int8), intent(in) :: from, to
+            integer(int8), optional, intent(in) :: by
+        end subroutine
+        module subroutine seq_int16 (X, from, to, by)
+            integer(int16), dimension(:), allocatable, intent(out) :: X
+            integer(int16), intent(in) :: from, to
+            integer(int16), optional, intent(in) :: by
+        end subroutine
+        module subroutine seq_int32 (X, from, to, by)
+            integer(int32), dimension(:), allocatable, intent(out) :: X
+            integer(int32), intent(in) :: from, to
+            integer(int32), optional, intent(in) :: by
+        end subroutine
+        module subroutine seq_int64 (X, from, to, by)
+            integer(int64), dimension(:), allocatable, intent(out) :: X
+            integer(int64), intent(in) :: from, to
+            integer(int64), optional, intent(in) :: by
+        end subroutine
     end interface
 
     interface signum
@@ -733,25 +1881,69 @@ module forlab
     end interface skewness
 
     interface solve
-        #:for k1,t1 in REAL_KINDS_TYPES
-        module function solve_${k1}$(A, b) result(x)
-            ${t1}$, dimension(:, :), intent(in) :: A
-            ${t1}$, dimension(:), intent(in) :: b
-            ${t1}$, dimension(:), allocatable :: x
-        end function solve_${k1}$
+        module function solve_sp(A, b) result(x)
+            real(sp), dimension(:, :), intent(in) :: A
+            real(sp), dimension(:), intent(in) :: b
+            real(sp), dimension(:), allocatable :: x
+        end function solve_sp
 
-        #:endfor
+        module function solve_dp(A, b) result(x)
+            real(dp), dimension(:, :), intent(in) :: A
+            real(dp), dimension(:), intent(in) :: b
+            real(dp), dimension(:), allocatable :: x
+        end function solve_dp
+
+        module function solve_qp(A, b) result(x)
+            real(qp), dimension(:, :), intent(in) :: A
+            real(qp), dimension(:), intent(in) :: b
+            real(qp), dimension(:), allocatable :: x
+        end function solve_qp
+
     end interface solve
 
     interface sort
-    #:for k1, t1 in INT_KINDS_TYPES+REAL_KINDS_TYPES
-        module function sort_${k1}$(x,order)
-            ${t1}$,allocatable::sort_${k1}$(:)
-            ${t1}$,intent(in)::x(:)
+        module function sort_int8(x,order)
+            integer(int8),allocatable::sort_int8(:)
+            integer(int8),intent(in)::x(:)
             integer,optional,intent(in)::order
-        end function sort_${k1}$
+        end function sort_int8
 
-    #:endfor
+        module function sort_int16(x,order)
+            integer(int16),allocatable::sort_int16(:)
+            integer(int16),intent(in)::x(:)
+            integer,optional,intent(in)::order
+        end function sort_int16
+
+        module function sort_int32(x,order)
+            integer(int32),allocatable::sort_int32(:)
+            integer(int32),intent(in)::x(:)
+            integer,optional,intent(in)::order
+        end function sort_int32
+
+        module function sort_int64(x,order)
+            integer(int64),allocatable::sort_int64(:)
+            integer(int64),intent(in)::x(:)
+            integer,optional,intent(in)::order
+        end function sort_int64
+
+        module function sort_sp(x,order)
+            real(sp),allocatable::sort_sp(:)
+            real(sp),intent(in)::x(:)
+            integer,optional,intent(in)::order
+        end function sort_sp
+
+        module function sort_dp(x,order)
+            real(dp),allocatable::sort_dp(:)
+            real(dp),intent(in)::x(:)
+            integer,optional,intent(in)::order
+        end function sort_dp
+
+        module function sort_qp(x,order)
+            real(qp),allocatable::sort_qp(:)
+            real(qp),intent(in)::x(:)
+            integer,optional,intent(in)::order
+        end function sort_qp
+
     end interface sort
 
     interface spline1
@@ -763,80 +1955,190 @@ module forlab
     end interface spline2
 
     interface svd
-    #:for k1, t1 in REAL_KINDS_TYPES
-        module subroutine svd_${k1}$(a, w, u, v , d, ierr)
-            ${t1}$, dimension(:, :), intent(in) :: a
-            ${t1}$, dimension(:), allocatable, intent(out) :: w
-            ${t1}$, dimension(:, :), allocatable, intent(out), optional :: u, v
+        module subroutine svd_sp(a, w, u, v , d, ierr)
+            real(sp), dimension(:, :), intent(in) :: a
+            real(sp), dimension(:), allocatable, intent(out) :: w
+            real(sp), dimension(:, :), allocatable, intent(out), optional :: u, v
             integer, intent(out), optional :: ierr
             logical,intent(in),optional ::d
-        end subroutine svd_${k1}$
+        end subroutine svd_sp
 
-    #:endfor
+        module subroutine svd_dp(a, w, u, v , d, ierr)
+            real(dp), dimension(:, :), intent(in) :: a
+            real(dp), dimension(:), allocatable, intent(out) :: w
+            real(dp), dimension(:, :), allocatable, intent(out), optional :: u, v
+            integer, intent(out), optional :: ierr
+            logical,intent(in),optional ::d
+        end subroutine svd_dp
+
+        module subroutine svd_qp(a, w, u, v , d, ierr)
+            real(qp), dimension(:, :), intent(in) :: a
+            real(qp), dimension(:), allocatable, intent(out) :: w
+            real(qp), dimension(:, :), allocatable, intent(out), optional :: u, v
+            integer, intent(out), optional :: ierr
+            logical,intent(in),optional ::d
+        end subroutine svd_qp
+
     end interface svd
 
     interface svdsolve
-        #:for k1, t1 in REAL_KINDS_TYPES
-        module function svdsolve_${k1}$(A, b, cutoff) result(x)
-            ${t1}$, dimension(:, :), intent(in) :: A
-            ${t1}$, dimension(:), intent(in) :: b
-            ${t1}$, dimension(:), allocatable :: x
+        module function svdsolve_sp(A, b, cutoff) result(x)
+            real(sp), dimension(:, :), intent(in) :: A
+            real(sp), dimension(:), intent(in) :: b
+            real(sp), dimension(:), allocatable :: x
             integer, intent(in), optional :: cutoff
-        end function svdsolve_${k1}$
+        end function svdsolve_sp
 
-        #:endfor
+        module function svdsolve_dp(A, b, cutoff) result(x)
+            real(dp), dimension(:, :), intent(in) :: A
+            real(dp), dimension(:), intent(in) :: b
+            real(dp), dimension(:), allocatable :: x
+            integer, intent(in), optional :: cutoff
+        end function svdsolve_dp
+
+        module function svdsolve_qp(A, b, cutoff) result(x)
+            real(qp), dimension(:, :), intent(in) :: A
+            real(qp), dimension(:), intent(in) :: b
+            real(qp), dimension(:), allocatable :: x
+            integer, intent(in), optional :: cutoff
+        end function svdsolve_qp
+
     end interface svdsolve
     interface toc
         module subroutine toc_default()
         end subroutine
-        #:for k1, t1 in REAL_KINDS_TYPES
-        module subroutine toc_${k1}$(t)
-            ${t1}$, intent(out) :: t
+        module subroutine toc_sp(t)
+            real(sp), intent(out) :: t
         end subroutine
-        #:endfor
+        module subroutine toc_dp(t)
+            real(dp), intent(out) :: t
+        end subroutine
+        module subroutine toc_qp(t)
+            real(qp), intent(out) :: t
+        end subroutine
     end interface
 
     interface trace
-        #:for k1,t1 in REAL_KINDS_TYPES
-        module function trace_${k1}$(A)result(trace)
-            ${t1}$, dimension(:, :), intent(in) :: A
-            ${t1}$::trace
-        end function trace_${k1}$
+        module function trace_sp(A)result(trace)
+            real(sp), dimension(:, :), intent(in) :: A
+            real(sp)::trace
+        end function trace_sp
 
-        #:endfor
+        module function trace_dp(A)result(trace)
+            real(dp), dimension(:, :), intent(in) :: A
+            real(dp)::trace
+        end function trace_dp
+
+        module function trace_qp(A)result(trace)
+            real(qp), dimension(:, :), intent(in) :: A
+            real(qp)::trace
+        end function trace_qp
+
     end interface trace
     interface tril
-        #:for k1,t1 in INT_KINDS_TYPES+REAL_KINDS_TYPES
-        module function tril_${k1}$(A,k)
-            ${t1}$, dimension(:, :), allocatable :: tril_${k1}$
-            ${t1}$, dimension(:, :), intent(in) :: A
+        module function tril_int8(A,k)
+            integer(int8), dimension(:, :), allocatable :: tril_int8
+            integer(int8), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
-        end function tril_${k1}$
-        #:endfor
-        #:for k1,t1 in CMPLX_KINDS_TYPES
-        module function tril_c${k1}$(A,k)
-            ${t1}$, dimension(:, :), allocatable :: tril_c${k1}$
-            ${t1}$, dimension(:, :), intent(in) :: A
+        end function tril_int8
+        module function tril_int16(A,k)
+            integer(int16), dimension(:, :), allocatable :: tril_int16
+            integer(int16), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
-        end function tril_c${k1}$
-    #:endfor
+        end function tril_int16
+        module function tril_int32(A,k)
+            integer(int32), dimension(:, :), allocatable :: tril_int32
+            integer(int32), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: k
+        end function tril_int32
+        module function tril_int64(A,k)
+            integer(int64), dimension(:, :), allocatable :: tril_int64
+            integer(int64), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: k
+        end function tril_int64
+        module function tril_sp(A,k)
+            real(sp), dimension(:, :), allocatable :: tril_sp
+            real(sp), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: k
+        end function tril_sp
+        module function tril_dp(A,k)
+            real(dp), dimension(:, :), allocatable :: tril_dp
+            real(dp), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: k
+        end function tril_dp
+        module function tril_qp(A,k)
+            real(qp), dimension(:, :), allocatable :: tril_qp
+            real(qp), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: k
+        end function tril_qp
+        module function tril_csp(A,k)
+            complex(sp), dimension(:, :), allocatable :: tril_csp
+            complex(sp), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: k
+        end function tril_csp
+        module function tril_cdp(A,k)
+            complex(dp), dimension(:, :), allocatable :: tril_cdp
+            complex(dp), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: k
+        end function tril_cdp
+        module function tril_cqp(A,k)
+            complex(qp), dimension(:, :), allocatable :: tril_cqp
+            complex(qp), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: k
+        end function tril_cqp
     end interface tril
 
     interface triu
-        #:for k1,t1 in INT_KINDS_TYPES+REAL_KINDS_TYPES
-        module function triu_${k1}$(A,k)
-            ${t1}$, dimension(:, :), allocatable :: triu_${k1}$
-            ${t1}$, dimension(:, :), intent(in) :: A
+        module function triu_int8(A,k)
+            integer(int8), dimension(:, :), allocatable :: triu_int8
+            integer(int8), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
-        end function triu_${k1}$
-        #:endfor
-        #:for k1,t1 in CMPLX_KINDS_TYPES
-        module function triu_c${k1}$(A,k)
-            ${t1}$, dimension(:, :), allocatable :: triu_c${k1}$
-            ${t1}$, dimension(:, :), intent(in) :: A
+        end function triu_int8
+        module function triu_int16(A,k)
+            integer(int16), dimension(:, :), allocatable :: triu_int16
+            integer(int16), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
-        end function triu_c${k1}$
-        #:endfor
+        end function triu_int16
+        module function triu_int32(A,k)
+            integer(int32), dimension(:, :), allocatable :: triu_int32
+            integer(int32), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: k
+        end function triu_int32
+        module function triu_int64(A,k)
+            integer(int64), dimension(:, :), allocatable :: triu_int64
+            integer(int64), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: k
+        end function triu_int64
+        module function triu_sp(A,k)
+            real(sp), dimension(:, :), allocatable :: triu_sp
+            real(sp), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: k
+        end function triu_sp
+        module function triu_dp(A,k)
+            real(dp), dimension(:, :), allocatable :: triu_dp
+            real(dp), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: k
+        end function triu_dp
+        module function triu_qp(A,k)
+            real(qp), dimension(:, :), allocatable :: triu_qp
+            real(qp), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: k
+        end function triu_qp
+        module function triu_csp(A,k)
+            complex(sp), dimension(:, :), allocatable :: triu_csp
+            complex(sp), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: k
+        end function triu_csp
+        module function triu_cdp(A,k)
+            complex(dp), dimension(:, :), allocatable :: triu_cdp
+            complex(dp), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: k
+        end function triu_cdp
+        module function triu_cqp(A,k)
+            complex(qp), dimension(:, :), allocatable :: triu_cqp
+            complex(qp), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: k
+        end function triu_cqp
     end interface triu
 
     interface utm2deg
@@ -844,40 +2146,89 @@ module forlab
     end interface utm2deg
 
     !! Var & Std
-    #:set VSNAME = ['var', 'std']
-    #:for v1 in VSNAME
-    interface ${v1}$
-        #:if v1 == 'var'
+    interface var
         !! `var` computes vector and matrix variances.
         !!([Specification](../module/forlab_var.html))
-        #:elif v1 == 'std'
-        !! `std` computes vector and matrix standard deviations.
-        !!([Specification](../module/forlab_var.html))
-        #:endif
-        #:for k1, t1 in REAL_KINDS_TYPES
-        ${t1}$ module function ${v1}$_1_${k1}$(x, w)
-            ${t1}$, dimension(:), intent(in) :: x
+        real(sp) module function var_1_sp(x, w)
+            real(sp), dimension(:), intent(in) :: x
             integer, intent(in), optional :: w
         end function
-        module function ${v1}$_2_${k1}$(A, w, dim)
-            ${t1}$, dimension(:), allocatable :: ${v1}$_2_${k1}$
-            ${t1}$, dimension(:, :), intent(in) :: A
+        module function var_2_sp(A, w, dim)
+            real(sp), dimension(:), allocatable :: var_2_sp
+            real(sp), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: w, dim
         end function
-        #:endfor
+        real(dp) module function var_1_dp(x, w)
+            real(dp), dimension(:), intent(in) :: x
+            integer, intent(in), optional :: w
+        end function
+        module function var_2_dp(A, w, dim)
+            real(dp), dimension(:), allocatable :: var_2_dp
+            real(dp), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: w, dim
+        end function
+        real(qp) module function var_1_qp(x, w)
+            real(qp), dimension(:), intent(in) :: x
+            integer, intent(in), optional :: w
+        end function
+        module function var_2_qp(A, w, dim)
+            real(qp), dimension(:), allocatable :: var_2_qp
+            real(qp), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: w, dim
+        end function
     end interface
-    #:endfor
+    interface std
+        !! `std` computes vector and matrix standard deviations.
+        !!([Specification](../module/forlab_var.html))
+        real(sp) module function std_1_sp(x, w)
+            real(sp), dimension(:), intent(in) :: x
+            integer, intent(in), optional :: w
+        end function
+        module function std_2_sp(A, w, dim)
+            real(sp), dimension(:), allocatable :: std_2_sp
+            real(sp), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: w, dim
+        end function
+        real(dp) module function std_1_dp(x, w)
+            real(dp), dimension(:), intent(in) :: x
+            integer, intent(in), optional :: w
+        end function
+        module function std_2_dp(A, w, dim)
+            real(dp), dimension(:), allocatable :: std_2_dp
+            real(dp), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: w, dim
+        end function
+        real(qp) module function std_1_qp(x, w)
+            real(qp), dimension(:), intent(in) :: x
+            integer, intent(in), optional :: w
+        end function
+        module function std_2_qp(A, w, dim)
+            real(qp), dimension(:), allocatable :: std_2_qp
+            real(qp), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: w, dim
+        end function
+    end interface
 
     !! Qr
     interface qr
-        #:for k1,t1 in REAL_KINDS_TYPES
-        module subroutine qr_${k1}$(a,q,r,l)
-            ${t1}$,intent(in)::a(:,:)
-            ${t1}$,allocatable,intent(out)::q(:,:),r(:,:)
+        module subroutine qr_sp(a,q,r,l)
+            real(sp),intent(in)::a(:,:)
+            real(sp),allocatable,intent(out)::q(:,:),r(:,:)
             integer,optional::l
-        end subroutine qr_${k1}$
+        end subroutine qr_sp
 
-        #:endfor
+        module subroutine qr_dp(a,q,r,l)
+            real(dp),intent(in)::a(:,:)
+            real(dp),allocatable,intent(out)::q(:,:),r(:,:)
+            integer,optional::l
+        end subroutine qr_dp
+
+        module subroutine qr_qp(a,q,r,l)
+            real(qp),intent(in)::a(:,:)
+            real(qp),allocatable,intent(out)::q(:,:),r(:,:)
+            integer,optional::l
+        end subroutine qr_qp
+
     end interface qr
 
     !! Rng
@@ -891,32 +2242,83 @@ module forlab
 
     !! Randn
     interface randn
-        #:for k1, t1 in REAL_KINDS_TYPES
-        impure elemental module subroutine randn_${k1}$(X, mean, std)
-            ${t1}$, intent(out) :: X
-            ${t1}$, optional, intent(in) :: mean, std
+        impure elemental module subroutine randn_sp(X, mean, std)
+            real(sp), intent(out) :: X
+            real(sp), optional, intent(in) :: mean, std
         end subroutine
-        #:endfor
+        impure elemental module subroutine randn_dp(X, mean, std)
+            real(dp), intent(out) :: X
+            real(dp), optional, intent(in) :: mean, std
+        end subroutine
+        impure elemental module subroutine randn_qp(X, mean, std)
+            real(qp), intent(out) :: X
+            real(qp), optional, intent(in) :: mean, std
+        end subroutine
     end interface
 
     !! Randu
     interface randu
-        #:set RI_KINDS_TYPES = REAL_KINDS_TYPES + INT_KINDS_TYPES
-        #:for k1, t1 in RI_KINDS_TYPES
-        impure elemental module subroutine randu_${t1[0]}$${k1}$(X, from, to)
-            ${t1}$, intent(out) :: X
-            ${t1}$, optional, intent(in) :: from, to 
+        impure elemental module subroutine randu_rsp(X, from, to)
+            real(sp), intent(out) :: X
+            real(sp), optional, intent(in) :: from, to 
         end subroutine
-        #:endfor
+        impure elemental module subroutine randu_rdp(X, from, to)
+            real(dp), intent(out) :: X
+            real(dp), optional, intent(in) :: from, to 
+        end subroutine
+        impure elemental module subroutine randu_rqp(X, from, to)
+            real(qp), intent(out) :: X
+            real(qp), optional, intent(in) :: from, to 
+        end subroutine
+        impure elemental module subroutine randu_iint8(X, from, to)
+            integer(int8), intent(out) :: X
+            integer(int8), optional, intent(in) :: from, to 
+        end subroutine
+        impure elemental module subroutine randu_iint16(X, from, to)
+            integer(int16), intent(out) :: X
+            integer(int16), optional, intent(in) :: from, to 
+        end subroutine
+        impure elemental module subroutine randu_iint32(X, from, to)
+            integer(int32), intent(out) :: X
+            integer(int32), optional, intent(in) :: from, to 
+        end subroutine
+        impure elemental module subroutine randu_iint64(X, from, to)
+            integer(int64), intent(out) :: X
+            integer(int64), optional, intent(in) :: from, to 
+        end subroutine
     end interface
 
     interface zeros
-        #:set RCI_KINDS_TYPES = REAL_KINDS_TYPES + CMPLX_KINDS_TYPES + INT_KINDS_TYPES
-        #:for k1, t1 in RCI_KINDS_TYPES
-        impure elemental module subroutine zeros_${t1[0]}$${k1}$(X)
-            ${t1}$, intent(out) :: X
+        impure elemental module subroutine zeros_rsp(X)
+            real(sp), intent(out) :: X
         end subroutine
-        #:endfor
+        impure elemental module subroutine zeros_rdp(X)
+            real(dp), intent(out) :: X
+        end subroutine
+        impure elemental module subroutine zeros_rqp(X)
+            real(qp), intent(out) :: X
+        end subroutine
+        impure elemental module subroutine zeros_csp(X)
+            complex(sp), intent(out) :: X
+        end subroutine
+        impure elemental module subroutine zeros_cdp(X)
+            complex(dp), intent(out) :: X
+        end subroutine
+        impure elemental module subroutine zeros_cqp(X)
+            complex(qp), intent(out) :: X
+        end subroutine
+        impure elemental module subroutine zeros_iint8(X)
+            integer(int8), intent(out) :: X
+        end subroutine
+        impure elemental module subroutine zeros_iint16(X)
+            integer(int16), intent(out) :: X
+        end subroutine
+        impure elemental module subroutine zeros_iint32(X)
+            integer(int32), intent(out) :: X
+        end subroutine
+        impure elemental module subroutine zeros_iint64(X)
+            integer(int64), intent(out) :: X
+        end subroutine
     end interface
 
 contains

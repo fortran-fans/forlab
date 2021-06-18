@@ -1,7 +1,9 @@
 ---
 project: forlab
 summary: A opensource package forlab v1.0 for (modern) Fortran
-src_dir: src/fypp
+src_dir: src/
+exclude_dir: src/fpm/
+             src/fypp_test/
 output_dir: API-doc
 page_dir: doc
 media_dir: doc/media

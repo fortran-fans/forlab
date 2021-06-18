@@ -10,7 +10,7 @@ keywords = ["numerical", "easy-to-use"]
 
 
 [library]
-source-dir="src"
+source-dir="src/fpm"
 
 [build]
 auto-executables = false

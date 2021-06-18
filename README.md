@@ -25,7 +25,7 @@ The following combinations are tested on the default branch of `forlab`:
 ### Build with Make
 You can build using provided Makefiles:
 ```bash
-cd src && make
+cd src/fpm && make
 ```
 ### Build with [fpm](https://github.com/fortran-lang/fpm)
 You can build using provided `fpm.toml`:
@@ -33,7 +33,7 @@ You can build using provided `fpm.toml`:
 fpm build
 fpm test
 ```
-To use `forlab` within your fpm project, add the following to fpm.toml file:
+To use `forlab` within your fpm project, add the following to `fpm.toml` file:
 ```toml
 [dependencies]
 forlab = { git = "https://github.com/zoziha/forlab.git" }
