@@ -173,6 +173,7 @@ contains
                 if (ierr < 0) exit
                 countlines1 = countlines1 + 1
             end do
+            rewind(self%unit)
         else
             call self%open()
             do
