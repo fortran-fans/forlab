@@ -21,7 +21,7 @@ clean:
 	cd $(SRCDIR); $(RM) $(SRCGEN) $(SRCF90)
 
 # GEN F90 files to `fpm/` from FYPP files
-$(SRCGEN): %.f90: %.fypp
+$(SRCGEN): %.f90: %.fypp common.fypp
 	@mkdir -p $(FPMSRCDIR)
 	fypp $(FYPPFLAGS) $< $(FPMSRCDIR)/$@
 
