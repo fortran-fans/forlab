@@ -1,40 +1,36 @@
 #:include 'common.fypp'
 submodule(forlab) forlab_mean
-    ! mean
-    !-----------------------------------------------------------------------
-    ! mean computes the mean value of an array.
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! y = mean(x)
-    ! x = mean(A)
-    ! x = mean(A, 1)
-    ! x = mean(A, 2)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! y = mean(x) returns the mean value of the vector x.
-    !
-    ! x = mean(A) returns a dim2 vector with the mean values of each column
-    ! of matrix A.
-    !
-    ! x = mean(A, 1) (see x = mean(A)).
-    !
-    ! x = mean(A, 2) returns a dim1 vector with the mean values of each row
-    ! of matrix A.
-    !
-    ! Examples
-    !-----------------------------------------------------------------------
-    ! x = [ 1., 2., 3. ]
-    ! y = mean(x)
-    !     2.
-    !
-    ! A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 9. ], [ 3, 3 ], &
-    !             order = [ 2, 1 ])
-    ! x = mean(A)
-    !     4.  5.  6.
-    ! x = mean(A, 2)
-    !     2.  5.  8.
+    !!## mean
+    !! mean computes the mean value of an array.
+    !!
+    !!### Syntax
+    !!    y = mean(x)
+    !!    x = mean(A)
+    !!    x = mean(A, 1)
+    !!    x = mean(A, 2)
+    !!
+    !!### Description
+    !! `y = mean(x)` returns the mean value of the vector `x`.
+    !!
+    !! `x = mean(A)` returns a `dim2` vector with the mean values of each column
+    !! of matrix A.
+    !!
+    !! `x = mean(A, 1)` (see `x = mean(A)`).
+    !!
+    !! `x = mean(A, 2)` returns a `dim1` vector with the mean values of each row
+    !! of matrix `A`.
+    !!
+    !!### Examples
+    !!    x = [ 1., 2., 3. ]
+    !!    y = mean(x)
+    !!        2.
+    !!
+    !!    A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 9. ], [ 3, 3 ], &
+    !!                order = [ 2, 1 ])
+    !!    x = mean(A)
+    !!        4.  5.  6.
+    !!    x = mean(A, 2)
+    !!        2.  5.  8.
     use forlab_kinds
     implicit none
 
