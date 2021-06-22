@@ -1,8 +1,8 @@
 #:include 'common.fypp'
-submodule(forlab) forlab_mean
+submodule(forlab:forlab_stats) forlab_stats_mean
     !!## mean
     !! mean computes the mean value of an array.
-    !!
+    !!([Interface](../interface/mean.html))
     !!### Syntax
     !!    y = mean(x)
     !!    x = mean(A)

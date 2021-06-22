@@ -1417,6 +1417,8 @@ module forlab
     end interface median
 
     interface mean
+        !! mean computes the mean value of an array.
+        !! ([Specification](../module/forlab_stats_mean.html))
         real(sp) module function mean_1_sp(x)
             real(sp), dimension(:), intent(in) :: x
         end function

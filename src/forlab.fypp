@@ -566,6 +566,8 @@ module forlab
     end interface median
 
     interface mean
+        !! mean computes the mean value of an array.
+        !! ([Specification](../module/forlab_stats_mean.html))
         #:for k1, t1 in REAL_KINDS_TYPES
         ${t1}$ module function mean_1_${k1}$(x)
             ${t1}$, dimension(:), intent(in) :: x
