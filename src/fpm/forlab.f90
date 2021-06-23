@@ -36,7 +36,7 @@ module forlab
               angle, bsplrep1, bsplrep2, bspline1, bspline2, chol, cosd, countlines, &
               cov, cumsum, chi2cdf, chi2pdf, chi2inv, chi2rand, check_directory, &
               det, diag, disp, deg2utm, datenum, datevec, datestr, deboor, diff, &
-              eig, eye, file_exist, &
+              eig, error_stop, eye, file_exist, &
               find, flip, fliplr, flipud, fminbnd, gammainc, horzcat, &
               hann, interp1, interp2, interp3, inv, ismember, isoutlier, issquare, &
               isleap, issymmetric, kurtosis, k2test, kde, loadbin, loadtxt, linspace, logspace, &
