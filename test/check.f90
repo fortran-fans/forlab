@@ -31,9 +31,12 @@ program main
         complex :: c(2,2)
         real :: r(2,2)
         integer :: i(2,2)
+        logical :: l(2,3)
         call ones(c)
         call ones(r)
         call ones(i)
+
+        l = .true.
         
             call setcolor(3)
             call disp('forlab_disp.fypp : ')
@@ -46,6 +49,8 @@ program main
             call disp(i, 'disp(ones(i)): ')
             !!! REAL
             call disp(r, 'disp(ones(r)): ') 
+            !!! LOG
+            call disp(l, 'disp(l): ')
 
         r(1,1) = 1.0d-4
         r(1,2) = 1.0d-11
