@@ -613,7 +613,7 @@ module forlab
         #:set RCI_KINDS_TYPES = REAL_KINDS_TYPES + CMPLX_KINDS_TYPES + INT_KINDS_TYPES
         #:for k1, t1 in RCI_KINDS_TYPES
         module function num2str_${t1[0]}$${k1}$(x, fmt)
-            character(len=:), allocatable :: num2str_${k1}$
+            character(len=:), allocatable :: num2str_${t1[0]}$${k1}$
             ${t1}$, intent(in) :: x
             character(len=*), intent(in), optional :: fmt
         end function

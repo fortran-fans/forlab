@@ -1494,52 +1494,52 @@ module forlab
 
     interface num2str
         module function num2str_rsp(x, fmt)
-            character(len=:), allocatable :: num2str_sp
+            character(len=:), allocatable :: num2str_rsp
             real(sp), intent(in) :: x
             character(len=*), intent(in), optional :: fmt
         end function
         module function num2str_rdp(x, fmt)
-            character(len=:), allocatable :: num2str_dp
+            character(len=:), allocatable :: num2str_rdp
             real(dp), intent(in) :: x
             character(len=*), intent(in), optional :: fmt
         end function
         module function num2str_rqp(x, fmt)
-            character(len=:), allocatable :: num2str_qp
+            character(len=:), allocatable :: num2str_rqp
             real(qp), intent(in) :: x
             character(len=*), intent(in), optional :: fmt
         end function
         module function num2str_csp(x, fmt)
-            character(len=:), allocatable :: num2str_sp
+            character(len=:), allocatable :: num2str_csp
             complex(sp), intent(in) :: x
             character(len=*), intent(in), optional :: fmt
         end function
         module function num2str_cdp(x, fmt)
-            character(len=:), allocatable :: num2str_dp
+            character(len=:), allocatable :: num2str_cdp
             complex(dp), intent(in) :: x
             character(len=*), intent(in), optional :: fmt
         end function
         module function num2str_cqp(x, fmt)
-            character(len=:), allocatable :: num2str_qp
+            character(len=:), allocatable :: num2str_cqp
             complex(qp), intent(in) :: x
             character(len=*), intent(in), optional :: fmt
         end function
         module function num2str_iint8(x, fmt)
-            character(len=:), allocatable :: num2str_int8
+            character(len=:), allocatable :: num2str_iint8
             integer(int8), intent(in) :: x
             character(len=*), intent(in), optional :: fmt
         end function
         module function num2str_iint16(x, fmt)
-            character(len=:), allocatable :: num2str_int16
+            character(len=:), allocatable :: num2str_iint16
             integer(int16), intent(in) :: x
             character(len=*), intent(in), optional :: fmt
         end function
         module function num2str_iint32(x, fmt)
-            character(len=:), allocatable :: num2str_int32
+            character(len=:), allocatable :: num2str_iint32
             integer(int32), intent(in) :: x
             character(len=*), intent(in), optional :: fmt
         end function
         module function num2str_iint64(x, fmt)
-            character(len=:), allocatable :: num2str_int64
+            character(len=:), allocatable :: num2str_iint64
             integer(int64), intent(in) :: x
             character(len=*), intent(in), optional :: fmt
         end function
