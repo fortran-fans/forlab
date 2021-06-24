@@ -71,7 +71,7 @@ submodule(forlab) forlab_disp
     ${t1}$, parameter :: nearzero_${k1}$ = 1.0e-10_${k1}$
     #:endfor
     character(len=*), parameter :: fmt_r = "( *( g11.4, 1x ) )"
-    character(len=*), parameter :: fmt_c = "( *( g11.4, a1, g11.4, a1, 1x ) )"
+    character(len=*), parameter :: fmt_c = "( *( g23.4, 1x ) )"
 
     interface filter
         #:for k1,t1 in REAL_KINDS_TYPES
@@ -137,15 +137,7 @@ contains
     #:endfor
     #:for k1, t1 in CMPLX_KINDS_TYPES
     module procedure disp_c${k1}$0
-
-        if (present(string)) print *, trim(string)
-        if (imag(x) .ge. 0.0d0) then
-            ! print *, num2str(real(x))//" + "//num2str(abs(imag(x)))//"i"
-            print fmt_c, filter(real(x)), "+", filter(abs(imag(x))), "i"
-        else
-            ! print *, num2str(real(x))//" - "//num2str(abs(imag(x)))//"i"
-            print fmt_c, filter(real(x)), "-", filter(abs(imag(x))), "i"
-        end if
+        print fmt_c, num2str(cmplx(filter(real(x)), filter(imag(x))), '(g11.4)')
         return
     end procedure
 
@@ -154,9 +146,7 @@ contains
 
         m = size(x)
         if (present(string)) print *, trim(string)
-        do i = 1, m
-            call disp_c${k1}$0(x(i))
-        end do
+        print fmt_c, (num2str(cmplx(filter(real(x(i))), filter(imag(x(i)))), '(g11.4)'), i=1,m)
         return
     end procedure
 
@@ -166,10 +156,7 @@ contains
         n = size(A, 2)
         if (present(string)) print *, trim(string)
         do i = 1, m
-            do j = 1, n
-                call disp_c${k1}$0(A(i, j))
-            end do
-            print *, ''
+            print fmt_c, (num2str(cmplx(filter(real(A(i, j))), filter(imag(A(i, j)))), '(g11.4)'), j=1,n)
         end do
         return
     end procedure
