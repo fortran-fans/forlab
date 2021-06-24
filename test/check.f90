@@ -34,10 +34,23 @@ program main
         call ones(c)
         call ones(r)
         call ones(i)
+        
             call setcolor(3)
             call disp('forlab_disp.fypp : ')
             call disp('----------------------')
             call setcolor(-1)
+
+            !!! CMPLX
+            call disp(c, 'disp(ones(c)): ') 
+            !!! INT
+            call disp(i, 'disp(ones(i)): ')
+            !!! REAL
+            call disp(r, 'disp(ones(r)): ') 
+
+        r(1,1) = 1.0d-4
+        r(1,2) = 1.0d-11
+        c(1,1) = cmplx(r(1,1), r(1,2))
+        call disp('----------------------')
 
             !!! CMPLX
             call disp(c, 'disp(ones(c)): ') 
