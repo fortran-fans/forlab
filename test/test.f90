@@ -1,13 +1,17 @@
 !! `fpm test` or `fpm test test`
 program main
     block
-        use forlab, only: empty, disp, operator(.x.)
+        use forlab, only: disp, operator(.x.)
         real, dimension(:, :), allocatable :: x_sp, y_sp
         real(8), dimension(:, :), allocatable :: x_dp, y_dp
         real(16), dimension(:, :), allocatable :: x_qp, y_qp
 
-        x_sp = empty(2, 2); x_dp = empty(2, 2); x_qp = empty(2, 2)
-        y_sp = empty(2, 2); y_dp = empty(2, 2); y_qp = empty(2, 2)
+        allocate(x_sp(2,2), &
+                 x_dp(2,2), &
+                 x_qp(2,2), &
+                 y_sp(2,2), &
+                 y_dp(2,2), &
+                 y_qp(2,2))
 
         x_sp = 1.; x_dp = 1.; x_qp = 1.
         y_sp = 2.; y_dp = 2.; y_qp = 2.
@@ -47,11 +51,12 @@ program main
         real :: time_sp
         real(8) :: time_dp
         real(16) :: time_qp
-        real(16), allocatable :: x(:)
+        real(8), allocatable :: x(:)
 
         call disp('----------------------------')
         call tic()
-        x = randn(1000)
+        allocate(x(1000))
+        call randn(x)
         call disp(size(x), 'x size:')
 
         call toc()
@@ -75,10 +80,17 @@ program main
     end block
 
     block
-        use forlab, only: linspace, dlinspace, disp, pi
+        use forlab, only: linspace, disp, pi, seq
+        real :: X(5)
+        real*8, allocatable :: Y(:)
         call disp('-----------------------')
-        call disp(linspace(1, 3, 5), 'linspace 1:')
-        call disp(linspace(1.1d0, pi, 1), 'linspace 2:')
+        call linspace(X, 1., 3.)
+        call disp(X, 'linspace 1:')
+        allocate(Y(3))
+        call linspace(Y, 1.d0, 3.d0)
+        call disp(Y, 'linspace 2:')
+        call seq(Y, 1.1d0, pi, 0.5d0)
+        call disp(Y, 'seq:')
     end block
 
     block
@@ -87,8 +99,9 @@ program main
         real*8, allocatable :: y(:)
         call disp('---------------------')
         call rng()
-        x = randn(5)
-        call disp(x)
+        allocate(X(5))
+        call randn(X)
+        call disp(x,'call randn(X):')
         call savebin('DP.bin', x)
         call savetxt('DP.txt', x)
         call loadtxt('DP.txt', y)
@@ -99,12 +112,14 @@ program main
 
     block
         use forlab,only:tril,triu,ones,disp
+        real::X(4,4)
         call disp("tri U L test")
-        call disp(ones(4,4),"A=")
-        call disp(tril(ones(4,4)),"tril")
-        call disp(triu(ones(4,4)),"triu")
-        call disp(tril(ones(4,4),-1),"tril")
-        call disp(triu(ones(4,4),1),"triu")
+        call ones(X)
+        call disp(X,"A=")
+        call disp(tril(X),"tril")
+        call disp(triu(X),"triu")
+        call disp(tril(X,-1),"tril")
+        call disp(triu(X,1),"triu")
     end block
 
     block
@@ -180,7 +195,6 @@ program main
 
     block
         use forlab, only: disp,solve
-        integer::i
         real(8) ::a(2,2)=reshape([1,2,2,1],shape(a))
         real(8) ::b(2)=[3,4]
         real(8) ::c(3,2)=reshape([1,1,2,4,2,3],shape(c))
@@ -195,36 +209,41 @@ program main
     end block
 
     block
-        use forlab, only: disp,randi
-        call disp(randi(1),'x = randi(imax):')
-        call disp(randi(-1),'x = randi(imax):')
-        call disp(randi(10),'x = randi(imax):')
-        call disp(randi([10, 100]),'x = randi([10, 100]):')
-        call disp(randi([10, 100], 2, 3),'A = randi([10, 100], 2, 3):')
+        use forlab, only: disp,randu
+        integer :: i
+        integer, allocatable :: iX(:)
+        call randu(i, -1, 1)
+        call disp(i, 'randu(i):')
+        allocate(iX(4))
+        call randu(iX(:))
+        call disp(iX, 'randu(iX):')
     end block
 
     block
         use forlab, only: disp,logspace
-        call disp(logspace(1, 11, 3),'logspace(1, 11, 3):')
-        call disp(logspace(1, 1, 3),'logspace(1, 1, 3):')
-        call disp(logspace(1, 0, 1),'logspace(1, 1, 1):')
+        real :: X(3)
+        call logspace(X, 1., 3.)
+        call disp(X, 'call logspace(X, 1., 3.)')
     end block
 
     block
         use forlab, only: disp,var,randn,rng,mean,std
         real, allocatable :: x(:)
         call rng()
-        x = randn(5)
-        ! call disp(x,'randn(n)')
+        allocate(X(5))
+        call randn(X)
+        call disp(x,'randn(n)')
         call disp(mean(x),'mean(randn(n)):')
         call disp(var(x),'var(randn(n)):')
         call disp(std(x), 'std(randn(n)):')
-        call disp(randn(5,mean=10.,std=1.0),'randn(5,10.,1.0)')
+        if(allocated(X)) deallocate(X)
+        allocate(X(4))  !!\FIXME:
+        call randn(X,10.,1.0)
+        call disp(X,'call randn(X,10.,1.0)')
     end block
 
     block
         use forlab, only: disp,qr
-        integer::i
         real(8) ::a(4,3)=reshape([1.0,2.0,1.0,-1.0,1.0,1.0,-1.0,2.0,-1.0,0.0,0.0,1.0],shape(a))
         real(8),allocatable ::q(:,:),r(:,:)
         real(8),allocatable ::q1(:,:),r1(:,:)
@@ -240,7 +259,6 @@ program main
 
     block
         use forlab, only: disp,matpow
-        integer::i
         real(8) ::a(3,3)=reshape([1,0,0,0,1,0,1,0,1],shape(a))
         real(8),allocatable ::c(:,:)
         call disp("Test matpow")
@@ -266,5 +284,14 @@ program main
         ! call progress_bar(100,100)
         ! call disp()
     end block
+
+    block
+        use forlab, only: setcolor, disp
+        use iso_fortran_env
+        do i = 2, 4
+            call setcolor(i)
+            call disp(compiler_version())
+        enddo
+    endblock
 
 end program

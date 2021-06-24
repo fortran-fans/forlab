@@ -1,0 +1,174 @@
+#:include 'common.fypp'
+#:include "common.fypp"
+#:def ranksuffix(RANK)
+$:'' if RANK == 0 else '(' + ':' + ',:' * (RANK - 1) + ')'
+#:enddef ranksuffix
+submodule(forlab) forlab_load
+    !! Version: experimental
+    !!
+    !!## loadbin
+    !! loadbin loads binary files.
+    !!
+    !!### Syntax
+    !!    x = loadbin(filename)
+    !!    x = loadbin(filename, kind)
+    !!    x = loadbin(filename, kind, dim1)
+    !!    A = loadbin(filename, kind, dim1, dim2)
+    !!    X = loadbin(filename, kind, dim1, dim2, dim3)
+    !!
+    !!### Description
+    !! `x = loadbin(filename)` loads a 1-dimensional array into `x` from the
+    !! binary file filename treated as 32 bytes floating points.
+    !!
+    !! `x = loadbin(filename, kind)` loads a 1-dimensional array into `x` from
+    !! the binary file filename.
+    !!
+    !! `x = loadbin(filename, kind, dim1)` loads a 1-dimensional array into `x`
+    !! from the binary file filename.
+    !!
+    !! `A = loadbin(filename, kind, dim1, dim2)` loads a 2-dimensional array
+    !! into `A` from the binary file filename.
+    !!
+    !! `X = loadbin(filename, kind, dim1, dim2, dim3)` loads a 3-dimensional
+    !! array into `X` from the binary file filename.
+    !!
+    !! Notes
+    !!-----------------------------------------------------------------------
+    !! Make sure to use the exact kind:
+    !!   -   4 for 32 bytes floating points,
+    !!   -   8 for 64 bytes floating points.
+    !!## loadtxt
+    !! loadtxt loads txt files.
+    !!
+    !!### Syntax
+    !!    x = loadtxt(filename)
+    !!    A = loadtxt(filename, dim2)
+    !!
+    !!### Description
+    !! `x = loadtxt(filename)` loads a 1-dimensional array into `x` from a txt
+    !! file filename.
+    !!
+    !! `A = loadtxt(filename, dim2)` loads a 2-dimensional array into `A` from a
+    !! txt file filename. dim2 indicates the number of columns of the array.
+    use forlab_kinds
+    use forlab_error, only: error_stop
+    implicit none
+
+contains
+    #:set RCI_KINDS_TYPES = REAL_KINDS_TYPES + INT_KINDS_TYPES + CMPLX_KINDS_TYPES
+    #:set RANKS = range(1, 4)
+    #:for RANK in RANKS
+    #:for k1,t1 in RCI_KINDS_TYPES
+    module procedure loadbin_${RANK}$_${t1[0]}$${k1}$
+        type(File) :: infile
+        character(*), parameter :: type = '${t1[0]}$${k1}$'
+        integer, allocatable :: nsize(:)
+        character(8) :: datatype
+        integer :: data_dim
+        #:if t1[0] == 'c'
+        real(${k1}$), allocatable :: rp${ranksuffix(RANK)}$, ip${ranksuffix(RANK)}$
+        #:endif
+
+        infile = File(trim(filename))
+        if (infile%exist()) then
+            call infile%open('r b')
+            read (infile%unit) datatype, data_dim
+            if (trim(adjustl(datatype)) /= type) then
+                call disp('Error: The program failed to try to read a '&
+                //type//' array, but the file '//trim(filename)//&
+                ' stored an array with a '//datatype//'.')
+                stop
+            endif
+            if (data_dim /= ${RANK}$) then
+                call disp('Error: The program failed to read the ' &
+                //num2str(${RANK}$)//'-dimensional array. It may be that the file '&
+                //trim(filename)//' stores an array of different dimensions '&
+                //num2str(data_dim)//'.')
+                stop
+            endif
+
+            allocate(nsize(${RANK}$))
+            read (infile%unit) nsize(:)
+            
+            #:if RANK == 1
+            allocate (X(nsize(1)))
+            #:elif RANK == 2
+            allocate (X(nsize(1),nsize(2)))
+            #:elif RANK == 3
+            allocate (X(nsize(1),nsize(2),nsize(3)))
+            #:endif
+
+            #:if t1[0] == 'c'
+            #:if RANK == 1
+            allocate (rp(nsize(1)))
+            allocate (ip(nsize(1)))
+            #:elif RANK == 2
+            allocate (rp(nsize(1),nsize(2)))
+            allocate (ip(nsize(1),nsize(2)))
+            #:elif RANK == 3
+            allocate (rp(nsize(1),nsize(2),nsize(3)))
+            allocate (ip(nsize(1),nsize(2),nsize(3)))
+            #:endif
+            read (infile%unit) rp, ip
+            X = cmplx(rp,ip,${k1}$)
+            #:else
+            read (infile%unit) X
+            #:endif
+
+            call infile%close()
+        else
+            print *, "Error: '"//trim(filename)//"' not found"
+            stop
+        end if
+        return
+    end procedure
+
+    #:if RANK < 3
+    module procedure loadtxt_${RANK}$_${t1[0]}$${k1}$
+        integer :: i, data_dim
+        type(File) :: infile
+        character(*), parameter :: type = '${t1[0]}$${k1}$'
+        character(8) :: datatype
+        integer, allocatable :: nsize(:)
+
+        allocate(nsize(${RANK}$))
+        infile = File(trim(filename))
+        if (infile%exist()) then
+            call infile%open('r t')
+            read(infile%unit,'(6X,A8,I8)') datatype, data_dim
+            if (trim(adjustl(datatype))/=type) then
+                call error_stop('Error: The program failed to try to read a '&
+                //type//' array, but the file '//trim(filename)//&
+                'stored an array with a '//datatype//'.')
+            endif
+            if (data_dim /= ${RANK}$) then
+                call error_stop('Error: The program failed to read the ' &
+                //num2str(${RANK}$)//'-dimensional array. It may be that the file '&
+                //trim(filename)//' stores an array of different dimensions.')
+            endif
+            read(infile%unit, *)
+            read(infile%unit, '(11X,${RANK}$I8)') nsize(:)
+            read(infile%unit, *)
+            
+            #:if RANK == 1
+            allocate (X(nsize(1)))
+            #:elif RANK == 2
+            allocate (X(nsize(1),nsize(2)))
+            #:endif
+            do i = 1, nsize(1)
+                #:if RANK == 1
+                read (infile%unit, *) X(i)
+                #:elif RANK == 2
+                read (infile%unit, *) X(i,:)
+                #:endif
+            end do
+            call infile%close()
+        else
+            call error_stop("Error: '"//trim(filename)//"' not found")
+        end if
+        return
+    end procedure
+    #:endif
+    #:endfor
+    #:endfor
+end submodule

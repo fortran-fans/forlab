@@ -1,39 +1,36 @@
 
-SRC = $(wildcard *.f90)						# Get all f90 files
+SRCFYPP := $(wildcard *.fypp)						# Get all fypp files
+SRCFYPP := $(filter-out common.fypp, $(SRCFYPP))	# Filter some individual files
 
-LIB = libforlab.a
+SRCF90 := $(wildcard *.f90 *.F90)					# Get all f90/F90  files
+SRCF90 := $(filter-out f08estop.f90, $(SRCF90))		# Filter some individual files
 
-FC = gfortran
-FFLAGS = # -O3
-OBJS = $(SRC:.f90=.o)
+SRCC := $(wildcard *.c *.cpp)						# Get all clang files
 
-.PHONY: all clean fypp
+# FPMSRCDIR: Output source files path 
+FPMSRCDIR = fpm
+VPATH = $(FPMSRCDIR)
 
-all: $(LIB)
+SRCGEN := $(SRCFYPP:.fypp=.f90)
 
-$(LIB): $(OBJS)
-	ar rcs $@ $(OBJS)
+.PHONY: all clean CPF90 CPC
 
-fypp:
-	$(MAKE) -f Makefile --directory=fypp
+all: $(SRCGEN) CPF90 CPC
 
 clean:
-	$(RM) $(LIB) *.o *.mod *.smod
+	cd $(SRCDIR); $(RM) $(SRCGEN) $(SRCF90)
 
-$(OBJS): %.o: %.f90
-	$(FC) $(FFLAGS) -c $<
+# GEN F90 files to `fpm/` from FYPP files
+$(SRCGEN): %.f90: %.fypp common.fypp
+	@mkdir -p $(FPMSRCDIR)
+	fypp $(FYPPFLAGS) $< $(FPMSRCDIR)/$@
 
-# Fortran module dependencies
-OBJS_EXT = $(filter-out forlab_error.o forlab_file.o forlab_kinds.o forlab.o, $(OBJS))
-forlab.o: \
-	forlab_file.o \
-	forlab_kinds.o
-forlab_file.o: \
-	forlab_error.o
+# COPY F90 files to `fpm/`
+CPF90: $(SRCF90)
+	@mkdir -p $(FPMSRCDIR)
+	cp -u $^ $(FPMSRCDIR)
 
-$(filter %.o, $(OBJS_EXT)): \
-	forlab.o \
-	forlab_kinds.o \
-	forlab_file.o \
-	forlab_error.o \
-	forlab_optval.o
+# COPY canag files to `fpm/`
+CPC: $(SRCC)
+	@mkdir -p $(FPMSRCDIR)
+	cp -u $^ $(FPMSRCDIR)

@@ -1,7 +1,9 @@
 ---
 project: forlab
 summary: A opensource package forlab v1.0 for (modern) Fortran
-src_dir: src/fypp
+src_dir: src/
+exclude_dir: src/fpm/
+             src/fypp_test/
 output_dir: API-doc
 page_dir: doc
 media_dir: doc/media
@@ -25,7 +27,6 @@ print_creation_date: true
 creation_date: %Y-%m-%d %H:%M %z
 project_github: https://github.com/zoziha/forlab
 project_download: https://github.com/zoziha/forlab
-project_website: https://github.com/zoziha/forlab
 favicon: doc/media/favicon.png
 license: by-sa
 author: forlab v1.0 contributors

@@ -25,7 +25,7 @@ The following combinations are tested on the default branch of `forlab`:
 ### Build with Make
 You can build using provided Makefiles:
 ```bash
-cd src && make
+cd src/fpm && make
 ```
 ### Build with [fpm](https://github.com/fortran-lang/fpm)
 You can build using provided `fpm.toml`:
@@ -33,7 +33,7 @@ You can build using provided `fpm.toml`:
 fpm build
 fpm test
 ```
-To use `forlab` within your fpm project, add the following to fpm.toml file:
+To use `forlab` within your fpm project, add the following to `fpm.toml` file:
 ```toml
 [dependencies]
 forlab = { git = "https://github.com/zoziha/forlab.git" }
@@ -50,29 +50,21 @@ If you have special needs, you can change the variables `ipre` and `rpre` in the
 
 ## Interfaces
 ```fortran
-public :: File, acosd, asind, atand, argmax, argmin, argsort, arange, &
+    public :: File, acosd, asind, atand, argmax, argmin, argsort, &
               angle, bsplrep1, bsplrep2, bspline1, bspline2, chol, cosd, countlines, &
               cov, cumsum, chi2cdf, chi2pdf, chi2inv, chi2rand, check_directory, &
               det, diag, disp, deg2utm, datenum, datevec, datestr, deboor, diff, &
-              eig, file_exist, &
+              eig, eye, file_exist, &
               find, flip, fliplr, flipud, fminbnd, gammainc, horzcat, &
               hann, interp1, interp2, interp3, inv, ismember, isoutlier, issquare, &
-              isleap, issymmetric, kurtosis, k2test, kde, loadbin, loadtxt, &
+              isleap, issymmetric, kurtosis, k2test, kde, loadbin, loadtxt, linspace, logspace, &
               mean, median, mad,matpow, meshgrid, nextpow2, norm, normpdf, num2str, &
-              outer, pascal, prctile, progress_bar, progress_perc,qr, rng, &
-              randi, randperm, repmat, rms, savetxt, savebin, sind, sort, solve, &
+              ones, outer, pascal, prctile, progress_bar, progress_perc,qr, rng, randn,randperm, randu, &
+              repmat, rms, savetxt, savebin, sind, sort, solve, &
               svd, svdsolve, std, spline1, spline2, skewness, signum, sinc, &
               split_argument, tand, tic, toc, trace, tril, triu, utm2deg, vertcat, &
-              var, dbindex, gmm, kmeans, mbkmeans, silhouette
+              var, dbindex, gmm, kmeans, mbkmeans, silhouette, seq, setcolor, zeros
 
-    public :: empty, sempty, dempty, qempty
-    public :: eye, seye, deye, qeye
-    public :: linspace, slinspace, dlinspace, qlinspace
-    public :: logspace, slogspace, dlogspace, qlogspace
-    public :: ones, sones, dones, qones
-    public :: randn, srandn, drandn, qrandn
-    public :: randu, srandu, drandu, qrandu
-    public :: zeros, szeros, dzeros, qzeros
     !! #ifdef do_mpi
     public :: mpi_rpre
     !! #endif

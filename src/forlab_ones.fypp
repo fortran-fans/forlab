@@ -1,0 +1,49 @@
+#:include 'common.fypp'
+submodule(forlab) forlab_ones
+    !! Version: experimental
+    !!
+    !! ones creates array all of ones.
+    !!
+    !!## Syntax
+    !!   x = ones(dim1)
+    !!   A = ones(dim1, dim2)
+    !!   X = ones(dim1, dim2, dim3)
+    !!
+    !!## Description
+    !! `x = ones(dim1)` returns a dim1 vector of ones.
+    !!
+    !! `A = ones(dim1, dim2)` returns a dim1-by-dim2 matrix of ones.
+    !!
+    !! `X = ones(dim1, dim2, dim3)` returns a dim1-by-dim2-by-dim3
+    !! 3-dimensional matrix of ones.
+    !!
+    !!## Examples
+    !!    x = ones(3)
+    !!    x =
+    !!        1.  1.  1.
+    !!
+    !!    A = ones(3, 3)
+    !!    A =
+    !!        1.  1.  1.
+    !!        1.  1.  1.
+    !!        1.  1.  1.
+    use forlab_kinds
+    implicit none
+
+contains
+
+    #:set RCI_KINDS_TYPES = REAL_KINDS_TYPES + CMPLX_KINDS_TYPES + INT_KINDS_TYPES
+    #:for k1, t1 in RCI_KINDS_TYPES
+    module procedure ones_${t1[0]}$${k1}$   
+        #:if t1[0] == 'r'
+        X = 1.0_${k1}$
+        #:elif t1[0] == 'i'
+        X = 1
+        #:elif t1[0] == 'c'
+        X = cmplx(1.0_${k1}$, 1.0_${k1}$, ${k1}$)
+        #:endif
+        return
+    end procedure
+
+    #:endfor
+end submodule

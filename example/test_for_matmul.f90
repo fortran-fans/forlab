@@ -1,11 +1,11 @@
 program main
     block
-        use forlab, only: empty, disp, operator(.x.), tic, toc
+        use forlab, only: operator(.x.), tic, toc
         real, dimension(:, :), allocatable :: x_sp, y_sp, z_sp
+        integer :: N = 10000
 
+        allocate(x_sp(N, N), y_sp(N, N), z_sp(N, N))
         call tic()
-        x_sp = empty(10000, 10000)
-        y_sp = empty(10000, 10000)
         z_sp = x_sp .x. y_sp
         call toc()
 
