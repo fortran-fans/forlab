@@ -32,16 +32,13 @@ program main
         call ones(r)
         call ones(i)
 
-            call setcolor(2)
+            call setcolor(3)
             !!! CMPLX
-            call disp(c, 'ones(c): ') 
+            call disp(c, 'disp(ones(c)): ') 
             !!! INT
-            call disp(i, 'ones(i): ')
+            call disp(i, 'disp(ones(i)): ')
             !!! REAL
-            call disp(r, 'ones(r): ') 
+            call disp(r, 'disp(ones(r)): ') 
 
     endblock
-
-
-
 end program
