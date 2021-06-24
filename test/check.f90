@@ -6,6 +6,9 @@ program main
         use forlab, only: setcolor, disp, num2str
         use iso_fortran_env
             call setcolor(2)
+            call disp('forlab_num2str.fypp : ')
+            call disp('----------------------')
+            call setcolor(-1)
             !!! CMPLX
             call disp('num2str(c): ')
             call disp(num2str((1,1))) 
@@ -31,8 +34,11 @@ program main
         call ones(c)
         call ones(r)
         call ones(i)
-
             call setcolor(3)
+            call disp('forlab_disp.fypp : ')
+            call disp('----------------------')
+            call setcolor(-1)
+
             !!! CMPLX
             call disp(c, 'disp(ones(c)): ') 
             !!! INT
