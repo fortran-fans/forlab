@@ -1474,37 +1474,52 @@ module forlab
     end interface normpdf
 
     interface num2str
-        module function num2str_sp(x, fmt)
+        module function num2str_rsp(x, fmt)
             character(len=:), allocatable :: num2str_sp
             real(sp), intent(in) :: x
             character(len=*), intent(in), optional :: fmt
         end function
-        module function num2str_dp(x, fmt)
+        module function num2str_rdp(x, fmt)
             character(len=:), allocatable :: num2str_dp
             real(dp), intent(in) :: x
             character(len=*), intent(in), optional :: fmt
         end function
-        module function num2str_qp(x, fmt)
+        module function num2str_rqp(x, fmt)
             character(len=:), allocatable :: num2str_qp
             real(qp), intent(in) :: x
             character(len=*), intent(in), optional :: fmt
         end function
-        module function num2str_int8(x, fmt)
+        module function num2str_csp(x, fmt)
+            character(len=:), allocatable :: num2str_sp
+            complex(sp), intent(in) :: x
+            character(len=*), intent(in), optional :: fmt
+        end function
+        module function num2str_cdp(x, fmt)
+            character(len=:), allocatable :: num2str_dp
+            complex(dp), intent(in) :: x
+            character(len=*), intent(in), optional :: fmt
+        end function
+        module function num2str_cqp(x, fmt)
+            character(len=:), allocatable :: num2str_qp
+            complex(qp), intent(in) :: x
+            character(len=*), intent(in), optional :: fmt
+        end function
+        module function num2str_iint8(x, fmt)
             character(len=:), allocatable :: num2str_int8
             integer(int8), intent(in) :: x
             character(len=*), intent(in), optional :: fmt
         end function
-        module function num2str_int16(x, fmt)
+        module function num2str_iint16(x, fmt)
             character(len=:), allocatable :: num2str_int16
             integer(int16), intent(in) :: x
             character(len=*), intent(in), optional :: fmt
         end function
-        module function num2str_int32(x, fmt)
+        module function num2str_iint32(x, fmt)
             character(len=:), allocatable :: num2str_int32
             integer(int32), intent(in) :: x
             character(len=*), intent(in), optional :: fmt
         end function
-        module function num2str_int64(x, fmt)
+        module function num2str_iint64(x, fmt)
             character(len=:), allocatable :: num2str_int64
             integer(int64), intent(in) :: x
             character(len=*), intent(in), optional :: fmt

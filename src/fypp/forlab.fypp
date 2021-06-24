@@ -599,9 +599,9 @@ module forlab
     end interface normpdf
 
     interface num2str
-        #:set RI_KINDS_TYPES = REAL_KINDS_TYPES + INT_KINDS_TYPES
-        #:for k1, t1 in RI_KINDS_TYPES
-        module function num2str_${k1}$(x, fmt)
+        #:set RCI_KINDS_TYPES = REAL_KINDS_TYPES + CMPLX_KINDS_TYPES + INT_KINDS_TYPES
+        #:for k1, t1 in RCI_KINDS_TYPES
+        module function num2str_${t1[0]}$${k1}$(x, fmt)
             character(len=:), allocatable :: num2str_${k1}$
             ${t1}$, intent(in) :: x
             character(len=*), intent(in), optional :: fmt
