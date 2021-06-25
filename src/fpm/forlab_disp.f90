@@ -70,7 +70,7 @@ submodule(forlab) forlab_disp
     real(dp), parameter :: nearzero_dp = 1.0e-10_dp
     real(qp), parameter :: nearzero_qp = 1.0e-10_qp
     character(len=*), parameter :: fmt_r = "( *( g11.4, 1x ) )"
-    character(len=*), parameter :: fmt_c = "( *( g11.4, a1, g11.4, a1, 1x ) )"
+    character(len=*), parameter :: fmt_c = "( *( g23.4, 1x ) )"
 
     interface filter
         procedure filter_sp
@@ -239,15 +239,7 @@ contains
         return
     end procedure
     module procedure disp_csp0
-
-        if (present(string)) print *, trim(string)
-        if (imag(x) .ge. 0.0d0) then
-            ! print *, num2str(real(x))//" + "//num2str(abs(imag(x)))//"i"
-            print fmt_c, filter(real(x)), "+", filter(abs(imag(x))), "i"
-        else
-            ! print *, num2str(real(x))//" - "//num2str(abs(imag(x)))//"i"
-            print fmt_c, filter(real(x)), "-", filter(abs(imag(x))), "i"
-        end if
+        print fmt_c, num2str(cmplx(filter(real(x)), filter(imag(x))), '(g11.4)')
         return
     end procedure
 
@@ -256,9 +248,7 @@ contains
 
         m = size(x)
         if (present(string)) print *, trim(string)
-        do i = 1, m
-            call disp_csp0(x(i))
-        end do
+        print fmt_c, (num2str(cmplx(filter(real(x(i))), filter(imag(x(i)))), '(g11.4)'), i=1,m)
         return
     end procedure
 
@@ -268,23 +258,12 @@ contains
         n = size(A, 2)
         if (present(string)) print *, trim(string)
         do i = 1, m
-            do j = 1, n
-                call disp_csp0(A(i, j))
-            end do
-            print *, ''
+            print fmt_c, (num2str(cmplx(filter(real(A(i, j))), filter(imag(A(i, j)))), '(g11.4)'), j=1,n)
         end do
         return
     end procedure
     module procedure disp_cdp0
-
-        if (present(string)) print *, trim(string)
-        if (imag(x) .ge. 0.0d0) then
-            ! print *, num2str(real(x))//" + "//num2str(abs(imag(x)))//"i"
-            print fmt_c, filter(real(x)), "+", filter(abs(imag(x))), "i"
-        else
-            ! print *, num2str(real(x))//" - "//num2str(abs(imag(x)))//"i"
-            print fmt_c, filter(real(x)), "-", filter(abs(imag(x))), "i"
-        end if
+        print fmt_c, num2str(cmplx(filter(real(x)), filter(imag(x))), '(g11.4)')
         return
     end procedure
 
@@ -293,9 +272,7 @@ contains
 
         m = size(x)
         if (present(string)) print *, trim(string)
-        do i = 1, m
-            call disp_cdp0(x(i))
-        end do
+        print fmt_c, (num2str(cmplx(filter(real(x(i))), filter(imag(x(i)))), '(g11.4)'), i=1,m)
         return
     end procedure
 
@@ -305,23 +282,12 @@ contains
         n = size(A, 2)
         if (present(string)) print *, trim(string)
         do i = 1, m
-            do j = 1, n
-                call disp_cdp0(A(i, j))
-            end do
-            print *, ''
+            print fmt_c, (num2str(cmplx(filter(real(A(i, j))), filter(imag(A(i, j)))), '(g11.4)'), j=1,n)
         end do
         return
     end procedure
     module procedure disp_cqp0
-
-        if (present(string)) print *, trim(string)
-        if (imag(x) .ge. 0.0d0) then
-            ! print *, num2str(real(x))//" + "//num2str(abs(imag(x)))//"i"
-            print fmt_c, filter(real(x)), "+", filter(abs(imag(x))), "i"
-        else
-            ! print *, num2str(real(x))//" - "//num2str(abs(imag(x)))//"i"
-            print fmt_c, filter(real(x)), "-", filter(abs(imag(x))), "i"
-        end if
+        print fmt_c, num2str(cmplx(filter(real(x)), filter(imag(x))), '(g11.4)')
         return
     end procedure
 
@@ -330,9 +296,7 @@ contains
 
         m = size(x)
         if (present(string)) print *, trim(string)
-        do i = 1, m
-            call disp_cqp0(x(i))
-        end do
+        print fmt_c, (num2str(cmplx(filter(real(x(i))), filter(imag(x(i)))), '(g11.4)'), i=1,m)
         return
     end procedure
 
@@ -342,10 +306,7 @@ contains
         n = size(A, 2)
         if (present(string)) print *, trim(string)
         do i = 1, m
-            do j = 1, n
-                call disp_cqp0(A(i, j))
-            end do
-            print *, ''
+            print fmt_c, (num2str(cmplx(filter(real(A(i, j))), filter(imag(A(i, j)))), '(g11.4)'), j=1,n)
         end do
         return
     end procedure
