@@ -23,17 +23,17 @@
 bash command:
 ```bash
 make    # or `make dev`
-fpm test
+fpm test <test_name>
 ---
-make&&fpm test
+make&&fpm test <test_name>
 ---
-make&&fpm test > test.txt
+make&&fpm test <test_name> > test.txt
 ---
-make&&fpm test --flag '-g' > test.txt
+make&&fpm test <test_name> --flag '-g' > test.txt
 ---
-time make&&fpm test --flag '-g' > test.txt
+time make&&fpm test <test_name> --flag '-g' > test.txt
 ---
-\time -v make&&fpm test --flag ' ' > test.txt
+\time -v make&&fpm test <test_name> --flag ' ' > test.txt
 ```
 ### Development sequence
 1. idea & discussion.

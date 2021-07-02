@@ -1,0 +1,41 @@
+#:include "common.fypp"
+#:set KINDS_TYPES = REAL_KINDS_TYPES + INT_KINDS_TYPES + LOG_KINDS_TYPES &
+    & + CMPLX_KINDS_TYPES
+
+module forlab_strings
+
+    use stdlib_kinds, only: sp, dp, qp, &
+        int8, int16, int32, int64, lk, c_bool
+    use stdlib_optval, only: optval
+    implicit none
+    private
+
+    public :: format_string
+    public :: progress_bar, progress_perc
+
+    interface format_string
+        !! version: experimental
+        !!
+        !! Format other types as character sequence.
+        !! ([Specification](../page/specs/stdlib_strings.html#description))
+        #:for kind, type in KINDS_TYPES
+        pure module function format_string_${type[0]}$${kind}$(value, format) result(string)
+            character(len=:), allocatable :: string
+            ${type}$, intent(in) :: value
+            character(len=*), intent(in), optional :: format
+        end function format_string_${type[0]}$${kind}$
+        #:endfor
+    end interface format_string
+
+    interface
+        module subroutine progress_bar(iter, itermax, step)
+            integer, intent(in) :: iter, itermax
+            integer, intent(in), optional :: step
+        end subroutine progress_bar
+        module subroutine progress_perc(iter, itermax, prefix)
+            integer, intent(in) :: iter, itermax
+            character(len=*), intent(in), optional :: prefix
+        end subroutine progress_perc
+    end interface
+
+end module forlab_strings

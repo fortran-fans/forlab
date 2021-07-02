@@ -1,0 +1,26 @@
+#:include 'common.fypp'
+
+submodule(forlab_linalg) forlab_linalg_linspace
+
+    implicit none
+
+contains
+
+    #:for k1, t1 in REAL_KINDS_TYPES
+    module procedure linspace_${k1}$
+        integer :: i, n
+        real(${k1}$) :: by
+        n = size(X)
+        by = (to - from)/real(n - 1, ${k1}$)
+        X = from + by*real([(i - 1, i=1, n)], ${k1}$)
+        return
+    end procedure linspace_${k1}$
+
+    module procedure logspace_${k1}$
+        call linspace(X, log10(from), log10(to))
+        X = 10._${k1}$**X
+        return
+    end procedure logspace_${k1}$
+    #:endfor
+
+end submodule forlab_linalg_linspace

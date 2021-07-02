@@ -1,0 +1,59 @@
+#:include 'common.fypp'
+module forlab_math
+    use stdlib_kinds, only: sp, dp, qp
+    implicit none
+    private
+
+    public :: angle
+    public :: cosd, sind,tand
+    public :: acosd, asind, atand
+
+    #:set CIR_NAME=["acos","asin","atan"]
+    #:for l1 in CIR_NAME
+    interface ${l1}$d
+        !! degree circular functions
+        #:for k1,t1 in REAL_KINDS_TYPES
+        pure elemental module function ${l1}$d_${k1}$(x)
+        ${t1}$,intent(in)::x
+        ${t1}$::${l1}$d_${k1}$
+        end function ${l1}$d_${k1}$
+        #:endfor
+    end interface ${l1}$d
+    #:endfor
+
+    #:set CIR_NAME=["cos","sin","tan"]
+    #:for l1 in CIR_NAME
+    interface ${l1}$d
+        #:for k1,t1 in REAL_KINDS_TYPES
+        pure elemental module function ${l1}$d_${k1}$(x)
+        ${t1}$,intent(in)::x
+        ${t1}$::${l1}$d_${k1}$
+        end function ${l1}$d_${k1}$
+        #:endfor
+    end interface ${l1}$d
+    #:endfor
+    
+    interface angle
+        !! Version: experimental
+        !!
+        !! angle compute the phase angle.
+        !!([Interface](../interface/angle.html))
+        #:for kind, type in REAL_KINDS_TYPES
+        procedure :: angle_${kind}$
+        #:endfor
+    end interface angle
+
+contains
+
+    #:for kind, type in REAL_KINDS_TYPES
+    elemental function angle_${kind}$(value) result(angle) 
+        !! angle compute the phase angle.
+        real(${kind}$) :: angle
+        complex(${kind}$),intent(in) :: value
+
+        angle = aimag(log(value))
+
+    end function angle_${kind}$
+    #:endfor
+
+end module forlab_math

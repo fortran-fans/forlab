@@ -1,0 +1,35 @@
+
+
+
+#:include "common.fypp"
+
+submodule(forlab_linalg) forlab_linalg_svdsolve
+
+    use forlab_stats, only: norm
+    implicit none
+    
+contains
+
+    #:for k1,t1 in REAL_KINDS_TYPES
+    module procedure svdsolve_${k1}$
+        integer :: i, k, n
+        ${t1}$, dimension(:), allocatable :: w, xnorm, resnorm
+        ${t1}$, dimension(:, :), allocatable :: U, V
+        n = size(A, 2)
+        k = n
+        if (present(cutoff)) k = k - cutoff
+        allocate(xnorm(n),resnorm(n))
+        call zeros(n)
+        call zeros(n)
+        call svd(A, w, U, V)
+        do i = 1, n
+            x = matmul(matmul(matmul(V(:, :i), diag(1/w(:i))), transpose(U(:, :i))), b)
+            xnorm(i) = norm(x)
+            resnorm(i) = norm(matmul(A, x) - b)
+        end do
+        x = matmul(matmul(matmul(V(:, :k), diag(1/w(:k))), transpose(U(:, :k))), b)
+    end procedure svdsolve_${k1}$
+    #:endfor
+
+end submodule forlab_linalg_svdsolve
+

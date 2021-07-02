@@ -1,62 +1,34 @@
 #:include 'common.fypp'
-submodule(forlab:forlab_stats) forlab_stats_mean
-    !!## mean
-    !! mean computes the mean value of an array.
-    !!([Interface](../interface/mean.html))
-    !!### Syntax
-    !!    y = mean(x)
-    !!    x = mean(A)
-    !!    x = mean(A, 1)
-    !!    x = mean(A, 2)
-    !!
-    !!### Description
-    !! `y = mean(x)` returns the mean value of the vector `x`.
-    !!
-    !! `x = mean(A)` returns a `dim2` vector with the mean values of each column
-    !! of matrix A.
-    !!
-    !! `x = mean(A, 1)` (see `x = mean(A)`).
-    !!
-    !! `x = mean(A, 2)` returns a `dim1` vector with the mean values of each row
-    !! of matrix `A`.
-    !!
-    !!### Examples
-    !!    x = [ 1., 2., 3. ]
-    !!    y = mean(x)
-    !!        2.
-    !!
-    !!    A = reshape([ 1., 2., 3., 4., 5., 6., 7., 8., 9. ], [ 3, 3 ], &
-    !!                order = [ 2, 1 ])
-    !!    x = mean(A)
-    !!        4.  5.  6.
-    !!    x = mean(A, 2)
-    !!        2.  5.  8.
-    use forlab_kinds
+
+submodule(forlab_stats) forlab_stats_mean
+
     implicit none
 
 contains
+
     #:for k1, t1 in REAL_KINDS_TYPES
     module procedure mean_1_${k1}$
-        mean_1_${k1}$ = sum(x)/size(x)
+        mean = sum(x)/size(x)
         return
-    end procedure
+    end procedure mean_1_${k1}$
 
     module procedure mean_2_${k1}$
         integer :: i, m, n
         m = size(A, 1)
         n = size(A, 2)
         if ((.not. present(dim)) .or. (dim == 1)) then
-            allocate (mean_2_${k1}$(n))
+            allocate (mean(n))
             do i = 1, n
-                mean_2_${k1}$(i) = mean_1_${k1}$(A(:, i))
+                mean(i) = mean_1_${k1}$(A(:, i))
             end do
         elseif (dim == 2) then
-            allocate (mean_2_${k1}$(m))
+            allocate (mean(m))
             do i = 1, m
-                mean_2_${k1}$(i) = mean_1_${k1}$(A(i, :))
+                mean(i) = mean_1_${k1}$(A(i, :))
             end do
         end if
         return
-    end procedure
+    end procedure mean_2_${k1}$
     #:endfor
-end submodule
+
+end submodule forlab_stats_mean
