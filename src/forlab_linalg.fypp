@@ -1,0 +1,402 @@
+#:include 'common.fypp'
+
+module forlab_linalg
+    
+    use stdlib_error, only: error_stop
+    use stdlib_kinds, only: sp, dp, qp, &
+        int8, int16, int32, int64
+    use forlab_sorting, only: argsort
+    use stdlib_optval, only: optval
+    implicit none
+    private
+
+    public :: is_square, is_symmetric
+    public :: zeros, ones, linspace, logspace, seq
+    public :: eye
+    public :: horzcat, vertcat
+    public :: diag, det, lu, matpow, qr, svd, trace, tril, triu, chol
+    public :: operator(.i.), operator(.x.), inv, outer, solve, svdsolve
+
+    interface chol
+        !! chol computes Cholesky's decomposition of a symmetric positive
+        !! definite matrix.
+        #:for k1,t1 in REAL_KINDS_TYPES
+        module function chol_${k1}$ (A) result(L)
+            ${t1}$, dimension(:, :), intent(in) :: A
+            ${t1}$, dimension(:, :), allocatable :: L
+        end function
+        #:endfor
+        !#:for k1,t1 in CMPLX_KINDS_TYPES
+        !    module function chol_c${k1}$ (A) result(L)
+        !        ${t1}$, dimension(:, :), intent(in) :: A
+        !        ${t1}$, dimension(:, :), allocatable :: L
+        !    end function
+        !#:endfor
+    end interface chol
+
+    interface det
+        !! det computes the matrix determinant.
+        #:for kind,type in REAL_KINDS_TYPES
+        module function det_${kind}$(A, outL, outU) result(det)
+            ${type}$, dimension(:, :), intent(in) :: A
+            ${type}$, dimension(:, :), allocatable, intent(inout), optional :: outL, outU
+            ${type}$ :: det
+        end function det_${kind}$
+        #:endfor
+    end interface det
+
+    interface diag
+        !! diag creates diagonal matrix or get the diagonal of a matrix.
+        #:for kind, type in REAL_KINDS_TYPES
+        module function diag1_${kind}$(A) result(diag)
+            ${type}$, dimension(:, :), intent(in) :: A
+            ${type}$, dimension(:), allocatable :: diag
+        end function diag1_${kind}$
+        module function diag2_${kind}$(x) result(diag)
+            ${type}$, dimension(:), intent(in) :: x
+            ${type}$, dimension(:, :), allocatable :: diag
+        end function diag2_${kind}$
+        #:endfor
+    end interface diag
+
+    interface eig
+        !! eig computes eigenvalues and eigenvectors of symmetric matrix using Jacobi algorithm.
+        #:for k1, t1 in REAL_KINDS_TYPES
+        module subroutine eig_${k1}$(A,V,d,itermax)
+            ${t1}$, dimension(:, :), intent(in) :: A
+            ${t1}$, dimension(:, :), allocatable, intent(out) :: V
+            ${t1}$, dimension(:), allocatable, intent(out) :: d
+            integer, intent(in), optional :: itermax
+        end subroutine eig_${k1}$
+        #:endfor
+    end interface eig
+
+    interface eye
+        #:for kind, type in REAL_KINDS_TYPES
+        module subroutine eye_${kind}$(X)
+            ${type}$, intent(out) :: X(:, :)
+        end subroutine eye_${kind}$
+        #:endfor
+    end interface eye
+
+    #:set RCI_KINDS_TYPES = REAL_KINDS_TYPES + CMPLX_KINDS_TYPES + INT_KINDS_TYPES
+    #:set CATTYPE = ['horzcat', 'vertcat']
+    #:for c1 in CATTYPE
+    interface ${c1}$
+        #:for k1, t1 in RCI_KINDS_TYPES
+        module function ${c1}$_${t1[0]}$_1_${k1}$(x1, x2)
+            ${t1}$, dimension(:, :), allocatable :: ${c1}$_${t1[0]}$_1_${k1}$
+            ${t1}$, dimension(:), intent(in) :: x1, x2
+        end function
+        module function ${c1}$_${t1[0]}$_2_${k1}$(A1, A2)
+            ${t1}$, dimension(:, :), allocatable :: ${c1}$_${t1[0]}$_2_${k1}$
+            ${t1}$, dimension(:, :), intent(in) :: A1, A2
+        end function
+        module function ${c1}$_${t1[0]}$_21_${k1}$(A1, x2)
+            ${t1}$, dimension(:, :), allocatable :: ${c1}$_${t1[0]}$_21_${k1}$
+            ${t1}$, dimension(:, :), intent(in) :: A1
+            ${t1}$, dimension(:), intent(in) :: x2
+        end function
+        module function ${c1}$_${t1[0]}$_12_${k1}$(x1, A2)
+            ${t1}$, dimension(:, :), allocatable :: ${c1}$_${t1[0]}$_12_${k1}$
+            ${t1}$, dimension(:), intent(in) :: x1
+            integer, dimension(:, :), intent(in) :: A2
+        end function
+        #:endfor
+    end interface
+    #:endfor
+
+    interface inv
+        #:for kind, type in REAL_KINDS_TYPES
+        module function inv_${type[0]}$${kind}$(A) result(inv)
+            ${type}$, dimension(:, :), intent(in) :: A
+            ${type}$, dimension(:, :), allocatable :: inv
+        end function inv_${type[0]}$${kind}$
+        #:endfor
+        #:for kind,type in CMPLX_KINDS_TYPES
+        module function inv_${type[0]}$${kind}$(A) result(inv)
+            ${type}$, dimension(:, :), intent(in) :: A
+            ${type}$, dimension(:, :), allocatable :: inv
+        end function inv_${type[0]}$${kind}$
+        #:endfor
+    end interface inv
+
+    interface is_square
+        #:set RC_KINDS_TYPES = REAL_KINDS_TYPES + CMPLX_KINDS_TYPES
+        #:for kind, type in RC_KINDS_TYPES
+        procedure :: is_square_${type[0]}$${kind}$
+        #:endfor
+    end interface is_square
+
+    interface is_symmetric
+        #:set RC_KINDS_TYPES = REAL_KINDS_TYPES + CMPLX_KINDS_TYPES
+        #:for kind, type in RC_KINDS_TYPES
+        procedure :: is_symmetric_${type[0]}$${kind}$
+        #:endfor
+    end interface is_symmetric
+
+    #:set SPACE = ['linspace', 'logspace']
+    #:for s1 in SPACE
+    interface ${s1}$
+        #:for k1, t1 in REAL_KINDS_TYPES
+        module subroutine ${s1}$_${k1}$(X, from, to)
+            ${t1}$, dimension(:) :: X
+            ${t1}$, intent(in) :: from, to
+        end subroutine ${s1}$_${k1}$
+        #:endfor
+    end interface ${s1}$
+    #:endfor
+
+    interface lu
+        !! lu computes the LU matrix factorization.
+        #:for kind,type in REAL_KINDS_TYPES
+        module subroutine lu_${kind}$ (A, L, U)
+            ${type}$, dimension(:, :), intent(in) :: A
+            ${type}$, dimension(:, :), allocatable, intent(out) :: L, U
+        end subroutine lu_${kind}$
+        #:endfor
+    end interface lu
+
+    interface matpow
+        !! Calculat matrix power
+        #:for k1,t1 in REAL_KINDS_TYPES
+        module function matpow_${k1}$(a,num)result(c)
+            ${t1}$, dimension(:,:), intent(in) :: a
+            ${t1}$,allocatable :: c(:,:)
+            integer::num
+        end function matpow_${k1}$
+        #:endfor
+    end interface
+    
+    interface operator(.i.)
+        !! Calculate the inverse of a real matrix.
+        #:for kind,type in REAL_KINDS_TYPES
+        procedure inv_${type[0]}$${kind}$
+        #:endfor
+        #:for kind,type in CMPLX_KINDS_TYPES
+        procedure inv_${type[0]}$${kind}$
+        #:endfor
+    end interface operator(.i.)
+
+    interface operator(.x.)
+        #:set CR_NAME = ['rmut', 'cmut', 'rcmut', 'crmut']
+        #:for c1 in CR_NAME
+        #:for kind in REAL_KINDS
+        procedure :: ${c1}$_${kind}$
+        #:endfor
+        #:endfor
+    end interface operator(.x.)
+
+    interface ones
+        #:set RCI_KINDS_TYPES = REAL_KINDS_TYPES + CMPLX_KINDS_TYPES + INT_KINDS_TYPES
+        #:for kind, type in RCI_KINDS_TYPES
+        elemental module subroutine ones_${type[0]}$${kind}$(X)
+            ${type}$, intent(out) :: X
+        end subroutine ones_${type[0]}$${kind}$
+        #:endfor
+    end interface ones
+
+    interface outer
+        #:for k1,t1 in INT_KINDS_TYPES
+        module function outer_${k1}$(x, y)
+            ${t1}$, dimension(:,:), allocatable :: outer_${k1}$
+            ${t1}$, dimension(:), intent(in) :: x, y
+        end function
+        #:endfor
+        #:for k1,t1 in REAL_KINDS_TYPES
+        module function outer_${k1}$(x, y)
+            ${t1}$, dimension(:,:), allocatable :: outer_${k1}$
+            ${t1}$, dimension(:), intent(in) :: x, y
+        end function
+        #:endfor
+    end interface
+
+    interface qr
+        #:for k1,t1 in REAL_KINDS_TYPES
+        module subroutine qr_${k1}$(a,q,r,l)
+            ${t1}$,intent(in)::a(:,:)
+            ${t1}$,allocatable,intent(out)::q(:,:),r(:,:)
+            integer,optional::l
+        end subroutine qr_${k1}$
+        #:endfor
+    end interface qr
+
+    interface seq
+        !! seq returns evenly spaced vector.
+        #:set RI_KINDS_TYPES = REAL_KINDS_TYPES + INT_KINDS_TYPES 
+        #:for k1, t1 in RI_KINDS_TYPES
+        module subroutine seq_${k1}$ (X, from, to, by)
+            ${t1}$, dimension(:), allocatable, intent(out) :: X
+            ${t1}$, intent(in) :: from, to
+            ${t1}$, optional, intent(in) :: by
+        end subroutine
+        #:endfor
+    end interface
+
+    interface solve
+        #:for k1,t1 in REAL_KINDS_TYPES
+        module function solve_${k1}$(A, b) result(x)
+            ${t1}$, dimension(:, :), intent(in) :: A
+            ${t1}$, dimension(:), intent(in) :: b
+            ${t1}$, dimension(:), allocatable :: x
+        end function solve_${k1}$
+        #:endfor
+    end interface solve
+
+    interface svd
+        #:for k1, t1 in REAL_KINDS_TYPES
+        module subroutine svd_${k1}$(a, w, u, v , d, ierr)
+            ${t1}$, dimension(:, :), intent(in) :: a
+            ${t1}$, dimension(:), allocatable, intent(out) :: w
+            ${t1}$, dimension(:, :), allocatable, intent(out), optional :: u, v
+            integer, intent(out), optional :: ierr
+            logical,intent(in),optional ::d
+        end subroutine svd_${k1}$
+        #:endfor
+    end interface svd
+
+    interface svdsolve
+        #:for k1, t1 in REAL_KINDS_TYPES
+        module function svdsolve_${k1}$(A, b, cutoff) result(x)
+            ${t1}$, dimension(:, :), intent(in) :: A
+            ${t1}$, dimension(:), intent(in) :: b
+            ${t1}$, dimension(:), allocatable :: x
+            integer, intent(in), optional :: cutoff
+        end function svdsolve_${k1}$
+        #:endfor
+    end interface svdsolve
+
+    interface trace
+        #:for k1,t1 in REAL_KINDS_TYPES
+        procedure :: trace_${k1}$
+        #:endfor
+    end interface trace
+
+    interface tril
+        #:for k1,t1 in INT_KINDS_TYPES+REAL_KINDS_TYPES
+        module function tril_${k1}$(A,k)
+            ${t1}$, dimension(:, :), allocatable :: tril_${k1}$
+            ${t1}$, dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: k
+        end function tril_${k1}$
+        #:endfor
+        #:for k1,t1 in CMPLX_KINDS_TYPES
+        module function tril_c${k1}$(A,k)
+            ${t1}$, dimension(:, :), allocatable :: tril_c${k1}$
+            ${t1}$, dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: k
+        end function tril_c${k1}$
+        #:endfor
+    end interface tril
+
+    interface triu
+        #:for k1,t1 in INT_KINDS_TYPES+REAL_KINDS_TYPES
+        module function triu_${k1}$(A,k)
+            ${t1}$, dimension(:, :), allocatable :: triu_${k1}$
+            ${t1}$, dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: k
+        end function triu_${k1}$
+        #:endfor
+        #:for k1,t1 in CMPLX_KINDS_TYPES
+        module function triu_c${k1}$(A,k)
+            ${t1}$, dimension(:, :), allocatable :: triu_c${k1}$
+            ${t1}$, dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: k
+        end function triu_c${k1}$
+        #:endfor
+    end interface triu
+
+    interface zeros
+        #:set RCI_KINDS_TYPES = REAL_KINDS_TYPES + CMPLX_KINDS_TYPES + INT_KINDS_TYPES
+        #:for kind, type in RCI_KINDS_TYPES
+        elemental module subroutine zeros_${type[0]}$${kind}$(X)
+            ${type}$, intent(out) :: X
+        end subroutine zeros_${type[0]}$${kind}$
+        #:endfor
+    end interface zeros
+
+contains
+
+    #:set CR_NAME = ['rmut', 'cmut', 'rcmut', 'crmut']
+    #:for c1 in CR_NAME
+    #:for kind in REAL_KINDS
+    function ${c1}$_${kind}$(m1, m2) result(res)
+        !! ${type}$ matrix multiplication
+        #:if c1 == 'rmut'
+        real(${kind}$), intent(in) :: m1(:, :), m2(:, :)
+        real(${kind}$) :: res(size(m1, 1), size(m2, 2))   
+
+        #:elif c1 == 'cmut'
+        complex(${kind}$), intent(in) :: m1(:, :), m2(:, :)
+        complex(${kind}$) :: res(size(m1, 1), size(m2, 2))  
+
+        #:elif c1 == 'rcmut'
+        real(${kind}$), intent(in) :: m1(:, :)
+        complex(${kind}$), intent(in) :: m2(:, :)
+        complex(${kind}$) :: res(size(m1, 1), size(m2, 2))
+        
+        #:elif c1 == 'crmut'
+        complex(${kind}$), intent(in) :: m1(:, :)
+        real(${kind}$), intent(in) :: m2(:, :)
+        complex(${kind}$) :: res(size(m1,1), size(m2, 2))
+        #:endif
+
+        if (size(m1, 2) == size(m2, 1)) then
+            res = matmul(m1, m2)
+        else
+            call error_stop('Error: size(matrix_1, 2) /= size(matrix_2, 1)') 
+        end if
+    end function ${c1}$_${kind}$
+    #:endfor
+    #:endfor
+
+    #:set RC_KINDS_TYPES = REAL_KINDS_TYPES + CMPLX_KINDS_TYPES
+    #:for kind, type in RC_KINDS_TYPES
+    function is_square_${type[0]}$${kind}$(A) result(is_square)
+        !! ${type}$ matrix is square or not.
+        ${type}$, intent(in) :: A(:,:)
+        logical :: is_square
+        is_square = .false.
+        if (size(A, 1) == size(A, 2)) is_square = .true.
+        return
+    end function is_square_${type[0]}$${kind}$
+    #:endfor
+
+    #:set RC_KINDS_TYPES = REAL_KINDS_TYPES + CMPLX_KINDS_TYPES
+    #:for kind, type in RC_KINDS_TYPES
+    function is_symmetric_${type[0]}$${kind}$(A) result(is_symmetric)
+        !! ${type}$ matrix is symmetric or not.
+        ${type}$, intent(in) :: A(:,:)
+        logical :: is_symmetric
+        integer :: i, j, n
+        is_symmetric = .true.
+        if (.not. is_square(A)) then
+            is_symmetric = .false.
+            return
+        else
+            n = size(A, 1)
+            do i = 1, n
+                do j = 1, n
+                    if (A(i, j) .ne. A(j, i)) then
+                        is_symmetric = .false.
+                        return
+                    end if
+                end do
+            end do
+        end if
+        return
+    end function is_symmetric_${type[0]}$${kind}$
+    #:endfor
+
+    #:for k1,t1 in REAL_KINDS_TYPES
+    function trace_${k1}$(A) result(trace)
+        ${t1}$, dimension(:, :), intent(in) :: A
+        ${t1}$ :: trace
+
+        trace = sum(diag(A))
+
+    end function trace_${k1}$
+    #:endfor
+
+
+end module forlab_linalg

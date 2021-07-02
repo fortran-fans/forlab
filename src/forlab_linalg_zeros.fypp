@@ -1,0 +1,24 @@
+#:include 'common.fypp'
+#:set RANKS = range(1, 4)
+
+submodule(forlab_linalg) forlab_linalg_zeros
+
+    implicit none
+
+contains
+
+    #:set RCI_KINDS_TYPES = REAL_KINDS_TYPES + CMPLX_KINDS_TYPES + INT_KINDS_TYPES
+    #:for k1, t1 in RCI_KINDS_TYPES
+    module procedure zeros_${t1[0]}$${k1}$   
+        #:if t1[0] == 'r' 
+        X = 0.0_${k1}$
+        #:elif t1[0] == 'i'
+        X = 0
+        #:elif t1[0] == 'c'
+        X = cmplx(0.0_${k1}$, 0.0_${k1}$, ${k1}$)
+        #:endif
+        return
+    end procedure
+    #:endfor
+
+end submodule forlab_linalg_zeros

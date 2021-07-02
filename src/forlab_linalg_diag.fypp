@@ -1,0 +1,30 @@
+#:include "common.fypp"
+submodule(forlab_linalg) forlab_linalg_diag
+
+    implicit none
+    
+contains
+    #:for k1,t1 in REAL_KINDS_TYPES
+    module procedure diag1_${k1}$
+        integer :: i, n
+        n = min(size(A, 1), size(A, 2))
+        allocate (diag(n))
+        do i = 1, n
+            diag(i) = A(i, i)
+        end do
+        return
+    end procedure
+
+    module procedure diag2_${k1}$
+        integer :: i, n
+        n = size(x)
+        allocate(diag(n,n))
+        call zeros(diag)
+        do i = 1, n
+            diag(i, i) = x(i)
+        end do
+        return
+    end procedure diag2_${k1}$
+    #:endfor
+
+end submodule forlab_linalg_diag

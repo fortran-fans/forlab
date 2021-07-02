@@ -1,0 +1,68 @@
+#:include "common.fypp"
+
+module forlab_time
+
+    use forlab_io, only: disp
+    use stdlib_kinds, only: sp, dp, qp, &
+        int8, int16, int32, int64
+    implicit none
+    private
+
+    public :: datenum, time_string
+    public :: is_leap
+    public :: tic, toc
+
+    interface datenum
+        real(dp) module function datenum0(year, month, day, hour, minute, &
+                                    second, microsecond)
+            integer, intent(in) :: year, month, day
+            integer, intent(in), optional :: hour, minute, second, microsecond
+        end function datenum0
+    end interface datenum
+
+    interface is_leap
+        #:for k1 in INT_KINDS
+        procedure :: is_leap_${k1}$
+        #:endfor
+    end interface is_leap
+
+    interface
+        module subroutine tic()
+        end subroutine tic
+    end interface
+
+    interface toc
+        module subroutine toc_default()
+        end subroutine toc_default
+        #:for k1, t1 in REAL_KINDS_TYPES
+        module subroutine toc_${k1}$(time)
+            ${t1}$, intent(out) :: time
+        end subroutine toc_${k1}$
+        #:endfor
+    end interface toc
+
+contains
+    
+    #:for k1, t1 in INT_KINDS_TYPES
+    logical function is_leap_${k1}$(year) result(is_leap)
+        ${t1}$, intent(in) :: year
+        if ((mod(year, 400) == 0) .or. &
+            ((mod(year, 4) == 0) .and. (mod(year, 100) /= 0))) then
+            is_leap = .true.
+        else
+            is_leap = .false.
+        end if
+        return
+    end function is_leap_${k1}$
+    #:endfor
+
+    character(19) function time_string()
+        implicit none
+        character(10) :: data, time
+        call date_and_time(data, time)
+        time_string = data(1:4)//'-'//data(5:6)//'-'//data(7:8)//' '//time(1:2) &
+        //':'//time(3:4)//':'//time(5:6)
+            #! 显示 日期时间时区
+    end function time_string
+
+end module forlab_time

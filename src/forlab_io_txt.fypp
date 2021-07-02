@@ -1,0 +1,96 @@
+#:include 'common.fypp'
+
+submodule(forlab_io) forlab__io_txt
+
+    use forlab_time, only: time_string
+    implicit none
+
+contains
+
+    #:set RCI_KINDS_TYPES = REAL_KINDS_TYPES + INT_KINDS_TYPES + CMPLX_KINDS_TYPES
+    #:set RANKS = range(1, 3)
+    #:for RANK in RANKS
+    #:for k1,t1 in RCI_KINDS_TYPES
+    module procedure loadtxt_${RANK}$_${t1[0]}$${k1}$
+        integer :: i, data_dim
+        type(File) :: infile
+        character(*), parameter :: type = '${t1[0]}$${k1}$'
+        character(8) :: datatype
+        integer, allocatable :: nsize(:)
+
+        allocate(nsize(${RANK}$))
+        infile = file(filename, 'r t')
+        if (infile%exist()) then
+            call infile%open()
+            read(infile%unit,'(6X,A8,I8)') datatype, data_dim
+            if (trim(adjustl(datatype)) /= type) then
+                call error_stop('Error: The program failed to try to read a '&
+                //type//' array, but the file '//trim(filename)//&
+                'stored an array with a '//datatype//'.')
+            endif
+            if (data_dim /= ${RANK}$) then
+                call error_stop('Error: The program failed to read the ' &
+                //to_string(${RANK}$)//'-dimensional array. It may be that the file '&
+                //trim(filename)//' stores an array of different dimensions.')
+            endif
+            read(infile%unit, *)
+            read(infile%unit, '(11X,${RANK}$I8)') nsize(:)
+            read(infile%unit, *)
+            
+            #:if RANK == 1
+            allocate (X(nsize(1)))
+            #:elif RANK == 2
+            allocate (X(nsize(1),nsize(2)))
+            #:endif
+            do i = 1, nsize(1)
+                #:if RANK == 1
+                read (infile%unit, *) X(i)
+                #:elif RANK == 2
+                read (infile%unit, *) X(i,:)
+                #:endif
+            end do
+            call infile%close()
+        else
+            call error_stop("Error: '"//trim(filename)//"' not found")
+        end if
+        return
+    end procedure loadtxt_${RANK}$_${t1[0]}$${k1}$
+    #:endfor
+    #:endfor
+
+    #:set RCI_KINDS_TYPES = REAL_KINDS_TYPES + INT_KINDS_TYPES + CMPLX_KINDS_TYPES
+    #:set RANKS = range(1,3)
+    #:for RANK in RANKS
+    #:for k1,t1 in RCI_KINDS_TYPES
+    module procedure savetxt_${RANK}$_${t1[0]}$${k1}$
+        integer :: i, m
+        type(file) :: outfile
+        character(8), parameter :: type = '${t1[0]}$${k1}$'
+
+        outfile = file(filename, 'w t')
+        m = size(x, 1)
+
+        call outfile%open()
+        write(outfile%unit, '(A6,A8,I8)') 'TYPE: ', type, int(${RANK}$, 4)
+        write(outfile%unit, '(A6,A)') 'DATA: ', time_string()
+
+        #:if RANK == 1
+        write(outfile%unit, '(A11,${RANK}$(I8))') 'DIMENSION: ', size(X,1)
+        #:elif RANK == 2
+        write(outfile%unit, '(A11,${RANK}$(I8))') 'DIMENSION: ', size(X,1), size(X,2)
+        #:endif
+        write(outfile%unit, '(A)') '---'
+
+        do i = 1, m
+            #:if RANK == 1
+            write (outfile%unit, *) X(i)
+            #:elif RANK == 2
+            write (outfile%unit, *) X(i, :)
+            #:endif
+        end do
+        call outfile%close()
+        return
+    end procedure savetxt_${RANK}$_${t1[0]}$${k1}$
+    #:endfor
+    #:endfor
+end submodule forlab__io_txt

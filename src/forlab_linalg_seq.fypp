@@ -1,0 +1,45 @@
+#:include "common.fypp"
+submodule(forlab_linalg) forlab_linalg_seq
+
+    implicit none
+
+contains
+
+    #:set RI_KINDS_TYPES = REAL_KINDS_TYPES + INT_KINDS_TYPES
+    #:for k1, t1 in RI_KINDS_TYPES
+    module procedure seq_${k1}$
+        ${t1}$ :: by_
+        integer :: i, n
+
+        #:if t1[0] == 'r'
+        by_ = optval(by, 1.0_${k1}$)
+        #:elif t1[0] == 'i'
+        by_ = optval(by, 1_${k1}$)
+        #:endif
+
+        if (by <= 0) then
+            call error_stop('Error: In seq, `by` should be greater than 0.')
+        end if
+
+        #:if t1[0] == 'r'
+        n = int(abs(to-from)/by_)+1
+        allocate(X(n))
+        if (from <= to) then
+            X = from + by_*real([(i-1,i=1,n)],${k1}$) 
+        else
+            X = from - by_*real([(i-1,i=1,n)],${k1}$) 
+        end if
+        #:elif t1[0] == 'i'
+        n = (to-from)/by_+1
+        allocate(X(n))
+        if (from <= to) then
+            X = [(i, i=from, to, by_)]
+        else
+            X = [(i, i=from, to, -by_)]
+        end if
+        #:endif
+        return
+    end procedure seq_${k1}$
+    #:endfor
+
+end submodule forlab_linalg_seq

@@ -1,0 +1,103 @@
+#:include "common.fypp"
+
+module forlab_stats
+    use stdlib_kinds, only: sp, dp, qp, &
+        int8, int16, int32, int64
+    use stdlib_optval, only: optval
+    implicit none
+    private
+
+    public :: mean, var, std
+    public :: rng, randu, randn, norm, chi2rand
+
+    interface chi2rand
+        #:for k1, t1 in REAL_KINDS_TYPES 
+        impure elemental module subroutine chi2rand_${k1}$(X, v)
+            implicit none
+            ${t1}$, intent(out) :: X
+            integer, intent(in) :: v
+        end subroutine
+        #:endfor
+    end interface chi2rand
+
+    interface mean
+        !! mean computes the mean value of an array.
+        #:for k1, t1 in REAL_KINDS_TYPES
+        module function mean_1_${k1}$(x) result(mean)
+            ${t1}$, dimension(:), intent(in) :: x
+            ${t1}$ :: mean
+        end function mean_1_${k1}$
+        module function mean_2_${k1}$(A, dim) result(mean)
+            ${t1}$, dimension(:), allocatable :: mean
+            ${t1}$, dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: dim
+        end function mean_2_${k1}$
+        #:endfor
+    end interface mean
+
+    interface norm
+        !! norm computes vector and matrix norms.
+        #:for k1,t1 in REAL_KINDS_TYPES
+        module function norm1_${k1}$(x,p)result(norm1)
+            ${t1}$, dimension(:), intent(in) :: x
+            ${t1}$, intent(in), optional :: p
+            ${t1}$:: norm1
+        end function norm1_${k1}$
+        module function norm2_${k1}$(A,p)result(norm2)
+            ${t1}$, dimension(:,:), intent(in) :: A
+            ${t1}$, intent(in), optional :: p
+            ${t1}$:: norm2
+        end function norm2_${k1}$
+        #:endfor
+    end interface norm
+
+    interface randn
+        #:for k1, t1 in REAL_KINDS_TYPES
+        impure elemental module subroutine randn_${k1}$(X, mean, std)
+            ${t1}$, intent(out) :: X
+            ${t1}$, optional, intent(in) :: mean, std
+        end subroutine
+        #:endfor
+    end interface
+
+    interface randu
+        #:set RI_KINDS_TYPES = REAL_KINDS_TYPES + INT_KINDS_TYPES
+        #:for k1, t1 in RI_KINDS_TYPES
+        impure elemental module subroutine randu_${t1[0]}$${k1}$(X, from, to)
+            ${t1}$, intent(out) :: X
+            ${t1}$, optional, intent(in) :: from, to 
+        end subroutine
+        #:endfor
+    end interface randu
+
+    interface
+        module subroutine rng(seed)
+            integer, intent(in), optional :: seed
+        end subroutine rng
+    end interface
+
+    #:set VSNAME = ['var', 'std']
+    #:for v1 in VSNAME
+    interface ${v1}$
+        #:if v1 == 'var'
+        !! `var` computes vector and matrix variances.
+        !!([Specification](../module/forlab_var.html))
+        #:elif v1 == 'std'
+        !! `std` computes vector and matrix standard deviations.
+        !!([Specification](../module/forlab_var.html))
+        #:endif
+        #:for k1, t1 in REAL_KINDS_TYPES
+        ${t1}$ module function ${v1}$_1_${k1}$(x, w)
+            ${t1}$, dimension(:), intent(in) :: x
+            integer, intent(in), optional :: w
+        end function ${v1}$_1_${k1}$
+        module function ${v1}$_2_${k1}$(A, w, dim)
+            ${t1}$, dimension(:), allocatable :: ${v1}$_2_${k1}$
+            ${t1}$, dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: w, dim
+        end function ${v1}$_2_${k1}$
+        #:endfor
+    end interface ${v1}$
+    #:endfor
+
+end module forlab_stats

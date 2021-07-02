@@ -8,7 +8,7 @@ SRCF90 := $(filter-out f08estop.f90, $(SRCF90))		# Filter some individual files
 SRCC := $(wildcard *.c *.cpp)						# Get all clang files
 
 # FPMSRCDIR: Output source files path 
-FPMSRCDIR = fpm
+FPMSRCDIR = ../forlab_fpm
 VPATH = $(FPMSRCDIR)
 
 SRCGEN := $(SRCFYPP:.fypp=.f90)

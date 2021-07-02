@@ -1,0 +1,32 @@
+#:include 'common.fypp'
+module forlab_sorting
+    use stdlib_kinds, only: sp, dp, qp, &
+        int8, int16, int32, int64
+    use forlab_stats, only: randu
+    implicit none
+    private
+
+    public :: argsort, sort
+
+    interface argsort
+        !! argsort generates the indices that would sort an array.
+        #:for k1, t1 in INT_KINDS_TYPES+REAL_KINDS_TYPES
+        module function argsort_${k1}$(x,order)
+            integer,allocatable::argsort_${k1}$(:)
+            ${t1}$,intent(in)::x(:)
+            integer,optional,intent(in)::order
+        end function argsort_${k1}$
+        #:endfor
+    end interface argsort
+
+    interface sort
+        #:for k1, t1 in INT_KINDS_TYPES+REAL_KINDS_TYPES
+        module function sort_${k1}$(x,order)
+            ${t1}$,allocatable::sort_${k1}$(:)
+            ${t1}$,intent(in)::x(:)
+            integer,optional,intent(in)::order
+        end function sort_${k1}$
+        #:endfor
+    end interface sort
+    
+end module forlab_sorting

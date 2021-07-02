@@ -1,0 +1,30 @@
+#:include 'common.fypp'
+
+submodule(forlab_math) forlab_math_degcir
+
+    implicit none
+    #:for k1,t1 in REAL_KINDS_TYPES
+    ${t1}$, parameter ::pi_${k1}$=acos(-1.0_${k1}$)
+    #:endfor
+
+contains
+    
+    #:set CIR_NAME=["acos","asin","atan"]
+    #:for l1 in CIR_NAME 
+    #:for k1,t1 in REAL_KINDS_TYPES
+    module procedure ${l1}$d_${k1}$
+        ${l1}$d_${k1}$=${l1}$(x)*180/pi_${k1}$
+    end procedure
+
+    #:endfor
+    #:endfor
+    #:set CIR_NAME=["cos","sin","tan"]
+    #:for l1 in CIR_NAME 
+    #:for k1,t1 in REAL_KINDS_TYPES
+    module procedure ${l1}$d_${k1}$
+        ${l1}$d_${k1}$=${l1}$(x*pi_${k1}$/180)
+    end procedure
+
+    #:endfor
+    #:endfor
+end submodule forlab_math_degcir

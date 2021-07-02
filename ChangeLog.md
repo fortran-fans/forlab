@@ -61,3 +61,54 @@
         Provide multi-precision functions, set submodule files.
 
         * src/fypp/forlab_outer.fypp:
+
+2021-07-02  zoziha  zuo.zhihua@qq.com
+
+        Uniform style with stdlib, refactor code.
+
+        * src/forlab_fpm/*.f90 *.c
+        * src/common.fypp
+        * src/forlab_.f95
+        * src/forlab_io.fypp
+        * src/forlab_io_bin.fypp
+        * src/forlab_io_disp_.fypp
+        * src/forlab_io_txt.fypp
+        * src/forlab_linalg.fypp
+        * src/forlab_linalg_cat.fypp
+        * src/forlab_linalg_chol.fypp
+        * src/forlab_linalg_det.fypp
+        * src/forlab_linalg_diag.fypp
+        * src/forlab_linalg_eig.fypp
+        * src/forlab_linalg_eye.fypp
+        * src/forlab_linalg_inv.fypp
+        * src/forlab_linalg_linspace.fypp
+        * src/forlab_linalg_lu.fypp
+        * src/forlab_linalg_matpow.fypp
+        * src/forlab_linalg_ones.fypp
+        * src/forlab_linalg_outer.fypp
+        * src/forlab_linalg_qr.fypp
+        * src/forlab_linalg_seq.fypp
+        * src/forlab_linalg_solve.fypp
+        * src/forlab_linalg_svd.fypp
+        * src/forlab_linalg_svdsolve.fypp
+        * src/forlab_linalg_tri.fypp
+        * src/forlab_linalg_zeros.fypp
+        * src/forlab_math.fypp
+        * src/forlab_math_degcir.fypp
+        * src/forlab_sorting.fypp
+        * src/forlab_sorting_argsort.fypp
+        * src/forlab_sorting_sort.fypp
+        * src/forlab_stats.fypp
+        * src/forlab_stats_chi.fypp
+        * src/forlab_stats_mean.fypp
+        * src/forlab_stats_norm.fypp
+        * src/forlab_stats_rand.fypp
+        * src/forlab_stats_rng.fypp
+        * src/forlab_stats_var.fypp
+        * src/forlab_strings_.fypp
+        * src/forlab_strings_format_string_.fypp
+        * src/forlab_strings_progress.fypp
+        * src/forlab_time.fypp
+        * src/forlab_time_datenum.fypp
+        * src/forlab_time_tioc.fypp
+        * src/Makefile

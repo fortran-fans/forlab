@@ -1,0 +1,95 @@
+#:include 'common.fypp'
+#:set RCI_KINDS_TYPES = REAL_KINDS_TYPES + CMPLX_KINDS_TYPES + INT_KINDS_TYPES
+
+submodule(forlab_linalg) forlab_linalg_cat
+
+    implicit none
+
+contains
+
+    #:set CATTYPE = ['horzcat', 'vertcat']
+    #:for c1 in CATTYPE
+    #:for k1, t1 in RCI_KINDS_TYPES
+    module procedure ${c1}$_${t1[0]}$_1_${k1}$
+        integer :: m1, m2
+
+        m1 = size(x1)
+        m2 = size(x2)
+        #:if c1 == 'horzcat'
+        allocate(${c1}$_${t1[0]}$_1_${k1}$(max(m1, m2), 2))
+        call zeros(${c1}$_${t1[0]}$_1_${k1}$)
+        ${c1}$_${t1[0]}$_1_${k1}$(1:m1, 1) = x1
+        ${c1}$_${t1[0]}$_1_${k1}$(1:m2, 2) = x2
+        #:elif c1 == 'vertcat'
+        allocate(${c1}$_${t1[0]}$_1_${k1}$(m1+m2, 1))
+        call zeros(${c1}$_${t1[0]}$_1_${k1}$)
+        ${c1}$_${t1[0]}$_1_${k1}$(1:m1, 1) = x1
+        ${c1}$_${t1[0]}$_1_${k1}$(m1+1:m1+m2, 1) = x2
+        #:endif
+        return
+    end procedure ${c1}$_${t1[0]}$_1_${k1}$
+
+    module procedure ${c1}$_${t1[0]}$_2_${k1}$
+        integer :: m1, n1, m2, n2
+
+        m1 = size(A1, 1)
+        n1 = size(A1, 2)
+        m2 = size(A2, 1)
+        n2 = size(A2, 2)
+        #:if c1 == 'horzcat'
+        allocate(${c1}$_${t1[0]}$_2_${k1}$(max(m1, m2), n1 + n2))
+        call zeros(${c1}$_${t1[0]}$_2_${k1}$)
+        ${c1}$_${t1[0]}$_2_${k1}$(1:m1, 1:n1) = A1
+        ${c1}$_${t1[0]}$_2_${k1}$(1:m2, n1 + 1:) = A2
+        #:elif c1 == 'vertcat'
+        allocate(${c1}$_${t1[0]}$_2_${k1}$(m1+m2, max(n1,n2)))
+        call zeros(${c1}$_${t1[0]}$_2_${k1}$)
+        ${c1}$_${t1[0]}$_2_${k1}$(1:m1, 1:n1) = A1
+        ${c1}$_${t1[0]}$_2_${k1}$(m1+1:m1+m2, 1:n2) = A2
+        #:endif
+        return
+    end procedure ${c1}$_${t1[0]}$_2_${k1}$
+
+    module procedure ${c1}$_${t1[0]}$_21_${k1}$
+        integer :: m1, n1, m2
+
+        m1 = size(A1, 1)
+        n1 = size(A1, 2)
+        m2 = size(x2)
+        #:if c1 == 'horzcat'
+        allocate(${c1}$_${t1[0]}$_21_${k1}$(max(m1, m2), n1 + 1))
+        call zeros(${c1}$_${t1[0]}$_21_${k1}$)
+        ${c1}$_${t1[0]}$_21_${k1}$(1:m1, 1:n1) = A1
+        ${c1}$_${t1[0]}$_21_${k1}$(1:m2, n1 + 1) = x2
+        #:elif c1 == 'vertcat'
+        allocate(${c1}$_${t1[0]}$_21_${k1}$(m1+m2, n1))
+        call zeros(${c1}$_${t1[0]}$_21_${k1}$)
+        ${c1}$_${t1[0]}$_21_${k1}$(1:m1, 1:n1) = A1
+        ${c1}$_${t1[0]}$_21_${k1}$(m1+1:m1+m2, 1) = x2
+        #:endif
+        return
+    end procedure ${c1}$_${t1[0]}$_21_${k1}$
+
+    module procedure ${c1}$_${t1[0]}$_12_${k1}$
+        integer :: m1, m2, n2
+
+        m1 = size(x1)
+        m2 = size(A2, 1)
+        n2 = size(A2, 2)
+        #:if c1 == 'horzcat'
+        allocate(${c1}$_${t1[0]}$_12_${k1}$(max(m1, m2), n2 + 1))
+        call zeros(${c1}$_${t1[0]}$_12_${k1}$)
+        ${c1}$_${t1[0]}$_12_${k1}$(1:m1, 1) = x1
+        ${c1}$_${t1[0]}$_12_${k1}$(1:m2, 2:) = A2
+        #:elif c1 == 'vertcat'
+        allocate(${c1}$_${t1[0]}$_12_${k1}$(m1+m2, n2))
+        call zeros(${c1}$_${t1[0]}$_12_${k1}$)
+        ${c1}$_${t1[0]}$_12_${k1}$(1:m1, 1) = x1
+        ${c1}$_${t1[0]}$_12_${k1}$(m1+1:m1+m2, 1:n2) = A2
+        #:endif
+        return
+    end procedure ${c1}$_${t1[0]}$_12_${k1}$
+    #:endfor
+    #:endfor
+
+end submodule forlab_linalg_cat
