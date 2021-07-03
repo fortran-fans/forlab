@@ -204,30 +204,19 @@ contains
         return
     end subroutine close
 
-    integer function countlines1(self)
-        !!## countlines
+    subroutine countlines1(self)
         !! countlines counts the number of lines in a txt file.
-        !!
-        !!### Syntax
-        !!    n = countlines(filename)
-        !!    n = ofile%countlines()
-        !!
-        !!### Description
-        !! `n = countlines(filename)` returns the number of lines in the txt file
-        !! filename.
-        !!
-        !! `n = ofile%countlines()` returns the number of lines in the txt file
-        !! associated to the File object ofile.
-        class(File), intent(inout) :: self
+        class(file), intent(inout) :: self
         integer :: ierr
         logical :: ok
-        countlines1 = 0
+        
+        self%lines = 0
         inquire (unit=self%unit, opened=ok)
         if (ok) then
             do
                 read (self%unit, *, iostat=ierr)
                 if (ierr < 0) exit
-                countlines1 = countlines1 + 1
+                self%lines = self%lines + 1
             end do
             rewind(self%unit)
         else
@@ -235,26 +224,28 @@ contains
             do
                 read (self%unit, *, iostat=ierr)
                 if (ierr < 0) exit
-                countlines1 = countlines1 + 1
+                self%lines = self%lines + 1
             end do
             call self%close()
         end if
-        if (countlines1 == 0) then
-            print *, 'Warn: linecounts is 0 in ', "'"//trim(self%filename)//"'"
+        if (self%lines == 0) then
+            call disp('Warn: linecounts is 0 in ', "'"//self%filename//"'")
         end if
         return
-    end function countlines1
+    end subroutine countlines1
 
     integer function countlines2(filename)
         !! The `countlines2` function returns the number of lines of the file
         character(len=*), intent(in) :: filename
         type(file) :: infile
 
-        infile = File(trim(filename))
-        countlines2 = 0
+        infile = file(trim(filename))
+        if(.not.infile%exist()) call error_stop('Error: File "'//infile%filename &
+                                        //'" open failed.')
         call infile%open()
-        countlines2 = infile%countlines()
+        call infile%countlines()
         call infile%close()
+        countlines2 = infile%lines
         return
     end function countlines2
 
