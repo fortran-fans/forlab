@@ -735,6 +735,7 @@ contains
         logical :: ok
         
         self%lines = 0
+        ok = .false.
         inquire (unit=self%unit, opened=ok)
         if (ok) then
             do

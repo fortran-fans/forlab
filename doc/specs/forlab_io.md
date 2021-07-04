@@ -17,7 +17,7 @@ Experimental
 
 ### Syntax
 
-`ofile = [[stdlib_io(module):file(interface)]](filename [, mode])`
+`ofile = [[forlab_io(module):file(interface)]](filename [, mode])`
 
 ### Arguments
 
@@ -38,7 +38,7 @@ Experimental
 
 The default `mode` is `'rt'` (i.e. construct a file for reading a text file). The `mode` may include one of the four different methods for opening a file (i.e., `'r'`, `'w'`, `'x'`, and `'a'`). These four methods can be associated with the character `'+'` to open the file for updating. In addition, it can be specified if the file should be handled as a binary file (`'b'`) or a text file (`'t'`).
 
-`ofile`: a file entity of `file` type
+`ofile`: a file entity of `file` type.
 
 ### Return value
 

@@ -2,10 +2,9 @@
 project: forlab
 summary: A opensource package forlab v1.0 for (modern) Fortran
 src_dir: src/
-exclude_dir: src/fpm/
-             src/fypp_test/
+exclude: forlab_.f95
 output_dir: API-doc
-page_dir: doc
+page_dir: doc/
 media_dir: doc/media
 fpp_extensions: fypp
 preprocess: true
@@ -36,6 +35,7 @@ github: https://github.com/zoziha/forlab
 twitter: null
 website: https://github.com/zoziha/forlab
 dbg: true
+parallel: 4
 ---
 
 [TOC]
