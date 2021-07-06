@@ -139,8 +139,8 @@ module forlab_linalg
     #:for s1 in SPACE
     interface ${s1}$
         #:for k1, t1 in REAL_KINDS_TYPES
-        module subroutine ${s1}$_${k1}$(X, from, to)
-            ${t1}$, dimension(:) :: X
+        pure module subroutine ${s1}$_${k1}$(X, from, to)
+            ${t1}$, intent(out) :: X(:)
             ${t1}$, intent(in) :: from, to
         end subroutine ${s1}$_${k1}$
         #:endfor

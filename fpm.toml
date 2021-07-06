@@ -47,6 +47,10 @@ name = "linalg_i"
 source-dir = "tests/linalg"
 main = "test_linalg_i.f90"
 [[test]]
+name = "linalg_linspace"
+source-dir = "tests/linalg"
+main = "test_linalg_linspace.f90"
+[[test]]
 name = "linalg_tri"
 source-dir = "tests/linalg"
 main = "test_linalg_tri.f90"

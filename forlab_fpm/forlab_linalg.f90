@@ -531,30 +531,30 @@ module forlab_linalg
     end interface is_symmetric
 
     interface linspace
-        module subroutine linspace_sp(X, from, to)
-            real(sp), dimension(:) :: X
+        pure module subroutine linspace_sp(X, from, to)
+            real(sp), intent(out) :: X(:)
             real(sp), intent(in) :: from, to
         end subroutine linspace_sp
-        module subroutine linspace_dp(X, from, to)
-            real(dp), dimension(:) :: X
+        pure module subroutine linspace_dp(X, from, to)
+            real(dp), intent(out) :: X(:)
             real(dp), intent(in) :: from, to
         end subroutine linspace_dp
-        module subroutine linspace_qp(X, from, to)
-            real(qp), dimension(:) :: X
+        pure module subroutine linspace_qp(X, from, to)
+            real(qp), intent(out) :: X(:)
             real(qp), intent(in) :: from, to
         end subroutine linspace_qp
     end interface linspace
     interface logspace
-        module subroutine logspace_sp(X, from, to)
-            real(sp), dimension(:) :: X
+        pure module subroutine logspace_sp(X, from, to)
+            real(sp), intent(out) :: X(:)
             real(sp), intent(in) :: from, to
         end subroutine logspace_sp
-        module subroutine logspace_dp(X, from, to)
-            real(dp), dimension(:) :: X
+        pure module subroutine logspace_dp(X, from, to)
+            real(dp), intent(out) :: X(:)
             real(dp), intent(in) :: from, to
         end subroutine logspace_dp
-        module subroutine logspace_qp(X, from, to)
-            real(qp), dimension(:) :: X
+        pure module subroutine logspace_qp(X, from, to)
+            real(qp), intent(out) :: X(:)
             real(qp), intent(in) :: from, to
         end subroutine logspace_qp
     end interface logspace
