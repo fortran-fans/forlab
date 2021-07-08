@@ -13,7 +13,7 @@ module forlab_linalg
     public :: zeros, ones, linspace, logspace, seq
     public :: eye
     public :: horzcat, vertcat
-    public :: diag, det, lu, matpow, qr, svd, trace, tril, triu, chol
+    public :: diag, det, lu, matpow, qr, svd, trace, tril, triu, chol, norm
     public :: operator(.i.), operator(.x.), inv, outer, solve, svdsolve
 
     interface chol
@@ -592,7 +592,41 @@ module forlab_linalg
             real(qp),allocatable :: c(:,:)
             integer::num
         end function matpow_qp
-    end interface
+    end interface matpow
+
+    interface norm
+        !! norm computes vector and matrix norms.
+        module function norm1_sp(x,p)result(norm1)
+            real(sp), dimension(:), intent(in) :: x
+            real(sp), intent(in), optional :: p
+            real(sp):: norm1
+        end function norm1_sp
+        module function norm2_sp(A,p)result(norm2)
+            real(sp), dimension(:,:), intent(in) :: A
+            real(sp), intent(in), optional :: p
+            real(sp):: norm2
+        end function norm2_sp
+        module function norm1_dp(x,p)result(norm1)
+            real(dp), dimension(:), intent(in) :: x
+            real(dp), intent(in), optional :: p
+            real(dp):: norm1
+        end function norm1_dp
+        module function norm2_dp(A,p)result(norm2)
+            real(dp), dimension(:,:), intent(in) :: A
+            real(dp), intent(in), optional :: p
+            real(dp):: norm2
+        end function norm2_dp
+        module function norm1_qp(x,p)result(norm1)
+            real(qp), dimension(:), intent(in) :: x
+            real(qp), intent(in), optional :: p
+            real(qp):: norm1
+        end function norm1_qp
+        module function norm2_qp(A,p)result(norm2)
+            real(qp), dimension(:,:), intent(in) :: A
+            real(qp), intent(in), optional :: p
+            real(qp):: norm2
+        end function norm2_qp
+    end interface norm
     
     interface operator(.i.)
         !! Calculate the inverse of a real matrix.

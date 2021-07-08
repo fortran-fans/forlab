@@ -2,7 +2,7 @@
 
 #:include "common.fypp"
 
-submodule(forlab_stats) forlab_stats_norm
+submodule(forlab_linalg) forlab_linalg_norm
 
     use forlab_linalg, only: svd
     implicit none
@@ -44,5 +44,5 @@ contains
     end procedure norm2_${k1}$
     #:endfor
 
-end submodule forlab_stats_norm
+end submodule forlab_linalg_norm
 

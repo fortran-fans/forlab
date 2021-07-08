@@ -4,6 +4,7 @@ submodule(forlab_stats) forlab_stats_var
     implicit none
 
 contains
+
     module procedure var_1_sp
         integer :: opt_w
 

@@ -1,14 +1,14 @@
 #:include "common.fypp"
 
 module forlab_stats
+
     use stdlib_kinds, only: sp, dp, qp, &
         int8, int16, int32, int64
-    use stdlib_optval, only: optval
     implicit none
     private
 
     public :: mean, var, std
-    public :: rng, randu, randn, norm, chi2rand
+    public :: rng, randu, randn, chi2rand
 
     interface chi2rand
         #:for k1, t1 in REAL_KINDS_TYPES 
@@ -35,30 +35,14 @@ module forlab_stats
         #:endfor
     end interface mean
 
-    interface norm
-        !! norm computes vector and matrix norms.
-        #:for k1,t1 in REAL_KINDS_TYPES
-        module function norm1_${k1}$(x,p)result(norm1)
-            ${t1}$, dimension(:), intent(in) :: x
-            ${t1}$, intent(in), optional :: p
-            ${t1}$:: norm1
-        end function norm1_${k1}$
-        module function norm2_${k1}$(A,p)result(norm2)
-            ${t1}$, dimension(:,:), intent(in) :: A
-            ${t1}$, intent(in), optional :: p
-            ${t1}$:: norm2
-        end function norm2_${k1}$
-        #:endfor
-    end interface norm
-
     interface randn
         #:for k1, t1 in REAL_KINDS_TYPES
         impure elemental module subroutine randn_${k1}$(X, mean, std)
             ${t1}$, intent(out) :: X
             ${t1}$, optional, intent(in) :: mean, std
-        end subroutine
+        end subroutine randn_${k1}$
         #:endfor
-    end interface
+    end interface randn
 
     interface randu
         #:set RI_KINDS_TYPES = REAL_KINDS_TYPES + INT_KINDS_TYPES
@@ -66,7 +50,7 @@ module forlab_stats
         impure elemental module subroutine randu_${t1[0]}$${k1}$(X, from, to)
             ${t1}$, intent(out) :: X
             ${t1}$, optional, intent(in) :: from, to 
-        end subroutine
+        end subroutine randu_${t1[0]}$${k1}$
         #:endfor
     end interface randu
 

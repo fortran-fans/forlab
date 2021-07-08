@@ -14,7 +14,7 @@ module forlab_linalg
     public :: zeros, ones, linspace, logspace, seq
     public :: eye
     public :: horzcat, vertcat
-    public :: diag, det, lu, matpow, qr, svd, trace, tril, triu, chol
+    public :: diag, det, lu, matpow, qr, svd, trace, tril, triu, chol, norm
     public :: operator(.i.), operator(.x.), inv, outer, solve, svdsolve
 
     interface chol
@@ -166,7 +166,23 @@ module forlab_linalg
             integer::num
         end function matpow_${k1}$
         #:endfor
-    end interface
+    end interface matpow
+
+    interface norm
+        !! norm computes vector and matrix norms.
+        #:for k1,t1 in REAL_KINDS_TYPES
+        module function norm1_${k1}$(x,p)result(norm1)
+            ${t1}$, dimension(:), intent(in) :: x
+            ${t1}$, intent(in), optional :: p
+            ${t1}$:: norm1
+        end function norm1_${k1}$
+        module function norm2_${k1}$(A,p)result(norm2)
+            ${t1}$, dimension(:,:), intent(in) :: A
+            ${t1}$, intent(in), optional :: p
+            ${t1}$:: norm2
+        end function norm2_${k1}$
+        #:endfor
+    end interface norm
     
     interface operator(.i.)
         !! Calculate the inverse of a real matrix.

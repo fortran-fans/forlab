@@ -1,7 +1,7 @@
 
 
 
-submodule(forlab_stats) forlab_stats_norm
+submodule(forlab_linalg) forlab_linalg_norm
 
     use forlab_linalg, only: svd
     implicit none
@@ -105,5 +105,5 @@ contains
         end if
     end procedure norm2_qp
 
-end submodule forlab_stats_norm
+end submodule forlab_linalg_norm
 

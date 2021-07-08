@@ -1,13 +1,13 @@
 
 module forlab_stats
+    
     use stdlib_kinds, only: sp, dp, qp, &
         int8, int16, int32, int64
-    use stdlib_optval, only: optval
     implicit none
     private
 
     public :: mean, var, std
-    public :: rng, randu, randn, norm, chi2rand
+    public :: rng, randu, randn, chi2rand
 
     interface chi2rand
         impure elemental module subroutine chi2rand_sp(X, v)
@@ -57,40 +57,6 @@ module forlab_stats
             integer, intent(in), optional :: dim
         end function mean_2_qp
     end interface mean
-
-    interface norm
-        !! norm computes vector and matrix norms.
-        module function norm1_sp(x,p)result(norm1)
-            real(sp), dimension(:), intent(in) :: x
-            real(sp), intent(in), optional :: p
-            real(sp):: norm1
-        end function norm1_sp
-        module function norm2_sp(A,p)result(norm2)
-            real(sp), dimension(:,:), intent(in) :: A
-            real(sp), intent(in), optional :: p
-            real(sp):: norm2
-        end function norm2_sp
-        module function norm1_dp(x,p)result(norm1)
-            real(dp), dimension(:), intent(in) :: x
-            real(dp), intent(in), optional :: p
-            real(dp):: norm1
-        end function norm1_dp
-        module function norm2_dp(A,p)result(norm2)
-            real(dp), dimension(:,:), intent(in) :: A
-            real(dp), intent(in), optional :: p
-            real(dp):: norm2
-        end function norm2_dp
-        module function norm1_qp(x,p)result(norm1)
-            real(qp), dimension(:), intent(in) :: x
-            real(qp), intent(in), optional :: p
-            real(qp):: norm1
-        end function norm1_qp
-        module function norm2_qp(A,p)result(norm2)
-            real(qp), dimension(:,:), intent(in) :: A
-            real(qp), intent(in), optional :: p
-            real(qp):: norm2
-        end function norm2_qp
-    end interface norm
 
     interface randn
         impure elemental module subroutine randn_sp(X, mean, std)

@@ -20,7 +20,7 @@ auto-tests = false
 stdlib = { git = "https://github.com/LKedward/stdlib-fpm.git" }
 
 [library]
-source-dir="forlab_fpm"
+source-dir="src"
 
 #=========================== tests =============================================
 ## [io] tests
@@ -70,6 +70,10 @@ source-dir = "tests/math"
 main = "test_math_degcir.f90"
 
 ## [stats] tests
+[[test]]
+name = "stats_rand"
+source-dir = "tests/stats"
+main = "test_stats_rand.f90"
 [[test]]
 name = "stats_var"
 source-dir = "tests/stats"

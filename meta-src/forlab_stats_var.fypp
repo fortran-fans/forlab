@@ -5,6 +5,7 @@ submodule(forlab_stats) forlab_stats_var
     implicit none
 
 contains
+
     #:set VSNAME = ['var', 'std']
     #:for v1 in VSNAME
     #:for k1, t1 in REAL_KINDS_TYPES
