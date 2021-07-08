@@ -4,7 +4,6 @@
 
 submodule(forlab_linalg) forlab_linalg_svdsolve
 
-    use forlab_stats, only: norm
     implicit none
     
 contains

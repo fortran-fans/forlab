@@ -6,7 +6,7 @@ export FYPPFLAGS
 .PHONY: dev clean
 
 dev:
-	$(MAKE) -f Makefile --directory=src
+	$(MAKE) -f Makefile --directory=meta-src
 
 clean:
-	$(MAKE) -f Makefile clean --directory=src
+	$(MAKE) -f Makefile clean --directory=meta-src

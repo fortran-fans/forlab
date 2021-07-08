@@ -8,8 +8,8 @@ contains
 
     module procedure randu_rsp
         real(sp) :: from_, to_
-        from_ = optval(from, 0.0_sp)
-        to_ = optval(to, 1.0_sp)
+        from_ = merge(from, 0.0_sp, present(from))
+        to_ = merge(to, 1.0_sp, present(to))
         call random_number(X)
         X = min(from_, to_) + X*(max(from_, to_) - min(from_, to_))
         return
@@ -19,8 +19,8 @@ contains
         real(sp) :: u, v, s
         real(sp) :: mean_, std_ 
 
-        mean_ = optval(mean, 0.0_sp)
-        std_ = optval(std, 1.0_sp)
+        mean_ = merge(mean, 0.0_sp, present(mean))
+        std_ = merge(std, 1.0_sp, present(std))
         do
             call randu(u)
             u = 2._sp*u - 1._sp
@@ -34,8 +34,8 @@ contains
     end procedure
     module procedure randu_rdp
         real(dp) :: from_, to_
-        from_ = optval(from, 0.0_dp)
-        to_ = optval(to, 1.0_dp)
+        from_ = merge(from, 0.0_dp, present(from))
+        to_ = merge(to, 1.0_dp, present(to))
         call random_number(X)
         X = min(from_, to_) + X*(max(from_, to_) - min(from_, to_))
         return
@@ -45,8 +45,8 @@ contains
         real(dp) :: u, v, s
         real(dp) :: mean_, std_ 
 
-        mean_ = optval(mean, 0.0_dp)
-        std_ = optval(std, 1.0_dp)
+        mean_ = merge(mean, 0.0_dp, present(mean))
+        std_ = merge(std, 1.0_dp, present(std))
         do
             call randu(u)
             u = 2._dp*u - 1._dp
@@ -60,8 +60,8 @@ contains
     end procedure
     module procedure randu_rqp
         real(qp) :: from_, to_
-        from_ = optval(from, 0.0_qp)
-        to_ = optval(to, 1.0_qp)
+        from_ = merge(from, 0.0_qp, present(from))
+        to_ = merge(to, 1.0_qp, present(to))
         call random_number(X)
         X = min(from_, to_) + X*(max(from_, to_) - min(from_, to_))
         return
@@ -71,8 +71,8 @@ contains
         real(qp) :: u, v, s
         real(qp) :: mean_, std_ 
 
-        mean_ = optval(mean, 0.0_qp)
-        std_ = optval(std, 1.0_qp)
+        mean_ = merge(mean, 0.0_qp, present(mean))
+        std_ = merge(std, 1.0_qp, present(std))
         do
             call randu(u)
             u = 2._qp*u - 1._qp
@@ -87,8 +87,8 @@ contains
     module procedure randu_iint8
         integer(int8) :: from_, to_
         real :: r
-        from_ = optval(from, 0_int8)  
-        to_ = optval(to, 1_int8)
+        from_ = merge(from, 0_int8, present(from))
+        to_ = merge(to, 1_int8, present(to))
         call random_number(r)
         X = min(from_, to_) + nint(r*real(max(from_, to_) - min(from_, to_)))
         return
@@ -97,8 +97,8 @@ contains
     module procedure randu_iint16
         integer(int16) :: from_, to_
         real :: r
-        from_ = optval(from, 0_int16)  
-        to_ = optval(to, 1_int16)
+        from_ = merge(from, 0_int16, present(from))
+        to_ = merge(to, 1_int16, present(to))
         call random_number(r)
         X = min(from_, to_) + nint(r*real(max(from_, to_) - min(from_, to_)))
         return
@@ -107,8 +107,8 @@ contains
     module procedure randu_iint32
         integer(int32) :: from_, to_
         real :: r
-        from_ = optval(from, 0_int32)  
-        to_ = optval(to, 1_int32)
+        from_ = merge(from, 0_int32, present(from))
+        to_ = merge(to, 1_int32, present(to))
         call random_number(r)
         X = min(from_, to_) + nint(r*real(max(from_, to_) - min(from_, to_)))
         return
@@ -117,8 +117,8 @@ contains
     module procedure randu_iint64
         integer(int64) :: from_, to_
         real :: r
-        from_ = optval(from, 0_int64)  
-        to_ = optval(to, 1_int64)
+        from_ = merge(from, 0_int64, present(from))
+        to_ = merge(to, 1_int64, present(to))
         call random_number(r)
         X = min(from_, to_) + nint(r*real(max(from_, to_) - min(from_, to_)))
         return

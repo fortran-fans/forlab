@@ -13,14 +13,14 @@ contains
     module procedure randu_${t1[0]}$${k1}$
         ${t1}$ :: from_, to_
         #:if t1[0] == 'r'
-        from_ = optval(from, 0.0_${k1}$)
-        to_ = optval(to, 1.0_${k1}$)
+        from_ = merge(from, 0.0_${k1}$, present(from))
+        to_ = merge(to, 1.0_${k1}$, present(to))
         call random_number(X)
         X = min(from_, to_) + X*(max(from_, to_) - min(from_, to_))
         #:elif t1[0] == 'i'
         real :: r
-        from_ = optval(from, 0_${k1}$)  
-        to_ = optval(to, 1_${k1}$)
+        from_ = merge(from, 0_${k1}$, present(from))
+        to_ = merge(to, 1_${k1}$, present(to))
         call random_number(r)
         X = min(from_, to_) + nint(r*real(max(from_, to_) - min(from_, to_)))
         #:endif
@@ -32,8 +32,8 @@ contains
         real(${k1}$) :: u, v, s
         real(${k1}$) :: mean_, std_ 
 
-        mean_ = optval(mean, 0.0_${k1}$)
-        std_ = optval(std, 1.0_${k1}$)
+        mean_ = merge(mean, 0.0_${k1}$, present(mean))
+        std_ = merge(std, 1.0_${k1}$, present(std))
         do
             call randu(u)
             u = 2._${k1}$*u - 1._${k1}$
