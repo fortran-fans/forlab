@@ -2154,76 +2154,9 @@ contains
         return
     end subroutine deg2utm1
 
-    ! diff
-    !-----------------------------------------------------------------------
-    ! diff computes differences of arrays
-    !
-    ! Syntax
-    !-----------------------------------------------------------------------
-    ! y = diff(x)
-    ! y = diff(x, n)
-    ! B = diff(A)
-    ! B = diff(A, n)
-    ! B = diff(A, dim)
-    ! B = diff(A, n, dim)
-    !
-    ! Description
-    !-----------------------------------------------------------------------
-    ! y = diff(x) returns differences between adjacent elements of vector x.
-    !
-    ! y = diff(x, n) returns the nth difference by applying the diff(x)
-    ! operator recursively n times.
-    !
-    ! B = diff(A) returns differences between adjacent elements of array A
-    ! along the first dimension.
-    !
-    ! B = diff(A, n) returns the nth difference by applying the diff(A)
-    ! operator recursively n times.
-    !
-    ! B = diff(A, dim) returns differences between adjacent elements of
-    ! array A along the dimension given by dim.
-    !
-    ! B = diff(A, n, dim) returns the nth difference along the dimension
-    ! given by dim by applying the diff(A, dim) operator recursively
-    ! n times.
 
-    function diff1(x, n)
-        real(kind=RPRE), dimension(:), allocatable :: diff1
-        real(kind=RPRE), dimension(:), intent(in) :: x
-        integer(kind=IPRE), intent(in), optional :: n
-        integer(kind=IPRE) :: opt_n, i
 
-        opt_n = 1
-        if (present(n)) opt_n = n
-
-        diff1 = x
-        do i = 1, opt_n
-            diff1 = diff1(2:) - diff1(:size(diff1) - 1)
-        end do
-        return
-    end function diff1
-
-    function diff2(A, n, dim)
-        real(kind=RPRE), dimension(:, :), allocatable :: diff2
-        real(kind=RPRE), dimension(:, :), intent(in) :: A
-        integer(kind=IPRE), intent(in), optional :: n, dim
-        integer(kind=IPRE) :: opt_n, i
-
-        opt_n = 1
-        if (present(n)) opt_n = n
-
-        diff2 = A
-        if ((.not. present(dim)) .or. (dim == 1)) then
-            do i = 1, opt_n
-                diff2 = diff2(2:, :) - diff2(:size(diff2, 1) - 1, :)
-            end do
-        elseif (dim == 2) then
-            do i = 1, opt_n
-                diff2 = diff2(:, 2:) - diff2(:, :size(diff2, 2) - 1)
-            end do
-        end if
-        return
-    end function diff2
+    
 
     ! find
     !-----------------------------------------------------------------------

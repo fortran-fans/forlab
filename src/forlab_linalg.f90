@@ -1,4 +1,3 @@
-
 module forlab_linalg
     
     use stdlib_error, only: error_stop
@@ -13,7 +12,8 @@ module forlab_linalg
     public :: zeros, ones, linspace, logspace, seq
     public :: eye
     public :: horzcat, vertcat
-    public :: diag, det, lu, matpow, qr, svd, trace, tril, triu, chol, norm
+    public :: diag, det, lu, matpow, qr, svd, trace, tril, triu, chol, norm, &
+        diff
     public :: operator(.i.), operator(.x.), inv, outer, solve, svdsolve
 
     interface chol
@@ -85,6 +85,82 @@ module forlab_linalg
             real(qp), dimension(:, :), allocatable :: diag
         end function diag2_qp
     end interface diag
+
+    !> Version: Experimental
+    !>
+    !> `diff` computes differences of arrays.
+    interface diff
+        pure module function diff_1_sp(x, n) result(result)
+            real(sp), dimension(:), intent(in) :: x
+            integer, intent(in), optional :: n
+            real(sp), dimension(:), allocatable :: result
+        end function diff_1_sp
+        pure module function diff_2_sp(A, n, dim) result(result)
+            real(sp), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: n, dim
+            real(sp), dimension(:, :), allocatable :: result
+        end function diff_2_sp
+        pure module function diff_1_dp(x, n) result(result)
+            real(dp), dimension(:), intent(in) :: x
+            integer, intent(in), optional :: n
+            real(dp), dimension(:), allocatable :: result
+        end function diff_1_dp
+        pure module function diff_2_dp(A, n, dim) result(result)
+            real(dp), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: n, dim
+            real(dp), dimension(:, :), allocatable :: result
+        end function diff_2_dp
+        pure module function diff_1_qp(x, n) result(result)
+            real(qp), dimension(:), intent(in) :: x
+            integer, intent(in), optional :: n
+            real(qp), dimension(:), allocatable :: result
+        end function diff_1_qp
+        pure module function diff_2_qp(A, n, dim) result(result)
+            real(qp), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: n, dim
+            real(qp), dimension(:, :), allocatable :: result
+        end function diff_2_qp
+        pure module function diff_1_int8(x, n) result(result)
+            integer(int8), dimension(:), intent(in) :: x
+            integer, intent(in), optional :: n
+            integer(int8), dimension(:), allocatable :: result
+        end function diff_1_int8
+        pure module function diff_2_int8(A, n, dim) result(result)
+            integer(int8), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: n, dim
+            integer(int8), dimension(:, :), allocatable :: result
+        end function diff_2_int8
+        pure module function diff_1_int16(x, n) result(result)
+            integer(int16), dimension(:), intent(in) :: x
+            integer, intent(in), optional :: n
+            integer(int16), dimension(:), allocatable :: result
+        end function diff_1_int16
+        pure module function diff_2_int16(A, n, dim) result(result)
+            integer(int16), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: n, dim
+            integer(int16), dimension(:, :), allocatable :: result
+        end function diff_2_int16
+        pure module function diff_1_int32(x, n) result(result)
+            integer(int32), dimension(:), intent(in) :: x
+            integer, intent(in), optional :: n
+            integer(int32), dimension(:), allocatable :: result
+        end function diff_1_int32
+        pure module function diff_2_int32(A, n, dim) result(result)
+            integer(int32), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: n, dim
+            integer(int32), dimension(:, :), allocatable :: result
+        end function diff_2_int32
+        pure module function diff_1_int64(x, n) result(result)
+            integer(int64), dimension(:), intent(in) :: x
+            integer, intent(in), optional :: n
+            integer(int64), dimension(:), allocatable :: result
+        end function diff_1_int64
+        pure module function diff_2_int64(A, n, dim) result(result)
+            integer(int64), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: n, dim
+            integer(int64), dimension(:, :), allocatable :: result
+        end function diff_2_int64
+    end interface diff
 
     interface eig
         !! eig computes eigenvalues and eigenvectors of symmetric matrix using Jacobi algorithm.
@@ -741,38 +817,38 @@ module forlab_linalg
             real(sp), dimension(:), allocatable, intent(out) :: X
             real(sp), intent(in) :: from, to
             real(sp), optional, intent(in) :: by
-        end subroutine
+        end subroutine seq_sp
         module subroutine seq_dp (X, from, to, by)
             real(dp), dimension(:), allocatable, intent(out) :: X
             real(dp), intent(in) :: from, to
             real(dp), optional, intent(in) :: by
-        end subroutine
+        end subroutine seq_dp
         module subroutine seq_qp (X, from, to, by)
             real(qp), dimension(:), allocatable, intent(out) :: X
             real(qp), intent(in) :: from, to
             real(qp), optional, intent(in) :: by
-        end subroutine
+        end subroutine seq_qp
         module subroutine seq_int8 (X, from, to, by)
             integer(int8), dimension(:), allocatable, intent(out) :: X
             integer(int8), intent(in) :: from, to
             integer(int8), optional, intent(in) :: by
-        end subroutine
+        end subroutine seq_int8
         module subroutine seq_int16 (X, from, to, by)
             integer(int16), dimension(:), allocatable, intent(out) :: X
             integer(int16), intent(in) :: from, to
             integer(int16), optional, intent(in) :: by
-        end subroutine
+        end subroutine seq_int16
         module subroutine seq_int32 (X, from, to, by)
             integer(int32), dimension(:), allocatable, intent(out) :: X
             integer(int32), intent(in) :: from, to
             integer(int32), optional, intent(in) :: by
-        end subroutine
+        end subroutine seq_int32
         module subroutine seq_int64 (X, from, to, by)
             integer(int64), dimension(:), allocatable, intent(out) :: X
             integer(int64), intent(in) :: from, to
             integer(int64), optional, intent(in) :: by
-        end subroutine
-    end interface
+        end subroutine seq_int64
+    end interface seq
 
     interface solve
         module function solve_sp(A, b) result(x)

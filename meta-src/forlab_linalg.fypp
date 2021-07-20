@@ -1,5 +1,4 @@
 #:include 'common.fypp'
-
 module forlab_linalg
     
     use stdlib_error, only: error_stop
@@ -14,7 +13,8 @@ module forlab_linalg
     public :: zeros, ones, linspace, logspace, seq
     public :: eye
     public :: horzcat, vertcat
-    public :: diag, det, lu, matpow, qr, svd, trace, tril, triu, chol, norm
+    public :: diag, det, lu, matpow, qr, svd, trace, tril, triu, chol, norm, &
+        diff
     public :: operator(.i.), operator(.x.), inv, outer, solve, svdsolve
 
     interface chol
@@ -58,6 +58,25 @@ module forlab_linalg
         end function diag2_${kind}$
         #:endfor
     end interface diag
+
+    !> Version: Experimental
+    !>
+    !> `diff` computes differences of arrays.
+    interface diff
+        #:set RI_KINDS_TYPES = REAL_KINDS_TYPES + INT_KINDS_TYPES
+        #:for k1, t1 in RI_KINDS_TYPES
+        pure module function diff_1_${k1}$(x, n) result(result)
+            ${t1}$, dimension(:), intent(in) :: x
+            integer, intent(in), optional :: n
+            ${t1}$, dimension(:), allocatable :: result
+        end function diff_1_${k1}$
+        pure module function diff_2_${k1}$(A, n, dim) result(result)
+            ${t1}$, dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: n, dim
+            ${t1}$, dimension(:, :), allocatable :: result
+        end function diff_2_${k1}$
+        #:endfor
+    end interface diff
 
     interface eig
         !! eig computes eigenvalues and eigenvectors of symmetric matrix using Jacobi algorithm.
@@ -245,9 +264,9 @@ module forlab_linalg
             ${t1}$, dimension(:), allocatable, intent(out) :: X
             ${t1}$, intent(in) :: from, to
             ${t1}$, optional, intent(in) :: by
-        end subroutine
+        end subroutine seq_${k1}$
         #:endfor
-    end interface
+    end interface seq
 
     interface solve
         #:for k1,t1 in REAL_KINDS_TYPES
