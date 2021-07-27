@@ -1,4 +1,3 @@
-!> A submodule for diff function routines.
 #:include "common.fypp"
 #:set RI_KINDS_TYPES = REAL_KINDS_TYPES + INT_KINDS_TYPES
 submodule(forlab_linalg) forlab_linalg_diff

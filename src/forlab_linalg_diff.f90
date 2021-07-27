@@ -1,4 +1,3 @@
-!> A submodule for diff function routines.
 submodule(forlab_linalg) forlab_linalg_diff
 
     implicit none

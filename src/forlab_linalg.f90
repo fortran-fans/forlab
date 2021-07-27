@@ -89,6 +89,7 @@ module forlab_linalg
     !> Version: Experimental
     !>
     !> `diff` computes differences of arrays.
+    !> ([Specification](../page/specs/stdlib_linalg.html))
     interface diff
         pure module function diff_1_sp(x, n) result(result)
             real(sp), dimension(:), intent(in) :: x

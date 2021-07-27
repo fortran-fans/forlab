@@ -1,9 +1,7 @@
-
 module forlab_io
 
     use stdlib_error,  only: error_stop
     use stdlib_io, only: open, parse_mode
-        !!\TOCHECK: parse_mode public only for tests
     use stdlib_ascii, only: to_string
     use stdlib_kinds, only: sp, dp, qp, &
         int8, int16, int32, int64, lk, c_bool
@@ -670,10 +668,11 @@ module forlab_io
     end interface savetxt
 
     interface
+        !> `set_color` set color for console text.
         subroutine set_color(value) bind(c, name="color")
             use, intrinsic :: iso_c_binding, only: c_long
             integer(c_long), value, intent(in) :: value
-        end subroutine
+        end subroutine set_color
     end interface
 
 contains
@@ -710,26 +709,19 @@ contains
 
     end subroutine open_file
 
+    !> `close` closes a `file` object, 
+    !>  deallocate `file%filename`.
     subroutine close (self)
-        ! close
-        !-----------------------------------------------------------------------
-        ! close closes a File object.
-        !
-        ! Syntax
-        !-----------------------------------------------------------------------
-        ! call ofile%close()
-        !
-        ! Description
-        !-----------------------------------------------------------------------
-        ! call ofile%close() closes the File object ofile.
-        class(file) :: self
 
-        close (self%unit)
-        return
+        class(file), intent(out) :: self
+
+        deallocate(self%filename)
+        close(self%unit)
+
     end subroutine close
 
+    !> `countlines` counts the number of lines in a txt file.
     subroutine countlines1(self)
-        !! countlines counts the number of lines in a txt file.
         class(file), intent(inout) :: self
         integer :: ierr
         logical :: ok
@@ -738,6 +730,7 @@ contains
         ok = .false.
         inquire (unit=self%unit, opened=ok)
         if (ok) then
+            rewind(self%unit)
             do
                 read (self%unit, *, iostat=ierr)
                 if (ierr < 0) exit
@@ -756,11 +749,11 @@ contains
         if (self%lines == 0) then
             call disp('Warn: linecounts is 0 in ', "'"//self%filename//"'")
         end if
-        return
+
     end subroutine countlines1
 
+    !> The `countlines2` function returns the number of lines of the file
     integer function countlines2(filename)
-        !! The `countlines2` function returns the number of lines of the file
         character(len=*), intent(in) :: filename
         type(file) :: infile
 
@@ -771,26 +764,16 @@ contains
         call infile%countlines()
         call infile%close()
         countlines2 = infile%lines
-        return
+
     end function countlines2
 
+    !> `file_exist` determines whether a `file` object already exists.
     logical function file_exist1(self)
-        ! file_exist
-        !-----------------------------------------------------------------------
-        ! file_exist determines whether a File object already exists.
-        !
-        ! Syntax
-        !-----------------------------------------------------------------------
-        ! exist = ofile % exist()
-        !
-        ! Description
-        !-----------------------------------------------------------------------
-        ! call ofile % exist() returns .true. if the File object ofile exists,
-        ! .false. otherwise.
+
         class(File), intent(inout) :: self
 
-        inquire (file=trim(self%filename), exist=file_exist1)
-        return
+        inquire (file=self%filename, exist=file_exist1)
+
     end function file_exist1
 
     logical function file_exist2(filename)
