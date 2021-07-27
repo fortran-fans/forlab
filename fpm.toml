@@ -26,73 +26,77 @@ source-dir="src"
 ## [io] tests
 [[test]]
 name = "io_bin"
-source-dir = "tests/io"
+source-dir = "test/io"
 main = "test_io_bin.f90"
 [[test]]
 name = "io_disp"
-source-dir = "tests/io"
+source-dir = "test/io"
 main = "test_io_disp.f90"
 [[test]]
 name = "io_file"
-source-dir = "tests/io"
+source-dir = "test/io"
 main = "test_io_file.f90"
 [[test]]
 name = "io_set_color"
-source-dir = "tests/io"
+source-dir = "test/io"
 main = "test_io_set_color.f90"
 
 ## [linalg] tests
 [[test]]
+name = "linalg_diff"
+source-dir = "test/linalg"
+main = "test_linalg_diff.f90"
+[[test]]
 name = "linalg_i"
-source-dir = "tests/linalg"
+source-dir = "test/linalg"
 main = "test_linalg_i.f90"
 [[test]]
 name = "linalg_linspace"
-source-dir = "tests/linalg"
+source-dir = "test/linalg"
 main = "test_linalg_linspace.f90"
 [[test]]
 name = "linalg_tri"
-source-dir = "tests/linalg"
+source-dir = "test/linalg"
 main = "test_linalg_tri.f90"
 [[test]]
 name = "linalg_x"
-source-dir = "tests/linalg"
+source-dir = "test/linalg"
 main = "test_linalg_x.f90"
 
 ## [math] tests
 [[test]]
 name = "math_angle"
-source-dir = "tests/math"
+source-dir = "test/math"
 main = "test_math_angle.f90"
 [[test]]
 name = "math_degcir"
-source-dir = "tests/math"
+source-dir = "test/math"
 main = "test_math_degcir.f90"
 
 ## [stats] tests
 [[test]]
 name = "stats_rand"
-source-dir = "tests/stats"
+source-dir = "test/stats"
 main = "test_stats_rand.f90"
 [[test]]
 name = "stats_var"
-source-dir = "tests/stats"
+source-dir = "test/stats"
 main = "test_stats_var.f90"
 
 ## [strings] tests
 [[test]]
 name = "strings_format_string"
-source-dir = "tests/strings"
+source-dir = "test/strings"
 main = "test_strings_format_string.f90"
 
 ## [sorting] tests
 [[test]]
 name = "sorting_sort"
-source-dir = "tests/sorting"
+source-dir = "test/sorting"
 main = "test_sorting_sort.f90"
 
 ## [time] tests
 [[test]]
 name = "time_tioc"
-source-dir = "tests/time"
+source-dir = "test/time"
 main = "test_time_tioc.f90"

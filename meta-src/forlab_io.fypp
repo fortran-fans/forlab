@@ -1,10 +1,8 @@
 #:include 'common.fypp'
-
 module forlab_io
 
     use stdlib_error,  only: error_stop
     use stdlib_io, only: open, parse_mode
-        !!\TOCHECK: parse_mode public only for tests
     use stdlib_ascii, only: to_string
     use stdlib_kinds, only: sp, dp, qp, &
         int8, int16, int32, int64, lk, c_bool
@@ -39,19 +37,19 @@ module forlab_io
         #:set DISP_KINDS_TYPES = REAL_KINDS_TYPES + INT_KINDS_TYPES &
             & + CMPLX_KINDS_TYPES + LOG_KINDS_TYPES
         #:set DISP_RANKS = range(0, 4)
-        #:for kind, type in DISP_KINDS_TYPES
+        #:for k1, t1 in DISP_KINDS_TYPES
         #:for rank in DISP_RANKS
         #:if rank != 3
-        module subroutine disp_${rank}$_${type[0]}$${kind}$(value, string)
-            ${type}$, intent(in) :: value${ranksuffix(rank)}$
+        module subroutine disp_${rank}$_${t1[0]}$${k1}$(value, string)
+            ${t1}$, intent(in) :: value${ranksuffix(rank)}$
             character(len=*), intent(in), optional :: string
-        end subroutine disp_${rank}$_${type[0]}$${kind}$
+        end subroutine disp_${rank}$_${t1[0]}$${k1}$
         #:else
-        module subroutine disp_${rank}$_${type[0]}$${kind}$(value, dim, string)
-            ${type}$, intent(in) :: value${ranksuffix(rank)}$
+        module subroutine disp_${rank}$_${t1[0]}$${k1}$(value, dim, string)
+            ${t1}$, intent(in) :: value${ranksuffix(rank)}$
             integer, intent(in) :: dim
             character(len=*), intent(in), optional :: string
-        end subroutine disp_${rank}$_${type[0]}$${kind}$
+        end subroutine disp_${rank}$_${t1[0]}$${k1}$
         #:endif
         #:endfor
         #:endfor
@@ -146,10 +144,11 @@ module forlab_io
     end interface savetxt
 
     interface
+        !> `set_color` set color for console text.
         subroutine set_color(value) bind(c, name="color")
             use, intrinsic :: iso_c_binding, only: c_long
             integer(c_long), value, intent(in) :: value
-        end subroutine
+        end subroutine set_color
     end interface
 
 contains
@@ -186,26 +185,19 @@ contains
 
     end subroutine open_file
 
+    !> `close` closes a `file` object, 
+    !>  deallocate `file%filename`.
     subroutine close (self)
-        ! close
-        !-----------------------------------------------------------------------
-        ! close closes a File object.
-        !
-        ! Syntax
-        !-----------------------------------------------------------------------
-        ! call ofile%close()
-        !
-        ! Description
-        !-----------------------------------------------------------------------
-        ! call ofile%close() closes the File object ofile.
-        class(file) :: self
 
-        close (self%unit)
-        return
+        class(file), intent(out) :: self
+
+        deallocate(self%filename)
+        close(self%unit)
+
     end subroutine close
 
+    !> `countlines` counts the number of lines in a txt file.
     subroutine countlines1(self)
-        !! countlines counts the number of lines in a txt file.
         class(file), intent(inout) :: self
         integer :: ierr
         logical :: ok
@@ -214,6 +206,7 @@ contains
         ok = .false.
         inquire (unit=self%unit, opened=ok)
         if (ok) then
+            rewind(self%unit)
             do
                 read (self%unit, *, iostat=ierr)
                 if (ierr < 0) exit
@@ -232,11 +225,11 @@ contains
         if (self%lines == 0) then
             call disp('Warn: linecounts is 0 in ', "'"//self%filename//"'")
         end if
-        return
+
     end subroutine countlines1
 
+    !> The `countlines2` function returns the number of lines of the file
     integer function countlines2(filename)
-        !! The `countlines2` function returns the number of lines of the file
         character(len=*), intent(in) :: filename
         type(file) :: infile
 
@@ -247,26 +240,16 @@ contains
         call infile%countlines()
         call infile%close()
         countlines2 = infile%lines
-        return
+
     end function countlines2
 
+    !> `file_exist` determines whether a `file` object already exists.
     logical function file_exist1(self)
-        ! file_exist
-        !-----------------------------------------------------------------------
-        ! file_exist determines whether a File object already exists.
-        !
-        ! Syntax
-        !-----------------------------------------------------------------------
-        ! exist = ofile % exist()
-        !
-        ! Description
-        !-----------------------------------------------------------------------
-        ! call ofile % exist() returns .true. if the File object ofile exists,
-        ! .false. otherwise.
+
         class(File), intent(inout) :: self
 
-        inquire (file=trim(self%filename), exist=file_exist1)
-        return
+        inquire (file=self%filename, exist=file_exist1)
+
     end function file_exist1
 
     logical function file_exist2(filename)

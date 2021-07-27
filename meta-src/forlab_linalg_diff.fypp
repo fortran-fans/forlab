@@ -1,0 +1,49 @@
+#:include "common.fypp"
+#:set RI_KINDS_TYPES = REAL_KINDS_TYPES + INT_KINDS_TYPES
+submodule(forlab_linalg) forlab_linalg_diff
+
+    implicit none
+
+contains
+
+    #:for k1, t1 in RI_KINDS_TYPES
+    !> `diff` computes differences of arrays of the ${t1}$ type.
+    pure module function diff_1_${k1}$(x, n) result(result)
+        ${t1}$, dimension(:), intent(in) :: x
+        integer, intent(in), optional :: n
+        ${t1}$, dimension(:), allocatable :: result
+        integer :: n_, i
+
+        n_ = merge(n, 1, present(n))
+
+        result = x
+        do i = 1, n_
+            result = result(2:) - result(:size(result) - 1)
+        end do
+
+    end function diff_1_${k1}$
+
+    !> `diff` computes differences of arrays of the ${t1}$ type.
+    pure module function diff_2_${k1}$(A, n, dim) result(result)
+        ${t1}$, dimension(:, :), intent(in) :: A
+        integer, intent(in), optional :: n, dim
+        ${t1}$, dimension(:, :), allocatable :: result
+        integer :: n_, i
+
+        n_ = merge(n, 1, present(n))
+
+        result = A
+        if ((.not. present(dim)) .or. (dim == 1)) then
+            do i = 1, n_
+                result = result(2:, :) - result(:size(result, 1) - 1, :)
+            end do
+        elseif (dim == 2) then
+            do i = 1, n_
+                result = result(:, 2:) - result(:, :size(result, 2) - 1)
+            end do
+        end if
+
+    end function diff_2_${k1}$
+    #:endfor
+
+end submodule forlab_linalg_diff
