@@ -26,11 +26,11 @@ $(SRCGEN): %.f90: %.fypp common.fypp
 	fypp $(FYPPFLAGS) $< $(FPMSRCDIR)/$@
 
 # COPY F90 files to `fpm/`
-CPF90: $(SRCF90)
-	@mkdir -p $(FPMSRCDIR)
-	cp -u $^ $(FPMSRCDIR)
+# CPF90: $(SRCF90)
+# 	@mkdir -p $(FPMSRCDIR)
+# 	cp -u $^ $(FPMSRCDIR)
 
-# COPY canag files to `fpm/`
+# COPY clang files to `fpm/`
 CPC: $(SRCC)
 	@mkdir -p $(FPMSRCDIR)
 	cp -u $^ $(FPMSRCDIR)

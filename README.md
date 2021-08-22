@@ -7,7 +7,7 @@ Forlab uses [stdlib](https://github.com/fortran-lang/stdlib) as an upstream pack
 |:-:|---|
 | **Version:** | 1.0.1 |
 | **Author:** | Forlab Contributors |
-| **Web site:** | https://github.com/zoziha/forlab |
+| **Web site:** | https://github.com/fortran-fans/forlab |
 | **API-Doc Web site:** | https://zoziha.github.io/forlab-API-doc/ |
 | **Copyright:** | _This document_ has been placed in the public domain. |
 | **License:** | _Forlab_ is released under the MIT License. |
@@ -15,7 +15,7 @@ Forlab uses [stdlib](https://github.com/fortran-lang/stdlib) as an upstream pack
 ## Getting Started
 ### Get the code
 ```bash
-git clone https://github.com/zoziha/forlab.git
+git clone https://github.com/fortran-fans/forlab.git
 cd forlab
 ```
 ### Supported Compilers
@@ -27,7 +27,7 @@ The following combinations are tested on the default branch of `forlab`:
 To use `forlab` within your fpm project, add the following to `fpm.toml` file:
 ```toml
 [dependencies]
-forlab = { git = "https://github.com/zoziha/forlab.git" }
+forlab = { git = "https://github.com/fortran-fans/forlab.git" }
 ```
 You can build using provided `fpm.toml`:
 ```bash
@@ -38,7 +38,6 @@ fpm test
 ```bash
 ford API-doc-FORD-file.md  # todo
 ```
-[forlab-API-doc](https://zoziha.github.io/forlab-API-doc/) is alse in here.
 
 ---
 ## More informations

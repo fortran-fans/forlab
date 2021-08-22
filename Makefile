@@ -1,4 +1,4 @@
-# Fortran forlab Makefile
+# Fortran forlab Makefile, only for developement.
 FYPPFLAGS=
 
 export FYPPFLAGS
