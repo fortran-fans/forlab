@@ -6,10 +6,6 @@ exclude: forlab_.f95
 output_dir: API-doc
 page_dir: doc/
 media_dir: doc/media
-fpp_extensions: fypp
-preprocess: true
-macro: MAXRANK=3
-preprocessor: fypp
 display: public
          protected
 source: true
@@ -24,23 +20,20 @@ extra_mods: iso_fortran_env:https://gcc.gnu.org/onlinedocs/gfortran/ISO_005fFORT
             iso_c_binding:https://gcc.gnu.org/onlinedocs/gfortran/ISO_005fC_005fBINDING.html#ISO_005fC_005fBINDING
 print_creation_date: true
 creation_date: %Y-%m-%d %H:%M %z
-project_github: https://github.com/zoziha/forlab
-project_download: https://github.com/zoziha/forlab
+project_github: https://github.com/fortran-fans/forlab
+project_download: https://github.com/fortran-fans/forlab
 favicon: doc/media/favicon.png
 license: by-sa
 author: forlab v1.0 contributors
-author_pic: null
 author_email: zuo.zhihua@qq.com
-github: https://github.com/zoziha/forlab
-twitter: null
-website: https://github.com/zoziha/forlab
+github: https://github.com/fortran-fans
 dbg: true
 parallel: 4
 ---
 
 [TOC]
 
-@warning This API documentation for the zoziha/forlab v1.0 is a work in progress
+@warning This API documentation for the fortran-fans/forlab v1.0 is a work in progress
 
 @note
 Use the navigation bar at the top of the screen to browse modules, procedures, source files, etc.
@@ -54,7 +47,7 @@ The documentation for comment markup in source code, running [FORD] and the [FOR
 
 [FORD]: https://github.com/Fortran-FOSS-Programmers/ford#readme
 [FORD wiki]: https://github.com/Fortran-FOSS-Programmers/ford/wiki
-[FORD project file]: https://github.com/fortran-lang/stdlib/blob/master/API-doc-FORD-file.md
+[FORD project file]: https://github.com/fortran-fans/forlab/blob/master/API-doc-FORD-file.md
 
 Goals and Motivation
 ====================

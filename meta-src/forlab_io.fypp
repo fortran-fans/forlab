@@ -17,10 +17,14 @@ module forlab_io
     public :: set_color
     public :: disp
 
+    !> Version: experimental
+    !> 
+    !> forlab file derived type.
+    !> ([Specification](../page/specs/forlab_io.html#file-file-constructor-and-file-derived-type))
     type file
-        integer :: unit
         character(:), allocatable :: filename
         character(3) :: mode
+        integer :: unit
         integer :: lines
     contains
         procedure :: exist => file_exist1
@@ -153,50 +157,35 @@ module forlab_io
 
 contains
 
+    !> Version: experimental
+    !> 
+    !> Open the file. ([Specification](../page/specs/forlab_io.html#fileopen))
     subroutine open_file(self)
-        !! Version: experimental
-        !!
-        !! Open a file
-        !! ([Specification](../page/specs/forlab_io.html#description))
-        !!
-        !!##### Behavior
-        !!
-        !!
-        !! To open a file to read:
-        !!
-        !!```fortran
-        !! u = open("somefile.txt")        ! The default `mode` is "rt"
-        !! u = open("somefile.txt", "r")
-        !!```
-        !!
-        !! To open a file to write:
-        !!    u = open("somefile.txt", "w")
-        !!
-        !! To append to the end of the file if it exists:
-        !!
-        !!    u = open("somefile.txt", "a")
-
-        class(file) :: self
+        class(file), intent(inout) :: self
         integer :: stat
 
         self%unit = open(self%filename, self%mode, iostat=stat)
-        if(stat /= 0) call error_stop('Error: File "'//self%filename//&
+        if(stat /= 0) call error_stop('Error: File "' // self%filename // &
             '" open failed, iostat = '//to_string(stat))
 
     end subroutine open_file
 
-    !> `close` closes a `file` object, 
-    !>  deallocate `file%filename`.
+    !> Version: experimental
+    !> 
+    !> `close` closes a `file` object, deallocate `file%filename`.
+    !> ([Specification](../page/specs/forlab_io.html#fileclose))
     subroutine close (self)
-
-        class(file), intent(out) :: self
+        class(file), intent(inout) :: self
 
         deallocate(self%filename)
         close(self%unit)
 
     end subroutine close
 
+    !> Version: experimental
+    !>
     !> `countlines` counts the number of lines in a txt file.
+    !> ([Specification](../page/specs/forlab_io.html#filecountlines))
     subroutine countlines1(self)
         class(file), intent(inout) :: self
         integer :: ierr
@@ -204,7 +193,7 @@ contains
         
         self%lines = 0
         ok = .false.
-        inquire (unit=self%unit, opened=ok)
+        inquire(unit=self%unit, opened=ok)
         if (ok) then
             rewind(self%unit)
             do
@@ -223,7 +212,7 @@ contains
             call self%close()
         end if
         if (self%lines == 0) then
-            call disp('Warn: linecounts is 0 in ', "'"//self%filename//"'")
+            call disp('Warn: linecounts is 0 in "' // self%filename // '".')
         end if
 
     end subroutine countlines1
@@ -243,12 +232,15 @@ contains
 
     end function countlines2
 
+    !> Version: experimental
+    !>
     !> `file_exist` determines whether a `file` object already exists.
-    logical function file_exist1(self)
-
+    !> ([Specification](../page/specs/forlab_io.html#fileexist))
+    function file_exist1(self) result(result)
         class(File), intent(inout) :: self
+        logical :: result
 
-        inquire (file=self%filename, exist=file_exist1)
+        inquire(file=self%filename, exist=result)
 
     end function file_exist1
 
