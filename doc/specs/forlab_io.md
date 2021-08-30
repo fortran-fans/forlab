@@ -265,3 +265,46 @@ program demo_io_file_close
 
 end program demo_io_file_close
 ```
+
+### `color`
+
+#### Description
+
+Prints a PS code at default output_unit.
+
+#### Status
+
+Experimental.
+
+#### Class
+
+Impure subroutine.
+
+#### Syntax
+
+`call [[forlab_io(module):color(interface)]] ( [string=achar(27) // '[0m'] )`
+
+#### Argument
+
+`string`: Shall be a `character(len=*)` scalar.
+This argument is `intent(in)` and `optional`.  
+The default value is `achar(27) // '[0m'`.
+
+#### Output 
+
+Prints a PS code at default output_unit.
+
+#### Example
+
+```fortran
+program demo_io_color
+    use forlab_io, only: color
+    use forlab_color, only: red, green
+    character(len=*), parameter :: char = "It is Fortran Color: "
+    call color(green)
+    print *, char // 'green.'
+    print *, red // char // 'red.'
+    call color()
+    print *, char // "default."
+end program demo_io_color
+```

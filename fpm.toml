@@ -37,9 +37,9 @@ name = "io_file"
 source-dir = "test/io"
 main = "test_io_file.f90"
 [[test]]
-name = "io_set_color"
+name = "io_color"
 source-dir = "test/io"
-main = "test_io_set_color.f90"
+main = "test_io_color.f90"
 
 ## [linalg] tests
 [[test]]
@@ -106,6 +106,12 @@ source-dir = "test/time"
 main = "test_time_tioc.f90"
 
 # Examples
+## forlab_io demos
+[[example]]
+name = "io_color"
+source-dir = "example/io"
+main = "demo_io_color.f90"
+
 ## forlab_linalg demos
 [[example]]
 name = "linalg_zerosones"

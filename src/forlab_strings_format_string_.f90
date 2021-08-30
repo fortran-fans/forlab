@@ -1,8 +1,9 @@
 
+!> TODO: real(value) => value%re, aimag(value) => value%im
+!>  MINGW-GCC 8.1 & winlib/GCC-all-version: github-ci failed.
 submodule (forlab_strings) forlab_strings_format_string
 
-    implicit none
-    integer, parameter :: buffer_len = 512
+    integer, parameter :: buffer_len = 128
 
 contains
 
@@ -136,22 +137,22 @@ contains
     module procedure format_string_csp
         !! Format complex(sp) variable as character sequence
 
-        string = '('//format_string_rsp(value%re, format)//','// &
-            format_string_rsp(value%im, format)//')'
+        string = '('//format_string_rsp(real(value), format)//','// &
+            format_string_rsp(aimag(value), format)//')'
 
     end procedure format_string_csp
     module procedure format_string_cdp
         !! Format complex(dp) variable as character sequence
 
-        string = '('//format_string_rdp(value%re, format)//','// &
-            format_string_rdp(value%im, format)//')'
+        string = '('//format_string_rdp(real(value), format)//','// &
+            format_string_rdp(aimag(value), format)//')'
 
     end procedure format_string_cdp
     module procedure format_string_cqp
         !! Format complex(qp) variable as character sequence
 
-        string = '('//format_string_rqp(value%re, format)//','// &
-            format_string_rqp(value%im, format)//')'
+        string = '('//format_string_rqp(real(value), format)//','// &
+            format_string_rqp(aimag(value), format)//')'
 
     end procedure format_string_cqp
 
