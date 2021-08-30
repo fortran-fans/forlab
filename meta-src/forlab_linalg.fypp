@@ -62,7 +62,7 @@ module forlab_linalg
     !> Version: Experimental
     !>
     !> `diff` computes differences of arrays.
-    !> ([Specification](../page/specs/stdlib_linalg.html))
+    !> ([Specification](../page/specs/forlab_linalg.html))
     interface diff
         #:set RI_KINDS_TYPES = REAL_KINDS_TYPES + INT_KINDS_TYPES
         #:for k1, t1 in RI_KINDS_TYPES
@@ -226,7 +226,7 @@ module forlab_linalg
     !> Version: experimental
     !>
     !> Creates a rank-1 or rank-2 array filled ones.
-    !> ([Specification](../page/specs/stdlib_linalg.html#zerosones))
+    !> ([Specification](../page/specs/forlab_linalg.html#zerosones))
     interface ones
         procedure :: ones_1_default
         procedure :: ones_2_default
@@ -345,7 +345,7 @@ module forlab_linalg
     !> Version: experimental
     !>
     !> Creates a rank-1 or rank-2 array filled zeros.
-    !> ([Specification](../page/specs/stdlib_linalg.html#zerosones))
+    !> ([Specification](../page/specs/forlab_linalg.html#zerosones))
     interface zeros
         procedure :: zeros_1_default
         procedure :: zeros_2_default
