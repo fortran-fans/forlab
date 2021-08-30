@@ -9,6 +9,7 @@ contains
 
     #:for k1,t1 in REAL_KINDS_TYPES
     module procedure chol_${k1}$
+        
         integer :: i, j, k, n
         ${t1}$ :: sum1, sum2
         ${t1}$, dimension(:), allocatable :: d
@@ -18,8 +19,7 @@ contains
         deallocate(V)
         if (all(d >= zero)) then
             n = size(A, 1)
-            allocate(L(n, n))
-            call zeros(L)
+            L = zeros(n, n)
             L(1, 1) = sqrt(A(1, 1))
             do i = 2, n
                 L(i, 1) = A(i, 1)/L(1, 1)
@@ -50,5 +50,6 @@ contains
     
     #:for k1,t1 in CMPLX_KINDS_TYPES
     #:endfor
+
 end submodule forlab_linalg_chol
 

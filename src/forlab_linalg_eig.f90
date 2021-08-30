@@ -29,8 +29,7 @@ contains
             call eye(V)
             d = diag(B)
             bw = d
-            allocate(zw(n))
-            call zeros(zw)
+            zw = zeros(n)
 
             iter = 0
             do while (iter .lt. opt_itermax)
@@ -136,8 +135,7 @@ contains
             call eye(V)
             d = diag(B)
             bw = d
-            allocate(zw(n))
-            call zeros(zw)
+            zw = zeros(n)
 
             iter = 0
             do while (iter .lt. opt_itermax)
@@ -243,8 +241,7 @@ contains
             call eye(V)
             d = diag(B)
             bw = d
-            allocate(zw(n))
-            call zeros(zw)
+            zw = zeros(n)
 
             iter = 0
             do while (iter .lt. opt_itermax)

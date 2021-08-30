@@ -16,8 +16,7 @@ contains
     module procedure diag2_sp
         integer :: i, n
         n = size(x)
-        allocate(diag(n,n))
-        call zeros(diag)
+        diag = zeros(n, n)
         do i = 1, n
             diag(i, i) = x(i)
         end do
@@ -36,8 +35,7 @@ contains
     module procedure diag2_dp
         integer :: i, n
         n = size(x)
-        allocate(diag(n,n))
-        call zeros(diag)
+        diag = zeros(n, n)
         do i = 1, n
             diag(i, i) = x(i)
         end do
@@ -56,8 +54,7 @@ contains
     module procedure diag2_qp
         integer :: i, n
         n = size(x)
-        allocate(diag(n,n))
-        call zeros(diag)
+        diag = zeros(n, n)
         do i = 1, n
             diag(i, i) = x(i)
         end do

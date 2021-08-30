@@ -1,6 +1,6 @@
 
 module forlab_stats
-    
+
     use stdlib_kinds, only: sp, dp, qp, &
         int8, int16, int32, int64
     implicit none
@@ -62,46 +62,46 @@ module forlab_stats
         impure elemental module subroutine randn_sp(X, mean, std)
             real(sp), intent(out) :: X
             real(sp), optional, intent(in) :: mean, std
-        end subroutine
+        end subroutine randn_sp
         impure elemental module subroutine randn_dp(X, mean, std)
             real(dp), intent(out) :: X
             real(dp), optional, intent(in) :: mean, std
-        end subroutine
+        end subroutine randn_dp
         impure elemental module subroutine randn_qp(X, mean, std)
             real(qp), intent(out) :: X
             real(qp), optional, intent(in) :: mean, std
-        end subroutine
-    end interface
+        end subroutine randn_qp
+    end interface randn
 
     interface randu
         impure elemental module subroutine randu_rsp(X, from, to)
             real(sp), intent(out) :: X
             real(sp), optional, intent(in) :: from, to 
-        end subroutine
+        end subroutine randu_rsp
         impure elemental module subroutine randu_rdp(X, from, to)
             real(dp), intent(out) :: X
             real(dp), optional, intent(in) :: from, to 
-        end subroutine
+        end subroutine randu_rdp
         impure elemental module subroutine randu_rqp(X, from, to)
             real(qp), intent(out) :: X
             real(qp), optional, intent(in) :: from, to 
-        end subroutine
+        end subroutine randu_rqp
         impure elemental module subroutine randu_iint8(X, from, to)
             integer(int8), intent(out) :: X
             integer(int8), optional, intent(in) :: from, to 
-        end subroutine
+        end subroutine randu_iint8
         impure elemental module subroutine randu_iint16(X, from, to)
             integer(int16), intent(out) :: X
             integer(int16), optional, intent(in) :: from, to 
-        end subroutine
+        end subroutine randu_iint16
         impure elemental module subroutine randu_iint32(X, from, to)
             integer(int32), intent(out) :: X
             integer(int32), optional, intent(in) :: from, to 
-        end subroutine
+        end subroutine randu_iint32
         impure elemental module subroutine randu_iint64(X, from, to)
             integer(int64), intent(out) :: X
             integer(int64), optional, intent(in) :: from, to 
-        end subroutine
+        end subroutine randu_iint64
     end interface randu
 
     interface

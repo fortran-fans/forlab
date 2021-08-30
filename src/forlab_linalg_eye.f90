@@ -8,7 +8,7 @@ contains
     module procedure eye_sp
         integer :: i
         
-        call zeros(X)
+        X = 0
         do i = 1, min(size(X,1), size(X,2))
             X(i, i) = 1.0_sp
         end do
@@ -18,7 +18,7 @@ contains
     module procedure eye_dp
         integer :: i
         
-        call zeros(X)
+        X = 0
         do i = 1, min(size(X,1), size(X,2))
             X(i, i) = 1.0_dp
         end do
@@ -28,7 +28,7 @@ contains
     module procedure eye_qp
         integer :: i
         
-        call zeros(X)
+        X = 0
         do i = 1, min(size(X,1), size(X,2))
             X(i, i) = 1.0_qp
         end do
