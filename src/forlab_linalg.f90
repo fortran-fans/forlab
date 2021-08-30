@@ -198,369 +198,369 @@ module forlab_linalg
     end interface eye
 
     interface horzcat
-        module function horzcat_r_1_sp(x1, x2)
-            real(sp), dimension(:, :), allocatable :: horzcat_r_1_sp
+        module function horzcat_r_1_sp(x1, x2) result(result)
+            real(sp), dimension(:, :), allocatable :: result
             real(sp), dimension(:), intent(in) :: x1, x2
-        end function
-        module function horzcat_r_2_sp(A1, A2)
-            real(sp), dimension(:, :), allocatable :: horzcat_r_2_sp
+        end function horzcat_r_1_sp
+        module function horzcat_r_2_sp(A1, A2) result(result)
+            real(sp), dimension(:, :), allocatable :: result
             real(sp), dimension(:, :), intent(in) :: A1, A2
-        end function
-        module function horzcat_r_21_sp(A1, x2)
-            real(sp), dimension(:, :), allocatable :: horzcat_r_21_sp
+        end function horzcat_r_2_sp
+        module function horzcat_r_21_sp(A1, x2) result(result)
+            real(sp), dimension(:, :), allocatable :: result
             real(sp), dimension(:, :), intent(in) :: A1
             real(sp), dimension(:), intent(in) :: x2
-        end function
-        module function horzcat_r_12_sp(x1, A2)
-            real(sp), dimension(:, :), allocatable :: horzcat_r_12_sp
+        end function horzcat_r_21_sp
+        module function horzcat_r_12_sp(x1, A2) result(result)
+            real(sp), dimension(:, :), allocatable :: result
             real(sp), dimension(:), intent(in) :: x1
             integer, dimension(:, :), intent(in) :: A2
-        end function
-        module function horzcat_r_1_dp(x1, x2)
-            real(dp), dimension(:, :), allocatable :: horzcat_r_1_dp
+        end function horzcat_r_12_sp
+        module function horzcat_r_1_dp(x1, x2) result(result)
+            real(dp), dimension(:, :), allocatable :: result
             real(dp), dimension(:), intent(in) :: x1, x2
-        end function
-        module function horzcat_r_2_dp(A1, A2)
-            real(dp), dimension(:, :), allocatable :: horzcat_r_2_dp
+        end function horzcat_r_1_dp
+        module function horzcat_r_2_dp(A1, A2) result(result)
+            real(dp), dimension(:, :), allocatable :: result
             real(dp), dimension(:, :), intent(in) :: A1, A2
-        end function
-        module function horzcat_r_21_dp(A1, x2)
-            real(dp), dimension(:, :), allocatable :: horzcat_r_21_dp
+        end function horzcat_r_2_dp
+        module function horzcat_r_21_dp(A1, x2) result(result)
+            real(dp), dimension(:, :), allocatable :: result
             real(dp), dimension(:, :), intent(in) :: A1
             real(dp), dimension(:), intent(in) :: x2
-        end function
-        module function horzcat_r_12_dp(x1, A2)
-            real(dp), dimension(:, :), allocatable :: horzcat_r_12_dp
+        end function horzcat_r_21_dp
+        module function horzcat_r_12_dp(x1, A2) result(result)
+            real(dp), dimension(:, :), allocatable :: result
             real(dp), dimension(:), intent(in) :: x1
             integer, dimension(:, :), intent(in) :: A2
-        end function
-        module function horzcat_r_1_qp(x1, x2)
-            real(qp), dimension(:, :), allocatable :: horzcat_r_1_qp
+        end function horzcat_r_12_dp
+        module function horzcat_r_1_qp(x1, x2) result(result)
+            real(qp), dimension(:, :), allocatable :: result
             real(qp), dimension(:), intent(in) :: x1, x2
-        end function
-        module function horzcat_r_2_qp(A1, A2)
-            real(qp), dimension(:, :), allocatable :: horzcat_r_2_qp
+        end function horzcat_r_1_qp
+        module function horzcat_r_2_qp(A1, A2) result(result)
+            real(qp), dimension(:, :), allocatable :: result
             real(qp), dimension(:, :), intent(in) :: A1, A2
-        end function
-        module function horzcat_r_21_qp(A1, x2)
-            real(qp), dimension(:, :), allocatable :: horzcat_r_21_qp
+        end function horzcat_r_2_qp
+        module function horzcat_r_21_qp(A1, x2) result(result)
+            real(qp), dimension(:, :), allocatable :: result
             real(qp), dimension(:, :), intent(in) :: A1
             real(qp), dimension(:), intent(in) :: x2
-        end function
-        module function horzcat_r_12_qp(x1, A2)
-            real(qp), dimension(:, :), allocatable :: horzcat_r_12_qp
+        end function horzcat_r_21_qp
+        module function horzcat_r_12_qp(x1, A2) result(result)
+            real(qp), dimension(:, :), allocatable :: result
             real(qp), dimension(:), intent(in) :: x1
             integer, dimension(:, :), intent(in) :: A2
-        end function
-        module function horzcat_c_1_sp(x1, x2)
-            complex(sp), dimension(:, :), allocatable :: horzcat_c_1_sp
+        end function horzcat_r_12_qp
+        module function horzcat_c_1_sp(x1, x2) result(result)
+            complex(sp), dimension(:, :), allocatable :: result
             complex(sp), dimension(:), intent(in) :: x1, x2
-        end function
-        module function horzcat_c_2_sp(A1, A2)
-            complex(sp), dimension(:, :), allocatable :: horzcat_c_2_sp
+        end function horzcat_c_1_sp
+        module function horzcat_c_2_sp(A1, A2) result(result)
+            complex(sp), dimension(:, :), allocatable :: result
             complex(sp), dimension(:, :), intent(in) :: A1, A2
-        end function
-        module function horzcat_c_21_sp(A1, x2)
-            complex(sp), dimension(:, :), allocatable :: horzcat_c_21_sp
+        end function horzcat_c_2_sp
+        module function horzcat_c_21_sp(A1, x2) result(result)
+            complex(sp), dimension(:, :), allocatable :: result
             complex(sp), dimension(:, :), intent(in) :: A1
             complex(sp), dimension(:), intent(in) :: x2
-        end function
-        module function horzcat_c_12_sp(x1, A2)
-            complex(sp), dimension(:, :), allocatable :: horzcat_c_12_sp
+        end function horzcat_c_21_sp
+        module function horzcat_c_12_sp(x1, A2) result(result)
+            complex(sp), dimension(:, :), allocatable :: result
             complex(sp), dimension(:), intent(in) :: x1
             integer, dimension(:, :), intent(in) :: A2
-        end function
-        module function horzcat_c_1_dp(x1, x2)
-            complex(dp), dimension(:, :), allocatable :: horzcat_c_1_dp
+        end function horzcat_c_12_sp
+        module function horzcat_c_1_dp(x1, x2) result(result)
+            complex(dp), dimension(:, :), allocatable :: result
             complex(dp), dimension(:), intent(in) :: x1, x2
-        end function
-        module function horzcat_c_2_dp(A1, A2)
-            complex(dp), dimension(:, :), allocatable :: horzcat_c_2_dp
+        end function horzcat_c_1_dp
+        module function horzcat_c_2_dp(A1, A2) result(result)
+            complex(dp), dimension(:, :), allocatable :: result
             complex(dp), dimension(:, :), intent(in) :: A1, A2
-        end function
-        module function horzcat_c_21_dp(A1, x2)
-            complex(dp), dimension(:, :), allocatable :: horzcat_c_21_dp
+        end function horzcat_c_2_dp
+        module function horzcat_c_21_dp(A1, x2) result(result)
+            complex(dp), dimension(:, :), allocatable :: result
             complex(dp), dimension(:, :), intent(in) :: A1
             complex(dp), dimension(:), intent(in) :: x2
-        end function
-        module function horzcat_c_12_dp(x1, A2)
-            complex(dp), dimension(:, :), allocatable :: horzcat_c_12_dp
+        end function horzcat_c_21_dp
+        module function horzcat_c_12_dp(x1, A2) result(result)
+            complex(dp), dimension(:, :), allocatable :: result
             complex(dp), dimension(:), intent(in) :: x1
             integer, dimension(:, :), intent(in) :: A2
-        end function
-        module function horzcat_c_1_qp(x1, x2)
-            complex(qp), dimension(:, :), allocatable :: horzcat_c_1_qp
+        end function horzcat_c_12_dp
+        module function horzcat_c_1_qp(x1, x2) result(result)
+            complex(qp), dimension(:, :), allocatable :: result
             complex(qp), dimension(:), intent(in) :: x1, x2
-        end function
-        module function horzcat_c_2_qp(A1, A2)
-            complex(qp), dimension(:, :), allocatable :: horzcat_c_2_qp
+        end function horzcat_c_1_qp
+        module function horzcat_c_2_qp(A1, A2) result(result)
+            complex(qp), dimension(:, :), allocatable :: result
             complex(qp), dimension(:, :), intent(in) :: A1, A2
-        end function
-        module function horzcat_c_21_qp(A1, x2)
-            complex(qp), dimension(:, :), allocatable :: horzcat_c_21_qp
+        end function horzcat_c_2_qp
+        module function horzcat_c_21_qp(A1, x2) result(result)
+            complex(qp), dimension(:, :), allocatable :: result
             complex(qp), dimension(:, :), intent(in) :: A1
             complex(qp), dimension(:), intent(in) :: x2
-        end function
-        module function horzcat_c_12_qp(x1, A2)
-            complex(qp), dimension(:, :), allocatable :: horzcat_c_12_qp
+        end function horzcat_c_21_qp
+        module function horzcat_c_12_qp(x1, A2) result(result)
+            complex(qp), dimension(:, :), allocatable :: result
             complex(qp), dimension(:), intent(in) :: x1
             integer, dimension(:, :), intent(in) :: A2
-        end function
-        module function horzcat_i_1_int8(x1, x2)
-            integer(int8), dimension(:, :), allocatable :: horzcat_i_1_int8
+        end function horzcat_c_12_qp
+        module function horzcat_i_1_int8(x1, x2) result(result)
+            integer(int8), dimension(:, :), allocatable :: result
             integer(int8), dimension(:), intent(in) :: x1, x2
-        end function
-        module function horzcat_i_2_int8(A1, A2)
-            integer(int8), dimension(:, :), allocatable :: horzcat_i_2_int8
+        end function horzcat_i_1_int8
+        module function horzcat_i_2_int8(A1, A2) result(result)
+            integer(int8), dimension(:, :), allocatable :: result
             integer(int8), dimension(:, :), intent(in) :: A1, A2
-        end function
-        module function horzcat_i_21_int8(A1, x2)
-            integer(int8), dimension(:, :), allocatable :: horzcat_i_21_int8
+        end function horzcat_i_2_int8
+        module function horzcat_i_21_int8(A1, x2) result(result)
+            integer(int8), dimension(:, :), allocatable :: result
             integer(int8), dimension(:, :), intent(in) :: A1
             integer(int8), dimension(:), intent(in) :: x2
-        end function
-        module function horzcat_i_12_int8(x1, A2)
-            integer(int8), dimension(:, :), allocatable :: horzcat_i_12_int8
+        end function horzcat_i_21_int8
+        module function horzcat_i_12_int8(x1, A2) result(result)
+            integer(int8), dimension(:, :), allocatable :: result
             integer(int8), dimension(:), intent(in) :: x1
             integer, dimension(:, :), intent(in) :: A2
-        end function
-        module function horzcat_i_1_int16(x1, x2)
-            integer(int16), dimension(:, :), allocatable :: horzcat_i_1_int16
+        end function horzcat_i_12_int8
+        module function horzcat_i_1_int16(x1, x2) result(result)
+            integer(int16), dimension(:, :), allocatable :: result
             integer(int16), dimension(:), intent(in) :: x1, x2
-        end function
-        module function horzcat_i_2_int16(A1, A2)
-            integer(int16), dimension(:, :), allocatable :: horzcat_i_2_int16
+        end function horzcat_i_1_int16
+        module function horzcat_i_2_int16(A1, A2) result(result)
+            integer(int16), dimension(:, :), allocatable :: result
             integer(int16), dimension(:, :), intent(in) :: A1, A2
-        end function
-        module function horzcat_i_21_int16(A1, x2)
-            integer(int16), dimension(:, :), allocatable :: horzcat_i_21_int16
+        end function horzcat_i_2_int16
+        module function horzcat_i_21_int16(A1, x2) result(result)
+            integer(int16), dimension(:, :), allocatable :: result
             integer(int16), dimension(:, :), intent(in) :: A1
             integer(int16), dimension(:), intent(in) :: x2
-        end function
-        module function horzcat_i_12_int16(x1, A2)
-            integer(int16), dimension(:, :), allocatable :: horzcat_i_12_int16
+        end function horzcat_i_21_int16
+        module function horzcat_i_12_int16(x1, A2) result(result)
+            integer(int16), dimension(:, :), allocatable :: result
             integer(int16), dimension(:), intent(in) :: x1
             integer, dimension(:, :), intent(in) :: A2
-        end function
-        module function horzcat_i_1_int32(x1, x2)
-            integer(int32), dimension(:, :), allocatable :: horzcat_i_1_int32
+        end function horzcat_i_12_int16
+        module function horzcat_i_1_int32(x1, x2) result(result)
+            integer(int32), dimension(:, :), allocatable :: result
             integer(int32), dimension(:), intent(in) :: x1, x2
-        end function
-        module function horzcat_i_2_int32(A1, A2)
-            integer(int32), dimension(:, :), allocatable :: horzcat_i_2_int32
+        end function horzcat_i_1_int32
+        module function horzcat_i_2_int32(A1, A2) result(result)
+            integer(int32), dimension(:, :), allocatable :: result
             integer(int32), dimension(:, :), intent(in) :: A1, A2
-        end function
-        module function horzcat_i_21_int32(A1, x2)
-            integer(int32), dimension(:, :), allocatable :: horzcat_i_21_int32
+        end function horzcat_i_2_int32
+        module function horzcat_i_21_int32(A1, x2) result(result)
+            integer(int32), dimension(:, :), allocatable :: result
             integer(int32), dimension(:, :), intent(in) :: A1
             integer(int32), dimension(:), intent(in) :: x2
-        end function
-        module function horzcat_i_12_int32(x1, A2)
-            integer(int32), dimension(:, :), allocatable :: horzcat_i_12_int32
+        end function horzcat_i_21_int32
+        module function horzcat_i_12_int32(x1, A2) result(result)
+            integer(int32), dimension(:, :), allocatable :: result
             integer(int32), dimension(:), intent(in) :: x1
             integer, dimension(:, :), intent(in) :: A2
-        end function
-        module function horzcat_i_1_int64(x1, x2)
-            integer(int64), dimension(:, :), allocatable :: horzcat_i_1_int64
+        end function horzcat_i_12_int32
+        module function horzcat_i_1_int64(x1, x2) result(result)
+            integer(int64), dimension(:, :), allocatable :: result
             integer(int64), dimension(:), intent(in) :: x1, x2
-        end function
-        module function horzcat_i_2_int64(A1, A2)
-            integer(int64), dimension(:, :), allocatable :: horzcat_i_2_int64
+        end function horzcat_i_1_int64
+        module function horzcat_i_2_int64(A1, A2) result(result)
+            integer(int64), dimension(:, :), allocatable :: result
             integer(int64), dimension(:, :), intent(in) :: A1, A2
-        end function
-        module function horzcat_i_21_int64(A1, x2)
-            integer(int64), dimension(:, :), allocatable :: horzcat_i_21_int64
+        end function horzcat_i_2_int64
+        module function horzcat_i_21_int64(A1, x2) result(result)
+            integer(int64), dimension(:, :), allocatable :: result
             integer(int64), dimension(:, :), intent(in) :: A1
             integer(int64), dimension(:), intent(in) :: x2
-        end function
-        module function horzcat_i_12_int64(x1, A2)
-            integer(int64), dimension(:, :), allocatable :: horzcat_i_12_int64
+        end function horzcat_i_21_int64
+        module function horzcat_i_12_int64(x1, A2) result(result)
+            integer(int64), dimension(:, :), allocatable :: result
             integer(int64), dimension(:), intent(in) :: x1
             integer, dimension(:, :), intent(in) :: A2
-        end function
-    end interface
+        end function horzcat_i_12_int64
+    end interface horzcat
     interface vertcat
-        module function vertcat_r_1_sp(x1, x2)
-            real(sp), dimension(:, :), allocatable :: vertcat_r_1_sp
+        module function vertcat_r_1_sp(x1, x2) result(result)
+            real(sp), dimension(:, :), allocatable :: result
             real(sp), dimension(:), intent(in) :: x1, x2
-        end function
-        module function vertcat_r_2_sp(A1, A2)
-            real(sp), dimension(:, :), allocatable :: vertcat_r_2_sp
+        end function vertcat_r_1_sp
+        module function vertcat_r_2_sp(A1, A2) result(result)
+            real(sp), dimension(:, :), allocatable :: result
             real(sp), dimension(:, :), intent(in) :: A1, A2
-        end function
-        module function vertcat_r_21_sp(A1, x2)
-            real(sp), dimension(:, :), allocatable :: vertcat_r_21_sp
+        end function vertcat_r_2_sp
+        module function vertcat_r_21_sp(A1, x2) result(result)
+            real(sp), dimension(:, :), allocatable :: result
             real(sp), dimension(:, :), intent(in) :: A1
             real(sp), dimension(:), intent(in) :: x2
-        end function
-        module function vertcat_r_12_sp(x1, A2)
-            real(sp), dimension(:, :), allocatable :: vertcat_r_12_sp
+        end function vertcat_r_21_sp
+        module function vertcat_r_12_sp(x1, A2) result(result)
+            real(sp), dimension(:, :), allocatable :: result
             real(sp), dimension(:), intent(in) :: x1
             integer, dimension(:, :), intent(in) :: A2
-        end function
-        module function vertcat_r_1_dp(x1, x2)
-            real(dp), dimension(:, :), allocatable :: vertcat_r_1_dp
+        end function vertcat_r_12_sp
+        module function vertcat_r_1_dp(x1, x2) result(result)
+            real(dp), dimension(:, :), allocatable :: result
             real(dp), dimension(:), intent(in) :: x1, x2
-        end function
-        module function vertcat_r_2_dp(A1, A2)
-            real(dp), dimension(:, :), allocatable :: vertcat_r_2_dp
+        end function vertcat_r_1_dp
+        module function vertcat_r_2_dp(A1, A2) result(result)
+            real(dp), dimension(:, :), allocatable :: result
             real(dp), dimension(:, :), intent(in) :: A1, A2
-        end function
-        module function vertcat_r_21_dp(A1, x2)
-            real(dp), dimension(:, :), allocatable :: vertcat_r_21_dp
+        end function vertcat_r_2_dp
+        module function vertcat_r_21_dp(A1, x2) result(result)
+            real(dp), dimension(:, :), allocatable :: result
             real(dp), dimension(:, :), intent(in) :: A1
             real(dp), dimension(:), intent(in) :: x2
-        end function
-        module function vertcat_r_12_dp(x1, A2)
-            real(dp), dimension(:, :), allocatable :: vertcat_r_12_dp
+        end function vertcat_r_21_dp
+        module function vertcat_r_12_dp(x1, A2) result(result)
+            real(dp), dimension(:, :), allocatable :: result
             real(dp), dimension(:), intent(in) :: x1
             integer, dimension(:, :), intent(in) :: A2
-        end function
-        module function vertcat_r_1_qp(x1, x2)
-            real(qp), dimension(:, :), allocatable :: vertcat_r_1_qp
+        end function vertcat_r_12_dp
+        module function vertcat_r_1_qp(x1, x2) result(result)
+            real(qp), dimension(:, :), allocatable :: result
             real(qp), dimension(:), intent(in) :: x1, x2
-        end function
-        module function vertcat_r_2_qp(A1, A2)
-            real(qp), dimension(:, :), allocatable :: vertcat_r_2_qp
+        end function vertcat_r_1_qp
+        module function vertcat_r_2_qp(A1, A2) result(result)
+            real(qp), dimension(:, :), allocatable :: result
             real(qp), dimension(:, :), intent(in) :: A1, A2
-        end function
-        module function vertcat_r_21_qp(A1, x2)
-            real(qp), dimension(:, :), allocatable :: vertcat_r_21_qp
+        end function vertcat_r_2_qp
+        module function vertcat_r_21_qp(A1, x2) result(result)
+            real(qp), dimension(:, :), allocatable :: result
             real(qp), dimension(:, :), intent(in) :: A1
             real(qp), dimension(:), intent(in) :: x2
-        end function
-        module function vertcat_r_12_qp(x1, A2)
-            real(qp), dimension(:, :), allocatable :: vertcat_r_12_qp
+        end function vertcat_r_21_qp
+        module function vertcat_r_12_qp(x1, A2) result(result)
+            real(qp), dimension(:, :), allocatable :: result
             real(qp), dimension(:), intent(in) :: x1
             integer, dimension(:, :), intent(in) :: A2
-        end function
-        module function vertcat_c_1_sp(x1, x2)
-            complex(sp), dimension(:, :), allocatable :: vertcat_c_1_sp
+        end function vertcat_r_12_qp
+        module function vertcat_c_1_sp(x1, x2) result(result)
+            complex(sp), dimension(:, :), allocatable :: result
             complex(sp), dimension(:), intent(in) :: x1, x2
-        end function
-        module function vertcat_c_2_sp(A1, A2)
-            complex(sp), dimension(:, :), allocatable :: vertcat_c_2_sp
+        end function vertcat_c_1_sp
+        module function vertcat_c_2_sp(A1, A2) result(result)
+            complex(sp), dimension(:, :), allocatable :: result
             complex(sp), dimension(:, :), intent(in) :: A1, A2
-        end function
-        module function vertcat_c_21_sp(A1, x2)
-            complex(sp), dimension(:, :), allocatable :: vertcat_c_21_sp
+        end function vertcat_c_2_sp
+        module function vertcat_c_21_sp(A1, x2) result(result)
+            complex(sp), dimension(:, :), allocatable :: result
             complex(sp), dimension(:, :), intent(in) :: A1
             complex(sp), dimension(:), intent(in) :: x2
-        end function
-        module function vertcat_c_12_sp(x1, A2)
-            complex(sp), dimension(:, :), allocatable :: vertcat_c_12_sp
+        end function vertcat_c_21_sp
+        module function vertcat_c_12_sp(x1, A2) result(result)
+            complex(sp), dimension(:, :), allocatable :: result
             complex(sp), dimension(:), intent(in) :: x1
             integer, dimension(:, :), intent(in) :: A2
-        end function
-        module function vertcat_c_1_dp(x1, x2)
-            complex(dp), dimension(:, :), allocatable :: vertcat_c_1_dp
+        end function vertcat_c_12_sp
+        module function vertcat_c_1_dp(x1, x2) result(result)
+            complex(dp), dimension(:, :), allocatable :: result
             complex(dp), dimension(:), intent(in) :: x1, x2
-        end function
-        module function vertcat_c_2_dp(A1, A2)
-            complex(dp), dimension(:, :), allocatable :: vertcat_c_2_dp
+        end function vertcat_c_1_dp
+        module function vertcat_c_2_dp(A1, A2) result(result)
+            complex(dp), dimension(:, :), allocatable :: result
             complex(dp), dimension(:, :), intent(in) :: A1, A2
-        end function
-        module function vertcat_c_21_dp(A1, x2)
-            complex(dp), dimension(:, :), allocatable :: vertcat_c_21_dp
+        end function vertcat_c_2_dp
+        module function vertcat_c_21_dp(A1, x2) result(result)
+            complex(dp), dimension(:, :), allocatable :: result
             complex(dp), dimension(:, :), intent(in) :: A1
             complex(dp), dimension(:), intent(in) :: x2
-        end function
-        module function vertcat_c_12_dp(x1, A2)
-            complex(dp), dimension(:, :), allocatable :: vertcat_c_12_dp
+        end function vertcat_c_21_dp
+        module function vertcat_c_12_dp(x1, A2) result(result)
+            complex(dp), dimension(:, :), allocatable :: result
             complex(dp), dimension(:), intent(in) :: x1
             integer, dimension(:, :), intent(in) :: A2
-        end function
-        module function vertcat_c_1_qp(x1, x2)
-            complex(qp), dimension(:, :), allocatable :: vertcat_c_1_qp
+        end function vertcat_c_12_dp
+        module function vertcat_c_1_qp(x1, x2) result(result)
+            complex(qp), dimension(:, :), allocatable :: result
             complex(qp), dimension(:), intent(in) :: x1, x2
-        end function
-        module function vertcat_c_2_qp(A1, A2)
-            complex(qp), dimension(:, :), allocatable :: vertcat_c_2_qp
+        end function vertcat_c_1_qp
+        module function vertcat_c_2_qp(A1, A2) result(result)
+            complex(qp), dimension(:, :), allocatable :: result
             complex(qp), dimension(:, :), intent(in) :: A1, A2
-        end function
-        module function vertcat_c_21_qp(A1, x2)
-            complex(qp), dimension(:, :), allocatable :: vertcat_c_21_qp
+        end function vertcat_c_2_qp
+        module function vertcat_c_21_qp(A1, x2) result(result)
+            complex(qp), dimension(:, :), allocatable :: result
             complex(qp), dimension(:, :), intent(in) :: A1
             complex(qp), dimension(:), intent(in) :: x2
-        end function
-        module function vertcat_c_12_qp(x1, A2)
-            complex(qp), dimension(:, :), allocatable :: vertcat_c_12_qp
+        end function vertcat_c_21_qp
+        module function vertcat_c_12_qp(x1, A2) result(result)
+            complex(qp), dimension(:, :), allocatable :: result
             complex(qp), dimension(:), intent(in) :: x1
             integer, dimension(:, :), intent(in) :: A2
-        end function
-        module function vertcat_i_1_int8(x1, x2)
-            integer(int8), dimension(:, :), allocatable :: vertcat_i_1_int8
+        end function vertcat_c_12_qp
+        module function vertcat_i_1_int8(x1, x2) result(result)
+            integer(int8), dimension(:, :), allocatable :: result
             integer(int8), dimension(:), intent(in) :: x1, x2
-        end function
-        module function vertcat_i_2_int8(A1, A2)
-            integer(int8), dimension(:, :), allocatable :: vertcat_i_2_int8
+        end function vertcat_i_1_int8
+        module function vertcat_i_2_int8(A1, A2) result(result)
+            integer(int8), dimension(:, :), allocatable :: result
             integer(int8), dimension(:, :), intent(in) :: A1, A2
-        end function
-        module function vertcat_i_21_int8(A1, x2)
-            integer(int8), dimension(:, :), allocatable :: vertcat_i_21_int8
+        end function vertcat_i_2_int8
+        module function vertcat_i_21_int8(A1, x2) result(result)
+            integer(int8), dimension(:, :), allocatable :: result
             integer(int8), dimension(:, :), intent(in) :: A1
             integer(int8), dimension(:), intent(in) :: x2
-        end function
-        module function vertcat_i_12_int8(x1, A2)
-            integer(int8), dimension(:, :), allocatable :: vertcat_i_12_int8
+        end function vertcat_i_21_int8
+        module function vertcat_i_12_int8(x1, A2) result(result)
+            integer(int8), dimension(:, :), allocatable :: result
             integer(int8), dimension(:), intent(in) :: x1
             integer, dimension(:, :), intent(in) :: A2
-        end function
-        module function vertcat_i_1_int16(x1, x2)
-            integer(int16), dimension(:, :), allocatable :: vertcat_i_1_int16
+        end function vertcat_i_12_int8
+        module function vertcat_i_1_int16(x1, x2) result(result)
+            integer(int16), dimension(:, :), allocatable :: result
             integer(int16), dimension(:), intent(in) :: x1, x2
-        end function
-        module function vertcat_i_2_int16(A1, A2)
-            integer(int16), dimension(:, :), allocatable :: vertcat_i_2_int16
+        end function vertcat_i_1_int16
+        module function vertcat_i_2_int16(A1, A2) result(result)
+            integer(int16), dimension(:, :), allocatable :: result
             integer(int16), dimension(:, :), intent(in) :: A1, A2
-        end function
-        module function vertcat_i_21_int16(A1, x2)
-            integer(int16), dimension(:, :), allocatable :: vertcat_i_21_int16
+        end function vertcat_i_2_int16
+        module function vertcat_i_21_int16(A1, x2) result(result)
+            integer(int16), dimension(:, :), allocatable :: result
             integer(int16), dimension(:, :), intent(in) :: A1
             integer(int16), dimension(:), intent(in) :: x2
-        end function
-        module function vertcat_i_12_int16(x1, A2)
-            integer(int16), dimension(:, :), allocatable :: vertcat_i_12_int16
+        end function vertcat_i_21_int16
+        module function vertcat_i_12_int16(x1, A2) result(result)
+            integer(int16), dimension(:, :), allocatable :: result
             integer(int16), dimension(:), intent(in) :: x1
             integer, dimension(:, :), intent(in) :: A2
-        end function
-        module function vertcat_i_1_int32(x1, x2)
-            integer(int32), dimension(:, :), allocatable :: vertcat_i_1_int32
+        end function vertcat_i_12_int16
+        module function vertcat_i_1_int32(x1, x2) result(result)
+            integer(int32), dimension(:, :), allocatable :: result
             integer(int32), dimension(:), intent(in) :: x1, x2
-        end function
-        module function vertcat_i_2_int32(A1, A2)
-            integer(int32), dimension(:, :), allocatable :: vertcat_i_2_int32
+        end function vertcat_i_1_int32
+        module function vertcat_i_2_int32(A1, A2) result(result)
+            integer(int32), dimension(:, :), allocatable :: result
             integer(int32), dimension(:, :), intent(in) :: A1, A2
-        end function
-        module function vertcat_i_21_int32(A1, x2)
-            integer(int32), dimension(:, :), allocatable :: vertcat_i_21_int32
+        end function vertcat_i_2_int32
+        module function vertcat_i_21_int32(A1, x2) result(result)
+            integer(int32), dimension(:, :), allocatable :: result
             integer(int32), dimension(:, :), intent(in) :: A1
             integer(int32), dimension(:), intent(in) :: x2
-        end function
-        module function vertcat_i_12_int32(x1, A2)
-            integer(int32), dimension(:, :), allocatable :: vertcat_i_12_int32
+        end function vertcat_i_21_int32
+        module function vertcat_i_12_int32(x1, A2) result(result)
+            integer(int32), dimension(:, :), allocatable :: result
             integer(int32), dimension(:), intent(in) :: x1
             integer, dimension(:, :), intent(in) :: A2
-        end function
-        module function vertcat_i_1_int64(x1, x2)
-            integer(int64), dimension(:, :), allocatable :: vertcat_i_1_int64
+        end function vertcat_i_12_int32
+        module function vertcat_i_1_int64(x1, x2) result(result)
+            integer(int64), dimension(:, :), allocatable :: result
             integer(int64), dimension(:), intent(in) :: x1, x2
-        end function
-        module function vertcat_i_2_int64(A1, A2)
-            integer(int64), dimension(:, :), allocatable :: vertcat_i_2_int64
+        end function vertcat_i_1_int64
+        module function vertcat_i_2_int64(A1, A2) result(result)
+            integer(int64), dimension(:, :), allocatable :: result
             integer(int64), dimension(:, :), intent(in) :: A1, A2
-        end function
-        module function vertcat_i_21_int64(A1, x2)
-            integer(int64), dimension(:, :), allocatable :: vertcat_i_21_int64
+        end function vertcat_i_2_int64
+        module function vertcat_i_21_int64(A1, x2) result(result)
+            integer(int64), dimension(:, :), allocatable :: result
             integer(int64), dimension(:, :), intent(in) :: A1
             integer(int64), dimension(:), intent(in) :: x2
-        end function
-        module function vertcat_i_12_int64(x1, A2)
-            integer(int64), dimension(:, :), allocatable :: vertcat_i_12_int64
+        end function vertcat_i_21_int64
+        module function vertcat_i_12_int64(x1, A2) result(result)
+            integer(int64), dimension(:, :), allocatable :: result
             integer(int64), dimension(:), intent(in) :: x1
             integer, dimension(:, :), intent(in) :: A2
-        end function
-    end interface
+        end function vertcat_i_12_int64
+    end interface vertcat
 
     interface inv
         module function inv_rsp(A) result(inv)
@@ -730,37 +730,13 @@ module forlab_linalg
         procedure :: crmut_qp
     end interface operator(.x.)
 
+    !> Version: experimental
+    !>
+    !> Creates a rank-1 or rank-2 array filled ones.
+    !> ([Specification](../page/specs/stdlib_linalg.html#zerosones))
     interface ones
-        elemental module subroutine ones_rsp(X)
-            real(sp), intent(out) :: X
-        end subroutine ones_rsp
-        elemental module subroutine ones_rdp(X)
-            real(dp), intent(out) :: X
-        end subroutine ones_rdp
-        elemental module subroutine ones_rqp(X)
-            real(qp), intent(out) :: X
-        end subroutine ones_rqp
-        elemental module subroutine ones_csp(X)
-            complex(sp), intent(out) :: X
-        end subroutine ones_csp
-        elemental module subroutine ones_cdp(X)
-            complex(dp), intent(out) :: X
-        end subroutine ones_cdp
-        elemental module subroutine ones_cqp(X)
-            complex(qp), intent(out) :: X
-        end subroutine ones_cqp
-        elemental module subroutine ones_iint8(X)
-            integer(int8), intent(out) :: X
-        end subroutine ones_iint8
-        elemental module subroutine ones_iint16(X)
-            integer(int16), intent(out) :: X
-        end subroutine ones_iint16
-        elemental module subroutine ones_iint32(X)
-            integer(int32), intent(out) :: X
-        end subroutine ones_iint32
-        elemental module subroutine ones_iint64(X)
-            integer(int64), intent(out) :: X
-        end subroutine ones_iint64
+        procedure :: ones_1_default
+        procedure :: ones_2_default
     end interface ones
 
     interface outer
@@ -792,22 +768,22 @@ module forlab_linalg
             real(qp), dimension(:,:), allocatable :: outer_qp
             real(qp), dimension(:), intent(in) :: x, y
         end function
-    end interface
+    end interface outer
 
     interface qr
         module subroutine qr_sp(a,q,r,l)
             real(sp),intent(in)::a(:,:)
-            real(sp),allocatable,intent(out)::q(:,:),r(:,:)
+            real(sp),allocatable,intent(out) :: q(:,:),r(:,:)
             integer,optional::l
         end subroutine qr_sp
         module subroutine qr_dp(a,q,r,l)
             real(dp),intent(in)::a(:,:)
-            real(dp),allocatable,intent(out)::q(:,:),r(:,:)
+            real(dp),allocatable,intent(out) :: q(:,:),r(:,:)
             integer,optional::l
         end subroutine qr_dp
         module subroutine qr_qp(a,q,r,l)
             real(qp),intent(in)::a(:,:)
-            real(qp),allocatable,intent(out)::q(:,:),r(:,:)
+            real(qp),allocatable,intent(out) :: q(:,:),r(:,:)
             integer,optional::l
         end subroutine qr_qp
     end interface qr
@@ -1026,43 +1002,19 @@ module forlab_linalg
         end function triu_cqp
     end interface triu
 
+    !> Version: experimental
+    !>
+    !> Creates a rank-1 or rank-2 array filled zeros.
+    !> ([Specification](../page/specs/stdlib_linalg.html#zerosones))
     interface zeros
-        elemental module subroutine zeros_rsp(X)
-            real(sp), intent(out) :: X
-        end subroutine zeros_rsp
-        elemental module subroutine zeros_rdp(X)
-            real(dp), intent(out) :: X
-        end subroutine zeros_rdp
-        elemental module subroutine zeros_rqp(X)
-            real(qp), intent(out) :: X
-        end subroutine zeros_rqp
-        elemental module subroutine zeros_csp(X)
-            complex(sp), intent(out) :: X
-        end subroutine zeros_csp
-        elemental module subroutine zeros_cdp(X)
-            complex(dp), intent(out) :: X
-        end subroutine zeros_cdp
-        elemental module subroutine zeros_cqp(X)
-            complex(qp), intent(out) :: X
-        end subroutine zeros_cqp
-        elemental module subroutine zeros_iint8(X)
-            integer(int8), intent(out) :: X
-        end subroutine zeros_iint8
-        elemental module subroutine zeros_iint16(X)
-            integer(int16), intent(out) :: X
-        end subroutine zeros_iint16
-        elemental module subroutine zeros_iint32(X)
-            integer(int32), intent(out) :: X
-        end subroutine zeros_iint32
-        elemental module subroutine zeros_iint64(X)
-            integer(int64), intent(out) :: X
-        end subroutine zeros_iint64
+        procedure :: zeros_1_default
+        procedure :: zeros_2_default
     end interface zeros
 
 contains
 
     function rmut_sp(m1, m2) result(res)
-        !! integer(int64) matrix multiplication
+        !! complex(qp) matrix multiplication
         real(sp), intent(in) :: m1(:, :), m2(:, :)
         real(sp) :: res(size(m1, 1), size(m2, 2))   
 
@@ -1074,7 +1026,7 @@ contains
         end if
     end function rmut_sp
     function rmut_dp(m1, m2) result(res)
-        !! integer(int64) matrix multiplication
+        !! complex(qp) matrix multiplication
         real(dp), intent(in) :: m1(:, :), m2(:, :)
         real(dp) :: res(size(m1, 1), size(m2, 2))   
 
@@ -1086,7 +1038,7 @@ contains
         end if
     end function rmut_dp
     function rmut_qp(m1, m2) result(res)
-        !! integer(int64) matrix multiplication
+        !! complex(qp) matrix multiplication
         real(qp), intent(in) :: m1(:, :), m2(:, :)
         real(qp) :: res(size(m1, 1), size(m2, 2))   
 
@@ -1098,7 +1050,7 @@ contains
         end if
     end function rmut_qp
     function cmut_sp(m1, m2) result(res)
-        !! integer(int64) matrix multiplication
+        !! complex(qp) matrix multiplication
         complex(sp), intent(in) :: m1(:, :), m2(:, :)
         complex(sp) :: res(size(m1, 1), size(m2, 2))  
 
@@ -1110,7 +1062,7 @@ contains
         end if
     end function cmut_sp
     function cmut_dp(m1, m2) result(res)
-        !! integer(int64) matrix multiplication
+        !! complex(qp) matrix multiplication
         complex(dp), intent(in) :: m1(:, :), m2(:, :)
         complex(dp) :: res(size(m1, 1), size(m2, 2))  
 
@@ -1122,7 +1074,7 @@ contains
         end if
     end function cmut_dp
     function cmut_qp(m1, m2) result(res)
-        !! integer(int64) matrix multiplication
+        !! complex(qp) matrix multiplication
         complex(qp), intent(in) :: m1(:, :), m2(:, :)
         complex(qp) :: res(size(m1, 1), size(m2, 2))  
 
@@ -1134,7 +1086,7 @@ contains
         end if
     end function cmut_qp
     function rcmut_sp(m1, m2) result(res)
-        !! integer(int64) matrix multiplication
+        !! complex(qp) matrix multiplication
         real(sp), intent(in) :: m1(:, :)
         complex(sp), intent(in) :: m2(:, :)
         complex(sp) :: res(size(m1, 1), size(m2, 2))
@@ -1147,7 +1099,7 @@ contains
         end if
     end function rcmut_sp
     function rcmut_dp(m1, m2) result(res)
-        !! integer(int64) matrix multiplication
+        !! complex(qp) matrix multiplication
         real(dp), intent(in) :: m1(:, :)
         complex(dp), intent(in) :: m2(:, :)
         complex(dp) :: res(size(m1, 1), size(m2, 2))
@@ -1160,7 +1112,7 @@ contains
         end if
     end function rcmut_dp
     function rcmut_qp(m1, m2) result(res)
-        !! integer(int64) matrix multiplication
+        !! complex(qp) matrix multiplication
         real(qp), intent(in) :: m1(:, :)
         complex(qp), intent(in) :: m2(:, :)
         complex(qp) :: res(size(m1, 1), size(m2, 2))
@@ -1173,7 +1125,7 @@ contains
         end if
     end function rcmut_qp
     function crmut_sp(m1, m2) result(res)
-        !! integer(int64) matrix multiplication
+        !! complex(qp) matrix multiplication
         complex(sp), intent(in) :: m1(:, :)
         real(sp), intent(in) :: m2(:, :)
         complex(sp) :: res(size(m1,1), size(m2, 2))
@@ -1185,7 +1137,7 @@ contains
         end if
     end function crmut_sp
     function crmut_dp(m1, m2) result(res)
-        !! integer(int64) matrix multiplication
+        !! complex(qp) matrix multiplication
         complex(dp), intent(in) :: m1(:, :)
         real(dp), intent(in) :: m2(:, :)
         complex(dp) :: res(size(m1,1), size(m2, 2))
@@ -1197,7 +1149,7 @@ contains
         end if
     end function crmut_dp
     function crmut_qp(m1, m2) result(res)
-        !! integer(int64) matrix multiplication
+        !! complex(qp) matrix multiplication
         complex(qp), intent(in) :: m1(:, :)
         real(qp), intent(in) :: m2(:, :)
         complex(qp) :: res(size(m1,1), size(m2, 2))
@@ -1412,6 +1364,42 @@ contains
         trace = sum(diag(A))
 
     end function trace_qp
+
+    !> `ones` creates a rank-1 array, filled completely with `1` `integer` type values.
+    pure function ones_1_default(dim) result(result)
+        integer, intent(in) :: dim
+        integer(kind=int8), allocatable :: result(:)
+
+        allocate(result(dim), source=1_int8)
+
+    end function ones_1_default
+
+    !> `ones` creates a rank-2 array, filled completely with `1` `integer` type values.
+    pure function ones_2_default(dim1, dim2) result(result)
+        integer, intent(in) :: dim1, dim2
+        integer(kind=int8), allocatable :: result(:, :)
+
+        allocate(result(dim1, dim2), source=1_int8)
+
+    end function ones_2_default
+
+    !> `zeros` creates a rank-1 array, filled completely with `0` `integer` type values.
+    pure function zeros_1_default(dim) result(result)
+        integer, intent(in) :: dim
+        integer(kind=int8), allocatable :: result(:)
+
+        allocate(result(dim), source=0_int8)
+
+    end function zeros_1_default
+
+    !> `zeros` creates a rank-2 array, filled completely with `0` `integer` type values.
+    pure function zeros_2_default(dim1, dim2) result(result)
+        integer, intent(in) :: dim1, dim2
+        integer(kind=int8), allocatable :: result(:, :)
+
+        allocate(result(dim1, dim2), source=0_int8)
+
+    end function zeros_2_default
 
 
 end module forlab_linalg

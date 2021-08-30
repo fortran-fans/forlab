@@ -15,8 +15,7 @@ contains
                 call eye(L)
             endif
             if (.not. allocated(U)) then
-                allocate(U(m,m))
-                call zeros(U)
+                U = zeros(m, m)
             endif
 
             do i = 1, m
@@ -49,8 +48,7 @@ contains
                 call eye(L)
             endif
             if (.not. allocated(U)) then
-                allocate(U(m,m))
-                call zeros(U)
+                U = zeros(m, m)
             endif
 
             do i = 1, m
@@ -83,8 +81,7 @@ contains
                 call eye(L)
             endif
             if (.not. allocated(U)) then
-                allocate(U(m,m))
-                call zeros(U)
+                U = zeros(m, m)
             endif
 
             do i = 1, m

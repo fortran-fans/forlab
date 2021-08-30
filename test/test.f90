@@ -114,7 +114,7 @@ program main
         use forlab,only:tril,triu,ones,disp
         real::X(4,4)
         call disp("tri U L test")
-        call ones(X)
+        X = ones(4, 4)
         call disp(X,"A=")
         call disp(tril(X),"tril")
         call disp(triu(X),"triu")

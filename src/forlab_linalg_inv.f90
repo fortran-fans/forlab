@@ -14,15 +14,13 @@ contains
 
         if (is_square(A)) then
             m = size(A, 1)
-            allocate(inv(m,m))
-            allocate(x(m), y(m), e(m))
             if (m .le. 3) then
                 D = det(A)
             else
                 D = det(A, L, U)
             end if
             if (D .ne. 0._sp) then
-                call zeros(inv)
+                inv = zeros(m, m)
                 if (m .eq. 2) then
                     inv (1, 1) = A(2, 2)
                     inv (1, 2) = -A(1, 2)
@@ -42,9 +40,9 @@ contains
                     inv = inv/D
                 else
                     do k = 1, m
-                        call zeros(x)
-                        call zeros(y)
-                        call zeros(e)
+                        x = zeros(m)
+                        y = zeros(m)
+                        e = zeros(m)
                         e(k) = 1.
                         y(1) = e(1)
 
@@ -90,15 +88,13 @@ contains
 
         if (is_square(A)) then
             m = size(A, 1)
-            allocate(inv(m,m))
-            allocate(x(m), y(m), e(m))
             if (m .le. 3) then
                 D = det(A)
             else
                 D = det(A, L, U)
             end if
             if (D .ne. 0._dp) then
-                call zeros(inv)
+                inv = zeros(m, m)
                 if (m .eq. 2) then
                     inv (1, 1) = A(2, 2)
                     inv (1, 2) = -A(1, 2)
@@ -118,9 +114,9 @@ contains
                     inv = inv/D
                 else
                     do k = 1, m
-                        call zeros(x)
-                        call zeros(y)
-                        call zeros(e)
+                        x = zeros(m)
+                        y = zeros(m)
+                        e = zeros(m)
                         e(k) = 1.
                         y(1) = e(1)
 
@@ -166,15 +162,13 @@ contains
 
         if (is_square(A)) then
             m = size(A, 1)
-            allocate(inv(m,m))
-            allocate(x(m), y(m), e(m))
             if (m .le. 3) then
                 D = det(A)
             else
                 D = det(A, L, U)
             end if
             if (D .ne. 0._qp) then
-                call zeros(inv)
+                inv = zeros(m, m)
                 if (m .eq. 2) then
                     inv (1, 1) = A(2, 2)
                     inv (1, 2) = -A(1, 2)
@@ -194,9 +188,9 @@ contains
                     inv = inv/D
                 else
                     do k = 1, m
-                        call zeros(x)
-                        call zeros(y)
-                        call zeros(e)
+                        x = zeros(m)
+                        y = zeros(m)
+                        e = zeros(m)
                         e(k) = 1.
                         y(1) = e(1)
 
@@ -245,13 +239,13 @@ contains
 
         if (is_square(A)) then
             n = size(A, 1)
-            allocate(inv(n,n),ar(n,n),ai(n,n))
-            call zeros(inv)
-            call zeros(ar)
-            call zeros(ai)
-            allocate(is(n),js(n))
-            is = 0
-            js = 0
+            inv = zeros(n, n)
+            ar  = zeros(n, n)
+            ai  = zeros(n, n)
+
+            is  = ones(n)
+            js  = ones(n)
+
             forall (i=1:n, j=1:n)
                 ar(i, j) = real(A(i, j)); ai(i, j) = imag(A(i, j))
             end forall
@@ -361,13 +355,13 @@ contains
 
         if (is_square(A)) then
             n = size(A, 1)
-            allocate(inv(n,n),ar(n,n),ai(n,n))
-            call zeros(inv)
-            call zeros(ar)
-            call zeros(ai)
-            allocate(is(n),js(n))
-            is = 0
-            js = 0
+            inv = zeros(n, n)
+            ar  = zeros(n, n)
+            ai  = zeros(n, n)
+
+            is  = ones(n)
+            js  = ones(n)
+
             forall (i=1:n, j=1:n)
                 ar(i, j) = real(A(i, j)); ai(i, j) = imag(A(i, j))
             end forall
@@ -477,13 +471,13 @@ contains
 
         if (is_square(A)) then
             n = size(A, 1)
-            allocate(inv(n,n),ar(n,n),ai(n,n))
-            call zeros(inv)
-            call zeros(ar)
-            call zeros(ai)
-            allocate(is(n),js(n))
-            is = 0
-            js = 0
+            inv = zeros(n, n)
+            ar  = zeros(n, n)
+            ai  = zeros(n, n)
+
+            is  = ones(n)
+            js  = ones(n)
+
             forall (i=1:n, j=1:n)
                 ar(i, j) = real(A(i, j)); ai(i, j) = imag(A(i, j))
             end forall

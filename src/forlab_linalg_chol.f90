@@ -7,6 +7,7 @@ submodule(forlab_linalg) forlab_linalg_chol
 contains
 
     module procedure chol_sp
+        
         integer :: i, j, k, n
         real(sp) :: sum1, sum2
         real(sp), dimension(:), allocatable :: d
@@ -16,8 +17,7 @@ contains
         deallocate(V)
         if (all(d >= zero)) then
             n = size(A, 1)
-            allocate(L(n, n))
-            call zeros(L)
+            L = zeros(n, n)
             L(1, 1) = sqrt(A(1, 1))
             do i = 2, n
                 L(i, 1) = A(i, 1)/L(1, 1)
@@ -45,6 +45,7 @@ contains
         deallocate(d)
     end procedure chol_sp
     module procedure chol_dp
+        
         integer :: i, j, k, n
         real(dp) :: sum1, sum2
         real(dp), dimension(:), allocatable :: d
@@ -54,8 +55,7 @@ contains
         deallocate(V)
         if (all(d >= zero)) then
             n = size(A, 1)
-            allocate(L(n, n))
-            call zeros(L)
+            L = zeros(n, n)
             L(1, 1) = sqrt(A(1, 1))
             do i = 2, n
                 L(i, 1) = A(i, 1)/L(1, 1)
@@ -83,6 +83,7 @@ contains
         deallocate(d)
     end procedure chol_dp
     module procedure chol_qp
+        
         integer :: i, j, k, n
         real(qp) :: sum1, sum2
         real(qp), dimension(:), allocatable :: d
@@ -92,8 +93,7 @@ contains
         deallocate(V)
         if (all(d >= zero)) then
             n = size(A, 1)
-            allocate(L(n, n))
-            call zeros(L)
+            L = zeros(n, n)
             L(1, 1) = sqrt(A(1, 1))
             do i = 2, n
                 L(i, 1) = A(i, 1)/L(1, 1)
@@ -121,5 +121,6 @@ contains
         deallocate(d)
     end procedure chol_qp
     
+
 end submodule forlab_linalg_chol
 

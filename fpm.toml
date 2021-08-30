@@ -62,6 +62,10 @@ main = "test_linalg_tri.f90"
 name = "linalg_x"
 source-dir = "test/linalg"
 main = "test_linalg_x.f90"
+[[test]]
+name = "linalg_zerosones"
+source-dir = "test/linalg"
+main = "test_linalg_zerosones.f90"
 
 ## [math] tests
 [[test]]
@@ -100,3 +104,14 @@ main = "test_sorting_sort.f90"
 name = "time_tioc"
 source-dir = "test/time"
 main = "test_time_tioc.f90"
+
+# Examples
+## forlab_linalg demos
+[[example]]
+name = "linalg_zerosones"
+source-dir = "example/linalg"
+main = "demo_linalg_zerosones.f90"
+[[example]]
+name = "allocation"
+source-dir = "example/linalg"
+main = "demo_allocation.f90"

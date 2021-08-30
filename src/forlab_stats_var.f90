@@ -117,7 +117,7 @@ contains
     end procedure std_1_sp
 
     module procedure std_2_sp
-        integer :: opt_w, i
+        integer :: opt_w
 
         opt_w = 0
         if (present(w)) opt_w = w
@@ -138,7 +138,7 @@ contains
     end procedure std_1_dp
 
     module procedure std_2_dp
-        integer :: opt_w, i
+        integer :: opt_w
 
         opt_w = 0
         if (present(w)) opt_w = w
@@ -159,7 +159,7 @@ contains
     end procedure std_1_qp
 
     module procedure std_2_qp
-        integer :: opt_w, i
+        integer :: opt_w
 
         opt_w = 0
         if (present(w)) opt_w = w
