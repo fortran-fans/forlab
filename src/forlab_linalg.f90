@@ -89,7 +89,7 @@ module forlab_linalg
     !> Version: Experimental
     !>
     !> `diff` computes differences of arrays.
-    !> ([Specification](../page/specs/stdlib_linalg.html))
+    !> ([Specification](../page/specs/forlab_linalg.html))
     interface diff
         pure module function diff_1_sp(x, n) result(result)
             real(sp), dimension(:), intent(in) :: x
@@ -733,7 +733,7 @@ module forlab_linalg
     !> Version: experimental
     !>
     !> Creates a rank-1 or rank-2 array filled ones.
-    !> ([Specification](../page/specs/stdlib_linalg.html#zerosones))
+    !> ([Specification](../page/specs/forlab_linalg.html#zerosones))
     interface ones
         procedure :: ones_1_default
         procedure :: ones_2_default
@@ -1005,7 +1005,7 @@ module forlab_linalg
     !> Version: experimental
     !>
     !> Creates a rank-1 or rank-2 array filled zeros.
-    !> ([Specification](../page/specs/stdlib_linalg.html#zerosones))
+    !> ([Specification](../page/specs/forlab_linalg.html#zerosones))
     interface zeros
         procedure :: zeros_1_default
         procedure :: zeros_2_default

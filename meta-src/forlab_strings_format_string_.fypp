@@ -1,10 +1,11 @@
 #:include "common.fypp"
 #:set RIL_KINDS_TYPES = REAL_KINDS_TYPES + INT_KINDS_TYPES + LOG_KINDS_TYPES
 
+!> TODO: real(value) => value%re, aimag(value) => value%im
+!>  MINGW-GCC 8.1 & winlib/GCC-all-version: github-ci failed.
 submodule (forlab_strings) forlab_strings_format_string
 
-    implicit none
-    integer, parameter :: buffer_len = 512
+    integer, parameter :: buffer_len = 128
 
 contains
 
@@ -29,8 +30,8 @@ contains
     module procedure format_string_${type[0]}$${kind}$
         !! Format ${type}$ variable as character sequence
 
-        string = '('//format_string_r${kind}$(value%re, format)//','// &
-            format_string_r${kind}$(value%im, format)//')'
+        string = '('//format_string_r${kind}$(real(value), format)//','// &
+            format_string_r${kind}$(aimag(value), format)//')'
 
     end procedure format_string_${type[0]}$${kind}$
     #:endfor

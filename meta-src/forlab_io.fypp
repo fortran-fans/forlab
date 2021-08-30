@@ -14,7 +14,7 @@ module forlab_io
     public :: file
     public :: countlines, file_exist
     public :: savebin, loadbin, savetxt, loadtxt
-    public :: set_color
+    public :: color
     public :: disp
 
     !> Version: experimental
@@ -147,12 +147,14 @@ module forlab_io
         #:endfor
     end interface savetxt
 
+    !> Version: experimental
+    !>
+    !> `color` sets color for console text.
+    !> ([Specification](../page/specs/forlab_io.html#color))
     interface
-        !> `set_color` set color for console text.
-        subroutine set_color(value) bind(c, name="color")
-            use, intrinsic :: iso_c_binding, only: c_long
-            integer(c_long), value, intent(in) :: value
-        end subroutine set_color
+        module subroutine color(string)
+            character(len=*), intent(in), optional :: string
+        end subroutine color
     end interface
 
 contains
