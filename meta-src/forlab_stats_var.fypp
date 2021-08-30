@@ -31,7 +31,7 @@ contains
         #:if v1 == 'var'
         integer :: opt_w, i, m, n
         #:elif v1 == 'std'
-        integer :: opt_w, i
+        integer :: opt_w
         #:endif
 
         opt_w = 0
