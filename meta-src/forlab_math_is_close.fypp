@@ -4,6 +4,9 @@ submodule(forlab_math) forlab_math_is_close
 
 contains
 
+    !> TODO: real(value) => value%re, aimag(value) => value%im
+    !>  MINGW-GCC 8.1 & winlib/GCC-all-version: github-ci failed.
+
     #! Determines whether the values of `a` and `b` are close.
 
     #:for k1, t1 in REAL_KINDS_TYPES
@@ -24,8 +27,8 @@ contains
         real(${k1}$), intent(in), optional :: rtol, atol
         logical :: result
 
-        result = is_close_r${k1}$(a%re, b%re, rtol, atol) .and. &
-                 is_close_r${k1}$(a%im, b%im, rtol, atol)
+        result = is_close_r${k1}$(real(a), real(b), rtol, atol) .and. &
+                 is_close_r${k1}$(aimag(b), aimag(b), rtol, atol)
 
     end function is_close_${t1[0]}$${k1}$
     #:endfor
