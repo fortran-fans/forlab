@@ -1,12 +1,14 @@
 #:include 'common.fypp'
 module forlab_math
     use stdlib_kinds, only: sp, dp, qp
+    use stdlib_optval, only: optval
     implicit none
     private
 
     public :: angle
     public :: cosd, sind,tand
     public :: acosd, asind, atand
+    public :: is_close
 
     #:set CIR_NAME=["acos","asin","atan"]
     #:for l1 in CIR_NAME
@@ -42,6 +44,21 @@ module forlab_math
         procedure :: angle_${kind}$
         #:endfor
     end interface angle
+
+    !> Version: experimental
+    !>
+    !> Determines whether the values of `a` and `b` are close.
+    !> ([Specification](../page/specs/forlab_logic.html#is_close))
+    interface is_close
+        #:set RC_KINDS_TYPES = REAL_KINDS_TYPES + CMPLX_KINDS_TYPES
+        #:for k1, t1 in RC_KINDS_TYPES
+        elemental module function is_close_${t1[0]}$${k1}$(a, b, rtol, atol) result(result)
+            ${t1}$, intent(in) :: a, b
+            real(${k1}$), intent(in), optional :: rtol, atol
+            logical :: result
+        end function is_close_${t1[0]}$${k1}$
+        #:endfor
+    end interface is_close
 
 contains
 

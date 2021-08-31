@@ -1,11 +1,13 @@
 module forlab_math
     use stdlib_kinds, only: sp, dp, qp
+    use stdlib_optval, only: optval
     implicit none
     private
 
     public :: angle
     public :: cosd, sind,tand
     public :: acosd, asind, atand
+    public :: is_close
 
     interface acosd
         !! degree circular functions
@@ -105,6 +107,43 @@ module forlab_math
         procedure :: angle_dp
         procedure :: angle_qp
     end interface angle
+
+    !> Version: experimental
+    !>
+    !> Determines whether the values of `a` and `b` are close.
+    !> ([Specification](../page/specs/forlab_logic.html#is_close))
+    interface is_close
+        elemental module function is_close_rsp(a, b, rtol, atol) result(result)
+            real(sp), intent(in) :: a, b
+            real(sp), intent(in), optional :: rtol, atol
+            logical :: result
+        end function is_close_rsp
+        elemental module function is_close_rdp(a, b, rtol, atol) result(result)
+            real(dp), intent(in) :: a, b
+            real(dp), intent(in), optional :: rtol, atol
+            logical :: result
+        end function is_close_rdp
+        elemental module function is_close_rqp(a, b, rtol, atol) result(result)
+            real(qp), intent(in) :: a, b
+            real(qp), intent(in), optional :: rtol, atol
+            logical :: result
+        end function is_close_rqp
+        elemental module function is_close_csp(a, b, rtol, atol) result(result)
+            complex(sp), intent(in) :: a, b
+            real(sp), intent(in), optional :: rtol, atol
+            logical :: result
+        end function is_close_csp
+        elemental module function is_close_cdp(a, b, rtol, atol) result(result)
+            complex(dp), intent(in) :: a, b
+            real(dp), intent(in), optional :: rtol, atol
+            logical :: result
+        end function is_close_cdp
+        elemental module function is_close_cqp(a, b, rtol, atol) result(result)
+            complex(qp), intent(in) :: a, b
+            real(qp), intent(in), optional :: rtol, atol
+            logical :: result
+        end function is_close_cqp
+    end interface is_close
 
 contains
 

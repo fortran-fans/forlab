@@ -76,6 +76,10 @@ main = "test_math_angle.f90"
 name = "math_degcir"
 source-dir = "test/math"
 main = "test_math_degcir.f90"
+[[test]]
+name = "math_is_close"
+source-dir = "test/math"
+main = "test_math_is_close.f90"
 
 ## [stats] tests
 [[test]]
@@ -121,3 +125,9 @@ main = "demo_linalg_zerosones.f90"
 name = "allocation"
 source-dir = "example/linalg"
 main = "demo_allocation.f90"
+
+## forlab_math demos
+[[example]]
+name = "math_is_close"
+source-dir = "example/math"
+main = "demo_math_is_close.f90"
