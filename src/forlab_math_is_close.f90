@@ -3,6 +3,9 @@ submodule(forlab_math) forlab_math_is_close
 
 contains
 
+    !> TODO: real(value) => value%re, aimag(value) => value%im
+    !>  MINGW-GCC 8.1 & winlib/GCC-all-version: github-ci failed.
+
 
     elemental module function is_close_rsp(a, b, rtol, atol) result(result)
         real(sp), intent(in) :: a, b
@@ -37,8 +40,8 @@ contains
         real(sp), intent(in), optional :: rtol, atol
         logical :: result
 
-        result = is_close_rsp(a%re, b%re, rtol, atol) .and. &
-                 is_close_rsp(a%im, b%im, rtol, atol)
+        result = is_close_rsp(real(a), real(b), rtol, atol) .and. &
+                 is_close_rsp(aimag(b), aimag(b), rtol, atol)
 
     end function is_close_csp
     elemental module function is_close_cdp(a, b, rtol, atol) result(result)
@@ -46,8 +49,8 @@ contains
         real(dp), intent(in), optional :: rtol, atol
         logical :: result
 
-        result = is_close_rdp(a%re, b%re, rtol, atol) .and. &
-                 is_close_rdp(a%im, b%im, rtol, atol)
+        result = is_close_rdp(real(a), real(b), rtol, atol) .and. &
+                 is_close_rdp(aimag(b), aimag(b), rtol, atol)
 
     end function is_close_cdp
     elemental module function is_close_cqp(a, b, rtol, atol) result(result)
@@ -55,8 +58,8 @@ contains
         real(qp), intent(in), optional :: rtol, atol
         logical :: result
 
-        result = is_close_rqp(a%re, b%re, rtol, atol) .and. &
-                 is_close_rqp(a%im, b%im, rtol, atol)
+        result = is_close_rqp(real(a), real(b), rtol, atol) .and. &
+                 is_close_rqp(aimag(b), aimag(b), rtol, atol)
 
     end function is_close_cqp
 
