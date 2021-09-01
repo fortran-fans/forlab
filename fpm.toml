@@ -10,8 +10,6 @@ keywords = ["numerical", "easy-to-use"]
 
 [build]
 auto-executables = false
-# If you want to test or run the `example` folder examples, 
-# just set to : auto-examples = true
 auto-examples = false
 auto-tests = false
 
@@ -80,6 +78,10 @@ main = "test_math_degcir.f90"
 name = "math_is_close"
 source-dir = "test/math"
 main = "test_math_is_close.f90"
+[[test]]
+name = "math_arange"
+source-dir = "test/math"
+main = "test_math_arange.f90"
 
 ## [stats] tests
 [[test]]
@@ -131,3 +133,7 @@ main = "demo_allocation.f90"
 name = "math_is_close"
 source-dir = "example/math"
 main = "demo_math_is_close.f90"
+[[example]]
+name = "math_arange"
+source-dir = "example/math"
+main = "demo_math_arange.f90"
