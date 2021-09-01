@@ -1,5 +1,5 @@
 module forlab_math
-    use stdlib_kinds, only: sp, dp, qp
+    use stdlib_kinds, only: sp, dp, qp, int8, int16, int32, int64
     use stdlib_optval, only: optval
     implicit none
     private
@@ -7,7 +7,7 @@ module forlab_math
     public :: angle
     public :: cosd, sind,tand
     public :: acosd, asind, atand
-    public :: is_close
+    public :: is_close, arange
 
     interface acosd
         !! degree circular functions
@@ -144,6 +144,49 @@ module forlab_math
             logical :: result
         end function is_close_cqp
     end interface is_close
+
+    !> Version: experimental
+    !>
+    !> `arange` creates a rank-1 `array` of the `integer/real` type 
+    !>  with fixed-spaced values of given spacing, within a given interval.
+    !> ([Specification](../page/specs/forlab_math.html#arange))
+    interface arange
+        pure module function arange_r_sp(start, end, step) result(result)
+            real(sp), intent(in) :: start
+            real(sp), intent(in), optional :: end, step
+            real(sp), allocatable :: result(:)
+        end function arange_r_sp
+        pure module function arange_r_dp(start, end, step) result(result)
+            real(dp), intent(in) :: start
+            real(dp), intent(in), optional :: end, step
+            real(dp), allocatable :: result(:)
+        end function arange_r_dp
+        pure module function arange_r_qp(start, end, step) result(result)
+            real(qp), intent(in) :: start
+            real(qp), intent(in), optional :: end, step
+            real(qp), allocatable :: result(:)
+        end function arange_r_qp
+        pure module function arange_i_int8(start, end, step) result(result)
+            integer(int8), intent(in) :: start
+            integer(int8), intent(in), optional :: end, step
+            integer(int8), allocatable :: result(:)
+        end function arange_i_int8
+        pure module function arange_i_int16(start, end, step) result(result)
+            integer(int16), intent(in) :: start
+            integer(int16), intent(in), optional :: end, step
+            integer(int16), allocatable :: result(:)
+        end function arange_i_int16
+        pure module function arange_i_int32(start, end, step) result(result)
+            integer(int32), intent(in) :: start
+            integer(int32), intent(in), optional :: end, step
+            integer(int32), allocatable :: result(:)
+        end function arange_i_int32
+        pure module function arange_i_int64(start, end, step) result(result)
+            integer(int64), intent(in) :: start
+            integer(int64), intent(in), optional :: end, step
+            integer(int64), allocatable :: result(:)
+        end function arange_i_int64
+    end interface arange
 
 contains
 

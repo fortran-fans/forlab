@@ -1,6 +1,6 @@
 #:include 'common.fypp'
 module forlab_math
-    use stdlib_kinds, only: sp, dp, qp
+    use stdlib_kinds, only: sp, dp, qp, int8, int16, int32, int64
     use stdlib_optval, only: optval
     implicit none
     private
@@ -8,7 +8,7 @@ module forlab_math
     public :: angle
     public :: cosd, sind,tand
     public :: acosd, asind, atand
-    public :: is_close
+    public :: is_close, arange
 
     #:set CIR_NAME=["acos","asin","atan"]
     #:for l1 in CIR_NAME
@@ -59,6 +59,22 @@ module forlab_math
         end function is_close_${t1[0]}$${k1}$
         #:endfor
     end interface is_close
+
+    !> Version: experimental
+    !>
+    !> `arange` creates a rank-1 `array` of the `integer/real` type 
+    !>  with fixed-spaced values of given spacing, within a given interval.
+    !> ([Specification](../page/specs/forlab_math.html#arange))
+    interface arange
+        #:set RI_KINDS_TYPES = REAL_KINDS_TYPES + INT_KINDS_TYPES
+        #:for k1, t1 in RI_KINDS_TYPES
+        pure module function arange_${t1[0]}$_${k1}$(start, end, step) result(result)
+            ${t1}$, intent(in) :: start
+            ${t1}$, intent(in), optional :: end, step
+            ${t1}$, allocatable :: result(:)
+        end function arange_${t1[0]}$_${k1}$
+        #:endfor
+    end interface arange
 
 contains
 
