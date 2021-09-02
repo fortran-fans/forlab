@@ -40,8 +40,8 @@ contains
         real(sp), intent(in), optional :: rtol, atol
         logical :: result
 
-        result = is_close_rsp(real(a), real(b), rtol, atol) .and. &
-                 is_close_rsp(aimag(b), aimag(b), rtol, atol)
+        result = is_close_rsp(real(a),  real(b),  rtol, atol) .and. &
+                 is_close_rsp(aimag(a), aimag(b), rtol, atol)
 
     end function is_close_csp
     elemental module function is_close_cdp(a, b, rtol, atol) result(result)
@@ -49,8 +49,8 @@ contains
         real(dp), intent(in), optional :: rtol, atol
         logical :: result
 
-        result = is_close_rdp(real(a), real(b), rtol, atol) .and. &
-                 is_close_rdp(aimag(b), aimag(b), rtol, atol)
+        result = is_close_rdp(real(a),  real(b),  rtol, atol) .and. &
+                 is_close_rdp(aimag(a), aimag(b), rtol, atol)
 
     end function is_close_cdp
     elemental module function is_close_cqp(a, b, rtol, atol) result(result)
@@ -58,8 +58,8 @@ contains
         real(qp), intent(in), optional :: rtol, atol
         logical :: result
 
-        result = is_close_rqp(real(a), real(b), rtol, atol) .and. &
-                 is_close_rqp(aimag(b), aimag(b), rtol, atol)
+        result = is_close_rqp(real(a),  real(b),  rtol, atol) .and. &
+                 is_close_rqp(aimag(a), aimag(b), rtol, atol)
 
     end function is_close_cqp
 

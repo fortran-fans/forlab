@@ -27,8 +27,8 @@ contains
         real(${k1}$), intent(in), optional :: rtol, atol
         logical :: result
 
-        result = is_close_r${k1}$(real(a), real(b), rtol, atol) .and. &
-                 is_close_r${k1}$(aimag(b), aimag(b), rtol, atol)
+        result = is_close_r${k1}$(real(a),  real(b),  rtol, atol) .and. &
+                 is_close_r${k1}$(aimag(a), aimag(b), rtol, atol)
 
     end function is_close_${t1[0]}$${k1}$
     #:endfor
