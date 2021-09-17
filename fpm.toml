@@ -15,7 +15,7 @@ auto-tests = false
 
 [dependencies]
 # Use stdlib as an upstream dependency.
-stdlib = { git = "https://github.com/LKedward/stdlib-fpm.git" }
+stdlib = { git = "https://github.com/fortran-lang/stdlib", branch = "stdlib-fpm" }
 
 [library]
 source-dir="src"
@@ -82,6 +82,10 @@ main = "test_math_is_close.f90"
 name = "math_arange"
 source-dir = "test/math"
 main = "test_math_arange.f90"
+[[test]]
+name = "math_signum"
+source-dir = "test/math"
+main = "test_math_signum.f90"
 
 ## [stats] tests
 [[test]]
@@ -137,3 +141,7 @@ main = "demo_math_is_close.f90"
 name = "math_arange"
 source-dir = "example/math"
 main = "demo_math_arange.f90"
+[[example]]
+name = "math_signum"
+source-dir = "example/math"
+main = "demo_math_signum.f90"

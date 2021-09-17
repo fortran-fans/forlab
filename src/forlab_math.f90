@@ -7,7 +7,7 @@ module forlab_math
     public :: angle
     public :: cosd, sind,tand
     public :: acosd, asind, atand
-    public :: is_close, arange
+    public :: is_close, arange, signum
 
     interface acosd
         !! degree circular functions
@@ -188,10 +188,46 @@ module forlab_math
         end function arange_i_int64
     end interface arange
 
+    !> Version: experimental
+    !>
+    !> `signum` returns the sign of variables.
+    !> ([Specification](../page/specs/forlab_math.html#signum))
+    interface signum
+        real(sp) elemental module function signum_rsp(x) result(sign)
+            real(sp), intent(in) :: x
+        end function signum_rsp
+        real(dp) elemental module function signum_rdp(x) result(sign)
+            real(dp), intent(in) :: x
+        end function signum_rdp
+        real(qp) elemental module function signum_rqp(x) result(sign)
+            real(qp), intent(in) :: x
+        end function signum_rqp
+        integer(int8) elemental module function signum_iint8(x) result(sign)
+            integer(int8), intent(in) :: x
+        end function signum_iint8
+        integer(int16) elemental module function signum_iint16(x) result(sign)
+            integer(int16), intent(in) :: x
+        end function signum_iint16
+        integer(int32) elemental module function signum_iint32(x) result(sign)
+            integer(int32), intent(in) :: x
+        end function signum_iint32
+        integer(int64) elemental module function signum_iint64(x) result(sign)
+            integer(int64), intent(in) :: x
+        end function signum_iint64
+        complex(sp) elemental module function signum_csp(x) result(sign)
+            complex(sp), intent(in) :: x
+        end function signum_csp
+        complex(dp) elemental module function signum_cdp(x) result(sign)
+            complex(dp), intent(in) :: x
+        end function signum_cdp
+        complex(qp) elemental module function signum_cqp(x) result(sign)
+            complex(qp), intent(in) :: x
+        end function signum_cqp
+    end interface signum
+
 contains
 
     elemental function angle_sp(value) result(angle) 
-        !! angle compute the phase angle.
         real(sp) :: angle
         complex(sp),intent(in) :: value
 
@@ -199,7 +235,6 @@ contains
 
     end function angle_sp
     elemental function angle_dp(value) result(angle) 
-        !! angle compute the phase angle.
         real(dp) :: angle
         complex(dp),intent(in) :: value
 
@@ -207,7 +242,6 @@ contains
 
     end function angle_dp
     elemental function angle_qp(value) result(angle) 
-        !! angle compute the phase angle.
         real(qp) :: angle
         complex(qp),intent(in) :: value
 
