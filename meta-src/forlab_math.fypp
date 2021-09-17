@@ -8,7 +8,7 @@ module forlab_math
     public :: angle
     public :: cosd, sind,tand
     public :: acosd, asind, atand
-    public :: is_close, arange
+    public :: is_close, arange, signum
 
     #:set CIR_NAME=["acos","asin","atan"]
     #:for l1 in CIR_NAME
@@ -76,11 +76,24 @@ module forlab_math
         #:endfor
     end interface arange
 
+    !> Version: experimental
+    !>
+    !> `signum` returns the sign of variables.
+    !> ([Specification](../page/specs/forlab_math.html#signum))
+    interface signum
+        #:set RCI_KINDS_TYPES = REAL_KINDS_TYPES + INT_KINDS_TYPES + CMPLX_KINDS_TYPES
+        #:for k1, t1 in RCI_KINDS_TYPES
+        ${t1}$ elemental module function signum_${t1[0]}$${k1}$(x) result(sign)
+            ${t1}$, intent(in) :: x
+        end function signum_${t1[0]}$${k1}$
+        #:endfor
+    end interface signum
+
 contains
 
+    #! angle compute the phase angle.
     #:for kind, type in REAL_KINDS_TYPES
     elemental function angle_${kind}$(value) result(angle) 
-        !! angle compute the phase angle.
         real(${kind}$) :: angle
         complex(${kind}$),intent(in) :: value
 

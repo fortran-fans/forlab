@@ -138,3 +138,50 @@ program demo_math_arange
 
 end program demo_math_arange
 ```
+
+### `signum`
+
+#### Status
+
+Experimental
+
+#### Class
+
+Elemental function.
+
+#### Description
+
+Returns the sign of variables.
+
+#### Syntax
+
+`sign = [[forlab_math(module):signum(interface)]](x)`
+
+#### Argument
+
+`x`: Shall be an `integer/real/complex` elemental variable.
+This is an `intent(in)` argument.
+
+#### Return value
+
+Returns the sign of variables.
+
+For `complex` types, return the regularization result: `sign = x/abs(x)`.
+
+#### Example
+
+```fortran
+!> fpm run --example math_signum
+program demo_math_signum
+    use forlab_math, only: signum
+
+    print *, signum(1 - 2)
+    print *, signum([0.0, 2.1])
+    print *, signum((1.0, -2.0))
+
+    !>    -1
+    !>   0.00000000       1.00000000    
+    !>          (0.447213590,-0.894427180)
+
+end program demo_math_signum
+```

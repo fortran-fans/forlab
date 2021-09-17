@@ -29,7 +29,6 @@ The following combinations are tested on the default branch of `forlab`:
 |Name|Vesrion|Platform|Architecture|  
 |---|---|---|---|  
 |GCC Fortran(MSYS2)|10|Windows 10|x86_64|
-|GCC Fortran(MINGW)|8.1|Windows 10|x86_64|
 |GCC Fortran|10|Ubuntu|x86_64|
 |GCC Fortran|10|MacOS|x86_64|
 

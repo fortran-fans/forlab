@@ -3,7 +3,7 @@ module forlab_io
 
     use stdlib_error,  only: error_stop
     use stdlib_io, only: open, parse_mode
-    use stdlib_ascii, only: to_string
+    use stdlib_strings, only: to_string
     use stdlib_kinds, only: sp, dp, qp, &
         int8, int16, int32, int64, lk, c_bool
     use stdlib_optval, only: optval
