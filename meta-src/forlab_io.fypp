@@ -1,13 +1,13 @@
 #:include 'common.fypp'
 module forlab_io
 
-    use stdlib_error,  only: error_stop
-    use stdlib_io, only: open, parse_mode
+    use stdlib_error,   only: error_stop
+    use stdlib_io,      only: open, parse_mode
     use stdlib_strings, only: to_string
-    use stdlib_kinds, only: sp, dp, qp, &
-        int8, int16, int32, int64, lk, c_bool
-    use stdlib_optval, only: optval
-    use forlab_strings, only: format_string
+    use stdlib_kinds,   only: sp, dp, qp, int8, int16, int32, int64, lk, c_bool
+    use stdlib_optval,  only: optval
+    use stdlib_strings, only: to_string
+    use stdlib_string_type, only: string_type
     implicit none
     private
 
@@ -33,34 +33,36 @@ module forlab_io
         procedure :: close
     end type file
 
+    !> version: experimental
+    !>
+    !> Display a scalar, vector or matrix.
+    !> ([Specification](../page/specs/stdlib_io.html#disp-display-your-data-to-the-screen-or-another-output-unit))
     interface disp
-        !! version: experimental
-        !!
-        !! Quickly display strings, scalars and low-dimensional arrays to the default output_unit
-        !! ([Specification](../page/specs/stdlib_io.html#description))
         #:set DISP_KINDS_TYPES = REAL_KINDS_TYPES + INT_KINDS_TYPES &
             & + CMPLX_KINDS_TYPES + LOG_KINDS_TYPES
-        #:set DISP_RANKS = range(0, 4)
+        #:set DISP_RANKS = range(0, 3)
         #:for k1, t1 in DISP_KINDS_TYPES
         #:for rank in DISP_RANKS
-        #:if rank != 3
-        module subroutine disp_${rank}$_${t1[0]}$${k1}$(value, string)
-            ${t1}$, intent(in) :: value${ranksuffix(rank)}$
-            character(len=*), intent(in), optional :: string
+        module subroutine disp_${rank}$_${t1[0]}$${k1}$(x, header, unit, brief)
+            ${t1}$, intent(in) :: x${ranksuffix(rank)}$
+            character(len=*), intent(in), optional :: header
+            integer,          intent(in), optional :: unit
+            logical,          intent(in), optional :: brief
         end subroutine disp_${rank}$_${t1[0]}$${k1}$
-        #:else
-        module subroutine disp_${rank}$_${t1[0]}$${k1}$(value, dim, string)
-            ${t1}$, intent(in) :: value${ranksuffix(rank)}$
-            integer, intent(in) :: dim
-            character(len=*), intent(in), optional :: string
-        end subroutine disp_${rank}$_${t1[0]}$${k1}$
-        #:endif
         #:endfor
         #:endfor
-        module subroutine disp_str(value, string)
-            character(len=*), intent(in), optional :: value
-            character(len=*), intent(in), optional :: string
-        end subroutine disp_str
+        module subroutine disp_character(x, header, unit, brief)
+            character(len=*), intent(in), optional :: x
+            character(len=*), intent(in), optional :: header
+            integer,          intent(in), optional :: unit
+            logical,          intent(in), optional :: brief
+        end subroutine disp_character
+        module subroutine disp_string_type(x, header, unit, brief)
+            type(string_type), intent(in)           :: x
+            character(len=*),  intent(in), optional :: header
+            integer,           intent(in), optional :: unit
+            logical,           intent(in), optional :: brief
+        end subroutine disp_string_type
     end interface disp
 
     interface file
