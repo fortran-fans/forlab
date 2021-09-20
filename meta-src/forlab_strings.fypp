@@ -10,22 +10,7 @@ module forlab_strings
     implicit none
     private
 
-    public :: format_string
     public :: progress_bar, progress_perc
-
-    interface format_string
-        !! version: experimental
-        !!
-        !! Format other types as character sequence.
-        !! ([Specification](../page/specs/stdlib_strings.html#description))
-        #:for kind, type in KINDS_TYPES
-        pure module function format_string_${type[0]}$${kind}$(value, format) result(string)
-            character(len=:), allocatable :: string
-            ${type}$, intent(in) :: value
-            character(len=*), intent(in), optional :: format
-        end function format_string_${type[0]}$${kind}$
-        #:endfor
-    end interface format_string
 
     interface
         module subroutine progress_bar(iter, itermax, step)

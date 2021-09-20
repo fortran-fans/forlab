@@ -1,12 +1,12 @@
 module forlab_io
 
-    use stdlib_error,  only: error_stop
-    use stdlib_io, only: open, parse_mode
+    use stdlib_error,   only: error_stop
+    use stdlib_io,      only: open, parse_mode
     use stdlib_strings, only: to_string
-    use stdlib_kinds, only: sp, dp, qp, &
-        int8, int16, int32, int64, lk, c_bool
-    use stdlib_optval, only: optval
-    use forlab_strings, only: format_string
+    use stdlib_kinds,   only: sp, dp, qp, int8, int16, int32, int64, lk, c_bool
+    use stdlib_optval,  only: optval
+    use stdlib_strings, only: to_string
+    use stdlib_string_type, only: string_type
     implicit none
     private
 
@@ -32,219 +32,239 @@ module forlab_io
         procedure :: close
     end type file
 
+    !> version: experimental
+    !>
+    !> Display a scalar, vector or matrix.
+    !> ([Specification](../page/specs/stdlib_io.html#disp-display-your-data-to-the-screen-or-another-output-unit))
     interface disp
-        !! version: experimental
-        !!
-        !! Quickly display strings, scalars and low-dimensional arrays to the default output_unit
-        !! ([Specification](../page/specs/stdlib_io.html#description))
-        module subroutine disp_0_rsp(value, string)
-            real(sp), intent(in) :: value
-            character(len=*), intent(in), optional :: string
+        module subroutine disp_0_rsp(x, header, unit, brief)
+            real(sp), intent(in) :: x
+            character(len=*), intent(in), optional :: header
+            integer,          intent(in), optional :: unit
+            logical,          intent(in), optional :: brief
         end subroutine disp_0_rsp
-        module subroutine disp_1_rsp(value, string)
-            real(sp), intent(in) :: value(:)
-            character(len=*), intent(in), optional :: string
+        module subroutine disp_1_rsp(x, header, unit, brief)
+            real(sp), intent(in) :: x(:)
+            character(len=*), intent(in), optional :: header
+            integer,          intent(in), optional :: unit
+            logical,          intent(in), optional :: brief
         end subroutine disp_1_rsp
-        module subroutine disp_2_rsp(value, string)
-            real(sp), intent(in) :: value(:,:)
-            character(len=*), intent(in), optional :: string
+        module subroutine disp_2_rsp(x, header, unit, brief)
+            real(sp), intent(in) :: x(:,:)
+            character(len=*), intent(in), optional :: header
+            integer,          intent(in), optional :: unit
+            logical,          intent(in), optional :: brief
         end subroutine disp_2_rsp
-        module subroutine disp_3_rsp(value, dim, string)
-            real(sp), intent(in) :: value(:,:,:)
-            integer, intent(in) :: dim
-            character(len=*), intent(in), optional :: string
-        end subroutine disp_3_rsp
-        module subroutine disp_0_rdp(value, string)
-            real(dp), intent(in) :: value
-            character(len=*), intent(in), optional :: string
+        module subroutine disp_0_rdp(x, header, unit, brief)
+            real(dp), intent(in) :: x
+            character(len=*), intent(in), optional :: header
+            integer,          intent(in), optional :: unit
+            logical,          intent(in), optional :: brief
         end subroutine disp_0_rdp
-        module subroutine disp_1_rdp(value, string)
-            real(dp), intent(in) :: value(:)
-            character(len=*), intent(in), optional :: string
+        module subroutine disp_1_rdp(x, header, unit, brief)
+            real(dp), intent(in) :: x(:)
+            character(len=*), intent(in), optional :: header
+            integer,          intent(in), optional :: unit
+            logical,          intent(in), optional :: brief
         end subroutine disp_1_rdp
-        module subroutine disp_2_rdp(value, string)
-            real(dp), intent(in) :: value(:,:)
-            character(len=*), intent(in), optional :: string
+        module subroutine disp_2_rdp(x, header, unit, brief)
+            real(dp), intent(in) :: x(:,:)
+            character(len=*), intent(in), optional :: header
+            integer,          intent(in), optional :: unit
+            logical,          intent(in), optional :: brief
         end subroutine disp_2_rdp
-        module subroutine disp_3_rdp(value, dim, string)
-            real(dp), intent(in) :: value(:,:,:)
-            integer, intent(in) :: dim
-            character(len=*), intent(in), optional :: string
-        end subroutine disp_3_rdp
-        module subroutine disp_0_rqp(value, string)
-            real(qp), intent(in) :: value
-            character(len=*), intent(in), optional :: string
+        module subroutine disp_0_rqp(x, header, unit, brief)
+            real(qp), intent(in) :: x
+            character(len=*), intent(in), optional :: header
+            integer,          intent(in), optional :: unit
+            logical,          intent(in), optional :: brief
         end subroutine disp_0_rqp
-        module subroutine disp_1_rqp(value, string)
-            real(qp), intent(in) :: value(:)
-            character(len=*), intent(in), optional :: string
+        module subroutine disp_1_rqp(x, header, unit, brief)
+            real(qp), intent(in) :: x(:)
+            character(len=*), intent(in), optional :: header
+            integer,          intent(in), optional :: unit
+            logical,          intent(in), optional :: brief
         end subroutine disp_1_rqp
-        module subroutine disp_2_rqp(value, string)
-            real(qp), intent(in) :: value(:,:)
-            character(len=*), intent(in), optional :: string
+        module subroutine disp_2_rqp(x, header, unit, brief)
+            real(qp), intent(in) :: x(:,:)
+            character(len=*), intent(in), optional :: header
+            integer,          intent(in), optional :: unit
+            logical,          intent(in), optional :: brief
         end subroutine disp_2_rqp
-        module subroutine disp_3_rqp(value, dim, string)
-            real(qp), intent(in) :: value(:,:,:)
-            integer, intent(in) :: dim
-            character(len=*), intent(in), optional :: string
-        end subroutine disp_3_rqp
-        module subroutine disp_0_iint8(value, string)
-            integer(int8), intent(in) :: value
-            character(len=*), intent(in), optional :: string
+        module subroutine disp_0_iint8(x, header, unit, brief)
+            integer(int8), intent(in) :: x
+            character(len=*), intent(in), optional :: header
+            integer,          intent(in), optional :: unit
+            logical,          intent(in), optional :: brief
         end subroutine disp_0_iint8
-        module subroutine disp_1_iint8(value, string)
-            integer(int8), intent(in) :: value(:)
-            character(len=*), intent(in), optional :: string
+        module subroutine disp_1_iint8(x, header, unit, brief)
+            integer(int8), intent(in) :: x(:)
+            character(len=*), intent(in), optional :: header
+            integer,          intent(in), optional :: unit
+            logical,          intent(in), optional :: brief
         end subroutine disp_1_iint8
-        module subroutine disp_2_iint8(value, string)
-            integer(int8), intent(in) :: value(:,:)
-            character(len=*), intent(in), optional :: string
+        module subroutine disp_2_iint8(x, header, unit, brief)
+            integer(int8), intent(in) :: x(:,:)
+            character(len=*), intent(in), optional :: header
+            integer,          intent(in), optional :: unit
+            logical,          intent(in), optional :: brief
         end subroutine disp_2_iint8
-        module subroutine disp_3_iint8(value, dim, string)
-            integer(int8), intent(in) :: value(:,:,:)
-            integer, intent(in) :: dim
-            character(len=*), intent(in), optional :: string
-        end subroutine disp_3_iint8
-        module subroutine disp_0_iint16(value, string)
-            integer(int16), intent(in) :: value
-            character(len=*), intent(in), optional :: string
+        module subroutine disp_0_iint16(x, header, unit, brief)
+            integer(int16), intent(in) :: x
+            character(len=*), intent(in), optional :: header
+            integer,          intent(in), optional :: unit
+            logical,          intent(in), optional :: brief
         end subroutine disp_0_iint16
-        module subroutine disp_1_iint16(value, string)
-            integer(int16), intent(in) :: value(:)
-            character(len=*), intent(in), optional :: string
+        module subroutine disp_1_iint16(x, header, unit, brief)
+            integer(int16), intent(in) :: x(:)
+            character(len=*), intent(in), optional :: header
+            integer,          intent(in), optional :: unit
+            logical,          intent(in), optional :: brief
         end subroutine disp_1_iint16
-        module subroutine disp_2_iint16(value, string)
-            integer(int16), intent(in) :: value(:,:)
-            character(len=*), intent(in), optional :: string
+        module subroutine disp_2_iint16(x, header, unit, brief)
+            integer(int16), intent(in) :: x(:,:)
+            character(len=*), intent(in), optional :: header
+            integer,          intent(in), optional :: unit
+            logical,          intent(in), optional :: brief
         end subroutine disp_2_iint16
-        module subroutine disp_3_iint16(value, dim, string)
-            integer(int16), intent(in) :: value(:,:,:)
-            integer, intent(in) :: dim
-            character(len=*), intent(in), optional :: string
-        end subroutine disp_3_iint16
-        module subroutine disp_0_iint32(value, string)
-            integer(int32), intent(in) :: value
-            character(len=*), intent(in), optional :: string
+        module subroutine disp_0_iint32(x, header, unit, brief)
+            integer(int32), intent(in) :: x
+            character(len=*), intent(in), optional :: header
+            integer,          intent(in), optional :: unit
+            logical,          intent(in), optional :: brief
         end subroutine disp_0_iint32
-        module subroutine disp_1_iint32(value, string)
-            integer(int32), intent(in) :: value(:)
-            character(len=*), intent(in), optional :: string
+        module subroutine disp_1_iint32(x, header, unit, brief)
+            integer(int32), intent(in) :: x(:)
+            character(len=*), intent(in), optional :: header
+            integer,          intent(in), optional :: unit
+            logical,          intent(in), optional :: brief
         end subroutine disp_1_iint32
-        module subroutine disp_2_iint32(value, string)
-            integer(int32), intent(in) :: value(:,:)
-            character(len=*), intent(in), optional :: string
+        module subroutine disp_2_iint32(x, header, unit, brief)
+            integer(int32), intent(in) :: x(:,:)
+            character(len=*), intent(in), optional :: header
+            integer,          intent(in), optional :: unit
+            logical,          intent(in), optional :: brief
         end subroutine disp_2_iint32
-        module subroutine disp_3_iint32(value, dim, string)
-            integer(int32), intent(in) :: value(:,:,:)
-            integer, intent(in) :: dim
-            character(len=*), intent(in), optional :: string
-        end subroutine disp_3_iint32
-        module subroutine disp_0_iint64(value, string)
-            integer(int64), intent(in) :: value
-            character(len=*), intent(in), optional :: string
+        module subroutine disp_0_iint64(x, header, unit, brief)
+            integer(int64), intent(in) :: x
+            character(len=*), intent(in), optional :: header
+            integer,          intent(in), optional :: unit
+            logical,          intent(in), optional :: brief
         end subroutine disp_0_iint64
-        module subroutine disp_1_iint64(value, string)
-            integer(int64), intent(in) :: value(:)
-            character(len=*), intent(in), optional :: string
+        module subroutine disp_1_iint64(x, header, unit, brief)
+            integer(int64), intent(in) :: x(:)
+            character(len=*), intent(in), optional :: header
+            integer,          intent(in), optional :: unit
+            logical,          intent(in), optional :: brief
         end subroutine disp_1_iint64
-        module subroutine disp_2_iint64(value, string)
-            integer(int64), intent(in) :: value(:,:)
-            character(len=*), intent(in), optional :: string
+        module subroutine disp_2_iint64(x, header, unit, brief)
+            integer(int64), intent(in) :: x(:,:)
+            character(len=*), intent(in), optional :: header
+            integer,          intent(in), optional :: unit
+            logical,          intent(in), optional :: brief
         end subroutine disp_2_iint64
-        module subroutine disp_3_iint64(value, dim, string)
-            integer(int64), intent(in) :: value(:,:,:)
-            integer, intent(in) :: dim
-            character(len=*), intent(in), optional :: string
-        end subroutine disp_3_iint64
-        module subroutine disp_0_csp(value, string)
-            complex(sp), intent(in) :: value
-            character(len=*), intent(in), optional :: string
+        module subroutine disp_0_csp(x, header, unit, brief)
+            complex(sp), intent(in) :: x
+            character(len=*), intent(in), optional :: header
+            integer,          intent(in), optional :: unit
+            logical,          intent(in), optional :: brief
         end subroutine disp_0_csp
-        module subroutine disp_1_csp(value, string)
-            complex(sp), intent(in) :: value(:)
-            character(len=*), intent(in), optional :: string
+        module subroutine disp_1_csp(x, header, unit, brief)
+            complex(sp), intent(in) :: x(:)
+            character(len=*), intent(in), optional :: header
+            integer,          intent(in), optional :: unit
+            logical,          intent(in), optional :: brief
         end subroutine disp_1_csp
-        module subroutine disp_2_csp(value, string)
-            complex(sp), intent(in) :: value(:,:)
-            character(len=*), intent(in), optional :: string
+        module subroutine disp_2_csp(x, header, unit, brief)
+            complex(sp), intent(in) :: x(:,:)
+            character(len=*), intent(in), optional :: header
+            integer,          intent(in), optional :: unit
+            logical,          intent(in), optional :: brief
         end subroutine disp_2_csp
-        module subroutine disp_3_csp(value, dim, string)
-            complex(sp), intent(in) :: value(:,:,:)
-            integer, intent(in) :: dim
-            character(len=*), intent(in), optional :: string
-        end subroutine disp_3_csp
-        module subroutine disp_0_cdp(value, string)
-            complex(dp), intent(in) :: value
-            character(len=*), intent(in), optional :: string
+        module subroutine disp_0_cdp(x, header, unit, brief)
+            complex(dp), intent(in) :: x
+            character(len=*), intent(in), optional :: header
+            integer,          intent(in), optional :: unit
+            logical,          intent(in), optional :: brief
         end subroutine disp_0_cdp
-        module subroutine disp_1_cdp(value, string)
-            complex(dp), intent(in) :: value(:)
-            character(len=*), intent(in), optional :: string
+        module subroutine disp_1_cdp(x, header, unit, brief)
+            complex(dp), intent(in) :: x(:)
+            character(len=*), intent(in), optional :: header
+            integer,          intent(in), optional :: unit
+            logical,          intent(in), optional :: brief
         end subroutine disp_1_cdp
-        module subroutine disp_2_cdp(value, string)
-            complex(dp), intent(in) :: value(:,:)
-            character(len=*), intent(in), optional :: string
+        module subroutine disp_2_cdp(x, header, unit, brief)
+            complex(dp), intent(in) :: x(:,:)
+            character(len=*), intent(in), optional :: header
+            integer,          intent(in), optional :: unit
+            logical,          intent(in), optional :: brief
         end subroutine disp_2_cdp
-        module subroutine disp_3_cdp(value, dim, string)
-            complex(dp), intent(in) :: value(:,:,:)
-            integer, intent(in) :: dim
-            character(len=*), intent(in), optional :: string
-        end subroutine disp_3_cdp
-        module subroutine disp_0_cqp(value, string)
-            complex(qp), intent(in) :: value
-            character(len=*), intent(in), optional :: string
+        module subroutine disp_0_cqp(x, header, unit, brief)
+            complex(qp), intent(in) :: x
+            character(len=*), intent(in), optional :: header
+            integer,          intent(in), optional :: unit
+            logical,          intent(in), optional :: brief
         end subroutine disp_0_cqp
-        module subroutine disp_1_cqp(value, string)
-            complex(qp), intent(in) :: value(:)
-            character(len=*), intent(in), optional :: string
+        module subroutine disp_1_cqp(x, header, unit, brief)
+            complex(qp), intent(in) :: x(:)
+            character(len=*), intent(in), optional :: header
+            integer,          intent(in), optional :: unit
+            logical,          intent(in), optional :: brief
         end subroutine disp_1_cqp
-        module subroutine disp_2_cqp(value, string)
-            complex(qp), intent(in) :: value(:,:)
-            character(len=*), intent(in), optional :: string
+        module subroutine disp_2_cqp(x, header, unit, brief)
+            complex(qp), intent(in) :: x(:,:)
+            character(len=*), intent(in), optional :: header
+            integer,          intent(in), optional :: unit
+            logical,          intent(in), optional :: brief
         end subroutine disp_2_cqp
-        module subroutine disp_3_cqp(value, dim, string)
-            complex(qp), intent(in) :: value(:,:,:)
-            integer, intent(in) :: dim
-            character(len=*), intent(in), optional :: string
-        end subroutine disp_3_cqp
-        module subroutine disp_0_llk(value, string)
-            logical(lk), intent(in) :: value
-            character(len=*), intent(in), optional :: string
+        module subroutine disp_0_llk(x, header, unit, brief)
+            logical(lk), intent(in) :: x
+            character(len=*), intent(in), optional :: header
+            integer,          intent(in), optional :: unit
+            logical,          intent(in), optional :: brief
         end subroutine disp_0_llk
-        module subroutine disp_1_llk(value, string)
-            logical(lk), intent(in) :: value(:)
-            character(len=*), intent(in), optional :: string
+        module subroutine disp_1_llk(x, header, unit, brief)
+            logical(lk), intent(in) :: x(:)
+            character(len=*), intent(in), optional :: header
+            integer,          intent(in), optional :: unit
+            logical,          intent(in), optional :: brief
         end subroutine disp_1_llk
-        module subroutine disp_2_llk(value, string)
-            logical(lk), intent(in) :: value(:,:)
-            character(len=*), intent(in), optional :: string
+        module subroutine disp_2_llk(x, header, unit, brief)
+            logical(lk), intent(in) :: x(:,:)
+            character(len=*), intent(in), optional :: header
+            integer,          intent(in), optional :: unit
+            logical,          intent(in), optional :: brief
         end subroutine disp_2_llk
-        module subroutine disp_3_llk(value, dim, string)
-            logical(lk), intent(in) :: value(:,:,:)
-            integer, intent(in) :: dim
-            character(len=*), intent(in), optional :: string
-        end subroutine disp_3_llk
-        module subroutine disp_0_lc_bool(value, string)
-            logical(c_bool), intent(in) :: value
-            character(len=*), intent(in), optional :: string
+        module subroutine disp_0_lc_bool(x, header, unit, brief)
+            logical(c_bool), intent(in) :: x
+            character(len=*), intent(in), optional :: header
+            integer,          intent(in), optional :: unit
+            logical,          intent(in), optional :: brief
         end subroutine disp_0_lc_bool
-        module subroutine disp_1_lc_bool(value, string)
-            logical(c_bool), intent(in) :: value(:)
-            character(len=*), intent(in), optional :: string
+        module subroutine disp_1_lc_bool(x, header, unit, brief)
+            logical(c_bool), intent(in) :: x(:)
+            character(len=*), intent(in), optional :: header
+            integer,          intent(in), optional :: unit
+            logical,          intent(in), optional :: brief
         end subroutine disp_1_lc_bool
-        module subroutine disp_2_lc_bool(value, string)
-            logical(c_bool), intent(in) :: value(:,:)
-            character(len=*), intent(in), optional :: string
+        module subroutine disp_2_lc_bool(x, header, unit, brief)
+            logical(c_bool), intent(in) :: x(:,:)
+            character(len=*), intent(in), optional :: header
+            integer,          intent(in), optional :: unit
+            logical,          intent(in), optional :: brief
         end subroutine disp_2_lc_bool
-        module subroutine disp_3_lc_bool(value, dim, string)
-            logical(c_bool), intent(in) :: value(:,:,:)
-            integer, intent(in) :: dim
-            character(len=*), intent(in), optional :: string
-        end subroutine disp_3_lc_bool
-        module subroutine disp_str(value, string)
-            character(len=*), intent(in), optional :: value
-            character(len=*), intent(in), optional :: string
-        end subroutine disp_str
+        module subroutine disp_character(x, header, unit, brief)
+            character(len=*), intent(in), optional :: x
+            character(len=*), intent(in), optional :: header
+            integer,          intent(in), optional :: unit
+            logical,          intent(in), optional :: brief
+        end subroutine disp_character
+        module subroutine disp_string_type(x, header, unit, brief)
+            type(string_type), intent(in)           :: x
+            character(len=*),  intent(in), optional :: header
+            integer,           intent(in), optional :: unit
+            logical,           intent(in), optional :: brief
+        end subroutine disp_string_type
     end interface disp
 
     interface file

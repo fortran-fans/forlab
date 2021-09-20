@@ -1,7 +1,7 @@
 
 submodule(forlab_time) forlab_time_tioc
    
-    use forlab_strings, only: format_string
+    use stdlib_strings, only: to_string
     implicit none
     real(dp), save :: tic_time
 
@@ -26,7 +26,7 @@ contains
         elapsed_time = toc_time - tic_time
 
         call disp("Elapsed time: " &
-            //format_string(elapsed_time, "(F12.3)") &
+            //to_string(elapsed_time, "(F12.3)") &
             //" seconds")
         return
     end procedure toc_default

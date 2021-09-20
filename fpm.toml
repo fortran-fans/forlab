@@ -97,12 +97,6 @@ name = "stats_var"
 source-dir = "test/stats"
 main = "test_stats_var.f90"
 
-## [strings] tests
-[[test]]
-name = "strings_format_string"
-source-dir = "test/strings"
-main = "test_strings_format_string.f90"
-
 ## [sorting] tests
 [[test]]
 name = "sorting_sort"
@@ -121,6 +115,10 @@ main = "test_time_tioc.f90"
 name = "io_color"
 source-dir = "example/io"
 main = "demo_io_color.f90"
+[[example]]
+name = "io_disp"
+source-dir = "example/io"
+main = "demo_io_disp.f90"
 
 ## forlab_linalg demos
 [[example]]
