@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+   
+   <meta name="description" content="A opensource package forlab v1.0 for (modern) Fortran">
+    
+    <meta name="author" content="forlab v1.0 contributors" >
+    <link rel="icon" href="../../favicon.png">
+
+    <title>IO &ndash; forlab</title>
+
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/pygments.css" rel="stylesheet">
+    <link href="../../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../../css/local.css" rel="stylesheet">
+    
+    <link  href="../../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <script src="../../js/jquery-2.1.3.min.js"></script>
+    <script src="../../js/svg-pan-zoom.min.js"></script>
+
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../index.html">forlab </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+        
+            <li><a href='../../page/index.html'>Contributing and specs</a></li>
+      
+            <li class="dropdown hidden-xs visible-sm visible-md hidden-lg">
+              <a href="#" class="dropdown-toggle"
+              data-toggle="dropdown" role="button"
+              aria-haspopup="true"
+     aria-expanded="false">Contents <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          
+              
+            <li><a href="../../lists/files.html">Source Files</a></li>
+        
+        
+        
+            <li><a href="../../lists/modules.html">Modules</a></li>
+        
+            
+                                
+            <li><a href="../../lists/procedures.html">Procedures</a></li>
+        
+               
+            <li><a href="../../lists/types.html">Derived Types</a></li>
+        
+               
+        
+        
+            </ul>
+        
+            </li>
+
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../../lists/files.html">Source Files</a></li>
+
+
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../../lists/modules.html">Modules</a></li>
+
+
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../../lists/procedures.html">Procedures</a></li>
+
+                             
+<li class="visible-xs hidden-sm visible-lg"><a href="../../lists/types.html">Derived Types</a></li>
+
+
+
+
+          </ul>
+        
+        <form action="../../search.html" class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search" name="q" id="tipue_search_input" autocomplete="off" required>
+        </div>
+<!--
+        <button type="submit" class="btn btn-default">Submit</button>
+-->
+        </form>
+        
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+    
+  <div class="row">
+    <h1>IO</h1>
+    <div class="row">
+    <div class="col-lg-12">
+    <div class="well well-sm" style="min-height: 40px;">
+      <ul class="list-inline" style="margin-bottom:0px; display:inline">
+         
+         
+<!--
+        
+-->
+      </ul>
+        <ol class="breadcrumb in-well">
+      
+         <li><a href='../../page/index.html'>Contributing and specs</a></li>
+      
+         <li><a href='../../page/specs/index.html'>Specifications (specs)</a></li>
+      
+         <li class="active">IO</li>
+      </ol>
+    </div>
+    </div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-9 col-md-push-3" id='text'>
+      <h1 id="io">IO</h1>
+<div class="toc">
+<ul>
+<li><a href="#io">IO</a><ul>
+<li><a href="#file-file-constructor-and-file-derived-type">file - File Constructor and File Derived Type</a><ul>
+<li><a href="#status">Status</a></li>
+<li><a href="#class">Class</a></li>
+<li><a href="#description">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#arguments">Arguments</a></li>
+<li><a href="#return-value">Return value</a></li>
+<li><a href="#examples">Examples</a></li>
+</ul>
+</li>
+<li><a href="#fileexist">file%exist</a><ul>
+<li><a href="#description_1">Description</a></li>
+<li><a href="#status_1">Status</a></li>
+<li><a href="#class_1">Class</a></li>
+<li><a href="#syntax_1">Syntax</a></li>
+<li><a href="#arguments_1">Arguments</a></li>
+<li><a href="#return-value_1">Return value</a></li>
+<li><a href="#example">Example</a></li>
+</ul>
+</li>
+<li><a href="#fileopen">file%open</a><ul>
+<li><a href="#description_2">Description</a></li>
+<li><a href="#status_2">Status</a></li>
+<li><a href="#class_2">Class</a></li>
+<li><a href="#syntax_2">Syntax</a></li>
+<li><a href="#arguments_2">Arguments</a></li>
+<li><a href="#example_1">Example</a></li>
+</ul>
+</li>
+<li><a href="#filecountlines">file%countlines</a><ul>
+<li><a href="#description_3">Description</a></li>
+<li><a href="#status_3">Status</a></li>
+<li><a href="#class_3">Class</a></li>
+<li><a href="#syntax_3">Syntax</a></li>
+<li><a href="#arguments_3">Arguments</a></li>
+<li><a href="#example_2">Example</a></li>
+</ul>
+</li>
+<li><a href="#fileclose">file%close</a><ul>
+<li><a href="#description_4">Description</a></li>
+<li><a href="#status_4">Status</a></li>
+<li><a href="#class_4">Class</a></li>
+<li><a href="#syntax_4">Syntax</a></li>
+<li><a href="#arguments_4">Arguments</a></li>
+<li><a href="#example_3">Example</a></li>
+</ul>
+</li>
+<li><a href="#color">color</a><ul>
+<li><a href="#description_5">Description</a></li>
+<li><a href="#status_5">Status</a></li>
+<li><a href="#class_5">Class</a></li>
+<li><a href="#syntax_5">Syntax</a></li>
+<li><a href="#argument">Argument</a></li>
+<li><a href="#output">Output</a></li>
+<li><a href="#example_4">Example</a></li>
+</ul>
+</li>
+<li><a href="#disp-display-your-data">disp - display your data</a><ul>
+<li><a href="#status_6">Status</a></li>
+<li><a href="#class_6">Class</a></li>
+<li><a href="#description_6">Description</a><ul>
+<li><a href="#more-details">More details</a></li>
+</ul>
+</li>
+<li><a href="#syntax_6">Syntax</a></li>
+<li><a href="#arguments_5">Arguments</a></li>
+<li><a href="#output_1">Output</a></li>
+<li><a href="#example_5">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h3 id="file-file-constructor-and-file-derived-type"><code>file</code> - File Constructor and File Derived Type</h3>
+<h4 id="status">Status</h4>
+<p>Experimental</p>
+<h4 id="class">Class</h4>
+<p>Impure function.</p>
+<h4 id="description">Description</h4>
+<p><code>file</code> function constructs a file entity of <code>file</code> type, including some file operation methods.</p>
+<h4 id="syntax">Syntax</h4>
+<p><code>ofile = <a href="../../module/forlab_io.html#interface-file">file</a>(filename [, mode])</code></p>
+<h4 id="arguments">Arguments</h4>
+<p><code>filename</code>: Shall be a <code>character(len=*)</code> scalar.
+This argument is <code>intent(in)</code>. 
+Contains the file name.</p>
+<p><code>mode</code>: Shall be a <code>character(len=*)</code> scalar.
+This argument is <code>intent(in)</code> and <code>optional</code>.
+Contains characters describing the way in which the file will be used (see <a href="https://stdlib.fortran-lang.org/page/specs/stdlib_io.html#description_1">stdlib_io:open</a>). The available modes are:</p>
+<table>
+<thead>
+<tr>
+<th>Character</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>'r'</code></td>
+<td>construct a file for reading (default)</td>
+</tr>
+<tr>
+<td><code>'w'</code></td>
+<td>construct a file for writing, truncating the file first</td>
+</tr>
+<tr>
+<td><code>'x'</code></td>
+<td>construct a file for exclusive creation, failing if the file already exists</td>
+</tr>
+<tr>
+<td><code>'a'</code></td>
+<td>construct a file for writing, appending to the end of the file if it exists</td>
+</tr>
+<tr>
+<td><code>'+'</code></td>
+<td>construct a file for updating (reading and writing)</td>
+</tr>
+<tr>
+<td><code>'b'</code></td>
+<td>binary mode</td>
+</tr>
+<tr>
+<td><code>'t'</code></td>
+<td>text mode (default)</td>
+</tr>
+</tbody>
+</table>
+<p>The default <code>mode</code> is <code>'rt'</code> (i.e. construct a file for reading a text file). The <code>mode</code> may include one of the four different methods for opening a file (i.e., <code>'r'</code>, <code>'w'</code>, <code>'x'</code>, and <code>'a'</code>). These four methods can be associated with the character <code>'+'</code> to open the file for updating. In addition, it can be specified if the file should be handled as a binary file (<code>'b'</code>) or a text file (<code>'t'</code>).</p>
+<h4 id="return-value">Return value</h4>
+<p>Returns a file entity of <code>file</code> type, in which the following are defined:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">type file</span>
+<span class="k">    </span><span class="kt">character</span><span class="p">(:),</span> <span class="k">allocatable</span> <span class="kd">::</span> <span class="n">filename</span>
+    <span class="kt">character</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="kd">::</span> <span class="n">mode</span>
+    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">unit</span>
+    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">lines</span>
+<span class="k">contains</span>
+<span class="k">    procedure</span> <span class="kd">::</span> <span class="n">exist</span>
+    <span class="k">procedure</span> <span class="kd">::</span> <span class="k">open</span>
+<span class="k">    procedure</span> <span class="kd">::</span> <span class="n">countlines</span>
+    <span class="k">procedure</span> <span class="kd">::</span> <span class="k">close</span>
+<span class="k">end type file</span>
+</code></pre></div>
+
+<h4 id="examples">Examples</h4>
+<div class="codehilite"><pre><span></span><code><span class="k">program </span><span class="n">demo_io_file_1</span>
+    <span class="k">use </span><span class="n">forlab_io</span><span class="p">,</span> <span class="k">only</span><span class="p">:</span> <span class="k">file</span><span class="p">,</span> <span class="n">disp</span>
+    <span class="k">use </span><span class="n">stdlib_error</span><span class="p">,</span> <span class="k">only</span><span class="p">:</span> <span class="n">check</span>
+    <span class="k">type</span><span class="p">(</span><span class="k">file</span><span class="p">)</span> <span class="kd">::</span> <span class="n">infile</span>
+
+    <span class="n">infile</span> <span class="o">=</span> <span class="k">file</span><span class="p">(</span><span class="s1">&#39;DP.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+    <span class="k">call </span><span class="n">check</span><span class="p">(</span><span class="n">infile</span><span class="p">%</span><span class="n">exist</span><span class="p">(),</span> <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;File not exist, &quot;</span><span class="o">//</span><span class="n">infile</span><span class="p">%</span><span class="n">filename</span><span class="p">)</span>
+    <span class="k">call </span><span class="n">infile</span><span class="p">%</span><span class="k">open</span><span class="p">()</span>
+    <span class="k">call </span><span class="n">infile</span><span class="p">%</span><span class="n">countlines</span><span class="p">()</span>
+    <span class="k">call </span><span class="n">disp</span><span class="p">(</span><span class="n">infile</span><span class="p">%</span><span class="n">lines</span><span class="p">,</span> <span class="s1">&#39;Linenumber in file is: &#39;</span><span class="p">)</span>
+    <span class="k">call </span><span class="n">infile</span><span class="p">%</span><span class="k">close</span><span class="p">()</span>     <span class="c">!! `infile` is closed, `infile%filename` is deallocated.</span>
+
+<span class="k">end program </span><span class="n">demo_io_file_1</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="k">program </span><span class="n">demo_io_file_2</span>
+    <span class="k">use </span><span class="n">forlab_io</span><span class="p">,</span> <span class="k">only</span><span class="p">:</span> <span class="k">file</span><span class="p">,</span> <span class="n">disp</span>
+    <span class="k">use </span><span class="n">stdlib_error</span><span class="p">,</span> <span class="k">only</span><span class="p">:</span> <span class="n">check</span>
+    <span class="k">type</span><span class="p">(</span><span class="k">file</span><span class="p">),</span> <span class="k">allocatable</span> <span class="kd">::</span> <span class="n">infile</span>
+
+    <span class="c">!! To create a `file` type scalar to read:</span>
+    <span class="c">!!</span>
+    <span class="c">!!```fortran</span>
+    <span class="c">!! infile = file(&quot;somefile.txt&quot;)        ! The default `mode` is &quot;rt&quot;</span>
+    <span class="c">!! infile = file(&quot;somefile.txt&quot;, &quot;r&quot;)</span>
+    <span class="c">!!```</span>
+    <span class="c">!!</span>
+    <span class="c">!! To create a `file` type scalar to write:</span>
+    <span class="c">!!    infile = file(&quot;somefile.txt&quot;, &quot;w&quot;)</span>
+    <span class="c">!!</span>
+    <span class="c">!! To append to the end of the file if it exists:</span>
+    <span class="c">!!</span>
+    <span class="c">!!    infile = file(&quot;somefile.txt&quot;, &quot;a&quot;)</span>
+
+    <span class="n">infile</span> <span class="o">=</span> <span class="k">file</span><span class="p">(</span><span class="s1">&#39;DP.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+    <span class="k">call </span><span class="n">check</span><span class="p">(</span><span class="n">infile</span><span class="p">%</span><span class="n">exist</span><span class="p">(),</span> <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;File not exist, &quot;</span><span class="o">//</span><span class="n">infile</span><span class="p">%</span><span class="n">filename</span><span class="p">)</span>
+    <span class="k">call </span><span class="n">infile</span><span class="p">%</span><span class="k">open</span><span class="p">()</span>
+    <span class="k">call </span><span class="n">infile</span><span class="p">%</span><span class="n">countlines</span><span class="p">()</span>
+    <span class="k">call </span><span class="n">disp</span><span class="p">(</span><span class="n">infile</span><span class="p">%</span><span class="n">lines</span><span class="p">,</span> <span class="s1">&#39;Linenumber in file is: &#39;</span><span class="p">)</span>
+    <span class="k">call </span><span class="n">infile</span><span class="p">%</span><span class="k">close</span><span class="p">()</span>     <span class="c">!! It is optional. `infile` is closed, `infile%filename` is deallocated.</span>
+    <span class="k">deallocate</span><span class="p">(</span><span class="n">infile</span><span class="p">)</span>      <span class="c">!! `infile` is deallocated.</span>
+
+<span class="k">end program </span><span class="n">demo_io_file_2</span>
+</code></pre></div>
+
+<h3 id="fileexist"><code>file%exist</code></h3>
+<h4 id="description_1">Description</h4>
+<p>Checks the <code>file</code> is exist or not.</p>
+<h4 id="status_1">Status</h4>
+<p>Experimental.</p>
+<h4 id="class_1">Class</h4>
+<p>Impure function.</p>
+<h4 id="syntax_1">Syntax</h4>
+<p><code>result = self % <a href="../../type/file.html#boundprocedure-exist">exist</a>()</code></p>
+<h4 id="arguments_1">Arguments</h4>
+<p>None.</p>
+<h4 id="return-value_1">Return value</h4>
+<p>Returns a <code>logical</code> scalar: the file exists as <code>.true.</code>, the file does not exist as <code>.false.</code>.</p>
+<h4 id="example">Example</h4>
+<div class="codehilite"><pre><span></span><code><span class="k">program </span><span class="n">demo_io_file_exist</span>
+    <span class="k">use </span><span class="n">forlab_io</span><span class="p">,</span> <span class="k">only</span><span class="p">:</span> <span class="k">file</span>
+<span class="k">    use </span><span class="n">stdlib_error</span><span class="p">,</span> <span class="k">only</span><span class="p">:</span> <span class="n">check</span>
+    <span class="k">type</span><span class="p">(</span><span class="k">file</span><span class="p">),</span> <span class="k">allocatable</span> <span class="kd">::</span> <span class="n">infile</span>
+
+    <span class="n">infile</span> <span class="o">=</span> <span class="k">file</span><span class="p">(</span><span class="s2">&quot;filename.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+    <span class="k">call </span><span class="n">check</span><span class="p">(</span><span class="n">infile</span><span class="p">%</span><span class="n">exist</span><span class="p">(),</span> <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;File not exist: &quot;</span><span class="o">//</span><span class="n">infile</span><span class="p">%</span><span class="n">filename</span><span class="p">)</span>
+    <span class="k">deallocate</span><span class="p">(</span><span class="n">infile</span><span class="p">)</span> 
+
+<span class="k">end program </span><span class="n">demo_io_file_exist</span>
+</code></pre></div>
+
+<h3 id="fileopen"><code>file%open</code></h3>
+<h4 id="description_2">Description</h4>
+<p>Open the <code>file</code> object.</p>
+<h4 id="status_2">Status</h4>
+<p>Experimental.</p>
+<h4 id="class_2">Class</h4>
+<p>Impure function.</p>
+<h4 id="syntax_2">Syntax</h4>
+<p><code>call self % <a href="../../type/file.html#boundprocedure-open">open</a>()</code></p>
+<h4 id="arguments_2">Arguments</h4>
+<p>None.</p>
+<h4 id="example_1">Example</h4>
+<div class="codehilite"><pre><span></span><code><span class="k">program </span><span class="n">demo_io_file_open</span>
+    <span class="k">use </span><span class="n">forlab_io</span><span class="p">,</span> <span class="k">only</span><span class="p">:</span> <span class="k">file</span>
+<span class="k">    use </span><span class="n">stdlib_error</span><span class="p">,</span> <span class="k">only</span><span class="p">:</span> <span class="n">check</span>
+    <span class="k">type</span><span class="p">(</span><span class="k">file</span><span class="p">),</span> <span class="k">allocatable</span> <span class="kd">::</span> <span class="n">infile</span>
+
+    <span class="n">infile</span> <span class="o">=</span> <span class="k">file</span><span class="p">(</span><span class="s2">&quot;filename.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+    <span class="k">call </span><span class="n">check</span><span class="p">(</span><span class="n">infile</span><span class="p">%</span><span class="n">exist</span><span class="p">(),</span> <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;File not exist: &quot;</span><span class="o">//</span><span class="n">infile</span><span class="p">%</span><span class="n">filename</span><span class="p">)</span>
+    <span class="k">call </span><span class="n">infile</span><span class="p">%</span><span class="k">open</span><span class="p">()</span>      <span class="c">!! Open file operation</span>
+    <span class="k">deallocate</span><span class="p">(</span><span class="n">infile</span><span class="p">)</span> 
+
+<span class="k">end program </span><span class="n">demo_io_file_open</span>
+</code></pre></div>
+
+<h3 id="filecountlines"><code>file%countlines</code></h3>
+<h4 id="description_3">Description</h4>
+<p>Counts the number of lines in a txt file, the number of file lines is stored in <code>file%lines</code>.</p>
+<h4 id="status_3">Status</h4>
+<p>Experimental.</p>
+<h4 id="class_3">Class</h4>
+<p>Impure function.</p>
+<h4 id="syntax_3">Syntax</h4>
+<p><code>call self % <a href="../../type/file.html#boundprocedure-countlines">countlines</a>()</code></p>
+<h4 id="arguments_3">Arguments</h4>
+<p>None.</p>
+<h4 id="example_2">Example</h4>
+<div class="codehilite"><pre><span></span><code><span class="k">program </span><span class="n">demo_io_file_countlines</span>
+    <span class="k">use </span><span class="n">forlab_io</span><span class="p">,</span> <span class="k">only</span><span class="p">:</span> <span class="k">file</span><span class="p">,</span> <span class="n">disp</span>
+    <span class="k">type</span><span class="p">(</span><span class="k">file</span><span class="p">),</span> <span class="k">allocatable</span> <span class="kd">::</span> <span class="n">infile</span>
+
+    <span class="n">infile</span> <span class="o">=</span> <span class="k">file</span><span class="p">(</span><span class="s2">&quot;filename.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+    <span class="k">call </span><span class="n">infile</span><span class="p">%</span><span class="n">countlines</span><span class="p">()</span>    <span class="c">!! Counts the number of lines in a txt file, the number of file lines is stored in `infile%lines`.</span>
+    <span class="k">call </span><span class="n">disp</span><span class="p">(</span><span class="n">infile</span><span class="p">%</span><span class="n">lines</span><span class="p">,</span> <span class="s2">&quot;The number of file lines : &quot;</span><span class="p">)</span>
+    <span class="k">deallocate</span><span class="p">(</span><span class="n">infile</span><span class="p">)</span> 
+
+<span class="k">end program </span><span class="n">demo_io_file_countlines</span>
+</code></pre></div>
+
+<h3 id="fileclose"><code>file%close</code></h3>
+<h4 id="description_4">Description</h4>
+<p>Closes the <code>file</code> object, deallocate <code>file%filename</code>.</p>
+<h4 id="status_4">Status</h4>
+<p>Experimental.</p>
+<h4 id="class_4">Class</h4>
+<p>Impure function.</p>
+<h4 id="syntax_4">Syntax</h4>
+<p><code>call self % <a href="../../type/file.html#boundprocedure-close">close</a>()</code></p>
+<h4 id="arguments_4">Arguments</h4>
+<p>None.</p>
+<h4 id="example_3">Example</h4>
+<div class="codehilite"><pre><span></span><code><span class="k">program </span><span class="n">demo_io_file_close</span>
+    <span class="k">use </span><span class="n">forlab_io</span><span class="p">,</span> <span class="k">only</span><span class="p">:</span> <span class="k">file</span><span class="p">,</span> <span class="n">disp</span>
+    <span class="k">type</span><span class="p">(</span><span class="k">file</span><span class="p">)</span> <span class="kd">::</span> <span class="n">infile</span>
+
+    <span class="n">infile</span> <span class="o">=</span> <span class="k">file</span><span class="p">(</span><span class="s2">&quot;filename.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+    <span class="k">call </span><span class="n">infile</span><span class="p">%</span><span class="k">open</span><span class="p">()</span>
+    <span class="k">call </span><span class="n">infile</span><span class="p">%</span><span class="k">close</span><span class="p">()</span>     <span class="c">!! Closes the `infile` object, deallocate `infile%filename`.</span>
+
+<span class="k">end program </span><span class="n">demo_io_file_close</span>
+</code></pre></div>
+
+<h3 id="color"><code>color</code></h3>
+<h4 id="description_5">Description</h4>
+<p>Prints a PS code at default output_unit.</p>
+<h4 id="status_5">Status</h4>
+<p>Experimental.</p>
+<h4 id="class_5">Class</h4>
+<p>Impure subroutine.</p>
+<h4 id="syntax_5">Syntax</h4>
+<p><code>call <a href="../../module/forlab_io.html#interface-color">color</a> ( [string=achar(27) // '[0m'] )</code></p>
+<h4 id="argument">Argument</h4>
+<p><code>string</code>: Shall be a <code>character(len=*)</code> scalar.
+This argument is <code>intent(in)</code> and <code>optional</code>.<br>
+The default value is <code>achar(27) // '[0m'</code>.</p>
+<h4 id="output">Output</h4>
+<p>Prints a PS code at default output_unit.</p>
+<h4 id="example_4">Example</h4>
+<div class="codehilite"><pre><span></span><code><span class="k">program </span><span class="n">demo_io_color</span>
+    <span class="k">use </span><span class="n">forlab_io</span><span class="p">,</span> <span class="k">only</span><span class="p">:</span> <span class="n">color</span>
+    <span class="k">use </span><span class="n">forlab_color</span><span class="p">,</span> <span class="k">only</span><span class="p">:</span> <span class="n">red</span><span class="p">,</span> <span class="n">green</span>
+    <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span> <span class="k">parameter</span> <span class="kd">::</span> <span class="nb">char</span> <span class="o">=</span> <span class="s2">&quot;It is Fortran Color: &quot;</span>
+    <span class="k">call </span><span class="n">color</span><span class="p">(</span><span class="n">green</span><span class="p">)</span>
+    <span class="k">print</span> <span class="o">*</span><span class="p">,</span> <span class="nb">char</span> <span class="o">//</span> <span class="s1">&#39;green.&#39;</span>
+    <span class="k">print</span> <span class="o">*</span><span class="p">,</span> <span class="n">red</span> <span class="o">//</span> <span class="nb">char</span> <span class="o">//</span> <span class="s1">&#39;red.&#39;</span>
+    <span class="k">call </span><span class="n">color</span><span class="p">()</span>
+    <span class="k">print</span> <span class="o">*</span><span class="p">,</span> <span class="nb">char</span> <span class="o">//</span> <span class="s2">&quot;default.&quot;</span>
+<span class="k">end program </span><span class="n">demo_io_color</span>
+</code></pre></div>
+
+<h3 id="disp-display-your-data"><code>disp</code> - display your data</h3>
+<h4 id="status_6">Status</h4>
+<p>Experimental</p>
+<h4 id="class_6">Class</h4>
+<p>Impure subroutine.</p>
+<h4 id="description_6">Description</h4>
+<p>Outputs a <code>logical/integer/real/complex/character/string_type</code> scalar or <code>logical/integer/real/complex</code> and rank-1/rank-2 array to the screen or a file <code>unit</code>.</p>
+<h5 id="more-details">More details</h5>
+<div class="codehilite"><pre><span></span><code><span class="k">call </span><span class="n">disp</span><span class="p">(</span> <span class="n">A</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">)</span> <span class="p">[,</span> <span class="n">header</span><span class="p">,</span> <span class="n">unit</span><span class="p">,</span> <span class="n">brief</span><span class="p">]</span> <span class="p">)</span>    <span class="c">!! `i, j, ...` can be determined by `do` loop.</span>
+</code></pre></div>
+
+<p>For <code>complex</code> type, the output format is <code>*(A25, 1X)</code>; 
+For    other types, the output format is <code>*(A12, 1X)</code>.</p>
+<p>To prevent users from accidentally passing large-length arrays to <code>disp</code>, causing unnecessary io blockage:
+1. If the <code>brief</code> argument is not specified, <code>disp</code> will print <strong>the brief array content with a length of <code>10*50</code> by default</strong>.
+2. Specify <code>brief=.true.</code>, <code>disp</code> will print <strong>the brief array content with a length of <code>5*5</code></strong>;
+3. Specify <code>brief=.false.</code>, <code>disp</code> will print <strong><code>all</code> the contents of the array</strong>.</p>
+<h4 id="syntax_6">Syntax</h4>
+<p><code>call <a href="../../module/forlab_io.html#interface-disp">disp</a>([x, header, unit, brief])</code>  </p>
+<h4 id="arguments_5">Arguments</h4>
+<p><code>x</code>: Shall be a <code>logical/integer/real/complex/string_type</code> scalar or <code>logical/integer/real/complex</code> and rank-1/rank-2 array.
+This argument is <code>intent(in)</code> and <code>optional</code>.</p>
+<p><code>header</code>: Shall be a <code>character(len=*)</code> scalar. 
+This argument is <code>intent(in)</code> and <code>optional</code>.</p>
+<p><code>unit</code>: Shall be an <code>integer</code> scalar linked to an IO stream.
+This argument is <code>intent(in)</code> and <code>optional</code>.</p>
+<p><code>brief</code>: Shall be a <code>logical</code> scalar.
+This argument is <code>intent(in)</code> and <code>optional</code>.<br>
+Controls an abridged version of the <code>x</code> object is printed.</p>
+<h4 id="output_1">Output</h4>
+<p>The result is to print <code>header</code> and <code>x</code> on the screen (or another output <code>unit/file</code>) in this order.<br>
+If <code>x</code> is a rank-1/rank-2 <code>array</code> type, the dimension length information of the <code>array</code> will also be outputted.</p>
+<p>If <code>disp</code> is not passed any arguments, a blank line is printed.</p>
+<p>If the <code>x</code> is present and of <code>real/complex</code> type, the data will retain four significant decimal places, like <code>(g0.4)</code>.</p>
+<h4 id="example_5">Example</h4>
+<div class="codehilite"><pre><span></span><code><span class="k">program </span><span class="n">demo_io_disp</span>
+
+    <span class="k">use </span><span class="n">forlab_io</span><span class="p">,</span> <span class="k">only</span><span class="p">:</span> <span class="n">disp</span>
+    <span class="kt">real</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span> <span class="kd">::</span> <span class="n">r</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="kt">complex</span> <span class="kd">::</span> <span class="n">c</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">c_3d</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">i</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="kt">logical</span> <span class="kd">::</span> <span class="n">l</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="mf">1.</span><span class="p">;</span> <span class="n">c</span> <span class="o">=</span> <span class="mf">1.</span><span class="p">;</span> <span class="n">c_3d</span> <span class="o">=</span> <span class="mf">2.</span><span class="p">;</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">l</span> <span class="o">=</span> <span class="p">.</span><span class="n">true</span><span class="p">.</span>
+    <span class="n">r</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.e-11</span>
+    <span class="n">r</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.e10</span>
+    <span class="n">c</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">1.e10</span><span class="p">,</span><span class="o">-</span><span class="mf">1.e10</span><span class="p">)</span>
+    <span class="n">c_3d</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">)</span>
+    <span class="n">c_3d</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.e4</span><span class="p">,</span> <span class="mi">10</span><span class="mf">0.</span><span class="p">)</span>
+    <span class="k">call </span><span class="n">disp</span><span class="p">(</span><span class="s1">&#39;string&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="s1">&#39;disp(string):&#39;</span><span class="p">)</span>
+    <span class="k">call </span><span class="n">disp</span><span class="p">(</span><span class="s1">&#39;It is a note.&#39;</span><span class="p">)</span>
+    <span class="k">call </span><span class="n">disp</span><span class="p">()</span>
+    <span class="k">call </span><span class="n">disp</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="s1">&#39;disp(r):&#39;</span><span class="p">)</span>
+    <span class="k">call </span><span class="n">disp</span><span class="p">(</span><span class="n">r</span><span class="p">(</span><span class="mi">1</span><span class="p">,:),</span> <span class="n">header</span><span class="o">=</span><span class="s1">&#39;disp(r(1,:))&#39;</span><span class="p">)</span>
+    <span class="k">call </span><span class="n">disp</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="s1">&#39;disp(c):&#39;</span><span class="p">)</span>
+    <span class="k">call </span><span class="n">disp</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="s1">&#39;disp(i):&#39;</span><span class="p">)</span>
+    <span class="k">call </span><span class="n">disp</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="s1">&#39;disp(l):&#39;</span><span class="p">,</span> <span class="n">brief</span><span class="o">=</span><span class="p">.</span><span class="n">true</span><span class="p">.)</span>
+    <span class="k">call </span><span class="n">disp</span><span class="p">(</span><span class="n">c_3d</span><span class="p">(:,:,</span><span class="mi">3</span><span class="p">),</span> <span class="n">header</span><span class="o">=</span><span class="s1">&#39;disp(c_3d(:,:,3)):&#39;</span><span class="p">,</span> <span class="n">brief</span><span class="o">=</span><span class="p">.</span><span class="n">true</span><span class="p">.)</span>
+    <span class="k">call </span><span class="n">disp</span><span class="p">(</span><span class="n">c_3d</span><span class="p">(</span><span class="mi">2</span><span class="p">,:,:),</span> <span class="n">header</span><span class="o">=</span><span class="s1">&#39;disp(c_3d(2,:,:)):&#39;</span><span class="p">,</span> <span class="n">brief</span><span class="o">=</span><span class="p">.</span><span class="n">true</span><span class="p">.)</span>
+<span class="k">end program </span><span class="n">demo_io_disp</span>
+</code></pre></div>
+
+<p><strong>Results:</strong></p>
+<div class="codehilite"><pre><span></span><code> <span class="n">disp</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
+ <span class="n">string</span>
+ <span class="n">It</span> <span class="k">is </span><span class="n">a</span> <span class="n">note</span><span class="p">.</span>
+ <span class="n">disp</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
+ <span class="p">[</span><span class="n">matrix</span> <span class="n">size</span><span class="p">:</span> <span class="mi">2</span><span class="err">×</span><span class="mi">3</span><span class="p">]</span>
+ <span class="o">-</span><span class="mf">0.1000E-10</span>  <span class="o">-</span><span class="mf">0.1000E+11</span>    <span class="mf">1.000</span>
+   <span class="mf">1.000</span>        <span class="mf">1.000</span>        <span class="mf">1.000</span>
+ <span class="n">disp</span><span class="p">(</span><span class="n">r</span><span class="p">(</span><span class="mi">1</span><span class="p">,:))</span>
+ <span class="p">[</span><span class="n">vector</span> <span class="n">size</span><span class="p">:</span> <span class="mi">3</span><span class="p">]</span>
+ <span class="o">-</span><span class="mf">0.1000E-10</span>  <span class="o">-</span><span class="mf">0.1000E+11</span>    <span class="mf">1.000</span>
+ <span class="n">disp</span><span class="p">(</span><span class="n">c</span><span class="p">):</span>
+ <span class="p">[</span><span class="n">matrix</span> <span class="n">size</span><span class="p">:</span> <span class="mi">2</span><span class="err">×</span><span class="mi">3</span><span class="p">]</span>
+            <span class="p">(</span><span class="mf">1.000</span><span class="p">,</span><span class="mf">0.000</span><span class="p">)</span>             <span class="p">(</span><span class="mf">1.000</span><span class="p">,</span><span class="mf">0.000</span><span class="p">)</span>             <span class="p">(</span><span class="mf">1.000</span><span class="p">,</span><span class="mf">0.000</span><span class="p">)</span>
+            <span class="p">(</span><span class="mf">1.000</span><span class="p">,</span><span class="mf">0.000</span><span class="p">)</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.1000E+11</span><span class="p">,</span><span class="o">-</span><span class="mf">0.1000E+11</span><span class="p">)</span>             <span class="p">(</span><span class="mf">1.000</span><span class="p">,</span><span class="mf">0.000</span><span class="p">)</span>
+ <span class="n">disp</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+ <span class="p">[</span><span class="n">matrix</span> <span class="n">size</span><span class="p">:</span> <span class="mi">2</span><span class="err">×</span><span class="mi">3</span><span class="p">]</span>
+           <span class="mi">1</span>            <span class="mi">1</span>            <span class="mi">1</span>
+           <span class="mi">1</span>            <span class="mi">1</span>            <span class="mi">1</span>
+ <span class="n">disp</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
+ <span class="p">[</span><span class="n">matrix</span> <span class="n">size</span><span class="p">:</span> <span class="mi">10</span><span class="err">×</span><span class="mi">10</span><span class="p">]</span>
+           <span class="n">T</span>            <span class="n">T</span>            <span class="n">T</span>          <span class="p">...</span>            <span class="n">T</span>
+           <span class="n">T</span>            <span class="n">T</span>            <span class="n">T</span>          <span class="p">...</span>            <span class="n">T</span>
+           <span class="n">T</span>            <span class="n">T</span>            <span class="n">T</span>          <span class="p">...</span>            <span class="n">T</span>
+           <span class="p">:</span>            <span class="p">:</span>            <span class="p">:</span>            <span class="p">:</span>            <span class="p">:</span>
+           <span class="n">T</span>            <span class="n">T</span>            <span class="n">T</span>          <span class="p">...</span>            <span class="n">T</span>
+ <span class="n">disp</span><span class="p">(</span><span class="n">c_3d</span><span class="p">(:,:,</span><span class="mi">3</span><span class="p">)):</span>
+ <span class="p">[</span><span class="n">matrix</span> <span class="n">size</span><span class="p">:</span> <span class="mi">2</span><span class="err">×</span><span class="mi">100</span><span class="p">]</span>
+            <span class="p">(</span><span class="mf">2.000</span><span class="p">,</span><span class="mf">0.000</span><span class="p">)</span>             <span class="p">(</span><span class="mf">2.000</span><span class="p">,</span><span class="mf">0.000</span><span class="p">)</span>             <span class="p">(</span><span class="mf">2.000</span><span class="p">,</span><span class="mf">0.000</span><span class="p">)</span>                       <span class="p">...</span>             <span class="p">(</span><span class="mf">2.000</span><span class="p">,</span><span class="mf">0.000</span><span class="p">)</span>  
+            <span class="p">(</span><span class="mf">2.000</span><span class="p">,</span><span class="mf">0.000</span><span class="p">)</span>             <span class="p">(</span><span class="mf">2.000</span><span class="p">,</span><span class="mf">0.000</span><span class="p">)</span>             <span class="p">(</span><span class="mf">2.000</span><span class="p">,</span><span class="mf">0.000</span><span class="p">)</span>                       <span class="p">...</span>             <span class="p">(</span><span class="mf">2.000</span><span class="p">,</span><span class="mf">0.000</span><span class="p">)</span>  
+ <span class="n">disp</span><span class="p">(</span><span class="n">c_3d</span><span class="p">(</span><span class="mi">2</span><span class="p">,:,:)):</span>
+ <span class="p">[</span><span class="n">matrix</span> <span class="n">size</span><span class="p">:</span> <span class="mi">100</span><span class="err">×</span><span class="mi">20</span><span class="p">]</span>
+            <span class="p">(</span><span class="mf">2.000</span><span class="p">,</span><span class="mf">0.000</span><span class="p">)</span>             <span class="p">(</span><span class="mf">2.000</span><span class="p">,</span><span class="mf">0.000</span><span class="p">)</span>             <span class="p">(</span><span class="mf">2.000</span><span class="p">,</span><span class="mf">0.000</span><span class="p">)</span>                       <span class="p">...</span>             <span class="p">(</span><span class="mf">2.000</span><span class="p">,</span><span class="mf">0.000</span><span class="p">)</span>  
+            <span class="p">(</span><span class="mf">2.000</span><span class="p">,</span><span class="mf">0.000</span><span class="p">)</span>             <span class="p">(</span><span class="mf">2.000</span><span class="p">,</span><span class="mf">0.000</span><span class="p">)</span>             <span class="p">(</span><span class="mf">2.000</span><span class="p">,</span><span class="mf">0.000</span><span class="p">)</span>                       <span class="p">...</span>             <span class="p">(</span><span class="mf">2.000</span><span class="p">,</span><span class="mf">0.000</span><span class="p">)</span>  
+            <span class="p">(</span><span class="mf">2.000</span><span class="p">,</span><span class="mf">0.000</span><span class="p">)</span>             <span class="p">(</span><span class="mf">2.000</span><span class="p">,</span><span class="mf">0.000</span><span class="p">)</span>             <span class="p">(</span><span class="mf">2.000</span><span class="p">,</span><span class="mf">0.000</span><span class="p">)</span>                       <span class="p">...</span>             <span class="p">(</span><span class="mf">2.000</span><span class="p">,</span><span class="mf">0.000</span><span class="p">)</span>  
+                        <span class="p">:</span>                         <span class="p">:</span>                         <span class="p">:</span>                         <span class="p">:</span>                         <span class="p">:</span>  
+            <span class="p">(</span><span class="mf">2.000</span><span class="p">,</span><span class="mf">0.000</span><span class="p">)</span>             <span class="p">(</span><span class="mf">2.000</span><span class="p">,</span><span class="mf">0.000</span><span class="p">)</span>             <span class="p">(</span><span class="mf">2.000</span><span class="p">,</span><span class="mf">0.000</span><span class="p">)</span>                       <span class="p">...</span>             <span class="p">(</span><span class="mf">2.000</span><span class="p">,</span><span class="mf">0.000</span><span class="p">)</span> 
+</code></pre></div>
+    </div>
+    
+    <div class="col-md-3 col-md-pull-9">
+      <hr class="visible-xs visible-sm">
+        <div class="well toc">
+          <ul class="nav nav-stacked nav-pills">
+            <li role="presentation" class="title"><a href='../../page/index.html'>Contributing and specs</a></li>
+          </ul>
+          <hr>
+          <ul class="nav nav-stacked nav-pills">
+            
+            <li role="presentation">
+            <a href='../../page/./License.html'>Fortran forlab License (MIT)</a>
+            
+            </li>
+            
+            <li role="presentation">
+            <a href='../../page/specs/index.html'>Specifications (specs)</a>
+            
+            <ul class="nav nav-stacked nav-pills">
+              
+            <li role="presentation" class="disabled">
+            <a href='../../page/specs/forlab_io.html'>IO</a>
+            
+            </li>
+            
+            <li role="presentation">
+            <a href='../../page/specs/forlab_linalg.html'>LINALG</a>
+            
+            </li>
+            
+            <li role="presentation">
+            <a href='../../page/specs/forlab_math.html'>MATH</a>
+            
+            </li>
+            
+            <li role="presentation">
+            <a href='../../page/specs/forlab_stats.html'>STATS</a>
+            
+            </li>
+            
+            </ul>
+            
+            </li>
+            
+          </ul>
+        </div>
+    </div>
+    
+  </div>
+
+    <hr>    
+    </div> <!-- /container -->
+    <footer>
+      <div class="container">
+      <div class="row">
+        <div class="col-xs-6 col-md-6"><p>forlab was developed by forlab v1.0 contributors<br>&copy; 2021 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a>
+                                          </p>
+        </div>
+        <div class="col-xs-6 col-md-6">
+          <p class="text-right">
+            Documentation generated by 
+            <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
+             on 2021-09-26 08:09  
+            
+          </p>
+        </div>
+      </div>
+      <br>
+      </div> <!-- /container -->    
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+<!--
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+-->
+    <script src="../../js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../js/ie10-viewport-bug-workaround.js"></script>
+
+    <!-- MathJax JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } },
+        jax: ['input/TeX','input/MathML','output/HTML-CSS'],
+        extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']
+      });
+    </script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    
+    <script src="../../tipuesearch/tipuesearch_content.js"></script>
+    <script src="../../tipuesearch/tipuesearch_set.js"></script>
+    <script src="../../tipuesearch/tipuesearch.js"></script>
+    
+    
+  </body>
+</html>

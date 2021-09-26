@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+   
+   <meta name="description" content="A opensource package forlab v1.0 for (modern) Fortran">
+    
+    <meta name="author" content="forlab v1.0 contributors" >
+    <link rel="icon" href="../../favicon.png">
+
+    <title>LINALG &ndash; forlab</title>
+
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/pygments.css" rel="stylesheet">
+    <link href="../../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../../css/local.css" rel="stylesheet">
+    
+    <link  href="../../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <script src="../../js/jquery-2.1.3.min.js"></script>
+    <script src="../../js/svg-pan-zoom.min.js"></script>
+
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../index.html">forlab </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+        
+            <li><a href='../../page/index.html'>Contributing and specs</a></li>
+      
+            <li class="dropdown hidden-xs visible-sm visible-md hidden-lg">
+              <a href="#" class="dropdown-toggle"
+              data-toggle="dropdown" role="button"
+              aria-haspopup="true"
+     aria-expanded="false">Contents <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          
+              
+            <li><a href="../../lists/files.html">Source Files</a></li>
+        
+        
+        
+            <li><a href="../../lists/modules.html">Modules</a></li>
+        
+            
+                                
+            <li><a href="../../lists/procedures.html">Procedures</a></li>
+        
+               
+            <li><a href="../../lists/types.html">Derived Types</a></li>
+        
+               
+        
+        
+            </ul>
+        
+            </li>
+
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../../lists/files.html">Source Files</a></li>
+
+
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../../lists/modules.html">Modules</a></li>
+
+
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../../lists/procedures.html">Procedures</a></li>
+
+                             
+<li class="visible-xs hidden-sm visible-lg"><a href="../../lists/types.html">Derived Types</a></li>
+
+
+
+
+          </ul>
+        
+        <form action="../../search.html" class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search" name="q" id="tipue_search_input" autocomplete="off" required>
+        </div>
+<!--
+        <button type="submit" class="btn btn-default">Submit</button>
+-->
+        </form>
+        
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+    
+  <div class="row">
+    <h1>LINALG</h1>
+    <div class="row">
+    <div class="col-lg-12">
+    <div class="well well-sm" style="min-height: 40px;">
+      <ul class="list-inline" style="margin-bottom:0px; display:inline">
+         
+         
+<!--
+        
+-->
+      </ul>
+        <ol class="breadcrumb in-well">
+      
+         <li><a href='../../page/index.html'>Contributing and specs</a></li>
+      
+         <li><a href='../../page/specs/index.html'>Specifications (specs)</a></li>
+      
+         <li class="active">LINALG</li>
+      </ol>
+    </div>
+    </div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-9 col-md-push-3" id='text'>
+      <h1 id="linalg">LINALG</h1>
+<div class="toc">
+<ul>
+<li><a href="#linalg">LINALG</a><ul>
+<li><a href="#diff-diff-computes-differences-of-arrays">diff - diff computes differences of arrays.</a><ul>
+<li><a href="#status">Status</a></li>
+<li><a href="#class">Class</a></li>
+<li><a href="#description">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#arguments">Arguments</a></li>
+<li><a href="#return-value">Return value</a></li>
+<li><a href="#example">Example</a></li>
+</ul>
+</li>
+<li><a href="#zerosones">zeros/ones</a><ul>
+<li><a href="#description_1">Description</a><ul>
+<li><a href="#warning">Warning</a></li>
+</ul>
+</li>
+<li><a href="#status_1">Status</a></li>
+<li><a href="#class_1">Class</a></li>
+<li><a href="#syntax_1">Syntax</a></li>
+<li><a href="#arguments_1">Arguments</a></li>
+<li><a href="#return-value_1">Return value</a><ul>
+<li><a href="#warning_1">Warning</a></li>
+</ul>
+</li>
+<li><a href="#example_1">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="diff-diff-computes-differences-of-arrays"><code>diff</code> - diff computes differences of arrays.</h2>
+<h3 id="status">Status</h3>
+<p>Experimental</p>
+<h3 id="class">Class</h3>
+<p>Pure function.</p>
+<h3 id="description">Description</h3>
+<p>y = diff(x) returns differences between adjacent elements of vector x.<br>
+y = diff(x, n) returns the nth difference by applying the diff(x) operator recursively n times.<br>
+B = diff(A) returns differences between adjacent elements of array A along the first dimension.<br>
+B = diff(A, n) returns the nth difference by applying the diff(A) operator recursively n times.<br>
+B = diff(A, dim) returns differences between adjacent elements of array A along the dimension given by dim.<br>
+B = diff(A, n, dim) returns the nth difference along the dimension given by dim by applying the diff(A, dim) operator recursively n times.</p>
+<h3 id="syntax">Syntax</h3>
+<p>For vector:<br>
+<code>result = <a href="../../module/forlab_linalg.html#interface-diff">diff</a>(x [, n])</code></p>
+<p>For matrix:<br>
+<code>result = <a href="../../module/forlab_linalg.html#interface-diff">diff</a>(A [, n, dim])</code></p>
+<h3 id="arguments">Arguments</h3>
+<p><code>x</code>: Shall be a <code>real</code> type of verctor.
+<code>A</code>: Shall be a <code>real</code> type of matrix.</p>
+<p><code>n</code> (optional): Shall be a <code>integer</code> type.
+<code>dim</code> (optional): Shall be a <code>integer</code> type.</p>
+<h3 id="return-value">Return value</h3>
+<p>Return differences between adjacent elements of vector <code>x</code> or matrix <code>A</code>.</p>
+<h3 id="example">Example</h3>
+<div class="codehilite"><pre><span></span><code><span class="k">program </span><span class="n">test_linalg_diff</span>
+    <span class="k">use </span><span class="n">forlab_linalg</span><span class="p">,</span> <span class="k">only</span><span class="p">:</span> <span class="n">diff</span>
+    <span class="k">use </span><span class="n">forlab_linalg</span><span class="p">,</span> <span class="k">only</span><span class="p">:</span> <span class="n">linspace</span>
+    <span class="k">use </span><span class="n">forlab_io</span><span class="p">,</span> <span class="k">only</span><span class="p">:</span> <span class="n">disp</span>
+
+    <span class="kt">real</span> <span class="kd">::</span> <span class="n">x</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+    <span class="k">call </span><span class="n">linspace</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">)</span>
+    <span class="k">call </span><span class="n">disp</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s2">&quot;linspace(x) : &quot;</span><span class="p">)</span>
+    <span class="k">call </span><span class="n">disp</span><span class="p">(</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="s2">&quot;test_linalg_diff : &quot;</span><span class="p">)</span>
+
+
+<span class="k">end program </span><span class="n">test_linalg_diff</span>
+</code></pre></div>
+
+<h2 id="zerosones"><code>zeros/ones</code></h2>
+<h3 id="description_1">Description</h3>
+<p><code>zeros</code> creates a rank-1 or rank-2 <code>array</code> of the given shape, filled completely with <code>0</code> <code>integer</code> type values.<br>
+<code>ones</code> creates a rank-1 or rank-2 <code>array</code> of the given shape, filled completely with <code>1</code> <code>integer</code> type values.</p>
+<h4 id="warning">Warning</h4>
+<p>It is not recommended to use the <code>zeros/ones</code> function, it is recommended to use <code>allocate(array(dim1, dim2, ..), source=0.0/1.0)</code>.</p>
+<h3 id="status_1">Status</h3>
+<p>Experimental</p>
+<h3 id="class_1">Class</h3>
+<p>Pure function.</p>
+<h3 id="syntax_1">Syntax</h3>
+<p>For rank-1 array:<br>
+<code>result = <a href="../../module/forlab_linalg.html#interface-zeros">zeros</a>(dim)</code><br>
+<code>result = <a href="../../module/forlab_linalg.html#interface-ones">ones</a>(dim)</code></p>
+<p>For rank-2 array:<br>
+<code>result = <a href="../../module/forlab_linalg.html#interface-zeros">zeros</a>(dim1, dim2)</code><br>
+<code>result = <a href="../../module/forlab_linalg.html#interface-ones">ones</a>(dim1, dim2)</code></p>
+<h3 id="arguments_1">Arguments</h3>
+<p><code>dim/dim1</code>: Shall be an <code>integer</code> type.
+This is an <code>intent(in)</code> argument.</p>
+<p><code>dim2</code>: Shall be an <code>integer</code> type.
+This is an <code>intent(in)</code> argument.</p>
+<h3 id="return-value_1">Return value</h3>
+<p>Returns a rank-1 or rank-2 <code>array</code> of the given shape, filled completely with either <code>0</code> or <code>1</code> <code>integer</code> type values.</p>
+<h4 id="warning_1">Warning</h4>
+<p>Since the result of <code>ones</code> is of <code>integer</code> type, one should be careful about using it in arithmetic expressions. For example:</p>
+<div class="codehilite"><pre><span></span><code><span class="kt">real</span> <span class="kd">::</span> <span class="n">A</span><span class="p">(:,:)</span>
+<span class="c">!&gt; Be careful</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">ones</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>     <span class="c">!! A = 1/2 = 0.0</span>
+<span class="c">!&gt; Recommend</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">ones</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span>   <span class="c">!! A = 1/2.0 = 0.5</span>
+</code></pre></div>
+
+<h3 id="example_1">Example</h3>
+<div class="codehilite"><pre><span></span><code><span class="k">program </span><span class="n">demo_linalg_zerosones</span>
+    <span class="k">use </span><span class="n">forlab_linalg</span><span class="p">,</span> <span class="k">only</span><span class="p">:</span> <span class="n">zeros</span><span class="p">,</span> <span class="n">ones</span>
+    <span class="k">use </span><span class="n">forlab_io</span><span class="p">,</span> <span class="k">only</span><span class="p">:</span> <span class="n">disp</span>
+
+    <span class="kt">real</span><span class="p">,</span> <span class="k">allocatable</span> <span class="kd">::</span> <span class="n">zero</span><span class="p">(:,</span> <span class="p">:),</span> <span class="n">one</span><span class="p">(:,</span> <span class="p">:)</span>
+    <span class="kt">real</span><span class="p">,</span> <span class="k">allocatable</span> <span class="kd">::</span> <span class="k">array</span><span class="p">(:,</span> <span class="p">:)</span>
+
+    <span class="n">zero</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">one</span>  <span class="o">=</span> <span class="n">ones</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">call </span><span class="n">disp</span><span class="p">(</span><span class="n">zero</span><span class="p">,</span> <span class="s2">&quot;zeros: &quot;</span><span class="p">)</span>
+    <span class="k">call </span><span class="n">disp</span><span class="p">(</span><span class="n">one</span> <span class="p">,</span> <span class="s2">&quot;ones : &quot;</span><span class="p">)</span>
+
+    <span class="k">call </span><span class="n">disp</span><span class="p">(</span><span class="n">ones</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;!attention: `ones(2, 2)/2` is like `1/2 == 0`&quot;</span><span class="p">)</span>
+
+    <span class="k">array</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">call </span><span class="n">disp</span><span class="p">(</span><span class="k">array</span><span class="p">,</span> <span class="s2">&quot;array with zeros: &quot;</span><span class="p">)</span>
+
+    <span class="k">array</span> <span class="o">=</span> <span class="n">ones</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">call </span><span class="n">disp</span><span class="p">(</span><span class="k">array</span><span class="p">,</span> <span class="s2">&quot;array with ones :&quot;</span><span class="p">)</span>
+
+<span class="k">end program </span><span class="n">demo_linalg_zerosones</span>
+</code></pre></div>
+    </div>
+    
+    <div class="col-md-3 col-md-pull-9">
+      <hr class="visible-xs visible-sm">
+        <div class="well toc">
+          <ul class="nav nav-stacked nav-pills">
+            <li role="presentation" class="title"><a href='../../page/index.html'>Contributing and specs</a></li>
+          </ul>
+          <hr>
+          <ul class="nav nav-stacked nav-pills">
+            
+            <li role="presentation">
+            <a href='../../page/./License.html'>Fortran forlab License (MIT)</a>
+            
+            </li>
+            
+            <li role="presentation">
+            <a href='../../page/specs/index.html'>Specifications (specs)</a>
+            
+            <ul class="nav nav-stacked nav-pills">
+              
+            <li role="presentation">
+            <a href='../../page/specs/forlab_io.html'>IO</a>
+            
+            </li>
+            
+            <li role="presentation" class="disabled">
+            <a href='../../page/specs/forlab_linalg.html'>LINALG</a>
+            
+            </li>
+            
+            <li role="presentation">
+            <a href='../../page/specs/forlab_math.html'>MATH</a>
+            
+            </li>
+            
+            <li role="presentation">
+            <a href='../../page/specs/forlab_stats.html'>STATS</a>
+            
+            </li>
+            
+            </ul>
+            
+            </li>
+            
+          </ul>
+        </div>
+    </div>
+    
+  </div>
+
+    <hr>    
+    </div> <!-- /container -->
+    <footer>
+      <div class="container">
+      <div class="row">
+        <div class="col-xs-6 col-md-6"><p>forlab was developed by forlab v1.0 contributors<br>&copy; 2021 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a>
+                                          </p>
+        </div>
+        <div class="col-xs-6 col-md-6">
+          <p class="text-right">
+            Documentation generated by 
+            <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
+             on 2021-09-26 08:09  
+            
+          </p>
+        </div>
+      </div>
+      <br>
+      </div> <!-- /container -->    
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+<!--
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+-->
+    <script src="../../js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../js/ie10-viewport-bug-workaround.js"></script>
+
+    <!-- MathJax JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } },
+        jax: ['input/TeX','input/MathML','output/HTML-CSS'],
+        extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']
+      });
+    </script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    
+    <script src="../../tipuesearch/tipuesearch_content.js"></script>
+    <script src="../../tipuesearch/tipuesearch_set.js"></script>
+    <script src="../../tipuesearch/tipuesearch.js"></script>
+    
+    
+  </body>
+</html>

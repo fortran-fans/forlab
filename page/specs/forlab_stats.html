@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+   
+   <meta name="description" content="A opensource package forlab v1.0 for (modern) Fortran">
+    
+    <meta name="author" content="forlab v1.0 contributors" >
+    <link rel="icon" href="../../favicon.png">
+
+    <title>STATS &ndash; forlab</title>
+
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/pygments.css" rel="stylesheet">
+    <link href="../../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../../css/local.css" rel="stylesheet">
+    
+    <link  href="../../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <script src="../../js/jquery-2.1.3.min.js"></script>
+    <script src="../../js/svg-pan-zoom.min.js"></script>
+
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../index.html">forlab </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+        
+            <li><a href='../../page/index.html'>Contributing and specs</a></li>
+      
+            <li class="dropdown hidden-xs visible-sm visible-md hidden-lg">
+              <a href="#" class="dropdown-toggle"
+              data-toggle="dropdown" role="button"
+              aria-haspopup="true"
+     aria-expanded="false">Contents <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          
+              
+            <li><a href="../../lists/files.html">Source Files</a></li>
+        
+        
+        
+            <li><a href="../../lists/modules.html">Modules</a></li>
+        
+            
+                                
+            <li><a href="../../lists/procedures.html">Procedures</a></li>
+        
+               
+            <li><a href="../../lists/types.html">Derived Types</a></li>
+        
+               
+        
+        
+            </ul>
+        
+            </li>
+
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../../lists/files.html">Source Files</a></li>
+
+
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../../lists/modules.html">Modules</a></li>
+
+
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../../lists/procedures.html">Procedures</a></li>
+
+                             
+<li class="visible-xs hidden-sm visible-lg"><a href="../../lists/types.html">Derived Types</a></li>
+
+
+
+
+          </ul>
+        
+        <form action="../../search.html" class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search" name="q" id="tipue_search_input" autocomplete="off" required>
+        </div>
+<!--
+        <button type="submit" class="btn btn-default">Submit</button>
+-->
+        </form>
+        
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+    
+  <div class="row">
+    <h1>STATS</h1>
+    <div class="row">
+    <div class="col-lg-12">
+    <div class="well well-sm" style="min-height: 40px;">
+      <ul class="list-inline" style="margin-bottom:0px; display:inline">
+         
+         
+<!--
+        
+-->
+      </ul>
+        <ol class="breadcrumb in-well">
+      
+         <li><a href='../../page/index.html'>Contributing and specs</a></li>
+      
+         <li><a href='../../page/specs/index.html'>Specifications (specs)</a></li>
+      
+         <li class="active">STATS</li>
+      </ol>
+    </div>
+    </div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-9 col-md-push-3" id='text'>
+      <h1 id="stats">STATS</h1>
+<h2 id="notes">Notes</h2>
+<p>In daily use, vectors and matrices are more practical than higher-order arrays, 
+and Fortran does not support array generics, we can use <code>reshape</code> to reshape vectors into higher-order arrays.</p>
+<div class="codehilite"><pre><span></span><code><span class="kt">real</span> <span class="kd">::</span> <span class="n">x</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="nb">reshape</span><span class="p">(</span><span class="n">randn</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">std</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">ndim</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="mi">3</span><span class="o">*</span><span class="mi">4</span><span class="p">),</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+</code></pre></div>
+
+<div class="toc">
+<ul>
+<li><a href="#stats">STATS</a><ul>
+<li><a href="#notes">Notes</a><ul>
+<li><a href="#randu">randu</a><ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#status">Status</a></li>
+<li><a href="#class">Class</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#arguments">Arguments</a></li>
+<li><a href="#result-value">Result value</a></li>
+<li><a href="#example">Example</a></li>
+</ul>
+</li>
+<li><a href="#randn">randn</a><ul>
+<li><a href="#description_1">Description</a></li>
+<li><a href="#status_1">Status</a></li>
+<li><a href="#class_1">Class</a></li>
+<li><a href="#syntax_1">Syntax</a></li>
+<li><a href="#arguments_1">Arguments</a></li>
+<li><a href="#result-value_1">Result value</a></li>
+<li><a href="#example_1">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h3 id="randu"><code>randu</code></h3>
+<h4 id="description">Description</h4>
+<p>Generate an uniformly distributed data scalar or vector.</p>
+<h4 id="status">Status</h4>
+<p>Experimental.</p>
+<h4 id="class">Class</h4>
+<p>Impure function.</p>
+<h4 id="syntax">Syntax</h4>
+<p><code>random = <a href="../../module/forlab_stats.html#interface-randu">randu</a>(start, end [, ndim])</code></p>
+<h4 id="arguments">Arguments</h4>
+<p><code>random/start/end</code> should keep the same type and kind.</p>
+<p><code>start</code>: Shall be an <code>integer/real</code> scalar.
+This argument is <code>intenet(in)</code>.</p>
+<p><code>end</code>: Shall be an <code>integer/real</code> scalar.
+This argument is <code>inetent(in)</code>.</p>
+<p><code>ndim</code>: Shall be an <code>integer</code> scalar.
+This argument is <code>intent(in)</code> and <code>optional</code>.</p>
+<h4 id="result-value">Result value</h4>
+<p>Returns an <code>integer/real</code> scalar or rank-1 array.</p>
+<h4 id="example">Example</h4>
+<div class="codehilite"><pre><span></span><code><span class="k">program </span><span class="n">demo_stats_randu</span>
+
+    <span class="k">use </span><span class="n">forlab_stats</span><span class="p">,</span> <span class="k">only</span><span class="p">:</span> <span class="n">randu</span>
+
+    <span class="k">print</span> <span class="o">*</span><span class="p">,</span> <span class="s2">&quot;running `demo_stats_randu`..&quot;</span>
+
+    <span class="k">print</span> <span class="o">*</span><span class="p">,</span> <span class="n">randu</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="k">end</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">print</span> <span class="o">*</span><span class="p">,</span> <span class="n">randu</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="k">end</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">ndim</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">print</span> <span class="o">*</span><span class="p">,</span> <span class="nb">reshape</span><span class="p">(</span><span class="n">randu</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="mi">2</span><span class="p">),</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+
+    <span class="c">!&gt; Possible output:</span>
+
+    <span class="c">!! 2</span>
+    <span class="c">!! 1.65676987       1.11625218       1.03502560</span>
+    <span class="c">!! 1.74973476       1.82997108       1.77998054       1.14384007</span>
+
+<span class="k">end program </span><span class="n">demo_stats_randu</span>
+</code></pre></div>
+
+<h3 id="randn"><code>randn</code></h3>
+<h4 id="description_1">Description</h4>
+<p>Generate a normal distributed data scalar or vector.</p>
+<h4 id="status_1">Status</h4>
+<p>Experimental.</p>
+<h4 id="class_1">Class</h4>
+<p>Impure function.</p>
+<h4 id="syntax_1">Syntax</h4>
+<p><code>random = <a href="../../module/forlab_stats.html#interface-randn">randn</a>(mean, std [, ndim])</code></p>
+<h4 id="arguments_1">Arguments</h4>
+<p><code>random/mean/std</code> should keep the same type and kind.</p>
+<p><code>mean</code>: Shall be an <code>integer/real</code> scalar.
+This argument is <code>intenet(in)</code>.</p>
+<p><code>std</code>: Shall be an <code>integer/real</code> scalar.
+This argument is <code>inetent(in)</code>.</p>
+<p><code>ndim</code>: Shall be an <code>integer</code> scalar.
+This argument is <code>intent(in)</code> and <code>optional</code>.</p>
+<h4 id="result-value_1">Result value</h4>
+<p>Returns an <code>integer/real</code> scalar or rank-1 array.</p>
+<h4 id="example_1">Example</h4>
+<div class="codehilite"><pre><span></span><code><span class="k">program </span><span class="n">demo_stats_randn</span>
+
+    <span class="k">use </span><span class="n">forlab_stats</span><span class="p">,</span> <span class="k">only</span><span class="p">:</span> <span class="n">randn</span>
+
+    <span class="k">print</span> <span class="o">*</span><span class="p">,</span> <span class="s2">&quot;running `demo_stats_randn`..&quot;</span>
+
+    <span class="k">print</span> <span class="o">*</span><span class="p">,</span> <span class="n">randn</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">std</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span>
+    <span class="k">print</span> <span class="o">*</span><span class="p">,</span> <span class="n">randn</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">std</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">ndim</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">print</span> <span class="o">*</span><span class="p">,</span> <span class="nb">reshape</span><span class="p">(</span><span class="n">randn</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="mi">2</span><span class="p">),</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+
+    <span class="c">!&gt; Chi-square distribution of 3 degrees of freedom</span>
+    <span class="k">print</span> <span class="o">*</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="n">randn</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">std</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">ndim</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">print</span> <span class="o">*</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">reshape</span><span class="p">(</span><span class="n">randn</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">std</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">ndim</span><span class="o">=</span><span class="mi">5</span><span class="o">*</span><span class="mi">3</span><span class="p">),</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="nb">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="c">!&gt; Possible output:</span>
+
+    <span class="c">!! -0.387298465    </span>
+    <span class="c">!! -1.37615824     -0.529266298       5.43095016</span>
+    <span class="c">!! -1.35311902       1.81701779      0.772518456     -0.269844353</span>
+
+    <span class="c">!! 9.45483303</span>
+    <span class="c">!! 0.962645471      0.698421597      0.687875450       4.75956964       1.71025097</span>
+
+<span class="k">end program </span><span class="n">demo_stats_randn</span>
+</code></pre></div>
+    </div>
+    
+    <div class="col-md-3 col-md-pull-9">
+      <hr class="visible-xs visible-sm">
+        <div class="well toc">
+          <ul class="nav nav-stacked nav-pills">
+            <li role="presentation" class="title"><a href='../../page/index.html'>Contributing and specs</a></li>
+          </ul>
+          <hr>
+          <ul class="nav nav-stacked nav-pills">
+            
+            <li role="presentation">
+            <a href='../../page/./License.html'>Fortran forlab License (MIT)</a>
+            
+            </li>
+            
+            <li role="presentation">
+            <a href='../../page/specs/index.html'>Specifications (specs)</a>
+            
+            <ul class="nav nav-stacked nav-pills">
+              
+            <li role="presentation">
+            <a href='../../page/specs/forlab_io.html'>IO</a>
+            
+            </li>
+            
+            <li role="presentation">
+            <a href='../../page/specs/forlab_linalg.html'>LINALG</a>
+            
+            </li>
+            
+            <li role="presentation">
+            <a href='../../page/specs/forlab_math.html'>MATH</a>
+            
+            </li>
+            
+            <li role="presentation" class="disabled">
+            <a href='../../page/specs/forlab_stats.html'>STATS</a>
+            
+            </li>
+            
+            </ul>
+            
+            </li>
+            
+          </ul>
+        </div>
+    </div>
+    
+  </div>
+
+    <hr>    
+    </div> <!-- /container -->
+    <footer>
+      <div class="container">
+      <div class="row">
+        <div class="col-xs-6 col-md-6"><p>forlab was developed by forlab v1.0 contributors<br>&copy; 2021 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a>
+                                          </p>
+        </div>
+        <div class="col-xs-6 col-md-6">
+          <p class="text-right">
+            Documentation generated by 
+            <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
+             on 2021-09-26 08:09  
+            
+          </p>
+        </div>
+      </div>
+      <br>
+      </div> <!-- /container -->    
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+<!--
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+-->
+    <script src="../../js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../js/ie10-viewport-bug-workaround.js"></script>
+
+    <!-- MathJax JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } },
+        jax: ['input/TeX','input/MathML','output/HTML-CSS'],
+        extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']
+      });
+    </script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    
+    <script src="../../tipuesearch/tipuesearch_content.js"></script>
+    <script src="../../tipuesearch/tipuesearch_set.js"></script>
+    <script src="../../tipuesearch/tipuesearch.js"></script>
+    
+    
+  </body>
+</html>
