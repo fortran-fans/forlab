@@ -1,0 +1,43 @@
+#:include 'common.fypp'
+submodule(forlab_stats) forlab_stats_randn
+
+    implicit none
+
+contains
+
+    #! intrinsic 'random_number' is not PURE
+    #:for k1, t1 in REAL_KINDS_TYPES
+    module function randn_0_${k1}$(mean, std) result(random)
+        ${t1}$, intent(in) :: mean, std
+        ${t1}$ :: random
+
+        real(${k1}$) :: u, v, s
+
+        do
+            call random_number(u)
+            call random_number(v)
+            u = 2._${k1}$*u - 1._${k1}$
+            v = 2._${k1}$*v - 1._${k1}$
+            s = u*u + v*v
+            if ((s > 0._${k1}$) .and. (s < 1._${k1}$)) exit
+        end do
+
+        random = mean + u*sqrt(-2.0_${k1}$*log(s)/s)*std
+
+    end function randn_0_${k1}$
+
+    module function randn_1_${k1}$(mean, std, ndim) result(random)
+        ${t1}$, intent(in) :: mean, std
+        integer, intent(in) :: ndim
+        ${t1}$ :: random(ndim)
+
+        integer :: i
+
+        do i = 1, ndim
+            random(i) = randn_0_${k1}$(mean, std)
+        end do
+
+    end function randn_1_${k1}$
+    #:endfor
+
+end submodule forlab_stats_randn

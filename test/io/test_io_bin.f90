@@ -5,7 +5,7 @@ program test_io_bin
     real(8), allocatable :: y(:)
     call rng()
     allocate(X(5))
-    call randn(X)
+    X = randn(mean=0.0_8, std=1.0_8, ndim=5)
     call disp(x,'call randn(X):')
     call savebin('DP.bin', x)
     call savetxt('DP.txt', x)

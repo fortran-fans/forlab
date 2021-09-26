@@ -2,23 +2,12 @@
 
 module forlab_stats
 
-    use stdlib_kinds, only: sp, dp, qp, &
-        int8, int16, int32, int64
+    use stdlib_kinds, only: sp, dp, qp, int8, int16, int32, int64
     implicit none
     private
 
     public :: mean, var, std
-    public :: rng, randu, randn, chi2rand
-
-    interface chi2rand
-        #:for k1, t1 in REAL_KINDS_TYPES 
-        impure elemental module subroutine chi2rand_${k1}$(X, v)
-            implicit none
-            ${t1}$, intent(out) :: X
-            integer, intent(in) :: v
-        end subroutine
-        #:endfor
-    end interface chi2rand
+    public :: rng, randu, randn
 
     interface mean
         !! mean computes the mean value of an array.
@@ -35,22 +24,40 @@ module forlab_stats
         #:endfor
     end interface mean
 
+    !> Version: Experimental
+    !>
+    !> Generate a normal distributed data scalar or vector.
+    !> ([Specification](../page/specs/forlab_stats.html#randn))
     interface randn
         #:for k1, t1 in REAL_KINDS_TYPES
-        impure elemental module subroutine randn_${k1}$(X, mean, std)
-            ${t1}$, intent(out) :: X
-            ${t1}$, optional, intent(in) :: mean, std
-        end subroutine randn_${k1}$
+        module function randn_0_${k1}$(mean, std) result(random)
+            ${t1}$, intent(in) :: mean, std
+            ${t1}$ :: random
+        end function randn_0_${k1}$
+        module function randn_1_${k1}$(mean, std, ndim) result(random)
+            ${t1}$, intent(in) :: mean, std
+            integer, intent(in) :: ndim
+            ${t1}$ :: random(ndim)
+        end function randn_1_${k1}$
         #:endfor
     end interface randn
 
+    !> Version: Experimental
+    !>
+    !> Generate an uniformly distributed data scalar or vector.
+    !> ([Specification](../page/specs/forlab_stats.html#randomrandu))
     interface randu
         #:set RI_KINDS_TYPES = REAL_KINDS_TYPES + INT_KINDS_TYPES
         #:for k1, t1 in RI_KINDS_TYPES
-        impure elemental module subroutine randu_${t1[0]}$${k1}$(X, from, to)
-            ${t1}$, intent(out) :: X
-            ${t1}$, optional, intent(in) :: from, to 
-        end subroutine randu_${t1[0]}$${k1}$
+        module function randu_0_${t1[0]}$${k1}$(start, end) result(random)
+            ${t1}$, intent(in) :: start, end
+            ${t1}$ :: random
+        end function randu_0_${t1[0]}$${k1}$
+        module function randu_1_${t1[0]}$${k1}$(start, end, ndim) result(random)
+            ${t1}$, intent(in) :: start, end
+            integer, intent(in) :: ndim
+            ${t1}$ :: random(ndim)
+        end function randu_1_${t1[0]}$${k1}$
         #:endfor
     end interface randu
 

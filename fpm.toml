@@ -10,7 +10,7 @@ keywords = ["numerical", "easy-to-use"]
 
 [build]
 auto-executables = false
-auto-examples = false
+auto-examples = true
 auto-tests = false
 
 [dependencies]
@@ -89,9 +89,9 @@ main = "test_math_signum.f90"
 
 ## [stats] tests
 [[test]]
-name = "stats_rand"
+name = "stats"
 source-dir = "test/stats"
-main = "test_stats_rand.f90"
+main = "stats_checker.f90"
 [[test]]
 name = "stats_var"
 source-dir = "test/stats"
@@ -109,37 +109,3 @@ name = "time_tioc"
 source-dir = "test/time"
 main = "test_time_tioc.f90"
 
-# Examples
-## forlab_io demos
-[[example]]
-name = "io_color"
-source-dir = "example/io"
-main = "demo_io_color.f90"
-[[example]]
-name = "io_disp"
-source-dir = "example/io"
-main = "demo_io_disp.f90"
-
-## forlab_linalg demos
-[[example]]
-name = "linalg_zerosones"
-source-dir = "example/linalg"
-main = "demo_linalg_zerosones.f90"
-[[example]]
-name = "allocation"
-source-dir = "example/linalg"
-main = "demo_allocation.f90"
-
-## forlab_math demos
-[[example]]
-name = "math_is_close"
-source-dir = "example/math"
-main = "demo_math_is_close.f90"
-[[example]]
-name = "math_arange"
-source-dir = "example/math"
-main = "demo_math_arange.f90"
-[[example]]
-name = "math_signum"
-source-dir = "example/math"
-main = "demo_math_signum.f90"

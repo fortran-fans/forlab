@@ -4676,7 +4676,7 @@ contains
         allocate(a(n))
         call seq(a, 1, n)
         do i = n, n - k_ + 1, -1
-            call randu(j,1,i)
+            j = randu(1, i)
             tmp = a(i)
             a(i) = a(j)
             a(j) = tmp
