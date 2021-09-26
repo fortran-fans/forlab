@@ -10,7 +10,7 @@ program test_time_tioc
     call disp('----------------------------')
     call tic()
     allocate(x(1000))
-    call randn(x)
+    x = randn(mean=0.0, std=1.0, ndim=1000)
     call disp(size(x), 'x size:')
 
     call toc()

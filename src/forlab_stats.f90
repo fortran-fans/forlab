@@ -1,31 +1,12 @@
 
 module forlab_stats
 
-    use stdlib_kinds, only: sp, dp, qp, &
-        int8, int16, int32, int64
+    use stdlib_kinds, only: sp, dp, qp, int8, int16, int32, int64
     implicit none
     private
 
     public :: mean, var, std
-    public :: rng, randu, randn, chi2rand
-
-    interface chi2rand
-        impure elemental module subroutine chi2rand_sp(X, v)
-            implicit none
-            real(sp), intent(out) :: X
-            integer, intent(in) :: v
-        end subroutine
-        impure elemental module subroutine chi2rand_dp(X, v)
-            implicit none
-            real(dp), intent(out) :: X
-            integer, intent(in) :: v
-        end subroutine
-        impure elemental module subroutine chi2rand_qp(X, v)
-            implicit none
-            real(qp), intent(out) :: X
-            integer, intent(in) :: v
-        end subroutine
-    end interface chi2rand
+    public :: rng, randu, randn
 
     interface mean
         !! mean computes the mean value of an array.
@@ -58,50 +39,108 @@ module forlab_stats
         end function mean_2_qp
     end interface mean
 
+    !> Version: Experimental
+    !>
+    !> Generate a normal distributed data vector.
+    !> ([Specification](../page/specs/forlab_stats.html#randn))
     interface randn
-        impure elemental module subroutine randn_sp(X, mean, std)
-            real(sp), intent(out) :: X
-            real(sp), optional, intent(in) :: mean, std
-        end subroutine randn_sp
-        impure elemental module subroutine randn_dp(X, mean, std)
-            real(dp), intent(out) :: X
-            real(dp), optional, intent(in) :: mean, std
-        end subroutine randn_dp
-        impure elemental module subroutine randn_qp(X, mean, std)
-            real(qp), intent(out) :: X
-            real(qp), optional, intent(in) :: mean, std
-        end subroutine randn_qp
+        module function randn_0_sp(mean, std) result(random)
+            real(sp), intent(in) :: mean, std
+            real(sp) :: random
+        end function randn_0_sp
+        module function randn_1_sp(mean, std, ndim) result(random)
+            real(sp), intent(in) :: mean, std
+            integer, intent(in) :: ndim
+            real(sp) :: random(ndim)
+        end function randn_1_sp
+        module function randn_0_dp(mean, std) result(random)
+            real(dp), intent(in) :: mean, std
+            real(dp) :: random
+        end function randn_0_dp
+        module function randn_1_dp(mean, std, ndim) result(random)
+            real(dp), intent(in) :: mean, std
+            integer, intent(in) :: ndim
+            real(dp) :: random(ndim)
+        end function randn_1_dp
+        module function randn_0_qp(mean, std) result(random)
+            real(qp), intent(in) :: mean, std
+            real(qp) :: random
+        end function randn_0_qp
+        module function randn_1_qp(mean, std, ndim) result(random)
+            real(qp), intent(in) :: mean, std
+            integer, intent(in) :: ndim
+            real(qp) :: random(ndim)
+        end function randn_1_qp
     end interface randn
 
+    !> Version: Experimental
+    !>
+    !> Generate an uniformly distributed data vector.
+    !> ([Specification](../page/specs/forlab_stats.html#randomrandu))
     interface randu
-        impure elemental module subroutine randu_rsp(X, from, to)
-            real(sp), intent(out) :: X
-            real(sp), optional, intent(in) :: from, to 
-        end subroutine randu_rsp
-        impure elemental module subroutine randu_rdp(X, from, to)
-            real(dp), intent(out) :: X
-            real(dp), optional, intent(in) :: from, to 
-        end subroutine randu_rdp
-        impure elemental module subroutine randu_rqp(X, from, to)
-            real(qp), intent(out) :: X
-            real(qp), optional, intent(in) :: from, to 
-        end subroutine randu_rqp
-        impure elemental module subroutine randu_iint8(X, from, to)
-            integer(int8), intent(out) :: X
-            integer(int8), optional, intent(in) :: from, to 
-        end subroutine randu_iint8
-        impure elemental module subroutine randu_iint16(X, from, to)
-            integer(int16), intent(out) :: X
-            integer(int16), optional, intent(in) :: from, to 
-        end subroutine randu_iint16
-        impure elemental module subroutine randu_iint32(X, from, to)
-            integer(int32), intent(out) :: X
-            integer(int32), optional, intent(in) :: from, to 
-        end subroutine randu_iint32
-        impure elemental module subroutine randu_iint64(X, from, to)
-            integer(int64), intent(out) :: X
-            integer(int64), optional, intent(in) :: from, to 
-        end subroutine randu_iint64
+        module function randu_0_rsp(start, end) result(random)
+            real(sp), intent(in) :: start, end
+            real(sp) :: random
+        end function randu_0_rsp
+        module function randu_1_rsp(start, end, ndim) result(random)
+            real(sp), intent(in) :: start, end
+            integer, intent(in) :: ndim
+            real(sp) :: random(ndim)
+        end function randu_1_rsp
+        module function randu_0_rdp(start, end) result(random)
+            real(dp), intent(in) :: start, end
+            real(dp) :: random
+        end function randu_0_rdp
+        module function randu_1_rdp(start, end, ndim) result(random)
+            real(dp), intent(in) :: start, end
+            integer, intent(in) :: ndim
+            real(dp) :: random(ndim)
+        end function randu_1_rdp
+        module function randu_0_rqp(start, end) result(random)
+            real(qp), intent(in) :: start, end
+            real(qp) :: random
+        end function randu_0_rqp
+        module function randu_1_rqp(start, end, ndim) result(random)
+            real(qp), intent(in) :: start, end
+            integer, intent(in) :: ndim
+            real(qp) :: random(ndim)
+        end function randu_1_rqp
+        module function randu_0_iint8(start, end) result(random)
+            integer(int8), intent(in) :: start, end
+            integer(int8) :: random
+        end function randu_0_iint8
+        module function randu_1_iint8(start, end, ndim) result(random)
+            integer(int8), intent(in) :: start, end
+            integer, intent(in) :: ndim
+            integer(int8) :: random(ndim)
+        end function randu_1_iint8
+        module function randu_0_iint16(start, end) result(random)
+            integer(int16), intent(in) :: start, end
+            integer(int16) :: random
+        end function randu_0_iint16
+        module function randu_1_iint16(start, end, ndim) result(random)
+            integer(int16), intent(in) :: start, end
+            integer, intent(in) :: ndim
+            integer(int16) :: random(ndim)
+        end function randu_1_iint16
+        module function randu_0_iint32(start, end) result(random)
+            integer(int32), intent(in) :: start, end
+            integer(int32) :: random
+        end function randu_0_iint32
+        module function randu_1_iint32(start, end, ndim) result(random)
+            integer(int32), intent(in) :: start, end
+            integer, intent(in) :: ndim
+            integer(int32) :: random(ndim)
+        end function randu_1_iint32
+        module function randu_0_iint64(start, end) result(random)
+            integer(int64), intent(in) :: start, end
+            integer(int64) :: random
+        end function randu_0_iint64
+        module function randu_1_iint64(start, end, ndim) result(random)
+            integer(int64), intent(in) :: start, end
+            integer, intent(in) :: ndim
+            integer(int64) :: random(ndim)
+        end function randu_1_iint64
     end interface randu
 
     interface

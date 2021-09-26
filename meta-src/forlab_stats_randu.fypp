@@ -1,0 +1,55 @@
+#:include 'common.fypp'
+submodule(forlab_stats) forlab_stats_randu
+
+    implicit none
+
+contains
+
+    #! intrinsic 'random_number' is not PURE
+    #:for k1, t1 in REAL_KINDS_TYPES
+    module function randu_0_${t1[0]}$${k1}$(start, end) result(random)
+        ${t1}$, intent(in) :: start, end
+        ${t1}$ :: random
+
+        call random_number(random)
+        random = start + random*(end - start)
+
+    end function randu_0_${t1[0]}$${k1}$
+
+    module function randu_1_${t1[0]}$${k1}$(start, end, ndim) result(random)
+        ${t1}$, intent(in) :: start, end
+        integer, intent(in) :: ndim
+        ${t1}$ :: random(ndim)
+
+        call random_number(random)
+        random = start + random*(end - start)
+
+    end function randu_1_${t1[0]}$${k1}$
+    #:endfor
+
+    #:for k1, t1 in INT_KINDS_TYPES
+    module function randu_0_${t1[0]}$${k1}$(start, end) result(random)
+        ${t1}$, intent(in) :: start, end
+        ${t1}$ :: random
+
+        real :: tmp
+
+        call random_number(tmp)
+        random = start + nint(tmp*real(end - start))
+
+    end function randu_0_${t1[0]}$${k1}$
+
+    module function randu_1_${t1[0]}$${k1}$(start, end, ndim) result(random)
+        ${t1}$, intent(in) :: start, end
+        integer, intent(in) :: ndim
+        ${t1}$ :: random(ndim)
+
+        real :: tmp(ndim)
+
+        call random_number(tmp)
+        random = start + nint(tmp*real(end - start))
+
+    end function randu_1_${t1[0]}$${k1}$
+    #:endfor
+
+end submodule forlab_stats_randu
