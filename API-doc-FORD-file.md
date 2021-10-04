@@ -24,6 +24,7 @@ project_download: https://github.com/fortran-fans/forlab
 favicon: doc/media/favicon.png
 license: by-sa
 author: FORLAB v1.0 contributors
+author_pic: doc/media/Fortran-Fans.png
 author_email: zuo.zhihua@qq.com
 github: https://github.com/fortran-fans
 dbg: true
