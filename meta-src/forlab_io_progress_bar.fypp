@@ -1,0 +1,52 @@
+#:include "common.fypp"
+
+submodule (forlab_io) forlab_io_progress_bar
+    
+    implicit none
+    
+contains
+
+    #:for k1, t1 in INT_KINDS_TYPES
+    module subroutine progress_bar_${k1}$(iter, itermax, step, symbol)
+    
+        ${t1}$, intent(in) :: iter, itermax
+        ${t1}$, intent(in), optional :: step
+        character(*), intent(in), optional :: symbol
+         
+        ${t1}$ :: step_, i, percentage
+        character(:), allocatable :: symbol_, bar
+        
+        step_   = optval(step, 50_${k1}$)
+        symbol_ = optval(symbol, "=")
+        
+        #! Initialize the bar
+        bar = "  ["
+        do i = 1_${k1}$, step_
+            bar = bar//" "
+        end do
+        bar = bar//"]"
+        
+        #! Compute the percentage
+        percentage = real(iter)/real(itermax)*100.0
+        
+        #! Fill the bar
+        do i = 1_${k1}$, floor(percentage/(100.0/step_), ${k1}$)
+            bar(3_${k1}$+i:3_${k1}$+i) = symbol_
+        end do
+        
+        #! Place the percentage
+        i = ceiling((step_ + 2_${k1}$)/2.0, ${k1}$)
+        write(bar(i+1_${k1}$:i+3_${k1}$), "(i3)") percentage
+        bar(i+4_${k1}$:i+4_${k1}$) = "%"
+        
+        #! Fill the space
+        if (percentage < 100_${k1}$ .and. percentage > 50_${k1}$ - 100_${k1}$/step_) &
+            bar(i+1_${k1}$:i+1_${k1}$) = symbol_
+            
+        #! Return to the beginning of the line and display the bar
+        write(*, "(a1, A)", advance="no") achar(13), bar
+        
+    end subroutine progress_bar_${k1}$
+    #:endfor
+    
+end submodule forlab_io_progress_bar

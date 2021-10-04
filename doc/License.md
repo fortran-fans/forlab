@@ -1,5 +1,5 @@
 ---
-title: Fortran forlab License (MIT)
+title: Fortran FORLAB License (MIT)
 ---
 
 {!LICENSE!}

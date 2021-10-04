@@ -1,0 +1,25 @@
+#:include "common.fypp"
+
+submodule (forlab_io) forlab_io_progress_perc
+
+    implicit none
+    
+contains
+
+    #:for k1, t1 in INT_KINDS_TYPES
+    module subroutine progress_perc_${k1}$(iter, itermax, prefix)
+        
+        ${t1}$, intent(in) :: iter, itermax
+        character(*), intent(in), optional :: prefix
+        
+        real(sp) :: percentage
+        character(:), allocatable :: prefix_
+        
+        prefix_    = optval(prefix, "")
+        percentage = real(iter, sp)/real(itermax, sp)*100.0_sp
+        write(*,"(a1,A,f6.2,A)",advance="no") achar(13), prefix_, percentage, "%"
+        
+    end subroutine progress_perc_${k1}$
+    #:endfor
+    
+end submodule forlab_io_progress_perc
