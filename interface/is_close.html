@@ -225,8 +225,8 @@
     
     <div class="col-md-9" id='text'>
       <h2>public interface is_close</h2>
-   <p>Determines whether the values of <code>a</code> and <code>b</code> are close.
-(<a href="../page/specs/forlab_logic.html#is_close">Specification</a>)</p>
+   <p>Returns a boolean scalar/array where two scalar/arrays are element-wise equal within a tolerance.
+(<a href="../page/specs/forlab_math.html#is_close">Specification</a>)</p>
      
      
     <br>
@@ -288,7 +288,7 @@
     
   <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-is_close_cdp"></span><h3>
-private elemental module function is_close_cdp(a, b, rtol, atol) result(result)
+private elemental module function is_close_cdp(a, b, rel_tol, abs_tol) result(close)
     
     
    
@@ -351,7 +351,7 @@ private elemental module function is_close_cdp(a, b, rtol, atol) result(result)
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>rtol</strong></td><td></td>
+  <td><strong>rel_tol</strong></td><td></td>
   
 </tr>
 
@@ -366,7 +366,7 @@ private elemental module function is_close_cdp(a, b, rtol, atol) result(result)
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>atol</strong></td><td></td>
+  <td><strong>abs_tol</strong></td><td></td>
   
 </tr>
 
@@ -393,7 +393,7 @@ private elemental module function is_close_cdp(a, b, rtol, atol) result(result)
     
   <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-is_close_cqp"></span><h3>
-private elemental module function is_close_cqp(a, b, rtol, atol) result(result)
+private elemental module function is_close_cqp(a, b, rel_tol, abs_tol) result(close)
     
     
    
@@ -456,7 +456,7 @@ private elemental module function is_close_cqp(a, b, rtol, atol) result(result)
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>rtol</strong></td><td></td>
+  <td><strong>rel_tol</strong></td><td></td>
   
 </tr>
 
@@ -471,7 +471,7 @@ private elemental module function is_close_cqp(a, b, rtol, atol) result(result)
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>atol</strong></td><td></td>
+  <td><strong>abs_tol</strong></td><td></td>
   
 </tr>
 
@@ -498,7 +498,7 @@ private elemental module function is_close_cqp(a, b, rtol, atol) result(result)
     
   <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-is_close_csp"></span><h3>
-private elemental module function is_close_csp(a, b, rtol, atol) result(result)
+private elemental module function is_close_csp(a, b, rel_tol, abs_tol) result(close)
     
     
    
@@ -561,7 +561,7 @@ private elemental module function is_close_csp(a, b, rtol, atol) result(result)
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>rtol</strong></td><td></td>
+  <td><strong>rel_tol</strong></td><td></td>
   
 </tr>
 
@@ -576,7 +576,7 @@ private elemental module function is_close_csp(a, b, rtol, atol) result(result)
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>atol</strong></td><td></td>
+  <td><strong>abs_tol</strong></td><td></td>
   
 </tr>
 
@@ -603,7 +603,7 @@ private elemental module function is_close_csp(a, b, rtol, atol) result(result)
     
   <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-is_close_rdp"></span><h3>
-private elemental module function is_close_rdp(a, b, rtol, atol) result(result)
+private elemental module function is_close_rdp(a, b, rel_tol, abs_tol) result(close)
     
     
    
@@ -666,7 +666,7 @@ private elemental module function is_close_rdp(a, b, rtol, atol) result(result)
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>rtol</strong></td><td></td>
+  <td><strong>rel_tol</strong></td><td></td>
   
 </tr>
 
@@ -681,7 +681,7 @@ private elemental module function is_close_rdp(a, b, rtol, atol) result(result)
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>atol</strong></td><td></td>
+  <td><strong>abs_tol</strong></td><td></td>
   
 </tr>
 
@@ -708,7 +708,7 @@ private elemental module function is_close_rdp(a, b, rtol, atol) result(result)
     
   <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-is_close_rqp"></span><h3>
-private elemental module function is_close_rqp(a, b, rtol, atol) result(result)
+private elemental module function is_close_rqp(a, b, rel_tol, abs_tol) result(close)
     
     
    
@@ -771,7 +771,7 @@ private elemental module function is_close_rqp(a, b, rtol, atol) result(result)
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>rtol</strong></td><td></td>
+  <td><strong>rel_tol</strong></td><td></td>
   
 </tr>
 
@@ -786,7 +786,7 @@ private elemental module function is_close_rqp(a, b, rtol, atol) result(result)
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>atol</strong></td><td></td>
+  <td><strong>abs_tol</strong></td><td></td>
   
 </tr>
 
@@ -813,7 +813,7 @@ private elemental module function is_close_rqp(a, b, rtol, atol) result(result)
     
   <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-is_close_rsp"></span><h3>
-private elemental module function is_close_rsp(a, b, rtol, atol) result(result)
+private elemental module function is_close_rsp(a, b, rel_tol, abs_tol) result(close)
     
     
    
@@ -876,7 +876,7 @@ private elemental module function is_close_rsp(a, b, rtol, atol) result(result)
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>rtol</strong></td><td></td>
+  <td><strong>rel_tol</strong></td><td></td>
   
 </tr>
 
@@ -891,7 +891,7 @@ private elemental module function is_close_rsp(a, b, rtol, atol) result(result)
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>atol</strong></td><td></td>
+  <td><strong>abs_tol</strong></td><td></td>
   
 </tr>
 
@@ -937,7 +937,7 @@ private elemental module function is_close_rsp(a, b, rtol, atol) result(result)
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
-             on 2021-10-04 07:22  
+             on 2021-10-04 07:58  
             
           </p>
         </div>

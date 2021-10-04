@@ -10,7 +10,7 @@
     <meta name="author" content="FORLAB v1.0 contributors" >
     <link rel="icon" href="../favicon.png">
 
-    <title>arange &ndash; FORLAB</title>
+    <title>all_close &ndash; FORLAB</title>
 
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/pygments.css" rel="stylesheet">
@@ -115,7 +115,7 @@
     
   
   <div class="row">
-    <h1>arange
+    <h1>all_close
    <small>Interface</small>
     
     </h1>
@@ -138,7 +138,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title="<p> 1.7% of total for procedures.</p>Including implementation: 37 statements,  1.7% of total for procedures.">37 statements</a>
+    title="<p> 1.2% of total for procedures.</p>Including implementation: 26 statements,  1.2% of total for procedures.">26 statements</a>
      </li> 
      
      
@@ -155,7 +155,7 @@
      <li><a href='../module/forlab_math.html'>forlab_math</a></li>
     
   
-     <li class="active">arange</li>
+     <li class="active">all_close</li>
   </ol>
 </div>
 </div>
@@ -193,19 +193,17 @@
   <div id="funcs-0" class="panel-collapse collapse">
     <div class="list-group">
       
-      <a class="list-group-item" href="../interface/arange.html#proc-arange_i_int16">arange_i_int16</a>
+      <a class="list-group-item" href="../interface/all_close.html#proc-all_close_cdp">all_close_cdp</a>
       
-      <a class="list-group-item" href="../interface/arange.html#proc-arange_i_int32">arange_i_int32</a>
+      <a class="list-group-item" href="../interface/all_close.html#proc-all_close_cqp">all_close_cqp</a>
       
-      <a class="list-group-item" href="../interface/arange.html#proc-arange_i_int64">arange_i_int64</a>
+      <a class="list-group-item" href="../interface/all_close.html#proc-all_close_csp">all_close_csp</a>
       
-      <a class="list-group-item" href="../interface/arange.html#proc-arange_i_int8">arange_i_int8</a>
+      <a class="list-group-item" href="../interface/all_close.html#proc-all_close_rdp">all_close_rdp</a>
       
-      <a class="list-group-item" href="../interface/arange.html#proc-arange_r_dp">arange_r_dp</a>
+      <a class="list-group-item" href="../interface/all_close.html#proc-all_close_rqp">all_close_rqp</a>
       
-      <a class="list-group-item" href="../interface/arange.html#proc-arange_r_qp">arange_r_qp</a>
-      
-      <a class="list-group-item" href="../interface/arange.html#proc-arange_r_sp">arange_r_sp</a>
+      <a class="list-group-item" href="../interface/all_close.html#proc-all_close_rsp">all_close_rsp</a>
       
     </div>
   </div>
@@ -226,10 +224,9 @@
     </div>
     
     <div class="col-md-9" id='text'>
-      <h2>public interface arange</h2>
-   <p><code>arange</code> creates a rank-1 <code>array</code> of the <code>integer/real</code> type 
- with fixed-spaced values of given spacing, within a given interval.
-(<a href="../page/specs/forlab_math.html#arange">Specification</a>)</p>
+      <h2>public interface all_close</h2>
+   <p>Returns a boolean scalar where two arrays are element-wise equal within a tolerance.
+(<a href="../page/specs/forlab_math.html#all_close">Specification</a>)</p>
      
      
     <br>
@@ -256,19 +253,17 @@
   <div id="funcs-1" class="panel-collapse collapse">
     <div class="list-group">
       
-      <a class="list-group-item" href="../interface/arange.html#proc-arange_i_int16">arange_i_int16</a>
+      <a class="list-group-item" href="../interface/all_close.html#proc-all_close_cdp">all_close_cdp</a>
       
-      <a class="list-group-item" href="../interface/arange.html#proc-arange_i_int32">arange_i_int32</a>
+      <a class="list-group-item" href="../interface/all_close.html#proc-all_close_cqp">all_close_cqp</a>
       
-      <a class="list-group-item" href="../interface/arange.html#proc-arange_i_int64">arange_i_int64</a>
+      <a class="list-group-item" href="../interface/all_close.html#proc-all_close_csp">all_close_csp</a>
       
-      <a class="list-group-item" href="../interface/arange.html#proc-arange_i_int8">arange_i_int8</a>
+      <a class="list-group-item" href="../interface/all_close.html#proc-all_close_rdp">all_close_rdp</a>
       
-      <a class="list-group-item" href="../interface/arange.html#proc-arange_r_dp">arange_r_dp</a>
+      <a class="list-group-item" href="../interface/all_close.html#proc-all_close_rqp">all_close_rqp</a>
       
-      <a class="list-group-item" href="../interface/arange.html#proc-arange_r_qp">arange_r_qp</a>
-      
-      <a class="list-group-item" href="../interface/arange.html#proc-arange_r_sp">arange_r_sp</a>
+      <a class="list-group-item" href="../interface/all_close.html#proc-all_close_rsp">all_close_rsp</a>
       
     </div>
   </div>
@@ -292,8 +287,8 @@
    
     
   <div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="proc-arange_i_int16"></span><h3>
-private pure module function arange_i_int16(start, end, step) result(result)
+  <div class="panel-heading codesum"><span class="anchor" id="proc-all_close_cdp"></span><h3>
+private module function all_close_cdp(a, b, rel_tol, abs_tol) result(close)
     
     
    
@@ -321,12 +316,12 @@ private pure module function arange_i_int16(start, end, step) result(result)
   
 <tr>
   
-  <td><span class="anchor" ></span>integer(kind=int16),</td>
+  <td><span class="anchor" ></span>complex(kind=dp),</td>
   <td>intent(in)</td>
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>start</strong></td><td></td>
+  <td><strong>a</strong>(..)</td><td></td>
   
 </tr>
 
@@ -336,12 +331,12 @@ private pure module function arange_i_int16(start, end, step) result(result)
   
 <tr>
   
-  <td><span class="anchor" ></span>integer(kind=int16),</td>
-  <td>intent(in),</td>
-  <td>optional</td>
+  <td><span class="anchor" ></span>complex(kind=dp),</td>
+  <td>intent(in)</td>
+  <td></td>
   
   <td></td><td>::</td>
-  <td><strong>end</strong></td><td></td>
+  <td><strong>b</strong>(..)</td><td></td>
   
 </tr>
 
@@ -351,12 +346,27 @@ private pure module function arange_i_int16(start, end, step) result(result)
   
 <tr>
   
-  <td><span class="anchor" ></span>integer(kind=int16),</td>
+  <td><span class="anchor" ></span>real(kind=dp),</td>
   <td>intent(in),</td>
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>step</strong></td><td></td>
+  <td><strong>rel_tol</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>real(kind=dp),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>abs_tol</strong></td><td></td>
   
 </tr>
 
@@ -371,8 +381,8 @@ private pure module function arange_i_int16(start, end, step) result(result)
   
   
   
-     <h4>Return Value <small>integer(kind=int16),
-  allocatable, (:)</small></h4>
+     <h4>Return Value <small>logical
+  </small></h4>
   
     
 
@@ -382,8 +392,8 @@ private pure module function arange_i_int16(start, end, step) result(result)
    
     
   <div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="proc-arange_i_int32"></span><h3>
-private pure module function arange_i_int32(start, end, step) result(result)
+  <div class="panel-heading codesum"><span class="anchor" id="proc-all_close_cqp"></span><h3>
+private module function all_close_cqp(a, b, rel_tol, abs_tol) result(close)
     
     
    
@@ -411,12 +421,12 @@ private pure module function arange_i_int32(start, end, step) result(result)
   
 <tr>
   
-  <td><span class="anchor" ></span>integer(kind=int32),</td>
+  <td><span class="anchor" ></span>complex(kind=qp),</td>
   <td>intent(in)</td>
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>start</strong></td><td></td>
+  <td><strong>a</strong>(..)</td><td></td>
   
 </tr>
 
@@ -426,12 +436,12 @@ private pure module function arange_i_int32(start, end, step) result(result)
   
 <tr>
   
-  <td><span class="anchor" ></span>integer(kind=int32),</td>
-  <td>intent(in),</td>
-  <td>optional</td>
+  <td><span class="anchor" ></span>complex(kind=qp),</td>
+  <td>intent(in)</td>
+  <td></td>
   
   <td></td><td>::</td>
-  <td><strong>end</strong></td><td></td>
+  <td><strong>b</strong>(..)</td><td></td>
   
 </tr>
 
@@ -441,12 +451,27 @@ private pure module function arange_i_int32(start, end, step) result(result)
   
 <tr>
   
-  <td><span class="anchor" ></span>integer(kind=int32),</td>
+  <td><span class="anchor" ></span>real(kind=qp),</td>
   <td>intent(in),</td>
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>step</strong></td><td></td>
+  <td><strong>rel_tol</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>real(kind=qp),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>abs_tol</strong></td><td></td>
   
 </tr>
 
@@ -461,8 +486,8 @@ private pure module function arange_i_int32(start, end, step) result(result)
   
   
   
-     <h4>Return Value <small>integer(kind=int32),
-  allocatable, (:)</small></h4>
+     <h4>Return Value <small>logical
+  </small></h4>
   
     
 
@@ -472,8 +497,8 @@ private pure module function arange_i_int32(start, end, step) result(result)
    
     
   <div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="proc-arange_i_int64"></span><h3>
-private pure module function arange_i_int64(start, end, step) result(result)
+  <div class="panel-heading codesum"><span class="anchor" id="proc-all_close_csp"></span><h3>
+private module function all_close_csp(a, b, rel_tol, abs_tol) result(close)
     
     
    
@@ -501,12 +526,12 @@ private pure module function arange_i_int64(start, end, step) result(result)
   
 <tr>
   
-  <td><span class="anchor" ></span>integer(kind=int64),</td>
+  <td><span class="anchor" ></span>complex(kind=sp),</td>
   <td>intent(in)</td>
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>start</strong></td><td></td>
+  <td><strong>a</strong>(..)</td><td></td>
   
 </tr>
 
@@ -516,12 +541,12 @@ private pure module function arange_i_int64(start, end, step) result(result)
   
 <tr>
   
-  <td><span class="anchor" ></span>integer(kind=int64),</td>
-  <td>intent(in),</td>
-  <td>optional</td>
+  <td><span class="anchor" ></span>complex(kind=sp),</td>
+  <td>intent(in)</td>
+  <td></td>
   
   <td></td><td>::</td>
-  <td><strong>end</strong></td><td></td>
+  <td><strong>b</strong>(..)</td><td></td>
   
 </tr>
 
@@ -531,12 +556,27 @@ private pure module function arange_i_int64(start, end, step) result(result)
   
 <tr>
   
-  <td><span class="anchor" ></span>integer(kind=int64),</td>
+  <td><span class="anchor" ></span>real(kind=sp),</td>
   <td>intent(in),</td>
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>step</strong></td><td></td>
+  <td><strong>rel_tol</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>real(kind=sp),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>abs_tol</strong></td><td></td>
   
 </tr>
 
@@ -551,8 +591,8 @@ private pure module function arange_i_int64(start, end, step) result(result)
   
   
   
-     <h4>Return Value <small>integer(kind=int64),
-  allocatable, (:)</small></h4>
+     <h4>Return Value <small>logical
+  </small></h4>
   
     
 
@@ -562,98 +602,8 @@ private pure module function arange_i_int64(start, end, step) result(result)
    
     
   <div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="proc-arange_i_int8"></span><h3>
-private pure module function arange_i_int8(start, end, step) result(result)
-    
-    
-   
-</h3></div>
-  <div class="panel-body">
-       
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>integer(kind=int8),</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>start</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>integer(kind=int8),</td>
-  <td>intent(in),</td>
-  <td>optional</td>
-  
-  <td></td><td>::</td>
-  <td><strong>end</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>integer(kind=int8),</td>
-  <td>intent(in),</td>
-  <td>optional</td>
-  
-  <td></td><td>::</td>
-  <td><strong>step</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>integer(kind=int8),
-  allocatable, (:)</small></h4>
-  
-    
-
-  </div>
-  </div>
-
-   
-    
-  <div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="proc-arange_r_dp"></span><h3>
-private pure module function arange_r_dp(start, end, step) result(result)
+  <div class="panel-heading codesum"><span class="anchor" id="proc-all_close_rdp"></span><h3>
+private module function all_close_rdp(a, b, rel_tol, abs_tol) result(close)
     
     
    
@@ -686,7 +636,22 @@ private pure module function arange_r_dp(start, end, step) result(result)
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>start</strong></td><td></td>
+  <td><strong>a</strong>(..)</td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>real(kind=dp),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>b</strong>(..)</td><td></td>
   
 </tr>
 
@@ -701,7 +666,7 @@ private pure module function arange_r_dp(start, end, step) result(result)
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>end</strong></td><td></td>
+  <td><strong>rel_tol</strong></td><td></td>
   
 </tr>
 
@@ -716,7 +681,7 @@ private pure module function arange_r_dp(start, end, step) result(result)
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>step</strong></td><td></td>
+  <td><strong>abs_tol</strong></td><td></td>
   
 </tr>
 
@@ -731,8 +696,8 @@ private pure module function arange_r_dp(start, end, step) result(result)
   
   
   
-     <h4>Return Value <small>real(kind=dp),
-  allocatable, (:)</small></h4>
+     <h4>Return Value <small>logical
+  </small></h4>
   
     
 
@@ -742,8 +707,8 @@ private pure module function arange_r_dp(start, end, step) result(result)
    
     
   <div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="proc-arange_r_qp"></span><h3>
-private pure module function arange_r_qp(start, end, step) result(result)
+  <div class="panel-heading codesum"><span class="anchor" id="proc-all_close_rqp"></span><h3>
+private module function all_close_rqp(a, b, rel_tol, abs_tol) result(close)
     
     
    
@@ -776,7 +741,22 @@ private pure module function arange_r_qp(start, end, step) result(result)
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>start</strong></td><td></td>
+  <td><strong>a</strong>(..)</td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>real(kind=qp),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>b</strong>(..)</td><td></td>
   
 </tr>
 
@@ -791,7 +771,7 @@ private pure module function arange_r_qp(start, end, step) result(result)
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>end</strong></td><td></td>
+  <td><strong>rel_tol</strong></td><td></td>
   
 </tr>
 
@@ -806,7 +786,7 @@ private pure module function arange_r_qp(start, end, step) result(result)
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>step</strong></td><td></td>
+  <td><strong>abs_tol</strong></td><td></td>
   
 </tr>
 
@@ -821,8 +801,8 @@ private pure module function arange_r_qp(start, end, step) result(result)
   
   
   
-     <h4>Return Value <small>real(kind=qp),
-  allocatable, (:)</small></h4>
+     <h4>Return Value <small>logical
+  </small></h4>
   
     
 
@@ -832,8 +812,8 @@ private pure module function arange_r_qp(start, end, step) result(result)
    
     
   <div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="proc-arange_r_sp"></span><h3>
-private pure module function arange_r_sp(start, end, step) result(result)
+  <div class="panel-heading codesum"><span class="anchor" id="proc-all_close_rsp"></span><h3>
+private module function all_close_rsp(a, b, rel_tol, abs_tol) result(close)
     
     
    
@@ -866,7 +846,22 @@ private pure module function arange_r_sp(start, end, step) result(result)
   <td></td>
   
   <td></td><td>::</td>
-  <td><strong>start</strong></td><td></td>
+  <td><strong>a</strong>(..)</td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>real(kind=sp),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>b</strong>(..)</td><td></td>
   
 </tr>
 
@@ -881,7 +876,7 @@ private pure module function arange_r_sp(start, end, step) result(result)
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>end</strong></td><td></td>
+  <td><strong>rel_tol</strong></td><td></td>
   
 </tr>
 
@@ -896,7 +891,7 @@ private pure module function arange_r_sp(start, end, step) result(result)
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>step</strong></td><td></td>
+  <td><strong>abs_tol</strong></td><td></td>
   
 </tr>
 
@@ -911,8 +906,8 @@ private pure module function arange_r_sp(start, end, step) result(result)
   
   
   
-     <h4>Return Value <small>real(kind=sp),
-  allocatable, (:)</small></h4>
+     <h4>Return Value <small>logical
+  </small></h4>
   
     
 

@@ -41,7 +41,7 @@ module forlab_stats
 
     !> Version: Experimental
     !>
-    !> Generate a normal distributed data vector.
+    !> Generate a normal distributed data scalar or vector.
     !> ([Specification](../page/specs/forlab_stats.html#randn))
     interface randn
         module function randn_0_sp(mean, std) result(random)
@@ -75,7 +75,7 @@ module forlab_stats
 
     !> Version: Experimental
     !>
-    !> Generate an uniformly distributed data vector.
+    !> Generate an uniformly distributed data scalar or vector.
     !> ([Specification](../page/specs/forlab_stats.html#randomrandu))
     interface randu
         module function randu_0_rsp(start, end) result(random)

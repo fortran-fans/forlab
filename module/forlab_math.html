@@ -136,7 +136,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title=" 1.9% of total for modules and submodules.">216 statements</a>
+    title=" 2.1% of total for modules and submodules.">243 statements</a>
      </li> 
      
      
@@ -187,6 +187,8 @@
     <div class="list-group">
       
       <a class="list-group-item" href="../module/forlab_math.html#interface-acosd">acosd</a>
+      
+      <a class="list-group-item" href="../module/forlab_math.html#interface-all_close">all_close</a>
       
       <a class="list-group-item" href="../module/forlab_math.html#interface-angle">angle</a>
       
@@ -266,6 +268,8 @@
     <ul class="list-inline">
       <li><h5>Descendants:</h5></li>
       
+      <li><a href='../module/forlab_math_all_close.html'>forlab_math_all_close</a></li>
+      
       <li><a href='../module/forlab_math_arange.html'>forlab_math_arange</a></li>
       
       <li><a href='../module/forlab_math_degcir.html'>forlab_math_degcir</a></li>
@@ -304,6 +308,8 @@
     <div class="list-group">
       
       <a class="list-group-item" href="../module/forlab_math.html#interface-acosd">acosd</a>
+      
+      <a class="list-group-item" href="../module/forlab_math.html#interface-all_close">all_close</a>
       
       <a class="list-group-item" href="../module/forlab_math.html#interface-angle">angle</a>
       
@@ -532,6 +538,639 @@ private pure elemental module function acosd_sp(x)
   
   
      <h4>Return Value <small>real(kind=sp)
+  </small></h4>
+  
+    
+
+    </li>
+  
+  
+  
+  </ul>
+</div>
+
+    
+     
+<div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="interface-all_close"></span><h3>public interface <a href='../interface/all_close.html'>all_close</a>
+    
+  </h3></div>
+  
+  <div class="panel-body">
+    
+    <p>Returns a boolean scalar where two arrays are element-wise equal within a tolerance.
+(<a href="../page/specs/forlab_math.html#all_close">Specification</a>)</p>
+  </div>
+  
+  <ul class="list-group">
+  
+  
+    <li class="list-group-item">
+    
+    
+    <h3>
+private module function all_close_cdp(a, b, rel_tol, abs_tol) result(close)
+    
+    
+   
+</h3>
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>complex(kind=dp),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>a</strong>(..)</td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>complex(kind=dp),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>b</strong>(..)</td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>real(kind=dp),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>rel_tol</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>real(kind=dp),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>abs_tol</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  
+  
+  
+  
+     <h4>Return Value <small>logical
+  </small></h4>
+  
+    
+
+    </li>
+  
+    <li class="list-group-item">
+    
+    
+    <h3>
+private module function all_close_cqp(a, b, rel_tol, abs_tol) result(close)
+    
+    
+   
+</h3>
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>complex(kind=qp),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>a</strong>(..)</td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>complex(kind=qp),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>b</strong>(..)</td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>real(kind=qp),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>rel_tol</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>real(kind=qp),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>abs_tol</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  
+  
+  
+  
+     <h4>Return Value <small>logical
+  </small></h4>
+  
+    
+
+    </li>
+  
+    <li class="list-group-item">
+    
+    
+    <h3>
+private module function all_close_csp(a, b, rel_tol, abs_tol) result(close)
+    
+    
+   
+</h3>
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>complex(kind=sp),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>a</strong>(..)</td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>complex(kind=sp),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>b</strong>(..)</td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>real(kind=sp),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>rel_tol</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>real(kind=sp),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>abs_tol</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  
+  
+  
+  
+     <h4>Return Value <small>logical
+  </small></h4>
+  
+    
+
+    </li>
+  
+    <li class="list-group-item">
+    
+    
+    <h3>
+private module function all_close_rdp(a, b, rel_tol, abs_tol) result(close)
+    
+    
+   
+</h3>
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>real(kind=dp),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>a</strong>(..)</td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>real(kind=dp),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>b</strong>(..)</td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>real(kind=dp),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>rel_tol</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>real(kind=dp),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>abs_tol</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  
+  
+  
+  
+     <h4>Return Value <small>logical
+  </small></h4>
+  
+    
+
+    </li>
+  
+    <li class="list-group-item">
+    
+    
+    <h3>
+private module function all_close_rqp(a, b, rel_tol, abs_tol) result(close)
+    
+    
+   
+</h3>
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>real(kind=qp),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>a</strong>(..)</td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>real(kind=qp),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>b</strong>(..)</td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>real(kind=qp),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>rel_tol</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>real(kind=qp),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>abs_tol</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  
+  
+  
+  
+     <h4>Return Value <small>logical
+  </small></h4>
+  
+    
+
+    </li>
+  
+    <li class="list-group-item">
+    
+    
+    <h3>
+private module function all_close_rsp(a, b, rel_tol, abs_tol) result(close)
+    
+    
+   
+</h3>
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>real(kind=sp),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>a</strong>(..)</td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>real(kind=sp),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>b</strong>(..)</td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>real(kind=sp),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>rel_tol</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>real(kind=sp),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>abs_tol</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  
+  
+  
+  
+     <h4>Return Value <small>logical
   </small></h4>
   
     
@@ -1943,8 +2582,8 @@ private pure elemental module function cosd_sp(x)
   
   <div class="panel-body">
     
-    <p>Determines whether the values of <code>a</code> and <code>b</code> are close.
-(<a href="../page/specs/forlab_logic.html#is_close">Specification</a>)</p>
+    <p>Returns a boolean scalar/array where two scalar/arrays are element-wise equal within a tolerance.
+(<a href="../page/specs/forlab_math.html#is_close">Specification</a>)</p>
   </div>
   
   <ul class="list-group">
@@ -1954,7 +2593,7 @@ private pure elemental module function cosd_sp(x)
     
     
     <h3>
-private elemental module function is_close_cdp(a, b, rtol, atol) result(result)
+private elemental module function is_close_cdp(a, b, rel_tol, abs_tol) result(close)
     
     
    
@@ -2015,7 +2654,7 @@ private elemental module function is_close_cdp(a, b, rtol, atol) result(result)
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>rtol</strong></td><td></td>
+  <td><strong>rel_tol</strong></td><td></td>
   
 </tr>
 
@@ -2030,7 +2669,7 @@ private elemental module function is_close_cdp(a, b, rtol, atol) result(result)
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>atol</strong></td><td></td>
+  <td><strong>abs_tol</strong></td><td></td>
   
 </tr>
 
@@ -2056,7 +2695,7 @@ private elemental module function is_close_cdp(a, b, rtol, atol) result(result)
     
     
     <h3>
-private elemental module function is_close_cqp(a, b, rtol, atol) result(result)
+private elemental module function is_close_cqp(a, b, rel_tol, abs_tol) result(close)
     
     
    
@@ -2117,7 +2756,7 @@ private elemental module function is_close_cqp(a, b, rtol, atol) result(result)
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>rtol</strong></td><td></td>
+  <td><strong>rel_tol</strong></td><td></td>
   
 </tr>
 
@@ -2132,7 +2771,7 @@ private elemental module function is_close_cqp(a, b, rtol, atol) result(result)
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>atol</strong></td><td></td>
+  <td><strong>abs_tol</strong></td><td></td>
   
 </tr>
 
@@ -2158,7 +2797,7 @@ private elemental module function is_close_cqp(a, b, rtol, atol) result(result)
     
     
     <h3>
-private elemental module function is_close_csp(a, b, rtol, atol) result(result)
+private elemental module function is_close_csp(a, b, rel_tol, abs_tol) result(close)
     
     
    
@@ -2219,7 +2858,7 @@ private elemental module function is_close_csp(a, b, rtol, atol) result(result)
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>rtol</strong></td><td></td>
+  <td><strong>rel_tol</strong></td><td></td>
   
 </tr>
 
@@ -2234,7 +2873,7 @@ private elemental module function is_close_csp(a, b, rtol, atol) result(result)
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>atol</strong></td><td></td>
+  <td><strong>abs_tol</strong></td><td></td>
   
 </tr>
 
@@ -2260,7 +2899,7 @@ private elemental module function is_close_csp(a, b, rtol, atol) result(result)
     
     
     <h3>
-private elemental module function is_close_rdp(a, b, rtol, atol) result(result)
+private elemental module function is_close_rdp(a, b, rel_tol, abs_tol) result(close)
     
     
    
@@ -2321,7 +2960,7 @@ private elemental module function is_close_rdp(a, b, rtol, atol) result(result)
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>rtol</strong></td><td></td>
+  <td><strong>rel_tol</strong></td><td></td>
   
 </tr>
 
@@ -2336,7 +2975,7 @@ private elemental module function is_close_rdp(a, b, rtol, atol) result(result)
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>atol</strong></td><td></td>
+  <td><strong>abs_tol</strong></td><td></td>
   
 </tr>
 
@@ -2362,7 +3001,7 @@ private elemental module function is_close_rdp(a, b, rtol, atol) result(result)
     
     
     <h3>
-private elemental module function is_close_rqp(a, b, rtol, atol) result(result)
+private elemental module function is_close_rqp(a, b, rel_tol, abs_tol) result(close)
     
     
    
@@ -2423,7 +3062,7 @@ private elemental module function is_close_rqp(a, b, rtol, atol) result(result)
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>rtol</strong></td><td></td>
+  <td><strong>rel_tol</strong></td><td></td>
   
 </tr>
 
@@ -2438,7 +3077,7 @@ private elemental module function is_close_rqp(a, b, rtol, atol) result(result)
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>atol</strong></td><td></td>
+  <td><strong>abs_tol</strong></td><td></td>
   
 </tr>
 
@@ -2464,7 +3103,7 @@ private elemental module function is_close_rqp(a, b, rtol, atol) result(result)
     
     
     <h3>
-private elemental module function is_close_rsp(a, b, rtol, atol) result(result)
+private elemental module function is_close_rsp(a, b, rel_tol, abs_tol) result(close)
     
     
    
@@ -2525,7 +3164,7 @@ private elemental module function is_close_rsp(a, b, rtol, atol) result(result)
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>rtol</strong></td><td></td>
+  <td><strong>rel_tol</strong></td><td></td>
   
 </tr>
 
@@ -2540,7 +3179,7 @@ private elemental module function is_close_rsp(a, b, rtol, atol) result(result)
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>atol</strong></td><td></td>
+  <td><strong>abs_tol</strong></td><td></td>
   
 </tr>
 
@@ -3560,7 +4199,7 @@ private pure elemental module function tand_sp(x)
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
-             on 2021-10-04 07:22  
+             on 2021-10-04 07:58  
             
           </p>
         </div>

@@ -144,96 +144,63 @@
 <div class="toc">
 <ul>
 <li><a href="#math">MATH</a><ul>
-<li><a href="#is_close">is_close</a><ul>
-<li><a href="#description">Description</a></li>
-<li><a href="#syntax">Syntax</a></li>
+<li><a href="#arange">arange</a><ul>
 <li><a href="#status">Status</a></li>
 <li><a href="#class">Class</a></li>
-<li><a href="#arguments">Arguments</a></li>
-<li><a href="#result-value">Result value</a></li>
-<li><a href="#example">Example</a></li>
-</ul>
-</li>
-<li><a href="#arange">arange</a><ul>
-<li><a href="#status_1">Status</a></li>
-<li><a href="#class_1">Class</a></li>
-<li><a href="#description_1">Description</a></li>
-<li><a href="#syntax_1">Syntax</a></li>
-<li><a href="#arguments_1">Arguments</a><ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#arguments">Arguments</a><ul>
 <li><a href="#warning">Warning</a></li>
 </ul>
 </li>
 <li><a href="#return-value">Return value</a></li>
-<li><a href="#example_1">Example</a></li>
+<li><a href="#example">Example</a></li>
 </ul>
 </li>
 <li><a href="#signum">signum</a><ul>
-<li><a href="#status_2">Status</a></li>
-<li><a href="#class_2">Class</a></li>
-<li><a href="#description_2">Description</a></li>
-<li><a href="#syntax_2">Syntax</a></li>
+<li><a href="#status_1">Status</a></li>
+<li><a href="#class_1">Class</a></li>
+<li><a href="#description_1">Description</a></li>
+<li><a href="#syntax_1">Syntax</a></li>
 <li><a href="#argument">Argument</a></li>
 <li><a href="#return-value_1">Return value</a></li>
+<li><a href="#example_1">Example</a></li>
+</ul>
+</li>
+<li><a href="#is_close">is_close</a><ul>
+<li><a href="#description_2">Description</a></li>
+<li><a href="#syntax_2">Syntax</a></li>
+<li><a href="#status_2">Status</a></li>
+<li><a href="#class_2">Class</a></li>
+<li><a href="#arguments_1">Arguments</a></li>
+<li><a href="#result-value">Result value</a></li>
 <li><a href="#example_2">Example</a></li>
+</ul>
+</li>
+<li><a href="#all_close">all_close</a><ul>
+<li><a href="#description_3">Description</a></li>
+<li><a href="#syntax_3">Syntax</a></li>
+<li><a href="#status_3">Status</a></li>
+<li><a href="#class_3">Class</a></li>
+<li><a href="#arguments_2">Arguments</a></li>
+<li><a href="#result-value_1">Result value</a></li>
+<li><a href="#example_3">Example</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 </div>
-<h3 id="is_close"><code>is_close</code></h3>
-<h4 id="description">Description</h4>
-<p>Returns a boolean scalar/array where two scalars/arrays are element-wise equal within a tolerance.</p>
-<p>The tolerance values are positive, typically very small numbers. The relative difference <code>(rtol*abs(b))</code> and the absolute difference <code>atol</code> are added together to compare against the absolute difference between <code>a</code> and <code>b</code>.</p>
-<div class="codehilite"><pre><span></span><code><span class="c">!&gt; For `real` type</span>
-<span class="nb">abs</span><span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">rtol</span><span class="o">*</span><span class="nb">abs</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">+</span> <span class="n">atol</span>
-<span class="c">!&gt; For `complex` type</span>
-<span class="nb">abs</span><span class="p">(</span><span class="n">a</span><span class="p">%</span><span class="n">re</span> <span class="o">-</span> <span class="n">b</span><span class="p">%</span><span class="n">re</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">rtol</span><span class="o">*</span><span class="nb">abs</span><span class="p">(</span><span class="n">b</span><span class="p">%</span><span class="n">re</span><span class="p">)</span> <span class="o">+</span> <span class="n">atol</span>
-<span class="nb">abs</span><span class="p">(</span><span class="n">a</span><span class="p">%</span><span class="n">im</span> <span class="o">-</span> <span class="n">b</span><span class="p">%</span><span class="n">im</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">rtol</span><span class="o">*</span><span class="nb">abs</span><span class="p">(</span><span class="n">b</span><span class="p">%</span><span class="n">im</span><span class="p">)</span> <span class="o">+</span> <span class="n">atol</span>
-</code></pre></div>
-
-<h4 id="syntax">Syntax</h4>
-<p><code>bool = <a href="../../module/forlab_math.html#interface-is_close">is_close</a> (a, b [, rtol, atol])</code></p>
-<h4 id="status">Status</h4>
-<p>Experimental.</p>
-<h4 id="class">Class</h4>
-<p>Elemental function.</p>
-<h4 id="arguments">Arguments</h4>
-<p><code>a</code>: Shall be a <code>real/complex</code> scalar/array.
-This argument is <code>intent(in)</code>.</p>
-<p><code>b</code>: Shall be a <code>real/complex</code> scalar/array.
-This argument is <code>intent(in)</code>.</p>
-<p><code>rtol</code>: Shall be a <code>real</code> scalar.
-This argument is <code>intent(in)</code> and <code>optional</code>, which is <code>1.0e-5</code> by default.</p>
-<p><code>atol</code>: Shall be a <code>real</code> scalar.
-This argument is <code>intent(in)</code> and <code>optional</code>, which is <code>1.0e-8</code> by default.</p>
-<p>Note: All <code>real/complex</code> arguments must have same <code>kind</code>.
-If the value of <code>rtol/atol</code> is negative (not recommended), it will be corrected to <code>abs(rtol/atol)</code> by the internal process of <code>is_close</code>.</p>
-<h4 id="result-value">Result value</h4>
-<p>Returns a <code>logical</code> scalar/array.</p>
-<h4 id="example">Example</h4>
-<div class="codehilite"><pre><span></span><code><span class="k">program </span><span class="n">demo_math_is_close</span>
-    <span class="k">use </span><span class="n">forlab_math</span><span class="p">,</span> <span class="k">only</span><span class="p">:</span> <span class="n">is_close</span>
-    <span class="k">use </span><span class="n">stdlib_error</span><span class="p">,</span> <span class="k">only</span><span class="p">:</span> <span class="n">check</span>
-    <span class="kt">real</span> <span class="kd">::</span> <span class="n">x</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
-    <span class="k">print</span> <span class="o">*</span><span class="p">,</span> <span class="n">is_close</span><span class="p">(</span><span class="n">x</span><span class="p">,[</span><span class="kt">real</span> <span class="kd">::</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">])</span>     <span class="c">!! [T, F]</span>
-    <span class="k">print</span> <span class="o">*</span><span class="p">,</span> <span class="k">all</span><span class="p">(</span><span class="n">is_close</span><span class="p">(</span><span class="n">x</span><span class="p">,[</span><span class="kt">real</span> <span class="kd">::</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">]))</span><span class="c">!! F</span>
-    <span class="k">print</span> <span class="o">*</span><span class="p">,</span> <span class="n">is_close</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>     <span class="c">!! T</span>
-    <span class="k">call </span><span class="n">check</span><span class="p">(</span><span class="k">all</span><span class="p">(</span><span class="n">is_close</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">])),</span> <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;all(is_close(x, [2.0, 2.0])) failed.&quot;</span><span class="p">,</span> <span class="n">warn</span><span class="o">=</span><span class="p">.</span><span class="n">true</span><span class="p">.)</span>
-        <span class="c">!! all(is_close(x, [2.0, 2.0])) failed.</span>
-<span class="k">end program </span><span class="n">demo_math_is_close</span>
-</code></pre></div>
-
 <h3 id="arange"><code>arange</code></h3>
-<h4 id="status_1">Status</h4>
+<h4 id="status">Status</h4>
 <p>Experimental</p>
-<h4 id="class_1">Class</h4>
+<h4 id="class">Class</h4>
 <p>Pure function.</p>
-<h4 id="description_1">Description</h4>
+<h4 id="description">Description</h4>
 <p>Creates a rank-1 <code>array</code> of the <code>integer/real</code> type with fixed-spaced values of given spacing, within a given interval.</p>
-<h4 id="syntax_1">Syntax</h4>
+<h4 id="syntax">Syntax</h4>
 <p><code>result = <a href="../../module/forlab_math.html#interface-arange">arange</a>(start [, end, step])</code></p>
-<h4 id="arguments_1">Arguments</h4>
+<h4 id="arguments">Arguments</h4>
 <p>All arguments should be the same type and kind.</p>
 <p><code>start</code>: Shall be an <code>integer/real</code> scalar.
 This is an <code>intent(in)</code> argument.<br>
@@ -251,7 +218,7 @@ If <code>step &lt; 0</code>, the <code>step</code> argument will be corrected to
 <p>Returns a rank-1 <code>array</code> of fixed-spaced values.</p>
 <p>For <code>integer</code> type arguments, the length of the result vector is <code>(end - start)/step + 1</code>.<br>
 For <code>real</code> type arguments, the length of the result vector is <code>floor((end - start)/step) + 1</code>.</p>
-<h4 id="example_1">Example</h4>
+<h4 id="example">Example</h4>
 <div class="codehilite"><pre><span></span><code><span class="k">program </span><span class="n">demo_math_arange</span>
     <span class="k">use </span><span class="n">forlab_math</span><span class="p">,</span> <span class="k">only</span><span class="p">:</span> <span class="n">arange</span>
 
@@ -274,13 +241,13 @@ For <code>real</code> type arguments, the length of the result vector is <code>f
 </code></pre></div>
 
 <h3 id="signum"><code>signum</code></h3>
-<h4 id="status_2">Status</h4>
+<h4 id="status_1">Status</h4>
 <p>Experimental</p>
-<h4 id="class_2">Class</h4>
+<h4 id="class_1">Class</h4>
 <p>Elemental function.</p>
-<h4 id="description_2">Description</h4>
+<h4 id="description_1">Description</h4>
 <p>Returns the sign of variables.</p>
-<h4 id="syntax_2">Syntax</h4>
+<h4 id="syntax_1">Syntax</h4>
 <p><code>sign = <a href="../../module/forlab_math.html#interface-signum">signum</a>(x)</code></p>
 <h4 id="argument">Argument</h4>
 <p><code>x</code>: Shall be an <code>integer/real/complex</code> elemental variable.
@@ -288,7 +255,7 @@ This is an <code>intent(in)</code> argument.</p>
 <h4 id="return-value_1">Return value</h4>
 <p>Returns the sign of variables.</p>
 <p>For <code>complex</code> types, return the regularization result: <code>sign = x/abs(x)</code>.</p>
-<h4 id="example_2">Example</h4>
+<h4 id="example_1">Example</h4>
 <div class="codehilite"><pre><span></span><code><span class="c">!&gt; fpm run --example math_signum</span>
 <span class="k">program </span><span class="n">demo_math_signum</span>
     <span class="k">use </span><span class="n">forlab_math</span><span class="p">,</span> <span class="k">only</span><span class="p">:</span> <span class="n">signum</span>
@@ -302,6 +269,88 @@ This is an <code>intent(in)</code> argument.</p>
     <span class="c">!&gt;          (0.447213590,-0.894427180)</span>
 
 <span class="k">end program </span><span class="n">demo_math_signum</span>
+</code></pre></div>
+
+<h3 id="is_close"><code>is_close</code></h3>
+<h4 id="description_2">Description</h4>
+<p>Returns a boolean scalar/array where two scalars/arrays are element-wise equal within a tolerance, behaves like <code>isclose</code> in Python stdlib.</p>
+<div class="codehilite"><pre><span></span><code><span class="c">!&gt; For `real` type</span>
+<span class="n">is_close</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="p">)</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="nb">max</span><span class="p">(</span><span class="n">rel_tol</span><span class="o">*</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="nb">abs</span><span class="p">(</span><span class="n">b</span><span class="p">)),</span> <span class="n">abs_tol</span><span class="p">)</span>
+<span class="c">!&gt; For `complex` type</span>
+<span class="n">is_close</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="p">)</span> <span class="o">=</span> <span class="n">is_close</span><span class="p">(</span><span class="n">a</span><span class="p">%</span><span class="n">re</span><span class="p">,</span> <span class="n">b</span><span class="p">%</span><span class="n">re</span><span class="p">,</span> <span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="p">)</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="p">&amp;</span>
+                                   <span class="n">is_close</span><span class="p">(</span><span class="n">a</span><span class="p">%</span><span class="n">im</span><span class="p">,</span> <span class="n">b</span><span class="p">%</span><span class="n">im</span><span class="p">,</span> <span class="n">rel_tol</span><span class="p">,</span> <span class="n">abs_tol</span><span class="p">)</span>
+</code></pre></div>
+
+<h4 id="syntax_2">Syntax</h4>
+<p><code>bool = <a>stdlib_math</a> (a, b [, rel_tol, abs_tol])</code></p>
+<h4 id="status_2">Status</h4>
+<p>Experimental.</p>
+<h4 id="class_2">Class</h4>
+<p>Elemental function.</p>
+<h4 id="arguments_1">Arguments</h4>
+<p><code>a</code>: Shall be a <code>real/complex</code> scalar/array.
+This argument is <code>intent(in)</code>.</p>
+<p><code>b</code>: Shall be a <code>real/complex</code> scalar/array.
+This argument is <code>intent(in)</code>.</p>
+<p><code>rel_tol</code>: Shall be a <code>real</code> scalar.
+This argument is <code>intent(in)</code> and <code>optional</code>, which is <code>1.0e-9</code> by default.</p>
+<p><code>abs_tol</code>: Shall be a <code>real</code> scalar.
+This argument is <code>intent(in)</code> and <code>optional</code>, which is <code>0.0</code> by default.</p>
+<p>Note: All <code>real/complex</code> arguments must have same <code>kind</code>.<br>
+If the value of <code>rel_tol/abs_tol</code> is negative (not recommended), 
+it will be corrected to <code>abs(rel_tol/abs_tol)</code> by the internal process of <code>is_close</code>.</p>
+<h4 id="result-value">Result value</h4>
+<p>Returns a <code>logical</code> scalar/array.</p>
+<h4 id="example_2">Example</h4>
+<div class="codehilite"><pre><span></span><code><span class="k">program </span><span class="n">demo_math_is_close</span>
+    <span class="k">use </span><span class="n">forlab_math</span><span class="p">,</span>  <span class="k">only</span><span class="p">:</span> <span class="n">is_close</span>
+    <span class="k">use </span><span class="n">stdlib_error</span><span class="p">,</span> <span class="k">only</span><span class="p">:</span> <span class="n">check</span>
+    <span class="kt">real</span> <span class="kd">::</span> <span class="n">x</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+    <span class="k">print</span> <span class="o">*</span><span class="p">,</span> <span class="n">is_close</span><span class="p">(</span><span class="n">x</span><span class="p">,[</span><span class="kt">real</span> <span class="kd">::</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">])</span>        <span class="c">!! [T, F]</span>
+    <span class="k">print</span> <span class="o">*</span><span class="p">,</span> <span class="n">is_close</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>     <span class="c">!! T</span>
+    <span class="k">call </span><span class="n">check</span><span class="p">(</span><span class="k">all</span><span class="p">(</span><span class="n">is_close</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">])),</span> <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;all(is_close(x, [2.0, 2.0])) failed.&quot;</span><span class="p">,</span> <span class="n">warn</span><span class="o">=</span><span class="p">.</span><span class="n">true</span><span class="p">.)</span>
+        <span class="c">!! all(is_close(x, [2.0, 2.0])) failed.</span>
+<span class="k">end program </span><span class="n">demo_math_is_close</span>
+</code></pre></div>
+
+<h3 id="all_close"><code>all_close</code></h3>
+<h4 id="description_3">Description</h4>
+<p>Returns a boolean scalar where two arrays are element-wise equal within a tolerance, behaves like <code>all(is_close(a, b [, rel_tol, abs_tol]))</code>.</p>
+<h4 id="syntax_3">Syntax</h4>
+<p><code>bool = <a>stdlib_math</a> (a, b [, rel_tol, abs_tol])</code></p>
+<h4 id="status_3">Status</h4>
+<p>Experimental.</p>
+<h4 id="class_3">Class</h4>
+<p>Impure function.</p>
+<h4 id="arguments_2">Arguments</h4>
+<p><code>a</code>: Shall be a <code>real/complex</code> array.
+This argument is <code>intent(in)</code>.</p>
+<p><code>b</code>: Shall be a <code>real/complex</code> array.
+This argument is <code>intent(in)</code>.</p>
+<p><code>rel_tol</code>: Shall be a <code>real</code> scalar.
+This argument is <code>intent(in)</code> and <code>optional</code>, which is <code>1.0e-9</code> by default.</p>
+<p><code>abs_tol</code>: Shall be a <code>real</code> scalar.
+This argument is <code>intent(in)</code> and <code>optional</code>, which is <code>0.0</code> by default.</p>
+<p>Note: All <code>real/complex</code> arguments must have same <code>kind</code>.<br>
+If the value of <code>rel_tol/abs_tol</code> is negative (not recommended), 
+it will be corrected to <code>abs(rel_tol/abs_tol)</code> by the internal process of <code>all_close</code>.</p>
+<h4 id="result-value_1">Result value</h4>
+<p>Returns a <code>logical</code> scalar.</p>
+<h4 id="example_3">Example</h4>
+<div class="codehilite"><pre><span></span><code><span class="k">program </span><span class="n">demo_math_all_close</span>
+    <span class="k">use </span><span class="n">forlab_math</span><span class="p">,</span>  <span class="k">only</span><span class="p">:</span> <span class="n">all_close</span>
+    <span class="k">use </span><span class="n">stdlib_error</span><span class="p">,</span> <span class="k">only</span><span class="p">:</span> <span class="n">check</span>
+    <span class="kt">real</span>    <span class="kd">::</span> <span class="n">x</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">random</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="kt">complex</span> <span class="kd">::</span> <span class="n">z</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+
+    <span class="k">call </span><span class="n">check</span><span class="p">(</span><span class="n">all_close</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span> <span class="n">rel_tol</span><span class="o">=</span><span class="mf">1.0e-6</span><span class="p">,</span> <span class="n">abs_tol</span><span class="o">=</span><span class="mf">1.0e-3</span><span class="p">),</span> <span class="p">&amp;</span>
+               <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;all_close(x, [2.0, 2.0]) failed.&quot;</span><span class="p">,</span> <span class="n">warn</span><span class="o">=</span><span class="p">.</span><span class="n">true</span><span class="p">.)</span>
+               <span class="c">!! all_close(x, [2.0, 2.0]) failed.</span>
+    <span class="k">call </span><span class="nb">random_number</span><span class="p">(</span><span class="n">random</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="k">print</span> <span class="o">*</span><span class="p">,</span> <span class="n">all_close</span><span class="p">(</span><span class="n">z</span><span class="o">+</span><span class="mf">1.0e-11</span><span class="o">*</span><span class="n">random</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>     <span class="c">!! T</span>
+
+<span class="k">end program </span><span class="n">demo_math_all_close</span>
 </code></pre></div>
     </div>
     
@@ -366,7 +415,7 @@ This is an <code>intent(in)</code> argument.</p>
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
-             on 2021-10-04 07:22  
+             on 2021-10-04 07:58  
             
           </p>
         </div>
