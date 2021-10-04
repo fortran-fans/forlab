@@ -529,7 +529,7 @@ Prints a line of progress percentage on the screen.
 ```fortran
 program demo_io_progress_perc
 
-    use forlab_strings, only: progress_perc
+    use forlab_io, only: progress_perc
     use forlab_stats, only: randu
     
     do i = 0, 100, 10

@@ -6,70 +6,6 @@ title: MATH
 
 [TOC]
 
-### `is_close`
-
-#### Description
-
-Returns a boolean scalar/array where two scalars/arrays are element-wise equal within a tolerance.
-
-The tolerance values are positive, typically very small numbers. The relative difference `(rtol*abs(b))` and the absolute difference `atol` are added together to compare against the absolute difference between `a` and `b`.
-
-```fortran
-!> For `real` type
-abs(a - b) <= rtol*abs(b) + atol
-!> For `complex` type
-abs(a%re - b%re) <= rtol*abs(b%re) + atol
-abs(a%im - b%im) <= rtol*abs(b%im) + atol
-```
-
-#### Syntax
-
-`bool = [[forlab_math(module):is_close(interface)]] (a, b [, rtol, atol])`
-
-#### Status
-
-Experimental.
-
-#### Class
-
-Elemental function.
-
-#### Arguments
-
-`a`: Shall be a `real/complex` scalar/array.
-This argument is `intent(in)`.
-
-`b`: Shall be a `real/complex` scalar/array.
-This argument is `intent(in)`.
-
-`rtol`: Shall be a `real` scalar.
-This argument is `intent(in)` and `optional`, which is `1.0e-5` by default.
-
-`atol`: Shall be a `real` scalar.
-This argument is `intent(in)` and `optional`, which is `1.0e-8` by default.
-
-Note: All `real/complex` arguments must have same `kind`.
-If the value of `rtol/atol` is negative (not recommended), it will be corrected to `abs(rtol/atol)` by the internal process of `is_close`.
-
-#### Result value
-
-Returns a `logical` scalar/array.
-
-#### Example
-
-```fortran
-program demo_math_is_close
-    use forlab_math, only: is_close
-    use stdlib_error, only: check
-    real :: x(2) = [1, 2]
-    print *, is_close(x,[real :: 1, 2.1])     !! [T, F]
-    print *, all(is_close(x,[real :: 1, 2.1]))!! F
-    print *, is_close(2.0, 2.1, atol=0.1)     !! T
-    call check(all(is_close(x, [2.0, 2.0])), msg="all(is_close(x, [2.0, 2.0])) failed.", warn=.true.)
-        !! all(is_close(x, [2.0, 2.0])) failed.
-end program demo_math_is_close
-```
-
 ### `arange`
 
 #### Status
@@ -184,4 +120,126 @@ program demo_math_signum
     !>          (0.447213590,-0.894427180)
 
 end program demo_math_signum
+```
+
+
+### `is_close`
+
+#### Description
+
+Returns a boolean scalar/array where two scalars/arrays are element-wise equal within a tolerance, behaves like `isclose` in Python stdlib.
+
+```fortran
+!> For `real` type
+is_close(a, b, rel_tol, abs_tol) = abs(a - b) <= max(rel_tol*(abs(a), abs(b)), abs_tol)
+!> For `complex` type
+is_close(a, b, rel_tol, abs_tol) = is_close(a%re, b%re, rel_tol, abs_tol) .and. &
+                                   is_close(a%im, b%im, rel_tol, abs_tol)
+```
+
+#### Syntax
+
+`bool = [[stdlib_math(module):is_close(interface)]] (a, b [, rel_tol, abs_tol])`
+
+#### Status
+
+Experimental.
+
+#### Class
+
+Elemental function.
+
+#### Arguments
+
+`a`: Shall be a `real/complex` scalar/array.
+This argument is `intent(in)`.
+
+`b`: Shall be a `real/complex` scalar/array.
+This argument is `intent(in)`.
+
+`rel_tol`: Shall be a `real` scalar.
+This argument is `intent(in)` and `optional`, which is `1.0e-9` by default.
+
+`abs_tol`: Shall be a `real` scalar.
+This argument is `intent(in)` and `optional`, which is `0.0` by default.
+
+Note: All `real/complex` arguments must have same `kind`.  
+If the value of `rel_tol/abs_tol` is negative (not recommended), 
+it will be corrected to `abs(rel_tol/abs_tol)` by the internal process of `is_close`.
+
+#### Result value
+
+Returns a `logical` scalar/array.
+
+#### Example
+
+```fortran
+program demo_math_is_close
+    use forlab_math,  only: is_close
+    use stdlib_error, only: check
+    real :: x(2) = [1, 2]
+    print *, is_close(x,[real :: 1, 2.1])        !! [T, F]
+    print *, is_close(2.0, 2.1, abs_tol=0.1)     !! T
+    call check(all(is_close(x, [2.0, 2.0])), msg="all(is_close(x, [2.0, 2.0])) failed.", warn=.true.)
+        !! all(is_close(x, [2.0, 2.0])) failed.
+end program demo_math_is_close
+```
+
+### `all_close`
+
+#### Description
+
+Returns a boolean scalar where two arrays are element-wise equal within a tolerance, behaves like `all(is_close(a, b [, rel_tol, abs_tol]))`.
+
+#### Syntax
+
+`bool = [[stdlib_math(module):all_close(interface)]] (a, b [, rel_tol, abs_tol])`
+
+#### Status
+
+Experimental.
+
+#### Class
+
+Impure function.
+
+#### Arguments
+
+`a`: Shall be a `real/complex` array.
+This argument is `intent(in)`.
+
+`b`: Shall be a `real/complex` array.
+This argument is `intent(in)`.
+
+`rel_tol`: Shall be a `real` scalar.
+This argument is `intent(in)` and `optional`, which is `1.0e-9` by default.
+
+`abs_tol`: Shall be a `real` scalar.
+This argument is `intent(in)` and `optional`, which is `0.0` by default.
+
+Note: All `real/complex` arguments must have same `kind`.  
+If the value of `rel_tol/abs_tol` is negative (not recommended), 
+it will be corrected to `abs(rel_tol/abs_tol)` by the internal process of `all_close`.
+
+#### Result value
+
+Returns a `logical` scalar.
+
+#### Example
+
+```fortran
+program demo_math_all_close
+    use forlab_math,  only: all_close
+    use stdlib_error, only: check
+    real    :: x(2) = [1, 2], random(4, 4)
+    complex :: z(4, 4)
+    
+    call check(all_close(x, [2.0, 2.0], rel_tol=1.0e-6, abs_tol=1.0e-3), &
+               msg="all_close(x, [2.0, 2.0]) failed.", warn=.true.)
+               !! all_close(x, [2.0, 2.0]) failed.
+    call random_number(random(4, 4))
+    z = 1.0
+    print *, all_close(z+1.0e-11*random, z)     !! T
+    
+end program demo_math_all_close
 ```

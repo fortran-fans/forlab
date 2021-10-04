@@ -1,4 +1,5 @@
 module forlab_math
+
     use stdlib_kinds, only: sp, dp, qp, int8, int16, int32, int64
     use stdlib_optval, only: optval
     implicit none
@@ -7,7 +8,9 @@ module forlab_math
     public :: angle
     public :: cosd, sind,tand
     public :: acosd, asind, atand
-    public :: is_close, arange, signum
+    public :: arange, signum
+    
+    public :: is_close, all_close
 
     interface acosd
         !! degree circular functions
@@ -110,40 +113,71 @@ module forlab_math
 
     !> Version: experimental
     !>
-    !> Determines whether the values of `a` and `b` are close.
-    !> ([Specification](../page/specs/forlab_logic.html#is_close))
+    !> Returns a boolean scalar/array where two scalar/arrays are element-wise equal within a tolerance.
+    !> ([Specification](../page/specs/forlab_math.html#is_close))
     interface is_close
-        elemental module function is_close_rsp(a, b, rtol, atol) result(result)
+        elemental module function is_close_rsp(a, b, rel_tol, abs_tol) result(close)
             real(sp), intent(in) :: a, b
-            real(sp), intent(in), optional :: rtol, atol
-            logical :: result
+            real(sp), intent(in), optional :: rel_tol, abs_tol
+            logical :: close
         end function is_close_rsp
-        elemental module function is_close_rdp(a, b, rtol, atol) result(result)
+        elemental module function is_close_rdp(a, b, rel_tol, abs_tol) result(close)
             real(dp), intent(in) :: a, b
-            real(dp), intent(in), optional :: rtol, atol
-            logical :: result
+            real(dp), intent(in), optional :: rel_tol, abs_tol
+            logical :: close
         end function is_close_rdp
-        elemental module function is_close_rqp(a, b, rtol, atol) result(result)
+        elemental module function is_close_rqp(a, b, rel_tol, abs_tol) result(close)
             real(qp), intent(in) :: a, b
-            real(qp), intent(in), optional :: rtol, atol
-            logical :: result
+            real(qp), intent(in), optional :: rel_tol, abs_tol
+            logical :: close
         end function is_close_rqp
-        elemental module function is_close_csp(a, b, rtol, atol) result(result)
+        elemental module function is_close_csp(a, b, rel_tol, abs_tol) result(close)
             complex(sp), intent(in) :: a, b
-            real(sp), intent(in), optional :: rtol, atol
-            logical :: result
+            real(sp), intent(in), optional :: rel_tol, abs_tol
+            logical :: close
         end function is_close_csp
-        elemental module function is_close_cdp(a, b, rtol, atol) result(result)
+        elemental module function is_close_cdp(a, b, rel_tol, abs_tol) result(close)
             complex(dp), intent(in) :: a, b
-            real(dp), intent(in), optional :: rtol, atol
-            logical :: result
+            real(dp), intent(in), optional :: rel_tol, abs_tol
+            logical :: close
         end function is_close_cdp
-        elemental module function is_close_cqp(a, b, rtol, atol) result(result)
+        elemental module function is_close_cqp(a, b, rel_tol, abs_tol) result(close)
             complex(qp), intent(in) :: a, b
-            real(qp), intent(in), optional :: rtol, atol
-            logical :: result
+            real(qp), intent(in), optional :: rel_tol, abs_tol
+            logical :: close
         end function is_close_cqp
     end interface is_close
+
+    !> Version: experimental
+    !>
+    !> Returns a boolean scalar where two arrays are element-wise equal within a tolerance.
+    !> ([Specification](../page/specs/forlab_math.html#all_close))
+    interface all_close
+        logical module function all_close_rsp(a, b, rel_tol, abs_tol) result(close)
+            real(sp), intent(in) :: a(..), b(..)
+            real(sp), intent(in), optional :: rel_tol, abs_tol
+        end function all_close_rsp
+        logical module function all_close_rdp(a, b, rel_tol, abs_tol) result(close)
+            real(dp), intent(in) :: a(..), b(..)
+            real(dp), intent(in), optional :: rel_tol, abs_tol
+        end function all_close_rdp
+        logical module function all_close_rqp(a, b, rel_tol, abs_tol) result(close)
+            real(qp), intent(in) :: a(..), b(..)
+            real(qp), intent(in), optional :: rel_tol, abs_tol
+        end function all_close_rqp
+        logical module function all_close_csp(a, b, rel_tol, abs_tol) result(close)
+            complex(sp), intent(in) :: a(..), b(..)
+            real(sp), intent(in), optional :: rel_tol, abs_tol
+        end function all_close_csp
+        logical module function all_close_cdp(a, b, rel_tol, abs_tol) result(close)
+            complex(dp), intent(in) :: a(..), b(..)
+            real(dp), intent(in), optional :: rel_tol, abs_tol
+        end function all_close_cdp
+        logical module function all_close_cqp(a, b, rel_tol, abs_tol) result(close)
+            complex(qp), intent(in) :: a(..), b(..)
+            real(qp), intent(in), optional :: rel_tol, abs_tol
+        end function all_close_cqp
+    end interface all_close
 
     !> Version: experimental
     !>
