@@ -12,7 +12,7 @@ FORLAB使用stdlib作为上游包，相比于stdlib，FORLAB是非正式的，�
 | **版本:** | 1.0.1 |
 | **作者:** | FORLAB 贡献者 |
 | **源码网页:** | https://github.com/fortran-fans/forlab |
-| **API-Doc网页:** | https://zoziha.github.io/forlab-API-doc/ |
+| **API-Doc网页:** | https://fortran-fans.github.io/forlab/ |
 | **许可证:** | _ORLAB在MIT开源许可证下发行. |
 
 ## 开始
@@ -48,7 +48,7 @@ fpm test <test_name, see `fpm.toml` or list>
 
 ```toml
 [dependencies] # or [dev-dependencies] for tests.
-forlab = { git = "https://github.com/fortran-fans/forlab.git" }
+forlab = { git="https://github.com/fortran-fans/forlab.git", branch="forlab-fpm" }
 ```
 
 ## API文档
@@ -56,7 +56,7 @@ forlab = { git = "https://github.com/fortran-fans/forlab.git" }
 ```bash
 ford API-doc-FORD-file.md  # todo
 ```
-see [forlab-API-doc](https://zoziha.github.io/forlab-API-doc/).
+see [forlab-API-doc](https://fortran-fans.github.io/forlab/).
 
 有一些API使用的例子被放置在了`example`文件夹下，你可以使用FPM来运行它们：
 

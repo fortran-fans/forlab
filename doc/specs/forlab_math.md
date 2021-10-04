@@ -139,7 +139,7 @@ is_close(a, b, rel_tol, abs_tol) = is_close(a%re, b%re, rel_tol, abs_tol) .and. 
 
 #### Syntax
 
-`bool = [[stdlib_math(module):is_close(interface)]] (a, b [, rel_tol, abs_tol])`
+`bool = [[forlab_math(module):is_close(interface)]] (a, b [, rel_tol, abs_tol])`
 
 #### Status
 
@@ -193,7 +193,7 @@ Returns a boolean scalar where two arrays are element-wise equal within a tolera
 
 #### Syntax
 
-`bool = [[stdlib_math(module):all_close(interface)]] (a, b [, rel_tol, abs_tol])`
+`bool = [[forlab_math(module):all_close(interface)]] (a, b [, rel_tol, abs_tol])`
 
 #### Status
 
