@@ -1,0 +1,111 @@
+name = "forlab"
+version = "1.0.1"
+license = "MIT"
+author = "forlab contributors"
+maintainer = "https://github.com/fortran-fans/forlab"
+copyright = "2016-2021 forlab contributors"
+description = "A Fortran module that provides a lot of functions for scientific computing"
+categories = ["numerical"]
+keywords = ["numerical", "easy-to-use"]
+
+[build]
+auto-executables = false
+auto-examples = true
+auto-tests = false
+
+[dependencies]
+# Use stdlib as an upstream dependency.
+stdlib = { git = "https://github.com/fortran-lang/stdlib", branch = "stdlib-fpm" }
+
+[library]
+source-dir="src"
+
+#=========================== tests =============================================
+## [io] tests
+[[test]]
+name = "io_bin"
+source-dir = "test/io"
+main = "test_io_bin.f90"
+[[test]]
+name = "io_disp"
+source-dir = "test/io"
+main = "test_io_disp.f90"
+[[test]]
+name = "io_file"
+source-dir = "test/io"
+main = "test_io_file.f90"
+[[test]]
+name = "io_color"
+source-dir = "test/io"
+main = "test_io_color.f90"
+
+## [linalg] tests
+[[test]]
+name = "linalg_diff"
+source-dir = "test/linalg"
+main = "test_linalg_diff.f90"
+[[test]]
+name = "linalg_i"
+source-dir = "test/linalg"
+main = "test_linalg_i.f90"
+[[test]]
+name = "linalg_linspace"
+source-dir = "test/linalg"
+main = "test_linalg_linspace.f90"
+[[test]]
+name = "linalg_tri"
+source-dir = "test/linalg"
+main = "test_linalg_tri.f90"
+[[test]]
+name = "linalg_x"
+source-dir = "test/linalg"
+main = "test_linalg_x.f90"
+[[test]]
+name = "linalg_zerosones"
+source-dir = "test/linalg"
+main = "test_linalg_zerosones.f90"
+
+## [math] tests
+[[test]]
+name = "math_angle"
+source-dir = "test/math"
+main = "test_math_angle.f90"
+[[test]]
+name = "math_degcir"
+source-dir = "test/math"
+main = "test_math_degcir.f90"
+[[test]]
+name = "math_is_close"
+source-dir = "test/math"
+main = "test_math_is_close.f90"
+[[test]]
+name = "math_arange"
+source-dir = "test/math"
+main = "test_math_arange.f90"
+[[test]]
+name = "math_signum"
+source-dir = "test/math"
+main = "test_math_signum.f90"
+
+## [stats] tests
+[[test]]
+name = "stats"
+source-dir = "test/stats"
+main = "stats_checker.f90"
+[[test]]
+name = "stats_var"
+source-dir = "test/stats"
+main = "test_stats_var.f90"
+
+## [sorting] tests
+[[test]]
+name = "sorting_sort"
+source-dir = "test/sorting"
+main = "test_sorting_sort.f90"
+
+## [time] tests
+[[test]]
+name = "time_tioc"
+source-dir = "test/time"
+main = "test_time_tioc.f90"
+
