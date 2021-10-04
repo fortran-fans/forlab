@@ -706,7 +706,7 @@ module forlab_io
     !> Version: expermental
     !>
     !> Print a progress_bar.
-    !> ([Specification])(../page/specs/forlab_io.html#progress_bar)
+    !> ([Specification](../page/specs/forlab_io.html#progress_bar))
     interface progress_bar
         module subroutine progress_bar_int8(iter, itermax, step, symbol)
             integer(int8), intent(in) :: iter, itermax
@@ -733,7 +733,7 @@ module forlab_io
     !> Version: expermental
     !>
     !> Print a progress percentage message.
-    !> ([Specification])(../page/specs/forlab_io.html#progress_perc)
+    !> ([Specification](../page/specs/forlab_io.html#progress_perc))
     interface progress_perc
         module subroutine progress_perc_int8(iter, itermax, prefix)
             integer(int8), intent(in) :: iter, itermax

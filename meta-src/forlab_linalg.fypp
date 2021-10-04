@@ -120,7 +120,7 @@ module forlab_linalg
         module function ${c1}$_${t1[0]}$_12_${k1}$(x1, A2) result(result)
             ${t1}$, dimension(:, :), allocatable :: result
             ${t1}$, dimension(:), intent(in) :: x1
-            integer, dimension(:, :), intent(in) :: A2
+            ${t1}$, dimension(:, :), intent(in) :: A2
         end function ${c1}$_${t1[0]}$_12_${k1}$
         #:endfor
     end interface ${c1}$

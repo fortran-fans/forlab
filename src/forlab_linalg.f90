@@ -214,7 +214,7 @@ module forlab_linalg
         module function horzcat_r_12_sp(x1, A2) result(result)
             real(sp), dimension(:, :), allocatable :: result
             real(sp), dimension(:), intent(in) :: x1
-            integer, dimension(:, :), intent(in) :: A2
+            real(sp), dimension(:, :), intent(in) :: A2
         end function horzcat_r_12_sp
         module function horzcat_r_1_dp(x1, x2) result(result)
             real(dp), dimension(:, :), allocatable :: result
@@ -232,7 +232,7 @@ module forlab_linalg
         module function horzcat_r_12_dp(x1, A2) result(result)
             real(dp), dimension(:, :), allocatable :: result
             real(dp), dimension(:), intent(in) :: x1
-            integer, dimension(:, :), intent(in) :: A2
+            real(dp), dimension(:, :), intent(in) :: A2
         end function horzcat_r_12_dp
         module function horzcat_r_1_qp(x1, x2) result(result)
             real(qp), dimension(:, :), allocatable :: result
@@ -250,7 +250,7 @@ module forlab_linalg
         module function horzcat_r_12_qp(x1, A2) result(result)
             real(qp), dimension(:, :), allocatable :: result
             real(qp), dimension(:), intent(in) :: x1
-            integer, dimension(:, :), intent(in) :: A2
+            real(qp), dimension(:, :), intent(in) :: A2
         end function horzcat_r_12_qp
         module function horzcat_c_1_sp(x1, x2) result(result)
             complex(sp), dimension(:, :), allocatable :: result
@@ -268,7 +268,7 @@ module forlab_linalg
         module function horzcat_c_12_sp(x1, A2) result(result)
             complex(sp), dimension(:, :), allocatable :: result
             complex(sp), dimension(:), intent(in) :: x1
-            integer, dimension(:, :), intent(in) :: A2
+            complex(sp), dimension(:, :), intent(in) :: A2
         end function horzcat_c_12_sp
         module function horzcat_c_1_dp(x1, x2) result(result)
             complex(dp), dimension(:, :), allocatable :: result
@@ -286,7 +286,7 @@ module forlab_linalg
         module function horzcat_c_12_dp(x1, A2) result(result)
             complex(dp), dimension(:, :), allocatable :: result
             complex(dp), dimension(:), intent(in) :: x1
-            integer, dimension(:, :), intent(in) :: A2
+            complex(dp), dimension(:, :), intent(in) :: A2
         end function horzcat_c_12_dp
         module function horzcat_c_1_qp(x1, x2) result(result)
             complex(qp), dimension(:, :), allocatable :: result
@@ -304,7 +304,7 @@ module forlab_linalg
         module function horzcat_c_12_qp(x1, A2) result(result)
             complex(qp), dimension(:, :), allocatable :: result
             complex(qp), dimension(:), intent(in) :: x1
-            integer, dimension(:, :), intent(in) :: A2
+            complex(qp), dimension(:, :), intent(in) :: A2
         end function horzcat_c_12_qp
         module function horzcat_i_1_int8(x1, x2) result(result)
             integer(int8), dimension(:, :), allocatable :: result
@@ -322,7 +322,7 @@ module forlab_linalg
         module function horzcat_i_12_int8(x1, A2) result(result)
             integer(int8), dimension(:, :), allocatable :: result
             integer(int8), dimension(:), intent(in) :: x1
-            integer, dimension(:, :), intent(in) :: A2
+            integer(int8), dimension(:, :), intent(in) :: A2
         end function horzcat_i_12_int8
         module function horzcat_i_1_int16(x1, x2) result(result)
             integer(int16), dimension(:, :), allocatable :: result
@@ -340,7 +340,7 @@ module forlab_linalg
         module function horzcat_i_12_int16(x1, A2) result(result)
             integer(int16), dimension(:, :), allocatable :: result
             integer(int16), dimension(:), intent(in) :: x1
-            integer, dimension(:, :), intent(in) :: A2
+            integer(int16), dimension(:, :), intent(in) :: A2
         end function horzcat_i_12_int16
         module function horzcat_i_1_int32(x1, x2) result(result)
             integer(int32), dimension(:, :), allocatable :: result
@@ -358,7 +358,7 @@ module forlab_linalg
         module function horzcat_i_12_int32(x1, A2) result(result)
             integer(int32), dimension(:, :), allocatable :: result
             integer(int32), dimension(:), intent(in) :: x1
-            integer, dimension(:, :), intent(in) :: A2
+            integer(int32), dimension(:, :), intent(in) :: A2
         end function horzcat_i_12_int32
         module function horzcat_i_1_int64(x1, x2) result(result)
             integer(int64), dimension(:, :), allocatable :: result
@@ -376,7 +376,7 @@ module forlab_linalg
         module function horzcat_i_12_int64(x1, A2) result(result)
             integer(int64), dimension(:, :), allocatable :: result
             integer(int64), dimension(:), intent(in) :: x1
-            integer, dimension(:, :), intent(in) :: A2
+            integer(int64), dimension(:, :), intent(in) :: A2
         end function horzcat_i_12_int64
     end interface horzcat
     interface vertcat
@@ -396,7 +396,7 @@ module forlab_linalg
         module function vertcat_r_12_sp(x1, A2) result(result)
             real(sp), dimension(:, :), allocatable :: result
             real(sp), dimension(:), intent(in) :: x1
-            integer, dimension(:, :), intent(in) :: A2
+            real(sp), dimension(:, :), intent(in) :: A2
         end function vertcat_r_12_sp
         module function vertcat_r_1_dp(x1, x2) result(result)
             real(dp), dimension(:, :), allocatable :: result
@@ -414,7 +414,7 @@ module forlab_linalg
         module function vertcat_r_12_dp(x1, A2) result(result)
             real(dp), dimension(:, :), allocatable :: result
             real(dp), dimension(:), intent(in) :: x1
-            integer, dimension(:, :), intent(in) :: A2
+            real(dp), dimension(:, :), intent(in) :: A2
         end function vertcat_r_12_dp
         module function vertcat_r_1_qp(x1, x2) result(result)
             real(qp), dimension(:, :), allocatable :: result
@@ -432,7 +432,7 @@ module forlab_linalg
         module function vertcat_r_12_qp(x1, A2) result(result)
             real(qp), dimension(:, :), allocatable :: result
             real(qp), dimension(:), intent(in) :: x1
-            integer, dimension(:, :), intent(in) :: A2
+            real(qp), dimension(:, :), intent(in) :: A2
         end function vertcat_r_12_qp
         module function vertcat_c_1_sp(x1, x2) result(result)
             complex(sp), dimension(:, :), allocatable :: result
@@ -450,7 +450,7 @@ module forlab_linalg
         module function vertcat_c_12_sp(x1, A2) result(result)
             complex(sp), dimension(:, :), allocatable :: result
             complex(sp), dimension(:), intent(in) :: x1
-            integer, dimension(:, :), intent(in) :: A2
+            complex(sp), dimension(:, :), intent(in) :: A2
         end function vertcat_c_12_sp
         module function vertcat_c_1_dp(x1, x2) result(result)
             complex(dp), dimension(:, :), allocatable :: result
@@ -468,7 +468,7 @@ module forlab_linalg
         module function vertcat_c_12_dp(x1, A2) result(result)
             complex(dp), dimension(:, :), allocatable :: result
             complex(dp), dimension(:), intent(in) :: x1
-            integer, dimension(:, :), intent(in) :: A2
+            complex(dp), dimension(:, :), intent(in) :: A2
         end function vertcat_c_12_dp
         module function vertcat_c_1_qp(x1, x2) result(result)
             complex(qp), dimension(:, :), allocatable :: result
@@ -486,7 +486,7 @@ module forlab_linalg
         module function vertcat_c_12_qp(x1, A2) result(result)
             complex(qp), dimension(:, :), allocatable :: result
             complex(qp), dimension(:), intent(in) :: x1
-            integer, dimension(:, :), intent(in) :: A2
+            complex(qp), dimension(:, :), intent(in) :: A2
         end function vertcat_c_12_qp
         module function vertcat_i_1_int8(x1, x2) result(result)
             integer(int8), dimension(:, :), allocatable :: result
@@ -504,7 +504,7 @@ module forlab_linalg
         module function vertcat_i_12_int8(x1, A2) result(result)
             integer(int8), dimension(:, :), allocatable :: result
             integer(int8), dimension(:), intent(in) :: x1
-            integer, dimension(:, :), intent(in) :: A2
+            integer(int8), dimension(:, :), intent(in) :: A2
         end function vertcat_i_12_int8
         module function vertcat_i_1_int16(x1, x2) result(result)
             integer(int16), dimension(:, :), allocatable :: result
@@ -522,7 +522,7 @@ module forlab_linalg
         module function vertcat_i_12_int16(x1, A2) result(result)
             integer(int16), dimension(:, :), allocatable :: result
             integer(int16), dimension(:), intent(in) :: x1
-            integer, dimension(:, :), intent(in) :: A2
+            integer(int16), dimension(:, :), intent(in) :: A2
         end function vertcat_i_12_int16
         module function vertcat_i_1_int32(x1, x2) result(result)
             integer(int32), dimension(:, :), allocatable :: result
@@ -540,7 +540,7 @@ module forlab_linalg
         module function vertcat_i_12_int32(x1, A2) result(result)
             integer(int32), dimension(:, :), allocatable :: result
             integer(int32), dimension(:), intent(in) :: x1
-            integer, dimension(:, :), intent(in) :: A2
+            integer(int32), dimension(:, :), intent(in) :: A2
         end function vertcat_i_12_int32
         module function vertcat_i_1_int64(x1, x2) result(result)
             integer(int64), dimension(:, :), allocatable :: result
@@ -558,7 +558,7 @@ module forlab_linalg
         module function vertcat_i_12_int64(x1, A2) result(result)
             integer(int64), dimension(:, :), allocatable :: result
             integer(int64), dimension(:), intent(in) :: x1
-            integer, dimension(:, :), intent(in) :: A2
+            integer(int64), dimension(:, :), intent(in) :: A2
         end function vertcat_i_12_int64
     end interface vertcat
 
