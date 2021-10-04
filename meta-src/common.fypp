@@ -39,6 +39,8 @@
 #! Default Kinds
 #:set DK = "sp"
 
+#:set MAXRANK = 4
+
 #:def ranksuffix(RANK)
 $:'' if RANK == 0 else '(' + ':' + ',:' * (RANK - 1) + ')'
 #:enddef ranksuffix

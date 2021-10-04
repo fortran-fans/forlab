@@ -1,9 +1,9 @@
 name = "forlab"
 version = "1.0.1"
 license = "MIT"
-author = "forlab contributors"
-maintainer = "https://github.com/fortran-fans/forlab"
-copyright = "2016-2021 forlab contributors"
+author  = "FORLAB contributors"
+maintainer = "@Fortran-Fans/FORALB"
+copyright = "2016-2021 FORLAB contributors"
 description = "A Fortran module that provides a lot of functions for scientific computing"
 categories = ["numerical"]
 keywords = ["numerical", "easy-to-use"]
@@ -78,6 +78,10 @@ main = "test_math_degcir.f90"
 name = "math_is_close"
 source-dir = "test/math"
 main = "test_math_is_close.f90"
+[[test]]
+name = "math_all_close"
+source-dir = "test/math"
+main = "test_math_all_close.f90"
 [[test]]
 name = "math_arange"
 source-dir = "test/math"
