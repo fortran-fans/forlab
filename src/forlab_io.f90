@@ -15,6 +15,8 @@ module forlab_io
     public :: savebin, loadbin, savetxt, loadtxt
     public :: color
     public :: disp
+    
+    public :: progress_bar, progress_perc
 
     !> Version: experimental
     !> 
@@ -700,6 +702,56 @@ module forlab_io
             character(len=*), intent(in), optional :: string
         end subroutine color
     end interface
+    
+    !> Version: expermental
+    !>
+    !> Print a progress_bar.
+    !> ([Specification](../page/specs/forlab_io.html#progress_bar))
+    interface progress_bar
+        module subroutine progress_bar_int8(iter, itermax, step, symbol)
+            integer(int8), intent(in) :: iter, itermax
+            integer(int8), intent(in), optional :: step
+            character(*), intent(in), optional :: symbol
+        end subroutine progress_bar_int8
+        module subroutine progress_bar_int16(iter, itermax, step, symbol)
+            integer(int16), intent(in) :: iter, itermax
+            integer(int16), intent(in), optional :: step
+            character(*), intent(in), optional :: symbol
+        end subroutine progress_bar_int16
+        module subroutine progress_bar_int32(iter, itermax, step, symbol)
+            integer(int32), intent(in) :: iter, itermax
+            integer(int32), intent(in), optional :: step
+            character(*), intent(in), optional :: symbol
+        end subroutine progress_bar_int32
+        module subroutine progress_bar_int64(iter, itermax, step, symbol)
+            integer(int64), intent(in) :: iter, itermax
+            integer(int64), intent(in), optional :: step
+            character(*), intent(in), optional :: symbol
+        end subroutine progress_bar_int64
+    end interface progress_bar
+    
+    !> Version: expermental
+    !>
+    !> Print a progress percentage message.
+    !> ([Specification](../page/specs/forlab_io.html#progress_perc))
+    interface progress_perc
+        module subroutine progress_perc_int8(iter, itermax, prefix)
+            integer(int8), intent(in) :: iter, itermax
+            character(*), intent(in), optional :: prefix
+        end subroutine progress_perc_int8
+        module subroutine progress_perc_int16(iter, itermax, prefix)
+            integer(int16), intent(in) :: iter, itermax
+            character(*), intent(in), optional :: prefix
+        end subroutine progress_perc_int16
+        module subroutine progress_perc_int32(iter, itermax, prefix)
+            integer(int32), intent(in) :: iter, itermax
+            character(*), intent(in), optional :: prefix
+        end subroutine progress_perc_int32
+        module subroutine progress_perc_int64(iter, itermax, prefix)
+            integer(int64), intent(in) :: iter, itermax
+            character(*), intent(in), optional :: prefix
+        end subroutine progress_perc_int64
+    end interface progress_perc
 
 contains
 

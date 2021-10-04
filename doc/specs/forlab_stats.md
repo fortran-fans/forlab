@@ -4,7 +4,7 @@ title: STATS
 
 # STATS
 
-## Notes
+#### Notes
 
 In daily use, vectors and matrices are more practical than higher-order arrays, 
 and Fortran does not support array generics, we can use `reshape` to reshape vectors into higher-order arrays.

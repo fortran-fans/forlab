@@ -2,18 +2,18 @@
 
 [![Actions Status](https://github.com/fortran-fans/forlab/workflows/fpm/badge.svg)](https://github.com/fortran-fans/forlab/actions)
 
-Forlab is a Fortran module that provides some functions for scientific computing.
+FORLAB is a Fortran module that provides some functions for scientific computing.
 It's more like a small **toolbox**.  
-Forlab uses [stdlib](https://github.com/fortran-lang/stdlib) as an upstream package. Forlab hopes to be a small scaffolding tool. Compared with [stdlib](https://github.com/fortran-lang/stdlib), Forlab is less formal.
+FORLAB uses [stdlib](https://github.com/fortran-lang/stdlib) as an upstream package. FORLAB hopes to be a small scaffolding tool. Compared with [stdlib](https://github.com/fortran-lang/stdlib), FORLAB is less formal.
 
 | | |  
 |:-:|---|
 | **Version:** | 1.0.1 |
-| **Author:** | Forlab Contributors |
+| **Author:** | FORLAB Contributors |
 | **Web site:** | https://github.com/fortran-fans/forlab |
 | **API-Doc Web site:** | https://zoziha.github.io/forlab-API-doc/ |
 | **Copyright:** | _This document_ has been placed in the public domain. |
-| **License:** | _Forlab_ is released under the MIT License. |
+| **License:** | _FORLAB_ is released under the MIT License. |
 
 ## Getting Started
 ### Get the code
@@ -44,7 +44,7 @@ fpm test <test_name, see `fpm.toml` or list>
 To use `forlab` within your `fpm` project, add the following to `fpm.toml` file:
 ```toml
 [dependencies] # or [dev-dependencies] for tests.
-forlab = { git = "https://github.com/fortran-fans/forlab.git" }
+forlab = { git="https://github.com/fortran-fans/forlab.git", branch="forlab-fpm" }
 ```
 
 ## API-Doc
@@ -52,7 +52,7 @@ forlab = { git = "https://github.com/fortran-fans/forlab.git" }
 ```bash
 ford API-doc-FORD-file.md  # todo
 ```
-see [forlab-API-doc](https://zoziha.github.io/forlab-API-doc/).
+see [forlab-API-doc](https://fortran-fans.github.io/forlab/page/specs/index.html).
 
 Some examples are prepared in the `./example` folder, and you can use `fpm` to run them.
 ```sh

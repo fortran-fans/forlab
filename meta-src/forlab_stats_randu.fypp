@@ -35,7 +35,7 @@ contains
         real :: tmp
 
         call random_number(tmp)
-        random = start + nint(tmp*real(end - start))
+        random = start + nint(tmp*real(end - start), ${k1}$)
 
     end function randu_0_${t1[0]}$${k1}$
 
@@ -47,7 +47,7 @@ contains
         real :: tmp(ndim)
 
         call random_number(tmp)
-        random = start + nint(tmp*real(end - start))
+        random = start + nint(tmp*real(end - start), ${k1}$)
 
     end function randu_1_${t1[0]}$${k1}$
     #:endfor

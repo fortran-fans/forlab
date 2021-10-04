@@ -432,3 +432,110 @@ end program demo_io_disp
                         :                         :                         :                         :                         :  
             (2.000,0.000)             (2.000,0.000)             (2.000,0.000)                       ...             (2.000,0.000) 
 ```
+
+### `progress_bar`
+
+#### Description
+
+Prints a progress bar.
+
+#### Status
+
+Experimental
+
+#### Class
+
+Impure subroutine.
+
+#### Syntax
+
+`call [[forlab_io(module):progress_bar(interface)]] (iter, itermax [, step, symbol])`
+
+#### Arguments
+
+`iter/itermax/step` shall be the same kind.
+
+`iter`: Shall be an `integer` scalar.
+This argument is `intent(in)`.
+
+`itermax`: Shall be an `integer` scalar.
+This argument is `intent(in)`.
+
+`step`: Shall be an `integer` scalar.
+This argument is `intent(in)` and `optional`.
+
+`symbol`: Shall be a `character(len=*)` scalar.
+This argument is `intent(in)` and `optional`.
+
+#### Output
+
+Prints a line of progress bar on the screen.
+
+#### Example
+
+```fortran
+program demo_io_progress_bar
+
+    use forlab_io, only: progress_bar
+    use forlab_stats, only: randu
+    
+    do i = 0, 100, 10
+        call progress_bar(i, 100)
+        call sleep(randu(1, 2))
+    end do
+    
+    write(*,"(3A)",advance="no") char(13), "Calculation Done!", repeat(" ", 55)
+
+end program demo_io_progress_bar
+```
+
+### `progress_perc`
+
+#### Description
+
+Prints a progress percentage message.
+
+#### Status
+
+Experimental
+
+#### Class
+
+Impure subroutine.
+
+#### Syntax
+
+`call [[forlab_io(module):progress_perc(interface)]] (iter, itermax [, prefix])`
+
+#### Arguments
+
+`iter/itermax` shall be the same kind.
+
+`iter`: Shall be an `integer` scalar.
+This argument is `intent(in)`.
+
+`itermax`: Shall be an `integer` scalar.
+This argument is `intent(in)`.
+
+`prefix`: Shall be a `character(len=*)` scalar.
+This argument is `intent(in)` and `optional`.
+
+#### Output
+
+Prints a line of progress percentage on the screen.
+
+#### Example
+
+```fortran
+program demo_io_progress_perc
+
+    use forlab_strings, only: progress_perc
+    use forlab_stats, only: randu
+    
+    do i = 0, 100, 10
+        call progress_perc(i, 100, ">>")
+        call sleep(randu(1, 3))
+    end do
+
+end program demo_io_progress_perc
+```
