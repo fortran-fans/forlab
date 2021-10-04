@@ -5,12 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
    
-   <meta name="description" content="A opensource package forlab v1.0 for (modern) Fortran">
+   <meta name="description" content="A opensource package FORLAB v1.0 for (modern) Fortran">
     
-    <meta name="author" content="forlab v1.0 contributors" >
+    <meta name="author" content="FORLAB v1.0 contributors" >
     <link rel="icon" href="../favicon.png">
 
-    <title>forlab_stats_randu.f90 &ndash; forlab</title>
+    <title>forlab_stats_randu.f90 &ndash; FORLAB</title>
 
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/pygments.css" rel="stylesheet">
@@ -44,7 +44,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="../index.html">forlab </a>
+          <a class="navbar-brand" href="../index.html">FORLAB </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -339,7 +339,7 @@
 <a id="ln-66" name="ln-66"></a>        <span class="kt">real</span> <span class="kd">::</span> <span class="n">tmp</span>
 <a id="ln-67" name="ln-67"></a>
 <a id="ln-68" name="ln-68"></a>        <span class="k">call </span><span class="nb">random_number</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
-<a id="ln-69" name="ln-69"></a>        <span class="n">random</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="nb">nint</span><span class="p">(</span><span class="n">tmp</span><span class="o">*</span><span class="kt">real</span><span class="p">(</span><span class="k">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">))</span>
+<a id="ln-69" name="ln-69"></a>        <span class="n">random</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="nb">nint</span><span class="p">(</span><span class="n">tmp</span><span class="o">*</span><span class="kt">real</span><span class="p">(</span><span class="k">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">),</span> <span class="n">int8</span><span class="p">)</span>
 <a id="ln-70" name="ln-70"></a>
 <a id="ln-71" name="ln-71"></a>    <span class="k">end function </span><span class="n">randu_0_iint8</span>
 <a id="ln-72" name="ln-72"></a>
@@ -351,7 +351,7 @@
 <a id="ln-78" name="ln-78"></a>        <span class="kt">real</span> <span class="kd">::</span> <span class="n">tmp</span><span class="p">(</span><span class="n">ndim</span><span class="p">)</span>
 <a id="ln-79" name="ln-79"></a>
 <a id="ln-80" name="ln-80"></a>        <span class="k">call </span><span class="nb">random_number</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
-<a id="ln-81" name="ln-81"></a>        <span class="n">random</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="nb">nint</span><span class="p">(</span><span class="n">tmp</span><span class="o">*</span><span class="kt">real</span><span class="p">(</span><span class="k">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">))</span>
+<a id="ln-81" name="ln-81"></a>        <span class="n">random</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="nb">nint</span><span class="p">(</span><span class="n">tmp</span><span class="o">*</span><span class="kt">real</span><span class="p">(</span><span class="k">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">),</span> <span class="n">int8</span><span class="p">)</span>
 <a id="ln-82" name="ln-82"></a>
 <a id="ln-83" name="ln-83"></a>    <span class="k">end function </span><span class="n">randu_1_iint8</span>
 <a id="ln-84" name="ln-84"></a>    <span class="k">module function </span><span class="n">randu_0_iint16</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="k">end</span><span class="p">)</span> <span class="k">result</span><span class="p">(</span><span class="n">random</span><span class="p">)</span>
@@ -361,7 +361,7 @@
 <a id="ln-88" name="ln-88"></a>        <span class="kt">real</span> <span class="kd">::</span> <span class="n">tmp</span>
 <a id="ln-89" name="ln-89"></a>
 <a id="ln-90" name="ln-90"></a>        <span class="k">call </span><span class="nb">random_number</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
-<a id="ln-91" name="ln-91"></a>        <span class="n">random</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="nb">nint</span><span class="p">(</span><span class="n">tmp</span><span class="o">*</span><span class="kt">real</span><span class="p">(</span><span class="k">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">))</span>
+<a id="ln-91" name="ln-91"></a>        <span class="n">random</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="nb">nint</span><span class="p">(</span><span class="n">tmp</span><span class="o">*</span><span class="kt">real</span><span class="p">(</span><span class="k">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">),</span> <span class="n">int16</span><span class="p">)</span>
 <a id="ln-92" name="ln-92"></a>
 <a id="ln-93" name="ln-93"></a>    <span class="k">end function </span><span class="n">randu_0_iint16</span>
 <a id="ln-94" name="ln-94"></a>
@@ -373,7 +373,7 @@
 <a id="ln-100" name="ln-100"></a>        <span class="kt">real</span> <span class="kd">::</span> <span class="n">tmp</span><span class="p">(</span><span class="n">ndim</span><span class="p">)</span>
 <a id="ln-101" name="ln-101"></a>
 <a id="ln-102" name="ln-102"></a>        <span class="k">call </span><span class="nb">random_number</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
-<a id="ln-103" name="ln-103"></a>        <span class="n">random</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="nb">nint</span><span class="p">(</span><span class="n">tmp</span><span class="o">*</span><span class="kt">real</span><span class="p">(</span><span class="k">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">))</span>
+<a id="ln-103" name="ln-103"></a>        <span class="n">random</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="nb">nint</span><span class="p">(</span><span class="n">tmp</span><span class="o">*</span><span class="kt">real</span><span class="p">(</span><span class="k">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">),</span> <span class="n">int16</span><span class="p">)</span>
 <a id="ln-104" name="ln-104"></a>
 <a id="ln-105" name="ln-105"></a>    <span class="k">end function </span><span class="n">randu_1_iint16</span>
 <a id="ln-106" name="ln-106"></a>    <span class="k">module function </span><span class="n">randu_0_iint32</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="k">end</span><span class="p">)</span> <span class="k">result</span><span class="p">(</span><span class="n">random</span><span class="p">)</span>
@@ -383,7 +383,7 @@
 <a id="ln-110" name="ln-110"></a>        <span class="kt">real</span> <span class="kd">::</span> <span class="n">tmp</span>
 <a id="ln-111" name="ln-111"></a>
 <a id="ln-112" name="ln-112"></a>        <span class="k">call </span><span class="nb">random_number</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
-<a id="ln-113" name="ln-113"></a>        <span class="n">random</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="nb">nint</span><span class="p">(</span><span class="n">tmp</span><span class="o">*</span><span class="kt">real</span><span class="p">(</span><span class="k">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">))</span>
+<a id="ln-113" name="ln-113"></a>        <span class="n">random</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="nb">nint</span><span class="p">(</span><span class="n">tmp</span><span class="o">*</span><span class="kt">real</span><span class="p">(</span><span class="k">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">),</span> <span class="n">int32</span><span class="p">)</span>
 <a id="ln-114" name="ln-114"></a>
 <a id="ln-115" name="ln-115"></a>    <span class="k">end function </span><span class="n">randu_0_iint32</span>
 <a id="ln-116" name="ln-116"></a>
@@ -395,7 +395,7 @@
 <a id="ln-122" name="ln-122"></a>        <span class="kt">real</span> <span class="kd">::</span> <span class="n">tmp</span><span class="p">(</span><span class="n">ndim</span><span class="p">)</span>
 <a id="ln-123" name="ln-123"></a>
 <a id="ln-124" name="ln-124"></a>        <span class="k">call </span><span class="nb">random_number</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
-<a id="ln-125" name="ln-125"></a>        <span class="n">random</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="nb">nint</span><span class="p">(</span><span class="n">tmp</span><span class="o">*</span><span class="kt">real</span><span class="p">(</span><span class="k">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">))</span>
+<a id="ln-125" name="ln-125"></a>        <span class="n">random</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="nb">nint</span><span class="p">(</span><span class="n">tmp</span><span class="o">*</span><span class="kt">real</span><span class="p">(</span><span class="k">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">),</span> <span class="n">int32</span><span class="p">)</span>
 <a id="ln-126" name="ln-126"></a>
 <a id="ln-127" name="ln-127"></a>    <span class="k">end function </span><span class="n">randu_1_iint32</span>
 <a id="ln-128" name="ln-128"></a>    <span class="k">module function </span><span class="n">randu_0_iint64</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="k">end</span><span class="p">)</span> <span class="k">result</span><span class="p">(</span><span class="n">random</span><span class="p">)</span>
@@ -405,7 +405,7 @@
 <a id="ln-132" name="ln-132"></a>        <span class="kt">real</span> <span class="kd">::</span> <span class="n">tmp</span>
 <a id="ln-133" name="ln-133"></a>
 <a id="ln-134" name="ln-134"></a>        <span class="k">call </span><span class="nb">random_number</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
-<a id="ln-135" name="ln-135"></a>        <span class="n">random</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="nb">nint</span><span class="p">(</span><span class="n">tmp</span><span class="o">*</span><span class="kt">real</span><span class="p">(</span><span class="k">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">))</span>
+<a id="ln-135" name="ln-135"></a>        <span class="n">random</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="nb">nint</span><span class="p">(</span><span class="n">tmp</span><span class="o">*</span><span class="kt">real</span><span class="p">(</span><span class="k">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">),</span> <span class="n">int64</span><span class="p">)</span>
 <a id="ln-136" name="ln-136"></a>
 <a id="ln-137" name="ln-137"></a>    <span class="k">end function </span><span class="n">randu_0_iint64</span>
 <a id="ln-138" name="ln-138"></a>
@@ -417,7 +417,7 @@
 <a id="ln-144" name="ln-144"></a>        <span class="kt">real</span> <span class="kd">::</span> <span class="n">tmp</span><span class="p">(</span><span class="n">ndim</span><span class="p">)</span>
 <a id="ln-145" name="ln-145"></a>
 <a id="ln-146" name="ln-146"></a>        <span class="k">call </span><span class="nb">random_number</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
-<a id="ln-147" name="ln-147"></a>        <span class="n">random</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="nb">nint</span><span class="p">(</span><span class="n">tmp</span><span class="o">*</span><span class="kt">real</span><span class="p">(</span><span class="k">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">))</span>
+<a id="ln-147" name="ln-147"></a>        <span class="n">random</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="nb">nint</span><span class="p">(</span><span class="n">tmp</span><span class="o">*</span><span class="kt">real</span><span class="p">(</span><span class="k">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">),</span> <span class="n">int64</span><span class="p">)</span>
 <a id="ln-148" name="ln-148"></a>
 <a id="ln-149" name="ln-149"></a>    <span class="k">end function </span><span class="n">randu_1_iint64</span>
 <a id="ln-150" name="ln-150"></a>
@@ -434,14 +434,14 @@
     <footer>
       <div class="container">
       <div class="row">
-        <div class="col-xs-6 col-md-6"><p>forlab was developed by forlab v1.0 contributors<br>&copy; 2021 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a>
+        <div class="col-xs-6 col-md-6"><p>FORLAB was developed by FORLAB v1.0 contributors<br>&copy; 2021 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a>
                                           </p>
         </div>
         <div class="col-xs-6 col-md-6">
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
-             on 2021-09-26 08:09  
+             on 2021-10-04 07:22  
             
           </p>
         </div>

@@ -5,12 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
    
-   <meta name="description" content="A opensource package forlab v1.0 for (modern) Fortran">
+   <meta name="description" content="A opensource package FORLAB v1.0 for (modern) Fortran">
     
-    <meta name="author" content="forlab v1.0 contributors" >
+    <meta name="author" content="FORLAB v1.0 contributors" >
     <link rel="icon" href="../favicon.png">
 
-    <title>forlab_strings &ndash; forlab</title>
+    <title>forlab_io_progress_bar &ndash; FORLAB</title>
 
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/pygments.css" rel="stylesheet">
@@ -44,7 +44,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="../index.html">forlab </a>
+          <a class="navbar-brand" href="../index.html">FORLAB </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -115,8 +115,8 @@
     
   
   <div class="row">
-    <h1>forlab_strings 
-    <small>Module</small>
+    <h1>forlab_io_progress_bar 
+    <small>Submodule</small>
     
     </h1>
     
@@ -136,22 +136,22 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title=" 0.2% of total for modules and submodules.">17 statements</a>
+    title=" 0.8% of total for modules and submodules.">96 statements</a>
      </li> 
      
      
      
-    <li><i class="fa fa-code"></i><a href="../src/forlab_strings.f90"> Source File</a></li>
+    <li><i class="fa fa-code"></i><a href="../src/forlab_io_progress_bar.f90"> Source File</a></li>
      
      
   </ul>
   <ol class="breadcrumb in-well text-right">
   
     
-     <li><a href='../sourcefile/forlab_strings.f90.html'>forlab_strings.f90</a></li>
+     <li><a href='../sourcefile/forlab_io_progress_bar.f90.html'>forlab_io_progress_bar.f90</a></li>
     
   
-     <li class="active">forlab_strings</li>
+     <li class="active">forlab_io_progress_bar</li>
   </ol>
 </div>
 </div>
@@ -181,18 +181,6 @@
 
 
 
-<div class="panel panel-primary">
-  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#inters-0">Interfaces</a></h3></div>
-  <div id="inters-0" class="panel-collapse collapse">
-    <div class="list-group">
-      
-      <a class="list-group-item" href="../module/forlab_strings.html#interface-progress_bar">progress_bar</a>
-      
-      <a class="list-group-item" href="../module/forlab_strings.html#interface-progress_perc">progress_perc</a>
-      
-    </div>
-  </div>
-</div>
 
 
 
@@ -204,7 +192,7 @@
 
 
 
-
+<em>None</em>
 
 
 </div>
@@ -222,16 +210,16 @@
       </div>
       <ul class="list-group">
       
+      
       <li class="list-group-item">
   <ul class="list-inline">
+    <li><h5>Ancestors:</h5></li>
     
-    <li>stdlib_optval</li>
+    <li><a href='../module/forlab_io.html'>forlab_io</a></li>
     
-    <li>stdlib_kinds</li>
     
   </ul>
       </li>
-      
       
       
       </ul>
@@ -239,25 +227,6 @@
     
 
     
-    
-    <div class="panel panel-default">
-      <div class="panel-heading">
-  <h3 class="panel-title">Used by</h3>
-      </div>
-      <ul class="list-group">
-  
-  <li class="list-group-item">  
-    <ul class="list-inline">
-      <li><h5>Descendants:</h5></li>
-      
-      <li><a href='../module/forlab_strings_progress.html'>forlab_strings_progress</a></li>
-      
-    </ul>
-  </li>
-  
-  
-      </ul>
-    </div>
     
 
     <br>
@@ -276,18 +245,6 @@
 
 
 
-<div class="panel panel-primary">
-  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#inters-1">Interfaces</a></h3></div>
-  <div id="inters-1" class="panel-collapse collapse">
-    <div class="list-group">
-      
-      <a class="list-group-item" href="../module/forlab_strings.html#interface-progress_bar">progress_bar</a>
-      
-      <a class="list-group-item" href="../module/forlab_strings.html#interface-progress_perc">progress_perc</a>
-      
-    </div>
-  </div>
-</div>
 
 
 
@@ -299,7 +256,7 @@
 
 
 
-
+<em>None</em>
 
 
     </section>
@@ -312,192 +269,6 @@
     
     
     
-    <section>
-   <h2>Interfaces</h2>
-   
-     
-<div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="interface-progress_bar"></span><h3>interface 
-    
-  </h3></div>
-  
-  <ul class="list-group">
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
-public module module subroutine progress_bar(iter, itermax, step)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>integer,</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>iter</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>integer,</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>itermax</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>integer,</td>
-  <td>intent(in),</td>
-  <td>optional</td>
-  
-  <td></td><td>::</td>
-  <td><strong>step</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-    </li>
-  
-  </ul>
-</div>
-
-    
-     
-<div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="interface-progress_perc"></span><h3>interface 
-    
-  </h3></div>
-  
-  <ul class="list-group">
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
-public module module subroutine progress_perc(iter, itermax, prefix)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>integer,</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>iter</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>integer,</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>itermax</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>character(len=*),</td>
-  <td>intent(in),</td>
-  <td>optional</td>
-  
-  <td></td><td>::</td>
-  <td><strong>prefix</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-    </li>
-  
-  </ul>
-</div>
-
-    
-    </section>
-  <br>
-    
 
     
     
@@ -506,6 +277,14 @@ public module module subroutine progress_perc(iter, itermax, prefix)
     
 
     
+    
+    
+    
+        
+
+        
+
+        
     
     
     </div>
@@ -517,14 +296,14 @@ public module module subroutine progress_perc(iter, itermax, prefix)
     <footer>
       <div class="container">
       <div class="row">
-        <div class="col-xs-6 col-md-6"><p>forlab was developed by forlab v1.0 contributors<br>&copy; 2021 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a>
+        <div class="col-xs-6 col-md-6"><p>FORLAB was developed by FORLAB v1.0 contributors<br>&copy; 2021 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a>
                                           </p>
         </div>
         <div class="col-xs-6 col-md-6">
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
-             on 2021-09-26 08:09  
+             on 2021-10-04 07:22  
             
           </p>
         </div>

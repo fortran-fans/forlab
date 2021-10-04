@@ -5,12 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
    
-   <meta name="description" content="A opensource package forlab v1.0 for (modern) Fortran">
+   <meta name="description" content="A opensource package FORLAB v1.0 for (modern) Fortran">
     
-    <meta name="author" content="forlab v1.0 contributors" >
+    <meta name="author" content="FORLAB v1.0 contributors" >
     <link rel="icon" href="../favicon.png">
 
-    <title>forlab_strings.f90 &ndash; forlab</title>
+    <title>forlab_io_progress_perc &ndash; FORLAB</title>
 
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/pygments.css" rel="stylesheet">
@@ -44,7 +44,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="../index.html">forlab </a>
+          <a class="navbar-brand" href="../index.html">FORLAB </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -115,8 +115,8 @@
     
   
   <div class="row">
-    <h1>forlab_strings.f90
-    <small>Source File</small>
+    <h1>forlab_io_progress_perc 
+    <small>Submodule</small>
     
     </h1>
     
@@ -136,20 +136,22 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title=" 0.2% of total for source files.">17 statements</a>
+    title=" 0.4% of total for modules and submodules.">40 statements</a>
      </li> 
      
      
      
-    <li><i class="fa fa-code"></i><a href="../src/forlab_strings.f90"> Source File</a></li>
+    <li><i class="fa fa-code"></i><a href="../src/forlab_io_progress_perc.f90"> Source File</a></li>
      
      
   </ul>
   <ol class="breadcrumb in-well text-right">
   
     
+     <li><a href='../sourcefile/forlab_io_progress_perc.f90.html'>forlab_io_progress_perc.f90</a></li>
+    
   
-     <li class="active">forlab_strings.f90</li>
+     <li class="active">forlab_io_progress_perc</li>
   </ol>
 </div>
 </div>
@@ -161,6 +163,7 @@
 </script>
 
   </div>
+  
   <div class="row">
     <div class="col-md-3 hidden-xs hidden-sm visible-md visible-lg">
     
@@ -175,16 +178,6 @@
 
 
 
-<div class="panel panel-primary">
-  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#mods-0">Modules</a></h3></div>
-  <div id="mods-0" class="panel-collapse collapse">
-    <div class="list-group">
-      
-      <a class="list-group-item" href="../module/forlab_strings.html">forlab_strings</a>
-      
-    </div>
-  </div>
-</div>
 
 
 
@@ -199,26 +192,44 @@
 
 
 
-
-
-<div class="panel panel-primary">
-  <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
-  <div class="list-group">
-    <a class="list-group-item" href="../sourcefile/forlab_strings.f90.html#src">forlab_strings.f90</a>
-  </div>
-</div>
-
+<em>None</em>
 
 
 </div>
 
     </div>
+    
     <div class="col-md-9" id='text'>
-      
+    
       <br>
     
+  
+    <div class="panel panel-default">
+      <div class="panel-heading">
+  <h3 class="panel-title">Uses</h3>
+      </div>
+      <ul class="list-group">
       
       
+      <li class="list-group-item">
+  <ul class="list-inline">
+    <li><h5>Ancestors:</h5></li>
+    
+    <li><a href='../module/forlab_io.html'>forlab_io</a></li>
+    
+    
+  </ul>
+      </li>
+      
+      
+      </ul>
+    </div>
+    
+
+    
+    
+
+    <br>
 
     <section class="visible-xs visible-sm hidden-md">
       
@@ -231,16 +242,6 @@
 
 
 
-<div class="panel panel-primary">
-  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#mods-1">Modules</a></h3></div>
-  <div id="mods-1" class="panel-collapse collapse">
-    <div class="list-group">
-      
-      <a class="list-group-item" href="../module/forlab_strings.html">forlab_strings</a>
-      
-    </div>
-  </div>
-</div>
 
 
 
@@ -255,47 +256,37 @@
 
 
 
-
-
-<div class="panel panel-primary">
-  <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
-  <div class="list-group">
-    <a class="list-group-item" href="../sourcefile/forlab_strings.f90.html#src">forlab_strings.f90</a>
-  </div>
-</div>
-
+<em>None</em>
 
 
     </section>
     <br class="visible-xs visible-sm hidden-md">
 
-    <section>
-      <h2><span class="anchor" id="src"></span>Source Code</h2>
-    <div class="hl"><pre><span></span><a id="ln-1" name="ln-1"></a><span class="k">module </span><span class="n">forlab_strings</span>
-<a id="ln-2" name="ln-2"></a>
-<a id="ln-3" name="ln-3"></a>    <span class="k">use </span><span class="n">stdlib_kinds</span><span class="p">,</span> <span class="k">only</span><span class="p">:</span> <span class="n">sp</span><span class="p">,</span> <span class="n">dp</span><span class="p">,</span> <span class="n">qp</span><span class="p">,</span> <span class="p">&amp;</span>
-<a id="ln-4" name="ln-4"></a>        <span class="n">int8</span><span class="p">,</span> <span class="n">int16</span><span class="p">,</span> <span class="n">int32</span><span class="p">,</span> <span class="n">int64</span><span class="p">,</span> <span class="n">lk</span><span class="p">,</span> <span class="kt">c_bool</span>
-<a id="ln-5" name="ln-5"></a><span class="kt">    </span><span class="k">use </span><span class="n">stdlib_optval</span><span class="p">,</span> <span class="k">only</span><span class="p">:</span> <span class="n">optval</span>
-<a id="ln-6" name="ln-6"></a>    <span class="k">implicit none</span>
-<a id="ln-7" name="ln-7"></a><span class="k">    private</span>
-<a id="ln-8" name="ln-8"></a>
-<a id="ln-9" name="ln-9"></a><span class="k">    public</span> <span class="kd">::</span> <span class="n">progress_bar</span><span class="p">,</span> <span class="n">progress_perc</span>
-<a id="ln-10" name="ln-10"></a>
-<a id="ln-11" name="ln-11"></a>    <span class="k">interface</span>
-<a id="ln-12" name="ln-12"></a><span class="k">        module subroutine </span><span class="n">progress_bar</span><span class="p">(</span><span class="n">iter</span><span class="p">,</span> <span class="n">itermax</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
-<a id="ln-13" name="ln-13"></a>            <span class="kt">integer</span><span class="p">,</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">iter</span><span class="p">,</span> <span class="n">itermax</span>
-<a id="ln-14" name="ln-14"></a>            <span class="kt">integer</span><span class="p">,</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span> <span class="k">optional</span> <span class="kd">::</span> <span class="n">step</span>
-<a id="ln-15" name="ln-15"></a>        <span class="k">end subroutine </span><span class="n">progress_bar</span>
-<a id="ln-16" name="ln-16"></a>        <span class="k">module subroutine </span><span class="n">progress_perc</span><span class="p">(</span><span class="n">iter</span><span class="p">,</span> <span class="n">itermax</span><span class="p">,</span> <span class="n">prefix</span><span class="p">)</span>
-<a id="ln-17" name="ln-17"></a>            <span class="kt">integer</span><span class="p">,</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">iter</span><span class="p">,</span> <span class="n">itermax</span>
-<a id="ln-18" name="ln-18"></a>            <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span> <span class="k">optional</span> <span class="kd">::</span> <span class="n">prefix</span>
-<a id="ln-19" name="ln-19"></a>        <span class="k">end subroutine </span><span class="n">progress_perc</span>
-<a id="ln-20" name="ln-20"></a>    <span class="k">end interface</span>
-<a id="ln-21" name="ln-21"></a>
-<a id="ln-22" name="ln-22"></a><span class="k">end module </span><span class="n">forlab_strings</span>
-</pre></div>
+    
 
-    </section>
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+        
+
+        
+
+        
+    
+    
     </div>
   </div>
 
@@ -305,14 +296,14 @@
     <footer>
       <div class="container">
       <div class="row">
-        <div class="col-xs-6 col-md-6"><p>forlab was developed by forlab v1.0 contributors<br>&copy; 2021 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a>
+        <div class="col-xs-6 col-md-6"><p>FORLAB was developed by FORLAB v1.0 contributors<br>&copy; 2021 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a>
                                           </p>
         </div>
         <div class="col-xs-6 col-md-6">
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
-             on 2021-09-26 08:09  
+             on 2021-10-04 07:22  
             
           </p>
         </div>

@@ -66,7 +66,7 @@ contains
         real :: tmp
 
         call random_number(tmp)
-        random = start + nint(tmp*real(end - start))
+        random = start + nint(tmp*real(end - start), int8)
 
     end function randu_0_iint8
 
@@ -78,7 +78,7 @@ contains
         real :: tmp(ndim)
 
         call random_number(tmp)
-        random = start + nint(tmp*real(end - start))
+        random = start + nint(tmp*real(end - start), int8)
 
     end function randu_1_iint8
     module function randu_0_iint16(start, end) result(random)
@@ -88,7 +88,7 @@ contains
         real :: tmp
 
         call random_number(tmp)
-        random = start + nint(tmp*real(end - start))
+        random = start + nint(tmp*real(end - start), int16)
 
     end function randu_0_iint16
 
@@ -100,7 +100,7 @@ contains
         real :: tmp(ndim)
 
         call random_number(tmp)
-        random = start + nint(tmp*real(end - start))
+        random = start + nint(tmp*real(end - start), int16)
 
     end function randu_1_iint16
     module function randu_0_iint32(start, end) result(random)
@@ -110,7 +110,7 @@ contains
         real :: tmp
 
         call random_number(tmp)
-        random = start + nint(tmp*real(end - start))
+        random = start + nint(tmp*real(end - start), int32)
 
     end function randu_0_iint32
 
@@ -122,7 +122,7 @@ contains
         real :: tmp(ndim)
 
         call random_number(tmp)
-        random = start + nint(tmp*real(end - start))
+        random = start + nint(tmp*real(end - start), int32)
 
     end function randu_1_iint32
     module function randu_0_iint64(start, end) result(random)
@@ -132,7 +132,7 @@ contains
         real :: tmp
 
         call random_number(tmp)
-        random = start + nint(tmp*real(end - start))
+        random = start + nint(tmp*real(end - start), int64)
 
     end function randu_0_iint64
 
@@ -144,7 +144,7 @@ contains
         real :: tmp(ndim)
 
         call random_number(tmp)
-        random = start + nint(tmp*real(end - start))
+        random = start + nint(tmp*real(end - start), int64)
 
     end function randu_1_iint64
 
