@@ -15,7 +15,7 @@ FORLAB uses [stdlib](https://github.com/fortran-lang/stdlib) as an upstream pack
 | **Copyright:** | _This document_ has been placed in the public domain. |
 | **License:** | _FORLAB_ is released under the MIT License. |
 
-## Getting Started
+## Getting Started ([中文文档](./README_CN.md))
 ### Get the code
 
 ```bash
