@@ -12,6 +12,7 @@ module forlab_math
     public :: arange, signum
     
     public :: is_close, all_close
+    public :: cross, operator(.c.)
 
     #:set CIR_NAME=["acos","asin","atan"]
     #:for l1 in CIR_NAME
@@ -105,6 +106,23 @@ module forlab_math
         end function signum_${t1[0]}$${k1}$
         #:endfor
     end interface signum
+    
+    interface cross
+        #:set RI_KINDS_TYPES = REAL_KINDS_TYPES + INT_KINDS_TYPES
+        #:for k1, t1 in RI_KINDS_TYPES
+        pure module function cross_${t1[0]}$${k1}$(x, y) result(cross)
+            ${t1}$, intent(in) :: x(3), y(3)
+            ${t1}$ :: cross(3)
+        end function cross_${t1[0]}$${k1}$
+        #:endfor
+    end interface cross
+    
+    interface operator(.c.)
+        #:set RI_KINDS_TYPES = REAL_KINDS_TYPES + INT_KINDS_TYPES
+        #:for k1, t1 in RI_KINDS_TYPES
+        procedure :: cross_${t1[0]}$${k1}$
+        #:endfor
+    end interface operator(.c.)
 
 contains
 

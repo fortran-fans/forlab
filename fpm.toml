@@ -17,6 +17,9 @@ auto-tests = false
 # Use stdlib as an upstream dependency.
 stdlib = { git = "https://github.com/fortran-lang/stdlib", branch = "stdlib-fpm" }
 
+[dev-dependencies]
+test-drive = { git = "https://github.com/fortran-lang/test-drive" }
+
 [library]
 source-dir="src"
 
@@ -113,3 +116,8 @@ name = "time_tioc"
 source-dir = "test/time"
 main = "test_time_tioc.f90"
 
+# New Unit-Test
+[[test]]
+name = "new"
+source-dir = "test"
+main = "checker.f90"

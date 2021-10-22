@@ -1,0 +1,23 @@
+#:include "common.fypp"
+#:set RI_KINDS_TYPES = REAL_KINDS_TYPES + INT_KINDS_TYPES
+submodule(forlab_math) forlab_math_cross
+
+    implicit none
+
+contains
+
+    #! Cross product
+    
+    #:for k1, t1 in RI_KINDS_TYPES
+    pure module function cross_${t1[0]}$${k1}$(x, y) result(cross)
+        ${t1}$, intent(in) :: x(3), y(3)
+        ${t1}$ :: cross(3)
+        
+        cross(1) = x(2)*y(3) - x(3)*y(2)
+        cross(2) = x(3)*y(1) - x(1)*y(3)
+        cross(3) = x(1)*y(2) - x(2)*y(1)
+        
+    end function cross_${t1[0]}$${k1}$
+    #:endfor
+
+end submodule forlab_math_cross

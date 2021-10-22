@@ -11,6 +11,7 @@ module forlab_math
     public :: arange, signum
     
     public :: is_close, all_close
+    public :: cross, operator(.c.)
 
     interface acosd
         !! degree circular functions
@@ -258,6 +259,47 @@ module forlab_math
             complex(qp), intent(in) :: x
         end function signum_cqp
     end interface signum
+    
+    interface cross
+        pure module function cross_rsp(x, y) result(cross)
+            real(sp), intent(in) :: x(3), y(3)
+            real(sp) :: cross(3)
+        end function cross_rsp
+        pure module function cross_rdp(x, y) result(cross)
+            real(dp), intent(in) :: x(3), y(3)
+            real(dp) :: cross(3)
+        end function cross_rdp
+        pure module function cross_rqp(x, y) result(cross)
+            real(qp), intent(in) :: x(3), y(3)
+            real(qp) :: cross(3)
+        end function cross_rqp
+        pure module function cross_iint8(x, y) result(cross)
+            integer(int8), intent(in) :: x(3), y(3)
+            integer(int8) :: cross(3)
+        end function cross_iint8
+        pure module function cross_iint16(x, y) result(cross)
+            integer(int16), intent(in) :: x(3), y(3)
+            integer(int16) :: cross(3)
+        end function cross_iint16
+        pure module function cross_iint32(x, y) result(cross)
+            integer(int32), intent(in) :: x(3), y(3)
+            integer(int32) :: cross(3)
+        end function cross_iint32
+        pure module function cross_iint64(x, y) result(cross)
+            integer(int64), intent(in) :: x(3), y(3)
+            integer(int64) :: cross(3)
+        end function cross_iint64
+    end interface cross
+    
+    interface operator(.c.)
+        procedure :: cross_rsp
+        procedure :: cross_rdp
+        procedure :: cross_rqp
+        procedure :: cross_iint8
+        procedure :: cross_iint16
+        procedure :: cross_iint32
+        procedure :: cross_iint64
+    end interface operator(.c.)
 
 contains
 
