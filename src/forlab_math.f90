@@ -6,110 +6,122 @@ module forlab_math
     private
 
     public :: angle
-    public :: cosd, sind,tand
+    public :: cosd, sind, tand
     public :: acosd, asind, atand
     public :: arange, signum
-    
+
     public :: is_close, all_close
     public :: cross, operator(.c.)
 
     interface acosd
         !! degree circular functions
         pure elemental module function acosd_sp(x)
-        real(sp),intent(in)::x
-        real(sp)::acosd_sp
+            real(sp), intent(in)::x
+            real(sp)::acosd_sp
         end function acosd_sp
         pure elemental module function acosd_dp(x)
-        real(dp),intent(in)::x
-        real(dp)::acosd_dp
+            real(dp), intent(in)::x
+            real(dp)::acosd_dp
         end function acosd_dp
         pure elemental module function acosd_qp(x)
-        real(qp),intent(in)::x
-        real(qp)::acosd_qp
+            real(qp), intent(in)::x
+            real(qp)::acosd_qp
         end function acosd_qp
     end interface acosd
     interface asind
         !! degree circular functions
         pure elemental module function asind_sp(x)
-        real(sp),intent(in)::x
-        real(sp)::asind_sp
+            real(sp), intent(in)::x
+            real(sp)::asind_sp
         end function asind_sp
         pure elemental module function asind_dp(x)
-        real(dp),intent(in)::x
-        real(dp)::asind_dp
+            real(dp), intent(in)::x
+            real(dp)::asind_dp
         end function asind_dp
         pure elemental module function asind_qp(x)
-        real(qp),intent(in)::x
-        real(qp)::asind_qp
+            real(qp), intent(in)::x
+            real(qp)::asind_qp
         end function asind_qp
     end interface asind
     interface atand
         !! degree circular functions
         pure elemental module function atand_sp(x)
-        real(sp),intent(in)::x
-        real(sp)::atand_sp
+            real(sp), intent(in)::x
+            real(sp)::atand_sp
         end function atand_sp
         pure elemental module function atand_dp(x)
-        real(dp),intent(in)::x
-        real(dp)::atand_dp
+            real(dp), intent(in)::x
+            real(dp)::atand_dp
         end function atand_dp
         pure elemental module function atand_qp(x)
-        real(qp),intent(in)::x
-        real(qp)::atand_qp
+            real(qp), intent(in)::x
+            real(qp)::atand_qp
         end function atand_qp
     end interface atand
 
     interface cosd
         pure elemental module function cosd_sp(x)
-        real(sp),intent(in)::x
-        real(sp)::cosd_sp
+            real(sp), intent(in)::x
+            real(sp)::cosd_sp
         end function cosd_sp
         pure elemental module function cosd_dp(x)
-        real(dp),intent(in)::x
-        real(dp)::cosd_dp
+            real(dp), intent(in)::x
+            real(dp)::cosd_dp
         end function cosd_dp
         pure elemental module function cosd_qp(x)
-        real(qp),intent(in)::x
-        real(qp)::cosd_qp
+            real(qp), intent(in)::x
+            real(qp)::cosd_qp
         end function cosd_qp
     end interface cosd
     interface sind
         pure elemental module function sind_sp(x)
-        real(sp),intent(in)::x
-        real(sp)::sind_sp
+            real(sp), intent(in)::x
+            real(sp)::sind_sp
         end function sind_sp
         pure elemental module function sind_dp(x)
-        real(dp),intent(in)::x
-        real(dp)::sind_dp
+            real(dp), intent(in)::x
+            real(dp)::sind_dp
         end function sind_dp
         pure elemental module function sind_qp(x)
-        real(qp),intent(in)::x
-        real(qp)::sind_qp
+            real(qp), intent(in)::x
+            real(qp)::sind_qp
         end function sind_qp
     end interface sind
     interface tand
         pure elemental module function tand_sp(x)
-        real(sp),intent(in)::x
-        real(sp)::tand_sp
+            real(sp), intent(in)::x
+            real(sp)::tand_sp
         end function tand_sp
         pure elemental module function tand_dp(x)
-        real(dp),intent(in)::x
-        real(dp)::tand_dp
+            real(dp), intent(in)::x
+            real(dp)::tand_dp
         end function tand_dp
         pure elemental module function tand_qp(x)
-        real(qp),intent(in)::x
-        real(qp)::tand_qp
+            real(qp), intent(in)::x
+            real(qp)::tand_qp
         end function tand_qp
     end interface tand
-    
+
     interface angle
         !! Version: experimental
         !!
         !! angle compute the phase angle.
         !!([Interface](../interface/angle.html))
         procedure :: angle_sp
+        pure module function angle_2_sp(x, y) result(angle)
+            real(sp), dimension(3), intent(in) :: x, y
+            real(sp) :: angle
+        end function angle_2_sp
         procedure :: angle_dp
+        pure module function angle_2_dp(x, y) result(angle)
+            real(dp), dimension(3), intent(in) :: x, y
+            real(dp) :: angle
+        end function angle_2_dp
         procedure :: angle_qp
+        pure module function angle_2_qp(x, y) result(angle)
+            real(qp), dimension(3), intent(in) :: x, y
+            real(qp) :: angle
+        end function angle_2_qp
     end interface angle
 
     !> Version: experimental
@@ -182,7 +194,7 @@ module forlab_math
 
     !> Version: experimental
     !>
-    !> `arange` creates a rank-1 `array` of the `integer/real` type 
+    !> `arange` creates a rank-1 `array` of the `integer/real` type
     !>  with fixed-spaced values of given spacing, within a given interval.
     !> ([Specification](../page/specs/forlab_math.html#arange))
     interface arange
@@ -259,7 +271,7 @@ module forlab_math
             complex(qp), intent(in) :: x
         end function signum_cqp
     end interface signum
-    
+
     interface cross
         pure module function cross_rsp(x, y) result(cross)
             real(sp), intent(in) :: x(3), y(3)
@@ -290,7 +302,7 @@ module forlab_math
             integer(int64) :: cross(3)
         end function cross_iint64
     end interface cross
-    
+
     interface operator(.c.)
         procedure :: cross_rsp
         procedure :: cross_rdp
@@ -303,23 +315,23 @@ module forlab_math
 
 contains
 
-    elemental function angle_sp(value) result(angle) 
+    elemental function angle_sp(value) result(angle)
         real(sp) :: angle
-        complex(sp),intent(in) :: value
+        complex(sp), intent(in) :: value
 
         angle = aimag(log(value))
 
     end function angle_sp
-    elemental function angle_dp(value) result(angle) 
+    elemental function angle_dp(value) result(angle)
         real(dp) :: angle
-        complex(dp),intent(in) :: value
+        complex(dp), intent(in) :: value
 
         angle = aimag(log(value))
 
     end function angle_dp
-    elemental function angle_qp(value) result(angle) 
+    elemental function angle_qp(value) result(angle)
         real(qp) :: angle
-        complex(qp),intent(in) :: value
+        complex(qp), intent(in) :: value
 
         angle = aimag(log(value))
 

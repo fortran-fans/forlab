@@ -3,11 +3,11 @@
 submodule(forlab_io) forlab_io_color
 
 contains
- 
+
     module subroutine color(string)
         character(len=*), intent(in), optional :: string
 
-        write(*, "(A)", advance="no") optval(string, achar(27) // '[0m')
+        write (*, "(A)", advance="no") optval(string, achar(27)//'[0m')
 
     end subroutine color
 

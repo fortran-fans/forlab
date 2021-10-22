@@ -1,8 +1,8 @@
 module forlab_linalg
-    
+
     use stdlib_error, only: error_stop
     use stdlib_kinds, only: sp, dp, qp, &
-        int8, int16, int32, int64
+                            int8, int16, int32, int64
     use forlab_sorting, only: argsort
     use stdlib_optval, only: optval
     implicit none
@@ -13,21 +13,21 @@ module forlab_linalg
     public :: eye
     public :: horzcat, vertcat
     public :: diag, det, lu, matpow, qr, svd, trace, tril, triu, chol, norm, &
-        diff
+              diff
     public :: operator(.i.), operator(.x.), inv, outer, solve, svdsolve
 
     interface chol
         !! chol computes Cholesky's decomposition of a symmetric positive
         !! definite matrix.
-        module function chol_sp (A) result(L)
+        module function chol_sp(A) result(L)
             real(sp), dimension(:, :), intent(in) :: A
             real(sp), dimension(:, :), allocatable :: L
         end function
-        module function chol_dp (A) result(L)
+        module function chol_dp(A) result(L)
             real(dp), dimension(:, :), intent(in) :: A
             real(dp), dimension(:, :), allocatable :: L
         end function
-        module function chol_qp (A) result(L)
+        module function chol_qp(A) result(L)
             real(qp), dimension(:, :), intent(in) :: A
             real(qp), dimension(:, :), allocatable :: L
         end function
@@ -165,19 +165,19 @@ module forlab_linalg
 
     interface eig
         !! eig computes eigenvalues and eigenvectors of symmetric matrix using Jacobi algorithm.
-        module subroutine eig_sp(A,V,d,itermax)
+        module subroutine eig_sp(A, V, d, itermax)
             real(sp), dimension(:, :), intent(in) :: A
             real(sp), dimension(:, :), allocatable, intent(out) :: V
             real(sp), dimension(:), allocatable, intent(out) :: d
             integer, intent(in), optional :: itermax
         end subroutine eig_sp
-        module subroutine eig_dp(A,V,d,itermax)
+        module subroutine eig_dp(A, V, d, itermax)
             real(dp), dimension(:, :), intent(in) :: A
             real(dp), dimension(:, :), allocatable, intent(out) :: V
             real(dp), dimension(:), allocatable, intent(out) :: d
             integer, intent(in), optional :: itermax
         end subroutine eig_dp
-        module subroutine eig_qp(A,V,d,itermax)
+        module subroutine eig_qp(A, V, d, itermax)
             real(qp), dimension(:, :), intent(in) :: A
             real(qp), dimension(:, :), allocatable, intent(out) :: V
             real(qp), dimension(:), allocatable, intent(out) :: d
@@ -638,15 +638,15 @@ module forlab_linalg
 
     interface lu
         !! lu computes the LU matrix factorization.
-        module subroutine lu_sp (A, L, U)
+        module subroutine lu_sp(A, L, U)
             real(sp), dimension(:, :), intent(in) :: A
             real(sp), dimension(:, :), allocatable, intent(out) :: L, U
         end subroutine lu_sp
-        module subroutine lu_dp (A, L, U)
+        module subroutine lu_dp(A, L, U)
             real(dp), dimension(:, :), intent(in) :: A
             real(dp), dimension(:, :), allocatable, intent(out) :: L, U
         end subroutine lu_dp
-        module subroutine lu_qp (A, L, U)
+        module subroutine lu_qp(A, L, U)
             real(qp), dimension(:, :), intent(in) :: A
             real(qp), dimension(:, :), allocatable, intent(out) :: L, U
         end subroutine lu_qp
@@ -654,57 +654,57 @@ module forlab_linalg
 
     interface matpow
         !! Calculat matrix power
-        module function matpow_sp(a,num)result(c)
-            real(sp), dimension(:,:), intent(in) :: a
-            real(sp),allocatable :: c(:,:)
+        module function matpow_sp(a, num) result(c)
+            real(sp), dimension(:, :), intent(in) :: a
+            real(sp), allocatable :: c(:, :)
             integer::num
         end function matpow_sp
-        module function matpow_dp(a,num)result(c)
-            real(dp), dimension(:,:), intent(in) :: a
-            real(dp),allocatable :: c(:,:)
+        module function matpow_dp(a, num) result(c)
+            real(dp), dimension(:, :), intent(in) :: a
+            real(dp), allocatable :: c(:, :)
             integer::num
         end function matpow_dp
-        module function matpow_qp(a,num)result(c)
-            real(qp), dimension(:,:), intent(in) :: a
-            real(qp),allocatable :: c(:,:)
+        module function matpow_qp(a, num) result(c)
+            real(qp), dimension(:, :), intent(in) :: a
+            real(qp), allocatable :: c(:, :)
             integer::num
         end function matpow_qp
     end interface matpow
 
     interface norm
         !! norm computes vector and matrix norms.
-        module function norm1_sp(x,p)result(norm1)
+        module function norm1_sp(x, p) result(norm1)
             real(sp), dimension(:), intent(in) :: x
             real(sp), intent(in), optional :: p
             real(sp):: norm1
         end function norm1_sp
-        module function norm2_sp(A,p)result(norm2)
-            real(sp), dimension(:,:), intent(in) :: A
+        module function norm2_sp(A, p) result(norm2)
+            real(sp), dimension(:, :), intent(in) :: A
             real(sp), intent(in), optional :: p
             real(sp):: norm2
         end function norm2_sp
-        module function norm1_dp(x,p)result(norm1)
+        module function norm1_dp(x, p) result(norm1)
             real(dp), dimension(:), intent(in) :: x
             real(dp), intent(in), optional :: p
             real(dp):: norm1
         end function norm1_dp
-        module function norm2_dp(A,p)result(norm2)
-            real(dp), dimension(:,:), intent(in) :: A
+        module function norm2_dp(A, p) result(norm2)
+            real(dp), dimension(:, :), intent(in) :: A
             real(dp), intent(in), optional :: p
             real(dp):: norm2
         end function norm2_dp
-        module function norm1_qp(x,p)result(norm1)
+        module function norm1_qp(x, p) result(norm1)
             real(qp), dimension(:), intent(in) :: x
             real(qp), intent(in), optional :: p
             real(qp):: norm1
         end function norm1_qp
-        module function norm2_qp(A,p)result(norm2)
-            real(qp), dimension(:,:), intent(in) :: A
+        module function norm2_qp(A, p) result(norm2)
+            real(qp), dimension(:, :), intent(in) :: A
             real(qp), intent(in), optional :: p
             real(qp):: norm2
         end function norm2_qp
     end interface norm
-    
+
     interface operator(.i.)
         !! Calculate the inverse of a real matrix.
         procedure inv_rsp
@@ -741,86 +741,86 @@ module forlab_linalg
 
     interface outer
         module function outer_int8(x, y)
-            integer(int8), dimension(:,:), allocatable :: outer_int8
+            integer(int8), dimension(:, :), allocatable :: outer_int8
             integer(int8), dimension(:), intent(in) :: x, y
         end function
         module function outer_int16(x, y)
-            integer(int16), dimension(:,:), allocatable :: outer_int16
+            integer(int16), dimension(:, :), allocatable :: outer_int16
             integer(int16), dimension(:), intent(in) :: x, y
         end function
         module function outer_int32(x, y)
-            integer(int32), dimension(:,:), allocatable :: outer_int32
+            integer(int32), dimension(:, :), allocatable :: outer_int32
             integer(int32), dimension(:), intent(in) :: x, y
         end function
         module function outer_int64(x, y)
-            integer(int64), dimension(:,:), allocatable :: outer_int64
+            integer(int64), dimension(:, :), allocatable :: outer_int64
             integer(int64), dimension(:), intent(in) :: x, y
         end function
         module function outer_sp(x, y)
-            real(sp), dimension(:,:), allocatable :: outer_sp
+            real(sp), dimension(:, :), allocatable :: outer_sp
             real(sp), dimension(:), intent(in) :: x, y
         end function
         module function outer_dp(x, y)
-            real(dp), dimension(:,:), allocatable :: outer_dp
+            real(dp), dimension(:, :), allocatable :: outer_dp
             real(dp), dimension(:), intent(in) :: x, y
         end function
         module function outer_qp(x, y)
-            real(qp), dimension(:,:), allocatable :: outer_qp
+            real(qp), dimension(:, :), allocatable :: outer_qp
             real(qp), dimension(:), intent(in) :: x, y
         end function
     end interface outer
 
     interface qr
-        module subroutine qr_sp(a,q,r,l)
-            real(sp),intent(in)::a(:,:)
-            real(sp),allocatable,intent(out) :: q(:,:),r(:,:)
-            integer,optional::l
+        module subroutine qr_sp(a, q, r, l)
+            real(sp), intent(in)::a(:, :)
+            real(sp), allocatable, intent(out) :: q(:, :), r(:, :)
+            integer, optional::l
         end subroutine qr_sp
-        module subroutine qr_dp(a,q,r,l)
-            real(dp),intent(in)::a(:,:)
-            real(dp),allocatable,intent(out) :: q(:,:),r(:,:)
-            integer,optional::l
+        module subroutine qr_dp(a, q, r, l)
+            real(dp), intent(in)::a(:, :)
+            real(dp), allocatable, intent(out) :: q(:, :), r(:, :)
+            integer, optional::l
         end subroutine qr_dp
-        module subroutine qr_qp(a,q,r,l)
-            real(qp),intent(in)::a(:,:)
-            real(qp),allocatable,intent(out) :: q(:,:),r(:,:)
-            integer,optional::l
+        module subroutine qr_qp(a, q, r, l)
+            real(qp), intent(in)::a(:, :)
+            real(qp), allocatable, intent(out) :: q(:, :), r(:, :)
+            integer, optional::l
         end subroutine qr_qp
     end interface qr
 
     interface seq
         !! seq returns evenly spaced vector.
-        module subroutine seq_sp (X, from, to, by)
+        module subroutine seq_sp(X, from, to, by)
             real(sp), dimension(:), allocatable, intent(out) :: X
             real(sp), intent(in) :: from, to
             real(sp), optional, intent(in) :: by
         end subroutine seq_sp
-        module subroutine seq_dp (X, from, to, by)
+        module subroutine seq_dp(X, from, to, by)
             real(dp), dimension(:), allocatable, intent(out) :: X
             real(dp), intent(in) :: from, to
             real(dp), optional, intent(in) :: by
         end subroutine seq_dp
-        module subroutine seq_qp (X, from, to, by)
+        module subroutine seq_qp(X, from, to, by)
             real(qp), dimension(:), allocatable, intent(out) :: X
             real(qp), intent(in) :: from, to
             real(qp), optional, intent(in) :: by
         end subroutine seq_qp
-        module subroutine seq_int8 (X, from, to, by)
+        module subroutine seq_int8(X, from, to, by)
             integer(int8), dimension(:), allocatable, intent(out) :: X
             integer(int8), intent(in) :: from, to
             integer(int8), optional, intent(in) :: by
         end subroutine seq_int8
-        module subroutine seq_int16 (X, from, to, by)
+        module subroutine seq_int16(X, from, to, by)
             integer(int16), dimension(:), allocatable, intent(out) :: X
             integer(int16), intent(in) :: from, to
             integer(int16), optional, intent(in) :: by
         end subroutine seq_int16
-        module subroutine seq_int32 (X, from, to, by)
+        module subroutine seq_int32(X, from, to, by)
             integer(int32), dimension(:), allocatable, intent(out) :: X
             integer(int32), intent(in) :: from, to
             integer(int32), optional, intent(in) :: by
         end subroutine seq_int32
-        module subroutine seq_int64 (X, from, to, by)
+        module subroutine seq_int64(X, from, to, by)
             integer(int64), dimension(:), allocatable, intent(out) :: X
             integer(int64), intent(in) :: from, to
             integer(int64), optional, intent(in) :: by
@@ -846,26 +846,26 @@ module forlab_linalg
     end interface solve
 
     interface svd
-        module subroutine svd_sp(a, w, u, v , d, ierr)
+        module subroutine svd_sp(a, w, u, v, d, ierr)
             real(sp), dimension(:, :), intent(in) :: a
             real(sp), dimension(:), allocatable, intent(out) :: w
             real(sp), dimension(:, :), allocatable, intent(out), optional :: u, v
             integer, intent(out), optional :: ierr
-            logical,intent(in),optional ::d
+            logical, intent(in), optional ::d
         end subroutine svd_sp
-        module subroutine svd_dp(a, w, u, v , d, ierr)
+        module subroutine svd_dp(a, w, u, v, d, ierr)
             real(dp), dimension(:, :), intent(in) :: a
             real(dp), dimension(:), allocatable, intent(out) :: w
             real(dp), dimension(:, :), allocatable, intent(out), optional :: u, v
             integer, intent(out), optional :: ierr
-            logical,intent(in),optional ::d
+            logical, intent(in), optional ::d
         end subroutine svd_dp
-        module subroutine svd_qp(a, w, u, v , d, ierr)
+        module subroutine svd_qp(a, w, u, v, d, ierr)
             real(qp), dimension(:, :), intent(in) :: a
             real(qp), dimension(:), allocatable, intent(out) :: w
             real(qp), dimension(:, :), allocatable, intent(out), optional :: u, v
             integer, intent(out), optional :: ierr
-            logical,intent(in),optional ::d
+            logical, intent(in), optional ::d
         end subroutine svd_qp
     end interface svd
 
@@ -897,52 +897,52 @@ module forlab_linalg
     end interface trace
 
     interface tril
-        module function tril_int8(A,k)
+        module function tril_int8(A, k)
             integer(int8), dimension(:, :), allocatable :: tril_int8
             integer(int8), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function tril_int8
-        module function tril_int16(A,k)
+        module function tril_int16(A, k)
             integer(int16), dimension(:, :), allocatable :: tril_int16
             integer(int16), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function tril_int16
-        module function tril_int32(A,k)
+        module function tril_int32(A, k)
             integer(int32), dimension(:, :), allocatable :: tril_int32
             integer(int32), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function tril_int32
-        module function tril_int64(A,k)
+        module function tril_int64(A, k)
             integer(int64), dimension(:, :), allocatable :: tril_int64
             integer(int64), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function tril_int64
-        module function tril_sp(A,k)
+        module function tril_sp(A, k)
             real(sp), dimension(:, :), allocatable :: tril_sp
             real(sp), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function tril_sp
-        module function tril_dp(A,k)
+        module function tril_dp(A, k)
             real(dp), dimension(:, :), allocatable :: tril_dp
             real(dp), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function tril_dp
-        module function tril_qp(A,k)
+        module function tril_qp(A, k)
             real(qp), dimension(:, :), allocatable :: tril_qp
             real(qp), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function tril_qp
-        module function tril_csp(A,k)
+        module function tril_csp(A, k)
             complex(sp), dimension(:, :), allocatable :: tril_csp
             complex(sp), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function tril_csp
-        module function tril_cdp(A,k)
+        module function tril_cdp(A, k)
             complex(dp), dimension(:, :), allocatable :: tril_cdp
             complex(dp), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function tril_cdp
-        module function tril_cqp(A,k)
+        module function tril_cqp(A, k)
             complex(qp), dimension(:, :), allocatable :: tril_cqp
             complex(qp), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
@@ -950,52 +950,52 @@ module forlab_linalg
     end interface tril
 
     interface triu
-        module function triu_int8(A,k)
+        module function triu_int8(A, k)
             integer(int8), dimension(:, :), allocatable :: triu_int8
             integer(int8), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function triu_int8
-        module function triu_int16(A,k)
+        module function triu_int16(A, k)
             integer(int16), dimension(:, :), allocatable :: triu_int16
             integer(int16), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function triu_int16
-        module function triu_int32(A,k)
+        module function triu_int32(A, k)
             integer(int32), dimension(:, :), allocatable :: triu_int32
             integer(int32), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function triu_int32
-        module function triu_int64(A,k)
+        module function triu_int64(A, k)
             integer(int64), dimension(:, :), allocatable :: triu_int64
             integer(int64), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function triu_int64
-        module function triu_sp(A,k)
+        module function triu_sp(A, k)
             real(sp), dimension(:, :), allocatable :: triu_sp
             real(sp), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function triu_sp
-        module function triu_dp(A,k)
+        module function triu_dp(A, k)
             real(dp), dimension(:, :), allocatable :: triu_dp
             real(dp), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function triu_dp
-        module function triu_qp(A,k)
+        module function triu_qp(A, k)
             real(qp), dimension(:, :), allocatable :: triu_qp
             real(qp), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function triu_qp
-        module function triu_csp(A,k)
+        module function triu_csp(A, k)
             complex(sp), dimension(:, :), allocatable :: triu_csp
             complex(sp), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function triu_csp
-        module function triu_cdp(A,k)
+        module function triu_cdp(A, k)
             complex(dp), dimension(:, :), allocatable :: triu_cdp
             complex(dp), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
         end function triu_cdp
-        module function triu_cqp(A,k)
+        module function triu_cqp(A, k)
             complex(qp), dimension(:, :), allocatable :: triu_cqp
             complex(qp), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: k
@@ -1016,73 +1016,67 @@ contains
     function rmut_sp(m1, m2) result(res)
         !! complex(qp) matrix multiplication
         real(sp), intent(in) :: m1(:, :), m2(:, :)
-        real(sp) :: res(size(m1, 1), size(m2, 2))   
-
+        real(sp) :: res(size(m1, 1), size(m2, 2))
 
         if (size(m1, 2) == size(m2, 1)) then
             res = matmul(m1, m2)
         else
-            call error_stop('Error: size(matrix_1, 2) /= size(matrix_2, 1)') 
+            call error_stop('Error: size(matrix_1, 2) /= size(matrix_2, 1)')
         end if
     end function rmut_sp
     function rmut_dp(m1, m2) result(res)
         !! complex(qp) matrix multiplication
         real(dp), intent(in) :: m1(:, :), m2(:, :)
-        real(dp) :: res(size(m1, 1), size(m2, 2))   
-
+        real(dp) :: res(size(m1, 1), size(m2, 2))
 
         if (size(m1, 2) == size(m2, 1)) then
             res = matmul(m1, m2)
         else
-            call error_stop('Error: size(matrix_1, 2) /= size(matrix_2, 1)') 
+            call error_stop('Error: size(matrix_1, 2) /= size(matrix_2, 1)')
         end if
     end function rmut_dp
     function rmut_qp(m1, m2) result(res)
         !! complex(qp) matrix multiplication
         real(qp), intent(in) :: m1(:, :), m2(:, :)
-        real(qp) :: res(size(m1, 1), size(m2, 2))   
-
+        real(qp) :: res(size(m1, 1), size(m2, 2))
 
         if (size(m1, 2) == size(m2, 1)) then
             res = matmul(m1, m2)
         else
-            call error_stop('Error: size(matrix_1, 2) /= size(matrix_2, 1)') 
+            call error_stop('Error: size(matrix_1, 2) /= size(matrix_2, 1)')
         end if
     end function rmut_qp
     function cmut_sp(m1, m2) result(res)
         !! complex(qp) matrix multiplication
         complex(sp), intent(in) :: m1(:, :), m2(:, :)
-        complex(sp) :: res(size(m1, 1), size(m2, 2))  
-
+        complex(sp) :: res(size(m1, 1), size(m2, 2))
 
         if (size(m1, 2) == size(m2, 1)) then
             res = matmul(m1, m2)
         else
-            call error_stop('Error: size(matrix_1, 2) /= size(matrix_2, 1)') 
+            call error_stop('Error: size(matrix_1, 2) /= size(matrix_2, 1)')
         end if
     end function cmut_sp
     function cmut_dp(m1, m2) result(res)
         !! complex(qp) matrix multiplication
         complex(dp), intent(in) :: m1(:, :), m2(:, :)
-        complex(dp) :: res(size(m1, 1), size(m2, 2))  
-
+        complex(dp) :: res(size(m1, 1), size(m2, 2))
 
         if (size(m1, 2) == size(m2, 1)) then
             res = matmul(m1, m2)
         else
-            call error_stop('Error: size(matrix_1, 2) /= size(matrix_2, 1)') 
+            call error_stop('Error: size(matrix_1, 2) /= size(matrix_2, 1)')
         end if
     end function cmut_dp
     function cmut_qp(m1, m2) result(res)
         !! complex(qp) matrix multiplication
         complex(qp), intent(in) :: m1(:, :), m2(:, :)
-        complex(qp) :: res(size(m1, 1), size(m2, 2))  
-
+        complex(qp) :: res(size(m1, 1), size(m2, 2))
 
         if (size(m1, 2) == size(m2, 1)) then
             res = matmul(m1, m2)
         else
-            call error_stop('Error: size(matrix_1, 2) /= size(matrix_2, 1)') 
+            call error_stop('Error: size(matrix_1, 2) /= size(matrix_2, 1)')
         end if
     end function cmut_qp
     function rcmut_sp(m1, m2) result(res)
@@ -1090,12 +1084,11 @@ contains
         real(sp), intent(in) :: m1(:, :)
         complex(sp), intent(in) :: m2(:, :)
         complex(sp) :: res(size(m1, 1), size(m2, 2))
-        
 
         if (size(m1, 2) == size(m2, 1)) then
             res = matmul(m1, m2)
         else
-            call error_stop('Error: size(matrix_1, 2) /= size(matrix_2, 1)') 
+            call error_stop('Error: size(matrix_1, 2) /= size(matrix_2, 1)')
         end if
     end function rcmut_sp
     function rcmut_dp(m1, m2) result(res)
@@ -1103,12 +1096,11 @@ contains
         real(dp), intent(in) :: m1(:, :)
         complex(dp), intent(in) :: m2(:, :)
         complex(dp) :: res(size(m1, 1), size(m2, 2))
-        
 
         if (size(m1, 2) == size(m2, 1)) then
             res = matmul(m1, m2)
         else
-            call error_stop('Error: size(matrix_1, 2) /= size(matrix_2, 1)') 
+            call error_stop('Error: size(matrix_1, 2) /= size(matrix_2, 1)')
         end if
     end function rcmut_dp
     function rcmut_qp(m1, m2) result(res)
@@ -1116,54 +1108,53 @@ contains
         real(qp), intent(in) :: m1(:, :)
         complex(qp), intent(in) :: m2(:, :)
         complex(qp) :: res(size(m1, 1), size(m2, 2))
-        
 
         if (size(m1, 2) == size(m2, 1)) then
             res = matmul(m1, m2)
         else
-            call error_stop('Error: size(matrix_1, 2) /= size(matrix_2, 1)') 
+            call error_stop('Error: size(matrix_1, 2) /= size(matrix_2, 1)')
         end if
     end function rcmut_qp
     function crmut_sp(m1, m2) result(res)
         !! complex(qp) matrix multiplication
         complex(sp), intent(in) :: m1(:, :)
         real(sp), intent(in) :: m2(:, :)
-        complex(sp) :: res(size(m1,1), size(m2, 2))
+        complex(sp) :: res(size(m1, 1), size(m2, 2))
 
         if (size(m1, 2) == size(m2, 1)) then
             res = matmul(m1, m2)
         else
-            call error_stop('Error: size(matrix_1, 2) /= size(matrix_2, 1)') 
+            call error_stop('Error: size(matrix_1, 2) /= size(matrix_2, 1)')
         end if
     end function crmut_sp
     function crmut_dp(m1, m2) result(res)
         !! complex(qp) matrix multiplication
         complex(dp), intent(in) :: m1(:, :)
         real(dp), intent(in) :: m2(:, :)
-        complex(dp) :: res(size(m1,1), size(m2, 2))
+        complex(dp) :: res(size(m1, 1), size(m2, 2))
 
         if (size(m1, 2) == size(m2, 1)) then
             res = matmul(m1, m2)
         else
-            call error_stop('Error: size(matrix_1, 2) /= size(matrix_2, 1)') 
+            call error_stop('Error: size(matrix_1, 2) /= size(matrix_2, 1)')
         end if
     end function crmut_dp
     function crmut_qp(m1, m2) result(res)
         !! complex(qp) matrix multiplication
         complex(qp), intent(in) :: m1(:, :)
         real(qp), intent(in) :: m2(:, :)
-        complex(qp) :: res(size(m1,1), size(m2, 2))
+        complex(qp) :: res(size(m1, 1), size(m2, 2))
 
         if (size(m1, 2) == size(m2, 1)) then
             res = matmul(m1, m2)
         else
-            call error_stop('Error: size(matrix_1, 2) /= size(matrix_2, 1)') 
+            call error_stop('Error: size(matrix_1, 2) /= size(matrix_2, 1)')
         end if
     end function crmut_qp
 
     function is_square_rsp(A) result(is_square)
         !! real(sp) matrix is square or not.
-        real(sp), intent(in) :: A(:,:)
+        real(sp), intent(in) :: A(:, :)
         logical :: is_square
         is_square = .false.
         if (size(A, 1) == size(A, 2)) is_square = .true.
@@ -1171,7 +1162,7 @@ contains
     end function is_square_rsp
     function is_square_rdp(A) result(is_square)
         !! real(dp) matrix is square or not.
-        real(dp), intent(in) :: A(:,:)
+        real(dp), intent(in) :: A(:, :)
         logical :: is_square
         is_square = .false.
         if (size(A, 1) == size(A, 2)) is_square = .true.
@@ -1179,7 +1170,7 @@ contains
     end function is_square_rdp
     function is_square_rqp(A) result(is_square)
         !! real(qp) matrix is square or not.
-        real(qp), intent(in) :: A(:,:)
+        real(qp), intent(in) :: A(:, :)
         logical :: is_square
         is_square = .false.
         if (size(A, 1) == size(A, 2)) is_square = .true.
@@ -1187,7 +1178,7 @@ contains
     end function is_square_rqp
     function is_square_csp(A) result(is_square)
         !! complex(sp) matrix is square or not.
-        complex(sp), intent(in) :: A(:,:)
+        complex(sp), intent(in) :: A(:, :)
         logical :: is_square
         is_square = .false.
         if (size(A, 1) == size(A, 2)) is_square = .true.
@@ -1195,7 +1186,7 @@ contains
     end function is_square_csp
     function is_square_cdp(A) result(is_square)
         !! complex(dp) matrix is square or not.
-        complex(dp), intent(in) :: A(:,:)
+        complex(dp), intent(in) :: A(:, :)
         logical :: is_square
         is_square = .false.
         if (size(A, 1) == size(A, 2)) is_square = .true.
@@ -1203,7 +1194,7 @@ contains
     end function is_square_cdp
     function is_square_cqp(A) result(is_square)
         !! complex(qp) matrix is square or not.
-        complex(qp), intent(in) :: A(:,:)
+        complex(qp), intent(in) :: A(:, :)
         logical :: is_square
         is_square = .false.
         if (size(A, 1) == size(A, 2)) is_square = .true.
@@ -1212,7 +1203,7 @@ contains
 
     function is_symmetric_rsp(A) result(is_symmetric)
         !! real(sp) matrix is symmetric or not.
-        real(sp), intent(in) :: A(:,:)
+        real(sp), intent(in) :: A(:, :)
         logical :: is_symmetric
         integer :: i, j, n
         is_symmetric = .true.
@@ -1234,7 +1225,7 @@ contains
     end function is_symmetric_rsp
     function is_symmetric_rdp(A) result(is_symmetric)
         !! real(dp) matrix is symmetric or not.
-        real(dp), intent(in) :: A(:,:)
+        real(dp), intent(in) :: A(:, :)
         logical :: is_symmetric
         integer :: i, j, n
         is_symmetric = .true.
@@ -1256,7 +1247,7 @@ contains
     end function is_symmetric_rdp
     function is_symmetric_rqp(A) result(is_symmetric)
         !! real(qp) matrix is symmetric or not.
-        real(qp), intent(in) :: A(:,:)
+        real(qp), intent(in) :: A(:, :)
         logical :: is_symmetric
         integer :: i, j, n
         is_symmetric = .true.
@@ -1278,7 +1269,7 @@ contains
     end function is_symmetric_rqp
     function is_symmetric_csp(A) result(is_symmetric)
         !! complex(sp) matrix is symmetric or not.
-        complex(sp), intent(in) :: A(:,:)
+        complex(sp), intent(in) :: A(:, :)
         logical :: is_symmetric
         integer :: i, j, n
         is_symmetric = .true.
@@ -1300,7 +1291,7 @@ contains
     end function is_symmetric_csp
     function is_symmetric_cdp(A) result(is_symmetric)
         !! complex(dp) matrix is symmetric or not.
-        complex(dp), intent(in) :: A(:,:)
+        complex(dp), intent(in) :: A(:, :)
         logical :: is_symmetric
         integer :: i, j, n
         is_symmetric = .true.
@@ -1322,7 +1313,7 @@ contains
     end function is_symmetric_cdp
     function is_symmetric_cqp(A) result(is_symmetric)
         !! complex(qp) matrix is symmetric or not.
-        complex(qp), intent(in) :: A(:,:)
+        complex(qp), intent(in) :: A(:, :)
         logical :: is_symmetric
         integer :: i, j, n
         is_symmetric = .true.
@@ -1370,7 +1361,7 @@ contains
         integer, intent(in) :: dim
         integer(kind=int8), allocatable :: result(:)
 
-        allocate(result(dim), source=1_int8)
+        allocate (result(dim), source=1_int8)
 
     end function ones_1_default
 
@@ -1379,7 +1370,7 @@ contains
         integer, intent(in) :: dim1, dim2
         integer(kind=int8), allocatable :: result(:, :)
 
-        allocate(result(dim1, dim2), source=1_int8)
+        allocate (result(dim1, dim2), source=1_int8)
 
     end function ones_2_default
 
@@ -1388,7 +1379,7 @@ contains
         integer, intent(in) :: dim
         integer(kind=int8), allocatable :: result(:)
 
-        allocate(result(dim), source=0_int8)
+        allocate (result(dim), source=0_int8)
 
     end function zeros_1_default
 
@@ -1397,9 +1388,8 @@ contains
         integer, intent(in) :: dim1, dim2
         integer(kind=int8), allocatable :: result(:, :)
 
-        allocate(result(dim1, dim2), source=0_int8)
+        allocate (result(dim1, dim2), source=0_int8)
 
     end function zeros_2_default
-
 
 end module forlab_linalg

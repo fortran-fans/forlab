@@ -3,14 +3,13 @@ submodule(forlab_math) forlab_math_is_close
 
 contains
 
-
     elemental module function is_close_rsp(a, b, rel_tol, abs_tol) result(close)
         real(sp), intent(in) :: a, b
         real(sp), intent(in), optional :: rel_tol, abs_tol
         logical :: close
 
-        close = abs(a - b) <= max( abs(optval(rel_tol, 1.0e-9_sp)*max(abs(a), abs(b))), &
-                                   abs(optval(abs_tol, 0.0_sp)) )
+        close = abs(a - b) <= max(abs(optval(rel_tol, 1.0e-9_sp)*max(abs(a), abs(b))), &
+                                  abs(optval(abs_tol, 0.0_sp)))
 
     end function is_close_rsp
     elemental module function is_close_rdp(a, b, rel_tol, abs_tol) result(close)
@@ -18,8 +17,8 @@ contains
         real(dp), intent(in), optional :: rel_tol, abs_tol
         logical :: close
 
-        close = abs(a - b) <= max( abs(optval(rel_tol, 1.0e-9_dp)*max(abs(a), abs(b))), &
-                                   abs(optval(abs_tol, 0.0_dp)) )
+        close = abs(a - b) <= max(abs(optval(rel_tol, 1.0e-9_dp)*max(abs(a), abs(b))), &
+                                  abs(optval(abs_tol, 0.0_dp)))
 
     end function is_close_rdp
     elemental module function is_close_rqp(a, b, rel_tol, abs_tol) result(close)
@@ -27,8 +26,8 @@ contains
         real(qp), intent(in), optional :: rel_tol, abs_tol
         logical :: close
 
-        close = abs(a - b) <= max( abs(optval(rel_tol, 1.0e-9_qp)*max(abs(a), abs(b))), &
-                                   abs(optval(abs_tol, 0.0_qp)) )
+        close = abs(a - b) <= max(abs(optval(rel_tol, 1.0e-9_qp)*max(abs(a), abs(b))), &
+                                  abs(optval(abs_tol, 0.0_qp)))
 
     end function is_close_rqp
 
