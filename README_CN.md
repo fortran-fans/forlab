@@ -55,6 +55,7 @@ forlab = { git="https://github.com/fortran-fans/forlab.git", branch="forlab-fpm"
 
 ```bash
 ford API-doc-FORD-file.md  # todo
+cd doc && mdbook build
 ```
 see [forlab-API-doc](https://fortran-fans.github.io/forlab/).
 

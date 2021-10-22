@@ -1,5 +1,4 @@
 
-
 submodule(forlab_sorting) forlab_sorting_sort
 
     implicit none
@@ -7,15 +6,15 @@ submodule(forlab_sorting) forlab_sorting_sort
 contains
 
     module procedure sort_int8
-        integer :: n,order1
-        n = size(x)
-        sort_int8 = x
-        if (.not. present(order))then
-            order1=1
-        else
-            order1=order
-        end if
-            call quicksort_int8(sort_int8, n, order1)
+    integer :: n, order1
+    n = size(x)
+    sort_int8 = x
+    if (.not. present(order)) then
+        order1 = 1
+    else
+        order1 = order
+    end if
+    call quicksort_int8(sort_int8, n, order1)
     end procedure sort_int8
     recursive subroutine quicksort_int8(x, n, order)
         integer(int8), dimension(n), intent(inout) :: x
@@ -73,15 +72,15 @@ contains
         end if
     end subroutine quicksort_int8
     module procedure sort_int16
-        integer :: n,order1
-        n = size(x)
-        sort_int16 = x
-        if (.not. present(order))then
-            order1=1
-        else
-            order1=order
-        end if
-            call quicksort_int16(sort_int16, n, order1)
+    integer :: n, order1
+    n = size(x)
+    sort_int16 = x
+    if (.not. present(order)) then
+        order1 = 1
+    else
+        order1 = order
+    end if
+    call quicksort_int16(sort_int16, n, order1)
     end procedure sort_int16
     recursive subroutine quicksort_int16(x, n, order)
         integer(int16), dimension(n), intent(inout) :: x
@@ -139,15 +138,15 @@ contains
         end if
     end subroutine quicksort_int16
     module procedure sort_int32
-        integer :: n,order1
-        n = size(x)
-        sort_int32 = x
-        if (.not. present(order))then
-            order1=1
-        else
-            order1=order
-        end if
-            call quicksort_int32(sort_int32, n, order1)
+    integer :: n, order1
+    n = size(x)
+    sort_int32 = x
+    if (.not. present(order)) then
+        order1 = 1
+    else
+        order1 = order
+    end if
+    call quicksort_int32(sort_int32, n, order1)
     end procedure sort_int32
     recursive subroutine quicksort_int32(x, n, order)
         integer(int32), dimension(n), intent(inout) :: x
@@ -205,15 +204,15 @@ contains
         end if
     end subroutine quicksort_int32
     module procedure sort_int64
-        integer :: n,order1
-        n = size(x)
-        sort_int64 = x
-        if (.not. present(order))then
-            order1=1
-        else
-            order1=order
-        end if
-            call quicksort_int64(sort_int64, n, order1)
+    integer :: n, order1
+    n = size(x)
+    sort_int64 = x
+    if (.not. present(order)) then
+        order1 = 1
+    else
+        order1 = order
+    end if
+    call quicksort_int64(sort_int64, n, order1)
     end procedure sort_int64
     recursive subroutine quicksort_int64(x, n, order)
         integer(int64), dimension(n), intent(inout) :: x
@@ -271,15 +270,15 @@ contains
         end if
     end subroutine quicksort_int64
     module procedure sort_sp
-        integer :: n,order1
-        n = size(x)
-        sort_sp = x
-        if (.not. present(order))then
-            order1=1
-        else
-            order1=order
-        end if
-            call quicksort_sp(sort_sp, n, order1)
+    integer :: n, order1
+    n = size(x)
+    sort_sp = x
+    if (.not. present(order)) then
+        order1 = 1
+    else
+        order1 = order
+    end if
+    call quicksort_sp(sort_sp, n, order1)
     end procedure sort_sp
     recursive subroutine quicksort_sp(x, n, order)
         real(sp), dimension(n), intent(inout) :: x
@@ -337,15 +336,15 @@ contains
         end if
     end subroutine quicksort_sp
     module procedure sort_dp
-        integer :: n,order1
-        n = size(x)
-        sort_dp = x
-        if (.not. present(order))then
-            order1=1
-        else
-            order1=order
-        end if
-            call quicksort_dp(sort_dp, n, order1)
+    integer :: n, order1
+    n = size(x)
+    sort_dp = x
+    if (.not. present(order)) then
+        order1 = 1
+    else
+        order1 = order
+    end if
+    call quicksort_dp(sort_dp, n, order1)
     end procedure sort_dp
     recursive subroutine quicksort_dp(x, n, order)
         real(dp), dimension(n), intent(inout) :: x
@@ -403,15 +402,15 @@ contains
         end if
     end subroutine quicksort_dp
     module procedure sort_qp
-        integer :: n,order1
-        n = size(x)
-        sort_qp = x
-        if (.not. present(order))then
-            order1=1
-        else
-            order1=order
-        end if
-            call quicksort_qp(sort_qp, n, order1)
+    integer :: n, order1
+    n = size(x)
+    sort_qp = x
+    if (.not. present(order)) then
+        order1 = 1
+    else
+        order1 = order
+    end if
+    call quicksort_qp(sort_qp, n, order1)
     end procedure sort_qp
     recursive subroutine quicksort_qp(x, n, order)
         real(qp), dimension(n), intent(inout) :: x

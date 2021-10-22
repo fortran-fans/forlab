@@ -1,44 +1,43 @@
 
-submodule (forlab_math) forlab_math_all_close
+submodule(forlab_math) forlab_math_all_close
 
     implicit none
     character(*), parameter :: error_1 = "*<ERROR>* The ranks of `a` and `b` in `all_close` are not equal."
     character(*), parameter :: error_2 = "*<ERROR>* The rank of `a` in `all_close` is too large to be supported."
-    
-contains
 
+contains
 
     logical module function all_close_rsp(a, b, rel_tol, abs_tol) result(close)
 
         real(sp), intent(in) :: a(..), b(..)
         real(sp), intent(in), optional :: rel_tol, abs_tol
 
-        select rank(a)
+        select rank (a)
 
-        rank(1)
-            select rank(b)
-            rank(1)
+        rank (1)
+            select rank (b)
+            rank (1)
                 close = all(is_close(a, b, rel_tol, abs_tol))
             rank default
                 error stop error_1
             end select
-        rank(2)
-            select rank(b)
-            rank(2)
+        rank (2)
+            select rank (b)
+            rank (2)
                 close = all(is_close(a, b, rel_tol, abs_tol))
             rank default
                 error stop error_1
             end select
-        rank(3)
-            select rank(b)
-            rank(3)
+        rank (3)
+            select rank (b)
+            rank (3)
                 close = all(is_close(a, b, rel_tol, abs_tol))
             rank default
                 error stop error_1
             end select
-        rank(4)
-            select rank(b)
-            rank(4)
+        rank (4)
+            select rank (b)
+            rank (4)
                 close = all(is_close(a, b, rel_tol, abs_tol))
             rank default
                 error stop error_1
@@ -54,32 +53,32 @@ contains
         real(dp), intent(in) :: a(..), b(..)
         real(dp), intent(in), optional :: rel_tol, abs_tol
 
-        select rank(a)
+        select rank (a)
 
-        rank(1)
-            select rank(b)
-            rank(1)
+        rank (1)
+            select rank (b)
+            rank (1)
                 close = all(is_close(a, b, rel_tol, abs_tol))
             rank default
                 error stop error_1
             end select
-        rank(2)
-            select rank(b)
-            rank(2)
+        rank (2)
+            select rank (b)
+            rank (2)
                 close = all(is_close(a, b, rel_tol, abs_tol))
             rank default
                 error stop error_1
             end select
-        rank(3)
-            select rank(b)
-            rank(3)
+        rank (3)
+            select rank (b)
+            rank (3)
                 close = all(is_close(a, b, rel_tol, abs_tol))
             rank default
                 error stop error_1
             end select
-        rank(4)
-            select rank(b)
-            rank(4)
+        rank (4)
+            select rank (b)
+            rank (4)
                 close = all(is_close(a, b, rel_tol, abs_tol))
             rank default
                 error stop error_1
@@ -95,32 +94,32 @@ contains
         real(qp), intent(in) :: a(..), b(..)
         real(qp), intent(in), optional :: rel_tol, abs_tol
 
-        select rank(a)
+        select rank (a)
 
-        rank(1)
-            select rank(b)
-            rank(1)
+        rank (1)
+            select rank (b)
+            rank (1)
                 close = all(is_close(a, b, rel_tol, abs_tol))
             rank default
                 error stop error_1
             end select
-        rank(2)
-            select rank(b)
-            rank(2)
+        rank (2)
+            select rank (b)
+            rank (2)
                 close = all(is_close(a, b, rel_tol, abs_tol))
             rank default
                 error stop error_1
             end select
-        rank(3)
-            select rank(b)
-            rank(3)
+        rank (3)
+            select rank (b)
+            rank (3)
                 close = all(is_close(a, b, rel_tol, abs_tol))
             rank default
                 error stop error_1
             end select
-        rank(4)
-            select rank(b)
-            rank(4)
+        rank (4)
+            select rank (b)
+            rank (4)
                 close = all(is_close(a, b, rel_tol, abs_tol))
             rank default
                 error stop error_1
@@ -136,32 +135,32 @@ contains
         complex(sp), intent(in) :: a(..), b(..)
         real(sp), intent(in), optional :: rel_tol, abs_tol
 
-        select rank(a)
+        select rank (a)
 
-        rank(1)
-            select rank(b)
-            rank(1)
+        rank (1)
+            select rank (b)
+            rank (1)
                 close = all(is_close(a, b, rel_tol, abs_tol))
             rank default
                 error stop error_1
             end select
-        rank(2)
-            select rank(b)
-            rank(2)
+        rank (2)
+            select rank (b)
+            rank (2)
                 close = all(is_close(a, b, rel_tol, abs_tol))
             rank default
                 error stop error_1
             end select
-        rank(3)
-            select rank(b)
-            rank(3)
+        rank (3)
+            select rank (b)
+            rank (3)
                 close = all(is_close(a, b, rel_tol, abs_tol))
             rank default
                 error stop error_1
             end select
-        rank(4)
-            select rank(b)
-            rank(4)
+        rank (4)
+            select rank (b)
+            rank (4)
                 close = all(is_close(a, b, rel_tol, abs_tol))
             rank default
                 error stop error_1
@@ -177,32 +176,32 @@ contains
         complex(dp), intent(in) :: a(..), b(..)
         real(dp), intent(in), optional :: rel_tol, abs_tol
 
-        select rank(a)
+        select rank (a)
 
-        rank(1)
-            select rank(b)
-            rank(1)
+        rank (1)
+            select rank (b)
+            rank (1)
                 close = all(is_close(a, b, rel_tol, abs_tol))
             rank default
                 error stop error_1
             end select
-        rank(2)
-            select rank(b)
-            rank(2)
+        rank (2)
+            select rank (b)
+            rank (2)
                 close = all(is_close(a, b, rel_tol, abs_tol))
             rank default
                 error stop error_1
             end select
-        rank(3)
-            select rank(b)
-            rank(3)
+        rank (3)
+            select rank (b)
+            rank (3)
                 close = all(is_close(a, b, rel_tol, abs_tol))
             rank default
                 error stop error_1
             end select
-        rank(4)
-            select rank(b)
-            rank(4)
+        rank (4)
+            select rank (b)
+            rank (4)
                 close = all(is_close(a, b, rel_tol, abs_tol))
             rank default
                 error stop error_1
@@ -218,32 +217,32 @@ contains
         complex(qp), intent(in) :: a(..), b(..)
         real(qp), intent(in), optional :: rel_tol, abs_tol
 
-        select rank(a)
+        select rank (a)
 
-        rank(1)
-            select rank(b)
-            rank(1)
+        rank (1)
+            select rank (b)
+            rank (1)
                 close = all(is_close(a, b, rel_tol, abs_tol))
             rank default
                 error stop error_1
             end select
-        rank(2)
-            select rank(b)
-            rank(2)
+        rank (2)
+            select rank (b)
+            rank (2)
                 close = all(is_close(a, b, rel_tol, abs_tol))
             rank default
                 error stop error_1
             end select
-        rank(3)
-            select rank(b)
-            rank(3)
+        rank (3)
+            select rank (b)
+            rank (3)
                 close = all(is_close(a, b, rel_tol, abs_tol))
             rank default
                 error stop error_1
             end select
-        rank(4)
-            select rank(b)
-            rank(4)
+        rank (4)
+            select rank (b)
+            rank (4)
                 close = all(is_close(a, b, rel_tol, abs_tol))
             rank default
                 error stop error_1

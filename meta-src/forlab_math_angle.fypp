@@ -1,0 +1,18 @@
+#:include "common.fypp"
+
+submodule(forlab_math) forlab_math_angle
+    implicit none
+contains
+    
+    #! Calculate the angle of two vectors.
+    #:for k1, t1 in REAL_KINDS_TYPES
+    pure module function angle_2_${k1}$(x, y) result(angle)
+        ${t1}$, dimension(3), intent(in) :: x, y
+        ${t1}$ :: angle
+        
+        angle = acos(dot_product(x, y)/(norm2(x)*norm2(y)))
+    
+    end function angle_2_${k1}$
+    #:endfor
+    
+end submodule forlab_math_angle
