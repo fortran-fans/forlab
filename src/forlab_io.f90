@@ -1,10 +1,10 @@
 module forlab_io
 
-    use stdlib_error,   only: error_stop
-    use stdlib_io,      only: open, parse_mode
+    use stdlib_error, only: error_stop
+    use stdlib_io, only: open, parse_mode
     use stdlib_strings, only: to_string
-    use stdlib_kinds,   only: sp, dp, qp, int8, int16, int32, int64, lk, c_bool
-    use stdlib_optval,  only: optval
+    use stdlib_kinds, only: sp, dp, qp, int8, int16, int32, int64, lk, c_bool
+    use stdlib_optval, only: optval
     use stdlib_strings, only: to_string
     use stdlib_string_type, only: string_type
     implicit none
@@ -15,11 +15,11 @@ module forlab_io
     public :: savebin, loadbin, savetxt, loadtxt
     public :: color
     public :: disp
-    
+
     public :: progress_bar, progress_perc
 
     !> Version: experimental
-    !> 
+    !>
     !> forlab file derived type.
     !> ([Specification](../page/specs/forlab_io.html#file-file-constructor-and-file-derived-type))
     type file
@@ -42,230 +42,230 @@ module forlab_io
         module subroutine disp_0_rsp(x, header, unit, brief)
             real(sp), intent(in) :: x
             character(len=*), intent(in), optional :: header
-            integer,          intent(in), optional :: unit
-            logical,          intent(in), optional :: brief
+            integer, intent(in), optional :: unit
+            logical, intent(in), optional :: brief
         end subroutine disp_0_rsp
         module subroutine disp_1_rsp(x, header, unit, brief)
             real(sp), intent(in) :: x(:)
             character(len=*), intent(in), optional :: header
-            integer,          intent(in), optional :: unit
-            logical,          intent(in), optional :: brief
+            integer, intent(in), optional :: unit
+            logical, intent(in), optional :: brief
         end subroutine disp_1_rsp
         module subroutine disp_2_rsp(x, header, unit, brief)
-            real(sp), intent(in) :: x(:,:)
+            real(sp), intent(in) :: x(:, :)
             character(len=*), intent(in), optional :: header
-            integer,          intent(in), optional :: unit
-            logical,          intent(in), optional :: brief
+            integer, intent(in), optional :: unit
+            logical, intent(in), optional :: brief
         end subroutine disp_2_rsp
         module subroutine disp_0_rdp(x, header, unit, brief)
             real(dp), intent(in) :: x
             character(len=*), intent(in), optional :: header
-            integer,          intent(in), optional :: unit
-            logical,          intent(in), optional :: brief
+            integer, intent(in), optional :: unit
+            logical, intent(in), optional :: brief
         end subroutine disp_0_rdp
         module subroutine disp_1_rdp(x, header, unit, brief)
             real(dp), intent(in) :: x(:)
             character(len=*), intent(in), optional :: header
-            integer,          intent(in), optional :: unit
-            logical,          intent(in), optional :: brief
+            integer, intent(in), optional :: unit
+            logical, intent(in), optional :: brief
         end subroutine disp_1_rdp
         module subroutine disp_2_rdp(x, header, unit, brief)
-            real(dp), intent(in) :: x(:,:)
+            real(dp), intent(in) :: x(:, :)
             character(len=*), intent(in), optional :: header
-            integer,          intent(in), optional :: unit
-            logical,          intent(in), optional :: brief
+            integer, intent(in), optional :: unit
+            logical, intent(in), optional :: brief
         end subroutine disp_2_rdp
         module subroutine disp_0_rqp(x, header, unit, brief)
             real(qp), intent(in) :: x
             character(len=*), intent(in), optional :: header
-            integer,          intent(in), optional :: unit
-            logical,          intent(in), optional :: brief
+            integer, intent(in), optional :: unit
+            logical, intent(in), optional :: brief
         end subroutine disp_0_rqp
         module subroutine disp_1_rqp(x, header, unit, brief)
             real(qp), intent(in) :: x(:)
             character(len=*), intent(in), optional :: header
-            integer,          intent(in), optional :: unit
-            logical,          intent(in), optional :: brief
+            integer, intent(in), optional :: unit
+            logical, intent(in), optional :: brief
         end subroutine disp_1_rqp
         module subroutine disp_2_rqp(x, header, unit, brief)
-            real(qp), intent(in) :: x(:,:)
+            real(qp), intent(in) :: x(:, :)
             character(len=*), intent(in), optional :: header
-            integer,          intent(in), optional :: unit
-            logical,          intent(in), optional :: brief
+            integer, intent(in), optional :: unit
+            logical, intent(in), optional :: brief
         end subroutine disp_2_rqp
         module subroutine disp_0_iint8(x, header, unit, brief)
             integer(int8), intent(in) :: x
             character(len=*), intent(in), optional :: header
-            integer,          intent(in), optional :: unit
-            logical,          intent(in), optional :: brief
+            integer, intent(in), optional :: unit
+            logical, intent(in), optional :: brief
         end subroutine disp_0_iint8
         module subroutine disp_1_iint8(x, header, unit, brief)
             integer(int8), intent(in) :: x(:)
             character(len=*), intent(in), optional :: header
-            integer,          intent(in), optional :: unit
-            logical,          intent(in), optional :: brief
+            integer, intent(in), optional :: unit
+            logical, intent(in), optional :: brief
         end subroutine disp_1_iint8
         module subroutine disp_2_iint8(x, header, unit, brief)
-            integer(int8), intent(in) :: x(:,:)
+            integer(int8), intent(in) :: x(:, :)
             character(len=*), intent(in), optional :: header
-            integer,          intent(in), optional :: unit
-            logical,          intent(in), optional :: brief
+            integer, intent(in), optional :: unit
+            logical, intent(in), optional :: brief
         end subroutine disp_2_iint8
         module subroutine disp_0_iint16(x, header, unit, brief)
             integer(int16), intent(in) :: x
             character(len=*), intent(in), optional :: header
-            integer,          intent(in), optional :: unit
-            logical,          intent(in), optional :: brief
+            integer, intent(in), optional :: unit
+            logical, intent(in), optional :: brief
         end subroutine disp_0_iint16
         module subroutine disp_1_iint16(x, header, unit, brief)
             integer(int16), intent(in) :: x(:)
             character(len=*), intent(in), optional :: header
-            integer,          intent(in), optional :: unit
-            logical,          intent(in), optional :: brief
+            integer, intent(in), optional :: unit
+            logical, intent(in), optional :: brief
         end subroutine disp_1_iint16
         module subroutine disp_2_iint16(x, header, unit, brief)
-            integer(int16), intent(in) :: x(:,:)
+            integer(int16), intent(in) :: x(:, :)
             character(len=*), intent(in), optional :: header
-            integer,          intent(in), optional :: unit
-            logical,          intent(in), optional :: brief
+            integer, intent(in), optional :: unit
+            logical, intent(in), optional :: brief
         end subroutine disp_2_iint16
         module subroutine disp_0_iint32(x, header, unit, brief)
             integer(int32), intent(in) :: x
             character(len=*), intent(in), optional :: header
-            integer,          intent(in), optional :: unit
-            logical,          intent(in), optional :: brief
+            integer, intent(in), optional :: unit
+            logical, intent(in), optional :: brief
         end subroutine disp_0_iint32
         module subroutine disp_1_iint32(x, header, unit, brief)
             integer(int32), intent(in) :: x(:)
             character(len=*), intent(in), optional :: header
-            integer,          intent(in), optional :: unit
-            logical,          intent(in), optional :: brief
+            integer, intent(in), optional :: unit
+            logical, intent(in), optional :: brief
         end subroutine disp_1_iint32
         module subroutine disp_2_iint32(x, header, unit, brief)
-            integer(int32), intent(in) :: x(:,:)
+            integer(int32), intent(in) :: x(:, :)
             character(len=*), intent(in), optional :: header
-            integer,          intent(in), optional :: unit
-            logical,          intent(in), optional :: brief
+            integer, intent(in), optional :: unit
+            logical, intent(in), optional :: brief
         end subroutine disp_2_iint32
         module subroutine disp_0_iint64(x, header, unit, brief)
             integer(int64), intent(in) :: x
             character(len=*), intent(in), optional :: header
-            integer,          intent(in), optional :: unit
-            logical,          intent(in), optional :: brief
+            integer, intent(in), optional :: unit
+            logical, intent(in), optional :: brief
         end subroutine disp_0_iint64
         module subroutine disp_1_iint64(x, header, unit, brief)
             integer(int64), intent(in) :: x(:)
             character(len=*), intent(in), optional :: header
-            integer,          intent(in), optional :: unit
-            logical,          intent(in), optional :: brief
+            integer, intent(in), optional :: unit
+            logical, intent(in), optional :: brief
         end subroutine disp_1_iint64
         module subroutine disp_2_iint64(x, header, unit, brief)
-            integer(int64), intent(in) :: x(:,:)
+            integer(int64), intent(in) :: x(:, :)
             character(len=*), intent(in), optional :: header
-            integer,          intent(in), optional :: unit
-            logical,          intent(in), optional :: brief
+            integer, intent(in), optional :: unit
+            logical, intent(in), optional :: brief
         end subroutine disp_2_iint64
         module subroutine disp_0_csp(x, header, unit, brief)
             complex(sp), intent(in) :: x
             character(len=*), intent(in), optional :: header
-            integer,          intent(in), optional :: unit
-            logical,          intent(in), optional :: brief
+            integer, intent(in), optional :: unit
+            logical, intent(in), optional :: brief
         end subroutine disp_0_csp
         module subroutine disp_1_csp(x, header, unit, brief)
             complex(sp), intent(in) :: x(:)
             character(len=*), intent(in), optional :: header
-            integer,          intent(in), optional :: unit
-            logical,          intent(in), optional :: brief
+            integer, intent(in), optional :: unit
+            logical, intent(in), optional :: brief
         end subroutine disp_1_csp
         module subroutine disp_2_csp(x, header, unit, brief)
-            complex(sp), intent(in) :: x(:,:)
+            complex(sp), intent(in) :: x(:, :)
             character(len=*), intent(in), optional :: header
-            integer,          intent(in), optional :: unit
-            logical,          intent(in), optional :: brief
+            integer, intent(in), optional :: unit
+            logical, intent(in), optional :: brief
         end subroutine disp_2_csp
         module subroutine disp_0_cdp(x, header, unit, brief)
             complex(dp), intent(in) :: x
             character(len=*), intent(in), optional :: header
-            integer,          intent(in), optional :: unit
-            logical,          intent(in), optional :: brief
+            integer, intent(in), optional :: unit
+            logical, intent(in), optional :: brief
         end subroutine disp_0_cdp
         module subroutine disp_1_cdp(x, header, unit, brief)
             complex(dp), intent(in) :: x(:)
             character(len=*), intent(in), optional :: header
-            integer,          intent(in), optional :: unit
-            logical,          intent(in), optional :: brief
+            integer, intent(in), optional :: unit
+            logical, intent(in), optional :: brief
         end subroutine disp_1_cdp
         module subroutine disp_2_cdp(x, header, unit, brief)
-            complex(dp), intent(in) :: x(:,:)
+            complex(dp), intent(in) :: x(:, :)
             character(len=*), intent(in), optional :: header
-            integer,          intent(in), optional :: unit
-            logical,          intent(in), optional :: brief
+            integer, intent(in), optional :: unit
+            logical, intent(in), optional :: brief
         end subroutine disp_2_cdp
         module subroutine disp_0_cqp(x, header, unit, brief)
             complex(qp), intent(in) :: x
             character(len=*), intent(in), optional :: header
-            integer,          intent(in), optional :: unit
-            logical,          intent(in), optional :: brief
+            integer, intent(in), optional :: unit
+            logical, intent(in), optional :: brief
         end subroutine disp_0_cqp
         module subroutine disp_1_cqp(x, header, unit, brief)
             complex(qp), intent(in) :: x(:)
             character(len=*), intent(in), optional :: header
-            integer,          intent(in), optional :: unit
-            logical,          intent(in), optional :: brief
+            integer, intent(in), optional :: unit
+            logical, intent(in), optional :: brief
         end subroutine disp_1_cqp
         module subroutine disp_2_cqp(x, header, unit, brief)
-            complex(qp), intent(in) :: x(:,:)
+            complex(qp), intent(in) :: x(:, :)
             character(len=*), intent(in), optional :: header
-            integer,          intent(in), optional :: unit
-            logical,          intent(in), optional :: brief
+            integer, intent(in), optional :: unit
+            logical, intent(in), optional :: brief
         end subroutine disp_2_cqp
         module subroutine disp_0_llk(x, header, unit, brief)
             logical(lk), intent(in) :: x
             character(len=*), intent(in), optional :: header
-            integer,          intent(in), optional :: unit
-            logical,          intent(in), optional :: brief
+            integer, intent(in), optional :: unit
+            logical, intent(in), optional :: brief
         end subroutine disp_0_llk
         module subroutine disp_1_llk(x, header, unit, brief)
             logical(lk), intent(in) :: x(:)
             character(len=*), intent(in), optional :: header
-            integer,          intent(in), optional :: unit
-            logical,          intent(in), optional :: brief
+            integer, intent(in), optional :: unit
+            logical, intent(in), optional :: brief
         end subroutine disp_1_llk
         module subroutine disp_2_llk(x, header, unit, brief)
-            logical(lk), intent(in) :: x(:,:)
+            logical(lk), intent(in) :: x(:, :)
             character(len=*), intent(in), optional :: header
-            integer,          intent(in), optional :: unit
-            logical,          intent(in), optional :: brief
+            integer, intent(in), optional :: unit
+            logical, intent(in), optional :: brief
         end subroutine disp_2_llk
         module subroutine disp_0_lc_bool(x, header, unit, brief)
             logical(c_bool), intent(in) :: x
             character(len=*), intent(in), optional :: header
-            integer,          intent(in), optional :: unit
-            logical,          intent(in), optional :: brief
+            integer, intent(in), optional :: unit
+            logical, intent(in), optional :: brief
         end subroutine disp_0_lc_bool
         module subroutine disp_1_lc_bool(x, header, unit, brief)
             logical(c_bool), intent(in) :: x(:)
             character(len=*), intent(in), optional :: header
-            integer,          intent(in), optional :: unit
-            logical,          intent(in), optional :: brief
+            integer, intent(in), optional :: unit
+            logical, intent(in), optional :: brief
         end subroutine disp_1_lc_bool
         module subroutine disp_2_lc_bool(x, header, unit, brief)
-            logical(c_bool), intent(in) :: x(:,:)
+            logical(c_bool), intent(in) :: x(:, :)
             character(len=*), intent(in), optional :: header
-            integer,          intent(in), optional :: unit
-            logical,          intent(in), optional :: brief
+            integer, intent(in), optional :: unit
+            logical, intent(in), optional :: brief
         end subroutine disp_2_lc_bool
         module subroutine disp_character(x, header, unit, brief)
             character(len=*), intent(in), optional :: x
             character(len=*), intent(in), optional :: header
-            integer,          intent(in), optional :: unit
-            logical,          intent(in), optional :: brief
+            integer, intent(in), optional :: unit
+            logical, intent(in), optional :: brief
         end subroutine disp_character
         module subroutine disp_string_type(x, header, unit, brief)
             type(string_type), intent(in)           :: x
-            character(len=*),  intent(in), optional :: header
-            integer,           intent(in), optional :: unit
-            logical,           intent(in), optional :: brief
+            character(len=*), intent(in), optional :: header
+            integer, intent(in), optional :: unit
+            logical, intent(in), optional :: brief
         end subroutine disp_string_type
     end interface disp
 
@@ -702,7 +702,7 @@ module forlab_io
             character(len=*), intent(in), optional :: string
         end subroutine color
     end interface
-    
+
     !> Version: expermental
     !>
     !> Print a progress_bar.
@@ -729,7 +729,7 @@ module forlab_io
             character(*), intent(in), optional :: symbol
         end subroutine progress_bar_int64
     end interface progress_bar
-    
+
     !> Version: expermental
     !>
     !> Print a progress percentage message.
@@ -756,27 +756,27 @@ module forlab_io
 contains
 
     !> Version: experimental
-    !> 
+    !>
     !> Open the file. ([Specification](../page/specs/forlab_io.html#fileopen))
     subroutine open_file(self)
         class(file), intent(inout) :: self
         integer :: stat
 
-        self%unit = open(self%filename, self%mode, iostat=stat)
-        if(stat /= 0) call error_stop('Error: File "' // self%filename // &
-            '" open failed, iostat = '//to_string(stat))
+        self%unit = open (self%filename, self%mode, iostat=stat)
+        if (stat /= 0) call error_stop('Error: File "'//self%filename// &
+                                       '" open failed, iostat = '//to_string(stat))
 
     end subroutine open_file
 
     !> Version: experimental
-    !> 
+    !>
     !> `close` closes a `file` object, deallocate `file%filename`.
     !> ([Specification](../page/specs/forlab_io.html#fileclose))
     subroutine close (self)
         class(file), intent(inout) :: self
 
-        deallocate(self%filename)
-        close(self%unit)
+        deallocate (self%filename)
+        close (self%unit)
 
     end subroutine close
 
@@ -788,18 +788,18 @@ contains
         class(file), intent(inout) :: self
         integer :: ierr
         logical :: ok
-        
+
         self%lines = 0
         ok = .false.
-        inquire(unit=self%unit, opened=ok)
+        inquire (unit=self%unit, opened=ok)
         if (ok) then
-            rewind(self%unit)
+            rewind (self%unit)
             do
                 read (self%unit, *, iostat=ierr)
                 if (ierr < 0) exit
                 self%lines = self%lines + 1
             end do
-            rewind(self%unit)
+            rewind (self%unit)
         else
             call self%open()
             do
@@ -810,7 +810,7 @@ contains
             call self%close()
         end if
         if (self%lines == 0) then
-            call disp('Warn: linecounts is 0 in "' // self%filename // '".')
+            call disp('Warn: linecounts is 0 in "'//self%filename//'".')
         end if
 
     end subroutine countlines1
@@ -821,8 +821,8 @@ contains
         type(file) :: infile
 
         infile = file(trim(filename))
-        if(.not.infile%exist()) call error_stop('Error: File "'//infile%filename &
-                                        //'" open failed.')
+        if (.not. infile%exist()) call error_stop('Error: File "'//infile%filename &
+                                                  //'" open failed.')
         call infile%open()
         call infile%countlines()
         call infile%close()
@@ -838,7 +838,7 @@ contains
         class(File), intent(inout) :: self
         logical :: result
 
-        inquire(file=self%filename, exist=result)
+        inquire (file=self%filename, exist=result)
 
     end function file_exist1
 
@@ -880,5 +880,5 @@ contains
 
         return
     end function init_file
-    
+
 end module forlab_io

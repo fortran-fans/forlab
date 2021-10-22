@@ -4,3 +4,4 @@
 
 - [math](math/README.md)
   - [cross](math/cross.md)
+  - [angle](math/angle.md)

@@ -19,3 +19,4 @@ clean:
 $(SRCGEN): %.f90: %.fypp common.fypp
 	@mkdir -p $(FPMSRCDIR)
 	fypp $(FYPPFLAGS) $< $(FPMSRCDIR)/$@
+	fprettify -i 4 ../src/$@

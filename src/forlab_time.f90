@@ -3,7 +3,7 @@ module forlab_time
 
     use forlab_io, only: disp
     use stdlib_kinds, only: sp, dp, qp, &
-        int8, int16, int32, int64
+                            int8, int16, int32, int64
     implicit none
     private
 
@@ -13,7 +13,7 @@ module forlab_time
 
     interface datenum
         real(dp) module function datenum0(year, month, day, hour, minute, &
-                                    second, microsecond)
+                                          second, microsecond)
             integer, intent(in) :: year, month, day
             integer, intent(in), optional :: hour, minute, second, microsecond
         end function datenum0
@@ -46,7 +46,7 @@ module forlab_time
     end interface toc
 
 contains
-    
+
     logical function is_leap_int8(year) result(is_leap)
         integer(int8), intent(in) :: year
         if ((mod(year, 400) == 0) .or. &
@@ -93,7 +93,7 @@ contains
         character(10) :: data, time
         call date_and_time(data, time)
         time_string = data(1:4)//'-'//data(5:6)//'-'//data(7:8)//' '//time(1:2) &
-        //':'//time(3:4)//':'//time(5:6)
+                      //':'//time(3:4)//':'//time(5:6)
     end function time_string
 
 end module forlab_time
