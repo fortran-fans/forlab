@@ -126,3 +126,5 @@ src/*.smod
 # txt/bin data files
 *.txt
 *.bin
+
+doc/book/*
