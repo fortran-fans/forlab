@@ -4,13 +4,14 @@
 
 submodule(forlab_linalg) forlab_linalg_norm
 
-    use forlab_linalg, only: svd
     implicit none
     
 contains
 
     #:for k1,t1 in REAL_KINDS_TYPES
-    module procedure norm1_${k1}$
+    ${t1}$ module function norm1_${k1}$(x,p)
+        ${t1}$, dimension(:), intent(in) :: x
+        ${t1}$, intent(in), optional :: p
         ${t1}$::temp
         if (.not. present(p))then
             temp =2.0_${k1}$
@@ -19,15 +20,17 @@ contains
         end if
 
         if(temp == 2.0_${k1}$) then
-            norm1 = sqrt(sum(abs(x)**2))
+            norm1_${k1}$ = sqrt(sum(abs(x)**2))
         elseif (temp == 1.0_${k1}$) then
-            norm1 = sum(abs(x))
+            norm1_${k1}$ = sum(abs(x))
         else
-            norm1 = (sum(abs(x)**p))**(1.0_${k1}$/p)
+            norm1_${k1}$ = (sum(abs(x)**p))**(1.0_${k1}$/p)
         end if
-    end procedure norm1_${k1}$
+    end function norm1_${k1}$
 
-    module procedure norm2_${k1}$
+    ${t1}$ module function norm2_${k1}$(A,p)
+        ${t1}$, dimension(:,:), intent(in) :: A
+        ${t1}$, intent(in), optional :: p
         ${t1}$::temp
         ${t1}$, dimension(:), allocatable :: w
         if (.not. present(p))then
@@ -37,11 +40,11 @@ contains
         end if
         if(temp==2.0_${k1}$)then
             call svd(A, w)
-            norm2 = maxval(w)
+            norm2_${k1}$ = maxval(w)
         elseif (temp == 1.0_${k1}$) then
-            norm2 = maxval(sum(abs(A), dim=2))
+            norm2_${k1}$ = maxval(sum(abs(A), dim=2))
         end if
-    end procedure norm2_${k1}$
+    end function norm2_${k1}$
     #:endfor
 
 end submodule forlab_linalg_norm
