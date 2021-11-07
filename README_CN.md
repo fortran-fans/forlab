@@ -15,7 +15,7 @@ FORLAB使用stdlib作为上游包，相比于stdlib，FORLAB是非正式的，�
 | **API-Doc网页:** | https://fortran-fans.github.io/forlab/ |
 | **许可证:** | _ORLAB在MIT开源许可证下发行. |
 
-## 开始
+## 开始([English README](README.md))
 
 ### 获取代码
 

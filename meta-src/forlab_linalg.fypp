@@ -191,15 +191,13 @@ module forlab_linalg
     interface norm
         !! norm computes vector and matrix norms.
         #:for k1,t1 in REAL_KINDS_TYPES
-        module function norm1_${k1}$(x,p)result(norm1)
+        ${t1}$ module function norm1_${k1}$(x,p)
             ${t1}$, dimension(:), intent(in) :: x
             ${t1}$, intent(in), optional :: p
-            ${t1}$:: norm1
         end function norm1_${k1}$
-        module function norm2_${k1}$(A,p)result(norm2)
+        ${t1}$ module function norm2_${k1}$(A,p)
             ${t1}$, dimension(:,:), intent(in) :: A
             ${t1}$, intent(in), optional :: p
-            ${t1}$:: norm2
         end function norm2_${k1}$
         #:endfor
     end interface norm

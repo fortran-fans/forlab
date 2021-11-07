@@ -45,7 +45,7 @@ module forlab_math
         !! angle compute the phase angle.
         !!([Interface](../interface/angle.html))
         #:for k1, t1 in REAL_KINDS_TYPES
-        procedure :: angle_${k1}$
+        module procedure :: angle_${k1}$
         pure module function angle_2_${k1}$(x, y) result(angle)
             ${t1}$, dimension(3), intent(in) :: x, y
             ${t1}$ :: angle
