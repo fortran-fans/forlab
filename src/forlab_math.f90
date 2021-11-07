@@ -107,17 +107,17 @@ module forlab_math
         !!
         !! angle compute the phase angle.
         !!([Interface](../interface/angle.html))
-        procedure :: angle_sp
+        module procedure :: angle_sp
         pure module function angle_2_sp(x, y) result(angle)
             real(sp), dimension(3), intent(in) :: x, y
             real(sp) :: angle
         end function angle_2_sp
-        procedure :: angle_dp
+        module procedure :: angle_dp
         pure module function angle_2_dp(x, y) result(angle)
             real(dp), dimension(3), intent(in) :: x, y
             real(dp) :: angle
         end function angle_2_dp
-        procedure :: angle_qp
+        module procedure :: angle_qp
         pure module function angle_2_qp(x, y) result(angle)
             real(qp), dimension(3), intent(in) :: x, y
             real(qp) :: angle
