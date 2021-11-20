@@ -136,7 +136,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title=" 4.6% of total for source files.">536 statements</a>
+    title=" 5.0% of total for source files.">460 statements</a>
      </li> 
      
      
@@ -733,84 +733,8 @@
 <a id="ln-460" name="ln-460"></a>            <span class="k">call </span><span class="n">quickargsort_dp</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">marker</span><span class="p">:),</span> <span class="n">idx</span><span class="p">(</span><span class="n">marker</span><span class="p">:),</span> <span class="n">n</span> <span class="o">-</span> <span class="n">marker</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">order</span><span class="p">)</span>
 <a id="ln-461" name="ln-461"></a>        <span class="k">end if</span>
 <a id="ln-462" name="ln-462"></a><span class="k">    end subroutine </span><span class="n">quickargsort_dp</span>
-<a id="ln-463" name="ln-463"></a>    <span class="k">module procedure </span><span class="n">argsort_qp</span>
-<a id="ln-464" name="ln-464"></a>    <span class="kt">integer</span><span class="kd">::</span><span class="n">i</span><span class="p">,</span> <span class="n">n</span>
-<a id="ln-465" name="ln-465"></a>    <span class="kt">real</span><span class="p">(</span><span class="n">qp</span><span class="p">),</span> <span class="k">allocatable</span><span class="kd">::</span><span class="n">xsort</span><span class="p">(:)</span>
-<a id="ln-466" name="ln-466"></a>    <span class="kt">integer</span><span class="kd">::</span><span class="n">order1</span>
-<a id="ln-467" name="ln-467"></a>    <span class="n">n</span> <span class="o">=</span> <span class="n">size</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<a id="ln-468" name="ln-468"></a>    <span class="n">xsort</span> <span class="o">=</span> <span class="n">x</span>
-<a id="ln-469" name="ln-469"></a>    <span class="n">argsort_qp</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)]</span>
-<a id="ln-470" name="ln-470"></a>    <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">present</span><span class="p">(</span><span class="n">order</span><span class="p">))</span> <span class="k">then</span>
-<a id="ln-471" name="ln-471"></a><span class="k">        </span><span class="n">order1</span> <span class="o">=</span> <span class="mi">1</span>
-<a id="ln-472" name="ln-472"></a>    <span class="k">else</span>
-<a id="ln-473" name="ln-473"></a><span class="k">        </span><span class="n">order1</span> <span class="o">=</span> <span class="n">order</span>
-<a id="ln-474" name="ln-474"></a>    <span class="k">end if</span>
-<a id="ln-475" name="ln-475"></a><span class="k">    call </span><span class="n">quickargsort_qp</span><span class="p">(</span><span class="n">xsort</span><span class="p">,</span> <span class="n">argsort_qp</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">order1</span><span class="p">)</span>
-<a id="ln-476" name="ln-476"></a>    <span class="k">end procedure </span><span class="n">argsort_qp</span>
-<a id="ln-477" name="ln-477"></a>    <span class="k">recursive subroutine </span><span class="n">quickargsort_qp</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">order</span><span class="p">)</span>
-<a id="ln-478" name="ln-478"></a>        <span class="kt">real</span><span class="p">(</span><span class="n">qp</span><span class="p">),</span> <span class="k">dimension</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span> <span class="kd">::</span> <span class="n">x</span>
-<a id="ln-479" name="ln-479"></a>        <span class="kt">integer</span><span class="p">,</span> <span class="k">dimension</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span> <span class="kd">::</span> <span class="n">idx</span>
-<a id="ln-480" name="ln-480"></a>        <span class="kt">integer</span><span class="p">,</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">n</span><span class="p">,</span> <span class="n">order</span>
-<a id="ln-481" name="ln-481"></a>        <span class="kt">integer</span><span class="kd">::</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">marker</span>
-<a id="ln-482" name="ln-482"></a>        <span class="kt">real</span><span class="p">(</span><span class="n">qp</span><span class="p">)</span> <span class="kd">::</span> <span class="n">pivot</span><span class="p">,</span> <span class="n">tmp1</span>
-<a id="ln-483" name="ln-483"></a>        <span class="kt">integer</span><span class="kd">::</span><span class="n">tmp2</span>
-<a id="ln-484" name="ln-484"></a>        <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="k">then</span>
-<a id="ln-485" name="ln-485"></a><span class="k">            </span><span class="n">left</span> <span class="o">=</span> <span class="mi">0</span>
-<a id="ln-486" name="ln-486"></a>            <span class="n">right</span> <span class="o">=</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span>
-<a id="ln-487" name="ln-487"></a>            <span class="n">pivot</span> <span class="o">=</span> <span class="n">x</span><span class="p">(</span><span class="n">randu</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
-<a id="ln-488" name="ln-488"></a>            <span class="k">select case</span> <span class="p">(</span><span class="n">order</span><span class="p">)</span>
-<a id="ln-489" name="ln-489"></a>            <span class="k">case</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<a id="ln-490" name="ln-490"></a>                <span class="k">do while</span> <span class="p">(</span><span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span><span class="p">)</span>
-<a id="ln-491" name="ln-491"></a>                    <span class="n">left</span> <span class="o">=</span> <span class="n">left</span> <span class="o">+</span> <span class="mi">1</span>
-<a id="ln-492" name="ln-492"></a>                    <span class="n">right</span> <span class="o">=</span> <span class="n">right</span> <span class="o">-</span> <span class="mi">1</span>
-<a id="ln-493" name="ln-493"></a>                    <span class="k">do while</span> <span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">left</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">pivot</span><span class="p">)</span>
-<a id="ln-494" name="ln-494"></a>                        <span class="n">left</span> <span class="o">=</span> <span class="n">left</span> <span class="o">+</span> <span class="mi">1</span>
-<a id="ln-495" name="ln-495"></a>                    <span class="k">end do</span>
-<a id="ln-496" name="ln-496"></a><span class="k">                    do while</span> <span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">right</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">pivot</span><span class="p">)</span>
-<a id="ln-497" name="ln-497"></a>                        <span class="n">right</span> <span class="o">=</span> <span class="n">right</span> <span class="o">-</span> <span class="mi">1</span>
-<a id="ln-498" name="ln-498"></a>                    <span class="k">end do</span>
-<a id="ln-499" name="ln-499"></a><span class="k">                    if</span> <span class="p">(</span><span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span><span class="p">)</span> <span class="k">then</span>
-<a id="ln-500" name="ln-500"></a><span class="k">                        </span><span class="n">tmp1</span> <span class="o">=</span> <span class="n">x</span><span class="p">(</span><span class="n">left</span><span class="p">)</span>
-<a id="ln-501" name="ln-501"></a>                        <span class="n">x</span><span class="p">(</span><span class="n">left</span><span class="p">)</span> <span class="o">=</span> <span class="n">x</span><span class="p">(</span><span class="n">right</span><span class="p">)</span>
-<a id="ln-502" name="ln-502"></a>                        <span class="n">x</span><span class="p">(</span><span class="n">right</span><span class="p">)</span> <span class="o">=</span> <span class="n">tmp1</span>
-<a id="ln-503" name="ln-503"></a>                        <span class="n">tmp2</span> <span class="o">=</span> <span class="n">idx</span><span class="p">(</span><span class="n">left</span><span class="p">)</span>
-<a id="ln-504" name="ln-504"></a>                        <span class="n">idx</span><span class="p">(</span><span class="n">left</span><span class="p">)</span> <span class="o">=</span> <span class="n">idx</span><span class="p">(</span><span class="n">right</span><span class="p">)</span>
-<a id="ln-505" name="ln-505"></a>                        <span class="n">idx</span><span class="p">(</span><span class="n">right</span><span class="p">)</span> <span class="o">=</span> <span class="n">tmp2</span>
-<a id="ln-506" name="ln-506"></a>                    <span class="k">end if</span>
-<a id="ln-507" name="ln-507"></a><span class="k">                end do</span>
-<a id="ln-508" name="ln-508"></a><span class="k">            case</span> <span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<a id="ln-509" name="ln-509"></a>                <span class="k">do while</span> <span class="p">(</span><span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span><span class="p">)</span>
-<a id="ln-510" name="ln-510"></a>                    <span class="n">left</span> <span class="o">=</span> <span class="n">left</span> <span class="o">+</span> <span class="mi">1</span>
-<a id="ln-511" name="ln-511"></a>                    <span class="n">right</span> <span class="o">=</span> <span class="n">right</span> <span class="o">-</span> <span class="mi">1</span>
-<a id="ln-512" name="ln-512"></a>                    <span class="k">do while</span> <span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">left</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">pivot</span><span class="p">)</span>
-<a id="ln-513" name="ln-513"></a>                        <span class="n">left</span> <span class="o">=</span> <span class="n">left</span> <span class="o">+</span> <span class="mi">1</span>
-<a id="ln-514" name="ln-514"></a>                    <span class="k">end do</span>
-<a id="ln-515" name="ln-515"></a><span class="k">                    do while</span> <span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">right</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">pivot</span><span class="p">)</span>
-<a id="ln-516" name="ln-516"></a>                        <span class="n">right</span> <span class="o">=</span> <span class="n">right</span> <span class="o">-</span> <span class="mi">1</span>
-<a id="ln-517" name="ln-517"></a>                    <span class="k">end do</span>
-<a id="ln-518" name="ln-518"></a><span class="k">                    if</span> <span class="p">(</span><span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span><span class="p">)</span> <span class="k">then</span>
-<a id="ln-519" name="ln-519"></a><span class="k">                        </span><span class="n">tmp1</span> <span class="o">=</span> <span class="n">x</span><span class="p">(</span><span class="n">left</span><span class="p">)</span>
-<a id="ln-520" name="ln-520"></a>                        <span class="n">x</span><span class="p">(</span><span class="n">left</span><span class="p">)</span> <span class="o">=</span> <span class="n">x</span><span class="p">(</span><span class="n">right</span><span class="p">)</span>
-<a id="ln-521" name="ln-521"></a>                        <span class="n">x</span><span class="p">(</span><span class="n">right</span><span class="p">)</span> <span class="o">=</span> <span class="n">tmp1</span>
-<a id="ln-522" name="ln-522"></a>                        <span class="n">tmp2</span> <span class="o">=</span> <span class="n">idx</span><span class="p">(</span><span class="n">left</span><span class="p">)</span>
-<a id="ln-523" name="ln-523"></a>                        <span class="n">idx</span><span class="p">(</span><span class="n">left</span><span class="p">)</span> <span class="o">=</span> <span class="n">idx</span><span class="p">(</span><span class="n">right</span><span class="p">)</span>
-<a id="ln-524" name="ln-524"></a>                        <span class="n">idx</span><span class="p">(</span><span class="n">right</span><span class="p">)</span> <span class="o">=</span> <span class="n">tmp2</span>
-<a id="ln-525" name="ln-525"></a>                    <span class="k">end if</span>
-<a id="ln-526" name="ln-526"></a><span class="k">                end do</span>
-<a id="ln-527" name="ln-527"></a><span class="k">            case </span><span class="n">default</span>
-<a id="ln-528" name="ln-528"></a>                <span class="k">error stop</span> <span class="s2">&quot;Error:Sort order MUST be 1 or 2&quot;</span>
-<a id="ln-529" name="ln-529"></a>            <span class="k">end select</span>
-<a id="ln-530" name="ln-530"></a><span class="k">            if</span> <span class="p">(</span><span class="n">left</span> <span class="o">==</span> <span class="n">right</span><span class="p">)</span> <span class="k">then</span>
-<a id="ln-531" name="ln-531"></a><span class="k">                </span><span class="n">marker</span> <span class="o">=</span> <span class="n">left</span> <span class="o">+</span> <span class="mi">1</span>
-<a id="ln-532" name="ln-532"></a>            <span class="k">else</span>
-<a id="ln-533" name="ln-533"></a><span class="k">                </span><span class="n">marker</span> <span class="o">=</span> <span class="n">left</span>
-<a id="ln-534" name="ln-534"></a>            <span class="k">end if</span>
-<a id="ln-535" name="ln-535"></a><span class="k">            call </span><span class="n">quickargsort_qp</span><span class="p">(</span><span class="n">x</span><span class="p">(:</span><span class="n">marker</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="n">idx</span><span class="p">(:</span><span class="n">marker</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="n">marker</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">order</span><span class="p">)</span>
-<a id="ln-536" name="ln-536"></a>            <span class="k">call </span><span class="n">quickargsort_qp</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">marker</span><span class="p">:),</span> <span class="n">idx</span><span class="p">(</span><span class="n">marker</span><span class="p">:),</span> <span class="n">n</span> <span class="o">-</span> <span class="n">marker</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">order</span><span class="p">)</span>
-<a id="ln-537" name="ln-537"></a>        <span class="k">end if</span>
-<a id="ln-538" name="ln-538"></a><span class="k">    end subroutine </span><span class="n">quickargsort_qp</span>
-<a id="ln-539" name="ln-539"></a>
-<a id="ln-540" name="ln-540"></a><span class="k">end submodule </span><span class="n">forlab_sorting_argsort</span>
+<a id="ln-463" name="ln-463"></a>
+<a id="ln-464" name="ln-464"></a><span class="k">end submodule </span><span class="n">forlab_sorting_argsort</span>
 </pre></div>
 
     </section>
@@ -830,7 +754,7 @@
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
-             on 2021-11-07 14:22  
+             on 2021-11-20 06:33  
             
           </p>
         </div>

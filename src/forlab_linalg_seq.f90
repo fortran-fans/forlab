@@ -42,25 +42,6 @@ contains
     end if
     return
     end procedure seq_dp
-    module procedure seq_qp
-    real(qp) :: by_
-    integer :: i, n
-
-    by_ = optval(by, 1.0_qp)
-
-    if (by <= 0) then
-        call error_stop('Error: In seq, `by` should be greater than 0.')
-    end if
-
-    n = int(abs(to - from)/by_) + 1
-    allocate (X(n))
-    if (from <= to) then
-        X = from + by_*real([(i - 1, i=1, n)], qp)
-    else
-        X = from - by_*real([(i - 1, i=1, n)], qp)
-    end if
-    return
-    end procedure seq_qp
     module procedure seq_int8
     integer(int8) :: by_
     integer :: i, n

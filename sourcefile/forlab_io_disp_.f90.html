@@ -136,7 +136,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title=" 6.5% of total for source files.">759 statements</a>
+    title=" 6.9% of total for source files.">637 statements</a>
      </li> 
      
      
@@ -435,7 +435,7 @@
 <a id="ln-162" name="ln-162"></a><span class="k">    end if</span>
 <a id="ln-163" name="ln-163"></a>
 <a id="ln-164" name="ln-164"></a><span class="k">    end procedure </span><span class="n">disp_2_rdp</span>
-<a id="ln-165" name="ln-165"></a>    <span class="k">module procedure </span><span class="n">disp_0_rqp</span>
+<a id="ln-165" name="ln-165"></a>    <span class="k">module procedure </span><span class="n">disp_0_iint8</span>
 <a id="ln-166" name="ln-166"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">unit_</span>
 <a id="ln-167" name="ln-167"></a>
 <a id="ln-168" name="ln-168"></a>    <span class="n">unit_</span> <span class="o">=</span> <span class="n">optval</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">output_unit</span><span class="p">)</span>
@@ -443,9 +443,9 @@
 <a id="ln-170" name="ln-170"></a>    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">header</span><span class="p">))</span> <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="n">header</span>
 <a id="ln-171" name="ln-171"></a>    <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">rfmt</span><span class="p">)</span> <span class="n">x</span>
 <a id="ln-172" name="ln-172"></a>
-<a id="ln-173" name="ln-173"></a>    <span class="k">end procedure </span><span class="n">disp_0_rqp</span>
+<a id="ln-173" name="ln-173"></a>    <span class="k">end procedure </span><span class="n">disp_0_iint8</span>
 <a id="ln-174" name="ln-174"></a>
-<a id="ln-175" name="ln-175"></a>    <span class="k">module procedure </span><span class="n">disp_1_rqp</span>
+<a id="ln-175" name="ln-175"></a>    <span class="k">module procedure </span><span class="n">disp_1_iint8</span>
 <a id="ln-176" name="ln-176"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">unit_</span>
 <a id="ln-177" name="ln-177"></a>    <span class="kt">logical</span> <span class="kd">::</span> <span class="n">brief_</span>
 <a id="ln-178" name="ln-178"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">n</span><span class="p">,</span> <span class="n">col</span>
@@ -464,9 +464,9 @@
 <a id="ln-191" name="ln-191"></a><span class="k">        write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">rfmt</span><span class="p">)</span> <span class="n">x</span><span class="p">(:)</span>
 <a id="ln-192" name="ln-192"></a>    <span class="k">end if</span>
 <a id="ln-193" name="ln-193"></a>
-<a id="ln-194" name="ln-194"></a><span class="k">    end procedure </span><span class="n">disp_1_rqp</span>
+<a id="ln-194" name="ln-194"></a><span class="k">    end procedure </span><span class="n">disp_1_iint8</span>
 <a id="ln-195" name="ln-195"></a>
-<a id="ln-196" name="ln-196"></a>    <span class="k">module procedure </span><span class="n">disp_2_rqp</span>
+<a id="ln-196" name="ln-196"></a>    <span class="k">module procedure </span><span class="n">disp_2_iint8</span>
 <a id="ln-197" name="ln-197"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">unit_</span>
 <a id="ln-198" name="ln-198"></a>    <span class="kt">logical</span> <span class="kd">::</span> <span class="n">brief_</span>
 <a id="ln-199" name="ln-199"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">i</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">n</span>
@@ -508,8 +508,8 @@
 <a id="ln-235" name="ln-235"></a>        <span class="k">end do</span>
 <a id="ln-236" name="ln-236"></a><span class="k">    end if</span>
 <a id="ln-237" name="ln-237"></a>
-<a id="ln-238" name="ln-238"></a><span class="k">    end procedure </span><span class="n">disp_2_rqp</span>
-<a id="ln-239" name="ln-239"></a>    <span class="k">module procedure </span><span class="n">disp_0_iint8</span>
+<a id="ln-238" name="ln-238"></a><span class="k">    end procedure </span><span class="n">disp_2_iint8</span>
+<a id="ln-239" name="ln-239"></a>    <span class="k">module procedure </span><span class="n">disp_0_iint16</span>
 <a id="ln-240" name="ln-240"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">unit_</span>
 <a id="ln-241" name="ln-241"></a>
 <a id="ln-242" name="ln-242"></a>    <span class="n">unit_</span> <span class="o">=</span> <span class="n">optval</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">output_unit</span><span class="p">)</span>
@@ -517,9 +517,9 @@
 <a id="ln-244" name="ln-244"></a>    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">header</span><span class="p">))</span> <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="n">header</span>
 <a id="ln-245" name="ln-245"></a>    <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">rfmt</span><span class="p">)</span> <span class="n">x</span>
 <a id="ln-246" name="ln-246"></a>
-<a id="ln-247" name="ln-247"></a>    <span class="k">end procedure </span><span class="n">disp_0_iint8</span>
+<a id="ln-247" name="ln-247"></a>    <span class="k">end procedure </span><span class="n">disp_0_iint16</span>
 <a id="ln-248" name="ln-248"></a>
-<a id="ln-249" name="ln-249"></a>    <span class="k">module procedure </span><span class="n">disp_1_iint8</span>
+<a id="ln-249" name="ln-249"></a>    <span class="k">module procedure </span><span class="n">disp_1_iint16</span>
 <a id="ln-250" name="ln-250"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">unit_</span>
 <a id="ln-251" name="ln-251"></a>    <span class="kt">logical</span> <span class="kd">::</span> <span class="n">brief_</span>
 <a id="ln-252" name="ln-252"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">n</span><span class="p">,</span> <span class="n">col</span>
@@ -538,9 +538,9 @@
 <a id="ln-265" name="ln-265"></a><span class="k">        write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">rfmt</span><span class="p">)</span> <span class="n">x</span><span class="p">(:)</span>
 <a id="ln-266" name="ln-266"></a>    <span class="k">end if</span>
 <a id="ln-267" name="ln-267"></a>
-<a id="ln-268" name="ln-268"></a><span class="k">    end procedure </span><span class="n">disp_1_iint8</span>
+<a id="ln-268" name="ln-268"></a><span class="k">    end procedure </span><span class="n">disp_1_iint16</span>
 <a id="ln-269" name="ln-269"></a>
-<a id="ln-270" name="ln-270"></a>    <span class="k">module procedure </span><span class="n">disp_2_iint8</span>
+<a id="ln-270" name="ln-270"></a>    <span class="k">module procedure </span><span class="n">disp_2_iint16</span>
 <a id="ln-271" name="ln-271"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">unit_</span>
 <a id="ln-272" name="ln-272"></a>    <span class="kt">logical</span> <span class="kd">::</span> <span class="n">brief_</span>
 <a id="ln-273" name="ln-273"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">i</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">n</span>
@@ -582,8 +582,8 @@
 <a id="ln-309" name="ln-309"></a>        <span class="k">end do</span>
 <a id="ln-310" name="ln-310"></a><span class="k">    end if</span>
 <a id="ln-311" name="ln-311"></a>
-<a id="ln-312" name="ln-312"></a><span class="k">    end procedure </span><span class="n">disp_2_iint8</span>
-<a id="ln-313" name="ln-313"></a>    <span class="k">module procedure </span><span class="n">disp_0_iint16</span>
+<a id="ln-312" name="ln-312"></a><span class="k">    end procedure </span><span class="n">disp_2_iint16</span>
+<a id="ln-313" name="ln-313"></a>    <span class="k">module procedure </span><span class="n">disp_0_iint32</span>
 <a id="ln-314" name="ln-314"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">unit_</span>
 <a id="ln-315" name="ln-315"></a>
 <a id="ln-316" name="ln-316"></a>    <span class="n">unit_</span> <span class="o">=</span> <span class="n">optval</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">output_unit</span><span class="p">)</span>
@@ -591,9 +591,9 @@
 <a id="ln-318" name="ln-318"></a>    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">header</span><span class="p">))</span> <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="n">header</span>
 <a id="ln-319" name="ln-319"></a>    <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">rfmt</span><span class="p">)</span> <span class="n">x</span>
 <a id="ln-320" name="ln-320"></a>
-<a id="ln-321" name="ln-321"></a>    <span class="k">end procedure </span><span class="n">disp_0_iint16</span>
+<a id="ln-321" name="ln-321"></a>    <span class="k">end procedure </span><span class="n">disp_0_iint32</span>
 <a id="ln-322" name="ln-322"></a>
-<a id="ln-323" name="ln-323"></a>    <span class="k">module procedure </span><span class="n">disp_1_iint16</span>
+<a id="ln-323" name="ln-323"></a>    <span class="k">module procedure </span><span class="n">disp_1_iint32</span>
 <a id="ln-324" name="ln-324"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">unit_</span>
 <a id="ln-325" name="ln-325"></a>    <span class="kt">logical</span> <span class="kd">::</span> <span class="n">brief_</span>
 <a id="ln-326" name="ln-326"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">n</span><span class="p">,</span> <span class="n">col</span>
@@ -612,9 +612,9 @@
 <a id="ln-339" name="ln-339"></a><span class="k">        write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">rfmt</span><span class="p">)</span> <span class="n">x</span><span class="p">(:)</span>
 <a id="ln-340" name="ln-340"></a>    <span class="k">end if</span>
 <a id="ln-341" name="ln-341"></a>
-<a id="ln-342" name="ln-342"></a><span class="k">    end procedure </span><span class="n">disp_1_iint16</span>
+<a id="ln-342" name="ln-342"></a><span class="k">    end procedure </span><span class="n">disp_1_iint32</span>
 <a id="ln-343" name="ln-343"></a>
-<a id="ln-344" name="ln-344"></a>    <span class="k">module procedure </span><span class="n">disp_2_iint16</span>
+<a id="ln-344" name="ln-344"></a>    <span class="k">module procedure </span><span class="n">disp_2_iint32</span>
 <a id="ln-345" name="ln-345"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">unit_</span>
 <a id="ln-346" name="ln-346"></a>    <span class="kt">logical</span> <span class="kd">::</span> <span class="n">brief_</span>
 <a id="ln-347" name="ln-347"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">i</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">n</span>
@@ -656,8 +656,8 @@
 <a id="ln-383" name="ln-383"></a>        <span class="k">end do</span>
 <a id="ln-384" name="ln-384"></a><span class="k">    end if</span>
 <a id="ln-385" name="ln-385"></a>
-<a id="ln-386" name="ln-386"></a><span class="k">    end procedure </span><span class="n">disp_2_iint16</span>
-<a id="ln-387" name="ln-387"></a>    <span class="k">module procedure </span><span class="n">disp_0_iint32</span>
+<a id="ln-386" name="ln-386"></a><span class="k">    end procedure </span><span class="n">disp_2_iint32</span>
+<a id="ln-387" name="ln-387"></a>    <span class="k">module procedure </span><span class="n">disp_0_iint64</span>
 <a id="ln-388" name="ln-388"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">unit_</span>
 <a id="ln-389" name="ln-389"></a>
 <a id="ln-390" name="ln-390"></a>    <span class="n">unit_</span> <span class="o">=</span> <span class="n">optval</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">output_unit</span><span class="p">)</span>
@@ -665,9 +665,9 @@
 <a id="ln-392" name="ln-392"></a>    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">header</span><span class="p">))</span> <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="n">header</span>
 <a id="ln-393" name="ln-393"></a>    <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">rfmt</span><span class="p">)</span> <span class="n">x</span>
 <a id="ln-394" name="ln-394"></a>
-<a id="ln-395" name="ln-395"></a>    <span class="k">end procedure </span><span class="n">disp_0_iint32</span>
+<a id="ln-395" name="ln-395"></a>    <span class="k">end procedure </span><span class="n">disp_0_iint64</span>
 <a id="ln-396" name="ln-396"></a>
-<a id="ln-397" name="ln-397"></a>    <span class="k">module procedure </span><span class="n">disp_1_iint32</span>
+<a id="ln-397" name="ln-397"></a>    <span class="k">module procedure </span><span class="n">disp_1_iint64</span>
 <a id="ln-398" name="ln-398"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">unit_</span>
 <a id="ln-399" name="ln-399"></a>    <span class="kt">logical</span> <span class="kd">::</span> <span class="n">brief_</span>
 <a id="ln-400" name="ln-400"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">n</span><span class="p">,</span> <span class="n">col</span>
@@ -686,9 +686,9 @@
 <a id="ln-413" name="ln-413"></a><span class="k">        write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">rfmt</span><span class="p">)</span> <span class="n">x</span><span class="p">(:)</span>
 <a id="ln-414" name="ln-414"></a>    <span class="k">end if</span>
 <a id="ln-415" name="ln-415"></a>
-<a id="ln-416" name="ln-416"></a><span class="k">    end procedure </span><span class="n">disp_1_iint32</span>
+<a id="ln-416" name="ln-416"></a><span class="k">    end procedure </span><span class="n">disp_1_iint64</span>
 <a id="ln-417" name="ln-417"></a>
-<a id="ln-418" name="ln-418"></a>    <span class="k">module procedure </span><span class="n">disp_2_iint32</span>
+<a id="ln-418" name="ln-418"></a>    <span class="k">module procedure </span><span class="n">disp_2_iint64</span>
 <a id="ln-419" name="ln-419"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">unit_</span>
 <a id="ln-420" name="ln-420"></a>    <span class="kt">logical</span> <span class="kd">::</span> <span class="n">brief_</span>
 <a id="ln-421" name="ln-421"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">i</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">n</span>
@@ -730,8 +730,8 @@
 <a id="ln-457" name="ln-457"></a>        <span class="k">end do</span>
 <a id="ln-458" name="ln-458"></a><span class="k">    end if</span>
 <a id="ln-459" name="ln-459"></a>
-<a id="ln-460" name="ln-460"></a><span class="k">    end procedure </span><span class="n">disp_2_iint32</span>
-<a id="ln-461" name="ln-461"></a>    <span class="k">module procedure </span><span class="n">disp_0_iint64</span>
+<a id="ln-460" name="ln-460"></a><span class="k">    end procedure </span><span class="n">disp_2_iint64</span>
+<a id="ln-461" name="ln-461"></a>    <span class="k">module procedure </span><span class="n">disp_0_llk</span>
 <a id="ln-462" name="ln-462"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">unit_</span>
 <a id="ln-463" name="ln-463"></a>
 <a id="ln-464" name="ln-464"></a>    <span class="n">unit_</span> <span class="o">=</span> <span class="n">optval</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">output_unit</span><span class="p">)</span>
@@ -739,9 +739,9 @@
 <a id="ln-466" name="ln-466"></a>    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">header</span><span class="p">))</span> <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="n">header</span>
 <a id="ln-467" name="ln-467"></a>    <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">rfmt</span><span class="p">)</span> <span class="n">x</span>
 <a id="ln-468" name="ln-468"></a>
-<a id="ln-469" name="ln-469"></a>    <span class="k">end procedure </span><span class="n">disp_0_iint64</span>
+<a id="ln-469" name="ln-469"></a>    <span class="k">end procedure </span><span class="n">disp_0_llk</span>
 <a id="ln-470" name="ln-470"></a>
-<a id="ln-471" name="ln-471"></a>    <span class="k">module procedure </span><span class="n">disp_1_iint64</span>
+<a id="ln-471" name="ln-471"></a>    <span class="k">module procedure </span><span class="n">disp_1_llk</span>
 <a id="ln-472" name="ln-472"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">unit_</span>
 <a id="ln-473" name="ln-473"></a>    <span class="kt">logical</span> <span class="kd">::</span> <span class="n">brief_</span>
 <a id="ln-474" name="ln-474"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">n</span><span class="p">,</span> <span class="n">col</span>
@@ -760,9 +760,9 @@
 <a id="ln-487" name="ln-487"></a><span class="k">        write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">rfmt</span><span class="p">)</span> <span class="n">x</span><span class="p">(:)</span>
 <a id="ln-488" name="ln-488"></a>    <span class="k">end if</span>
 <a id="ln-489" name="ln-489"></a>
-<a id="ln-490" name="ln-490"></a><span class="k">    end procedure </span><span class="n">disp_1_iint64</span>
+<a id="ln-490" name="ln-490"></a><span class="k">    end procedure </span><span class="n">disp_1_llk</span>
 <a id="ln-491" name="ln-491"></a>
-<a id="ln-492" name="ln-492"></a>    <span class="k">module procedure </span><span class="n">disp_2_iint64</span>
+<a id="ln-492" name="ln-492"></a>    <span class="k">module procedure </span><span class="n">disp_2_llk</span>
 <a id="ln-493" name="ln-493"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">unit_</span>
 <a id="ln-494" name="ln-494"></a>    <span class="kt">logical</span> <span class="kd">::</span> <span class="n">brief_</span>
 <a id="ln-495" name="ln-495"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">i</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">n</span>
@@ -804,8 +804,8 @@
 <a id="ln-531" name="ln-531"></a>        <span class="k">end do</span>
 <a id="ln-532" name="ln-532"></a><span class="k">    end if</span>
 <a id="ln-533" name="ln-533"></a>
-<a id="ln-534" name="ln-534"></a><span class="k">    end procedure </span><span class="n">disp_2_iint64</span>
-<a id="ln-535" name="ln-535"></a>    <span class="k">module procedure </span><span class="n">disp_0_llk</span>
+<a id="ln-534" name="ln-534"></a><span class="k">    end procedure </span><span class="n">disp_2_llk</span>
+<a id="ln-535" name="ln-535"></a>    <span class="k">module procedure </span><span class="n">disp_0_lc_bool</span>
 <a id="ln-536" name="ln-536"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">unit_</span>
 <a id="ln-537" name="ln-537"></a>
 <a id="ln-538" name="ln-538"></a>    <span class="n">unit_</span> <span class="o">=</span> <span class="n">optval</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">output_unit</span><span class="p">)</span>
@@ -813,9 +813,9 @@
 <a id="ln-540" name="ln-540"></a>    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">header</span><span class="p">))</span> <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="n">header</span>
 <a id="ln-541" name="ln-541"></a>    <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">rfmt</span><span class="p">)</span> <span class="n">x</span>
 <a id="ln-542" name="ln-542"></a>
-<a id="ln-543" name="ln-543"></a>    <span class="k">end procedure </span><span class="n">disp_0_llk</span>
+<a id="ln-543" name="ln-543"></a>    <span class="k">end procedure </span><span class="n">disp_0_lc_bool</span>
 <a id="ln-544" name="ln-544"></a>
-<a id="ln-545" name="ln-545"></a>    <span class="k">module procedure </span><span class="n">disp_1_llk</span>
+<a id="ln-545" name="ln-545"></a>    <span class="k">module procedure </span><span class="n">disp_1_lc_bool</span>
 <a id="ln-546" name="ln-546"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">unit_</span>
 <a id="ln-547" name="ln-547"></a>    <span class="kt">logical</span> <span class="kd">::</span> <span class="n">brief_</span>
 <a id="ln-548" name="ln-548"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">n</span><span class="p">,</span> <span class="n">col</span>
@@ -834,9 +834,9 @@
 <a id="ln-561" name="ln-561"></a><span class="k">        write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">rfmt</span><span class="p">)</span> <span class="n">x</span><span class="p">(:)</span>
 <a id="ln-562" name="ln-562"></a>    <span class="k">end if</span>
 <a id="ln-563" name="ln-563"></a>
-<a id="ln-564" name="ln-564"></a><span class="k">    end procedure </span><span class="n">disp_1_llk</span>
+<a id="ln-564" name="ln-564"></a><span class="k">    end procedure </span><span class="n">disp_1_lc_bool</span>
 <a id="ln-565" name="ln-565"></a>
-<a id="ln-566" name="ln-566"></a>    <span class="k">module procedure </span><span class="n">disp_2_llk</span>
+<a id="ln-566" name="ln-566"></a>    <span class="k">module procedure </span><span class="n">disp_2_lc_bool</span>
 <a id="ln-567" name="ln-567"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">unit_</span>
 <a id="ln-568" name="ln-568"></a>    <span class="kt">logical</span> <span class="kd">::</span> <span class="n">brief_</span>
 <a id="ln-569" name="ln-569"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">i</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">n</span>
@@ -878,83 +878,83 @@
 <a id="ln-605" name="ln-605"></a>        <span class="k">end do</span>
 <a id="ln-606" name="ln-606"></a><span class="k">    end if</span>
 <a id="ln-607" name="ln-607"></a>
-<a id="ln-608" name="ln-608"></a><span class="k">    end procedure </span><span class="n">disp_2_llk</span>
-<a id="ln-609" name="ln-609"></a>    <span class="k">module procedure </span><span class="n">disp_0_lc_bool</span>
-<a id="ln-610" name="ln-610"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">unit_</span>
-<a id="ln-611" name="ln-611"></a>
-<a id="ln-612" name="ln-612"></a>    <span class="n">unit_</span> <span class="o">=</span> <span class="n">optval</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">output_unit</span><span class="p">)</span>
-<a id="ln-613" name="ln-613"></a>
-<a id="ln-614" name="ln-614"></a>    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">header</span><span class="p">))</span> <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="n">header</span>
-<a id="ln-615" name="ln-615"></a>    <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">rfmt</span><span class="p">)</span> <span class="n">x</span>
-<a id="ln-616" name="ln-616"></a>
-<a id="ln-617" name="ln-617"></a>    <span class="k">end procedure </span><span class="n">disp_0_lc_bool</span>
-<a id="ln-618" name="ln-618"></a>
-<a id="ln-619" name="ln-619"></a>    <span class="k">module procedure </span><span class="n">disp_1_lc_bool</span>
-<a id="ln-620" name="ln-620"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">unit_</span>
-<a id="ln-621" name="ln-621"></a>    <span class="kt">logical</span> <span class="kd">::</span> <span class="n">brief_</span>
-<a id="ln-622" name="ln-622"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">n</span><span class="p">,</span> <span class="n">col</span>
-<a id="ln-623" name="ln-623"></a>
-<a id="ln-624" name="ln-624"></a>    <span class="n">unit_</span> <span class="o">=</span> <span class="n">optval</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">output_unit</span><span class="p">)</span>
-<a id="ln-625" name="ln-625"></a>    <span class="n">brief_</span> <span class="o">=</span> <span class="n">optval</span><span class="p">(</span><span class="n">brief</span><span class="p">,</span> <span class="p">.</span><span class="n">true</span><span class="p">.)</span>
-<a id="ln-626" name="ln-626"></a>    <span class="n">col</span> <span class="o">=</span> <span class="nb">merge</span><span class="p">(</span><span class="n">brief_col</span><span class="p">,</span> <span class="n">default_col</span><span class="p">,</span> <span class="nb">present</span><span class="p">(</span><span class="n">brief</span><span class="p">)</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="n">brief_</span><span class="p">)</span>
-<a id="ln-627" name="ln-627"></a>    <span class="n">n</span> <span class="o">=</span> <span class="n">size</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<a id="ln-628" name="ln-628"></a>
-<a id="ln-629" name="ln-629"></a>    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">header</span><span class="p">))</span> <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="n">header</span>
-<a id="ln-630" name="ln-630"></a>    <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="s1">&#39;[vector size: &#39;</span><span class="o">//</span><span class="n">to_string</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;]&#39;</span>
-<a id="ln-631" name="ln-631"></a>
-<a id="ln-632" name="ln-632"></a>    <span class="k">if</span> <span class="p">(</span><span class="n">brief_</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="n">col</span><span class="p">)</span> <span class="k">then</span>
-<a id="ln-633" name="ln-633"></a><span class="k">        write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">rfmt</span><span class="p">)</span> <span class="n">x</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">col</span> <span class="o">-</span> <span class="mi">2</span><span class="p">),</span> <span class="s1">&#39;...&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-<a id="ln-634" name="ln-634"></a>    <span class="k">else</span>
-<a id="ln-635" name="ln-635"></a><span class="k">        write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">rfmt</span><span class="p">)</span> <span class="n">x</span><span class="p">(:)</span>
-<a id="ln-636" name="ln-636"></a>    <span class="k">end if</span>
-<a id="ln-637" name="ln-637"></a>
-<a id="ln-638" name="ln-638"></a><span class="k">    end procedure </span><span class="n">disp_1_lc_bool</span>
-<a id="ln-639" name="ln-639"></a>
-<a id="ln-640" name="ln-640"></a>    <span class="k">module procedure </span><span class="n">disp_2_lc_bool</span>
-<a id="ln-641" name="ln-641"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">unit_</span>
-<a id="ln-642" name="ln-642"></a>    <span class="kt">logical</span> <span class="kd">::</span> <span class="n">brief_</span>
-<a id="ln-643" name="ln-643"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">i</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">n</span>
-<a id="ln-644" name="ln-644"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span>
-<a id="ln-645" name="ln-645"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="kd">::</span> <span class="n">colon</span><span class="p">(</span><span class="n">default_col</span><span class="p">)</span>
-<a id="ln-646" name="ln-646"></a>
-<a id="ln-647" name="ln-647"></a>    <span class="n">unit_</span> <span class="o">=</span> <span class="n">optval</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">output_unit</span><span class="p">)</span>
-<a id="ln-648" name="ln-648"></a>    <span class="n">brief_</span> <span class="o">=</span> <span class="n">optval</span><span class="p">(</span><span class="n">brief</span><span class="p">,</span> <span class="p">.</span><span class="n">true</span><span class="p">.)</span>
-<a id="ln-649" name="ln-649"></a>    <span class="n">row</span> <span class="o">=</span> <span class="nb">merge</span><span class="p">(</span><span class="n">brief_row</span><span class="p">,</span> <span class="n">default_row</span><span class="p">,</span> <span class="nb">present</span><span class="p">(</span><span class="n">brief</span><span class="p">)</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="n">brief_</span><span class="p">)</span>
-<a id="ln-650" name="ln-650"></a>    <span class="n">col</span> <span class="o">=</span> <span class="nb">merge</span><span class="p">(</span><span class="n">brief_col</span><span class="p">,</span> <span class="n">default_col</span><span class="p">,</span> <span class="nb">present</span><span class="p">(</span><span class="n">brief</span><span class="p">)</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="n">brief_</span><span class="p">)</span>
-<a id="ln-651" name="ln-651"></a>    <span class="n">m</span> <span class="o">=</span> <span class="n">size</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<a id="ln-652" name="ln-652"></a>    <span class="n">n</span> <span class="o">=</span> <span class="n">size</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<a id="ln-653" name="ln-653"></a>
-<a id="ln-654" name="ln-654"></a>    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">header</span><span class="p">))</span> <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="n">header</span>
-<a id="ln-655" name="ln-655"></a>    <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="s1">&#39;[matrix size: &#39;</span><span class="o">//</span><span class="n">to_string</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;×&#39;</span><span class="o">//</span><span class="n">to_string</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;]&#39;</span>
-<a id="ln-656" name="ln-656"></a>
-<a id="ln-657" name="ln-657"></a>    <span class="k">if</span> <span class="p">(</span><span class="n">brief_</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="p">(</span><span class="n">m</span> <span class="o">&gt;</span> <span class="n">row</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="n">col</span><span class="p">))</span> <span class="k">then</span>
-<a id="ln-658" name="ln-658"></a><span class="k">        </span><span class="n">colon</span> <span class="o">=</span> <span class="s1">&#39;:&#39;</span>
-<a id="ln-659" name="ln-659"></a>        <span class="k">if</span> <span class="p">(</span><span class="n">m</span> <span class="o">&gt;</span> <span class="n">row</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="n">col</span><span class="p">)</span> <span class="k">then</span>
-<a id="ln-660" name="ln-660"></a><span class="k">            do </span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">row</span> <span class="o">-</span> <span class="mi">2</span>
-<a id="ln-661" name="ln-661"></a>                <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">rfmt</span><span class="p">)</span> <span class="n">x</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="n">col</span> <span class="o">-</span> <span class="mi">2</span><span class="p">),</span> <span class="s1">&#39;...&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-<a id="ln-662" name="ln-662"></a>            <span class="k">end do</span>
-<a id="ln-663" name="ln-663"></a><span class="k">            write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">rfmt</span><span class="p">)</span> <span class="n">colon</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">col</span><span class="p">)</span>
-<a id="ln-664" name="ln-664"></a>            <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">rfmt</span><span class="p">)</span> <span class="n">x</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="n">col</span> <span class="o">-</span> <span class="mi">2</span><span class="p">),</span> <span class="s1">&#39;...&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-<a id="ln-665" name="ln-665"></a>        <span class="n">elseif</span> <span class="p">(</span><span class="n">m</span> <span class="o">&gt;</span> <span class="n">row</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="n">col</span><span class="p">)</span> <span class="k">then</span>
-<a id="ln-666" name="ln-666"></a><span class="k">            do </span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">row</span> <span class="o">-</span> <span class="mi">2</span>
-<a id="ln-667" name="ln-667"></a>                <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">rfmt</span><span class="p">)</span> <span class="n">x</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="p">:)</span>
-<a id="ln-668" name="ln-668"></a>            <span class="k">end do</span>
-<a id="ln-669" name="ln-669"></a><span class="k">            write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">rfmt</span><span class="p">)</span> <span class="n">colon</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">n</span><span class="p">)</span>
-<a id="ln-670" name="ln-670"></a>            <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">rfmt</span><span class="p">)</span> <span class="n">x</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="p">:)</span>
-<a id="ln-671" name="ln-671"></a>        <span class="n">elseif</span> <span class="p">(</span><span class="n">m</span> <span class="o">&lt;=</span> <span class="n">row</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="n">col</span><span class="p">)</span> <span class="k">then</span>
-<a id="ln-672" name="ln-672"></a><span class="k">            do </span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">m</span>
-<a id="ln-673" name="ln-673"></a>                <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">rfmt</span><span class="p">)</span> <span class="n">x</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="n">col</span> <span class="o">-</span> <span class="mi">2</span><span class="p">),</span> <span class="s1">&#39;...&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-<a id="ln-674" name="ln-674"></a>            <span class="k">end do</span>
-<a id="ln-675" name="ln-675"></a><span class="k">        end if</span>
-<a id="ln-676" name="ln-676"></a><span class="k">    else</span>
-<a id="ln-677" name="ln-677"></a><span class="k">        do </span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">m</span>
-<a id="ln-678" name="ln-678"></a>            <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">rfmt</span><span class="p">)</span> <span class="n">x</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="p">:)</span>
-<a id="ln-679" name="ln-679"></a>        <span class="k">end do</span>
-<a id="ln-680" name="ln-680"></a><span class="k">    end if</span>
-<a id="ln-681" name="ln-681"></a>
-<a id="ln-682" name="ln-682"></a><span class="k">    end procedure </span><span class="n">disp_2_lc_bool</span>
-<a id="ln-683" name="ln-683"></a>
-<a id="ln-684" name="ln-684"></a>    <span class="k">module procedure </span><span class="n">disp_0_csp</span>
+<a id="ln-608" name="ln-608"></a><span class="k">    end procedure </span><span class="n">disp_2_lc_bool</span>
+<a id="ln-609" name="ln-609"></a>
+<a id="ln-610" name="ln-610"></a>    <span class="k">module procedure </span><span class="n">disp_0_csp</span>
+<a id="ln-611" name="ln-611"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">unit_</span>
+<a id="ln-612" name="ln-612"></a>
+<a id="ln-613" name="ln-613"></a>    <span class="n">unit_</span> <span class="o">=</span> <span class="n">optval</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">output_unit</span><span class="p">)</span>
+<a id="ln-614" name="ln-614"></a>
+<a id="ln-615" name="ln-615"></a>    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">header</span><span class="p">))</span> <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="n">header</span>
+<a id="ln-616" name="ln-616"></a>    <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">cfmt</span><span class="p">)</span> <span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fmt_</span><span class="p">)</span>
+<a id="ln-617" name="ln-617"></a>
+<a id="ln-618" name="ln-618"></a>    <span class="k">end procedure </span><span class="n">disp_0_csp</span>
+<a id="ln-619" name="ln-619"></a>
+<a id="ln-620" name="ln-620"></a>    <span class="k">module procedure </span><span class="n">disp_1_csp</span>
+<a id="ln-621" name="ln-621"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">unit_</span>
+<a id="ln-622" name="ln-622"></a>    <span class="kt">logical</span> <span class="kd">::</span> <span class="n">brief_</span>
+<a id="ln-623" name="ln-623"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">i</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">col</span>
+<a id="ln-624" name="ln-624"></a>
+<a id="ln-625" name="ln-625"></a>    <span class="n">unit_</span> <span class="o">=</span> <span class="n">optval</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">output_unit</span><span class="p">)</span>
+<a id="ln-626" name="ln-626"></a>    <span class="n">brief_</span> <span class="o">=</span> <span class="n">optval</span><span class="p">(</span><span class="n">brief</span><span class="p">,</span> <span class="p">.</span><span class="n">true</span><span class="p">.)</span>
+<a id="ln-627" name="ln-627"></a>    <span class="n">col</span> <span class="o">=</span> <span class="nb">merge</span><span class="p">(</span><span class="n">brief_col</span><span class="p">,</span> <span class="n">default_col</span><span class="p">,</span> <span class="nb">present</span><span class="p">(</span><span class="n">brief</span><span class="p">)</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="n">brief_</span><span class="p">)</span>
+<a id="ln-628" name="ln-628"></a>    <span class="n">n</span> <span class="o">=</span> <span class="n">size</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<a id="ln-629" name="ln-629"></a>
+<a id="ln-630" name="ln-630"></a>    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">header</span><span class="p">))</span> <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="n">header</span>
+<a id="ln-631" name="ln-631"></a>    <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="s1">&#39;[vector size: &#39;</span><span class="o">//</span><span class="n">to_string</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;]&#39;</span>
+<a id="ln-632" name="ln-632"></a>
+<a id="ln-633" name="ln-633"></a>    <span class="k">if</span> <span class="p">(</span><span class="n">brief_</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="n">col</span><span class="p">)</span> <span class="k">then</span>
+<a id="ln-634" name="ln-634"></a><span class="k">        write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">cfmt</span><span class="p">)</span> <span class="p">(</span><span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">fmt_</span><span class="p">),</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span> <span class="o">-</span> <span class="mi">2</span><span class="p">),</span> <span class="s1">&#39;...&#39;</span><span class="p">,</span> <span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">fmt_</span><span class="p">)</span>
+<a id="ln-635" name="ln-635"></a>    <span class="k">else</span>
+<a id="ln-636" name="ln-636"></a><span class="k">        write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">cfmt</span><span class="p">)</span> <span class="p">(</span><span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">fmt_</span><span class="p">),</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<a id="ln-637" name="ln-637"></a>    <span class="k">end if</span>
+<a id="ln-638" name="ln-638"></a>
+<a id="ln-639" name="ln-639"></a><span class="k">    end procedure </span><span class="n">disp_1_csp</span>
+<a id="ln-640" name="ln-640"></a>
+<a id="ln-641" name="ln-641"></a>    <span class="k">module procedure </span><span class="n">disp_2_csp</span>
+<a id="ln-642" name="ln-642"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">unit_</span>
+<a id="ln-643" name="ln-643"></a>    <span class="kt">logical</span> <span class="kd">::</span> <span class="n">brief_</span>
+<a id="ln-644" name="ln-644"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">n</span>
+<a id="ln-645" name="ln-645"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span>
+<a id="ln-646" name="ln-646"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="kd">::</span> <span class="n">colon</span><span class="p">(</span><span class="n">default_col</span><span class="p">)</span>
+<a id="ln-647" name="ln-647"></a>
+<a id="ln-648" name="ln-648"></a>    <span class="n">unit_</span> <span class="o">=</span> <span class="n">optval</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">output_unit</span><span class="p">)</span>
+<a id="ln-649" name="ln-649"></a>    <span class="n">brief_</span> <span class="o">=</span> <span class="n">optval</span><span class="p">(</span><span class="n">brief</span><span class="p">,</span> <span class="p">.</span><span class="n">true</span><span class="p">.)</span>
+<a id="ln-650" name="ln-650"></a>    <span class="n">row</span> <span class="o">=</span> <span class="nb">merge</span><span class="p">(</span><span class="n">brief_row</span><span class="p">,</span> <span class="n">default_row</span><span class="p">,</span> <span class="nb">present</span><span class="p">(</span><span class="n">brief</span><span class="p">)</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="n">brief_</span><span class="p">)</span>
+<a id="ln-651" name="ln-651"></a>    <span class="n">col</span> <span class="o">=</span> <span class="nb">merge</span><span class="p">(</span><span class="n">brief_col</span><span class="p">,</span> <span class="n">default_col</span><span class="p">,</span> <span class="nb">present</span><span class="p">(</span><span class="n">brief</span><span class="p">)</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="n">brief_</span><span class="p">)</span>
+<a id="ln-652" name="ln-652"></a>    <span class="n">m</span> <span class="o">=</span> <span class="n">size</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<a id="ln-653" name="ln-653"></a>    <span class="n">n</span> <span class="o">=</span> <span class="n">size</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<a id="ln-654" name="ln-654"></a>
+<a id="ln-655" name="ln-655"></a>    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">header</span><span class="p">))</span> <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="n">header</span>
+<a id="ln-656" name="ln-656"></a>    <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="s1">&#39;[matrix size: &#39;</span><span class="o">//</span><span class="n">to_string</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;×&#39;</span><span class="o">//</span><span class="n">to_string</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;]&#39;</span>
+<a id="ln-657" name="ln-657"></a>
+<a id="ln-658" name="ln-658"></a>    <span class="k">if</span> <span class="p">(</span><span class="n">brief_</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="p">(</span><span class="n">m</span> <span class="o">&gt;</span> <span class="n">row</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="n">col</span><span class="p">))</span> <span class="k">then</span>
+<a id="ln-659" name="ln-659"></a><span class="k">        </span><span class="n">colon</span> <span class="o">=</span> <span class="s1">&#39;:&#39;</span>
+<a id="ln-660" name="ln-660"></a>        <span class="k">if</span> <span class="p">(</span><span class="n">m</span> <span class="o">&gt;</span> <span class="n">row</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="n">col</span><span class="p">)</span> <span class="k">then</span>
+<a id="ln-661" name="ln-661"></a><span class="k">            do </span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">row</span> <span class="o">-</span> <span class="mi">2</span>
+<a id="ln-662" name="ln-662"></a>                <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">cfmt</span><span class="p">)</span> <span class="p">(</span><span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="n">fmt_</span><span class="p">),</span> <span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span> <span class="o">-</span> <span class="mi">2</span><span class="p">),</span> <span class="s1">&#39;...&#39;</span><span class="p">,</span> <span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">fmt_</span><span class="p">)</span>
+<a id="ln-663" name="ln-663"></a>            <span class="k">end do</span>
+<a id="ln-664" name="ln-664"></a><span class="k">            write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">cfmt</span><span class="p">)</span> <span class="n">colon</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">col</span><span class="p">)</span>
+<a id="ln-665" name="ln-665"></a>            <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">cfmt</span><span class="p">)</span> <span class="p">(</span><span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="n">fmt_</span><span class="p">),</span> <span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span> <span class="o">-</span> <span class="mi">2</span><span class="p">),</span> <span class="s1">&#39;...&#39;</span><span class="p">,</span> <span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">fmt_</span><span class="p">)</span>
+<a id="ln-666" name="ln-666"></a>        <span class="n">elseif</span> <span class="p">(</span><span class="n">m</span> <span class="o">&gt;</span> <span class="n">row</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="n">col</span><span class="p">)</span> <span class="k">then</span>
+<a id="ln-667" name="ln-667"></a><span class="k">            do </span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">row</span> <span class="o">-</span> <span class="mi">2</span>
+<a id="ln-668" name="ln-668"></a>                <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">cfmt</span><span class="p">)</span> <span class="p">(</span><span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="n">fmt_</span><span class="p">),</span> <span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<a id="ln-669" name="ln-669"></a>            <span class="k">end do</span>
+<a id="ln-670" name="ln-670"></a><span class="k">            write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">cfmt</span><span class="p">)</span> <span class="n">colon</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">n</span><span class="p">)</span>
+<a id="ln-671" name="ln-671"></a>            <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">cfmt</span><span class="p">)</span> <span class="p">(</span><span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="n">fmt_</span><span class="p">),</span> <span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<a id="ln-672" name="ln-672"></a>        <span class="n">elseif</span> <span class="p">(</span><span class="n">m</span> <span class="o">&lt;=</span> <span class="n">row</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="n">col</span><span class="p">)</span> <span class="k">then</span>
+<a id="ln-673" name="ln-673"></a><span class="k">            do </span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">m</span>
+<a id="ln-674" name="ln-674"></a>                <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">cfmt</span><span class="p">)</span> <span class="p">(</span><span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="n">fmt_</span><span class="p">),</span> <span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span> <span class="o">-</span> <span class="mi">2</span><span class="p">),</span> <span class="s1">&#39;...&#39;</span><span class="p">,</span> <span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">fmt_</span><span class="p">)</span>
+<a id="ln-675" name="ln-675"></a>            <span class="k">end do</span>
+<a id="ln-676" name="ln-676"></a><span class="k">        end if</span>
+<a id="ln-677" name="ln-677"></a><span class="k">    else</span>
+<a id="ln-678" name="ln-678"></a><span class="k">        do </span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">m</span>
+<a id="ln-679" name="ln-679"></a>            <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">cfmt</span><span class="p">)</span> <span class="p">(</span><span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="n">fmt_</span><span class="p">),</span> <span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<a id="ln-680" name="ln-680"></a>        <span class="k">end do</span>
+<a id="ln-681" name="ln-681"></a><span class="k">    end if</span>
+<a id="ln-682" name="ln-682"></a>
+<a id="ln-683" name="ln-683"></a><span class="k">    end procedure </span><span class="n">disp_2_csp</span>
+<a id="ln-684" name="ln-684"></a>    <span class="k">module procedure </span><span class="n">disp_0_cdp</span>
 <a id="ln-685" name="ln-685"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">unit_</span>
 <a id="ln-686" name="ln-686"></a>
 <a id="ln-687" name="ln-687"></a>    <span class="n">unit_</span> <span class="o">=</span> <span class="n">optval</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">output_unit</span><span class="p">)</span>
@@ -962,9 +962,9 @@
 <a id="ln-689" name="ln-689"></a>    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">header</span><span class="p">))</span> <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="n">header</span>
 <a id="ln-690" name="ln-690"></a>    <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">cfmt</span><span class="p">)</span> <span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fmt_</span><span class="p">)</span>
 <a id="ln-691" name="ln-691"></a>
-<a id="ln-692" name="ln-692"></a>    <span class="k">end procedure </span><span class="n">disp_0_csp</span>
+<a id="ln-692" name="ln-692"></a>    <span class="k">end procedure </span><span class="n">disp_0_cdp</span>
 <a id="ln-693" name="ln-693"></a>
-<a id="ln-694" name="ln-694"></a>    <span class="k">module procedure </span><span class="n">disp_1_csp</span>
+<a id="ln-694" name="ln-694"></a>    <span class="k">module procedure </span><span class="n">disp_1_cdp</span>
 <a id="ln-695" name="ln-695"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">unit_</span>
 <a id="ln-696" name="ln-696"></a>    <span class="kt">logical</span> <span class="kd">::</span> <span class="n">brief_</span>
 <a id="ln-697" name="ln-697"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">i</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">col</span>
@@ -983,9 +983,9 @@
 <a id="ln-710" name="ln-710"></a><span class="k">        write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">cfmt</span><span class="p">)</span> <span class="p">(</span><span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">fmt_</span><span class="p">),</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
 <a id="ln-711" name="ln-711"></a>    <span class="k">end if</span>
 <a id="ln-712" name="ln-712"></a>
-<a id="ln-713" name="ln-713"></a><span class="k">    end procedure </span><span class="n">disp_1_csp</span>
+<a id="ln-713" name="ln-713"></a><span class="k">    end procedure </span><span class="n">disp_1_cdp</span>
 <a id="ln-714" name="ln-714"></a>
-<a id="ln-715" name="ln-715"></a>    <span class="k">module procedure </span><span class="n">disp_2_csp</span>
+<a id="ln-715" name="ln-715"></a>    <span class="k">module procedure </span><span class="n">disp_2_cdp</span>
 <a id="ln-716" name="ln-716"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">unit_</span>
 <a id="ln-717" name="ln-717"></a>    <span class="kt">logical</span> <span class="kd">::</span> <span class="n">brief_</span>
 <a id="ln-718" name="ln-718"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">n</span>
@@ -1027,179 +1027,31 @@
 <a id="ln-754" name="ln-754"></a>        <span class="k">end do</span>
 <a id="ln-755" name="ln-755"></a><span class="k">    end if</span>
 <a id="ln-756" name="ln-756"></a>
-<a id="ln-757" name="ln-757"></a><span class="k">    end procedure </span><span class="n">disp_2_csp</span>
-<a id="ln-758" name="ln-758"></a>    <span class="k">module procedure </span><span class="n">disp_0_cdp</span>
-<a id="ln-759" name="ln-759"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">unit_</span>
-<a id="ln-760" name="ln-760"></a>
-<a id="ln-761" name="ln-761"></a>    <span class="n">unit_</span> <span class="o">=</span> <span class="n">optval</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">output_unit</span><span class="p">)</span>
+<a id="ln-757" name="ln-757"></a><span class="k">    end procedure </span><span class="n">disp_2_cdp</span>
+<a id="ln-758" name="ln-758"></a>
+<a id="ln-759" name="ln-759"></a>    <span class="k">module procedure </span><span class="n">disp_character</span>
+<a id="ln-760" name="ln-760"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span> <span class="k">allocatable</span> <span class="kd">::</span> <span class="n">x_</span>
+<a id="ln-761" name="ln-761"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">unit_</span>
 <a id="ln-762" name="ln-762"></a>
-<a id="ln-763" name="ln-763"></a>    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">header</span><span class="p">))</span> <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="n">header</span>
-<a id="ln-764" name="ln-764"></a>    <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">cfmt</span><span class="p">)</span> <span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fmt_</span><span class="p">)</span>
+<a id="ln-763" name="ln-763"></a>    <span class="n">x_</span> <span class="o">=</span> <span class="n">optval</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+<a id="ln-764" name="ln-764"></a>    <span class="n">unit_</span> <span class="o">=</span> <span class="n">optval</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">output_unit</span><span class="p">)</span>
 <a id="ln-765" name="ln-765"></a>
-<a id="ln-766" name="ln-766"></a>    <span class="k">end procedure </span><span class="n">disp_0_cdp</span>
-<a id="ln-767" name="ln-767"></a>
-<a id="ln-768" name="ln-768"></a>    <span class="k">module procedure </span><span class="n">disp_1_cdp</span>
-<a id="ln-769" name="ln-769"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">unit_</span>
-<a id="ln-770" name="ln-770"></a>    <span class="kt">logical</span> <span class="kd">::</span> <span class="n">brief_</span>
-<a id="ln-771" name="ln-771"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">i</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">col</span>
-<a id="ln-772" name="ln-772"></a>
-<a id="ln-773" name="ln-773"></a>    <span class="n">unit_</span> <span class="o">=</span> <span class="n">optval</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">output_unit</span><span class="p">)</span>
-<a id="ln-774" name="ln-774"></a>    <span class="n">brief_</span> <span class="o">=</span> <span class="n">optval</span><span class="p">(</span><span class="n">brief</span><span class="p">,</span> <span class="p">.</span><span class="n">true</span><span class="p">.)</span>
-<a id="ln-775" name="ln-775"></a>    <span class="n">col</span> <span class="o">=</span> <span class="nb">merge</span><span class="p">(</span><span class="n">brief_col</span><span class="p">,</span> <span class="n">default_col</span><span class="p">,</span> <span class="nb">present</span><span class="p">(</span><span class="n">brief</span><span class="p">)</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="n">brief_</span><span class="p">)</span>
-<a id="ln-776" name="ln-776"></a>    <span class="n">n</span> <span class="o">=</span> <span class="n">size</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<a id="ln-777" name="ln-777"></a>
-<a id="ln-778" name="ln-778"></a>    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">header</span><span class="p">))</span> <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="n">header</span>
-<a id="ln-779" name="ln-779"></a>    <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="s1">&#39;[vector size: &#39;</span><span class="o">//</span><span class="n">to_string</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;]&#39;</span>
+<a id="ln-766" name="ln-766"></a>    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">header</span><span class="p">))</span> <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="n">header</span>
+<a id="ln-767" name="ln-767"></a>    <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="n">x_</span>
+<a id="ln-768" name="ln-768"></a>
+<a id="ln-769" name="ln-769"></a>    <span class="k">end procedure </span><span class="n">disp_character</span>
+<a id="ln-770" name="ln-770"></a>
+<a id="ln-771" name="ln-771"></a>    <span class="k">module procedure </span><span class="n">disp_string_type</span>
+<a id="ln-772" name="ln-772"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">unit_</span>
+<a id="ln-773" name="ln-773"></a>
+<a id="ln-774" name="ln-774"></a>    <span class="n">unit_</span> <span class="o">=</span> <span class="n">optval</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">output_unit</span><span class="p">)</span>
+<a id="ln-775" name="ln-775"></a>
+<a id="ln-776" name="ln-776"></a>    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">header</span><span class="p">))</span> <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="n">header</span>
+<a id="ln-777" name="ln-777"></a>    <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="nb">char</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<a id="ln-778" name="ln-778"></a>
+<a id="ln-779" name="ln-779"></a>    <span class="k">end procedure </span><span class="n">disp_string_type</span>
 <a id="ln-780" name="ln-780"></a>
-<a id="ln-781" name="ln-781"></a>    <span class="k">if</span> <span class="p">(</span><span class="n">brief_</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="n">col</span><span class="p">)</span> <span class="k">then</span>
-<a id="ln-782" name="ln-782"></a><span class="k">        write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">cfmt</span><span class="p">)</span> <span class="p">(</span><span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">fmt_</span><span class="p">),</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span> <span class="o">-</span> <span class="mi">2</span><span class="p">),</span> <span class="s1">&#39;...&#39;</span><span class="p">,</span> <span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">fmt_</span><span class="p">)</span>
-<a id="ln-783" name="ln-783"></a>    <span class="k">else</span>
-<a id="ln-784" name="ln-784"></a><span class="k">        write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">cfmt</span><span class="p">)</span> <span class="p">(</span><span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">fmt_</span><span class="p">),</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-<a id="ln-785" name="ln-785"></a>    <span class="k">end if</span>
-<a id="ln-786" name="ln-786"></a>
-<a id="ln-787" name="ln-787"></a><span class="k">    end procedure </span><span class="n">disp_1_cdp</span>
-<a id="ln-788" name="ln-788"></a>
-<a id="ln-789" name="ln-789"></a>    <span class="k">module procedure </span><span class="n">disp_2_cdp</span>
-<a id="ln-790" name="ln-790"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">unit_</span>
-<a id="ln-791" name="ln-791"></a>    <span class="kt">logical</span> <span class="kd">::</span> <span class="n">brief_</span>
-<a id="ln-792" name="ln-792"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">n</span>
-<a id="ln-793" name="ln-793"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span>
-<a id="ln-794" name="ln-794"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="kd">::</span> <span class="n">colon</span><span class="p">(</span><span class="n">default_col</span><span class="p">)</span>
-<a id="ln-795" name="ln-795"></a>
-<a id="ln-796" name="ln-796"></a>    <span class="n">unit_</span> <span class="o">=</span> <span class="n">optval</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">output_unit</span><span class="p">)</span>
-<a id="ln-797" name="ln-797"></a>    <span class="n">brief_</span> <span class="o">=</span> <span class="n">optval</span><span class="p">(</span><span class="n">brief</span><span class="p">,</span> <span class="p">.</span><span class="n">true</span><span class="p">.)</span>
-<a id="ln-798" name="ln-798"></a>    <span class="n">row</span> <span class="o">=</span> <span class="nb">merge</span><span class="p">(</span><span class="n">brief_row</span><span class="p">,</span> <span class="n">default_row</span><span class="p">,</span> <span class="nb">present</span><span class="p">(</span><span class="n">brief</span><span class="p">)</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="n">brief_</span><span class="p">)</span>
-<a id="ln-799" name="ln-799"></a>    <span class="n">col</span> <span class="o">=</span> <span class="nb">merge</span><span class="p">(</span><span class="n">brief_col</span><span class="p">,</span> <span class="n">default_col</span><span class="p">,</span> <span class="nb">present</span><span class="p">(</span><span class="n">brief</span><span class="p">)</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="n">brief_</span><span class="p">)</span>
-<a id="ln-800" name="ln-800"></a>    <span class="n">m</span> <span class="o">=</span> <span class="n">size</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<a id="ln-801" name="ln-801"></a>    <span class="n">n</span> <span class="o">=</span> <span class="n">size</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<a id="ln-802" name="ln-802"></a>
-<a id="ln-803" name="ln-803"></a>    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">header</span><span class="p">))</span> <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="n">header</span>
-<a id="ln-804" name="ln-804"></a>    <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="s1">&#39;[matrix size: &#39;</span><span class="o">//</span><span class="n">to_string</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;×&#39;</span><span class="o">//</span><span class="n">to_string</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;]&#39;</span>
-<a id="ln-805" name="ln-805"></a>
-<a id="ln-806" name="ln-806"></a>    <span class="k">if</span> <span class="p">(</span><span class="n">brief_</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="p">(</span><span class="n">m</span> <span class="o">&gt;</span> <span class="n">row</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="n">col</span><span class="p">))</span> <span class="k">then</span>
-<a id="ln-807" name="ln-807"></a><span class="k">        </span><span class="n">colon</span> <span class="o">=</span> <span class="s1">&#39;:&#39;</span>
-<a id="ln-808" name="ln-808"></a>        <span class="k">if</span> <span class="p">(</span><span class="n">m</span> <span class="o">&gt;</span> <span class="n">row</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="n">col</span><span class="p">)</span> <span class="k">then</span>
-<a id="ln-809" name="ln-809"></a><span class="k">            do </span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">row</span> <span class="o">-</span> <span class="mi">2</span>
-<a id="ln-810" name="ln-810"></a>                <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">cfmt</span><span class="p">)</span> <span class="p">(</span><span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="n">fmt_</span><span class="p">),</span> <span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span> <span class="o">-</span> <span class="mi">2</span><span class="p">),</span> <span class="s1">&#39;...&#39;</span><span class="p">,</span> <span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">fmt_</span><span class="p">)</span>
-<a id="ln-811" name="ln-811"></a>            <span class="k">end do</span>
-<a id="ln-812" name="ln-812"></a><span class="k">            write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">cfmt</span><span class="p">)</span> <span class="n">colon</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">col</span><span class="p">)</span>
-<a id="ln-813" name="ln-813"></a>            <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">cfmt</span><span class="p">)</span> <span class="p">(</span><span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="n">fmt_</span><span class="p">),</span> <span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span> <span class="o">-</span> <span class="mi">2</span><span class="p">),</span> <span class="s1">&#39;...&#39;</span><span class="p">,</span> <span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">fmt_</span><span class="p">)</span>
-<a id="ln-814" name="ln-814"></a>        <span class="n">elseif</span> <span class="p">(</span><span class="n">m</span> <span class="o">&gt;</span> <span class="n">row</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="n">col</span><span class="p">)</span> <span class="k">then</span>
-<a id="ln-815" name="ln-815"></a><span class="k">            do </span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">row</span> <span class="o">-</span> <span class="mi">2</span>
-<a id="ln-816" name="ln-816"></a>                <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">cfmt</span><span class="p">)</span> <span class="p">(</span><span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="n">fmt_</span><span class="p">),</span> <span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-<a id="ln-817" name="ln-817"></a>            <span class="k">end do</span>
-<a id="ln-818" name="ln-818"></a><span class="k">            write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">cfmt</span><span class="p">)</span> <span class="n">colon</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">n</span><span class="p">)</span>
-<a id="ln-819" name="ln-819"></a>            <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">cfmt</span><span class="p">)</span> <span class="p">(</span><span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="n">fmt_</span><span class="p">),</span> <span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-<a id="ln-820" name="ln-820"></a>        <span class="n">elseif</span> <span class="p">(</span><span class="n">m</span> <span class="o">&lt;=</span> <span class="n">row</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="n">col</span><span class="p">)</span> <span class="k">then</span>
-<a id="ln-821" name="ln-821"></a><span class="k">            do </span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">m</span>
-<a id="ln-822" name="ln-822"></a>                <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">cfmt</span><span class="p">)</span> <span class="p">(</span><span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="n">fmt_</span><span class="p">),</span> <span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span> <span class="o">-</span> <span class="mi">2</span><span class="p">),</span> <span class="s1">&#39;...&#39;</span><span class="p">,</span> <span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">fmt_</span><span class="p">)</span>
-<a id="ln-823" name="ln-823"></a>            <span class="k">end do</span>
-<a id="ln-824" name="ln-824"></a><span class="k">        end if</span>
-<a id="ln-825" name="ln-825"></a><span class="k">    else</span>
-<a id="ln-826" name="ln-826"></a><span class="k">        do </span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">m</span>
-<a id="ln-827" name="ln-827"></a>            <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">cfmt</span><span class="p">)</span> <span class="p">(</span><span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="n">fmt_</span><span class="p">),</span> <span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-<a id="ln-828" name="ln-828"></a>        <span class="k">end do</span>
-<a id="ln-829" name="ln-829"></a><span class="k">    end if</span>
-<a id="ln-830" name="ln-830"></a>
-<a id="ln-831" name="ln-831"></a><span class="k">    end procedure </span><span class="n">disp_2_cdp</span>
-<a id="ln-832" name="ln-832"></a>    <span class="k">module procedure </span><span class="n">disp_0_cqp</span>
-<a id="ln-833" name="ln-833"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">unit_</span>
-<a id="ln-834" name="ln-834"></a>
-<a id="ln-835" name="ln-835"></a>    <span class="n">unit_</span> <span class="o">=</span> <span class="n">optval</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">output_unit</span><span class="p">)</span>
-<a id="ln-836" name="ln-836"></a>
-<a id="ln-837" name="ln-837"></a>    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">header</span><span class="p">))</span> <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="n">header</span>
-<a id="ln-838" name="ln-838"></a>    <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">cfmt</span><span class="p">)</span> <span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fmt_</span><span class="p">)</span>
-<a id="ln-839" name="ln-839"></a>
-<a id="ln-840" name="ln-840"></a>    <span class="k">end procedure </span><span class="n">disp_0_cqp</span>
-<a id="ln-841" name="ln-841"></a>
-<a id="ln-842" name="ln-842"></a>    <span class="k">module procedure </span><span class="n">disp_1_cqp</span>
-<a id="ln-843" name="ln-843"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">unit_</span>
-<a id="ln-844" name="ln-844"></a>    <span class="kt">logical</span> <span class="kd">::</span> <span class="n">brief_</span>
-<a id="ln-845" name="ln-845"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">i</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">col</span>
-<a id="ln-846" name="ln-846"></a>
-<a id="ln-847" name="ln-847"></a>    <span class="n">unit_</span> <span class="o">=</span> <span class="n">optval</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">output_unit</span><span class="p">)</span>
-<a id="ln-848" name="ln-848"></a>    <span class="n">brief_</span> <span class="o">=</span> <span class="n">optval</span><span class="p">(</span><span class="n">brief</span><span class="p">,</span> <span class="p">.</span><span class="n">true</span><span class="p">.)</span>
-<a id="ln-849" name="ln-849"></a>    <span class="n">col</span> <span class="o">=</span> <span class="nb">merge</span><span class="p">(</span><span class="n">brief_col</span><span class="p">,</span> <span class="n">default_col</span><span class="p">,</span> <span class="nb">present</span><span class="p">(</span><span class="n">brief</span><span class="p">)</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="n">brief_</span><span class="p">)</span>
-<a id="ln-850" name="ln-850"></a>    <span class="n">n</span> <span class="o">=</span> <span class="n">size</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<a id="ln-851" name="ln-851"></a>
-<a id="ln-852" name="ln-852"></a>    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">header</span><span class="p">))</span> <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="n">header</span>
-<a id="ln-853" name="ln-853"></a>    <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="s1">&#39;[vector size: &#39;</span><span class="o">//</span><span class="n">to_string</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;]&#39;</span>
-<a id="ln-854" name="ln-854"></a>
-<a id="ln-855" name="ln-855"></a>    <span class="k">if</span> <span class="p">(</span><span class="n">brief_</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="n">col</span><span class="p">)</span> <span class="k">then</span>
-<a id="ln-856" name="ln-856"></a><span class="k">        write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">cfmt</span><span class="p">)</span> <span class="p">(</span><span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">fmt_</span><span class="p">),</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span> <span class="o">-</span> <span class="mi">2</span><span class="p">),</span> <span class="s1">&#39;...&#39;</span><span class="p">,</span> <span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">fmt_</span><span class="p">)</span>
-<a id="ln-857" name="ln-857"></a>    <span class="k">else</span>
-<a id="ln-858" name="ln-858"></a><span class="k">        write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">cfmt</span><span class="p">)</span> <span class="p">(</span><span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">fmt_</span><span class="p">),</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-<a id="ln-859" name="ln-859"></a>    <span class="k">end if</span>
-<a id="ln-860" name="ln-860"></a>
-<a id="ln-861" name="ln-861"></a><span class="k">    end procedure </span><span class="n">disp_1_cqp</span>
-<a id="ln-862" name="ln-862"></a>
-<a id="ln-863" name="ln-863"></a>    <span class="k">module procedure </span><span class="n">disp_2_cqp</span>
-<a id="ln-864" name="ln-864"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">unit_</span>
-<a id="ln-865" name="ln-865"></a>    <span class="kt">logical</span> <span class="kd">::</span> <span class="n">brief_</span>
-<a id="ln-866" name="ln-866"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">n</span>
-<a id="ln-867" name="ln-867"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span>
-<a id="ln-868" name="ln-868"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="kd">::</span> <span class="n">colon</span><span class="p">(</span><span class="n">default_col</span><span class="p">)</span>
-<a id="ln-869" name="ln-869"></a>
-<a id="ln-870" name="ln-870"></a>    <span class="n">unit_</span> <span class="o">=</span> <span class="n">optval</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">output_unit</span><span class="p">)</span>
-<a id="ln-871" name="ln-871"></a>    <span class="n">brief_</span> <span class="o">=</span> <span class="n">optval</span><span class="p">(</span><span class="n">brief</span><span class="p">,</span> <span class="p">.</span><span class="n">true</span><span class="p">.)</span>
-<a id="ln-872" name="ln-872"></a>    <span class="n">row</span> <span class="o">=</span> <span class="nb">merge</span><span class="p">(</span><span class="n">brief_row</span><span class="p">,</span> <span class="n">default_row</span><span class="p">,</span> <span class="nb">present</span><span class="p">(</span><span class="n">brief</span><span class="p">)</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="n">brief_</span><span class="p">)</span>
-<a id="ln-873" name="ln-873"></a>    <span class="n">col</span> <span class="o">=</span> <span class="nb">merge</span><span class="p">(</span><span class="n">brief_col</span><span class="p">,</span> <span class="n">default_col</span><span class="p">,</span> <span class="nb">present</span><span class="p">(</span><span class="n">brief</span><span class="p">)</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="n">brief_</span><span class="p">)</span>
-<a id="ln-874" name="ln-874"></a>    <span class="n">m</span> <span class="o">=</span> <span class="n">size</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<a id="ln-875" name="ln-875"></a>    <span class="n">n</span> <span class="o">=</span> <span class="n">size</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<a id="ln-876" name="ln-876"></a>
-<a id="ln-877" name="ln-877"></a>    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">header</span><span class="p">))</span> <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="n">header</span>
-<a id="ln-878" name="ln-878"></a>    <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="s1">&#39;[matrix size: &#39;</span><span class="o">//</span><span class="n">to_string</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;×&#39;</span><span class="o">//</span><span class="n">to_string</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;]&#39;</span>
-<a id="ln-879" name="ln-879"></a>
-<a id="ln-880" name="ln-880"></a>    <span class="k">if</span> <span class="p">(</span><span class="n">brief_</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="p">(</span><span class="n">m</span> <span class="o">&gt;</span> <span class="n">row</span> <span class="p">.</span><span class="nb">or</span><span class="p">.</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="n">col</span><span class="p">))</span> <span class="k">then</span>
-<a id="ln-881" name="ln-881"></a><span class="k">        </span><span class="n">colon</span> <span class="o">=</span> <span class="s1">&#39;:&#39;</span>
-<a id="ln-882" name="ln-882"></a>        <span class="k">if</span> <span class="p">(</span><span class="n">m</span> <span class="o">&gt;</span> <span class="n">row</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="n">col</span><span class="p">)</span> <span class="k">then</span>
-<a id="ln-883" name="ln-883"></a><span class="k">            do </span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">row</span> <span class="o">-</span> <span class="mi">2</span>
-<a id="ln-884" name="ln-884"></a>                <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">cfmt</span><span class="p">)</span> <span class="p">(</span><span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="n">fmt_</span><span class="p">),</span> <span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span> <span class="o">-</span> <span class="mi">2</span><span class="p">),</span> <span class="s1">&#39;...&#39;</span><span class="p">,</span> <span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">fmt_</span><span class="p">)</span>
-<a id="ln-885" name="ln-885"></a>            <span class="k">end do</span>
-<a id="ln-886" name="ln-886"></a><span class="k">            write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">cfmt</span><span class="p">)</span> <span class="n">colon</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">col</span><span class="p">)</span>
-<a id="ln-887" name="ln-887"></a>            <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">cfmt</span><span class="p">)</span> <span class="p">(</span><span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="n">fmt_</span><span class="p">),</span> <span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span> <span class="o">-</span> <span class="mi">2</span><span class="p">),</span> <span class="s1">&#39;...&#39;</span><span class="p">,</span> <span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">fmt_</span><span class="p">)</span>
-<a id="ln-888" name="ln-888"></a>        <span class="n">elseif</span> <span class="p">(</span><span class="n">m</span> <span class="o">&gt;</span> <span class="n">row</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="n">col</span><span class="p">)</span> <span class="k">then</span>
-<a id="ln-889" name="ln-889"></a><span class="k">            do </span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">row</span> <span class="o">-</span> <span class="mi">2</span>
-<a id="ln-890" name="ln-890"></a>                <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">cfmt</span><span class="p">)</span> <span class="p">(</span><span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="n">fmt_</span><span class="p">),</span> <span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-<a id="ln-891" name="ln-891"></a>            <span class="k">end do</span>
-<a id="ln-892" name="ln-892"></a><span class="k">            write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">cfmt</span><span class="p">)</span> <span class="n">colon</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">n</span><span class="p">)</span>
-<a id="ln-893" name="ln-893"></a>            <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">cfmt</span><span class="p">)</span> <span class="p">(</span><span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="n">fmt_</span><span class="p">),</span> <span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-<a id="ln-894" name="ln-894"></a>        <span class="n">elseif</span> <span class="p">(</span><span class="n">m</span> <span class="o">&lt;=</span> <span class="n">row</span> <span class="p">.</span><span class="nb">and</span><span class="p">.</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="n">col</span><span class="p">)</span> <span class="k">then</span>
-<a id="ln-895" name="ln-895"></a><span class="k">            do </span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">m</span>
-<a id="ln-896" name="ln-896"></a>                <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">cfmt</span><span class="p">)</span> <span class="p">(</span><span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="n">fmt_</span><span class="p">),</span> <span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span> <span class="o">-</span> <span class="mi">2</span><span class="p">),</span> <span class="s1">&#39;...&#39;</span><span class="p">,</span> <span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">fmt_</span><span class="p">)</span>
-<a id="ln-897" name="ln-897"></a>            <span class="k">end do</span>
-<a id="ln-898" name="ln-898"></a><span class="k">        end if</span>
-<a id="ln-899" name="ln-899"></a><span class="k">    else</span>
-<a id="ln-900" name="ln-900"></a><span class="k">        do </span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">m</span>
-<a id="ln-901" name="ln-901"></a>            <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="n">cfmt</span><span class="p">)</span> <span class="p">(</span><span class="n">to_string</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">),</span> <span class="n">fmt_</span><span class="p">),</span> <span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-<a id="ln-902" name="ln-902"></a>        <span class="k">end do</span>
-<a id="ln-903" name="ln-903"></a><span class="k">    end if</span>
-<a id="ln-904" name="ln-904"></a>
-<a id="ln-905" name="ln-905"></a><span class="k">    end procedure </span><span class="n">disp_2_cqp</span>
-<a id="ln-906" name="ln-906"></a>
-<a id="ln-907" name="ln-907"></a>    <span class="k">module procedure </span><span class="n">disp_character</span>
-<a id="ln-908" name="ln-908"></a>    <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span> <span class="k">allocatable</span> <span class="kd">::</span> <span class="n">x_</span>
-<a id="ln-909" name="ln-909"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">unit_</span>
-<a id="ln-910" name="ln-910"></a>
-<a id="ln-911" name="ln-911"></a>    <span class="n">x_</span> <span class="o">=</span> <span class="n">optval</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
-<a id="ln-912" name="ln-912"></a>    <span class="n">unit_</span> <span class="o">=</span> <span class="n">optval</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">output_unit</span><span class="p">)</span>
-<a id="ln-913" name="ln-913"></a>
-<a id="ln-914" name="ln-914"></a>    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">header</span><span class="p">))</span> <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="n">header</span>
-<a id="ln-915" name="ln-915"></a>    <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="n">x_</span>
-<a id="ln-916" name="ln-916"></a>
-<a id="ln-917" name="ln-917"></a>    <span class="k">end procedure </span><span class="n">disp_character</span>
-<a id="ln-918" name="ln-918"></a>
-<a id="ln-919" name="ln-919"></a>    <span class="k">module procedure </span><span class="n">disp_string_type</span>
-<a id="ln-920" name="ln-920"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">unit_</span>
-<a id="ln-921" name="ln-921"></a>
-<a id="ln-922" name="ln-922"></a>    <span class="n">unit_</span> <span class="o">=</span> <span class="n">optval</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">output_unit</span><span class="p">)</span>
-<a id="ln-923" name="ln-923"></a>
-<a id="ln-924" name="ln-924"></a>    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">header</span><span class="p">))</span> <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="n">header</span>
-<a id="ln-925" name="ln-925"></a>    <span class="k">write</span> <span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span> <span class="nb">char</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<a id="ln-926" name="ln-926"></a>
-<a id="ln-927" name="ln-927"></a>    <span class="k">end procedure </span><span class="n">disp_string_type</span>
-<a id="ln-928" name="ln-928"></a>
-<a id="ln-929" name="ln-929"></a><span class="k">end submodule </span><span class="n">forlab_io_disp</span>
+<a id="ln-781" name="ln-781"></a><span class="k">end submodule </span><span class="n">forlab_io_disp</span>
 </pre></div>
 
     </section>
@@ -1219,7 +1071,7 @@
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
-             on 2021-11-07 14:22  
+             on 2021-11-20 06:33  
             
           </p>
         </div>

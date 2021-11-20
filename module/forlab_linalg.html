@@ -136,7 +136,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title="10.8% of total for modules and submodules.">1266 statements</a>
+    title="10.5% of total for modules and submodules.">963 statements</a>
      </li> 
      
      
@@ -279,11 +279,11 @@
     
     <li>stdlib_error</li>
     
+    <li>stdlib_kinds</li>
+    
     <li><a href='../module/forlab_sorting.html'>forlab_sorting</a></li>
     
     <li>stdlib_optval</li>
-    
-    <li>stdlib_kinds</li>
     
   </ul>
       </li>
@@ -535,63 +535,6 @@ private module function chol_dp(A) result(L)
     
     
     <h3>
-private module function chol_qp(A) result(L)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>A</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=qp),
-  dimension(:, :), allocatable</small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
 private module function chol_sp(A) result(L)
     
     
@@ -746,93 +689,6 @@ private module function det_dp(A, outL, outU) result(det)
   
   
      <h4>Return Value <small>real(kind=dp)
-  </small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
-private module function det_qp(A, outL, outU) result(det)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>A</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(inout),</td>
-  <td>optional</td>
-  
-  <td>dimension(:, :), allocatable</td><td>::</td>
-  <td><strong>outL</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(inout),</td>
-  <td>optional</td>
-  
-  <td>dimension(:, :), allocatable</td><td>::</td>
-  <td><strong>outU</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=qp)
   </small></h4>
   
     
@@ -1007,63 +863,6 @@ private module function diag1_dp(A) result(diag)
     
     
     <h3>
-private module function diag1_qp(A) result(diag)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>A</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=qp),
-  dimension(:), allocatable</small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
 private module function diag1_sp(A) result(diag)
     
     
@@ -1168,63 +967,6 @@ private module function diag2_dp(x) result(diag)
   
   
      <h4>Return Value <small>real(kind=dp),
-  dimension(:, :), allocatable</small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
-private module function diag2_qp(x) result(diag)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:)</td><td>::</td>
-  <td><strong>x</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=qp),
   dimension(:, :), allocatable</small></h4>
   
     
@@ -1663,78 +1405,6 @@ private pure module function diff_1_int8(x, n) result(result)
   
   
      <h4>Return Value <small>integer(kind=int8),
-  dimension(:), allocatable</small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
-private pure module function diff_1_qp(x, n) result(result)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:)</td><td>::</td>
-  <td><strong>x</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>integer,</td>
-  <td>intent(in),</td>
-  <td>optional</td>
-  
-  <td></td><td>::</td>
-  <td><strong>n</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=qp),
   dimension(:), allocatable</small></h4>
   
     
@@ -2252,93 +1922,6 @@ private pure module function diff_2_int8(A, n, dim) result(result)
     
     
     <h3>
-private pure module function diff_2_qp(A, n, dim) result(result)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>A</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>integer,</td>
-  <td>intent(in),</td>
-  <td>optional</td>
-  
-  <td></td><td>::</td>
-  <td><strong>n</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>integer,</td>
-  <td>intent(in),</td>
-  <td>optional</td>
-  
-  <td></td><td>::</td>
-  <td><strong>dim</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=qp),
-  dimension(:, :), allocatable</small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
 private pure module function diff_2_sp(A, n, dim) result(result)
     
     
@@ -2468,54 +2051,6 @@ private module subroutine eye_dp(X)
 <tr>
   
   <td><span class="anchor" ></span>real(kind=dp),</td>
-  <td>intent(out)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>X</strong>(:,:)</td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
-private module subroutine eye_qp(X)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
   <td>intent(out)</td>
   <td></td>
   
@@ -2672,78 +2207,6 @@ private module function horzcat_c_12_dp(x1, A2) result(result)
     
     
     <h3>
-private module function horzcat_c_12_qp(x1, A2) result(result)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>complex(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:)</td><td>::</td>
-  <td><strong>x1</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>complex(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>A2</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>complex(kind=qp),
-  dimension(:, :), allocatable</small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
 private module function horzcat_c_12_sp(x1, A2) result(result)
     
     
@@ -2878,78 +2341,6 @@ private module function horzcat_c_1_dp(x1, x2) result(result)
   
   
      <h4>Return Value <small>complex(kind=dp),
-  dimension(:, :), allocatable</small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
-private module function horzcat_c_1_qp(x1, x2) result(result)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>complex(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:)</td><td>::</td>
-  <td><strong>x1</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>complex(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:)</td><td>::</td>
-  <td><strong>x2</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>complex(kind=qp),
   dimension(:, :), allocatable</small></h4>
   
     
@@ -3104,78 +2495,6 @@ private module function horzcat_c_21_dp(A1, x2) result(result)
     
     
     <h3>
-private module function horzcat_c_21_qp(A1, x2) result(result)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>complex(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>A1</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>complex(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:)</td><td>::</td>
-  <td><strong>x2</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>complex(kind=qp),
-  dimension(:, :), allocatable</small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
 private module function horzcat_c_21_sp(A1, x2) result(result)
     
     
@@ -3310,78 +2629,6 @@ private module function horzcat_c_2_dp(A1, A2) result(result)
   
   
      <h4>Return Value <small>complex(kind=dp),
-  dimension(:, :), allocatable</small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
-private module function horzcat_c_2_qp(A1, A2) result(result)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>complex(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>A1</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>complex(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>A2</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>complex(kind=qp),
   dimension(:, :), allocatable</small></h4>
   
     
@@ -4688,78 +3935,6 @@ private module function horzcat_r_12_dp(x1, A2) result(result)
     
     
     <h3>
-private module function horzcat_r_12_qp(x1, A2) result(result)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:)</td><td>::</td>
-  <td><strong>x1</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>A2</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=qp),
-  dimension(:, :), allocatable</small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
 private module function horzcat_r_12_sp(x1, A2) result(result)
     
     
@@ -4894,78 +4069,6 @@ private module function horzcat_r_1_dp(x1, x2) result(result)
   
   
      <h4>Return Value <small>real(kind=dp),
-  dimension(:, :), allocatable</small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
-private module function horzcat_r_1_qp(x1, x2) result(result)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:)</td><td>::</td>
-  <td><strong>x1</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:)</td><td>::</td>
-  <td><strong>x2</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=qp),
   dimension(:, :), allocatable</small></h4>
   
     
@@ -5120,78 +4223,6 @@ private module function horzcat_r_21_dp(A1, x2) result(result)
     
     
     <h3>
-private module function horzcat_r_21_qp(A1, x2) result(result)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>A1</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:)</td><td>::</td>
-  <td><strong>x2</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=qp),
-  dimension(:, :), allocatable</small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
 private module function horzcat_r_21_sp(A1, x2) result(result)
     
     
@@ -5326,78 +4357,6 @@ private module function horzcat_r_2_dp(A1, A2) result(result)
   
   
      <h4>Return Value <small>real(kind=dp),
-  dimension(:, :), allocatable</small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
-private module function horzcat_r_2_qp(A1, A2) result(result)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>A1</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>A2</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=qp),
   dimension(:, :), allocatable</small></h4>
   
     
@@ -5552,63 +4511,6 @@ private module function inv_cdp(A) result(inv)
     
     
     <h3>
-private module function inv_cqp(A) result(inv)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>complex(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>A</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>complex(kind=qp),
-  dimension(:, :), allocatable</small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
 private module function inv_csp(A) result(inv)
     
     
@@ -5713,63 +4615,6 @@ private module function inv_rdp(A) result(inv)
   
   
      <h4>Return Value <small>real(kind=dp),
-  dimension(:, :), allocatable</small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
-private module function inv_rqp(A) result(inv)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>A</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=qp),
   dimension(:, :), allocatable</small></h4>
   
     
@@ -5975,67 +4820,6 @@ private function is_square_rdp(A) result(is_square)
     
     
     <h3>
-private function is_square_rqp(A) result(is_square)
-    
-    
-   
-</h3>
-    
-
-
-
-<p>real(qp) matrix is square or not.</p>
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>A</strong>(:,:)</td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>logical
-  </small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
 private function is_square_csp(A) result(is_square)
     
     
@@ -6128,67 +4912,6 @@ private function is_square_cdp(A) result(is_square)
 <tr>
   
   <td><span class="anchor" ></span>complex(kind=dp),</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>A</strong>(:,:)</td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>logical
-  </small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
-private function is_square_cqp(A) result(is_square)
-    
-    
-   
-</h3>
-    
-
-
-
-<p>complex(qp) matrix is square or not.</p>
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>complex(kind=qp),</td>
   <td>intent(in)</td>
   <td></td>
   
@@ -6356,67 +5079,6 @@ private function is_symmetric_rdp(A) result(is_symmetric)
     
     
     <h3>
-private function is_symmetric_rqp(A) result(is_symmetric)
-    
-    
-   
-</h3>
-    
-
-
-
-<p>real(qp) matrix is symmetric or not.</p>
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>A</strong>(:,:)</td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>logical
-  </small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
 private function is_symmetric_csp(A) result(is_symmetric)
     
     
@@ -6535,67 +5197,6 @@ private function is_symmetric_cdp(A) result(is_symmetric)
 
     </li>
   
-    <li class="list-group-item">
-    
-    
-    <h3>
-private function is_symmetric_cqp(A) result(is_symmetric)
-    
-    
-   
-</h3>
-    
-
-
-
-<p>complex(qp) matrix is symmetric or not.</p>
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>complex(kind=qp),</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>A</strong>(:,:)</td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>logical
-  </small></h4>
-  
-    
-
-    </li>
-  
   
   </ul>
 </div>
@@ -6671,84 +5272,6 @@ private pure module subroutine linspace_dp(X, from, to)
 <tr>
   
   <td><span class="anchor" ></span>real(kind=dp),</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>to</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
-private pure module subroutine linspace_qp(X, from, to)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(out)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>X</strong>(:)</td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>from</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
   <td>intent(in)</td>
   <td></td>
   
@@ -6920,84 +5443,6 @@ private pure module subroutine logspace_dp(X, from, to)
 <tr>
   
   <td><span class="anchor" ></span>real(kind=dp),</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>to</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
-private pure module subroutine logspace_qp(X, from, to)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(out)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>X</strong>(:)</td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>from</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
   <td>intent(in)</td>
   <td></td>
   
@@ -7195,84 +5640,6 @@ private module subroutine lu_dp(A, L, U)
     
     
     <h3>
-private module subroutine lu_qp(A, L, U)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>A</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(out),</td>
-  <td></td>
-  
-  <td>dimension(:, :), allocatable</td><td>::</td>
-  <td><strong>L</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(out),</td>
-  <td></td>
-  
-  <td>dimension(:, :), allocatable</td><td>::</td>
-  <td><strong>U</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
 private module subroutine lu_sp(A, L, U)
     
     
@@ -7433,78 +5800,6 @@ private module function matpow_dp(a, num) result(c)
   
   
      <h4>Return Value <small>real(kind=dp),
-  allocatable, (:,:)</small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
-private module function matpow_qp(a, num) result(c)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>a</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>integer</td>
-  <td></td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>num</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=qp),
   allocatable, (:,:)</small></h4>
   
     
@@ -7679,78 +5974,6 @@ private module function norm1_dp(x, p)
     
     
     <h3>
-private module function norm1_qp(x, p)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:)</td><td>::</td>
-  <td><strong>x</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td>optional</td>
-  
-  <td></td><td>::</td>
-  <td><strong>p</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=qp)
-  </small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
 private module function norm1_sp(x, p)
     
     
@@ -7885,78 +6108,6 @@ private module function norm2_dp(A, p)
   
   
      <h4>Return Value <small>real(kind=dp)
-  </small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
-private module function norm2_qp(A, p)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>A</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td>optional</td>
-  
-  <td></td><td>::</td>
-  <td><strong>p</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=qp)
   </small></h4>
   
     
@@ -8332,63 +6483,6 @@ private module function inv_rdp(A) result(inv)
     
     
     <h3>
-private module function inv_rqp(A) result(inv)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>A</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=qp),
-  dimension(:, :), allocatable</small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
 private module function inv_csp(A) result(inv)
     
     
@@ -8499,63 +6593,6 @@ private module function inv_cdp(A) result(inv)
 
     </li>
   
-    <li class="list-group-item">
-    
-    
-    <h3>
-private module function inv_cqp(A) result(inv)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>complex(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>A</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>complex(kind=qp),
-  dimension(:, :), allocatable</small></h4>
-  
-    
-
-    </li>
-  
   
   </ul>
 </div>
@@ -8584,7 +6621,7 @@ private function rmut_sp(m1, m2) result(res)
 
 
 
-<p>complex(qp) matrix multiplication</p>
+<p>complex(dp) matrix multiplication</p>
     
     <h4>Arguments</h4>
     
@@ -8660,7 +6697,7 @@ private function rmut_dp(m1, m2) result(res)
 
 
 
-<p>complex(qp) matrix multiplication</p>
+<p>complex(dp) matrix multiplication</p>
     
     <h4>Arguments</h4>
     
@@ -8727,82 +6764,6 @@ private function rmut_dp(m1, m2) result(res)
     
     
     <h3>
-private function rmut_qp(m1, m2) result(res)
-    
-    
-   
-</h3>
-    
-
-
-
-<p>complex(qp) matrix multiplication</p>
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>m1</strong>(:,:)</td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>m2</strong>(:,:)</td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=qp)
-  (size(m1,1),size(m2,2))</small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
 private function cmut_sp(m1, m2) result(res)
     
     
@@ -8812,7 +6773,7 @@ private function cmut_sp(m1, m2) result(res)
 
 
 
-<p>complex(qp) matrix multiplication</p>
+<p>complex(dp) matrix multiplication</p>
     
     <h4>Arguments</h4>
     
@@ -8888,7 +6849,7 @@ private function cmut_dp(m1, m2) result(res)
 
 
 
-<p>complex(qp) matrix multiplication</p>
+<p>complex(dp) matrix multiplication</p>
     
     <h4>Arguments</h4>
     
@@ -8955,82 +6916,6 @@ private function cmut_dp(m1, m2) result(res)
     
     
     <h3>
-private function cmut_qp(m1, m2) result(res)
-    
-    
-   
-</h3>
-    
-
-
-
-<p>complex(qp) matrix multiplication</p>
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>complex(kind=qp),</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>m1</strong>(:,:)</td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>complex(kind=qp),</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>m2</strong>(:,:)</td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>complex(kind=qp)
-  (size(m1,1),size(m2,2))</small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
 private function rcmut_sp(m1, m2) result(res)
     
     
@@ -9040,7 +6925,7 @@ private function rcmut_sp(m1, m2) result(res)
 
 
 
-<p>complex(qp) matrix multiplication</p>
+<p>complex(dp) matrix multiplication</p>
     
     <h4>Arguments</h4>
     
@@ -9116,7 +7001,7 @@ private function rcmut_dp(m1, m2) result(res)
 
 
 
-<p>complex(qp) matrix multiplication</p>
+<p>complex(dp) matrix multiplication</p>
     
     <h4>Arguments</h4>
     
@@ -9183,82 +7068,6 @@ private function rcmut_dp(m1, m2) result(res)
     
     
     <h3>
-private function rcmut_qp(m1, m2) result(res)
-    
-    
-   
-</h3>
-    
-
-
-
-<p>complex(qp) matrix multiplication</p>
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>m1</strong>(:,:)</td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>complex(kind=qp),</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>m2</strong>(:,:)</td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>complex(kind=qp)
-  (size(m1,1),size(m2,2))</small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
 private function crmut_sp(m1, m2) result(res)
     
     
@@ -9268,7 +7077,7 @@ private function crmut_sp(m1, m2) result(res)
 
 
 
-<p>complex(qp) matrix multiplication</p>
+<p>complex(dp) matrix multiplication</p>
     
     <h4>Arguments</h4>
     
@@ -9344,7 +7153,7 @@ private function crmut_dp(m1, m2) result(res)
 
 
 
-<p>complex(qp) matrix multiplication</p>
+<p>complex(dp) matrix multiplication</p>
     
     <h4>Arguments</h4>
     
@@ -9401,82 +7210,6 @@ private function crmut_dp(m1, m2) result(res)
   
   
      <h4>Return Value <small>complex(kind=dp)
-  (size(m1,1),size(m2,2))</small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
-private function crmut_qp(m1, m2) result(res)
-    
-    
-   
-</h3>
-    
-
-
-
-<p>complex(qp) matrix multiplication</p>
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>complex(kind=qp),</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>m1</strong>(:,:)</td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>m2</strong>(:,:)</td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>complex(kind=qp)
   (size(m1,1),size(m2,2))</small></h4>
   
     
@@ -9861,78 +7594,6 @@ private module function outer_int8(x, y)
     
     
     <h3>
-private module function outer_qp(x, y)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:)</td><td>::</td>
-  <td><strong>x</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:)</td><td>::</td>
-  <td><strong>y</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=qp),
-  dimension(:, :), allocatable</small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
 private module function outer_sp(x, y)
     
     
@@ -10077,99 +7738,6 @@ private module subroutine qr_dp(a, q, r, l)
 <tr>
   
   <td><span class="anchor" ></span>real(kind=dp),</td>
-  <td>intent(out),</td>
-  <td></td>
-  
-  <td>allocatable</td><td>::</td>
-  <td><strong>r</strong>(:,:)</td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>integer,</td>
-  <td></td>
-  <td>optional</td>
-  
-  <td></td><td>::</td>
-  <td><strong>l</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
-private module subroutine qr_qp(a, q, r, l)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>a</strong>(:,:)</td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(out),</td>
-  <td></td>
-  
-  <td>allocatable</td><td>::</td>
-  <td><strong>q</strong>(:,:)</td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
   <td>intent(out),</td>
   <td></td>
   
@@ -10784,99 +8352,6 @@ private module subroutine seq_int8(X, from, to, by)
     
     
     <h3>
-private module subroutine seq_qp(X, from, to, by)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(out),</td>
-  <td></td>
-  
-  <td>dimension(:), allocatable</td><td>::</td>
-  <td><strong>X</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>from</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>to</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td>optional</td>
-  
-  <td></td><td>::</td>
-  <td><strong>by</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
 private module subroutine seq_sp(X, from, to, by)
     
     
@@ -11057,78 +8532,6 @@ private module function solve_dp(A, b) result(x)
     
     
     <h3>
-private module function solve_qp(A, b) result(x)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>A</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:)</td><td>::</td>
-  <td><strong>b</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=qp),
-  dimension(:), allocatable</small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
 private module function solve_sp(A, b) result(x)
     
     
@@ -11288,129 +8691,6 @@ private module subroutine svd_dp(a, w, u, v, d, ierr)
 <tr>
   
   <td><span class="anchor" ></span>real(kind=dp),</td>
-  <td>intent(out),</td>
-  <td>optional</td>
-  
-  <td>dimension(:, :), allocatable</td><td>::</td>
-  <td><strong>v</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>logical,</td>
-  <td>intent(in),</td>
-  <td>optional</td>
-  
-  <td></td><td>::</td>
-  <td><strong>d</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>integer,</td>
-  <td>intent(out),</td>
-  <td>optional</td>
-  
-  <td></td><td>::</td>
-  <td><strong>ierr</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
-private module subroutine svd_qp(a, w, u, v, d, ierr)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>a</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(out),</td>
-  <td></td>
-  
-  <td>dimension(:), allocatable</td><td>::</td>
-  <td><strong>w</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(out),</td>
-  <td>optional</td>
-  
-  <td>dimension(:, :), allocatable</td><td>::</td>
-  <td><strong>u</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
   <td>intent(out),</td>
   <td>optional</td>
   
@@ -11687,93 +8967,6 @@ private module function svdsolve_dp(A, b, cutoff) result(x)
     
     
     <h3>
-private module function svdsolve_qp(A, b, cutoff) result(x)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>A</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:)</td><td>::</td>
-  <td><strong>b</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>integer,</td>
-  <td>intent(in),</td>
-  <td>optional</td>
-  
-  <td></td><td>::</td>
-  <td><strong>cutoff</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=qp),
-  dimension(:), allocatable</small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
 private module function svdsolve_sp(A, b, cutoff) result(x)
     
     
@@ -11987,63 +9180,6 @@ private function trace_dp(A) result(trace)
 
     </li>
   
-    <li class="list-group-item">
-    
-    
-    <h3>
-private function trace_qp(A) result(trace)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>A</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=qp)
-  </small></h4>
-  
-    
-
-    </li>
-  
   
   </ul>
 </div>
@@ -12124,78 +9260,6 @@ private module function tril_cdp(A, k)
   
   
      <h4>Return Value <small>complex(kind=dp),
-  dimension(:, :), allocatable</small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
-private module function tril_cqp(A, k)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>complex(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>A</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>integer,</td>
-  <td>intent(in),</td>
-  <td>optional</td>
-  
-  <td></td><td>::</td>
-  <td><strong>k</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>complex(kind=qp),
   dimension(:, :), allocatable</small></h4>
   
     
@@ -12638,78 +9702,6 @@ private module function tril_int8(A, k)
     
     
     <h3>
-private module function tril_qp(A, k)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>A</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>integer,</td>
-  <td>intent(in),</td>
-  <td>optional</td>
-  
-  <td></td><td>::</td>
-  <td><strong>k</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=qp),
-  dimension(:, :), allocatable</small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
 private module function tril_sp(A, k)
     
     
@@ -12859,78 +9851,6 @@ private module function triu_cdp(A, k)
   
   
      <h4>Return Value <small>complex(kind=dp),
-  dimension(:, :), allocatable</small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
-private module function triu_cqp(A, k)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>complex(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>A</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>integer,</td>
-  <td>intent(in),</td>
-  <td>optional</td>
-  
-  <td></td><td>::</td>
-  <td><strong>k</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>complex(kind=qp),
   dimension(:, :), allocatable</small></h4>
   
     
@@ -13373,78 +10293,6 @@ private module function triu_int8(A, k)
     
     
     <h3>
-private module function triu_qp(A, k)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>A</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>integer,</td>
-  <td>intent(in),</td>
-  <td>optional</td>
-  
-  <td></td><td>::</td>
-  <td><strong>k</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=qp),
-  dimension(:, :), allocatable</small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
 private module function triu_sp(A, k)
     
     
@@ -13604,78 +10452,6 @@ private module function vertcat_c_12_dp(x1, A2) result(result)
     
     
     <h3>
-private module function vertcat_c_12_qp(x1, A2) result(result)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>complex(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:)</td><td>::</td>
-  <td><strong>x1</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>complex(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>A2</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>complex(kind=qp),
-  dimension(:, :), allocatable</small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
 private module function vertcat_c_12_sp(x1, A2) result(result)
     
     
@@ -13810,78 +10586,6 @@ private module function vertcat_c_1_dp(x1, x2) result(result)
   
   
      <h4>Return Value <small>complex(kind=dp),
-  dimension(:, :), allocatable</small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
-private module function vertcat_c_1_qp(x1, x2) result(result)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>complex(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:)</td><td>::</td>
-  <td><strong>x1</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>complex(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:)</td><td>::</td>
-  <td><strong>x2</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>complex(kind=qp),
   dimension(:, :), allocatable</small></h4>
   
     
@@ -14036,78 +10740,6 @@ private module function vertcat_c_21_dp(A1, x2) result(result)
     
     
     <h3>
-private module function vertcat_c_21_qp(A1, x2) result(result)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>complex(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>A1</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>complex(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:)</td><td>::</td>
-  <td><strong>x2</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>complex(kind=qp),
-  dimension(:, :), allocatable</small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
 private module function vertcat_c_21_sp(A1, x2) result(result)
     
     
@@ -14242,78 +10874,6 @@ private module function vertcat_c_2_dp(A1, A2) result(result)
   
   
      <h4>Return Value <small>complex(kind=dp),
-  dimension(:, :), allocatable</small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
-private module function vertcat_c_2_qp(A1, A2) result(result)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>complex(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>A1</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>complex(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>A2</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>complex(kind=qp),
   dimension(:, :), allocatable</small></h4>
   
     
@@ -15620,78 +12180,6 @@ private module function vertcat_r_12_dp(x1, A2) result(result)
     
     
     <h3>
-private module function vertcat_r_12_qp(x1, A2) result(result)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:)</td><td>::</td>
-  <td><strong>x1</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>A2</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=qp),
-  dimension(:, :), allocatable</small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
 private module function vertcat_r_12_sp(x1, A2) result(result)
     
     
@@ -15826,78 +12314,6 @@ private module function vertcat_r_1_dp(x1, x2) result(result)
   
   
      <h4>Return Value <small>real(kind=dp),
-  dimension(:, :), allocatable</small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
-private module function vertcat_r_1_qp(x1, x2) result(result)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:)</td><td>::</td>
-  <td><strong>x1</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:)</td><td>::</td>
-  <td><strong>x2</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=qp),
   dimension(:, :), allocatable</small></h4>
   
     
@@ -16052,78 +12468,6 @@ private module function vertcat_r_21_dp(A1, x2) result(result)
     
     
     <h3>
-private module function vertcat_r_21_qp(A1, x2) result(result)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>A1</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:)</td><td>::</td>
-  <td><strong>x2</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=qp),
-  dimension(:, :), allocatable</small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
 private module function vertcat_r_21_sp(A1, x2) result(result)
     
     
@@ -16258,78 +12602,6 @@ private module function vertcat_r_2_dp(A1, A2) result(result)
   
   
      <h4>Return Value <small>real(kind=dp),
-  dimension(:, :), allocatable</small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
-private module function vertcat_r_2_qp(A1, A2) result(result)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>A1</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>A2</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=qp),
   dimension(:, :), allocatable</small></h4>
   
     
@@ -16601,7 +12873,7 @@ private pure function zeros_2_default(dim1, dim2) result(result)
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
-             on 2021-11-07 14:22  
+             on 2021-11-20 06:33  
             
           </p>
         </div>

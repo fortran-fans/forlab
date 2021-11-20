@@ -138,7 +138,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title="<p> 3.0% of total for procedures.</p>Including implementation: 65 statements,  3.0% of total for procedures.">65 statements</a>
+    title="<p> 3.2% of total for procedures.</p>Including implementation: 56 statements,  3.2% of total for procedures.">56 statements</a>
      </li> 
      
      
@@ -203,8 +203,6 @@
       
       <a class="list-group-item" href="../interface/randu.html#proc-randu_0_rdp">randu_0_rdp</a>
       
-      <a class="list-group-item" href="../interface/randu.html#proc-randu_0_rqp">randu_0_rqp</a>
-      
       <a class="list-group-item" href="../interface/randu.html#proc-randu_0_rsp">randu_0_rsp</a>
       
       <a class="list-group-item" href="../interface/randu.html#proc-randu_1_iint16">randu_1_iint16</a>
@@ -216,8 +214,6 @@
       <a class="list-group-item" href="../interface/randu.html#proc-randu_1_iint8">randu_1_iint8</a>
       
       <a class="list-group-item" href="../interface/randu.html#proc-randu_1_rdp">randu_1_rdp</a>
-      
-      <a class="list-group-item" href="../interface/randu.html#proc-randu_1_rqp">randu_1_rqp</a>
       
       <a class="list-group-item" href="../interface/randu.html#proc-randu_1_rsp">randu_1_rsp</a>
       
@@ -279,8 +275,6 @@
       
       <a class="list-group-item" href="../interface/randu.html#proc-randu_0_rdp">randu_0_rdp</a>
       
-      <a class="list-group-item" href="../interface/randu.html#proc-randu_0_rqp">randu_0_rqp</a>
-      
       <a class="list-group-item" href="../interface/randu.html#proc-randu_0_rsp">randu_0_rsp</a>
       
       <a class="list-group-item" href="../interface/randu.html#proc-randu_1_iint16">randu_1_iint16</a>
@@ -292,8 +286,6 @@
       <a class="list-group-item" href="../interface/randu.html#proc-randu_1_iint8">randu_1_iint8</a>
       
       <a class="list-group-item" href="../interface/randu.html#proc-randu_1_rdp">randu_1_rdp</a>
-      
-      <a class="list-group-item" href="../interface/randu.html#proc-randu_1_rqp">randu_1_rqp</a>
       
       <a class="list-group-item" href="../interface/randu.html#proc-randu_1_rsp">randu_1_rsp</a>
       
@@ -684,81 +676,6 @@ private module function randu_0_rdp(start, end) result(random)
   
   
      <h4>Return Value <small>real(kind=dp)
-  </small></h4>
-  
-    
-
-  </div>
-  </div>
-
-   
-    
-  <div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="proc-randu_0_rqp"></span><h3>
-private module function randu_0_rqp(start, end) result(random)
-    
-    
-   
-</h3></div>
-  <div class="panel-body">
-       
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>start</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>end</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=qp)
   </small></h4>
   
     
@@ -1294,96 +1211,6 @@ private module function randu_1_rdp(start, end, ndim) result(random)
    
     
   <div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="proc-randu_1_rqp"></span><h3>
-private module function randu_1_rqp(start, end, ndim) result(random)
-    
-    
-   
-</h3></div>
-  <div class="panel-body">
-       
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>start</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>end</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>integer,</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>ndim</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=qp)
-  (ndim)</small></h4>
-  
-    
-
-  </div>
-  </div>
-
-   
-    
-  <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-randu_1_rsp"></span><h3>
 private module function randu_1_rsp(start, end, ndim) result(random)
     
@@ -1494,7 +1321,7 @@ private module function randu_1_rsp(start, end, ndim) result(random)
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
-             on 2021-11-07 14:22  
+             on 2021-11-20 06:33  
             
           </p>
         </div>

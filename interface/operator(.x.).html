@@ -136,7 +136,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title="<p> 0.6% of total for procedures.</p>Including implementation: 128 statements,  5.9% of total for procedures.">14 statements</a>
+    title="<p> 0.6% of total for procedures.</p>Including implementation: 86 statements,  5.0% of total for procedures.">10 statements</a>
      </li> 
      
      
@@ -202,25 +202,17 @@
       
       <a class="list-group-item" href="../interface/operator%28.x.%29.html#moduleprocedure-rmut_dp">rmut_dp</a>
       
-      <a class="list-group-item" href="../interface/operator%28.x.%29.html#moduleprocedure-rmut_qp">rmut_qp</a>
-      
       <a class="list-group-item" href="../interface/operator%28.x.%29.html#moduleprocedure-cmut_sp">cmut_sp</a>
       
       <a class="list-group-item" href="../interface/operator%28.x.%29.html#moduleprocedure-cmut_dp">cmut_dp</a>
-      
-      <a class="list-group-item" href="../interface/operator%28.x.%29.html#moduleprocedure-cmut_qp">cmut_qp</a>
       
       <a class="list-group-item" href="../interface/operator%28.x.%29.html#moduleprocedure-rcmut_sp">rcmut_sp</a>
       
       <a class="list-group-item" href="../interface/operator%28.x.%29.html#moduleprocedure-rcmut_dp">rcmut_dp</a>
       
-      <a class="list-group-item" href="../interface/operator%28.x.%29.html#moduleprocedure-rcmut_qp">rcmut_qp</a>
-      
       <a class="list-group-item" href="../interface/operator%28.x.%29.html#moduleprocedure-crmut_sp">crmut_sp</a>
       
       <a class="list-group-item" href="../interface/operator%28.x.%29.html#moduleprocedure-crmut_dp">crmut_dp</a>
-      
-      <a class="list-group-item" href="../interface/operator%28.x.%29.html#moduleprocedure-crmut_qp">crmut_qp</a>
       
     </div>
   </div>
@@ -273,25 +265,17 @@
       
       <a class="list-group-item" href="../interface/operator%28.x.%29.html#moduleprocedure-rmut_dp">rmut_dp</a>
       
-      <a class="list-group-item" href="../interface/operator%28.x.%29.html#moduleprocedure-rmut_qp">rmut_qp</a>
-      
       <a class="list-group-item" href="../interface/operator%28.x.%29.html#moduleprocedure-cmut_sp">cmut_sp</a>
       
       <a class="list-group-item" href="../interface/operator%28.x.%29.html#moduleprocedure-cmut_dp">cmut_dp</a>
-      
-      <a class="list-group-item" href="../interface/operator%28.x.%29.html#moduleprocedure-cmut_qp">cmut_qp</a>
       
       <a class="list-group-item" href="../interface/operator%28.x.%29.html#moduleprocedure-rcmut_sp">rcmut_sp</a>
       
       <a class="list-group-item" href="../interface/operator%28.x.%29.html#moduleprocedure-rcmut_dp">rcmut_dp</a>
       
-      <a class="list-group-item" href="../interface/operator%28.x.%29.html#moduleprocedure-rcmut_qp">rcmut_qp</a>
-      
       <a class="list-group-item" href="../interface/operator%28.x.%29.html#moduleprocedure-crmut_sp">crmut_sp</a>
       
       <a class="list-group-item" href="../interface/operator%28.x.%29.html#moduleprocedure-crmut_dp">crmut_dp</a>
-      
-      <a class="list-group-item" href="../interface/operator%28.x.%29.html#moduleprocedure-crmut_qp">crmut_qp</a>
       
     </div>
   </div>
@@ -324,7 +308,7 @@ private function rmut_sp(m1, m2) result(res)
 
 
 
-<p>complex(qp) matrix multiplication</p>
+<p>complex(dp) matrix multiplication</p>
     
     <h4>Arguments</h4>
     
@@ -403,7 +387,7 @@ private function rmut_dp(m1, m2) result(res)
 
 
 
-<p>complex(qp) matrix multiplication</p>
+<p>complex(dp) matrix multiplication</p>
     
     <h4>Arguments</h4>
     
@@ -470,85 +454,6 @@ private function rmut_dp(m1, m2) result(res)
    
     
   <div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="proc-rmut_qp"></span><h3>
-private function rmut_qp(m1, m2) result(res)
-    
-    
-   
-</h3></div>
-  <div class="panel-body">
-       
-    
-
-
-
-<p>complex(qp) matrix multiplication</p>
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>m1</strong>(:,:)</td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>m2</strong>(:,:)</td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=qp)
-  (size(m1,1),size(m2,2))</small></h4>
-  
-    
-
-  </div>
-  </div>
-
-   
-    
-  <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-cmut_sp"></span><h3>
 private function cmut_sp(m1, m2) result(res)
     
@@ -561,7 +466,7 @@ private function cmut_sp(m1, m2) result(res)
 
 
 
-<p>complex(qp) matrix multiplication</p>
+<p>complex(dp) matrix multiplication</p>
     
     <h4>Arguments</h4>
     
@@ -640,7 +545,7 @@ private function cmut_dp(m1, m2) result(res)
 
 
 
-<p>complex(qp) matrix multiplication</p>
+<p>complex(dp) matrix multiplication</p>
     
     <h4>Arguments</h4>
     
@@ -707,85 +612,6 @@ private function cmut_dp(m1, m2) result(res)
    
     
   <div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="proc-cmut_qp"></span><h3>
-private function cmut_qp(m1, m2) result(res)
-    
-    
-   
-</h3></div>
-  <div class="panel-body">
-       
-    
-
-
-
-<p>complex(qp) matrix multiplication</p>
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>complex(kind=qp),</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>m1</strong>(:,:)</td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>complex(kind=qp),</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>m2</strong>(:,:)</td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>complex(kind=qp)
-  (size(m1,1),size(m2,2))</small></h4>
-  
-    
-
-  </div>
-  </div>
-
-   
-    
-  <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-rcmut_sp"></span><h3>
 private function rcmut_sp(m1, m2) result(res)
     
@@ -798,7 +624,7 @@ private function rcmut_sp(m1, m2) result(res)
 
 
 
-<p>complex(qp) matrix multiplication</p>
+<p>complex(dp) matrix multiplication</p>
     
     <h4>Arguments</h4>
     
@@ -877,7 +703,7 @@ private function rcmut_dp(m1, m2) result(res)
 
 
 
-<p>complex(qp) matrix multiplication</p>
+<p>complex(dp) matrix multiplication</p>
     
     <h4>Arguments</h4>
     
@@ -944,85 +770,6 @@ private function rcmut_dp(m1, m2) result(res)
    
     
   <div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="proc-rcmut_qp"></span><h3>
-private function rcmut_qp(m1, m2) result(res)
-    
-    
-   
-</h3></div>
-  <div class="panel-body">
-       
-    
-
-
-
-<p>complex(qp) matrix multiplication</p>
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>m1</strong>(:,:)</td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>complex(kind=qp),</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>m2</strong>(:,:)</td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>complex(kind=qp)
-  (size(m1,1),size(m2,2))</small></h4>
-  
-    
-
-  </div>
-  </div>
-
-   
-    
-  <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-crmut_sp"></span><h3>
 private function crmut_sp(m1, m2) result(res)
     
@@ -1035,7 +782,7 @@ private function crmut_sp(m1, m2) result(res)
 
 
 
-<p>complex(qp) matrix multiplication</p>
+<p>complex(dp) matrix multiplication</p>
     
     <h4>Arguments</h4>
     
@@ -1114,7 +861,7 @@ private function crmut_dp(m1, m2) result(res)
 
 
 
-<p>complex(qp) matrix multiplication</p>
+<p>complex(dp) matrix multiplication</p>
     
     <h4>Arguments</h4>
     
@@ -1179,85 +926,6 @@ private function crmut_dp(m1, m2) result(res)
   </div>
 
    
-    
-  <div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="proc-crmut_qp"></span><h3>
-private function crmut_qp(m1, m2) result(res)
-    
-    
-   
-</h3></div>
-  <div class="panel-body">
-       
-    
-
-
-
-<p>complex(qp) matrix multiplication</p>
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>complex(kind=qp),</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>m1</strong>(:,:)</td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>m2</strong>(:,:)</td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>complex(kind=qp)
-  (size(m1,1),size(m2,2))</small></h4>
-  
-    
-
-  </div>
-  </div>
-
-   
      
 
  </div>
@@ -1276,7 +944,7 @@ private function crmut_qp(m1, m2) result(res)
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
-             on 2021-11-07 14:22  
+             on 2021-11-20 06:33  
             
           </p>
         </div>

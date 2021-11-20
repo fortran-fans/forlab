@@ -28,15 +28,6 @@ module forlab_stats
             real(dp), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: dim
         end function mean_2_dp
-        module function mean_1_qp(x) result(mean)
-            real(qp), dimension(:), intent(in) :: x
-            real(qp) :: mean
-        end function mean_1_qp
-        module function mean_2_qp(A, dim) result(mean)
-            real(qp), dimension(:), allocatable :: mean
-            real(qp), dimension(:, :), intent(in) :: A
-            integer, intent(in), optional :: dim
-        end function mean_2_qp
     end interface mean
 
     !> Version: Experimental
@@ -62,15 +53,6 @@ module forlab_stats
             integer, intent(in) :: ndim
             real(dp) :: random(ndim)
         end function randn_1_dp
-        module function randn_0_qp(mean, std) result(random)
-            real(qp), intent(in) :: mean, std
-            real(qp) :: random
-        end function randn_0_qp
-        module function randn_1_qp(mean, std, ndim) result(random)
-            real(qp), intent(in) :: mean, std
-            integer, intent(in) :: ndim
-            real(qp) :: random(ndim)
-        end function randn_1_qp
     end interface randn
 
     !> Version: Experimental
@@ -96,15 +78,6 @@ module forlab_stats
             integer, intent(in) :: ndim
             real(dp) :: random(ndim)
         end function randu_1_rdp
-        module function randu_0_rqp(start, end) result(random)
-            real(qp), intent(in) :: start, end
-            real(qp) :: random
-        end function randu_0_rqp
-        module function randu_1_rqp(start, end, ndim) result(random)
-            real(qp), intent(in) :: start, end
-            integer, intent(in) :: ndim
-            real(qp) :: random(ndim)
-        end function randu_1_rqp
         module function randu_0_iint8(start, end) result(random)
             integer(int8), intent(in) :: start, end
             integer(int8) :: random
@@ -170,15 +143,6 @@ module forlab_stats
             real(dp), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: w, dim
         end function var_2_dp
-        real(qp) module function var_1_qp(x, w)
-            real(qp), dimension(:), intent(in) :: x
-            integer, intent(in), optional :: w
-        end function var_1_qp
-        module function var_2_qp(A, w, dim)
-            real(qp), dimension(:), allocatable :: var_2_qp
-            real(qp), dimension(:, :), intent(in) :: A
-            integer, intent(in), optional :: w, dim
-        end function var_2_qp
     end interface var
     interface std
         !! `std` computes vector and matrix standard deviations.
@@ -201,15 +165,6 @@ module forlab_stats
             real(dp), dimension(:, :), intent(in) :: A
             integer, intent(in), optional :: w, dim
         end function std_2_dp
-        real(qp) module function std_1_qp(x, w)
-            real(qp), dimension(:), intent(in) :: x
-            integer, intent(in), optional :: w
-        end function std_1_qp
-        module function std_2_qp(A, w, dim)
-            real(qp), dimension(:), allocatable :: std_2_qp
-            real(qp), dimension(:, :), intent(in) :: A
-            integer, intent(in), optional :: w, dim
-        end function std_2_qp
     end interface std
 
 end module forlab_stats

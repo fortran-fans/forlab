@@ -66,36 +66,5 @@ contains
         end do
 
     end function randn_1_dp
-    module function randn_0_qp(mean, std) result(random)
-        real(qp), intent(in) :: mean, std
-        real(qp) :: random
-
-        real(qp) :: u, v, s
-
-        do
-            call random_number(u)
-            call random_number(v)
-            u = 2._qp*u - 1._qp
-            v = 2._qp*v - 1._qp
-            s = u*u + v*v
-            if ((s > 0._qp) .and. (s < 1._qp)) exit
-        end do
-
-        random = mean + u*sqrt(-2.0_qp*log(s)/s)*std
-
-    end function randn_0_qp
-
-    module function randn_1_qp(mean, std, ndim) result(random)
-        real(qp), intent(in) :: mean, std
-        integer, intent(in) :: ndim
-        real(qp) :: random(ndim)
-
-        integer :: i
-
-        do i = 1, ndim
-            random(i) = randn_0_qp(mean, std)
-        end do
-
-    end function randn_1_qp
 
 end submodule forlab_stats_randn

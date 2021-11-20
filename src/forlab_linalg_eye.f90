@@ -25,15 +25,5 @@ contains
     return
 
     end procedure eye_dp
-    module procedure eye_qp
-    integer :: i
-
-    X = 0
-    do i = 1, min(size(X, 1), size(X, 2))
-        X(i, i) = 1.0_qp
-    end do
-    return
-
-    end procedure eye_qp
 
 end submodule forlab_linalg_eye

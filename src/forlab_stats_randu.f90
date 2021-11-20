@@ -40,24 +40,6 @@ contains
         random = start + random*(end - start)
 
     end function randu_1_rdp
-    module function randu_0_rqp(start, end) result(random)
-        real(qp), intent(in) :: start, end
-        real(qp) :: random
-
-        call random_number(random)
-        random = start + random*(end - start)
-
-    end function randu_0_rqp
-
-    module function randu_1_rqp(start, end, ndim) result(random)
-        real(qp), intent(in) :: start, end
-        integer, intent(in) :: ndim
-        real(qp) :: random(ndim)
-
-        call random_number(random)
-        random = start + random*(end - start)
-
-    end function randu_1_rqp
 
     module function randu_0_iint8(start, end) result(random)
         integer(int8), intent(in) :: start, end

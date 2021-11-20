@@ -17,12 +17,5 @@ contains
         angle = acos(dot_product(x, y)/(norm2(x)*norm2(y)))
 
     end function angle_2_dp
-    pure module function angle_2_qp(x, y) result(angle)
-        real(qp), dimension(3), intent(in) :: x, y
-        real(qp) :: angle
-
-        angle = acos(dot_product(x, y)/(norm2(x)*norm2(y)))
-
-    end function angle_2_qp
 
 end submodule forlab_math_angle

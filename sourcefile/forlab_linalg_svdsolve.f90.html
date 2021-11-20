@@ -136,7 +136,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title=" 0.5% of total for source files.">55 statements</a>
+    title=" 0.4% of total for source files.">38 statements</a>
      </li> 
      
      
@@ -311,25 +311,8 @@
 <a id="ln-38" name="ln-38"></a>    <span class="k">end do</span>
 <a id="ln-39" name="ln-39"></a><span class="k">    </span><span class="n">x</span> <span class="o">=</span> <span class="nb">matmul</span><span class="p">(</span><span class="nb">matmul</span><span class="p">(</span><span class="nb">matmul</span><span class="p">(</span><span class="n">V</span><span class="p">(:,</span> <span class="p">:</span><span class="n">k</span><span class="p">),</span> <span class="n">diag</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">w</span><span class="p">(:</span><span class="n">k</span><span class="p">))),</span> <span class="nb">transpose</span><span class="p">(</span><span class="n">U</span><span class="p">(:,</span> <span class="p">:</span><span class="n">k</span><span class="p">))),</span> <span class="n">b</span><span class="p">)</span>
 <a id="ln-40" name="ln-40"></a>    <span class="k">end procedure </span><span class="n">svdsolve_dp</span>
-<a id="ln-41" name="ln-41"></a>    <span class="k">module procedure </span><span class="n">svdsolve_qp</span>
-<a id="ln-42" name="ln-42"></a>    <span class="kt">integer</span> <span class="kd">::</span> <span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">n</span>
-<a id="ln-43" name="ln-43"></a>    <span class="kt">real</span><span class="p">(</span><span class="n">qp</span><span class="p">),</span> <span class="k">dimension</span><span class="p">(:),</span> <span class="k">allocatable</span> <span class="kd">::</span> <span class="n">w</span><span class="p">,</span> <span class="n">xnorm</span><span class="p">,</span> <span class="n">resnorm</span>
-<a id="ln-44" name="ln-44"></a>    <span class="kt">real</span><span class="p">(</span><span class="n">qp</span><span class="p">),</span> <span class="k">dimension</span><span class="p">(:,</span> <span class="p">:),</span> <span class="k">allocatable</span> <span class="kd">::</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span>
-<a id="ln-45" name="ln-45"></a>    <span class="n">n</span> <span class="o">=</span> <span class="n">size</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<a id="ln-46" name="ln-46"></a>    <span class="n">k</span> <span class="o">=</span> <span class="n">n</span>
-<a id="ln-47" name="ln-47"></a>    <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">cutoff</span><span class="p">))</span> <span class="n">k</span> <span class="o">=</span> <span class="n">k</span> <span class="o">-</span> <span class="n">cutoff</span>
-<a id="ln-48" name="ln-48"></a>    <span class="n">xnorm</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-<a id="ln-49" name="ln-49"></a>    <span class="n">resnorm</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-<a id="ln-50" name="ln-50"></a>    <span class="k">call </span><span class="n">svd</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="p">)</span>
-<a id="ln-51" name="ln-51"></a>    <span class="k">do </span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span>
-<a id="ln-52" name="ln-52"></a>        <span class="n">x</span> <span class="o">=</span> <span class="nb">matmul</span><span class="p">(</span><span class="nb">matmul</span><span class="p">(</span><span class="nb">matmul</span><span class="p">(</span><span class="n">V</span><span class="p">(:,</span> <span class="p">:</span><span class="n">i</span><span class="p">),</span> <span class="n">diag</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">w</span><span class="p">(:</span><span class="n">i</span><span class="p">))),</span> <span class="nb">transpose</span><span class="p">(</span><span class="n">U</span><span class="p">(:,</span> <span class="p">:</span><span class="n">i</span><span class="p">))),</span> <span class="n">b</span><span class="p">)</span>
-<a id="ln-53" name="ln-53"></a>        <span class="n">xnorm</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<a id="ln-54" name="ln-54"></a>        <span class="n">resnorm</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="nb">matmul</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span>
-<a id="ln-55" name="ln-55"></a>    <span class="k">end do</span>
-<a id="ln-56" name="ln-56"></a><span class="k">    </span><span class="n">x</span> <span class="o">=</span> <span class="nb">matmul</span><span class="p">(</span><span class="nb">matmul</span><span class="p">(</span><span class="nb">matmul</span><span class="p">(</span><span class="n">V</span><span class="p">(:,</span> <span class="p">:</span><span class="n">k</span><span class="p">),</span> <span class="n">diag</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">w</span><span class="p">(:</span><span class="n">k</span><span class="p">))),</span> <span class="nb">transpose</span><span class="p">(</span><span class="n">U</span><span class="p">(:,</span> <span class="p">:</span><span class="n">k</span><span class="p">))),</span> <span class="n">b</span><span class="p">)</span>
-<a id="ln-57" name="ln-57"></a>    <span class="k">end procedure </span><span class="n">svdsolve_qp</span>
-<a id="ln-58" name="ln-58"></a>
-<a id="ln-59" name="ln-59"></a><span class="k">end submodule </span><span class="n">forlab_linalg_svdsolve</span>
+<a id="ln-41" name="ln-41"></a>
+<a id="ln-42" name="ln-42"></a><span class="k">end submodule </span><span class="n">forlab_linalg_svdsolve</span>
 </pre></div>
 
     </section>
@@ -349,7 +332,7 @@
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
-             on 2021-11-07 14:22  
+             on 2021-11-20 06:33  
             
           </p>
         </div>

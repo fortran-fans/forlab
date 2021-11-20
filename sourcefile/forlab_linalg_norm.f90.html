@@ -136,7 +136,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title=" 0.9% of total for source files.">106 statements</a>
+    title=" 0.8% of total for source files.">72 statements</a>
      </li> 
      
      
@@ -349,44 +349,8 @@
 <a id="ln-76" name="ln-76"></a><span class="k">            </span><span class="n">norm2_dp</span> <span class="o">=</span> <span class="nb">maxval</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">A</span><span class="p">),</span> <span class="nb">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
 <a id="ln-77" name="ln-77"></a>        <span class="k">end if</span>
 <a id="ln-78" name="ln-78"></a><span class="k">    end function </span><span class="n">norm2_dp</span>
-<a id="ln-79" name="ln-79"></a>    <span class="kt">real</span><span class="p">(</span><span class="n">qp</span><span class="p">)</span> <span class="k">module function </span><span class="n">norm1_qp</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
-<a id="ln-80" name="ln-80"></a>        <span class="kt">real</span><span class="p">(</span><span class="n">qp</span><span class="p">),</span> <span class="k">dimension</span><span class="p">(:),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">x</span>
-<a id="ln-81" name="ln-81"></a>        <span class="kt">real</span><span class="p">(</span><span class="n">qp</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span> <span class="k">optional</span> <span class="kd">::</span> <span class="n">p</span>
-<a id="ln-82" name="ln-82"></a>        <span class="kt">real</span><span class="p">(</span><span class="n">qp</span><span class="p">)</span><span class="kd">::</span><span class="n">temp</span>
-<a id="ln-83" name="ln-83"></a>        <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">present</span><span class="p">(</span><span class="n">p</span><span class="p">))</span> <span class="k">then</span>
-<a id="ln-84" name="ln-84"></a><span class="k">            </span><span class="n">temp</span> <span class="o">=</span> <span class="mf">2.0_qp</span>
-<a id="ln-85" name="ln-85"></a>        <span class="k">else</span>
-<a id="ln-86" name="ln-86"></a><span class="k">            </span><span class="n">temp</span> <span class="o">=</span> <span class="n">p</span>
-<a id="ln-87" name="ln-87"></a>        <span class="k">end if</span>
-<a id="ln-88" name="ln-88"></a>
-<a id="ln-89" name="ln-89"></a><span class="k">        if</span> <span class="p">(</span><span class="n">temp</span> <span class="o">==</span> <span class="mf">2.0_qp</span><span class="p">)</span> <span class="k">then</span>
-<a id="ln-90" name="ln-90"></a><span class="k">            </span><span class="n">norm1_qp</span> <span class="o">=</span> <span class="nb">sqrt</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
-<a id="ln-91" name="ln-91"></a>        <span class="n">elseif</span> <span class="p">(</span><span class="n">temp</span> <span class="o">==</span> <span class="mf">1.0_qp</span><span class="p">)</span> <span class="k">then</span>
-<a id="ln-92" name="ln-92"></a><span class="k">            </span><span class="n">norm1_qp</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-<a id="ln-93" name="ln-93"></a>        <span class="k">else</span>
-<a id="ln-94" name="ln-94"></a><span class="k">            </span><span class="n">norm1_qp</span> <span class="o">=</span> <span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="n">p</span><span class="p">))</span><span class="o">**</span><span class="p">(</span><span class="mf">1.0_qp</span><span class="o">/</span><span class="n">p</span><span class="p">)</span>
-<a id="ln-95" name="ln-95"></a>        <span class="k">end if</span>
-<a id="ln-96" name="ln-96"></a><span class="k">    end function </span><span class="n">norm1_qp</span>
-<a id="ln-97" name="ln-97"></a>
-<a id="ln-98" name="ln-98"></a>    <span class="kt">real</span><span class="p">(</span><span class="n">qp</span><span class="p">)</span> <span class="k">module function </span><span class="n">norm2_qp</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
-<a id="ln-99" name="ln-99"></a>        <span class="kt">real</span><span class="p">(</span><span class="n">qp</span><span class="p">),</span> <span class="k">dimension</span><span class="p">(:,</span> <span class="p">:),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">A</span>
-<a id="ln-100" name="ln-100"></a>        <span class="kt">real</span><span class="p">(</span><span class="n">qp</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span> <span class="k">optional</span> <span class="kd">::</span> <span class="n">p</span>
-<a id="ln-101" name="ln-101"></a>        <span class="kt">real</span><span class="p">(</span><span class="n">qp</span><span class="p">)</span><span class="kd">::</span><span class="n">temp</span>
-<a id="ln-102" name="ln-102"></a>        <span class="kt">real</span><span class="p">(</span><span class="n">qp</span><span class="p">),</span> <span class="k">dimension</span><span class="p">(:),</span> <span class="k">allocatable</span> <span class="kd">::</span> <span class="n">w</span>
-<a id="ln-103" name="ln-103"></a>        <span class="k">if</span> <span class="p">(.</span><span class="nb">not</span><span class="p">.</span> <span class="nb">present</span><span class="p">(</span><span class="n">p</span><span class="p">))</span> <span class="k">then</span>
-<a id="ln-104" name="ln-104"></a><span class="k">            </span><span class="n">temp</span> <span class="o">=</span> <span class="mf">2.0_qp</span>
-<a id="ln-105" name="ln-105"></a>        <span class="k">else</span>
-<a id="ln-106" name="ln-106"></a><span class="k">            </span><span class="n">temp</span> <span class="o">=</span> <span class="n">p</span>
-<a id="ln-107" name="ln-107"></a>        <span class="k">end if</span>
-<a id="ln-108" name="ln-108"></a><span class="k">        if</span> <span class="p">(</span><span class="n">temp</span> <span class="o">==</span> <span class="mf">2.0_qp</span><span class="p">)</span> <span class="k">then</span>
-<a id="ln-109" name="ln-109"></a><span class="k">            call </span><span class="n">svd</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
-<a id="ln-110" name="ln-110"></a>            <span class="n">norm2_qp</span> <span class="o">=</span> <span class="nb">maxval</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
-<a id="ln-111" name="ln-111"></a>        <span class="n">elseif</span> <span class="p">(</span><span class="n">temp</span> <span class="o">==</span> <span class="mf">1.0_qp</span><span class="p">)</span> <span class="k">then</span>
-<a id="ln-112" name="ln-112"></a><span class="k">            </span><span class="n">norm2_qp</span> <span class="o">=</span> <span class="nb">maxval</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">A</span><span class="p">),</span> <span class="nb">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
-<a id="ln-113" name="ln-113"></a>        <span class="k">end if</span>
-<a id="ln-114" name="ln-114"></a><span class="k">    end function </span><span class="n">norm2_qp</span>
-<a id="ln-115" name="ln-115"></a>
-<a id="ln-116" name="ln-116"></a><span class="k">end submodule </span><span class="n">forlab_linalg_norm</span>
+<a id="ln-79" name="ln-79"></a>
+<a id="ln-80" name="ln-80"></a><span class="k">end submodule </span><span class="n">forlab_linalg_norm</span>
 </pre></div>
 
     </section>
@@ -406,7 +370,7 @@
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
-             on 2021-11-07 14:22  
+             on 2021-11-20 06:33  
             
           </p>
         </div>

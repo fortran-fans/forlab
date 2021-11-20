@@ -138,7 +138,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title="<p> 3.3% of total for procedures.</p>Including implementation: 72 statements,  3.3% of total for procedures.">72 statements</a>
+    title="<p> 3.6% of total for procedures.</p>Including implementation: 62 statements,  3.6% of total for procedures.">62 statements</a>
      </li> 
      
      
@@ -203,8 +203,6 @@
       
       <a class="list-group-item" href="../interface/diff.html#proc-diff_1_int8">diff_1_int8</a>
       
-      <a class="list-group-item" href="../interface/diff.html#proc-diff_1_qp">diff_1_qp</a>
-      
       <a class="list-group-item" href="../interface/diff.html#proc-diff_1_sp">diff_1_sp</a>
       
       <a class="list-group-item" href="../interface/diff.html#proc-diff_2_dp">diff_2_dp</a>
@@ -216,8 +214,6 @@
       <a class="list-group-item" href="../interface/diff.html#proc-diff_2_int64">diff_2_int64</a>
       
       <a class="list-group-item" href="../interface/diff.html#proc-diff_2_int8">diff_2_int8</a>
-      
-      <a class="list-group-item" href="../interface/diff.html#proc-diff_2_qp">diff_2_qp</a>
       
       <a class="list-group-item" href="../interface/diff.html#proc-diff_2_sp">diff_2_sp</a>
       
@@ -279,8 +275,6 @@
       
       <a class="list-group-item" href="../interface/diff.html#proc-diff_1_int8">diff_1_int8</a>
       
-      <a class="list-group-item" href="../interface/diff.html#proc-diff_1_qp">diff_1_qp</a>
-      
       <a class="list-group-item" href="../interface/diff.html#proc-diff_1_sp">diff_1_sp</a>
       
       <a class="list-group-item" href="../interface/diff.html#proc-diff_2_dp">diff_2_dp</a>
@@ -292,8 +286,6 @@
       <a class="list-group-item" href="../interface/diff.html#proc-diff_2_int64">diff_2_int64</a>
       
       <a class="list-group-item" href="../interface/diff.html#proc-diff_2_int8">diff_2_int8</a>
-      
-      <a class="list-group-item" href="../interface/diff.html#proc-diff_2_qp">diff_2_qp</a>
       
       <a class="list-group-item" href="../interface/diff.html#proc-diff_2_sp">diff_2_sp</a>
       
@@ -684,81 +676,6 @@ private pure module function diff_1_int8(x, n) result(result)
   
   
      <h4>Return Value <small>integer(kind=int8),
-  dimension(:), allocatable</small></h4>
-  
-    
-
-  </div>
-  </div>
-
-   
-    
-  <div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="proc-diff_1_qp"></span><h3>
-private pure module function diff_1_qp(x, n) result(result)
-    
-    
-   
-</h3></div>
-  <div class="panel-body">
-       
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:)</td><td>::</td>
-  <td><strong>x</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>integer,</td>
-  <td>intent(in),</td>
-  <td>optional</td>
-  
-  <td></td><td>::</td>
-  <td><strong>n</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=qp),
   dimension(:), allocatable</small></h4>
   
     
@@ -1294,96 +1211,6 @@ private pure module function diff_2_int8(A, n, dim) result(result)
    
     
   <div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="proc-diff_2_qp"></span><h3>
-private pure module function diff_2_qp(A, n, dim) result(result)
-    
-    
-   
-</h3></div>
-  <div class="panel-body">
-       
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=qp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>A</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>integer,</td>
-  <td>intent(in),</td>
-  <td>optional</td>
-  
-  <td></td><td>::</td>
-  <td><strong>n</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>integer,</td>
-  <td>intent(in),</td>
-  <td>optional</td>
-  
-  <td></td><td>::</td>
-  <td><strong>dim</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=qp),
-  dimension(:, :), allocatable</small></h4>
-  
-    
-
-  </div>
-  </div>
-
-   
-    
-  <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="proc-diff_2_sp"></span><h3>
 private pure module function diff_2_sp(A, n, dim) result(result)
     
@@ -1494,7 +1321,7 @@ private pure module function diff_2_sp(A, n, dim) result(result)
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
-             on 2021-11-07 14:22  
+             on 2021-11-20 06:33  
             
           </p>
         </div>

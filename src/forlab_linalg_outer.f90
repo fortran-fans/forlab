@@ -60,14 +60,5 @@ contains
               source=spread(x, 2, n)*spread(y, 1, m))
 
     end procedure outer_dp
-    module procedure outer_qp
-    integer :: m, n
-
-    m = size(x)
-    n = size(y)
-    allocate (outer_qp, &
-              source=spread(x, 2, n)*spread(y, 1, m))
-
-    end procedure outer_qp
 
 end submodule forlab_linalg_outer
