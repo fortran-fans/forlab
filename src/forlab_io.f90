@@ -75,24 +75,6 @@ module forlab_io
             integer, intent(in), optional :: unit
             logical, intent(in), optional :: brief
         end subroutine disp_2_rdp
-        module subroutine disp_0_rqp(x, header, unit, brief)
-            real(qp), intent(in) :: x
-            character(len=*), intent(in), optional :: header
-            integer, intent(in), optional :: unit
-            logical, intent(in), optional :: brief
-        end subroutine disp_0_rqp
-        module subroutine disp_1_rqp(x, header, unit, brief)
-            real(qp), intent(in) :: x(:)
-            character(len=*), intent(in), optional :: header
-            integer, intent(in), optional :: unit
-            logical, intent(in), optional :: brief
-        end subroutine disp_1_rqp
-        module subroutine disp_2_rqp(x, header, unit, brief)
-            real(qp), intent(in) :: x(:, :)
-            character(len=*), intent(in), optional :: header
-            integer, intent(in), optional :: unit
-            logical, intent(in), optional :: brief
-        end subroutine disp_2_rqp
         module subroutine disp_0_iint8(x, header, unit, brief)
             integer(int8), intent(in) :: x
             character(len=*), intent(in), optional :: header
@@ -201,24 +183,6 @@ module forlab_io
             integer, intent(in), optional :: unit
             logical, intent(in), optional :: brief
         end subroutine disp_2_cdp
-        module subroutine disp_0_cqp(x, header, unit, brief)
-            complex(qp), intent(in) :: x
-            character(len=*), intent(in), optional :: header
-            integer, intent(in), optional :: unit
-            logical, intent(in), optional :: brief
-        end subroutine disp_0_cqp
-        module subroutine disp_1_cqp(x, header, unit, brief)
-            complex(qp), intent(in) :: x(:)
-            character(len=*), intent(in), optional :: header
-            integer, intent(in), optional :: unit
-            logical, intent(in), optional :: brief
-        end subroutine disp_1_cqp
-        module subroutine disp_2_cqp(x, header, unit, brief)
-            complex(qp), intent(in) :: x(:, :)
-            character(len=*), intent(in), optional :: header
-            integer, intent(in), optional :: unit
-            logical, intent(in), optional :: brief
-        end subroutine disp_2_cqp
         module subroutine disp_0_llk(x, header, unit, brief)
             logical(lk), intent(in) :: x
             character(len=*), intent(in), optional :: header
@@ -290,10 +254,6 @@ module forlab_io
             character(len=*), intent(in) :: filename
             real(dp), dimension(:), allocatable, intent(out) :: X
         end subroutine
-        module subroutine loadbin_1_rqp(filename, X)
-            character(len=*), intent(in) :: filename
-            real(qp), dimension(:), allocatable, intent(out) :: X
-        end subroutine
         module subroutine loadbin_1_iint8(filename, X)
             character(len=*), intent(in) :: filename
             integer(int8), dimension(:), allocatable, intent(out) :: X
@@ -318,10 +278,6 @@ module forlab_io
             character(len=*), intent(in) :: filename
             complex(dp), dimension(:), allocatable, intent(out) :: X
         end subroutine
-        module subroutine loadbin_1_cqp(filename, X)
-            character(len=*), intent(in) :: filename
-            complex(qp), dimension(:), allocatable, intent(out) :: X
-        end subroutine
         module subroutine loadbin_2_rsp(filename, X)
             character(len=*), intent(in) :: filename
             real(sp), dimension(:, :), allocatable, intent(out) :: X
@@ -329,10 +285,6 @@ module forlab_io
         module subroutine loadbin_2_rdp(filename, X)
             character(len=*), intent(in) :: filename
             real(dp), dimension(:, :), allocatable, intent(out) :: X
-        end subroutine
-        module subroutine loadbin_2_rqp(filename, X)
-            character(len=*), intent(in) :: filename
-            real(qp), dimension(:, :), allocatable, intent(out) :: X
         end subroutine
         module subroutine loadbin_2_iint8(filename, X)
             character(len=*), intent(in) :: filename
@@ -358,10 +310,6 @@ module forlab_io
             character(len=*), intent(in) :: filename
             complex(dp), dimension(:, :), allocatable, intent(out) :: X
         end subroutine
-        module subroutine loadbin_2_cqp(filename, X)
-            character(len=*), intent(in) :: filename
-            complex(qp), dimension(:, :), allocatable, intent(out) :: X
-        end subroutine
         module subroutine loadbin_3_rsp(filename, X)
             character(len=*), intent(in) :: filename
             real(sp), dimension(:, :, :), allocatable, intent(out) :: X
@@ -369,10 +317,6 @@ module forlab_io
         module subroutine loadbin_3_rdp(filename, X)
             character(len=*), intent(in) :: filename
             real(dp), dimension(:, :, :), allocatable, intent(out) :: X
-        end subroutine
-        module subroutine loadbin_3_rqp(filename, X)
-            character(len=*), intent(in) :: filename
-            real(qp), dimension(:, :, :), allocatable, intent(out) :: X
         end subroutine
         module subroutine loadbin_3_iint8(filename, X)
             character(len=*), intent(in) :: filename
@@ -398,10 +342,6 @@ module forlab_io
             character(len=*), intent(in) :: filename
             complex(dp), dimension(:, :, :), allocatable, intent(out) :: X
         end subroutine
-        module subroutine loadbin_3_cqp(filename, X)
-            character(len=*), intent(in) :: filename
-            complex(qp), dimension(:, :, :), allocatable, intent(out) :: X
-        end subroutine
     end interface
 
     interface loadtxt
@@ -412,10 +352,6 @@ module forlab_io
         module subroutine loadtxt_1_rdp(filename, X)
             character(len=*), intent(in) :: filename
             real(dp), dimension(:), allocatable, intent(out) :: X
-        end subroutine
-        module subroutine loadtxt_1_rqp(filename, X)
-            character(len=*), intent(in) :: filename
-            real(qp), dimension(:), allocatable, intent(out) :: X
         end subroutine
         module subroutine loadtxt_1_iint8(filename, X)
             character(len=*), intent(in) :: filename
@@ -441,10 +377,6 @@ module forlab_io
             character(len=*), intent(in) :: filename
             complex(dp), dimension(:), allocatable, intent(out) :: X
         end subroutine
-        module subroutine loadtxt_1_cqp(filename, X)
-            character(len=*), intent(in) :: filename
-            complex(qp), dimension(:), allocatable, intent(out) :: X
-        end subroutine
         module subroutine loadtxt_2_rsp(filename, X)
             character(len=*), intent(in) :: filename
             real(sp), dimension(:, :), allocatable, intent(out) :: X
@@ -452,10 +384,6 @@ module forlab_io
         module subroutine loadtxt_2_rdp(filename, X)
             character(len=*), intent(in) :: filename
             real(dp), dimension(:, :), allocatable, intent(out) :: X
-        end subroutine
-        module subroutine loadtxt_2_rqp(filename, X)
-            character(len=*), intent(in) :: filename
-            real(qp), dimension(:, :), allocatable, intent(out) :: X
         end subroutine
         module subroutine loadtxt_2_iint8(filename, X)
             character(len=*), intent(in) :: filename
@@ -481,10 +409,6 @@ module forlab_io
             character(len=*), intent(in) :: filename
             complex(dp), dimension(:, :), allocatable, intent(out) :: X
         end subroutine
-        module subroutine loadtxt_2_cqp(filename, X)
-            character(len=*), intent(in) :: filename
-            complex(qp), dimension(:, :), allocatable, intent(out) :: X
-        end subroutine
     end interface
 
     interface savebin
@@ -495,10 +419,6 @@ module forlab_io
         module subroutine savebin_1_rdp(filename, X)
             character(len=*), intent(in) :: filename
             real(dp), dimension(:), intent(in) :: X
-        end subroutine
-        module subroutine savebin_1_rqp(filename, X)
-            character(len=*), intent(in) :: filename
-            real(qp), dimension(:), intent(in) :: X
         end subroutine
         module subroutine savebin_1_iint8(filename, X)
             character(len=*), intent(in) :: filename
@@ -524,10 +444,6 @@ module forlab_io
             character(len=*), intent(in) :: filename
             complex(dp), dimension(:), intent(in) :: X
         end subroutine
-        module subroutine savebin_1_cqp(filename, X)
-            character(len=*), intent(in) :: filename
-            complex(qp), dimension(:), intent(in) :: X
-        end subroutine
         module subroutine savebin_2_rsp(filename, X)
             character(len=*), intent(in) :: filename
             real(sp), dimension(:, :), intent(in) :: X
@@ -535,10 +451,6 @@ module forlab_io
         module subroutine savebin_2_rdp(filename, X)
             character(len=*), intent(in) :: filename
             real(dp), dimension(:, :), intent(in) :: X
-        end subroutine
-        module subroutine savebin_2_rqp(filename, X)
-            character(len=*), intent(in) :: filename
-            real(qp), dimension(:, :), intent(in) :: X
         end subroutine
         module subroutine savebin_2_iint8(filename, X)
             character(len=*), intent(in) :: filename
@@ -564,10 +476,6 @@ module forlab_io
             character(len=*), intent(in) :: filename
             complex(dp), dimension(:, :), intent(in) :: X
         end subroutine
-        module subroutine savebin_2_cqp(filename, X)
-            character(len=*), intent(in) :: filename
-            complex(qp), dimension(:, :), intent(in) :: X
-        end subroutine
         module subroutine savebin_3_rsp(filename, X)
             character(len=*), intent(in) :: filename
             real(sp), dimension(:, :, :), intent(in) :: X
@@ -575,10 +483,6 @@ module forlab_io
         module subroutine savebin_3_rdp(filename, X)
             character(len=*), intent(in) :: filename
             real(dp), dimension(:, :, :), intent(in) :: X
-        end subroutine
-        module subroutine savebin_3_rqp(filename, X)
-            character(len=*), intent(in) :: filename
-            real(qp), dimension(:, :, :), intent(in) :: X
         end subroutine
         module subroutine savebin_3_iint8(filename, X)
             character(len=*), intent(in) :: filename
@@ -604,10 +508,6 @@ module forlab_io
             character(len=*), intent(in) :: filename
             complex(dp), dimension(:, :, :), intent(in) :: X
         end subroutine
-        module subroutine savebin_3_cqp(filename, X)
-            character(len=*), intent(in) :: filename
-            complex(qp), dimension(:, :, :), intent(in) :: X
-        end subroutine
     end interface savebin
 
     interface savetxt
@@ -618,10 +518,6 @@ module forlab_io
         module subroutine savetxt_1_rdp(filename, X)
             character(len=*), intent(in) :: filename
             real(dp), dimension(:), intent(in) :: X
-        end subroutine
-        module subroutine savetxt_1_rqp(filename, X)
-            character(len=*), intent(in) :: filename
-            real(qp), dimension(:), intent(in) :: X
         end subroutine
         module subroutine savetxt_1_iint8(filename, X)
             character(len=*), intent(in) :: filename
@@ -647,10 +543,6 @@ module forlab_io
             character(len=*), intent(in) :: filename
             complex(dp), dimension(:), intent(in) :: X
         end subroutine
-        module subroutine savetxt_1_cqp(filename, X)
-            character(len=*), intent(in) :: filename
-            complex(qp), dimension(:), intent(in) :: X
-        end subroutine
         module subroutine savetxt_2_rsp(filename, X)
             character(len=*), intent(in) :: filename
             real(sp), dimension(:, :), intent(in) :: X
@@ -658,10 +550,6 @@ module forlab_io
         module subroutine savetxt_2_rdp(filename, X)
             character(len=*), intent(in) :: filename
             real(dp), dimension(:, :), intent(in) :: X
-        end subroutine
-        module subroutine savetxt_2_rqp(filename, X)
-            character(len=*), intent(in) :: filename
-            real(qp), dimension(:, :), intent(in) :: X
         end subroutine
         module subroutine savetxt_2_iint8(filename, X)
             character(len=*), intent(in) :: filename
@@ -686,10 +574,6 @@ module forlab_io
         module subroutine savetxt_2_cdp(filename, X)
             character(len=*), intent(in) :: filename
             complex(dp), dimension(:, :), intent(in) :: X
-        end subroutine
-        module subroutine savetxt_2_cqp(filename, X)
-            character(len=*), intent(in) :: filename
-            complex(qp), dimension(:, :), intent(in) :: X
         end subroutine
     end interface savetxt
 

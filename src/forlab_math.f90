@@ -23,10 +23,6 @@ module forlab_math
             real(dp), intent(in)::x
             real(dp)::acosd_dp
         end function acosd_dp
-        pure elemental module function acosd_qp(x)
-            real(qp), intent(in)::x
-            real(qp)::acosd_qp
-        end function acosd_qp
     end interface acosd
     interface asind
         !! degree circular functions
@@ -38,10 +34,6 @@ module forlab_math
             real(dp), intent(in)::x
             real(dp)::asind_dp
         end function asind_dp
-        pure elemental module function asind_qp(x)
-            real(qp), intent(in)::x
-            real(qp)::asind_qp
-        end function asind_qp
     end interface asind
     interface atand
         !! degree circular functions
@@ -53,10 +45,6 @@ module forlab_math
             real(dp), intent(in)::x
             real(dp)::atand_dp
         end function atand_dp
-        pure elemental module function atand_qp(x)
-            real(qp), intent(in)::x
-            real(qp)::atand_qp
-        end function atand_qp
     end interface atand
 
     interface cosd
@@ -68,10 +56,6 @@ module forlab_math
             real(dp), intent(in)::x
             real(dp)::cosd_dp
         end function cosd_dp
-        pure elemental module function cosd_qp(x)
-            real(qp), intent(in)::x
-            real(qp)::cosd_qp
-        end function cosd_qp
     end interface cosd
     interface sind
         pure elemental module function sind_sp(x)
@@ -82,10 +66,6 @@ module forlab_math
             real(dp), intent(in)::x
             real(dp)::sind_dp
         end function sind_dp
-        pure elemental module function sind_qp(x)
-            real(qp), intent(in)::x
-            real(qp)::sind_qp
-        end function sind_qp
     end interface sind
     interface tand
         pure elemental module function tand_sp(x)
@@ -96,10 +76,6 @@ module forlab_math
             real(dp), intent(in)::x
             real(dp)::tand_dp
         end function tand_dp
-        pure elemental module function tand_qp(x)
-            real(qp), intent(in)::x
-            real(qp)::tand_qp
-        end function tand_qp
     end interface tand
 
     interface angle
@@ -117,11 +93,6 @@ module forlab_math
             real(dp), dimension(3), intent(in) :: x, y
             real(dp) :: angle
         end function angle_2_dp
-        module procedure :: angle_qp
-        pure module function angle_2_qp(x, y) result(angle)
-            real(qp), dimension(3), intent(in) :: x, y
-            real(qp) :: angle
-        end function angle_2_qp
     end interface angle
 
     !> Version: experimental
@@ -139,11 +110,6 @@ module forlab_math
             real(dp), intent(in), optional :: rel_tol, abs_tol
             logical :: close
         end function is_close_rdp
-        elemental module function is_close_rqp(a, b, rel_tol, abs_tol) result(close)
-            real(qp), intent(in) :: a, b
-            real(qp), intent(in), optional :: rel_tol, abs_tol
-            logical :: close
-        end function is_close_rqp
         elemental module function is_close_csp(a, b, rel_tol, abs_tol) result(close)
             complex(sp), intent(in) :: a, b
             real(sp), intent(in), optional :: rel_tol, abs_tol
@@ -154,11 +120,6 @@ module forlab_math
             real(dp), intent(in), optional :: rel_tol, abs_tol
             logical :: close
         end function is_close_cdp
-        elemental module function is_close_cqp(a, b, rel_tol, abs_tol) result(close)
-            complex(qp), intent(in) :: a, b
-            real(qp), intent(in), optional :: rel_tol, abs_tol
-            logical :: close
-        end function is_close_cqp
     end interface is_close
 
     !> Version: experimental
@@ -174,10 +135,6 @@ module forlab_math
             real(dp), intent(in) :: a(..), b(..)
             real(dp), intent(in), optional :: rel_tol, abs_tol
         end function all_close_rdp
-        logical module function all_close_rqp(a, b, rel_tol, abs_tol) result(close)
-            real(qp), intent(in) :: a(..), b(..)
-            real(qp), intent(in), optional :: rel_tol, abs_tol
-        end function all_close_rqp
         logical module function all_close_csp(a, b, rel_tol, abs_tol) result(close)
             complex(sp), intent(in) :: a(..), b(..)
             real(sp), intent(in), optional :: rel_tol, abs_tol
@@ -186,10 +143,6 @@ module forlab_math
             complex(dp), intent(in) :: a(..), b(..)
             real(dp), intent(in), optional :: rel_tol, abs_tol
         end function all_close_cdp
-        logical module function all_close_cqp(a, b, rel_tol, abs_tol) result(close)
-            complex(qp), intent(in) :: a(..), b(..)
-            real(qp), intent(in), optional :: rel_tol, abs_tol
-        end function all_close_cqp
     end interface all_close
 
     !> Version: experimental
@@ -208,11 +161,6 @@ module forlab_math
             real(dp), intent(in), optional :: end, step
             real(dp), allocatable :: result(:)
         end function arange_r_dp
-        pure module function arange_r_qp(start, end, step) result(result)
-            real(qp), intent(in) :: start
-            real(qp), intent(in), optional :: end, step
-            real(qp), allocatable :: result(:)
-        end function arange_r_qp
         pure module function arange_i_int8(start, end, step) result(result)
             integer(int8), intent(in) :: start
             integer(int8), intent(in), optional :: end, step
@@ -246,9 +194,6 @@ module forlab_math
         real(dp) elemental module function signum_rdp(x) result(sign)
             real(dp), intent(in) :: x
         end function signum_rdp
-        real(qp) elemental module function signum_rqp(x) result(sign)
-            real(qp), intent(in) :: x
-        end function signum_rqp
         integer(int8) elemental module function signum_iint8(x) result(sign)
             integer(int8), intent(in) :: x
         end function signum_iint8
@@ -267,9 +212,6 @@ module forlab_math
         complex(dp) elemental module function signum_cdp(x) result(sign)
             complex(dp), intent(in) :: x
         end function signum_cdp
-        complex(qp) elemental module function signum_cqp(x) result(sign)
-            complex(qp), intent(in) :: x
-        end function signum_cqp
     end interface signum
 
     interface cross
@@ -281,10 +223,6 @@ module forlab_math
             real(dp), intent(in) :: x(3), y(3)
             real(dp) :: cross(3)
         end function cross_rdp
-        pure module function cross_rqp(x, y) result(cross)
-            real(qp), intent(in) :: x(3), y(3)
-            real(qp) :: cross(3)
-        end function cross_rqp
         pure module function cross_iint8(x, y) result(cross)
             integer(int8), intent(in) :: x(3), y(3)
             integer(int8) :: cross(3)
@@ -306,7 +244,6 @@ module forlab_math
     interface operator(.c.)
         procedure :: cross_rsp
         procedure :: cross_rdp
-        procedure :: cross_rqp
         procedure :: cross_iint8
         procedure :: cross_iint16
         procedure :: cross_iint32
@@ -329,12 +266,5 @@ contains
         angle = aimag(log(value))
 
     end function angle_dp
-    elemental function angle_qp(value) result(angle)
-        real(qp) :: angle
-        complex(qp), intent(in) :: value
-
-        angle = aimag(log(value))
-
-    end function angle_qp
 
 end module forlab_math

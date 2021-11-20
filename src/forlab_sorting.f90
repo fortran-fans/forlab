@@ -39,11 +39,6 @@ module forlab_sorting
             real(dp), intent(in)::x(:)
             integer, optional, intent(in)::order
         end function argsort_dp
-        module function argsort_qp(x, order)
-            integer, allocatable::argsort_qp(:)
-            real(qp), intent(in)::x(:)
-            integer, optional, intent(in)::order
-        end function argsort_qp
     end interface argsort
 
     interface sort
@@ -77,11 +72,6 @@ module forlab_sorting
             real(dp), intent(in)::x(:)
             integer, optional, intent(in)::order
         end function sort_dp
-        module function sort_qp(x, order)
-            real(qp), allocatable::sort_qp(:)
-            real(qp), intent(in)::x(:)
-            integer, optional, intent(in)::order
-        end function sort_qp
     end interface sort
 
 end module forlab_sorting

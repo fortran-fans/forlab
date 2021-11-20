@@ -22,15 +22,6 @@ contains
         cross(3) = x(1)*y(2) - x(2)*y(1)
 
     end function cross_rdp
-    pure module function cross_rqp(x, y) result(cross)
-        real(qp), intent(in) :: x(3), y(3)
-        real(qp) :: cross(3)
-
-        cross(1) = x(2)*y(3) - x(3)*y(2)
-        cross(2) = x(3)*y(1) - x(1)*y(3)
-        cross(3) = x(1)*y(2) - x(2)*y(1)
-
-    end function cross_rqp
     pure module function cross_iint8(x, y) result(cross)
         integer(int8), intent(in) :: x(3), y(3)
         integer(int8) :: cross(3)

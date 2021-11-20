@@ -40,9 +40,6 @@ module forlab_time
         module subroutine toc_dp(time)
             real(dp), intent(out) :: time
         end subroutine toc_dp
-        module subroutine toc_qp(time)
-            real(qp), intent(out) :: time
-        end subroutine toc_qp
     end interface toc
 
 contains

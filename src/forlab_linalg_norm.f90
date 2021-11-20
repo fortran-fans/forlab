@@ -77,42 +77,6 @@ contains
             norm2_dp = maxval(sum(abs(A), dim=2))
         end if
     end function norm2_dp
-    real(qp) module function norm1_qp(x, p)
-        real(qp), dimension(:), intent(in) :: x
-        real(qp), intent(in), optional :: p
-        real(qp)::temp
-        if (.not. present(p)) then
-            temp = 2.0_qp
-        else
-            temp = p
-        end if
-
-        if (temp == 2.0_qp) then
-            norm1_qp = sqrt(sum(abs(x)**2))
-        elseif (temp == 1.0_qp) then
-            norm1_qp = sum(abs(x))
-        else
-            norm1_qp = (sum(abs(x)**p))**(1.0_qp/p)
-        end if
-    end function norm1_qp
-
-    real(qp) module function norm2_qp(A, p)
-        real(qp), dimension(:, :), intent(in) :: A
-        real(qp), intent(in), optional :: p
-        real(qp)::temp
-        real(qp), dimension(:), allocatable :: w
-        if (.not. present(p)) then
-            temp = 2.0_qp
-        else
-            temp = p
-        end if
-        if (temp == 2.0_qp) then
-            call svd(A, w)
-            norm2_qp = maxval(w)
-        elseif (temp == 1.0_qp) then
-            norm2_qp = maxval(sum(abs(A), dim=2))
-        end if
-    end function norm2_qp
 
 end submodule forlab_linalg_norm
 
