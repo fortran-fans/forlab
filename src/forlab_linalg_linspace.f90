@@ -33,19 +33,5 @@ contains
     X = 10._dp**X
     return
     end procedure logspace_dp
-    module procedure linspace_qp
-    integer :: i, n
-    real(qp) :: by
-    n = size(X)
-    by = (to - from)/real(n - 1, qp)
-    X = from + by*real([(i - 1, i=1, n)], qp)
-    return
-    end procedure linspace_qp
-
-    module procedure logspace_qp
-    call linspace(X, log10(from), log10(to))
-    X = 10._qp**X
-    return
-    end procedure logspace_qp
 
 end submodule forlab_linalg_linspace

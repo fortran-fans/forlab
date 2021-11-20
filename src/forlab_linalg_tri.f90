@@ -72,17 +72,6 @@ contains
         tril_dp(:i - opt_k - 1, i) = 0.0_dp
     end do
     end procedure tril_dp
-    module procedure tril_qp
-    integer::opt_k, i, m, n
-    opt_k = 0
-    if (present(k)) opt_k = k
-    m = size(A, 1)
-    n = size(A, 2)
-    tril_qp = A
-    do i = 1, min(m, n)
-        tril_qp(:i - opt_k - 1, i) = 0.0_qp
-    end do
-    end procedure tril_qp
 
     module procedure tril_csp
     integer::opt_k, i, m, n
@@ -106,17 +95,6 @@ contains
         tril_cdp(:i - opt_k - 1, i) = cmplx(0.0_dp, 0.0_dp, kind=dp)
     end do
     end procedure tril_cdp
-    module procedure tril_cqp
-    integer::opt_k, i, m, n
-    opt_k = 0
-    if (present(k)) opt_k = k
-    m = size(A, 1)
-    n = size(A, 2)
-    tril_cqp = A
-    do i = 1, min(m, n)
-        tril_cqp(:i - opt_k - 1, i) = cmplx(0.0_qp, 0.0_qp, kind=qp)
-    end do
-    end procedure tril_cqp
 
     module procedure triu_int8
     integer::opt_k, i, m, n
@@ -185,17 +163,6 @@ contains
         triu_dp(i - opt_k + 1:, i) = 0.0_dp
     end do
     end procedure triu_dp
-    module procedure triu_qp
-    integer::opt_k, i, m, n
-    opt_k = 0
-    if (present(k)) opt_k = k
-    m = size(A, 1)
-    n = size(A, 2)
-    triu_qp = A
-    do i = 1, min(m, n)
-        triu_qp(i - opt_k + 1:, i) = 0.0_qp
-    end do
-    end procedure triu_qp
 
     module procedure triu_csp
     integer::opt_k, i, m, n
@@ -219,16 +186,5 @@ contains
         triu_cdp(i - opt_k + 1:, i) = cmplx(0.0_dp, 0.0_dp, kind=dp)
     end do
     end procedure triu_cdp
-    module procedure triu_cqp
-    integer::opt_k, i, m, n
-    opt_k = 0
-    if (present(k)) opt_k = k
-    m = size(A, 1)
-    n = size(A, 2)
-    triu_cqp = A
-    do i = 1, min(m, n)
-        triu_cqp(i - opt_k + 1:, i) = cmplx(0.0_qp, 0.0_qp, kind=qp)
-    end do
-    end procedure triu_cqp
 
 end submodule forlab_linalg_tri

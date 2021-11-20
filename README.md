@@ -8,7 +8,7 @@ FORLAB uses [stdlib](https://github.com/fortran-lang/stdlib) as an upstream pack
 
 | | |  
 |:-:|---|
-| **Version:** | 1.0.1 |
+| **Version:** | 1.0.2 |
 | **Author:** | FORLAB Contributors |
 | **Web site:** | https://github.com/fortran-fans/forlab |
 | **API-Doc Web site:** | https://zoziha.github.io/forlab-API-doc/ |

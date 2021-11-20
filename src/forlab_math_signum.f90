@@ -22,16 +22,6 @@ contains
         end if
 
     end function signum_rdp
-    real(qp) elemental module function signum_rqp(x) result(sign)
-
-        real(qp), intent(in) :: x
-
-        if (x < 0.0_qp) then; sign = -1.0_qp
-        elseif (x > 0.0_qp) then; sign = 1.0_qp
-        else; sign = 0.0_qp
-        end if
-
-    end function signum_rqp
 
     integer(int8) elemental module function signum_iint8(x) result(sign)
 
@@ -92,14 +82,5 @@ contains
         end if
 
     end function signum_cdp
-    complex(qp) elemental module function signum_cqp(x) result(sign)
-
-        complex(qp), intent(in) :: x
-
-        if (x == (0.0_qp, 0.0_qp)) then; sign = x
-        else; sign = x/abs(x)
-        end if
-
-    end function signum_cqp
 
 end submodule forlab_math_signum
