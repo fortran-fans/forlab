@@ -5,38 +5,21 @@
 submodule (forlab_math) forlab_math_all_close
 
     implicit none
-    character(*), parameter :: error_1 = "*<ERROR>* The ranks of `a` and `b` in `all_close` are not equal."
-    character(*), parameter :: error_2 = "*<ERROR>* The rank of `a` in `all_close` is too large to be supported."
     
 contains
 
-    #:def inrank(r1)
-        rank(${r1}$)
-            select rank(b)
-            rank(${r1}$)
-                close = all(is_close(a, b, rel_tol, abs_tol))
-            rank default
-                error stop error_1
-            end select
-    #:enddef
-
     #:for k1, t1 in RC_KINDS_TYPES
-    logical module function all_close_${t1[0]}$${k1}$(a, b, rel_tol, abs_tol) result(close)
+    #:for r1 in RANKS
+    logical pure module function all_close_${r1}$_${t1[0]}$${k1}$(a, b, rel_tol, abs_tol, equal_nan) result(close)
 
-        ${t1}$, intent(in) :: a(..), b(..)
+        ${t1}$, intent(in) :: a${ranksuffix(r1)}$, b${ranksuffix(r1)}$
         real(${k1}$), intent(in), optional :: rel_tol, abs_tol
+        logical, intent(in), optional :: equal_nan
 
-        select rank(a)
+        close = all(is_close(a, b, rel_tol, abs_tol, equal_nan))
 
-        #:for r1 in RANKS
-        $:inrank(r1)
-        #:endfor
-
-        rank default
-            error stop error_2
-        end select
-
-    end function all_close_${t1[0]}$${k1}$
+    end function all_close_${r1}$_${t1[0]}$${k1}$
+    #:endfor
     #:endfor
 
 end submodule forlab_math_all_close
