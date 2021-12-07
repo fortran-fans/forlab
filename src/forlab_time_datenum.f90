@@ -1,7 +1,6 @@
 submodule(forlab_time) forlab_time_datenum
 
     use stdlib_strings, only: to_string
-    use forlab_io, only: disp
     implicit none
 
 contains
