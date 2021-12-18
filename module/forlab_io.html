@@ -136,7 +136,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title=" 7.3% of total for modules and submodules.">675 statements</a>
+    title=" 7.4% of total for modules and submodules.">689 statements</a>
      </li> 
      
      
@@ -204,6 +204,10 @@
       
       <a class="list-group-item" href="../module/forlab_io.html#interface-progress_perc">progress_perc</a>
       
+      <a class="list-group-item" href="../module/forlab_io.html#interface-read_file">read_file</a>
+      
+      <a class="list-group-item" href="../module/forlab_io.html#interface-read_line">read_line</a>
+      
       <a class="list-group-item" href="../module/forlab_io.html#interface-savebin">savebin</a>
       
       <a class="list-group-item" href="../module/forlab_io.html#interface-savetxt">savetxt</a>
@@ -257,15 +261,15 @@
     
     <li>stdlib_error</li>
     
-    <li>stdlib_string_type</li>
-    
-    <li>stdlib_io</li>
+    <li>stdlib_optval</li>
     
     <li>stdlib_strings</li>
     
     <li>stdlib_kinds</li>
     
-    <li>stdlib_optval</li>
+    <li>stdlib_io</li>
+    
+    <li>stdlib_string_type</li>
     
   </ul>
       </li>
@@ -297,6 +301,8 @@
       <li><a href='../module/forlab_io_progress_bar.html'>forlab_io_progress_bar</a></li>
       
       <li><a href='../module/forlab_io_progress_perc.html'>forlab_io_progress_perc</a></li>
+      
+      <li><a href='../module/forlab_io_read_line.html'>forlab_io_read_line</a></li>
       
       <li><a href='../module/forlab__io_txt.html'>forlab__io_txt</a></li>
       
@@ -346,6 +352,10 @@
       <a class="list-group-item" href="../module/forlab_io.html#interface-progress_bar">progress_bar</a>
       
       <a class="list-group-item" href="../module/forlab_io.html#interface-progress_perc">progress_perc</a>
+      
+      <a class="list-group-item" href="../module/forlab_io.html#interface-read_file">read_file</a>
+      
+      <a class="list-group-item" href="../module/forlab_io.html#interface-read_line">read_line</a>
       
       <a class="list-group-item" href="../module/forlab_io.html#interface-savebin">savebin</a>
       
@@ -6977,6 +6987,201 @@ private module subroutine progress_perc_int8(iter, itermax, prefix)
     
      
 <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="interface-read_file"></span><h3>interface 
+    
+  </h3></div>
+  
+  <ul class="list-group">
+  
+    <li class="list-group-item">
+    
+    
+    <h3>
+public module subroutine read_file(string, file, iostat, keep_newline)
+    
+    
+   
+</h3>
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character,</td>
+  <td>intent(out),</td>
+  <td></td>
+  
+  <td>allocatable</td><td>::</td>
+  <td><strong>string</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character,</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>file</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>integer,</td>
+  <td>intent(out),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>iostat</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical,</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>keep_newline</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+    </li>
+  
+  </ul>
+</div>
+
+    
+     
+<div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="interface-read_line"></span><h3>interface 
+    
+  </h3></div>
+  
+  <ul class="list-group">
+  
+    <li class="list-group-item">
+    
+    
+    <h3>
+public module subroutine read_line(line, unit, iostat)
+    
+    
+   
+</h3>
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character,</td>
+  <td>intent(out),</td>
+  <td></td>
+  
+  <td>allocatable</td><td>::</td>
+  <td><strong>line</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>integer,</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>unit</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>integer,</td>
+  <td>intent(out),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>iostat</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+    </li>
+  
+  </ul>
+</div>
+
+    
+     
+<div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="interface-savebin"></span><h3>public interface <a href='../interface/savebin.html'>savebin</a>
     
   </h3></div>
@@ -9614,7 +9819,7 @@ private module subroutine savetxt_2_rsp(filename, X)
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
-             on 2021-12-07 06:12  
+             on 2021-12-18 13:12  
             
           </p>
         </div>

@@ -10,7 +10,7 @@
     <meta name="author" content="FORLAB v1.0 contributors" >
     <link rel="icon" href="../favicon.png">
 
-    <title>chol &ndash; FORLAB</title>
+    <title>forlab_io_read_line &ndash; FORLAB</title>
 
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/pygments.css" rel="stylesheet">
@@ -115,8 +115,8 @@
     
   
   <div class="row">
-    <h1>chol
-   <small>Interface</small>
+    <h1>forlab_io_read_line 
+    <small>Submodule</small>
     
     </h1>
     
@@ -136,24 +136,22 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title="<p> 0.5% of total for procedures.</p>Including implementation: 10 statements,  0.5% of total for procedures.">10 statements</a>
+    title=" 0.5% of total for modules and submodules.">47 statements</a>
      </li> 
      
      
      
-    <li><i class="fa fa-code"></i><a href="../src/forlab_linalg.f90"> Source File</a></li>
+    <li><i class="fa fa-code"></i><a href="../src/forlab_io_read_line.f90"> Source File</a></li>
      
      
   </ul>
   <ol class="breadcrumb in-well text-right">
   
     
-     <li><a href='../sourcefile/forlab_linalg.f90.html'>forlab_linalg.f90</a></li>
-    
-     <li><a href='../module/forlab_linalg.html'>forlab_linalg</a></li>
+     <li><a href='../sourcefile/forlab_io_read_line.f90.html'>forlab_io_read_line.f90</a></li>
     
   
-     <li class="active">chol</li>
+     <li class="active">forlab_io_read_line</li>
   </ol>
 </div>
 </div>
@@ -168,7 +166,7 @@
   
   <div class="row">
     <div class="col-md-3 hidden-xs hidden-sm visible-md visible-lg">
-      
+    
 <div id="sidebar">
   
 <h3>Contents</h3>
@@ -186,18 +184,6 @@
 
 
 
-<div class="panel panel-primary">
-  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#funcs-0">Functions</a></h3></div>
-  <div id="funcs-0" class="panel-collapse collapse">
-    <div class="list-group">
-      
-      <a class="list-group-item" href="../interface/chol.html#proc-chol_dp">chol_dp</a>
-      
-      <a class="list-group-item" href="../interface/chol.html#proc-chol_sp">chol_sp</a>
-      
-    </div>
-  </div>
-</div>
 
 
 
@@ -206,7 +192,7 @@
 
 
 
-
+<em>None</em>
 
 
 </div>
@@ -214,15 +200,47 @@
     </div>
     
     <div class="col-md-9" id='text'>
-      <h2>public interface chol</h2>
-   <p>chol computes Cholesky's decomposition of a symmetric positive
-definite matrix.</p>
-     
-     
+    
+      <br>
+    
+  
+    <div class="panel panel-default">
+      <div class="panel-heading">
+  <h3 class="panel-title">Uses</h3>
+      </div>
+      <ul class="list-group">
+      
+      <li class="list-group-item">
+  <ul class="list-inline">
+    
+    <li><a href="https://gcc.gnu.org/onlinedocs/gfortran/ISO_005fFORTRAN_005fENV.html">iso_fortran_env</a></li>
+    
+  </ul>
+      </li>
+      
+      
+      <li class="list-group-item">
+  <ul class="list-inline">
+    <li><h5>Ancestors:</h5></li>
+    
+    <li><a href='../module/forlab_io.html'>forlab_io</a></li>
+    
+    
+  </ul>
+      </li>
+      
+      
+      </ul>
+    </div>
+    
+
+    
+    
+
     <br>
 
-     <section class="visible-xs visible-sm hidden-md">
-       
+    <section class="visible-xs visible-sm hidden-md">
+      
 <h3>Contents</h3>
  
 
@@ -238,165 +256,49 @@ definite matrix.</p>
 
 
 
-<div class="panel panel-primary">
-  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#funcs-1">Functions</a></h3></div>
-  <div id="funcs-1" class="panel-collapse collapse">
-    <div class="list-group">
-      
-      <a class="list-group-item" href="../interface/chol.html#proc-chol_dp">chol_dp</a>
-      
-      <a class="list-group-item" href="../interface/chol.html#proc-chol_sp">chol_sp</a>
-      
+
+
+
+
+
+
+
+
+<em>None</em>
+
+
+    </section>
+    <br class="visible-xs visible-sm hidden-md">
+
+    
+
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+        
+
+        
+
+        
+    
+    
     </div>
   </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-     </section>
-     <br class="visible-xs visible-sm hidden-md">
-     
-  
-   <h2>Functions</h2>
-   
-    
-  <div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="proc-chol_dp"></span><h3>
-private module function chol_dp(A) result(L)
-    
-    
-   
-</h3></div>
-  <div class="panel-body">
-       
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
 
   
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=dp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>A</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=dp),
-  dimension(:, :), allocatable</small></h4>
-  
-    
-
-  </div>
-  </div>
-
-   
-    
-  <div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="proc-chol_sp"></span><h3>
-private module function chol_sp(A) result(L)
-    
-    
-   
-</h3></div>
-  <div class="panel-body">
-       
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=sp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>A</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=sp),
-  dimension(:, :), allocatable</small></h4>
-  
-    
-
-  </div>
-  </div>
-
-   
-     
-
-  
-
-  
-
- </div>
-</div>
-
-
     <hr>    
     </div> <!-- /container -->
     <footer>
