@@ -41,6 +41,10 @@ main = "test_io_file.f90"
 name = "io_color"
 source-dir = "test/io"
 main = "test_io_color.f90"
+[[test]]
+name = "io_read_line"
+source-dir = "test/io"
+main = "test_io_read_line.f90"
 
 ## [linalg] tests
 [[test]]

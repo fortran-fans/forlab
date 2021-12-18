@@ -18,6 +18,8 @@ module forlab_io
     public :: disp
     
     public :: progress_bar, progress_perc
+    
+    public :: read_line, read_file
 
     !> Version: experimental
     !> 
@@ -187,6 +189,20 @@ module forlab_io
         end subroutine progress_perc_${k1}$
         #:endfor
     end interface progress_perc
+    
+    interface
+        module subroutine read_line(line, unit, iostat)
+            character(:), allocatable, intent(out) :: line
+            integer, intent(in), optional :: unit
+            integer, intent(out), optional :: iostat
+        end subroutine read_line
+        module subroutine read_file(string, file, iostat, keep_newline)
+            character(:), allocatable, intent(out) :: string
+            character(*), intent(in) :: file
+            integer, intent(out), optional :: iostat
+            logical, intent(in), optional :: keep_newline
+        end subroutine read_file
+    end interface
 
 contains
 
