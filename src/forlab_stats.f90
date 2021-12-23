@@ -2,33 +2,12 @@
 module forlab_stats
 
     use stdlib_kinds, only: sp, dp, qp, int8, int16, int32, int64
+    use stdlib_stats, only: mean, var
     implicit none
     private
 
     public :: mean, var, std
     public :: rng, randu, randn
-
-    interface mean
-        !! mean computes the mean value of an array.
-        module function mean_1_sp(x) result(mean)
-            real(sp), dimension(:), intent(in) :: x
-            real(sp) :: mean
-        end function mean_1_sp
-        module function mean_2_sp(A, dim) result(mean)
-            real(sp), dimension(:), allocatable :: mean
-            real(sp), dimension(:, :), intent(in) :: A
-            integer, intent(in), optional :: dim
-        end function mean_2_sp
-        module function mean_1_dp(x) result(mean)
-            real(dp), dimension(:), intent(in) :: x
-            real(dp) :: mean
-        end function mean_1_dp
-        module function mean_2_dp(A, dim) result(mean)
-            real(dp), dimension(:), allocatable :: mean
-            real(dp), dimension(:, :), intent(in) :: A
-            integer, intent(in), optional :: dim
-        end function mean_2_dp
-    end interface mean
 
     !> Version: Experimental
     !>
@@ -122,28 +101,6 @@ module forlab_stats
         end subroutine rng
     end interface
 
-    interface var
-        !! `var` computes vector and matrix variances.
-        !!([Specification](../module/forlab_var.html))
-        real(sp) module function var_1_sp(x, w)
-            real(sp), dimension(:), intent(in) :: x
-            integer, intent(in), optional :: w
-        end function var_1_sp
-        module function var_2_sp(A, w, dim)
-            real(sp), dimension(:), allocatable :: var_2_sp
-            real(sp), dimension(:, :), intent(in) :: A
-            integer, intent(in), optional :: w, dim
-        end function var_2_sp
-        real(dp) module function var_1_dp(x, w)
-            real(dp), dimension(:), intent(in) :: x
-            integer, intent(in), optional :: w
-        end function var_1_dp
-        module function var_2_dp(A, w, dim)
-            real(dp), dimension(:), allocatable :: var_2_dp
-            real(dp), dimension(:, :), intent(in) :: A
-            integer, intent(in), optional :: w, dim
-        end function var_2_dp
-    end interface var
     interface std
         !! `std` computes vector and matrix standard deviations.
         !!([Specification](../module/forlab_var.html))

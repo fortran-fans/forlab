@@ -3,6 +3,7 @@ module forlab_math
 
     use stdlib_kinds, only: sp, dp, qp, int8, int16, int32, int64
     use stdlib_optval, only: optval
+    use stdlib_math, only: arange, is_close, all_close
     implicit none
     private
 
@@ -52,55 +53,6 @@ module forlab_math
         end function angle_2_${k1}$
         #:endfor
     end interface angle
-
-        !> Version: experimental
-    !>
-    !> Returns a boolean scalar/array where two scalar/arrays are element-wise equal within a tolerance.
-    !> ([Specification](../page/specs/forlab_math.html#is_close))
-    interface is_close
-        #:set RC_KINDS_TYPES = REAL_KINDS_TYPES + CMPLX_KINDS_TYPES
-        #:for k1, t1 in RC_KINDS_TYPES
-        elemental module logical function is_close_${t1[0]}$${k1}$(a, b, rel_tol, abs_tol, equal_nan) result(close)
-            ${t1}$, intent(in) :: a, b
-            real(${k1}$), intent(in), optional :: rel_tol, abs_tol
-            logical, intent(in), optional :: equal_nan
-        end function is_close_${t1[0]}$${k1}$
-        #:endfor
-    end interface is_close
-
-    !> Version: experimental
-    !>
-    !> Returns a boolean scalar where two arrays are element-wise equal within a tolerance.
-    !> ([Specification](../page/specs/forlab_math.html#all_close))
-    interface all_close
-        #:set RC_KINDS_TYPES = REAL_KINDS_TYPES + CMPLX_KINDS_TYPES
-        #:set RANKS = range(1, MAXRANK + 1)
-        #:for k1, t1 in RC_KINDS_TYPES
-        #:for r1 in RANKS
-        logical pure module function all_close_${r1}$_${t1[0]}$${k1}$(a, b, rel_tol, abs_tol, equal_nan) result(close)
-            ${t1}$, intent(in) :: a${ranksuffix(r1)}$, b${ranksuffix(r1)}$
-            real(${k1}$), intent(in), optional :: rel_tol, abs_tol
-            logical, intent(in), optional :: equal_nan
-        end function all_close_${r1}$_${t1[0]}$${k1}$
-        #:endfor
-        #:endfor
-    end interface all_close
-
-    !> Version: experimental
-    !>
-    !> `arange` creates a rank-1 `array` of the `integer/real` type 
-    !>  with fixed-spaced values of given spacing, within a given interval.
-    !> ([Specification](../page/specs/forlab_math.html#arange))
-    interface arange
-        #:set RI_KINDS_TYPES = REAL_KINDS_TYPES + INT_KINDS_TYPES
-        #:for k1, t1 in RI_KINDS_TYPES
-        pure module function arange_${t1[0]}$_${k1}$(start, end, step) result(result)
-            ${t1}$, intent(in) :: start
-            ${t1}$, intent(in), optional :: end, step
-            ${t1}$, allocatable :: result(:)
-        end function arange_${t1[0]}$_${k1}$
-        #:endfor
-    end interface arange
 
     !> Version: experimental
     !>

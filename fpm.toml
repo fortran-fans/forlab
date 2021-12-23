@@ -23,6 +23,9 @@ test-drive = { git = "https://github.com/fortran-lang/test-drive" }
 [library]
 source-dir="src"
 
+[install]
+library = true
+
 #=========================== tests =============================================
 ## [io] tests
 [[test]]
