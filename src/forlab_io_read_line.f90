@@ -3,6 +3,7 @@ submodule (forlab_io) forlab_io_read_line
     use, intrinsic :: iso_fortran_env, only: stdin => input_unit
     implicit none
     character(*), parameter :: nl = new_line("\n")
+    integer, parameter :: buffer_len = 4096
     
 contains
 
@@ -14,13 +15,13 @@ contains
         integer, intent(out), optional :: iostat
         
         integer :: unit_, iostat_
-        character(len=512) :: line_
-        character(len=512) :: msg
+        character(len=buffer_len) :: line_
+        character(len=buffer_len) :: msg
         
         unit_ = optval(unit, stdin)
         
         line = ""
-        read(unit_, "(A512)", iostat=iostat_, iomsg=msg) line_
+        read(unit_, "(A)", iostat=iostat_, iomsg=msg) line_
         if (present(iostat)) then
             iostat = iostat_
             if (iostat_ == 0) line = trim(line_)
@@ -28,7 +29,7 @@ contains
             if (iostat_ == 0) then
                 line = trim(line_)
             else
-                error stop msg
+                error stop trim(msg)
             end if
         end if        
     
@@ -44,7 +45,6 @@ contains
         
         integer :: iostat_, unit, count, i
         character(:), allocatable :: string_
-        character(len=512) :: msg
         logical :: keep_newline_
         
         keep_newline_ = optval(keep_newline, .true.)
