@@ -10,7 +10,7 @@
     <meta name="author" content="FORLAB v1.0 contributors" >
     <link rel="icon" href="../favicon.png">
 
-    <title>forlab_sorting_sort &ndash; FORLAB</title>
+    <title>var &ndash; FORLAB</title>
 
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/pygments.css" rel="stylesheet">
@@ -115,8 +115,8 @@
     
   
   <div class="row">
-    <h1>forlab_sorting_sort 
-    <small>Submodule</small>
+    <h1>var
+   <small>Interface</small>
     
     </h1>
     
@@ -136,22 +136,24 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title=" 4.3% of total for modules and submodules.">394 statements</a>
+    title="<p> 1.2% of total for procedures.</p>Including implementation: 20 statements,  1.2% of total for procedures.">20 statements</a>
      </li> 
      
      
      
-    <li><i class="fa fa-code"></i><a href="../src/forlab_sorting_sort.f90"> Source File</a></li>
+    <li><i class="fa fa-code"></i><a href="../src/forlab_stats.f90"> Source File</a></li>
      
      
   </ul>
   <ol class="breadcrumb in-well text-right">
   
     
-     <li><a href='../sourcefile/forlab_sorting_sort.f90.html'>forlab_sorting_sort.f90</a></li>
+     <li><a href='../sourcefile/forlab_stats.f90.html'>forlab_stats.f90</a></li>
+    
+     <li><a href='../module/forlab_stats.html'>forlab_stats</a></li>
     
   
-     <li class="active">forlab_sorting_sort</li>
+     <li class="active">var</li>
   </ol>
 </div>
 </div>
@@ -166,7 +168,7 @@
   
   <div class="row">
     <div class="col-md-3 hidden-xs hidden-sm visible-md visible-lg">
-    
+      
 <div id="sidebar">
   
 <h3>Contents</h3>
@@ -184,6 +186,22 @@
 
 
 
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#funcs-0">Functions</a></h3></div>
+  <div id="funcs-0" class="panel-collapse collapse">
+    <div class="list-group">
+      
+      <a class="list-group-item" href="../interface/var.html#proc-var_1_dp">var_1_dp</a>
+      
+      <a class="list-group-item" href="../interface/var.html#proc-var_1_sp">var_1_sp</a>
+      
+      <a class="list-group-item" href="../interface/var.html#proc-var_2_dp">var_2_dp</a>
+      
+      <a class="list-group-item" href="../interface/var.html#proc-var_2_sp">var_2_sp</a>
+      
+    </div>
+  </div>
+</div>
 
 
 
@@ -192,7 +210,7 @@
 
 
 
-<em>None</em>
+
 
 
 </div>
@@ -200,39 +218,15 @@
     </div>
     
     <div class="col-md-9" id='text'>
-    
-      <br>
-    
-  
-    <div class="panel panel-default">
-      <div class="panel-heading">
-  <h3 class="panel-title">Uses</h3>
-      </div>
-      <ul class="list-group">
-      
-      
-      <li class="list-group-item">
-  <ul class="list-inline">
-    <li><h5>Ancestors:</h5></li>
-    
-    <li><a href='../module/forlab_sorting.html'>forlab_sorting</a></li>
-    
-    
-  </ul>
-      </li>
-      
-      
-      </ul>
-    </div>
-    
-
-    
-    
-
+      <h2>public interface var</h2>
+   <p><code>std</code> computes vector and matrix standard deviations.
+(<a href="../module/forlab_var.html">Specification</a>)</p>
+     
+     
     <br>
 
-    <section class="visible-xs visible-sm hidden-md">
-      
+     <section class="visible-xs visible-sm hidden-md">
+       
 <h3>Contents</h3>
  
 
@@ -248,49 +242,379 @@
 
 
 
-
-
-
-
-
-
-
-
-<em>None</em>
-
-
-    </section>
-    <br class="visible-xs visible-sm hidden-md">
-
-    
-
-    
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
-
-    
-    
-    
-    
-        
-
-        
-
-        
-    
-    
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#funcs-1">Functions</a></h3></div>
+  <div id="funcs-1" class="panel-collapse collapse">
+    <div class="list-group">
+      
+      <a class="list-group-item" href="../interface/var.html#proc-var_1_dp">var_1_dp</a>
+      
+      <a class="list-group-item" href="../interface/var.html#proc-var_1_sp">var_1_sp</a>
+      
+      <a class="list-group-item" href="../interface/var.html#proc-var_2_dp">var_2_dp</a>
+      
+      <a class="list-group-item" href="../interface/var.html#proc-var_2_sp">var_2_sp</a>
+      
     </div>
   </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+     </section>
+     <br class="visible-xs visible-sm hidden-md">
+     
+  
+   <h2>Functions</h2>
+   
+    
+  <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="proc-var_1_dp"></span><h3>
+private module function var_1_dp(x, w)
+    
+    
+   
+</h3></div>
+  <div class="panel-body">
+       
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
 
   
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>real(kind=dp),</td>
+  <td>intent(in),</td>
+  <td></td>
+  
+  <td>dimension(:)</td><td>::</td>
+  <td><strong>x</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>integer,</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>w</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  
+  
+  
+  
+     <h4>Return Value <small>real(kind=dp)
+  </small></h4>
+  
+    
+
+  </div>
+  </div>
+
+   
+    
+  <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="proc-var_1_sp"></span><h3>
+private module function var_1_sp(x, w)
+    
+    
+   
+</h3></div>
+  <div class="panel-body">
+       
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>real(kind=sp),</td>
+  <td>intent(in),</td>
+  <td></td>
+  
+  <td>dimension(:)</td><td>::</td>
+  <td><strong>x</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>integer,</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>w</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  
+  
+  
+  
+     <h4>Return Value <small>real(kind=sp)
+  </small></h4>
+  
+    
+
+  </div>
+  </div>
+
+   
+    
+  <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="proc-var_2_dp"></span><h3>
+private module function var_2_dp(A, w, dim)
+    
+    
+   
+</h3></div>
+  <div class="panel-body">
+       
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>real(kind=dp),</td>
+  <td>intent(in),</td>
+  <td></td>
+  
+  <td>dimension(:, :)</td><td>::</td>
+  <td><strong>A</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>integer,</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>w</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>integer,</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>dim</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  
+  
+  
+  
+     <h4>Return Value <small>real(kind=dp),
+  dimension(:), allocatable</small></h4>
+  
+    
+
+  </div>
+  </div>
+
+   
+    
+  <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="proc-var_2_sp"></span><h3>
+private module function var_2_sp(A, w, dim)
+    
+    
+   
+</h3></div>
+  <div class="panel-body">
+       
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>real(kind=sp),</td>
+  <td>intent(in),</td>
+  <td></td>
+  
+  <td>dimension(:, :)</td><td>::</td>
+  <td><strong>A</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>integer,</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>w</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>integer,</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>dim</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  
+  
+  
+  
+     <h4>Return Value <small>real(kind=sp),
+  dimension(:), allocatable</small></h4>
+  
+    
+
+  </div>
+  </div>
+
+   
+     
+
+  
+
+  
+
+ </div>
+</div>
+
+
     <hr>    
     </div> <!-- /container -->
     <footer>
