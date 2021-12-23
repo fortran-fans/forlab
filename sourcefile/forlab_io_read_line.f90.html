@@ -276,48 +276,48 @@
 <a id="ln-3" name="ln-3"></a>    <span class="k">use</span><span class="p">,</span> <span class="k">intrinsic</span> <span class="kd">::</span> <span class="n">iso_fortran_env</span><span class="p">,</span> <span class="k">only</span><span class="p">:</span> <span class="n">stdin</span> <span class="o">=&gt;</span> <span class="n">input_unit</span>
 <a id="ln-4" name="ln-4"></a>    <span class="k">implicit none</span>
 <a id="ln-5" name="ln-5"></a><span class="k">    </span><span class="kt">character</span><span class="p">(</span><span class="o">*</span><span class="p">),</span> <span class="k">parameter</span> <span class="kd">::</span> <span class="n">nl</span> <span class="o">=</span> <span class="nb">new_line</span><span class="p">(</span><span class="s2">&quot;\n&quot;</span><span class="p">)</span>
-<a id="ln-6" name="ln-6"></a>    
-<a id="ln-7" name="ln-7"></a><span class="k">contains</span>
-<a id="ln-8" name="ln-8"></a>
-<a id="ln-9" name="ln-9"></a>    <span class="c">!&gt; Read a line from the input unit.</span>
-<a id="ln-10" name="ln-10"></a>    <span class="k">subroutine </span><span class="n">read_line</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">unit</span><span class="p">,</span> <span class="n">iostat</span><span class="p">)</span>
-<a id="ln-11" name="ln-11"></a>    
-<a id="ln-12" name="ln-12"></a>        <span class="kt">character</span><span class="p">(:),</span> <span class="k">allocatable</span><span class="p">,</span> <span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="kd">::</span> <span class="n">line</span>
-<a id="ln-13" name="ln-13"></a>        <span class="kt">integer</span><span class="p">,</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span> <span class="k">optional</span> <span class="kd">::</span> <span class="n">unit</span>
-<a id="ln-14" name="ln-14"></a>        <span class="kt">integer</span><span class="p">,</span> <span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">),</span> <span class="k">optional</span> <span class="kd">::</span> <span class="n">iostat</span>
-<a id="ln-15" name="ln-15"></a>        
-<a id="ln-16" name="ln-16"></a>        <span class="kt">integer</span> <span class="kd">::</span> <span class="n">unit_</span><span class="p">,</span> <span class="n">iostat_</span>
-<a id="ln-17" name="ln-17"></a>        <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="mi">512</span><span class="p">)</span> <span class="kd">::</span> <span class="n">line_</span>
-<a id="ln-18" name="ln-18"></a>        <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="mi">512</span><span class="p">)</span> <span class="kd">::</span> <span class="n">msg</span>
-<a id="ln-19" name="ln-19"></a>        
-<a id="ln-20" name="ln-20"></a>        <span class="n">unit_</span> <span class="o">=</span> <span class="n">optval</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">stdin</span><span class="p">)</span>
-<a id="ln-21" name="ln-21"></a>        
-<a id="ln-22" name="ln-22"></a>        <span class="n">line</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-<a id="ln-23" name="ln-23"></a>        <span class="k">read</span><span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="s2">&quot;(A512)&quot;</span><span class="p">,</span> <span class="n">iostat</span><span class="o">=</span><span class="n">iostat_</span><span class="p">,</span> <span class="n">iomsg</span><span class="o">=</span><span class="n">msg</span><span class="p">)</span> <span class="n">line_</span>
-<a id="ln-24" name="ln-24"></a>        <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">iostat</span><span class="p">))</span> <span class="k">then</span>
-<a id="ln-25" name="ln-25"></a><span class="k">            </span><span class="n">iostat</span> <span class="o">=</span> <span class="n">iostat_</span>
-<a id="ln-26" name="ln-26"></a>            <span class="k">if</span> <span class="p">(</span><span class="n">iostat_</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="n">line</span> <span class="o">=</span> <span class="nb">trim</span><span class="p">(</span><span class="n">line_</span><span class="p">)</span>
-<a id="ln-27" name="ln-27"></a>        <span class="k">else</span>
-<a id="ln-28" name="ln-28"></a><span class="k">            if</span> <span class="p">(</span><span class="n">iostat_</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="k">then</span>
-<a id="ln-29" name="ln-29"></a><span class="k">                </span><span class="n">line</span> <span class="o">=</span> <span class="nb">trim</span><span class="p">(</span><span class="n">line_</span><span class="p">)</span>
-<a id="ln-30" name="ln-30"></a>            <span class="k">else</span>
-<a id="ln-31" name="ln-31"></a><span class="k">                error stop </span><span class="n">msg</span>
-<a id="ln-32" name="ln-32"></a>            <span class="k">end if</span>
-<a id="ln-33" name="ln-33"></a><span class="k">        end if        </span>
-<a id="ln-34" name="ln-34"></a><span class="k">    </span>
-<a id="ln-35" name="ln-35"></a><span class="k">    end subroutine </span><span class="n">read_line</span>
-<a id="ln-36" name="ln-36"></a>    
-<a id="ln-37" name="ln-37"></a>    <span class="c">!&gt; Read ASCII file as a string.</span>
-<a id="ln-38" name="ln-38"></a>    <span class="k">subroutine </span><span class="n">read_file</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="k">file</span><span class="p">,</span> <span class="n">iostat</span><span class="p">,</span> <span class="n">keep_newline</span><span class="p">)</span>
-<a id="ln-39" name="ln-39"></a>        
-<a id="ln-40" name="ln-40"></a>        <span class="kt">character</span><span class="p">(:),</span> <span class="k">allocatable</span><span class="p">,</span> <span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="kd">::</span> <span class="n">string</span>
-<a id="ln-41" name="ln-41"></a>        <span class="kt">character</span><span class="p">(</span><span class="o">*</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="k">file</span>
-<a id="ln-42" name="ln-42"></a><span class="k">        </span><span class="kt">integer</span><span class="p">,</span> <span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">),</span> <span class="k">optional</span> <span class="kd">::</span> <span class="n">iostat</span>
-<a id="ln-43" name="ln-43"></a>        <span class="kt">logical</span><span class="p">,</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span> <span class="k">optional</span> <span class="kd">::</span> <span class="n">keep_newline</span>
-<a id="ln-44" name="ln-44"></a>        
-<a id="ln-45" name="ln-45"></a>        <span class="kt">integer</span> <span class="kd">::</span> <span class="n">iostat_</span><span class="p">,</span> <span class="n">unit</span><span class="p">,</span> <span class="nb">count</span><span class="p">,</span> <span class="n">i</span>
-<a id="ln-46" name="ln-46"></a>        <span class="kt">character</span><span class="p">(:),</span> <span class="k">allocatable</span> <span class="kd">::</span> <span class="n">string_</span>
-<a id="ln-47" name="ln-47"></a>        <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="mi">512</span><span class="p">)</span> <span class="kd">::</span> <span class="n">msg</span>
+<a id="ln-6" name="ln-6"></a>    <span class="kt">integer</span><span class="p">,</span> <span class="k">parameter</span> <span class="kd">::</span> <span class="n">buffer_len</span> <span class="o">=</span> <span class="mi">4096</span>
+<a id="ln-7" name="ln-7"></a>    
+<a id="ln-8" name="ln-8"></a><span class="k">contains</span>
+<a id="ln-9" name="ln-9"></a>
+<a id="ln-10" name="ln-10"></a>    <span class="c">!&gt; Read a line from the input unit.</span>
+<a id="ln-11" name="ln-11"></a>    <span class="k">subroutine </span><span class="n">read_line</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">unit</span><span class="p">,</span> <span class="n">iostat</span><span class="p">)</span>
+<a id="ln-12" name="ln-12"></a>    
+<a id="ln-13" name="ln-13"></a>        <span class="kt">character</span><span class="p">(:),</span> <span class="k">allocatable</span><span class="p">,</span> <span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="kd">::</span> <span class="n">line</span>
+<a id="ln-14" name="ln-14"></a>        <span class="kt">integer</span><span class="p">,</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span> <span class="k">optional</span> <span class="kd">::</span> <span class="n">unit</span>
+<a id="ln-15" name="ln-15"></a>        <span class="kt">integer</span><span class="p">,</span> <span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">),</span> <span class="k">optional</span> <span class="kd">::</span> <span class="n">iostat</span>
+<a id="ln-16" name="ln-16"></a>        
+<a id="ln-17" name="ln-17"></a>        <span class="kt">integer</span> <span class="kd">::</span> <span class="n">unit_</span><span class="p">,</span> <span class="n">iostat_</span>
+<a id="ln-18" name="ln-18"></a>        <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="n">buffer_len</span><span class="p">)</span> <span class="kd">::</span> <span class="n">line_</span>
+<a id="ln-19" name="ln-19"></a>        <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="n">buffer_len</span><span class="p">)</span> <span class="kd">::</span> <span class="n">msg</span>
+<a id="ln-20" name="ln-20"></a>        
+<a id="ln-21" name="ln-21"></a>        <span class="n">unit_</span> <span class="o">=</span> <span class="n">optval</span><span class="p">(</span><span class="n">unit</span><span class="p">,</span> <span class="n">stdin</span><span class="p">)</span>
+<a id="ln-22" name="ln-22"></a>        
+<a id="ln-23" name="ln-23"></a>        <span class="n">line</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<a id="ln-24" name="ln-24"></a>        <span class="k">read</span><span class="p">(</span><span class="n">unit_</span><span class="p">,</span> <span class="s2">&quot;(A)&quot;</span><span class="p">,</span> <span class="n">iostat</span><span class="o">=</span><span class="n">iostat_</span><span class="p">,</span> <span class="n">iomsg</span><span class="o">=</span><span class="n">msg</span><span class="p">)</span> <span class="n">line_</span>
+<a id="ln-25" name="ln-25"></a>        <span class="k">if</span> <span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">iostat</span><span class="p">))</span> <span class="k">then</span>
+<a id="ln-26" name="ln-26"></a><span class="k">            </span><span class="n">iostat</span> <span class="o">=</span> <span class="n">iostat_</span>
+<a id="ln-27" name="ln-27"></a>            <span class="k">if</span> <span class="p">(</span><span class="n">iostat_</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="n">line</span> <span class="o">=</span> <span class="nb">trim</span><span class="p">(</span><span class="n">line_</span><span class="p">)</span>
+<a id="ln-28" name="ln-28"></a>        <span class="k">else</span>
+<a id="ln-29" name="ln-29"></a><span class="k">            if</span> <span class="p">(</span><span class="n">iostat_</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="k">then</span>
+<a id="ln-30" name="ln-30"></a><span class="k">                </span><span class="n">line</span> <span class="o">=</span> <span class="nb">trim</span><span class="p">(</span><span class="n">line_</span><span class="p">)</span>
+<a id="ln-31" name="ln-31"></a>            <span class="k">else</span>
+<a id="ln-32" name="ln-32"></a><span class="k">                error stop </span><span class="nb">trim</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+<a id="ln-33" name="ln-33"></a>            <span class="k">end if</span>
+<a id="ln-34" name="ln-34"></a><span class="k">        end if        </span>
+<a id="ln-35" name="ln-35"></a><span class="k">    </span>
+<a id="ln-36" name="ln-36"></a><span class="k">    end subroutine </span><span class="n">read_line</span>
+<a id="ln-37" name="ln-37"></a>    
+<a id="ln-38" name="ln-38"></a>    <span class="c">!&gt; Read ASCII file as a string.</span>
+<a id="ln-39" name="ln-39"></a>    <span class="k">subroutine </span><span class="n">read_file</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="k">file</span><span class="p">,</span> <span class="n">iostat</span><span class="p">,</span> <span class="n">keep_newline</span><span class="p">)</span>
+<a id="ln-40" name="ln-40"></a>        
+<a id="ln-41" name="ln-41"></a>        <span class="kt">character</span><span class="p">(:),</span> <span class="k">allocatable</span><span class="p">,</span> <span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="kd">::</span> <span class="n">string</span>
+<a id="ln-42" name="ln-42"></a>        <span class="kt">character</span><span class="p">(</span><span class="o">*</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="k">file</span>
+<a id="ln-43" name="ln-43"></a><span class="k">        </span><span class="kt">integer</span><span class="p">,</span> <span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">),</span> <span class="k">optional</span> <span class="kd">::</span> <span class="n">iostat</span>
+<a id="ln-44" name="ln-44"></a>        <span class="kt">logical</span><span class="p">,</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">),</span> <span class="k">optional</span> <span class="kd">::</span> <span class="n">keep_newline</span>
+<a id="ln-45" name="ln-45"></a>        
+<a id="ln-46" name="ln-46"></a>        <span class="kt">integer</span> <span class="kd">::</span> <span class="n">iostat_</span><span class="p">,</span> <span class="n">unit</span><span class="p">,</span> <span class="nb">count</span><span class="p">,</span> <span class="n">i</span>
+<a id="ln-47" name="ln-47"></a>        <span class="kt">character</span><span class="p">(:),</span> <span class="k">allocatable</span> <span class="kd">::</span> <span class="n">string_</span>
 <a id="ln-48" name="ln-48"></a>        <span class="kt">logical</span> <span class="kd">::</span> <span class="n">keep_newline_</span>
 <a id="ln-49" name="ln-49"></a>        
 <a id="ln-50" name="ln-50"></a>        <span class="n">keep_newline_</span> <span class="o">=</span> <span class="n">optval</span><span class="p">(</span><span class="n">keep_newline</span><span class="p">,</span> <span class="p">.</span><span class="n">true</span><span class="p">.)</span>
@@ -354,7 +354,7 @@
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
-             on 2021-12-18 13:12  
+             on 2021-12-23 14:44  
             
           </p>
         </div>

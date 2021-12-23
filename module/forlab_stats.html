@@ -136,7 +136,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title=" 1.6% of total for modules and submodules.">148 statements</a>
+    title=" 1.2% of total for modules and submodules.">109 statements</a>
      </li> 
      
      
@@ -186,8 +186,6 @@
   <div id="inters-0" class="panel-collapse collapse">
     <div class="list-group">
       
-      <a class="list-group-item" href="../module/forlab_stats.html#interface-mean">mean</a>
-      
       <a class="list-group-item" href="../module/forlab_stats.html#interface-randn">randn</a>
       
       <a class="list-group-item" href="../module/forlab_stats.html#interface-randu">randu</a>
@@ -195,8 +193,6 @@
       <a class="list-group-item" href="../module/forlab_stats.html#interface-rng">rng</a>
       
       <a class="list-group-item" href="../module/forlab_stats.html#interface-std">std</a>
-      
-      <a class="list-group-item" href="../module/forlab_stats.html#interface-var">var</a>
       
     </div>
   </div>
@@ -235,6 +231,8 @@
     
     <li>stdlib_kinds</li>
     
+    <li>stdlib_stats</li>
+    
   </ul>
       </li>
       
@@ -256,15 +254,11 @@
     <ul class="list-inline">
       <li><h5>Descendants:</h5></li>
       
-      <li><a href='../module/forlab_stats_mean.html'>forlab_stats_mean</a></li>
-      
       <li><a href='../module/forlab_stats_randn.html'>forlab_stats_randn</a></li>
       
       <li><a href='../module/forlab_stats_randu.html'>forlab_stats_randu</a></li>
       
       <li><a href='../module/forlab_stats_rng.html'>forlab_stats_rng</a></li>
-      
-      <li><a href='../module/forlab_stats_var.html'>forlab_stats_var</a></li>
       
     </ul>
   </li>
@@ -295,8 +289,6 @@
   <div id="inters-1" class="panel-collapse collapse">
     <div class="list-group">
       
-      <a class="list-group-item" href="../module/forlab_stats.html#interface-mean">mean</a>
-      
       <a class="list-group-item" href="../module/forlab_stats.html#interface-randn">randn</a>
       
       <a class="list-group-item" href="../module/forlab_stats.html#interface-randu">randu</a>
@@ -304,8 +296,6 @@
       <a class="list-group-item" href="../module/forlab_stats.html#interface-rng">rng</a>
       
       <a class="list-group-item" href="../module/forlab_stats.html#interface-std">std</a>
-      
-      <a class="list-group-item" href="../module/forlab_stats.html#interface-var">var</a>
       
     </div>
   </div>
@@ -337,284 +327,6 @@
     <section>
    <h2>Interfaces</h2>
    
-     
-<div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="interface-mean"></span><h3>public interface <a href='../interface/mean.html'>mean</a>
-    
-  </h3></div>
-  
-  <div class="panel-body">
-    
-    <p>mean computes the mean value of an array.</p>
-  </div>
-  
-  <ul class="list-group">
-  
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
-private module function mean_1_dp(x) result(mean)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=dp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:)</td><td>::</td>
-  <td><strong>x</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=dp)
-  </small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
-private module function mean_1_sp(x) result(mean)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=sp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:)</td><td>::</td>
-  <td><strong>x</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=sp)
-  </small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
-private module function mean_2_dp(A, dim) result(mean)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=dp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>A</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>integer,</td>
-  <td>intent(in),</td>
-  <td>optional</td>
-  
-  <td></td><td>::</td>
-  <td><strong>dim</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=dp),
-  dimension(:), allocatable</small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
-private module function mean_2_sp(A, dim) result(mean)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=sp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>A</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>integer,</td>
-  <td>intent(in),</td>
-  <td>optional</td>
-  
-  <td></td><td>::</td>
-  <td><strong>dim</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=sp),
-  dimension(:), allocatable</small></h4>
-  
-    
-
-    </li>
-  
-  
-  
-  </ul>
-</div>
-
-    
      
 <div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="interface-randn"></span><h3>public interface <a href='../interface/randn.html'>randn</a>
@@ -2328,345 +2040,6 @@ private module function std_2_sp(A, w, dim)
 </div>
 
     
-     
-<div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="interface-var"></span><h3>public interface <a href='../interface/var.html'>var</a>
-    
-  </h3></div>
-  
-  <div class="panel-body">
-    
-    <p><code>var</code> computes vector and matrix variances.
-(<a href="../module/forlab_var.html">Specification</a>)</p>
-  </div>
-  
-  <ul class="list-group">
-  
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
-private module function var_1_dp(x, w)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=dp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:)</td><td>::</td>
-  <td><strong>x</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>integer,</td>
-  <td>intent(in),</td>
-  <td>optional</td>
-  
-  <td></td><td>::</td>
-  <td><strong>w</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=dp)
-  </small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
-private module function var_1_sp(x, w)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=sp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:)</td><td>::</td>
-  <td><strong>x</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>integer,</td>
-  <td>intent(in),</td>
-  <td>optional</td>
-  
-  <td></td><td>::</td>
-  <td><strong>w</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=sp)
-  </small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
-private module function var_2_dp(A, w, dim)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=dp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>A</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>integer,</td>
-  <td>intent(in),</td>
-  <td>optional</td>
-  
-  <td></td><td>::</td>
-  <td><strong>w</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>integer,</td>
-  <td>intent(in),</td>
-  <td>optional</td>
-  
-  <td></td><td>::</td>
-  <td><strong>dim</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=dp),
-  dimension(:), allocatable</small></h4>
-  
-    
-
-    </li>
-  
-    <li class="list-group-item">
-    
-    
-    <h3>
-private module function var_2_sp(A, w, dim)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>real(kind=sp),</td>
-  <td>intent(in),</td>
-  <td></td>
-  
-  <td>dimension(:, :)</td><td>::</td>
-  <td><strong>A</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>integer,</td>
-  <td>intent(in),</td>
-  <td>optional</td>
-  
-  <td></td><td>::</td>
-  <td><strong>w</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>integer,</td>
-  <td>intent(in),</td>
-  <td>optional</td>
-  
-  <td></td><td>::</td>
-  <td><strong>dim</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>real(kind=sp),
-  dimension(:), allocatable</small></h4>
-  
-    
-
-    </li>
-  
-  
-  
-  </ul>
-</div>
-
-    
     </section>
   <br>
     
@@ -2696,7 +2069,7 @@ private module function var_2_sp(A, w, dim)
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
-             on 2021-12-18 13:12  
+             on 2021-12-23 14:44  
             
           </p>
         </div>
