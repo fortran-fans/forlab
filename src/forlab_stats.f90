@@ -2,7 +2,7 @@
 module forlab_stats
 
     use stdlib_kinds, only: sp, dp, qp, int8, int16, int32, int64
-    use stdlib_stats, only: mean, var
+    use stdlib_stats, only: mean
     implicit none
     private
 
@@ -101,6 +101,28 @@ module forlab_stats
         end subroutine rng
     end interface
 
+    interface var
+        !! `std` computes vector and matrix standard deviations.
+        !!([Specification](../module/forlab_var.html))
+        real(sp) module function var_1_sp(x, w)
+            real(sp), dimension(:), intent(in) :: x
+            integer, intent(in), optional :: w
+        end function var_1_sp
+        module function var_2_sp(A, w, dim)
+            real(sp), dimension(:), allocatable :: var_2_sp
+            real(sp), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: w, dim
+        end function var_2_sp
+        real(dp) module function var_1_dp(x, w)
+            real(dp), dimension(:), intent(in) :: x
+            integer, intent(in), optional :: w
+        end function var_1_dp
+        module function var_2_dp(A, w, dim)
+            real(dp), dimension(:), allocatable :: var_2_dp
+            real(dp), dimension(:, :), intent(in) :: A
+            integer, intent(in), optional :: w, dim
+        end function var_2_dp
+    end interface var
     interface std
         !! `std` computes vector and matrix standard deviations.
         !!([Specification](../module/forlab_var.html))

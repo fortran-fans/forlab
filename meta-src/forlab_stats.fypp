@@ -3,7 +3,7 @@
 module forlab_stats
 
     use stdlib_kinds, only: sp, dp, qp, int8, int16, int32, int64
-    use stdlib_stats, only: mean, var
+    use stdlib_stats, only: mean
     implicit none
     private
 
@@ -53,7 +53,7 @@ module forlab_stats
         end subroutine rng
     end interface
 
-    #:set VSNAME = ['std']
+    #:set VSNAME = ['var', 'std']
     #:for v1 in VSNAME
     interface ${v1}$
         !! `std` computes vector and matrix standard deviations.
